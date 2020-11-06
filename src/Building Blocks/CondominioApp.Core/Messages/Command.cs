@@ -1,4 +1,6 @@
 ﻿using System;
+using FluentValidation.Results;
+using MediatR;
 
 namespace CondominioApp.Core.Messages
 {

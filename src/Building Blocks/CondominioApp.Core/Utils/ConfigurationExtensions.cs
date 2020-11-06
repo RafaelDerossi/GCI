@@ -1,4 +1,6 @@
-﻿namespace CondominioApp.Core.Utils
+﻿using Microsoft.Extensions.Configuration;
+
+namespace CondominioApp.Core.Utils
 {
     public static class ConfigurationExtensions
     {

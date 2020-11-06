@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using CondominioApp.Core.Messages;
+using FluentValidation.Results;
 
 namespace CondominioApp.Core.Mediator
 {

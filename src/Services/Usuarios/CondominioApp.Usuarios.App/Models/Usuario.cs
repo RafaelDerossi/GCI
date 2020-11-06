@@ -8,6 +8,8 @@ namespace CondominioApp.Usuarios.App.Models
 {
     public class Usuario : Entity, IAggregateRoot
     {
+        public const int Max = 200;
+
         public string Nome { get; private set; }
 
         public string Sobrenome { get; private set; }
@@ -50,7 +52,7 @@ namespace CondominioApp.Usuarios.App.Models
         protected Usuario() { }
 
         public Usuario(string nome, string sobrenome, string rg, Telefone cel, Email email, 
-            Foto foto, TipoDeUsuario tpUsuario, Permissao permissao, Cpf cpf, string atribuicao = null, string funcao = null, 
+            Foto foto, TipoDeUsuario tpUsuario, Permissao permissao, Cpf cpf = null, string atribuicao = null, string funcao = null, 
             DateTime? dataNascimento = null, Telefone telefone = null, Endereco endereco = null, bool sindicoProfissional = false)
         {
             Nome = nome;

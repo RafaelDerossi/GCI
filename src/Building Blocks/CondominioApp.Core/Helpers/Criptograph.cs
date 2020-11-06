@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Net;
-using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -141,28 +140,6 @@ namespace CondominioApp.Core.Helpers
                 // Se algum erro ocorrer, dispara a exceção            
                 throw new ApplicationException("Erro ao descriptografar", ex);
             }
-        }
-
-        public static string GerarToken(string email)
-        {
-            var claims = new[]
-            {
-                new Claim(JwtRegisteredClaimNames.UniqueName, email),
-                new Claim("ConecteduTvKey", "Conectedu.Tv"),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-            };
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(cryptoKey));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            // tempo de expiração do token: 1 hora
-            var expiration = DataHoraDeBrasilia.Get().AddDays(5);
-            JwtSecurityToken token = new JwtSecurityToken(
-                issuer: null,
-                audience: null,
-                claims: claims,
-                expires: expiration,
-                signingCredentials: creds);
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
         }
     }
 }

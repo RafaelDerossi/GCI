@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using CondominioApp.Core.Helpers;
 using CondominioApp.Core.Messages;
+using FluentValidation.Results;
 
 namespace CondominioApp.Core.DomainObjects
 {

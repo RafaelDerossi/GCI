@@ -1,4 +1,6 @@
-﻿namespace CondominioApp.Core.Messages.CommonMessages.IntegrationEvents
+﻿using FluentValidation.Results;
+
+namespace CondominioApp.Core.Messages.CommonMessages.IntegrationEvents
 {
     public class ResponseMessage : Message
     {

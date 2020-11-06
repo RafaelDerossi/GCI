@@ -1,5 +1,6 @@
 ﻿using System;
 using CondominioApp.Core.Helpers;
+using MediatR;
 
 namespace CondominioApp.Core.Messages
 {

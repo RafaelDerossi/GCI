@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Usuarios", "Usuarios", "{73
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CondominioApp.Usuarios.App", "src\Services\Usuarios\CondominioApp.Usuarios.App\CondominioApp.Usuarios.App.csproj", "{2F89F2E0-8C61-4632-8A7D-1EB02F80C820}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CondominioApp.Usuarios.App.Tests", "Tests\Usuarios\CondominioApp.Usuarios.App.Tests\CondominioApp.Usuarios.App.Tests.csproj", "{1F97DBB9-6E58-4EF5-997D-3EDBC5CEAAB2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{2F89F2E0-8C61-4632-8A7D-1EB02F80C820}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2F89F2E0-8C61-4632-8A7D-1EB02F80C820}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2F89F2E0-8C61-4632-8A7D-1EB02F80C820}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F97DBB9-6E58-4EF5-997D-3EDBC5CEAAB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F97DBB9-6E58-4EF5-997D-3EDBC5CEAAB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F97DBB9-6E58-4EF5-997D-3EDBC5CEAAB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F97DBB9-6E58-4EF5-997D-3EDBC5CEAAB2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,6 +54,7 @@ Global
 		{6DCE3EC8-F7BD-4A00-A8A8-8FCDC1C6B2D0} = {B8B296CA-A9EA-4777-8DF6-BE66A784165C}
 		{73DA058E-257C-4A32-9CB5-DA87F9A3B74A} = {27DA6887-B451-4D5D-A232-00FBE20152FB}
 		{2F89F2E0-8C61-4632-8A7D-1EB02F80C820} = {73DA058E-257C-4A32-9CB5-DA87F9A3B74A}
+		{1F97DBB9-6E58-4EF5-997D-3EDBC5CEAAB2} = {73DA058E-257C-4A32-9CB5-DA87F9A3B74A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DA60CBD7-8A6E-436D-B07E-D654D162CE4B}
