@@ -52,8 +52,8 @@ namespace CondominioApp.Usuarios.App.Models
         protected Usuario() { }
 
         public Usuario(string nome, string sobrenome, string rg, Telefone cel, Email email, 
-            Foto foto, TipoDeUsuario tpUsuario, Permissao permissao, Cpf cpf = null, string atribuicao = null, string funcao = null, 
-            DateTime? dataNascimento = null, Telefone telefone = null, Endereco endereco = null, bool sindicoProfissional = false)
+            Foto foto, TipoDeUsuario tpUsuario, Permissao permissao, DateTime? dataNascimento = null, Cpf cpf = null, string atribuicao = null, string funcao = null, 
+            Telefone telefone = null, Endereco endereco = null, bool sindicoProfissional = false)
         {
             Nome = nome;
             Sobrenome = sobrenome;

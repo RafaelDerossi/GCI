@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using CondominioApp.Core.Data;
+using CondominioApp.Usuarios.App.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace CondominioApp.Usuarios.App.Data.Repository

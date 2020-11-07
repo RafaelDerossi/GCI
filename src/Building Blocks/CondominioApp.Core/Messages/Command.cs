@@ -16,7 +16,7 @@ namespace CondominioApp.Core.Messages
 
         public virtual bool EstaValido()
         {
-            throw new NotImplementedException();
+            return ValidationResult.IsValid;
         }
     }
 }

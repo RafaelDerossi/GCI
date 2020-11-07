@@ -1,6 +1,7 @@
 using System;
 using CondominioApp.Core.Enumeradores;
 using CondominioApp.Core.ValueObjects;
+using CondominioApp.Usuarios.App.Aplication.Commands;
 using CondominioApp.Usuarios.App.Models;
 using Xunit;
 
@@ -18,6 +19,7 @@ namespace CondominioApp.Usuarios.App.Tests
 
         }
 
+
         [Fact(DisplayName = "Criar um Morador Sem foto")]
         public void Criar_Morador_Valido_SemFoto()
         {
@@ -27,5 +29,6 @@ namespace CondominioApp.Usuarios.App.Tests
                 new Foto("", ""), TipoDeUsuario.CLIENTE, Permissao.USUARIO);
 
         }
+
     }
 }
