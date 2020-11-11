@@ -6,7 +6,7 @@ using System.Text;
 
 namespace CondominioApp.Principal.Domain
 {
-    public class Condominio : Entity
+    public class Condominio : Entity, IAggregateRoot
     {
         public Cnpj Cnpj { get; private set; }
 
@@ -66,16 +66,6 @@ namespace CondominioApp.Principal.Domain
         public bool MuralMorador { get; private set; }
 
         /// <summary>
-        /// Habilita/Desabilita Vaga
-        /// </summary>
-        public bool Vaga { get; private set; }
-
-        /// <summary>
-        /// Habilita/Desabilita Vaga para o morador
-        /// </summary>
-        public bool VagaMorador { get; private set; }
-
-        /// <summary>
         /// Habilita/Desabilita Chat
         /// </summary>
         public bool Chat { get; private set; }
@@ -121,7 +111,52 @@ namespace CondominioApp.Principal.Domain
         public bool LimiteTempoReserva { get; private set; }
 
 
-        ///Metodos
+
+
+        private readonly List<Grupo> _Grupos;
+        public IReadOnlyCollection<Grupo> Grupos => _Grupos;
+
+
+        private readonly List<Unidade> _Unidades;
+        public IReadOnlyCollection<Unidade> Unidades => _Unidades;
+
+
+
+        /// <summary>
+        /// Construtores
+        /// </summary>
+        protected Condominio(){}
+
+        public Condominio(Cnpj cnpj, string nome, string descricao, Foto logo, Telefone telefone)
+        {
+            _Grupos = new List<Grupo>();
+            _Unidades = new List<Unidade>();
+
+            Cnpj = cnpj;
+            Nome = nome;
+            Descricao = descricao;
+            LogoMarca = logo;
+            Telefone = telefone;            
+            
+            AtivarChat();
+            AtivarChatMorador();
+            AtivarClassificado();
+            AtivarClassificadoMorador();
+            AtivarCorrespondencia();
+            AtivarCorrespondenciaNaPortaria();
+            AtivarMural();
+            AtivarMuralMorador();
+            AtivarOcorrencia();
+            AtivarOcorrenciaMorador();
+            AtivarPortaria();
+            AtivarPortariaMorador();
+            AtivarReserva();
+            AtivarReservaNaPortaria();            
+            DesativarLimiteTempoReserva();
+        }
+
+
+        ///Metodos Set
 
         public void SetCNPJ(Cnpj cnpj) => Cnpj = cnpj;
 
@@ -161,14 +196,7 @@ namespace CondominioApp.Principal.Domain
         public void DesativarMural() => Mural = false;
         public void AtivarMuralMorador() => MuralMorador = true;
         public void DesativarMuralMorador() => MuralMorador = false;
-
-        /// <summary>
-        /// Vaga
-        /// </summary>
-        public void AtivarVaga() => Vaga = true;
-        public void DesativarVaga() => Vaga = false;
-        public void AtivarVagaMorador() => VagaMorador = true;
-        public void DesativarVagaMorador() => VagaMorador = false;
+       
 
         /// <summary>
         /// Chat
@@ -206,7 +234,19 @@ namespace CondominioApp.Principal.Domain
         /// LimiteTempoReserva
         /// </summary>
         public void AtivarLimiteTempoReserva() => LimiteTempoReserva = true;
-        public void DesativarLimiteTempoReserva() => LimiteTempoReserva = false;        
-        
+        public void DesativarLimiteTempoReserva() => LimiteTempoReserva = false;
+
+
+
+        /// Metodos 
+        public void AdicionarGrupo(Grupo grupo)
+        {
+            _Grupos.Add(grupo);
+        }
+        public void AdicionarUnidade(Unidade unidade)
+        {
+            _Unidades.Add(unidade);
+        }
+
     }
 }

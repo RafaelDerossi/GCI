@@ -1,5 +1,5 @@
 ﻿using System;
-using CondominioApp.Usuarios.App.Aplication.Event;
+using CondominioApp.Usuarios.App.Aplication.Events;
 
 namespace CondominioApp.Usuarios.App.Tests
 {
