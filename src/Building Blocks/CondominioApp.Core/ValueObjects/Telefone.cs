@@ -30,7 +30,7 @@ namespace CondominioApp.Core.ValueObjects
                 Numero = telNumber;
             }
             else
-                throw new DomainException("Número de telefone inválido");
+                throw new DomainException("Número de telefone inválido.");
         }
 
 

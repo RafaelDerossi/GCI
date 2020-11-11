@@ -6,8 +6,10 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using CondominioApp.Core.Enumeradores;
+using CondominioApp.Core.Mediator;
 using CondominioApp.Identidade.Api.Email;
 using CondominioApp.Identidade.Api.Models;
+using CondominioApp.Usuarios.App.Aplication.Commands;
 using CondominioApp.WebApi.Core.Controllers;
 using CondominioApp.WebApi.Core.Identidade;
 using Microsoft.AspNetCore.Identity;
@@ -23,14 +25,17 @@ namespace CondominioApp.Identidade.Api.Controllers
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly AppSettings _appSettings;
+        private readonly IMediatorHandler _mediatorHandler;
         
         public AuthController(SignInManager<IdentityUser> signInManager,
                               UserManager<IdentityUser> userManager,
-                              IOptions<AppSettings> appSettings)
+                              IOptions<AppSettings> appSettings,
+                              IMediatorHandler mediatorHandler)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _appSettings = appSettings.Value;
+            _mediatorHandler = mediatorHandler;
         }
         
 
@@ -93,24 +98,39 @@ namespace CondominioApp.Identidade.Api.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
+            
             var user = IdentityUserFactory(usuarioRegistro);
+
+            if (!OperacaoValida())
+            {               
+                return CustomResponse();
+            }
 
             var result = await _userManager.CreateAsync(user, usuarioRegistro.Senha);
 
             if (result.Succeeded)
             {
                 usuarioRegistro.UsuarioId = Guid.Parse(user.Id);
-
-               await _userManager.AddClaimAsync(user, new Claim("TipoUsuario",
+                
+                await _userManager.AddClaimAsync(user, new Claim("TipoUsuario",
                     Enum.GetName(typeof(TipoDeUsuario), usuarioRegistro.TpUsuario)));
+                
+                var comando = CadastrarMoradorCommandFactory(usuarioRegistro);
 
-                //var usuarioResult = await RegistrarUsuario(usuarioRegistro);
+                if (!OperacaoValida())
+                {
+                    await _userManager.DeleteAsync(user);
+                    return CustomResponse();
+                }
+                               
 
-                //if (!usuarioResult.ValidationResult.IsValid)
-                //{
-                //    await _userManager.DeleteAsync(user);
-                //    return CustomResponse(usuarioResult.ValidationResult);
-                //}
+                var Resultado = await _mediatorHandler.EnviarComando(comando);
+
+                if (!Resultado.IsValid)
+                {
+                    await _userManager.DeleteAsync(user);
+                    return CustomResponse(Resultado);
+                }
 
                 var DisparadorDeEmail = new DisparadorDeEmails(new EmailConfirmacaoDeCadastro(user, _appSettings.LinkConfirmacaoDeCadastro, usuarioRegistro.Nome));
                 await DisparadorDeEmail.Disparar();
@@ -148,6 +168,8 @@ namespace CondominioApp.Identidade.Api.Controllers
             AdicionarErroProcessamento("Usuário ou Senha incorretos");
             return CustomResponse();
         }
+
+
 
         private async Task<UsuarioRespostaLogin> GerarJwt(string login)
         {
@@ -236,14 +258,40 @@ namespace CondominioApp.Identidade.Api.Controllers
 
         private IdentityUser IdentityUserFactory(UsuarioRegistro usuarioRegistro)
         {
-            return new IdentityUser
+            try
             {
-                Id = Guid.NewGuid().ToString(),
-                UserName = usuarioRegistro.Email,
-                Email = usuarioRegistro.Email,
-                EmailConfirmed = true
-            };
+                return new IdentityUser
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    UserName = usuarioRegistro.Email,
+                    Email = usuarioRegistro.Email,
+                    EmailConfirmed = true
+                };
+            }
+            catch (Exception ex)
+            {
+                AdicionarErroProcessamento(ex.Message);
+                return null;
+            }
+           
         }
+
+        private CadastrarMoradorCommand CadastrarMoradorCommandFactory(UsuarioRegistro usuarioRegistro)
+        {
+            try
+            {
+                return new CadastrarMoradorCommand(
+                 usuarioRegistro.UsuarioId, usuarioRegistro.Nome, usuarioRegistro.Sobrenome, usuarioRegistro.Email,
+                 null, usuarioRegistro.Cpf, usuarioRegistro.Celular, usuarioRegistro.Foto, usuarioRegistro.NomeOriginal,
+                 usuarioRegistro.DataDeNascimento);
+            }
+            catch (Exception ex)
+            {              
+                AdicionarErroProcessamento(ex.Message);
+                return null;
+            }  
+        }
+
         #endregion
     }
 }

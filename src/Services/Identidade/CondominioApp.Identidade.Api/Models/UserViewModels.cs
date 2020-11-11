@@ -10,6 +10,7 @@ namespace CondominioApp.Identidade.Api.Models
         public Guid UsuarioId { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
+        [MinLength(2, ErrorMessage = "O campo {0} precisa ter pelo menos {1} caracteres")]
         public string Nome { get; set; }
 
         public string Sobrenome { get; private set; }
@@ -21,7 +22,7 @@ namespace CondominioApp.Identidade.Api.Models
         public string Email { get { return _Email; } set { _Email = string.IsNullOrWhiteSpace(value) ? null : value; } }
         
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
-        [StringLength(100, ErrorMessage = "O campo {0} precisa ter entre {2} e {1} caracteres", MinimumLength = 6)]
+        [StringLength(12, ErrorMessage = "O campo {0} precisa ter entre {2} e {1} caracteres", MinimumLength = 6)]
         public string Senha { get; set; }
 
         [Compare("Senha", ErrorMessage = "As senhas não conferem.")]

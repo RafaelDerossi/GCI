@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Aplication\Event\" />
     <Folder Include="Aplication\Query\" />
     <Folder Include="Data\Mapping\" />
     <Folder Include="Data\Repository\" />

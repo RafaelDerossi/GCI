@@ -1,7 +1,9 @@
-﻿using CondominioApp.WebApi.Core.Identidade;
+﻿using CondominioApp.Usuarios.App.Data;
+using CondominioApp.WebApi.Core.Identidade;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -15,6 +17,9 @@ namespace CondominioApp.Identidade.Api.Configuration
         public static IServiceCollection AddApiConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddControllers();
+
+            services.AddDbContext<UsuarioContextDB>(options =>
+               options.UseSqlServer(configuration.GetConnectionString("UsuariosConnection")));
 
             services.Configure<ApiBehaviorOptions>(options =>
             {

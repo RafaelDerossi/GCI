@@ -3,14 +3,13 @@ using CondominioApp.Core.Enumeradores;
 using CondominioApp.Core.Messages;
 using CondominioApp.Core.ValueObjects;
 using CondominioApp.Usuarios.App.Aplication.Commands.Validations;
-using FluentValidation;
 
 namespace CondominioApp.Usuarios.App.Aplication.Commands
 {
-    public class CadastrarMoradorCommand : UsuarioCommand
+    public class EditarMoradorCommand : UsuarioCommand
     {     
 
-        public CadastrarMoradorCommand(Guid usuarioId, string nome, string sobrenome, string email,
+        public EditarMoradorCommand(Guid usuarioId, string nome, string sobrenome, string email,
             string rg = null, string cpf = null, string cel = null, string foto = null, 
             string nomeOriginal = null, DateTime? dataNascimento = null)
         {
@@ -33,9 +32,8 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
 
         public override bool EstaValido()
         {
-            var Result = new CadastrarMoradorCommandValidation().Validate(this);
+            var Result = new EditarMoradorCommandValidation().Validate(this);
             return Result.IsValid;
-        }
-        
+        }        
     }
 }
