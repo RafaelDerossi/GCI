@@ -23,13 +23,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioApp.Usuarios.App"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioApp.Usuarios.App.Tests", "Tests\Usuarios\CondominioApp.Usuarios.App.Tests\CondominioApp.Usuarios.App.Tests.csproj", "{1F97DBB9-6E58-4EF5-997D-3EDBC5CEAAB2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CondominioApp.Api", "src\WebApi\CondominioApp.Api\CondominioApp.Api.csproj", "{A5A54E4D-BCB4-4F95-BBBA-7BE33A8079C6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioApp.Api", "src\WebApi\CondominioApp.Api\CondominioApp.Api.csproj", "{A5A54E4D-BCB4-4F95-BBBA-7BE33A8079C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CondominioApp.WebApi.Core", "src\Building Blocks\CondominioApp.WebApi.Core\CondominioApp.WebApi.Core.csproj", "{4F03BAA6-B673-42DE-B2A9-54F17D1EEE90}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioApp.WebApi.Core", "src\Building Blocks\CondominioApp.WebApi.Core\CondominioApp.WebApi.Core.csproj", "{4F03BAA6-B673-42DE-B2A9-54F17D1EEE90}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identidade", "Identidade", "{433720B0-6CBF-45ED-91A7-F8B2518058B7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CondominioApp.Identidade.Api", "src\Services\Identidade\CondominioApp.Identidade.Api\CondominioApp.Identidade.Api.csproj", "{61CD6CAB-13F4-476B-9FDE-4C65B90ABDF6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioApp.Identidade.Api", "src\Services\Identidade\CondominioApp.Identidade.Api\CondominioApp.Identidade.Api.csproj", "{61CD6CAB-13F4-476B-9FDE-4C65B90ABDF6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Principal", "Principal", "{133F3FB7-18C5-46F1-B62D-1A65EA05AC53}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CondominioApp.Principal.Domain", "src\Services\Principal\CondominioApp.Principal.Domain\CondominioApp.Principal.Domain.csproj", "{7B416D97-64F3-4410-84E1-CBD80D213E87}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,6 +65,10 @@ Global
 		{61CD6CAB-13F4-476B-9FDE-4C65B90ABDF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{61CD6CAB-13F4-476B-9FDE-4C65B90ABDF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{61CD6CAB-13F4-476B-9FDE-4C65B90ABDF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B416D97-64F3-4410-84E1-CBD80D213E87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B416D97-64F3-4410-84E1-CBD80D213E87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B416D97-64F3-4410-84E1-CBD80D213E87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B416D97-64F3-4410-84E1-CBD80D213E87}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -79,6 +87,8 @@ Global
 		{4F03BAA6-B673-42DE-B2A9-54F17D1EEE90} = {1F841565-DB6E-4A34-81F3-B21C6D72EAB8}
 		{433720B0-6CBF-45ED-91A7-F8B2518058B7} = {27DA6887-B451-4D5D-A232-00FBE20152FB}
 		{61CD6CAB-13F4-476B-9FDE-4C65B90ABDF6} = {433720B0-6CBF-45ED-91A7-F8B2518058B7}
+		{133F3FB7-18C5-46F1-B62D-1A65EA05AC53} = {27DA6887-B451-4D5D-A232-00FBE20152FB}
+		{7B416D97-64F3-4410-84E1-CBD80D213E87} = {133F3FB7-18C5-46F1-B62D-1A65EA05AC53}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DA60CBD7-8A6E-436D-B07E-D654D162CE4B}
