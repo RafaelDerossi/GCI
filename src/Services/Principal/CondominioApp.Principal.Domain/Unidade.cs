@@ -7,7 +7,8 @@ using System.Text;
 namespace CondominioApp.Principal.Domain
 {
    public class Unidade:Entity
-    {       
+    {
+        public const int Max = 200;
         public string Codigo { get; private set; }
         public int Numero { get; private set; }
         public string Andar { get; private set; }

@@ -34,6 +34,17 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
         {
             var Result = new EditarMoradorCommandValidation().Validate(this);
             return Result.IsValid;
-        }        
+        }
+
+
+        public class EditarMoradorCommandValidation : UsuarioValidation<EditarMoradorCommand>
+        {
+            public EditarMoradorCommandValidation()
+            {
+                ValidateNome();
+                ValidateEmail();
+                ValidateId();
+            }
+        }
     }
 }

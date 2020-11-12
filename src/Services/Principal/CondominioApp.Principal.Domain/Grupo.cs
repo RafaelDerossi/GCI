@@ -5,6 +5,7 @@ namespace CondominioApp.Principal.Domain
 {
     public class Grupo : Entity
     {
+        public const int Max = 200;
 
         public string Descricao { get; private set; }
 

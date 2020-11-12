@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Events\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\src\Building Blocks\CondominioApp.Core\CondominioApp.Core.csproj" />
+    <ProjectReference Include="..\src\Services\Principal\CondominioApp.Principal.Domain\CondominioApp.Principal.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

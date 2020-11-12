@@ -36,6 +36,19 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
             var Result = new CadastrarMoradorCommandValidation().Validate(this);
             return Result.IsValid;
         }
+
+
         
+
+        public class CadastrarMoradorCommandValidation : UsuarioValidation<CadastrarMoradorCommand>
+        {
+            public CadastrarMoradorCommandValidation()
+            {
+                ValidateNome();
+                ValidateEmail();
+                ValidateId();
+            }
+        }
+
     }
 }

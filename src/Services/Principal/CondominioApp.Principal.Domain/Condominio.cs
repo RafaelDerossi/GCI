@@ -8,6 +8,8 @@ namespace CondominioApp.Principal.Domain
 {
     public class Condominio : Entity, IAggregateRoot
     {
+        public const int Max = 200;
+
         public Cnpj Cnpj { get; private set; }
 
         public string Nome { get; private set; }
@@ -127,33 +129,43 @@ namespace CondominioApp.Principal.Domain
         /// </summary>
         protected Condominio(){}
 
-        public Condominio(Cnpj cnpj, string nome, string descricao, Foto logo, Telefone telefone)
+        public Condominio(Cnpj cnpj, string nome, string descricao, Foto logoMarca, 
+            Telefone telefone, int? refereciaId, string linkGeraBoleto, string boletoFolder,
+            Url urlWebServer, bool portaria, bool portariaMorador, bool classificado,
+            bool classificadoMorador, bool mural, bool muralMorador, bool chat, bool
+            chatMorador, bool reserva, bool reservaNaPortaria, bool ocorrencia,
+            bool ocorrenciaMorador, bool correspondencia, bool correspondenciaNaPortaria,
+            bool limiteTempoReserva)
         {
             _Grupos = new List<Grupo>();
             _Unidades = new List<Unidade>();
-
             Cnpj = cnpj;
             Nome = nome;
             Descricao = descricao;
-            LogoMarca = logo;
-            Telefone = telefone;            
-            
-            AtivarChat();
-            AtivarChatMorador();
-            AtivarClassificado();
-            AtivarClassificadoMorador();
-            AtivarCorrespondencia();
-            AtivarCorrespondenciaNaPortaria();
-            AtivarMural();
-            AtivarMuralMorador();
-            AtivarOcorrencia();
-            AtivarOcorrenciaMorador();
-            AtivarPortaria();
-            AtivarPortariaMorador();
-            AtivarReserva();
-            AtivarReservaNaPortaria();            
-            DesativarLimiteTempoReserva();
+            LogoMarca = logoMarca;
+            Telefone = telefone;
+            RefereciaId = refereciaId;
+            LinkGeraBoleto = linkGeraBoleto;
+            BoletoFolder = boletoFolder;
+            UrlWebServer = urlWebServer;
+            Portaria = portaria;
+            PortariaMorador = portariaMorador;
+            Classificado = classificado;
+            ClassificadoMorador = classificadoMorador;
+            Mural = mural;
+            MuralMorador = muralMorador;
+            Chat = chat;
+            ChatMorador = chatMorador;
+            Reserva = reserva;
+            ReservaNaPortaria = reservaNaPortaria;
+            Ocorrencia = ocorrencia;
+            OcorrenciaMorador = ocorrenciaMorador;
+            Correspondencia = correspondencia;
+            CorrespondenciaNaPortaria = correspondenciaNaPortaria;
+            LimiteTempoReserva = limiteTempoReserva;
         }
+
+
 
 
         ///Metodos Set
@@ -240,7 +252,7 @@ namespace CondominioApp.Principal.Domain
 
         /// Metodos 
         public void AdicionarGrupo(Grupo grupo)
-        {
+        {               
             _Grupos.Add(grupo);
         }
         public void AdicionarUnidade(Unidade unidade)
