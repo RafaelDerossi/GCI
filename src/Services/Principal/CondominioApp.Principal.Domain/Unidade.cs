@@ -10,7 +10,7 @@ namespace CondominioApp.Principal.Domain
     {
         public const int Max = 200;
         public string Codigo { get; private set; }
-        public int Numero { get; private set; }
+        public string Numero { get; private set; }
         public string Andar { get; private set; }
         public int Vagas { get; private set; }
         public Telefone Telefone { get; private set; }
@@ -29,7 +29,7 @@ namespace CondominioApp.Principal.Domain
         {
         }
 
-        public Unidade(string codigo, int numero, string andar, int vagas, 
+        public Unidade(string codigo, string numero, string andar, int vagas, 
             Telefone telefone, string ramal, string complemento, Guid grupoId, Guid condominioId)
         {
             Codigo = codigo;
@@ -50,7 +50,7 @@ namespace CondominioApp.Principal.Domain
 
         public void SetCodigo(string codigo) => Codigo = codigo;
 
-        public void SetNumero(int numero) => this.Numero = numero;
+        public void SetNumero(string numero) => this.Numero = numero;
 
         public void SetAndar(string andar) => this.Andar = andar;
        
@@ -74,7 +74,7 @@ namespace CondominioApp.Principal.Domain
         /// 
         public override string ToString()
         {
-            if (!string.IsNullOrEmpty(Codigo) && Numero > 0 && Grupo != null)
+            if (!string.IsNullOrEmpty(Codigo) && string.IsNullOrEmpty(Numero) && Grupo != null)
                 return Codigo + "|" + Numero.ToString() + "|" + Grupo.Descricao + "|" + Andar;
 
             return " | | ";

@@ -23,16 +23,34 @@ namespace CondominioApp.Principal.Aplication.Commands
 
         public async Task<ValidationResult> Handle(CadastrarCondominioCommand request, CancellationToken cancellationToken)
         {
-            if (!request.EstaValido()) return request.ValidationResult;
+            if (!request.EstaValido()) 
+                return request.ValidationResult;
 
             var condominio = CondominioFactory(request);
 
             if (!ValidationResult.IsValid) return ValidationResult;
 
+            //Verifica se um condominio com o mesmo cnpj ja esta cadastrado
+            try
+            {
+                if (_condominioRepository.CondominioJaExiste(condominio.Cnpj).Result)
+                {
+                    AdicionarErro("CNPJ informado ja consta no sistema.");
+                    return ValidationResult;
+                }
+            }
+            catch (System.Exception ex)
+            {
+                AdicionarErro(ex.Message);
+                return ValidationResult;
+            }
+           
             _condominioRepository.Adicionar(condominio);
 
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }
+
+
 
 
         private Condominio CondominioFactory(CadastrarCondominioCommand request)

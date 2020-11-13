@@ -127,7 +127,11 @@ namespace CondominioApp.Principal.Domain
         /// <summary>
         /// Construtores
         /// </summary>
-        protected Condominio(){}
+        protected Condominio()
+        {
+            _Grupos = new List<Grupo>();
+            _Unidades = new List<Unidade>();
+        }
 
         public Condominio(Cnpj cnpj, string nome, string descricao, Foto logoMarca, 
             Telefone telefone, int? refereciaId, string linkGeraBoleto, string boletoFolder,
@@ -257,6 +261,11 @@ namespace CondominioApp.Principal.Domain
         }
         public void AdicionarUnidade(Unidade unidade)
         {
+            _Unidades.Add(unidade);
+        }
+        public void AlterarUnidade(Unidade unidade)
+        {
+            _Unidades.RemoveAll(u => u.Id == unidade.Id);
             _Unidades.Add(unidade);
         }
 

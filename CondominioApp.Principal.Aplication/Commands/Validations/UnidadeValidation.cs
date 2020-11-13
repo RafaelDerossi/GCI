@@ -1,7 +1,5 @@
 ﻿using FluentValidation;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CondominioApp.Principal.Aplication.Commands.Validations
 {
@@ -22,9 +20,8 @@ namespace CondominioApp.Principal.Aplication.Commands.Validations
         protected void ValidateNumero()
         {
             RuleFor(c => c.Numero)
-                  .NotNull()
-                  .NotEmpty()
-                  .WithMessage("Numero não pode estar vazio!");
+                  .NotNull().WithMessage("Numero não pode estar vazio!")
+                  .NotEmpty().WithMessage("Numero não pode estar vazio!");
         }
         protected void ValidateAndar()
         {
@@ -36,8 +33,7 @@ namespace CondominioApp.Principal.Aplication.Commands.Validations
         protected void ValidateVaga()
         {
             RuleFor(c => c.Vaga)
-                  .NotNull()
-                  .NotEmpty()
+                  .NotNull()                 
                   .WithMessage("Vaga não pode estar vazio!");
         }        
         protected void ValidateGrupoId()

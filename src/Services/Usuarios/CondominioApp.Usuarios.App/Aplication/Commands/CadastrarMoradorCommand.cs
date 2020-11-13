@@ -33,8 +33,8 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
 
         public override bool EstaValido()
         {
-            var Result = new CadastrarMoradorCommandValidation().Validate(this);
-            return Result.IsValid;
+            ValidationResult = new CadastrarMoradorCommandValidation().Validate(this);
+            return ValidationResult.IsValid;
         }
 
 

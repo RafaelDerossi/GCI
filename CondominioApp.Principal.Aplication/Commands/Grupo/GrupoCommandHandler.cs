@@ -30,9 +30,30 @@ namespace CondominioApp.Principal.Aplication.Commands
             if (!ValidationResult.IsValid) return ValidationResult;
 
             var condominio = _condominioRepository.ObterPorId(grupo.CondominioId).Result;
+            if (condominio == null)
+            {
+                AdicionarErro("Condominio não encontrado.");
+                return ValidationResult;
+            }
             condominio.AdicionarGrupo(grupo);
 
-            _condominioRepository.Atualizar(condominio);
+            //Verifica se um Grupo com a mesma descricao ja esta cadastrado
+            try
+            {
+                if (_condominioRepository.GrupoJaExiste(grupo.Descricao, grupo.CondominioId).Result)
+                {
+                    AdicionarErro("Grupo informado ja consta no sistema.");
+                    return ValidationResult;
+                }
+            }
+            catch (System.Exception ex)
+            {
+                AdicionarErro(ex.Message);
+                return ValidationResult;
+            }
+           
+
+            _condominioRepository.AdicionarGrupo(grupo);
 
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }

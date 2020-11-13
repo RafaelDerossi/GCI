@@ -22,6 +22,12 @@ namespace CondominioApp.Api.Configuration
 
             //services.AddScoped<INotificationHandler<UsuarioCadastradoEvent>, UsuarioEventHandler>();
 
+            services.AddScoped<IRequestHandler<CadastrarUnidadeCommand, ValidationResult>, UnidadeCommandHandler>();
+
+            //services.AddScoped<INotificationHandler<UsuarioCadastradoEvent>, UsuarioEventHandler>();
+
+            services.AddScoped<IRequestHandler<AlterarUnidadeCommand, ValidationResult>, UnidadeCommandHandler>();
+
             //services.AddScoped<IUsuarioQuery, UsuarioQuery>();
             // services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 

@@ -32,8 +32,8 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
 
         public override bool EstaValido()
         {
-            var Result = new EditarMoradorCommandValidation().Validate(this);
-            return Result.IsValid;
+            ValidationResult = new EditarMoradorCommandValidation().Validate(this);
+            return ValidationResult.IsValid;
         }
 
 

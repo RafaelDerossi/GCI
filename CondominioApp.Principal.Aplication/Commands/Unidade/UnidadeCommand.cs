@@ -1,8 +1,6 @@
 ﻿using CondominioApp.Core.Messages;
 using CondominioApp.Core.ValueObjects;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CondominioApp.Principal.Aplication.Commands
 {
@@ -28,5 +26,6 @@ namespace CondominioApp.Principal.Aplication.Commands
 
         public Guid CondominioId { get; protected set; }
 
+       
     }
 }

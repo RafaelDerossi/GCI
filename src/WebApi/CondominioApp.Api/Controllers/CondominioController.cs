@@ -25,19 +25,19 @@ namespace CondominioApp.Api.Controllers
 
 
 
-        // GET: api/<CondominioController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
+        //// GET: api/<CondominioController>
+        //[HttpGet]
+        //public IEnumerable<string> Get()
+        //{
+        //    return new string[] { "value1", "value2" };
+        //}
 
-        // GET api/<CondominioController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
+        //// GET api/<CondominioController>/5
+        //[HttpGet("{id}")]
+        //public string Get(int id)
+        //{
+        //    return "value";
+        //}
 
 
 
@@ -45,7 +45,7 @@ namespace CondominioApp.Api.Controllers
         [HttpPost("Novo-condominio")]
         public async Task<ActionResult> Post(CondominioViewModel condominioVM)
         {
-            if (!ModelState.IsValid) return CustomResponse(ModelState);
+            //if (!ModelState.IsValid) return CustomResponse(ModelState);
 
 
             var comando = CadastrarCondominioCommandFactory(condominioVM);
@@ -99,7 +99,69 @@ namespace CondominioApp.Api.Controllers
             return CustomResponse();
         }
 
+        // POST api/Nova-unidade
+        [HttpPost("Nova-unidade")]
+        public async Task<ActionResult> Post(UnidadeViewModel unidadeVM)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
 
+
+            var comando = CadastrarUnidadeCommandFactory(unidadeVM);
+
+            if (!OperacaoValida())
+            {
+                return CustomResponse();
+            }
+
+            var Resultado = await _mediatorHandler.EnviarComando(comando);
+
+            if (!Resultado.IsValid)
+            {
+                return CustomResponse(Resultado);
+            }
+
+            foreach (var error in Resultado.Errors)
+            {
+                AdicionarErroProcessamento(error.ErrorMessage);
+            }
+
+            return CustomResponse();
+        }
+
+        // PUT api/Alterar-unidade
+        [HttpPut("Alterar-unidade")]
+        public async Task<ActionResult> Put(UnidadeViewModel unidadeVM)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+
+            var comando = AlterarUnidadeCommandFactory(unidadeVM);
+
+            if (!OperacaoValida())
+            {
+                return CustomResponse();
+            }
+
+            var Resultado = await _mediatorHandler.EnviarComando(comando);
+
+            if (!Resultado.IsValid)
+            {
+                return CustomResponse(Resultado);
+            }
+
+            foreach (var error in Resultado.Errors)
+            {
+                AdicionarErroProcessamento(error.ErrorMessage);
+            }
+
+            return CustomResponse();
+        }
+
+
+
+
+
+        /// Factories
 
         private CadastrarCondominioCommand CadastrarCondominioCommandFactory(CondominioViewModel condominioVM)
         {
@@ -127,6 +189,38 @@ namespace CondominioApp.Api.Controllers
             {
                 return new CadastrarGrupoCommand(
                  grupoVM.Descricao, grupoVM.CondominioId);
+            }
+            catch (Exception ex)
+            {
+                AdicionarErroProcessamento(ex.Message);
+                return null;
+            }
+        }
+
+        private CadastrarUnidadeCommand CadastrarUnidadeCommandFactory(UnidadeViewModel unidadeVM)
+        {
+            try
+            {
+                return new CadastrarUnidadeCommand(
+                unidadeVM.UnidadeId, unidadeVM.Codigo, unidadeVM.Numero, unidadeVM.Andar,
+                unidadeVM.Vagas, unidadeVM.Telefone, unidadeVM.Ramal, unidadeVM.Complemento,
+                unidadeVM.GrupoId, unidadeVM.CondominioId);
+            }
+            catch (Exception ex)
+            {
+                AdicionarErroProcessamento(ex.Message);
+                return null;
+            }
+        }
+
+        private AlterarUnidadeCommand AlterarUnidadeCommandFactory(UnidadeViewModel unidadeVM)
+        {
+            try
+            {
+                return new AlterarUnidadeCommand(
+                unidadeVM.UnidadeId, unidadeVM.Codigo, unidadeVM.Numero, unidadeVM.Andar,
+                unidadeVM.Vagas, unidadeVM.Telefone, unidadeVM.Ramal, unidadeVM.Complemento,
+                unidadeVM.GrupoId, unidadeVM.CondominioId);
             }
             catch (Exception ex)
             {

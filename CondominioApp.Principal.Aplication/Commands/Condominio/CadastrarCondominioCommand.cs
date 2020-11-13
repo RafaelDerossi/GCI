@@ -1,8 +1,6 @@
 ﻿using CondominioApp.Core.ValueObjects;
 using CondominioApp.Principal.Aplication.Commands.Validations;
-using System;
-using System.Collections.Generic;
-using System.Text;
+
 
 namespace CondominioApp.Principal.Aplication.Commands
 {
@@ -46,8 +44,8 @@ namespace CondominioApp.Principal.Aplication.Commands
 
         public override bool EstaValido()
         {
-            var Result = new CadastrarCondominioCommandValidation().Validate(this);
-            return Result.IsValid;
+            ValidationResult = new CadastrarCondominioCommandValidation().Validate(this);
+            return ValidationResult.IsValid;
         }
 
 
