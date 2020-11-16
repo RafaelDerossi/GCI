@@ -10,7 +10,8 @@ using System.Threading.Tasks;
 namespace CondominioApp.Principal.Aplication.Commands
 {
     public class GrupoCommandHandler : CommandHandler,
-         IRequestHandler<CadastrarGrupoCommand, ValidationResult>, IDisposable
+         IRequestHandler<CadastrarGrupoCommand, ValidationResult>,
+        IRequestHandler<AlterarGrupoCommand, ValidationResult>, IDisposable
     {
 
         private ICondominioRepository _condominioRepository;
@@ -29,18 +30,10 @@ namespace CondominioApp.Principal.Aplication.Commands
 
             if (!ValidationResult.IsValid) return ValidationResult;
 
-            var condominio = _condominioRepository.ObterPorId(grupo.CondominioId).Result;
-            if (condominio == null)
-            {
-                AdicionarErro("Condominio não encontrado.");
-                return ValidationResult;
-            }
-            condominio.AdicionarGrupo(grupo);
-
             //Verifica se um Grupo com a mesma descricao ja esta cadastrado
             try
             {
-                if (_condominioRepository.GrupoJaExiste(grupo.Descricao, grupo.CondominioId).Result)
+                if (_condominioRepository.GrupoJaExiste(grupo.Descricao, grupo.CondominioId, grupo.Id).Result)
                 {
                     AdicionarErro("Grupo informado ja consta no sistema.");
                     return ValidationResult;
@@ -51,12 +44,72 @@ namespace CondominioApp.Principal.Aplication.Commands
                 AdicionarErro(ex.Message);
                 return ValidationResult;
             }
+
+            var condominio = _condominioRepository.ObterPorId(grupo.CondominioId).Result;
+            if (condominio == null)
+            {
+                AdicionarErro("Condominio não encontrado.");
+                return ValidationResult;
+            }
+            condominio.AdicionarGrupo(grupo);                      
            
 
-            _condominioRepository.AdicionarGrupo(grupo);
+            _condominioRepository.Atualizar(condominio);
 
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }
+
+        public async Task<ValidationResult> Handle(AlterarGrupoCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido()) return request.ValidationResult;
+
+            var grupoBd = _condominioRepository.ObterGrupoPorId(request.GrupoId).Result;           
+            if (grupoBd == null)
+            {
+                AdicionarErro("Grupo não encontrado.");
+                return ValidationResult;
+            }
+            try
+            {
+                grupoBd.SetDescricao(request.Descricao);
+            }
+            catch (Exception ex)
+            {
+                AdicionarErro(ex.Message);
+                return ValidationResult;
+            }
+
+            if (!ValidationResult.IsValid) return ValidationResult;
+
+            //Verifica se um Grupo com a mesma descricao ja esta cadastrado
+            try
+            {
+                if (_condominioRepository.GrupoJaExiste(grupoBd.Descricao, grupoBd.CondominioId, grupoBd.Id).Result)
+                {
+                    AdicionarErro("Grupo informado ja consta no sistema.");
+                    return ValidationResult;
+                }
+            }
+            catch (System.Exception ex)
+            {
+                AdicionarErro(ex.Message);
+                return ValidationResult;
+            }
+
+            var condominio = _condominioRepository.ObterPorId(grupoBd.CondominioId).Result;
+            if (condominio == null)
+            {
+                AdicionarErro("Condominio não encontrado.");
+                return ValidationResult;
+            }
+            condominio.AlterarGrupo(grupoBd);
+            
+
+            _condominioRepository.Atualizar(condominio);
+
+            return await PersistirDados(_condominioRepository.UnitOfWork);
+        }
+
 
 
         private Grupo GrupoFactory(CadastrarGrupoCommand request)
@@ -80,5 +133,6 @@ namespace CondominioApp.Principal.Aplication.Commands
             _condominioRepository?.Dispose();
         }
 
+      
     }
 }

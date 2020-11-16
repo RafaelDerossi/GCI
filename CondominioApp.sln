@@ -37,7 +37,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioApp.Principal.Dom
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioApp.Principal.Infra", "src\Services\Principal\CondominioApp.Principal.Infra\CondominioApp.Principal.Infra.csproj", "{32E589A2-A1AA-4D87-A345-9FD5D367E4AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CondominioApp.Principal.Aplication", "CondominioApp.Principal.Aplication\CondominioApp.Principal.Aplication.csproj", "{37173D29-9C41-43D0-97CB-3A717665BB9F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioApp.Principal.Aplication", "CondominioApp.Principal.Aplication\CondominioApp.Principal.Aplication.csproj", "{37173D29-9C41-43D0-97CB-3A717665BB9F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

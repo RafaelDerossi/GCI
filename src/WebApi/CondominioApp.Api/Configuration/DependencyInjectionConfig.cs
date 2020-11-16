@@ -16,6 +16,10 @@ namespace CondominioApp.Api.Configuration
 
             services.AddScoped<IRequestHandler<CadastrarCondominioCommand, ValidationResult>, CondominioCommandHandler>();
 
+            services.AddScoped<IRequestHandler<AlterarCondominioCommand, ValidationResult>, CondominioCommandHandler>();
+
+            services.AddScoped<IRequestHandler<AlterarConfiguracaoCondominioCommand, ValidationResult>, CondominioCommandHandler>();
+
             //services.AddScoped<INotificationHandler<UsuarioCadastradoEvent>, UsuarioEventHandler>();
 
             services.AddScoped<IRequestHandler<CadastrarGrupoCommand, ValidationResult>, GrupoCommandHandler>();
@@ -27,6 +31,10 @@ namespace CondominioApp.Api.Configuration
             //services.AddScoped<INotificationHandler<UsuarioCadastradoEvent>, UsuarioEventHandler>();
 
             services.AddScoped<IRequestHandler<AlterarUnidadeCommand, ValidationResult>, UnidadeCommandHandler>();
+
+            services.AddScoped<IRequestHandler<ResetCodigoUnidadeCommand, ValidationResult>, UnidadeCommandHandler>();
+
+            services.AddScoped<IRequestHandler<AlterarGrupoCommand, ValidationResult>, GrupoCommandHandler>();
 
             //services.AddScoped<IUsuarioQuery, UsuarioQuery>();
             // services.AddScoped<IUsuarioRepository, UsuarioRepository>();

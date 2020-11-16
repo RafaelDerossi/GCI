@@ -43,11 +43,12 @@ namespace CondominioApp.Principal.Infra.Data.Repository
         {
             _context.Grupos.Add(entity);
         }
-
+      
         public void AdicionarUnidade(Unidade entity)
         {
             _context.Unidades.Add(entity);
         }
+       
 
 
         public async Task<IEnumerable<Condominio>> Obter(Expression<Func<Condominio, bool>> expression, bool OrderByDesc = false, int take = 0)
@@ -73,8 +74,8 @@ namespace CondominioApp.Principal.Infra.Data.Repository
         public async Task<Condominio> ObterPorId(Guid Id)
         {
             return await _context.Condominios
+                .Include(c => c.Grupos)
                 .Include(c => c.Unidades)
-                .Include(c=>c.Unidades)
                 .FirstOrDefaultAsync(u => u.Id == Id);
         }
 
@@ -84,22 +85,24 @@ namespace CondominioApp.Principal.Infra.Data.Repository
         }
 
 
-        public async Task<bool> CondominioJaExiste(Cnpj cnpj)
+        public async Task<bool> CnpjCondominioJaCadastrado(Cnpj cnpj, Guid condominioId)
         {
             return await _context.Condominios
                 .Where
                     (u => !u.Lixeira &&
-                     u.Cnpj.numero == cnpj.numero)
+                     u.Cnpj.numero == cnpj.numero && 
+                     u.Id != condominioId)
                 .CountAsync()>0;
         }
 
-        public async Task<bool> GrupoJaExiste(string descricao, Guid condominioId)
+        public async Task<bool> GrupoJaExiste(string descricao, Guid condominioId, Guid grupoId)
         {
             return await _context.Grupos
                 .Where
                     (u => !u.Lixeira &&
                      u.Descricao == descricao &&
-                     u.CondominioId == condominioId)
+                     u.CondominioId == condominioId &&
+                     u.Id != grupoId)
                 .CountAsync()>0;
         }
 
@@ -112,6 +115,16 @@ namespace CondominioApp.Principal.Infra.Data.Repository
                      u.Numero == numero &&
                      u.Andar == andar && u.GrupoId == grupoId &&
                      u.CondominioId == condominioId)
+                .CountAsync() > 0;
+        }
+
+        public async Task<bool> CodigoDaUnidadeJaExiste(string codigo, Guid unidadeId)
+        {
+            return await _context.Unidades
+                .Where
+                    (u => 
+                     u.Codigo == codigo &&                     
+                     u.Id != unidadeId)
                 .CountAsync() > 0;
         }
 

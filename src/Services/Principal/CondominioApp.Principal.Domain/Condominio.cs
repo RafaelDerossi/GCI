@@ -259,6 +259,12 @@ namespace CondominioApp.Principal.Domain
         {               
             _Grupos.Add(grupo);
         }
+        public void AlterarGrupo(Grupo grupo)
+        {
+            _Grupos.RemoveAll(u => u.Id == grupo.Id);
+            _Grupos.Add(grupo);
+        }
+
         public void AdicionarUnidade(Unidade unidade)
         {
             _Unidades.Add(unidade);
@@ -266,7 +272,8 @@ namespace CondominioApp.Principal.Domain
         public void AlterarUnidade(Unidade unidade)
         {
             _Unidades.RemoveAll(u => u.Id == unidade.Id);
-            _Unidades.Add(unidade);
+            _Unidades.Add(unidade);                        
+          
         }
 
     }

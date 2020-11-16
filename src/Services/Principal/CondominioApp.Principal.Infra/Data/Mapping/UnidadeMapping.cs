@@ -16,7 +16,13 @@ namespace CondominioApp.Principal.Infra.Data.Mapping
 
             builder.ToTable("Unidades");
 
-            builder.Property(u => u.Codigo).IsRequired().HasColumnType($"varchar({Unidade.Max})");
+            builder.Property(u => u.Codigo)
+                .IsRequired()
+                .HasColumnType($"varchar({Unidade.Max})");                
+
+            builder
+                .HasIndex(x => x.Codigo)
+                .IsUnique();
 
             builder.Property(u => u.Numero).IsRequired().HasColumnType($"varchar({Unidade.Max})");
 

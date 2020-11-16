@@ -29,10 +29,9 @@ namespace CondominioApp.Principal.Domain
         {
         }
 
-        public Unidade(string codigo, string numero, string andar, int vagas, 
+        public Unidade(string numero, string andar, int vagas, 
             Telefone telefone, string ramal, string complemento, Guid grupoId, Guid condominioId)
         {
-            Codigo = codigo;
             Numero = numero;
             Andar = andar;
             Vagas = vagas;
@@ -48,7 +47,21 @@ namespace CondominioApp.Principal.Domain
         /// Metodos       
         /// </summary>
 
-        public void SetCodigo(string codigo) => Codigo = codigo;
+
+        public void SetCodigo(string codigo)
+        {
+            if (codigo==null || codigo == "")
+            {
+                ResetCodigo();
+            }
+        }
+
+        public void ResetCodigo()
+        {
+           Codigo = Id.ToString().Substring(0, 4) + DateTime.Now.Minute.ToString("D2") + DateTime.Now.Second.ToString("D2");
+        }
+
+      
 
         public void SetNumero(string numero) => this.Numero = numero;
 

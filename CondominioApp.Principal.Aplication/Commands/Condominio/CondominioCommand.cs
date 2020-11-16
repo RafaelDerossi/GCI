@@ -9,7 +9,7 @@ namespace CondominioApp.Principal.Aplication.Commands
     {
         public Guid CondominioId { get; protected set; }
 
-        public Cnpj Cnpj { get; protected set; }
+        public Cnpj Cnpj { get; protected set; }      
 
         public string Nome { get; protected set; }
 

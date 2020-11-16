@@ -6,8 +6,7 @@ namespace CondominioApp.Principal.Aplication.ViewModels
 {
    public class UnidadeViewModel
     {
-        public Guid UnidadeId { get; set; }
-        public string Codigo { get; set; }
+        public Guid UnidadeId { get; set; }       
         public string Numero { get; set; }
         public string Andar { get; set; }
         public int Vagas { get; set; }

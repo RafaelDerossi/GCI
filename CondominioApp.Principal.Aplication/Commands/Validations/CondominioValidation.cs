@@ -23,102 +23,90 @@ namespace CondominioApp.Principal.Aplication.Commands.Validations
                 .NotEmpty().WithMessage("Nome do condominio não pode estar vazio!")
                 .Length(2, 200).WithMessage("Nome do condominio deve ter mais de 2 caracteres!");
         }
+
+
         protected void ValidatePortaria()
         {
             RuleFor(c => c.Portaria)
-                  .NotNull()
-                  .NotEmpty()
+                  .NotNull()                
                   .WithMessage("Portaria não pode estar vazio!");
         }
         protected void ValidatePortariaMorador()
         {
             RuleFor(c => c.PortariaMorador)
-                  .NotNull()
-                  .NotEmpty()
+                  .NotNull()                 
                   .WithMessage("Portaria Morador não pode estar vazio!");
         }
         protected void ValidateClassificado()
         {
             RuleFor(c => c.Classificado)
-                  .NotNull()
-                  .NotEmpty()
+                  .NotNull()                 
                   .WithMessage("Classificado não pode estar vazio!");
         }
         protected void ValidateClassificadoMorador()
         {
             RuleFor(c => c.ClassificadoMorador)
-                  .NotNull()
-                  .NotEmpty()
+                  .NotNull()                  
                   .WithMessage("Classificado Morador não pode estar vazio!");
         }
         protected void ValidateMural()
         {
             RuleFor(c => c.Mural)
-                  .NotNull()
-                  .NotEmpty()
-                  .WithMessage("Mural não pode estar vazio!");
+                .NotNull()
+                .WithMessage("Mural não pode estar vazio!");
         }
         protected void ValidateMuralMorador()
         {
             RuleFor(c => c.MuralMorador)
-                  .NotNull()
-                  .NotEmpty()
+                  .NotNull()                
                   .WithMessage("Mural Morador não pode estar vazio!");
         }
         protected void ValidateChat()
         {
             RuleFor(c => c.Chat)
-                  .NotNull()
-                  .NotEmpty()
+                  .NotNull()                  
                   .WithMessage("Chat não pode estar vazio!");
         }
         protected void ValidateChatMorador()
         {
             RuleFor(c => c.ChatMorador)
-                  .NotNull()
-                  .NotEmpty()
-                  .WithMessage("Chat Morador não pode estar vazio!");
+                .NotNull()
+                .WithMessage("Chat Morador não pode estar vazio!");
         }
         protected void ValidateReserva()
         {
             RuleFor(c => c.Reserva)
-                  .NotNull()
-                  .NotEmpty()
+                  .NotNull()                 
                   .WithMessage("Reserva não pode estar vazio!");
         }
         protected void ValidateReservaNaPortaria()
         {
             RuleFor(c => c.ReservaNaPortaria)
-                  .NotNull()
-                  .NotEmpty()
+                  .NotNull()                 
                   .WithMessage("Reserva na Portaria não pode estar vazio!");
         }
         protected void ValidateOcorrencia()
         {
             RuleFor(c => c.Ocorrencia)
-                  .NotNull()
-                  .NotEmpty()
+                  .NotNull()                  
                   .WithMessage("Ocorrencia não pode estar vazio!");
         }
         protected void ValidateOcorrenciaMorador()
         {
             RuleFor(c => c.OcorrenciaMorador)
-                  .NotNull()
-                  .NotEmpty()
+                  .NotNull()                
                   .WithMessage("Ocorrencia Morador não pode estar vazio!");
         }
         protected void ValidateCorrespondencia()
         {
             RuleFor(c => c.Correspondencia)
-                  .NotNull()
-                  .NotEmpty()
+                  .NotNull()                 
                   .WithMessage("Correspondencia não pode estar vazio!");
         }
         protected void ValidateCorrespondenciaNaPortaria()
         {
             RuleFor(c => c.CorrespondenciaNaPortaria)
-                  .NotNull()
-                  .NotEmpty()
+                  .NotNull()                  
                   .WithMessage("Correspondencia na Portaria não pode estar vazio!");
         }
        

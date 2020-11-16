@@ -6,11 +6,10 @@ namespace CondominioApp.Principal.Aplication.Commands
 {
     public class AlterarUnidadeCommand : UnidadeCommand
     {
-        public AlterarUnidadeCommand(Guid unidadeId, string codigo, string numero, string andar, 
+        public AlterarUnidadeCommand(Guid unidadeId, string numero, string andar, 
             int vaga, string telefone, string ramal, string complemento, Guid grupoId, Guid condominioId)
         {
-            UnidadeId = unidadeId;
-            Codigo = codigo;
+            UnidadeId = unidadeId;           
             Numero = numero;
             Andar = andar;
             Vaga = vaga;
@@ -32,13 +31,10 @@ namespace CondominioApp.Principal.Aplication.Commands
         {
             public AlterarUnidadeCommandValidation()
             {
-                ValidateId();
-                ValidateCodigo();
+                ValidateId();                
                 ValidateNumero();
                 ValidateAndar();
-                ValidateVaga();
-                ValidateGrupoId();
-                ValidateCondominioId();                
+                ValidateVaga();                             
             }
         }
 

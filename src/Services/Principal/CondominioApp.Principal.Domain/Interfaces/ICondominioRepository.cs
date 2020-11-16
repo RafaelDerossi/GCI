@@ -11,15 +11,16 @@ namespace CondominioApp.Principal.Domain.Interfaces
 
         void AdicionarUnidade(Unidade entity);
 
-        Task<bool> CondominioJaExiste(Cnpj cnpj);
+        Task<bool> CnpjCondominioJaCadastrado(Cnpj cnpj, Guid condominioId);
 
-        Task<bool> GrupoJaExiste(string descricao, Guid condominioId);
+        Task<bool> GrupoJaExiste(string descricao, Guid condominioId, Guid grupoId);
 
         Task<bool> UnidadeJaExiste(string codigo, string numero, string andar, Guid grupoId, Guid condominioId);
 
         Task<Grupo> ObterGrupoPorId(Guid Id);
 
         Task<Unidade> ObterUnidadePorId(Guid Id);
-        
+
+        Task<bool> CodigoDaUnidadeJaExiste(string codigo, Guid unidadeId);
     }
 }

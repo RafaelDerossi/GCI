@@ -4,39 +4,11 @@ using System.Text;
 
 namespace CondominioApp.Principal.Aplication.ViewModels
 {
-   public class CondominioViewModel
+   public class AlteraConfiguracaoCondominioViewModel
     {
 
         public Guid CodominioId { get; set; }
-
-        public string Cnpj { get; set; }       
-
-        public string Nome { get; set; }
-
-        public string Descricao { get; set; }
-
-        public string LogoMarca { get; set; }
-
-        public string NomeOriginal { get; set; }
-
-        public string Telefone { get; set; }
-
-
-
-        /// Referencia Externa
-        /// <summary>
-        /// Id de referencia externa do condominio
-        /// </summary>
-        public int? RefereciaId { get; set; }
-
-        public string LinkGeraBoleto { get; set; }
-
-        public string BoletoFolder { get; set; }
-
-        public string UrlWebServer { get; set; }
-
-
-
+               
         ///Parametros
         /// <summary>
         /// Habilita/Desabilita Portaria

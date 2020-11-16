@@ -9,14 +9,7 @@ namespace CondominioApp.Principal.Aplication.Commands.Validations
         {
             RuleFor(c => c.UnidadeId)
                 .NotEqual(Guid.Empty);
-        }       
-        protected void ValidateCodigo()
-        {
-            RuleFor(c => c.Codigo)
-                .NotNull()
-                .NotEmpty()
-                .WithMessage("Codigo do condominio não pode estar vazio!");                
-        }
+        }               
         protected void ValidateNumero()
         {
             RuleFor(c => c.Numero)
