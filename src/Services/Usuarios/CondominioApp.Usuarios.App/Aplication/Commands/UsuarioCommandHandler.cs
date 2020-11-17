@@ -66,10 +66,10 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
         {
             try
             {
-                var Morador = new Usuario(request.Nome, request.Sobrenome, request.Rg, request.Cel, request.Email, request.Foto, request.TpUsuario,
+                var morador = new Usuario(request.Nome, request.Sobrenome, request.Rg, request.Cel, request.Email, request.Foto, request.TpUsuario,
                request.Permissao, request.DataNascimento, request.Cpf);
 
-                return Morador;
+                return morador;
             }
             catch (Exception ex)
             {

@@ -87,6 +87,7 @@ namespace CondominioApp.Core.ValueObjects
                 resto = 11 - resto;
             digito = digito + resto.ToString();
             return cnpj.EndsWith(digito);
-        }
+        }      
+
     }
 }

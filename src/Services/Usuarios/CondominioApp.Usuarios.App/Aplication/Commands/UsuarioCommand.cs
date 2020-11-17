@@ -9,7 +9,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
 {   
     public abstract class UsuarioCommand : Command
     {
-        public Guid UsuarioId { get; set; }
+        public Guid UsuarioId { get; protected set; }
 
         public string Nome { get; protected set; }
 

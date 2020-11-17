@@ -4,7 +4,7 @@ using CondominioApp.Core.Messages;
 using CondominioApp.Core.ValueObjects;
 using FluentValidation;
 
-namespace CondominioApp.Usuarios.App.Aplication.Event
+namespace CondominioApp.Usuarios.App.Aplication.Events
 {
     public class MoradorCadastradoEvent : Core.Messages.Event
     {

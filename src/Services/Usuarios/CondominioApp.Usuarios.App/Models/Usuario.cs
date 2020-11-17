@@ -55,7 +55,7 @@ namespace CondominioApp.Usuarios.App.Models
             Foto foto, TipoDeUsuario tpUsuario, Permissao permissao, DateTime? dataNascimento = null, Cpf cpf = null, string atribuicao = null, string funcao = null, 
             Telefone telefone = null, Endereco endereco = null, bool sindicoProfissional = false)
         {
-         
+            _Mobiles = new List<Mobile>();
             Nome = nome;
             Sobrenome = sobrenome;
             Rg = rg;

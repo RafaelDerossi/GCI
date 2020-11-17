@@ -6,7 +6,7 @@ using CondominioApp.Core.Messages;
 using CondominioApp.Usuarios.App.Models;
 using MediatR;
 
-namespace CondominioApp.Usuarios.App.Aplication.Event
+namespace CondominioApp.Usuarios.App.Aplication.Events
 {
     public class UsuarioEventHandler :
         INotificationHandler<MoradorCadastradoEvent>

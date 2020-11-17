@@ -7,10 +7,10 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands.Validations
 {    
     public abstract class UsuarioValidation<T> : AbstractValidator<T> where T : UsuarioCommand
     {
-        protected void ValidateName()
+        protected void ValidateNome()
         {
             RuleFor(c => c.Nome)
-                .NotEmpty().WithMessage("Nome do morador não pode estar vazio!")
+                .NotEmpty() //.WithMessage("Nome do morador não pode estar vazio!")
                 .Length(2, 150).WithMessage("Nome do morador deve ter mais de 2 caracteres!");
         }
 
