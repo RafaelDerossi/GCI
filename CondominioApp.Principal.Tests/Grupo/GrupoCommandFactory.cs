@@ -7,6 +7,11 @@ namespace CondominioApp.Principal.Tests
 {
    public class GrupoCommandFactory
     {
+
+        /// <summary>
+        /// CadastrarGrupoCommand
+        /// </summary>
+        /// <returns></returns>
         public static CadastrarGrupoCommand CriarComandoCadastroDeGrupo()
         {
             try
@@ -36,6 +41,47 @@ namespace CondominioApp.Principal.Tests
             try
             {
                 return new CadastrarGrupoCommand("Bloco 1", Guid.Empty);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+
+        /// <summary>
+        /// AlterarGrupoCommand
+        /// </summary>
+        /// <returns></returns>
+        public static AlterarGrupoCommand CriarComandoAlteracaoDeGrupo()
+        {
+            try
+            {
+                return new AlterarGrupoCommand(Guid.NewGuid(), "Bloco 1");
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public static AlterarGrupoCommand CriarComandoAlteracaoDeGrupoSemDescricao()
+        {
+            try
+            {
+                return new AlterarGrupoCommand(Guid.NewGuid(), null);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public static AlterarGrupoCommand CriarComandoAlteracaoDeGrupoSemCondominio()
+        {
+            try
+            {
+                return new AlterarGrupoCommand(Guid.Empty, "Bloco 1");
             }
             catch (Exception)
             {

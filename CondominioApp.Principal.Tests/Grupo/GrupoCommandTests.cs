@@ -7,6 +7,10 @@ namespace CondominioApp.Principal.Tests
 {
    public class GrupoCommandTests
     {
+
+        /// <summary>
+        /// CadastrarCommand
+        /// </summary>
         [Fact(DisplayName = "Adicionar Grupo Válido")]
         [Trait("Categoria", "Grupo - Cadastrar Command")]
         public void CadastroDeGrupo_CommandoValido_DevePassarNaValidacao()
@@ -50,6 +54,71 @@ namespace CondominioApp.Principal.Tests
 
             //Assert
             Assert.False(result);
+        }
+
+
+        /// <summary>
+        /// AlterarCommand
+        /// </summary>
+        [Fact(DisplayName = "Alterar Grupo Válido")]
+        [Trait("Categoria", "Grupo - Alterar Command")]
+        public void AlteracaoDeGrupo_CommandoValido_DevePassarNaValidacao()
+        {
+
+            //Arrange
+            var Command = GrupoCommandFactory.CriarComandoAlteracaoDeGrupo();
+
+            //Act
+            var result = Command.EstaValido();
+
+            //Assert
+            Assert.True(result);
+        }
+
+        [Fact(DisplayName = "Alterar Grupo Inválido - Sem Descricao")]
+        [Trait("Categoria", "Grupo - Alterar Command - Sem Descricao")]
+        public void AlteracaoDeGrupoSemDescricao_CommandoInvalido_NaoDevePassarNaValidacao()
+        {
+            try
+            {
+                //Arrange
+                var Command = GrupoCommandFactory.CriarComandoAlteracaoDeGrupoSemDescricao();
+
+                //Act
+                var result = Command.EstaValido();
+
+                //Assert
+                Assert.False(result);
+            }
+            catch (Exception)
+            {
+                //Assert
+                Assert.False(false);
+            }
+           
+        }
+
+        [Fact(DisplayName = "Alterar Grupo Inválido - Sem Condominio")]
+        [Trait("Categoria", "Grupo - Alterar Command - Sem Condominio")]
+        public void AlteracaoDeGrupoSemCondominio_CommandoInvalido_NaoDevePassarNaValidacao()
+        {
+            try
+            {
+                //Arrange
+                var Command = GrupoCommandFactory.CriarComandoAlteracaoDeGrupoSemCondominio();
+
+                //Act
+                var result = Command.EstaValido();
+
+                //Assert
+                Assert.False(result);
+            }
+            catch (Exception)
+            {
+                //Assert
+                Assert.False(false);
+            }
+
         }
     }
 }

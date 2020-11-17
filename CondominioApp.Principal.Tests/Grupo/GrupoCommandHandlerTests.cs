@@ -56,5 +56,45 @@ namespace CondominioApp.Principal.Tests
             _mocker.GetMock<ICondominioRepository>().Verify(r => r.AdicionarGrupo(It.IsAny<Grupo>()), Times.Once);
             _mocker.GetMock<ICondominioRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
         }
+
+
+
+        [Fact(DisplayName = "Alterar Grupo Válido")]
+        [Trait("Categoria", "Grupos - GrupoCommandHandler")]
+        public async Task AlterarGrupo_CommandoValido_DevePassarNaValidacao()
+        {
+            //Arrange
+            var command = GrupoCommandFactory.CriarComandoAlteracaoDeGrupo();
+
+            var grupo = new Grupo(command.Descricao, command.CondominioId);
+            grupo.SetEntidadeId(command.GrupoId);
+
+            var condominio = new Condominio(new Cnpj("26585345000148"), "Condominio TU",
+                "Condominio Teste Unitario", new Foto("Foto.jpg", "Foto.jpg"), new Telefone("(21) 99796-7038"),
+                0, null, null, null, false, false, false, false, false, false, false, false, false, false, false,
+                false, false, false, false);
+
+            condominio.SetEntidadeId(command.CondominioId);
+
+            _mocker.GetMock<ICondominioRepository>().Setup(r => r.ObterGrupoPorId(grupo.Id))
+                .Returns(Task.FromResult(grupo));
+
+            _mocker.GetMock<ICondominioRepository>().Setup(r => r.ObterPorId(command.CondominioId))
+               .Returns(Task.FromResult(condominio));
+
+            _mocker.GetMock<ICondominioRepository>().Setup(r => r.GrupoJaExiste(grupo.Descricao, grupo.CondominioId, grupo.Id))
+              .Returns(Task.FromResult(false));
+
+            _mocker.GetMock<ICondominioRepository>().Setup(r => r.UnitOfWork.Commit())
+               .Returns(Task.FromResult(true));
+
+            //Act
+            var result = await _grupoCommandHandler.Handle(command, CancellationToken.None);
+
+            //Assert
+            Assert.True(result.IsValid);
+            _mocker.GetMock<ICondominioRepository>().Verify(r => r.Atualizar(It.IsAny<Condominio>()), Times.Once);
+            _mocker.GetMock<ICondominioRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
+        }
     }
 }
