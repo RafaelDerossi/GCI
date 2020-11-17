@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using CondominioApp.Core.Mediator;
 using CondominioApp.Principal.Aplication.Commands;
 using CondominioApp.Principal.Aplication.ViewModels;
 using CondominioApp.WebApi.Core.Controllers;
 using Microsoft.AspNetCore.Mvc;
-using CondominioApp.Core.Mediator;
+using System;
+using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -58,10 +57,10 @@ namespace CondominioApp.Api.Controllers
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
             if (!Resultado.IsValid)
-            {                
+            {
                 return CustomResponse(Resultado);
             }
-            
+
             foreach (var error in Resultado.Errors)
             {
                 AdicionarErroProcessamento(error.ErrorMessage);
@@ -285,7 +284,7 @@ namespace CondominioApp.Api.Controllers
                  condominioVM.BoletoFolder, condominioVM.UrlWebServer, condominioVM.Portaria, condominioVM.PortariaMorador,
                  condominioVM.Classificado, condominioVM.ClassificadoMorador, condominioVM.Mural, condominioVM.MuralMorador,
                  condominioVM.Chat, condominioVM.ChatMorador, condominioVM.Reserva, condominioVM.ReservaNaPortaria,
-                 condominioVM.Ocorrencia, condominioVM.OcorrenciaMorador, condominioVM.Correspondencia, 
+                 condominioVM.Ocorrencia, condominioVM.OcorrenciaMorador, condominioVM.Correspondencia,
                  condominioVM.CorrespondenciaNaPortaria, condominioVM.LimiteTempoReserva);
             }
             catch (Exception ex)
@@ -314,7 +313,7 @@ namespace CondominioApp.Api.Controllers
             try
             {
                 return new CadastrarUnidadeCommand(
-                unidadeVM.UnidadeId, unidadeVM.Numero, unidadeVM.Andar,
+                unidadeVM.Codigo, unidadeVM.Numero, unidadeVM.Andar,
                 unidadeVM.Vagas, unidadeVM.Telefone, unidadeVM.Ramal, unidadeVM.Complemento,
                 unidadeVM.GrupoId, unidadeVM.CondominioId);
             }
