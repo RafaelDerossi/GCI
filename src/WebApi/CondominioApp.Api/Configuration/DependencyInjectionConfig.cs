@@ -3,6 +3,7 @@ using CondominioApp.Principal.Aplication.Commands;
 using CondominioApp.Principal.Domain.Interfaces;
 using CondominioApp.Principal.Infra.Data.Repository;
 using CondominioAppPreCadastro.App.Aplication.Commands;
+using CondominioAppPreCadastro.App.Aplication.Query;
 using CondominioAppPreCadastro.App.Data.Repository;
 using CondominioAppPreCadastro.App.Models;
 using FluentValidation.Results;
@@ -47,6 +48,9 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<ICondominioRepository, CondominioRepository>();
 
             services.AddScoped<ILeadRepository, LeadRepository>();
+
+            services.AddScoped<IQueryLead, QueryLead>();
+
 
             //services.AddScoped(typeof(IMongoRepository<>), typeof(MongoRepository<>));
         }

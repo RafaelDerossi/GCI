@@ -16,6 +16,8 @@ namespace CondominioAppPreCadastro.App.Models
 
         public Telefone Telefone { get; private set; }
 
+        public TipoDePlano TipoDePlano { get; private set; }
+
         public StatusPreCadastro Status { get; private set; }
 
         public string Motivo { get; private set; }
@@ -27,11 +29,12 @@ namespace CondominioAppPreCadastro.App.Models
 
         protected Lead() { }
 
-        public Lead(string nome, Email email, Telefone telefone)
+        public Lead(string nome, Email email, Telefone telefone, TipoDePlano tipoDePlano)
         {
             Nome = nome;
             Email = email;
             Telefone = telefone;
+            TipoDePlano = tipoDePlano;
             Status = StatusPreCadastro.PENDENTE;
         }
 
@@ -44,6 +47,8 @@ namespace CondominioAppPreCadastro.App.Models
         public void SetStatus(StatusPreCadastro statusPreCadastro) => Status = statusPreCadastro;
 
         public void SetMotivo(string motivo) => Motivo = motivo;
+
+        public void SetPlano(TipoDePlano tipoDePlano) => TipoDePlano = tipoDePlano;
 
         public void AdicionarCondominio(Condominio condominio)
         {

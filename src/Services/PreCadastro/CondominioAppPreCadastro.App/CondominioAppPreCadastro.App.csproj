@@ -27,7 +27,6 @@
 
   <ItemGroup>
     <Folder Include="Aplication\Events\" />
-    <Folder Include="Aplication\Query\" />
   </ItemGroup>
 
 </Project>

@@ -60,5 +60,11 @@ namespace CondominioAppPreCadastro.App.ViewModel
         public string regiao { get; set; }
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public string estado { get; set; }
+
+        public string TipoDeUnidadeFormatada { get; set; }
+
+        public string TipoDeGrupoFormatada { get; set; }
+
+        public string TipoDeDocumentoFormatada { get; set; }
     }
 }

@@ -1,9 +1,13 @@
-﻿using CondominioApp.Core.Mediator;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using CondominioApp.Core.Mediator;
 using CondominioAppPreCadastro.App.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using CondominioApp.WebApi.Core.Controllers;
 using CondominioAppPreCadastro.App.Aplication.Commands;
+using CondominioAppPreCadastro.App.Aplication.Query;
 
 namespace CondominioApp.Api.Controllers
 {
@@ -11,11 +15,39 @@ namespace CondominioApp.Api.Controllers
     public class PreCadastro : MainController
     {
         private readonly IMediatorHandler _mediatorHandler;
+        private readonly IQueryLead _queryLead;
 
-        public PreCadastro(IMediatorHandler mediatorHandler)
+        public PreCadastro(IMediatorHandler mediatorHandler, IQueryLead queryLead)
         {
             _mediatorHandler = mediatorHandler;
+            _queryLead = queryLead;
         }
+
+
+        [HttpGet]
+        public async Task<IEnumerable<LeadViewModel>> ObterTodos()
+        {
+            return await _queryLead.ObterTodos();
+        }
+
+        [HttpGet("{Id:Guid}")]
+        public async Task<IActionResult> ObterPorId(Guid Id)
+        {
+            return Ok(await _queryLead.ObterPorId(Id));
+        }
+        
+        [HttpGet("Intervalo")]
+        public async Task<IEnumerable<LeadViewModel>> Intervalo(DateTime DataInicio, DateTime DataFim)
+        {
+            return await _queryLead.ObterPorDatas(DataInicio, DataFim);
+        }
+
+        [HttpGet("Pendentes")]
+        public async Task<IEnumerable<LeadViewModel>> Pendentes()
+        {
+            return await _queryLead.ObterPendentes();
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> NovoLead(LeadViewModel model)

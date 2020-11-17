@@ -19,8 +19,14 @@ namespace CondominioAppPreCadastro.App.ViewModel
         public int plano { get; set; }
 
         public int statusPreCadastro { get; set; }
-
+        
         public string motivoStatus { get; set; }
+
+        public string StatusDoCadastro { get; set; }
+
+        public string DataDeCadastroFormatada { get; set; }
+
+        public string PlanoEscolhido { get; set; }
 
         public List<CondominioModel> condominios { get; set; }
     }

@@ -25,12 +25,12 @@ namespace CondominioAppPreCadastro.App.Aplication.Commands
         {
             if (!request.EstaValido()) return request.ValidationResult;
 
-            var NovoLead = new Lead(request.Nome, new Email(request.Email), new Telefone(request.Telefone));
+            var NovoLead = new Lead(request.Nome, new Email(request.Email), new Telefone(request.Telefone), (TipoDePlano)request.Plano);
 
             foreach (var CondominioModel in request.Condominios)
             {
                 var condominio = CondominioFactory(CondominioModel);
-                
+
                 NovoLead.AdicionarCondominio(condominio);
             }
 
@@ -43,7 +43,7 @@ namespace CondominioAppPreCadastro.App.Aplication.Commands
         {
             _leadRepository?.Dispose();
         }
-        
+
         private Condominio CondominioFactory(CondominioModel CondominioModel)
         {
             return new Condominio(CondominioModel.nomeDoCondominio, CondominioModel.razaoSocial, CondominioModel.nomeDoSindico,
