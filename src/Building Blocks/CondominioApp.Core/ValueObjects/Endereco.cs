@@ -45,7 +45,7 @@
 
         protected Endereco() { }
 
-        public Endereco(string Logradouro, string Complemento, string Numero, string CepDoEndereco, string Bairro, string Cidade, string Estado, string Municipio)
+        public Endereco(string Logradouro, string Complemento, string Numero, string CepDoEndereco, string Bairro, string Cidade, string Estado, string Municipio = null)
         {
             setLogradouro(Logradouro);
             setComplemento(Complemento);

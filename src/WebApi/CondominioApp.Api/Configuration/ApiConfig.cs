@@ -1,6 +1,7 @@
 ﻿using CondominioApp.Principal.Infra.Data;
 using CondominioApp.Usuarios.App.Data;
 using CondominioApp.WebApi.Core.Identidade;
+using CondominioAppPreCadastro.App.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -24,6 +25,9 @@ namespace CondominioApp.Api.Configuration
 
             services.AddDbContext<PrincipalContextDB>(options =>
                options.UseSqlServer(configuration.GetConnectionString("PrincipalConnection")));
+
+            services.AddDbContext<PreCadastroContextDB>(options =>
+                options.UseSqlServer(configuration.GetConnectionString("PreCadastroConnection")));
 
             services.Configure<ApiBehaviorOptions>(options =>
             {

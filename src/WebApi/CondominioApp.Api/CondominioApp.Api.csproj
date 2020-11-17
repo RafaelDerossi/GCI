@@ -35,9 +35,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\CondominioApp.Principal.Aplication\CondominioApp.Principal.Aplication.csproj" />
     <ProjectReference Include="..\..\Building Blocks\CondominioApp.Core\CondominioApp.Core.csproj" />
     <ProjectReference Include="..\..\Building Blocks\CondominioApp.WebApi.Core\CondominioApp.WebApi.Core.csproj" />
+    <ProjectReference Include="..\..\Services\PreCadastro\CondominioAppPreCadastro.App\CondominioAppPreCadastro.App.csproj" />
+    <ProjectReference Include="..\..\Services\Principal\CondominioApp.Principal.Aplication\CondominioApp.Principal.Aplication.csproj" />
     <ProjectReference Include="..\..\Services\Principal\CondominioApp.Principal.Domain\CondominioApp.Principal.Domain.csproj" />
     <ProjectReference Include="..\..\Services\Principal\CondominioApp.Principal.Infra\CondominioApp.Principal.Infra.csproj" />
     <ProjectReference Include="..\..\Services\Usuarios\CondominioApp.Usuarios.App\CondominioApp.Usuarios.App.csproj" />

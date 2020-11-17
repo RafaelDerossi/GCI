@@ -37,7 +37,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioApp.Principal.Dom
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioApp.Principal.Infra", "src\Services\Principal\CondominioApp.Principal.Infra\CondominioApp.Principal.Infra.csproj", "{32E589A2-A1AA-4D87-A345-9FD5D367E4AD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioApp.Principal.Aplication", "CondominioApp.Principal.Aplication\CondominioApp.Principal.Aplication.csproj", "{37173D29-9C41-43D0-97CB-3A717665BB9F}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PreCadastro", "PreCadastro", "{91A91913-2BE0-41E9-B7D2-E85D3DCA6611}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioApp.Principal.Aplication", "src\Services\Principal\CondominioApp.Principal.Aplication\CondominioApp.Principal.Aplication.csproj", "{3605F6B5-C02D-4DE9-85AD-BA54910B7672}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CondominioAppPreCadastro.App", "src\Services\PreCadastro\CondominioAppPreCadastro.App\CondominioAppPreCadastro.App.csproj", "{524D5BCE-44E6-4EC5-90A5-F729D4287BF2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -77,10 +81,14 @@ Global
 		{32E589A2-A1AA-4D87-A345-9FD5D367E4AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32E589A2-A1AA-4D87-A345-9FD5D367E4AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{32E589A2-A1AA-4D87-A345-9FD5D367E4AD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{37173D29-9C41-43D0-97CB-3A717665BB9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{37173D29-9C41-43D0-97CB-3A717665BB9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{37173D29-9C41-43D0-97CB-3A717665BB9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{37173D29-9C41-43D0-97CB-3A717665BB9F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3605F6B5-C02D-4DE9-85AD-BA54910B7672}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3605F6B5-C02D-4DE9-85AD-BA54910B7672}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3605F6B5-C02D-4DE9-85AD-BA54910B7672}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3605F6B5-C02D-4DE9-85AD-BA54910B7672}.Release|Any CPU.Build.0 = Release|Any CPU
+		{524D5BCE-44E6-4EC5-90A5-F729D4287BF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{524D5BCE-44E6-4EC5-90A5-F729D4287BF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{524D5BCE-44E6-4EC5-90A5-F729D4287BF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{524D5BCE-44E6-4EC5-90A5-F729D4287BF2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -102,7 +110,9 @@ Global
 		{133F3FB7-18C5-46F1-B62D-1A65EA05AC53} = {27DA6887-B451-4D5D-A232-00FBE20152FB}
 		{7B416D97-64F3-4410-84E1-CBD80D213E87} = {133F3FB7-18C5-46F1-B62D-1A65EA05AC53}
 		{32E589A2-A1AA-4D87-A345-9FD5D367E4AD} = {133F3FB7-18C5-46F1-B62D-1A65EA05AC53}
-		{37173D29-9C41-43D0-97CB-3A717665BB9F} = {133F3FB7-18C5-46F1-B62D-1A65EA05AC53}
+		{91A91913-2BE0-41E9-B7D2-E85D3DCA6611} = {27DA6887-B451-4D5D-A232-00FBE20152FB}
+		{3605F6B5-C02D-4DE9-85AD-BA54910B7672} = {133F3FB7-18C5-46F1-B62D-1A65EA05AC53}
+		{524D5BCE-44E6-4EC5-90A5-F729D4287BF2} = {91A91913-2BE0-41E9-B7D2-E85D3DCA6611}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DA60CBD7-8A6E-436D-B07E-D654D162CE4B}
