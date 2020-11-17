@@ -18,41 +18,31 @@ namespace CondominioApp.Api.Configuration
         {
             services.AddScoped<IMediatorHandler, MediatorHandler>();
 
-            services.AddScoped<IRequestHandler<InserirNovoLeadCommand, ValidationResult>, LeadCommandHandler>();
-
+            //Condominio
             services.AddScoped<IRequestHandler<CadastrarCondominioCommand, ValidationResult>, CondominioCommandHandler>();
-
             services.AddScoped<IRequestHandler<AlterarCondominioCommand, ValidationResult>, CondominioCommandHandler>();
-
             services.AddScoped<IRequestHandler<AlterarConfiguracaoCondominioCommand, ValidationResult>, CondominioCommandHandler>();
 
-            //services.AddScoped<INotificationHandler<UsuarioCadastradoEvent>, UsuarioEventHandler>();
 
+            //Grupo
             services.AddScoped<IRequestHandler<CadastrarGrupoCommand, ValidationResult>, GrupoCommandHandler>();
-
-            //services.AddScoped<INotificationHandler<UsuarioCadastradoEvent>, UsuarioEventHandler>();
-
-            services.AddScoped<IRequestHandler<CadastrarUnidadeCommand, ValidationResult>, UnidadeCommandHandler>();
-
-            //services.AddScoped<INotificationHandler<UsuarioCadastradoEvent>, UsuarioEventHandler>();
-
-            services.AddScoped<IRequestHandler<AlterarUnidadeCommand, ValidationResult>, UnidadeCommandHandler>();
-
-            services.AddScoped<IRequestHandler<ResetCodigoUnidadeCommand, ValidationResult>, UnidadeCommandHandler>();
-
             services.AddScoped<IRequestHandler<AlterarGrupoCommand, ValidationResult>, GrupoCommandHandler>();
 
-            //services.AddScoped<IUsuarioQuery, UsuarioQuery>();
-            // services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 
-            services.AddScoped<ICondominioRepository, CondominioRepository>();
+            //Unidades
+            services.AddScoped<IRequestHandler<CadastrarUnidadeCommand, ValidationResult>, UnidadeCommandHandler>();
+            services.AddScoped<IRequestHandler<AlterarUnidadeCommand, ValidationResult>, UnidadeCommandHandler>();
+            services.AddScoped<IRequestHandler<ResetCodigoUnidadeCommand, ValidationResult>, UnidadeCommandHandler>();
 
-            services.AddScoped<ILeadRepository, LeadRepository>();
+            //Pre Cadastro
+            services.AddScoped<IRequestHandler<InserirNovoLeadCommand, ValidationResult>, LeadCommandHandler>();
 
+            //Query
             services.AddScoped<IQueryLead, QueryLead>();
 
-
-            //services.AddScoped(typeof(IMongoRepository<>), typeof(MongoRepository<>));
+            //Repositórios
+            services.AddScoped<ICondominioRepository, CondominioRepository>();
+            services.AddScoped<ILeadRepository, LeadRepository>();
         }
     }
 }
