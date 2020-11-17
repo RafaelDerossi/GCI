@@ -44,7 +44,7 @@ namespace CondominioApp.Core.DomainObjects
             get
             {
                 if (DataDeAlteracao != null)
-                    return DataDeAlteracao.ToString("dd/MM/yyyy");
+                    return DataDeAlteracao.ToString("dd/MM/yyyy HH:mm");
                 else
                     return null;
             }
@@ -55,7 +55,7 @@ namespace CondominioApp.Core.DomainObjects
             get
             {
                 if (DataDeCadastro != null)
-                    return DataDeCadastro.ToString("dd/MM/yyyy");
+                    return DataDeCadastro.ToString("dd/MM/yyyy HH:mm");
                 else
                     return null;
             }
