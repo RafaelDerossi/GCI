@@ -54,7 +54,7 @@ namespace CondominioApp.Principal.Aplication.Commands
             condominio.AdicionarGrupo(grupo);                      
            
 
-            _condominioRepository.Atualizar(condominio);
+            _condominioRepository.AdicionarGrupo(grupo);
 
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }

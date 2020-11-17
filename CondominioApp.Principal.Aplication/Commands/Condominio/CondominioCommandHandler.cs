@@ -35,7 +35,7 @@ namespace CondominioApp.Principal.Aplication.Commands
             //Verifica se um condominio com o mesmo cnpj ja esta cadastrado
             try
             {
-                if (_condominioRepository.CnpjCondominioJaCadastrado(condominio.Cnpj, condominio.Id).Result)
+                if (await _condominioRepository.CnpjCondominioJaCadastrado(request.Cnpj, request.CondominioId) == true)
                 {
                     AdicionarErro("CNPJ informado ja consta no sistema.");
                     return ValidationResult;

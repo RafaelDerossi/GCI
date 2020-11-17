@@ -37,6 +37,7 @@ namespace CondominioApp.Principal.Aplication.Commands
                 AdicionarErro("Condominio não encontrado.");
                 return ValidationResult;
             }
+
             var grupo = _condominioRepository.ObterGrupoPorId(unidade.GrupoId).Result;
             if (grupo == null)
             {

@@ -314,7 +314,7 @@ namespace CondominioApp.Api.Controllers
             try
             {
                 return new CadastrarUnidadeCommand(
-                unidadeVM.UnidadeId, unidadeVM.Numero, unidadeVM.Andar,
+                unidadeVM.Codigo, unidadeVM.Numero, unidadeVM.Andar,
                 unidadeVM.Vagas, unidadeVM.Telefone, unidadeVM.Ramal, unidadeVM.Complemento,
                 unidadeVM.GrupoId, unidadeVM.CondominioId);
             }
