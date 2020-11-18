@@ -21,7 +21,19 @@ namespace CondominioApp.Principal.Aplication.Commands
 
         public string Telefone { get; protected set; }
 
+        public string Logradouro { get; protected set; }
 
+        public string Complemento { get; protected set; }
+
+        public string Numero { get; protected set; }
+
+        public string Cep { get; protected set; }
+
+        public string Bairro { get; protected set; }
+
+        public string Cidade { get; protected set; }
+
+        public string Estado { get; protected set; }
 
         /// Referencia Externa
         /// <summary>

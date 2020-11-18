@@ -2,14 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CondominioApp.Principal.Aplication.ViewModels
+namespace CondominioApp.Principal.Domain.FlatModel
 {
-   public class CondominioViewModel
+   public class CondominioFlat
     {
-
-        public Guid CodominioId { get; set; }
-
-        public string Cnpj { get; set; }       
+        public Guid Id { get; set; }
+        public string Cnpj { get; set; }
 
         public string Nome { get; set; }
 
@@ -17,23 +15,22 @@ namespace CondominioApp.Principal.Aplication.ViewModels
 
         public string LogoMarca { get; set; }
 
-        public string NomeOriginal { get; set; }
-
         public string Telefone { get; set; }
 
-        public string Logradouro { get; set; }
+        public string logradouro { get; set; }
 
-        public string Complemento { get; set; }
+        public string complemento { get; set; }
 
-        public string Numero { get; set; }
+        public string numero { get; set; }
 
-        public string Cep { get; set; }
+        public string cep { get; set; }
 
-        public string Bairro { get; set; }
+        public string bairro { get; set; }
 
-        public string Cidade { get; set; }
+        public string cidade { get; set; }
 
-        public string Estado { get; set; }
+        public string estado { get; set; }
+        
 
         /// Referencia Externa
         /// <summary>
@@ -125,5 +122,7 @@ namespace CondominioApp.Principal.Aplication.ViewModels
         /// </summary>
         public bool LimiteTempoReserva { get; set; }
 
+
+        
     }
 }

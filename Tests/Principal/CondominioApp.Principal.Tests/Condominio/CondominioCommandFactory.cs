@@ -14,8 +14,9 @@ namespace CondominioApp.Principal.Tests
         {
 
             return new CadastrarCondominioCommand("26585345000148", "Condominio TU",
-                "Condominio Teste Unitario", "Foto.jpg", "Foto.jpg", "(21) 99796-7038", 0,
-                null, null, null, false, false, false, false, false, false, false, false,
+                "Condominio Teste Unitario", "Foto.jpg", "Foto.jpg", "(21) 99796-7038",
+                "Rua...",null,"1001","23063260","Bairro","Cidade","RJ",
+                0, null, null, null, false, false, false, false, false, false, false, false,
                 false, false, false, false, false, false, false);
 
         }
@@ -24,7 +25,8 @@ namespace CondominioApp.Principal.Tests
         {
 
             return new CadastrarCondominioCommand("26585345000148", "",
-                "Condominio Teste Unitario", "Foto.jpg", "Foto.jpg", "(21) 99796-7038", 0,
+                "Condominio Teste Unitario", "Foto.jpg", "Foto.jpg", "(21) 99796-7038",
+                "Rua...", null, "1001", "23063260", "Bairro", "Cidade", "RJ", 0,
                 null, null, null, false, false, false, false, false, false, false, false,
                 false, false, false, false, false, false, false);
 
@@ -34,7 +36,8 @@ namespace CondominioApp.Principal.Tests
         {
 
             return new CadastrarCondominioCommand("", "Condominio TU",
-                "Condominio Teste Unitario", "Foto.jpg", "Foto.jpg", "(21) 99796-7038", 0,
+                "Condominio Teste Unitario", "Foto.jpg", "Foto.jpg", "(21) 99796-7038",
+                "Rua...", null, "1001", "23063260", "Bairro", "Cidade", "RJ", 0,
                 null, null, null, false, false, false, false, false, false, false, false,
                 false, false, false, false, false, false, false);
 
@@ -43,7 +46,8 @@ namespace CondominioApp.Principal.Tests
         public static CadastrarCondominioCommand CriarComandoCadastroDeCondominioComCNPJInvalido()
         {
             return new CadastrarCondominioCommand("26585345000150", "Condominio TU",
-                    "Condominio Teste Unitario", "Foto.jpg", "Foto.jpg", "(21) 99796-7038", 0,
+                    "Condominio Teste Unitario", "Foto.jpg", "Foto.jpg", "(21) 99796-7038",
+                "Rua...", null, "1001", "23063260", "Bairro", "Cidade", "RJ", 0,
                     null, null, null, false, false, false, false, false, false, false, false,
                     false, false, false, false, false, false, false);
 
@@ -53,7 +57,8 @@ namespace CondominioApp.Principal.Tests
         {
 
             return new CadastrarCondominioCommand("26585345000148", "Condominio TU",
-                "Condominio Teste Unitario", null, null, "(21) 99796-7038", 0,
+                "Condominio Teste Unitario", null, null, "(21) 99796-7038",
+                "Rua...", null, "1001", "23063260", "Bairro", "Cidade", "RJ", 0,
                 null, null, null, false, false, false, false, false, false, false, false,
                 false, false, false, false, false, false, false);
 
@@ -63,7 +68,8 @@ namespace CondominioApp.Principal.Tests
         {
 
             return new CadastrarCondominioCommand("26585345000148", "Condominio TU",
-                "Condominio Teste Unitario", "Foto.jpg", "Foto.jpg", null, 0,
+                "Condominio Teste Unitario", "Foto.jpg", "Foto.jpg", null,
+                "Rua...", null, "1001", "23063260", "Bairro", "Cidade", "RJ", 0,
                 null, null, null, false, false, false, false, false, false, false, false,
                 false, false, false, false, false, false, false);
 
@@ -73,7 +79,8 @@ namespace CondominioApp.Principal.Tests
         {
 
             return new CadastrarCondominioCommand("26585345000148", "Condominio TU",
-                "Condominio Teste Unitario", "Foto.jpg", "Foto.jpg", "2199796703", 0,
+                "Condominio Teste Unitario", "Foto.jpg", "Foto.jpg", "2199796703",
+                "Rua...", null, "1001", "23063260", "Bairro", "Cidade", "RJ", 0,
                 null, null, null, false, false, false, false, false, false, false, false,
                 false, false, false, false, false, false, false);
 
@@ -87,7 +94,8 @@ namespace CondominioApp.Principal.Tests
         {
 
             return new AlterarCondominioCommand(Guid.NewGuid(), "26585345000148", "Condominio TU",
-                "Condominio Teste Unitario", "Foto.jpg", "Foto.jpg", "(21) 99796-7038");
+                "Condominio Teste Unitario", "Foto.jpg", "Foto.jpg", "(21) 99796-7038",
+                "Rua...", null, "1001", "23063260", "Bairro", "Cidade", "RJ");
 
         }
 
@@ -95,7 +103,8 @@ namespace CondominioApp.Principal.Tests
         {
 
             return new AlterarCondominioCommand(Guid.NewGuid(), null, "Condominio TU",
-                "Condominio Teste Unitario", "Foto.jpg", "Foto.jpg", "(21) 99796-7038");
+                "Condominio Teste Unitario", "Foto.jpg", "Foto.jpg", "(21) 99796-7038",
+                "Rua...", null, "1001", "23063260", "Bairro", "Cidade", "RJ");
 
         }
 
@@ -103,7 +112,8 @@ namespace CondominioApp.Principal.Tests
         {
 
             return new AlterarCondominioCommand(Guid.NewGuid(), "26585345000150", "Condominio TU",
-                "Condominio Teste Unitario", "Foto.jpg", "Foto.jpg", "(21) 99796-7038");
+                "Condominio Teste Unitario", "Foto.jpg", "Foto.jpg", "(21) 99796-7038",
+                "Rua...", null, "1001", "23063260", "Bairro", "Cidade", "RJ");
 
         }
 
@@ -111,7 +121,8 @@ namespace CondominioApp.Principal.Tests
         {
 
             return new AlterarCondominioCommand(Guid.NewGuid(), "26585345000148", null,
-                "Condominio Teste Unitario", "Foto.jpg", "Foto.jpg", "(21) 99796-7038");
+                "Condominio Teste Unitario", "Foto.jpg", "Foto.jpg", "(21) 99796-7038",
+                "Rua...", null, "1001", "23063260", "Bairro", "Cidade", "RJ");
 
         }
 

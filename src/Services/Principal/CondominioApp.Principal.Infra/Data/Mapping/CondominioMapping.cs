@@ -91,6 +91,17 @@ namespace CondominioApp.Principal.Infra.Data.Mapping
             builder.Property(u => u.CorrespondenciaNaPortaria).IsRequired().HasDefaultValueSql("0");
 
             builder.Property(u => u.LimiteTempoReserva).IsRequired().HasDefaultValueSql("0");
+
+            builder.OwnsOne(x => x.Endereco, endereco =>
+            {
+                endereco.Property(e => e.logradouro).HasColumnName("Logradouro").HasMaxLength(Endereco.LogradouroMaximo);
+                endereco.Property(e => e.complemento).HasColumnName("Complemento").HasMaxLength(Endereco.ComplementoMaximo);
+                endereco.Property(e => e.numero).HasColumnName("Numero").HasMaxLength(Endereco.NumeroMaximo);
+                endereco.Property(e => e.cep).HasColumnName("Cep").HasMaxLength(Endereco.CepNumero);
+                endereco.Property(e => e.bairro).HasColumnName("Bairro").HasMaxLength(Endereco.BairroMaximo);
+                endereco.Property(e => e.cidade).HasColumnName("Cidade").HasMaxLength(Endereco.CidadeMaximo);
+                endereco.Property(e => e.estado).HasColumnName("Estado").HasMaxLength(Endereco.EstadoMaximo);               
+            });
         }
     }
 }

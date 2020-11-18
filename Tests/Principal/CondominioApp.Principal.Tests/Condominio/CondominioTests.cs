@@ -17,6 +17,7 @@ namespace CondominioApp.Principal.Tests
             {
                 var condominio = new Condominio(new Cnpj("26585345000148"), "Condominio TU",
                 "Condominio Teste Unitario", new Foto("Foto.jpg", "Foto.jpg"), new Telefone("(21) 99796-7038"),
+                 new Endereco("Rua...", null, "1001", "23063260", "Bairro", "Cidade", "RJ"),
                 0, null, null, null, false, false, false, false, false, false, false, false, false, false, false,
                 false, false, false, false);
                 Assert.True(true);
@@ -36,6 +37,7 @@ namespace CondominioApp.Principal.Tests
             {
                 var condominio = new Condominio(new Cnpj("26.585.345/0001-48"), "Condominio TU",
                                "Condominio Teste Unitario", null, new Telefone("(21) 99796-7038"),
+                                new Endereco("Rua...", null, "1001", "23063260", "Bairro", "Cidade", "RJ"),
                                0, null, null, null, false, false, false, false, false, false, false, false, false, false, false,
                                false, false, false, false);
                 Assert.True(true);
@@ -56,6 +58,7 @@ namespace CondominioApp.Principal.Tests
             {
                 var condominio = new Condominio(new Cnpj("26585345000148"), "Condominio TU",
                                "Condominio Teste Unitario", null, null,
+                                new Endereco("Rua...", null, "1001", "23063260", "Bairro", "Cidade", "RJ"),
                                0, null, null, null, false, false, false, false, false, false, false, false, false, false, false,
                                false, false, false, false);
                 Assert.True(true);
@@ -76,6 +79,7 @@ namespace CondominioApp.Principal.Tests
             {
                 var condominio = new Condominio(null, "Condominio TU",
                                 "Condominio Teste Unitario", null, null,
+                                 new Endereco("Rua...", null, "1001", "23063260", "Bairro", "Cidade", "RJ"),
                                 0, null, null, null, false, false, false, false, false, false, false, false, false, false, false,
                                 false, false, false, false);
                 Assert.True(false);
@@ -95,6 +99,7 @@ namespace CondominioApp.Principal.Tests
             {
                 var condominio = new Condominio(new Cnpj("26585345000147"), "Condominio TU",
                "Condominio Teste Unitario", null, null,
+                new Endereco("Rua...", null, "1001", "23063260", "Bairro", "Cidade", "RJ"),
                0, null, null, null, false, false, false, false, false, false, false, false, false, false, false,
                false, false, false, false);
                 Assert.True(false);
