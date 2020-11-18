@@ -12,12 +12,12 @@ using CondominioAppPreCadastro.App.Aplication.Query;
 namespace CondominioApp.Api.Controllers
 {
     [Route("/api/precadastro")]
-    public class PreCadastro : MainController
+    public class PreCadastroController : MainController
     {
         private readonly IMediatorHandler _mediatorHandler;
         private readonly IQueryLead _queryLead;
 
-        public PreCadastro(IMediatorHandler mediatorHandler, IQueryLead queryLead)
+        public PreCadastroController(IMediatorHandler mediatorHandler, IQueryLead queryLead)
         {
             _mediatorHandler = mediatorHandler;
             _queryLead = queryLead;
@@ -31,9 +31,9 @@ namespace CondominioApp.Api.Controllers
         }
 
         [HttpGet("{Id:Guid}")]
-        public async Task<IActionResult> ObterPorId(Guid Id)
+        public async Task<LeadViewModel> ObterPorId(Guid Id)
         {
-            return Ok(await _queryLead.ObterPorId(Id));
+            return await _queryLead.ObterPorId(Id);
         }
         
         [HttpGet("Intervalo")]
