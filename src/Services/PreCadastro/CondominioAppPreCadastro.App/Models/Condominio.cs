@@ -40,15 +40,13 @@ namespace CondominioAppPreCadastro.App.Models
 
         public string Observacao { get; private set; }
 
-        public Endereco Endereco { get; private set; }
-
-        public Guid LeadId { get; private set; }
-
-        public Lead Lead { get; private set; }
-
         public TipoDePlano Plano { get; private set; }
 
         public bool Transferido { get; private set; }
+
+        public Endereco Endereco { get; private set; }
+
+        public Lead Lead { get; private set; }
         
         private readonly List<Arquivo> _arquivos;
 
@@ -79,6 +77,7 @@ namespace CondominioAppPreCadastro.App.Models
             Observacao = observacao;
             Endereco = endereco;
             Plano = plano;
+            _arquivos = new List<Arquivo>();
 
             NaoTransferir();
         }
@@ -86,6 +85,8 @@ namespace CondominioAppPreCadastro.App.Models
         public void Transferir() => Transferido = true;
 
         public void NaoTransferir() => Transferido = false;
+
+        public void SetLead(Lead lead) => Lead = lead;
 
     }
 }

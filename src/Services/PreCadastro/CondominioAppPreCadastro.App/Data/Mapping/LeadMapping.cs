@@ -15,7 +15,7 @@ namespace CondominioAppPreCadastro.App.Data.Mapping
             
             builder.Property(i => i.Nome).IsRequired().HasColumnName("Nome").HasColumnType($"varchar({Lead.Max})");
             
-            builder.Property(i => i.Motivo).IsRequired().HasColumnName("Motivo").HasColumnType($"varchar({Lead.Max})");
+            builder.Property(i => i.Motivo).HasColumnName("Motivo").HasColumnType($"varchar({Lead.Max})");
 
             builder.OwnsOne(u => u.Email, email =>
             {

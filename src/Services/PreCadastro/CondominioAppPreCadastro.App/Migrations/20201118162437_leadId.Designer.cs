@@ -4,14 +4,16 @@ using CondominioAppPreCadastro.App.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CondominioAppPreCadastro.App.Migrations
 {
     [DbContext(typeof(PreCadastroContextDB))]
-    partial class PreCadastroContextDBModelSnapshot : ModelSnapshot
+    [Migration("20201118162437_leadId")]
+    partial class leadId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,7 +36,7 @@ namespace CondominioAppPreCadastro.App.Migrations
                     b.Property<DateTime>("DataDeCadastro")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("LeadId")
+                    b.Property<Guid>("LeadId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("Lixeira")
@@ -148,6 +150,7 @@ namespace CondominioAppPreCadastro.App.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Motivo")
+                        .IsRequired()
                         .HasColumnName("Motivo")
                         .HasColumnType("varchar(1000)");
 
@@ -175,7 +178,9 @@ namespace CondominioAppPreCadastro.App.Migrations
 
                     b.HasOne("CondominioAppPreCadastro.App.Models.Lead", "Lead")
                         .WithMany()
-                        .HasForeignKey("LeadId");
+                        .HasForeignKey("LeadId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("CondominioAppPreCadastro.App.Models.Condominio", b =>

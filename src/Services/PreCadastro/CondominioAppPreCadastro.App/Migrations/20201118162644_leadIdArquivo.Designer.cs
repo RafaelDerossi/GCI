@@ -4,14 +4,16 @@ using CondominioAppPreCadastro.App.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CondominioAppPreCadastro.App.Migrations
 {
     [DbContext(typeof(PreCadastroContextDB))]
-    partial class PreCadastroContextDBModelSnapshot : ModelSnapshot
+    [Migration("20201118162644_leadIdArquivo")]
+    partial class leadIdArquivo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -148,6 +150,7 @@ namespace CondominioAppPreCadastro.App.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Motivo")
+                        .IsRequired()
                         .HasColumnName("Motivo")
                         .HasColumnType("varchar(1000)");
 

@@ -36,6 +36,7 @@ namespace CondominioAppPreCadastro.App.Models
             Telefone = telefone;
             TipoDePlano = tipoDePlano;
             Status = StatusPreCadastro.PENDENTE;
+            _condominios = new List<Condominio>();
         }
 
         public void SetNome(string nome) => Nome = nome;
@@ -55,6 +56,7 @@ namespace CondominioAppPreCadastro.App.Models
             if (_condominios.Any(c =>
                 c.NomeDoCondominio.Trim().ToUpper() == condominio.NomeDoCondominio.Trim().ToUpper())) return;
 
+            condominio.SetLead(this);
             _condominios.Add(condominio);
         }
 
