@@ -72,6 +72,7 @@ namespace CondominioAppPreCadastro.App.Aplication.Query
         {
             var LeadViewModel = new LeadViewModel()
             {
+                LeadId = lead.Id,
                 nome = lead.Nome,
                 email = lead.Email.Endereco,
                 telefone = lead.Telefone.ObterNumeroFormatado,

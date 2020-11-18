@@ -1,10 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace CondominioAppPreCadastro.App.ViewModel
 {
     public class LeadViewModel
     {
+        public Guid LeadId { get; set; }
+
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public string nome { get; set; }
 
