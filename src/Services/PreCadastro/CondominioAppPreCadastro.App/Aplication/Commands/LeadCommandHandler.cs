@@ -46,7 +46,6 @@ namespace CondominioAppPreCadastro.App.Aplication.Commands
                 return ValidationResult;
             }
 
-            
         }
 
         public void Dispose()

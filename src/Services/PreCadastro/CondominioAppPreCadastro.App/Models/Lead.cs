@@ -56,6 +56,7 @@ namespace CondominioAppPreCadastro.App.Models
             if (_condominios.Any(c =>
                 c.NomeDoCondominio.Trim().ToUpper() == condominio.NomeDoCondominio.Trim().ToUpper())) return;
 
+            condominio.SetLead(this);
             _condominios.Add(condominio);
         }
 
