@@ -36,6 +36,7 @@ namespace CondominioAppPreCadastro.App.Models
             Telefone = telefone;
             TipoDePlano = tipoDePlano;
             Status = StatusPreCadastro.PENDENTE;
+            _condominios = new List<Condominio>();
         }
 
         public void SetNome(string nome) => Nome = nome;

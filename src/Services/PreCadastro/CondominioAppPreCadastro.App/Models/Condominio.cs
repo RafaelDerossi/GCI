@@ -79,6 +79,7 @@ namespace CondominioAppPreCadastro.App.Models
             Observacao = observacao;
             Endereco = endereco;
             Plano = plano;
+            _arquivos = new List<Arquivo>();
 
             NaoTransferir();
         }

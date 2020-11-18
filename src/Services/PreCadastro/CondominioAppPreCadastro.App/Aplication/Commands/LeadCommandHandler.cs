@@ -25,18 +25,28 @@ namespace CondominioAppPreCadastro.App.Aplication.Commands
         {
             if (!request.EstaValido()) return request.ValidationResult;
 
-            var NovoLead = new Lead(request.Nome, new Email(request.Email), new Telefone(request.Telefone), (TipoDePlano)request.Plano);
-
-            foreach (var CondominioModel in request.Condominios)
+            try
             {
-                var condominio = CondominioFactory(CondominioModel);
+                var NovoLead = new Lead(request.Nome, new Email(request.Email), new Telefone(request.Telefone), (TipoDePlano)request.Plano);
+                foreach (var CondominioModel in request.Condominios)
+                {
+                    var condominio = CondominioFactory(CondominioModel);
 
-                NovoLead.AdicionarCondominio(condominio);
+                    NovoLead.AdicionarCondominio(condominio);
+                }
+
+                _leadRepository.Adicionar(NovoLead);
+
+                return await PersistirDados(_leadRepository.UnitOfWork);
+
+            }
+            catch (Exception e)
+            {
+                AdicionarErro(e.Message);
+                return ValidationResult;
             }
 
-            _leadRepository.Adicionar(NovoLead);
-
-            return await PersistirDados(_leadRepository.UnitOfWork);
+            
         }
 
         public void Dispose()
