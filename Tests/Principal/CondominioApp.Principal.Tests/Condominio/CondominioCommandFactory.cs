@@ -173,5 +173,22 @@ namespace CondominioApp.Principal.Tests
                 throw;
             }
         }
+
+        /// <summary>
+        /// AlterarConfiguracaoCommand
+        /// </summary>
+        /// <returns></returns>
+        public static AlterarConfiguracaoCondominioCommand CriarComandoAlteracaoDeConfiguracaoDoCondominio()
+        {
+            try
+            {
+                return new AlterarConfiguracaoCondominioCommand(Guid.NewGuid(), true, false, true,
+                    false,false, false, false, false, false, false, false, false, false, false, false);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }
