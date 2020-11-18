@@ -28,11 +28,12 @@ namespace CondominioApp.Api.Controllers
 
             var comando = new CadastrarCondominioCommand(
                  condominioVM.Cnpj, condominioVM.Nome, condominioVM.Descricao, condominioVM.LogoMarca,
-                 condominioVM.NomeOriginal, condominioVM.Telefone, condominioVM.RefereciaId, condominioVM.LinkGeraBoleto,
-                 condominioVM.BoletoFolder, condominioVM.UrlWebServer, condominioVM.Portaria, condominioVM.PortariaMorador,
-                 condominioVM.Classificado, condominioVM.ClassificadoMorador, condominioVM.Mural, condominioVM.MuralMorador,
-                 condominioVM.Chat, condominioVM.ChatMorador, condominioVM.Reserva, condominioVM.ReservaNaPortaria,
-                 condominioVM.Ocorrencia, condominioVM.OcorrenciaMorador, condominioVM.Correspondencia,
+                 condominioVM.NomeOriginal, condominioVM.Telefone, condominioVM.Logradouro, condominioVM.Complemento,
+                 condominioVM.Numero, condominioVM.Cep, condominioVM.Bairro, condominioVM.Cidade, condominioVM.Estado,
+                 condominioVM.RefereciaId, condominioVM.LinkGeraBoleto, condominioVM.BoletoFolder, condominioVM.UrlWebServer,
+                 condominioVM.Portaria, condominioVM.PortariaMorador, condominioVM.Classificado, condominioVM.ClassificadoMorador,
+                 condominioVM.Mural, condominioVM.MuralMorador, condominioVM.Chat, condominioVM.ChatMorador, condominioVM.Reserva,
+                 condominioVM.ReservaNaPortaria, condominioVM.Ocorrencia, condominioVM.OcorrenciaMorador, condominioVM.Correspondencia,
                  condominioVM.CorrespondenciaNaPortaria, condominioVM.LimiteTempoReserva);           
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
@@ -47,8 +48,10 @@ namespace CondominioApp.Api.Controllers
 
             var comando = new AlterarCondominioCommand(
                  AlteraCondominioVM.CodominioId, AlteraCondominioVM.Cnpj, AlteraCondominioVM.Nome,
-                 AlteraCondominioVM.Descricao, AlteraCondominioVM.LogoMarca,
-                 AlteraCondominioVM.NomeOriginal, AlteraCondominioVM.Telefone);
+                 AlteraCondominioVM.Descricao, AlteraCondominioVM.LogoMarca, AlteraCondominioVM.NomeOriginal,
+                 AlteraCondominioVM.Telefone, AlteraCondominioVM.Logradouro, AlteraCondominioVM.Complemento,
+                 AlteraCondominioVM.Numero, AlteraCondominioVM.Cep, AlteraCondominioVM.Bairro, 
+                 AlteraCondominioVM.Cidade, AlteraCondominioVM.Estado);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 

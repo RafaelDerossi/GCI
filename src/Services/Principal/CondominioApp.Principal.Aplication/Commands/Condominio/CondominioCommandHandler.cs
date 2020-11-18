@@ -57,7 +57,8 @@ namespace CondominioApp.Principal.Aplication.Commands
                 condominioBd.SetDescricao(request.Descricao);
                 condominioBd.SetFoto(new Foto(request.NomeOriginal,request.LogoMarca));
                 condominioBd.SetTelefone(new Telefone(request.Telefone));
-                
+                condominioBd.SetEndereco(new Endereco(request.Logradouro, request.Complemento, request.Numero, request.Cep,
+                    request.Bairro, request.Cidade, request.Estado));
 
                 //Verifica se um condominio com o mesmo cnpj ja esta cadastrado
                 if (_condominioRepository.CnpjCondominioJaCadastrado(condominioBd.Cnpj, condominioBd.Id).Result)
@@ -251,6 +252,8 @@ namespace CondominioApp.Principal.Aplication.Commands
             {
                 var condominio = new Condominio(new Cnpj(request.Cnpj), request.Nome, request.Descricao, 
                     new Foto(request.NomeOriginal,request.LogoMarca), new Telefone(request.Telefone),
+                    new Endereco(request.Logradouro,request.Complemento, request.Numero, request.Cep,
+                    request.Bairro,request.Cidade,request.Estado),
                     request.RefereciaId, request.LinkGeraBoleto, request.BoletoFolder, 
                     new Url(request.UrlWebServer), request.Portaria, request.PortariaMorador, request.Classificado, 
                     request.ClassificadoMorador, request.Mural, request.MuralMorador, request.Chat, request.ChatMorador,

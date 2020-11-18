@@ -20,7 +20,7 @@ namespace CondominioApp.Principal.Domain
 
         public Telefone Telefone { get; private set; }
 
-
+        public Endereco Endereco { get; private set; }
 
         /// Referencia Externa
         /// <summary>
@@ -134,7 +134,7 @@ namespace CondominioApp.Principal.Domain
         }
 
         public Condominio(Cnpj cnpj, string nome, string descricao, Foto logoMarca, 
-            Telefone telefone, int? refereciaId, string linkGeraBoleto, string boletoFolder,
+            Telefone telefone, Endereco endereco, int? refereciaId, string linkGeraBoleto, string boletoFolder,
             Url urlWebServer, bool portaria, bool portariaMorador, bool classificado,
             bool classificadoMorador, bool mural, bool muralMorador, bool chat, bool
             chatMorador, bool reserva, bool reservaNaPortaria, bool ocorrencia,
@@ -184,7 +184,8 @@ namespace CondominioApp.Principal.Domain
 
         public void SetTelefone(Telefone telefone) => Telefone = telefone;
 
-       
+        public void SetEndereco(Endereco endereco) => Endereco = endereco;
+
 
         ///Métodos de Parametros
 

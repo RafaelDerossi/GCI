@@ -8,11 +8,12 @@ namespace CondominioApp.Principal.Aplication.Commands
     {
 
         public CadastrarCondominioCommand(string cnpj, string nome, string descricao = null, string logoMarca = null,
-            string nomeOriginal = null, string telefone = null, int? refereciaId = 0, string linkGeraBoleto = null,
-            string boletoFolder = null, string urlWebServer = null, bool portaria = false, bool portariaMorador = false,
-            bool classificado = false, bool classificadoMorador = false, bool mural = false, bool muralMorador = false,
-            bool chat = false, bool chatMorador = false, bool reserva = false, bool reservaNaPortaria = false,
-            bool ocorrencia = false, bool ocorrenciaMorador = false, bool correspondencia = false,
+            string nomeOriginal = null, string telefone = null, string logradouro = null, string complemento = null, 
+            string numero = null, string cep = null, string bairro = null, string cidade = null, string estado = null,
+            int? refereciaId = 0, string linkGeraBoleto = null, string boletoFolder = null, string urlWebServer = null,
+            bool portaria = false, bool portariaMorador = false, bool classificado = false, bool classificadoMorador = false,
+            bool mural = false, bool muralMorador = false, bool chat = false, bool chatMorador = false, bool reserva = false,
+            bool reservaNaPortaria = false, bool ocorrencia = false, bool ocorrenciaMorador = false, bool correspondencia = false,
             bool correspondenciaNaPortaria = false, bool limiteTempoReserva = false)
         {
             Cnpj = cnpj;          
@@ -21,6 +22,13 @@ namespace CondominioApp.Principal.Aplication.Commands
             LogoMarca = logoMarca;
             NomeOriginal = nomeOriginal;
             Telefone = telefone;
+            Logradouro = logradouro;
+            Complemento = complemento;
+            Numero = numero;
+            Cep = cep;
+            Bairro = bairro;
+            Cidade = cidade;
+            Estado = estado;
             RefereciaId = refereciaId;
             LinkGeraBoleto = linkGeraBoleto;
             BoletoFolder = boletoFolder;
