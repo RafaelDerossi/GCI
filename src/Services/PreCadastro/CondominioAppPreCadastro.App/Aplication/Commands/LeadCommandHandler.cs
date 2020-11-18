@@ -7,6 +7,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using CondominioApp.Core.Enumeradores;
+using CondominioAppPreCadastro.App.Aplication.Events;
 using CondominioAppPreCadastro.App.ViewModel;
 
 namespace CondominioAppPreCadastro.App.Aplication.Commands
@@ -24,33 +25,41 @@ namespace CondominioAppPreCadastro.App.Aplication.Commands
         public async Task<ValidationResult> Handle(InserirNovoLeadCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido()) return request.ValidationResult;
+            
+            var NovoLead = LeadFactory(request);
 
-            try
+            if (!ValidationResult.IsValid) return ValidationResult;
+
+            foreach (var CondominioModel in request.Condominios)
             {
-                var NovoLead = new Lead(request.Nome, new Email(request.Email), new Telefone(request.Telefone), (TipoDePlano)request.Plano);
-                foreach (var CondominioModel in request.Condominios)
-                {
-                    var condominio = CondominioFactory(CondominioModel);
+                var condominio = CondominioFactory(CondominioModel);
 
-                    NovoLead.AdicionarCondominio(condominio);
-                }
-
-                _leadRepository.Adicionar(NovoLead);
-
-                return await PersistirDados(_leadRepository.UnitOfWork);
-
-            }
-            catch (Exception e)
-            {
-                AdicionarErro(e.Message);
-                return ValidationResult;
+                NovoLead.AdicionarCondominio(condominio);
             }
 
+            _leadRepository.Adicionar(NovoLead);
+
+            NovoLead.AdicionarEvento(new LeadCadastradoEvent(NovoLead));
+
+            return await PersistirDados(_leadRepository.UnitOfWork);
         }
 
         public void Dispose()
         {
             _leadRepository?.Dispose();
+        }
+
+        private Lead LeadFactory(InserirNovoLeadCommand Comando)
+        {
+            try
+            {
+                return new Lead(Comando.Nome, new Email(Comando.Email), new Telefone(Comando.Telefone), (TipoDePlano)Comando.Plano);
+            }
+            catch (Exception e)
+            {
+                AdicionarErro(e.Message);
+                return null;
+            }
         }
 
         private Condominio CondominioFactory(CondominioModel CondominioModel)

@@ -3,6 +3,7 @@ using CondominioApp.Principal.Aplication.Commands;
 using CondominioApp.Principal.Domain.Interfaces;
 using CondominioApp.Principal.Infra.Data.Repository;
 using CondominioAppPreCadastro.App.Aplication.Commands;
+using CondominioAppPreCadastro.App.Aplication.Events;
 using CondominioAppPreCadastro.App.Aplication.Query;
 using CondominioAppPreCadastro.App.Data.Repository;
 using CondominioAppPreCadastro.App.Models;
@@ -36,6 +37,7 @@ namespace CondominioApp.Api.Configuration
 
             //Pre Cadastro
             services.AddScoped<IRequestHandler<InserirNovoLeadCommand, ValidationResult>, LeadCommandHandler>();
+            services.AddScoped<INotificationHandler<LeadCadastradoEvent>, LeadEventHandler>();
 
             //Query
             services.AddScoped<IQueryLead, QueryLead>();
