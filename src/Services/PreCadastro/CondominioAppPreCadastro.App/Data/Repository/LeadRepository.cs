@@ -37,18 +37,18 @@ namespace CondominioAppPreCadastro.App.Data.Repository
             if (OrderByDesc)
             {
                 if (take > 0)
-                    return await _context.Leads.AsNoTracking().Where(expression)
+                    return await _context.Leads.Include(c => c.Condominios).AsNoTracking().Where(expression)
                         .OrderByDescending(x => x.DataDeCadastro).Take(take).ToListAsync();
 
-                return await _context.Leads.AsNoTracking().Where(expression)
+                return await _context.Leads.Include(c => c.Condominios).AsNoTracking().Where(expression)
                     .OrderByDescending(x => x.DataDeCadastro).ToListAsync();
             }
 
             if (take > 0)
-                return await _context.Leads.AsNoTracking().Where(expression)
+                return await _context.Leads.Include(c => c.Condominios).AsNoTracking().Where(expression)
                     .OrderBy(x => x.DataDeCadastro).Take(take).ToListAsync();
 
-            return await _context.Leads.AsNoTracking().Where(expression)
+            return await _context.Leads.Include(c => c.Condominios).AsNoTracking().Where(expression)
                 .OrderBy(x => x.DataDeCadastro).ToListAsync();
         }
 
