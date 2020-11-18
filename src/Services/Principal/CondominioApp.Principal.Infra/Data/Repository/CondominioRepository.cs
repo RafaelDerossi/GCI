@@ -100,7 +100,7 @@ namespace CondominioApp.Principal.Infra.Data.Repository
             return await _context.Condominios
                 .Where
                     (u => !u.Lixeira &&
-                    u.Id != condominioId)
+                    u.Id == condominioId)
                 .CountAsync() > 0;
         }
 
@@ -115,14 +115,14 @@ namespace CondominioApp.Principal.Infra.Data.Repository
                 .CountAsync()>0;
         }
 
-        public async Task<bool> UnidadeJaExiste(string codigo, string numero, string andar, Guid grupoId, Guid condominioId)
+        public async Task<bool> UnidadeJaExiste(string numero, string andar, Guid grupoId, Guid condominioId)
         {
             return await _context.Unidades
                 .Where
-                    (u => !u.Lixeira &&
-                     u.Codigo == codigo && 
+                    (u => !u.Lixeira &&                      
                      u.Numero == numero &&
-                     u.Andar == andar && u.GrupoId == grupoId &&
+                     u.Andar == andar && 
+                     u.GrupoId == grupoId &&
                      u.CondominioId == condominioId)
                 .CountAsync() > 0;
         }

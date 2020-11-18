@@ -175,7 +175,7 @@ namespace CondominioApp.Principal.Aplication.Commands
 
 
                 //Verifica se o nome da unidade ja existe
-                if (_condominioRepository.UnidadeJaExiste(unidade.Codigo, unidade.Numero, unidade.Andar, unidade.GrupoId, unidade.CondominioId).Result)
+                if (_condominioRepository.UnidadeJaExiste(unidade.Numero, unidade.Andar, unidade.GrupoId, unidade.CondominioId).Result)
                 {
                     AdicionarErro("Unidade informada ja consta no sistema.");
                     return null;

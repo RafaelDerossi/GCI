@@ -15,7 +15,7 @@ namespace CondominioApp.Principal.Domain.Interfaces
 
         Task<bool> GrupoJaExiste(string descricao, Guid condominioId, Guid grupoId);
 
-        Task<bool> UnidadeJaExiste(string codigo, string numero, string andar, Guid grupoId, Guid condominioId);
+        Task<bool> UnidadeJaExiste(string numero, string andar, Guid grupoId, Guid condominioId);
 
         Task<Grupo> ObterGrupoPorId(Guid Id);
 
