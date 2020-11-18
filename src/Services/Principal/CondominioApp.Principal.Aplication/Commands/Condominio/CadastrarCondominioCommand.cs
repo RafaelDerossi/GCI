@@ -15,15 +15,16 @@ namespace CondominioApp.Principal.Aplication.Commands
             bool ocorrencia = false, bool ocorrenciaMorador = false, bool correspondencia = false,
             bool correspondenciaNaPortaria = false, bool limiteTempoReserva = false)
         {
-            Cnpj = new Cnpj(cnpj);          
+            Cnpj = cnpj;          
             Nome = nome;
             Descricao = descricao;
-            LogoMarca = new Foto(nomeOriginal,logoMarca);
-            Telefone = new Telefone(telefone);
+            LogoMarca = logoMarca;
+            NomeOriginal = nomeOriginal;
+            Telefone = telefone;
             RefereciaId = refereciaId;
             LinkGeraBoleto = linkGeraBoleto;
             BoletoFolder = boletoFolder;
-            UrlWebServer = new Url(urlWebServer);
+            UrlWebServer = urlWebServer;
             Portaria = portaria;
             PortariaMorador = portariaMorador;
             Classificado = classificado;

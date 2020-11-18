@@ -1,4 +1,5 @@
 ﻿using CondominioApp.Core.Messages;
+using CondominioApp.Core.ValueObjects;
 using CondominioApp.Principal.Domain;
 using CondominioApp.Principal.Domain.Interfaces;
 using FluentValidation.Results;
@@ -30,22 +31,7 @@ namespace CondominioApp.Principal.Aplication.Commands
 
             var condominio = CondominioFactory(request);
 
-            if (!ValidationResult.IsValid) return ValidationResult;
-
-            //Verifica se um condominio com o mesmo cnpj ja esta cadastrado
-            try
-            {
-                if (await _condominioRepository.CnpjCondominioJaCadastrado(request.Cnpj, request.CondominioId) == true)
-                {
-                    AdicionarErro("CNPJ informado ja consta no sistema.");
-                    return ValidationResult;
-                }
-            }
-            catch (System.Exception ex)
-            {
-                AdicionarErro(ex.Message);
-                return ValidationResult;
-            }
+            if (!ValidationResult.IsValid) return ValidationResult;            
            
             _condominioRepository.Adicionar(condominio);
 
@@ -57,47 +43,37 @@ namespace CondominioApp.Principal.Aplication.Commands
             if (!request.EstaValido())
                 return request.ValidationResult;
 
-            var condominioBd = _condominioRepository.ObterPorId(request.CondominioId).Result;
-            
-            if (condominioBd == null)
-            {
-                AdicionarErro("Condominio não encontrado.");
-                return ValidationResult;
-            }
             try
             {
-                condominioBd.SetCNPJ(request.Cnpj);
-                condominioBd.SetNome(request.Nome);                
+                var condominioBd = _condominioRepository.ObterPorId(request.CondominioId).Result;
+                if (condominioBd == null)
+                {
+                    AdicionarErro("Condominio não encontrado.");
+                    return ValidationResult;
+                }
+
+                condominioBd.SetCNPJ(new Cnpj(request.Cnpj));
+                condominioBd.SetNome(request.Nome);
                 condominioBd.SetDescricao(request.Descricao);
-                condominioBd.SetFoto(request.LogoMarca);
-                condominioBd.SetTelefone(request.Telefone);
+                condominioBd.SetFoto(new Foto(request.NomeOriginal,request.LogoMarca));
+                condominioBd.SetTelefone(new Telefone(request.Telefone));
+                
+
+                //Verifica se um condominio com o mesmo cnpj ja esta cadastrado
+                if (_condominioRepository.CnpjCondominioJaCadastrado(condominioBd.Cnpj, condominioBd.Id).Result)
+                {
+                    AdicionarErro("CNPJ informado ja consta no sistema.");
+                    return ValidationResult;
+                }
+
+                _condominioRepository.Atualizar(condominioBd);
+
             }
             catch (Exception ex)
             {
                 AdicionarErro(ex.Message);
                 return ValidationResult;
             }
-
-
-            if (!ValidationResult.IsValid) return ValidationResult;
-
-
-            //Verifica se um condominio com o mesmo cnpj ja esta cadastrado
-            try
-            {
-                if (_condominioRepository.CnpjCondominioJaCadastrado(condominioBd.Cnpj, condominioBd.Id).Result)
-                {
-                    AdicionarErro("CNPJ informado ja consta no sistema.");
-                    return ValidationResult;
-                }
-            }
-            catch (System.Exception ex)
-            {
-                AdicionarErro(ex.Message);
-                return ValidationResult;
-            }
-
-            _condominioRepository.Atualizar(condominioBd);
 
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }
@@ -107,16 +83,16 @@ namespace CondominioApp.Principal.Aplication.Commands
             if (!request.EstaValido())
                 return request.ValidationResult;
 
-            var condominioBd = _condominioRepository.ObterPorId(request.CondominioId).Result;
-
-            if (condominioBd == null)
-            {
-                AdicionarErro("Condominio não encontrado.");
-                return ValidationResult;
-            }
             try
             {
-                if (request.Portaria==true)
+                var condominioBd = _condominioRepository.ObterPorId(request.CondominioId).Result;
+                if (condominioBd == null)
+                {
+                    AdicionarErro("Condominio não encontrado.");
+                    return ValidationResult;
+                }
+
+                if (request.Portaria == true)
                 {
                     condominioBd.AtivarPortaria();
                 }
@@ -249,20 +225,18 @@ namespace CondominioApp.Principal.Aplication.Commands
                 else
                 {
                     condominioBd.DesativarLimiteTempoReserva();
-                }
+                }               
+
+
+                _condominioRepository.Atualizar(condominioBd);
+
             }
             catch (Exception ex)
             {
                 AdicionarErro(ex.Message);
                 return ValidationResult;
             }
-
-
-            if (!ValidationResult.IsValid) return ValidationResult;
-                        
-
-            _condominioRepository.Atualizar(condominioBd);
-
+           
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }
 
@@ -275,12 +249,20 @@ namespace CondominioApp.Principal.Aplication.Commands
         {
             try
             {
-                var condominio = new Condominio(request.Cnpj, request.Nome, request.Descricao, request.LogoMarca,
-                    request.Telefone, request.RefereciaId, request.LinkGeraBoleto, request.BoletoFolder, 
-                    request.UrlWebServer, request.Portaria, request.PortariaMorador, request.Classificado, 
+                var condominio = new Condominio(new Cnpj(request.Cnpj), request.Nome, request.Descricao, 
+                    new Foto(request.NomeOriginal,request.LogoMarca), new Telefone(request.Telefone),
+                    request.RefereciaId, request.LinkGeraBoleto, request.BoletoFolder, 
+                    new Url(request.UrlWebServer), request.Portaria, request.PortariaMorador, request.Classificado, 
                     request.ClassificadoMorador, request.Mural, request.MuralMorador, request.Chat, request.ChatMorador,
                     request.Reserva, request.ReservaNaPortaria, request.Ocorrencia, request.OcorrenciaMorador, 
                     request.Correspondencia, request.CorrespondenciaNaPortaria, request.LimiteTempoReserva);
+
+
+                //Verifica se um condominio com o mesmo cnpj ja esta cadastrado
+                if (_condominioRepository.CnpjCondominioJaCadastrado(condominio.Cnpj, request.CondominioId).Result == true)
+                {
+                    AdicionarErro("CNPJ informado ja consta no sistema.");                   
+                }
 
                 return condominio;
             }

@@ -95,6 +95,15 @@ namespace CondominioApp.Principal.Infra.Data.Repository
                 .CountAsync()>0;
         }
 
+        public async Task<bool> CondominioExiste(Guid condominioId)
+        {
+            return await _context.Condominios
+                .Where
+                    (u => !u.Lixeira &&
+                    u.Id != condominioId)
+                .CountAsync() > 0;
+        }
+
         public async Task<bool> GrupoJaExiste(string descricao, Guid condominioId, Guid grupoId)
         {
             return await _context.Grupos

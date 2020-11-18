@@ -121,8 +121,7 @@ namespace CondominioApp.Identidade.Api.Controllers
                 {
                     await _userManager.DeleteAsync(user);
                     return CustomResponse();
-                }
-                               
+                }                               
 
                 var Resultado = await _mediatorHandler.EnviarComando(comando);
 

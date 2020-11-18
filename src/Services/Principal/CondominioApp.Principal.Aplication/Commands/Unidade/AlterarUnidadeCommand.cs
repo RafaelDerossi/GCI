@@ -13,7 +13,7 @@ namespace CondominioApp.Principal.Aplication.Commands
             Numero = numero;
             Andar = andar;
             Vaga = vaga;
-            Telefone = new Telefone(telefone);
+            Telefone = telefone;
             Ramal = ramal;
             Complemento = complemento;
             GrupoId = grupoId;

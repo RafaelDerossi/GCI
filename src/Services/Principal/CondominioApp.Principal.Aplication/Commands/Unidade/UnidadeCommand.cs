@@ -16,7 +16,7 @@ namespace CondominioApp.Principal.Aplication.Commands
 
         public int Vaga { get; protected set; }
 
-        public Telefone Telefone { get; protected set; }
+        public string Telefone { get; protected set; }
 
         public string Ramal { get; protected set; }
 

@@ -12,7 +12,7 @@ namespace CondominioApp.Principal.Aplication.Commands.Validations
         }
         protected void ValidateCNPJ()
         {
-            RuleFor(c => c.Cnpj.numero)
+            RuleFor(c => c.Cnpj)
                   .NotNull()
                   .NotEmpty()                  
                   .WithMessage("CNPJ não pode estar vazio!");

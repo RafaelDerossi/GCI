@@ -26,26 +26,18 @@ namespace CondominioApp.Api.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var comando = CadastrarCondominioCommandFactory(condominioVM);
-
-            if (!OperacaoValida())
-            {
-                return CustomResponse();
-            }
+            var comando = new CadastrarCondominioCommand(
+                 condominioVM.Cnpj, condominioVM.Nome, condominioVM.Descricao, condominioVM.LogoMarca,
+                 condominioVM.NomeOriginal, condominioVM.Telefone, condominioVM.RefereciaId, condominioVM.LinkGeraBoleto,
+                 condominioVM.BoletoFolder, condominioVM.UrlWebServer, condominioVM.Portaria, condominioVM.PortariaMorador,
+                 condominioVM.Classificado, condominioVM.ClassificadoMorador, condominioVM.Mural, condominioVM.MuralMorador,
+                 condominioVM.Chat, condominioVM.ChatMorador, condominioVM.Reserva, condominioVM.ReservaNaPortaria,
+                 condominioVM.Ocorrencia, condominioVM.OcorrenciaMorador, condominioVM.Correspondencia,
+                 condominioVM.CorrespondenciaNaPortaria, condominioVM.LimiteTempoReserva);           
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
-            if (!Resultado.IsValid)
-            {
-                return CustomResponse(Resultado);
-            }
-
-            foreach (var error in Resultado.Errors)
-            {
-                AdicionarErroProcessamento(error.ErrorMessage);
-            }
-
-            return CustomResponse();
+            return CustomResponse(Resultado);          
         }
 
         [HttpPut("Alterar-condominio")]
@@ -53,27 +45,14 @@ namespace CondominioApp.Api.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-
-            var comando = AlterarCondominioCommandFactory(AlteraCondominioVM);
-
-            if (!OperacaoValida())
-            {
-                return CustomResponse();
-            }
+            var comando = new AlterarCondominioCommand(
+                 AlteraCondominioVM.CodominioId, AlteraCondominioVM.Cnpj, AlteraCondominioVM.Nome,
+                 AlteraCondominioVM.Descricao, AlteraCondominioVM.LogoMarca,
+                 AlteraCondominioVM.NomeOriginal, AlteraCondominioVM.Telefone);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
-            if (!Resultado.IsValid)
-            {
-                return CustomResponse(Resultado);
-            }
-
-            foreach (var error in Resultado.Errors)
-            {
-                AdicionarErroProcessamento(error.ErrorMessage);
-            }
-
-            return CustomResponse();
+            return CustomResponse(Resultado);                      
         }
 
         [HttpPut("Alterar-configuracaoCondominio")]
@@ -82,26 +61,18 @@ namespace CondominioApp.Api.Controllers
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
 
-            var comando = AlterarConfiguracaoCondominioCommandFactory(AlteraCondominioVM);
+            var comando = new AlterarConfiguracaoCondominioCommand(
+                 AlteraCondominioVM.CodominioId, AlteraCondominioVM.Portaria, AlteraCondominioVM.PortariaMorador,
+                 AlteraCondominioVM.Classificado, AlteraCondominioVM.ClassificadoMorador, AlteraCondominioVM.Mural,
+                 AlteraCondominioVM.MuralMorador, AlteraCondominioVM.Chat, AlteraCondominioVM.ChatMorador, 
+                 AlteraCondominioVM.Reserva, AlteraCondominioVM.ReservaNaPortaria, AlteraCondominioVM.Ocorrencia,
+                 AlteraCondominioVM.OcorrenciaMorador, AlteraCondominioVM.Correspondencia, 
+                 AlteraCondominioVM.CorrespondenciaNaPortaria, AlteraCondominioVM.LimiteTempoReserva);
 
-            if (!OperacaoValida())
-            {
-                return CustomResponse();
-            }
+            
+            var Resultado = await _mediatorHandler.EnviarComando(comando);            
 
-            var Resultado = await _mediatorHandler.EnviarComando(comando);
-
-            if (!Resultado.IsValid)
-            {
-                return CustomResponse(Resultado);
-            }
-
-            foreach (var error in Resultado.Errors)
-            {
-                AdicionarErroProcessamento(error.ErrorMessage);
-            }
-
-            return CustomResponse();
+            return CustomResponse(Resultado);
         }
 
         [HttpPost("Novo-grupo")]
@@ -109,27 +80,13 @@ namespace CondominioApp.Api.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-
-            var comando = CadastrarGrupoCommandFactory(grupoVM);
-
-            if (!OperacaoValida())
-            {
-                return CustomResponse();
-            }
+            var comando =  new CadastrarGrupoCommand(
+                 grupoVM.Descricao, grupoVM.CondominioId);           
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
-            if (!Resultado.IsValid)
-            {
-                return CustomResponse(Resultado);
-            }
-
-            foreach (var error in Resultado.Errors)
-            {
-                AdicionarErroProcessamento(error.ErrorMessage);
-            }
-
-            return CustomResponse();
+            return CustomResponse(Resultado);
+           
         }
 
         [HttpPut("Alterar-grupo")]
@@ -137,27 +94,14 @@ namespace CondominioApp.Api.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
+            var comando = new AlterarGrupoCommand(
+                grupoVM.GrupoId, grupoVM.Descricao);
 
-            var comando = AlterarGrupoCommandFactory(grupoVM);
-
-            if (!OperacaoValida())
-            {
-                return CustomResponse();
-            }
-
+          
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
-            if (!Resultado.IsValid)
-            {
-                return CustomResponse(Resultado);
-            }
+            return CustomResponse(Resultado);
 
-            foreach (var error in Resultado.Errors)
-            {
-                AdicionarErroProcessamento(error.ErrorMessage);
-            }
-
-            return CustomResponse();
         }
 
         [HttpPost("Nova-unidade")]
@@ -165,27 +109,15 @@ namespace CondominioApp.Api.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-
-            var comando = CadastrarUnidadeCommandFactory(unidadeVM);
-
-            if (!OperacaoValida())
-            {
-                return CustomResponse();
-            }
+            var comando = new CadastrarUnidadeCommand(
+                unidadeVM.Codigo, unidadeVM.Numero, unidadeVM.Andar,
+                unidadeVM.Vagas, unidadeVM.Telefone, unidadeVM.Ramal, unidadeVM.Complemento,
+                unidadeVM.GrupoId, unidadeVM.CondominioId);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
-            if (!Resultado.IsValid)
-            {
-                return CustomResponse(Resultado);
-            }
-
-            foreach (var error in Resultado.Errors)
-            {
-                AdicionarErroProcessamento(error.ErrorMessage);
-            }
-
-            return CustomResponse();
+            return CustomResponse(Resultado);
+            
         }
 
         [HttpPut("Alterar-unidade")]
@@ -193,7 +125,10 @@ namespace CondominioApp.Api.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var comando = AlterarUnidadeCommandFactory(unidadeVM);
+            var comando = new AlterarUnidadeCommand(
+            unidadeVM.UnidadeId, unidadeVM.Numero, unidadeVM.Andar,
+            unidadeVM.Vagas, unidadeVM.Telefone, unidadeVM.Ramal, unidadeVM.Complemento,
+            unidadeVM.GrupoId, unidadeVM.CondominioId);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
@@ -208,116 +143,7 @@ namespace CondominioApp.Api.Controllers
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
             return CustomResponse(Resultado);
-        }
-        
-
-        /// Factories
-
-        private CadastrarCondominioCommand CadastrarCondominioCommandFactory(CondominioViewModel condominioVM)
-        {
-            try
-            {
-                return new CadastrarCondominioCommand(
-                 condominioVM.Cnpj, condominioVM.Nome, condominioVM.Descricao, condominioVM.LogoMarca,
-                 condominioVM.NomeOriginal, condominioVM.Telefone, condominioVM.RefereciaId, condominioVM.LinkGeraBoleto,
-                 condominioVM.BoletoFolder, condominioVM.UrlWebServer, condominioVM.Portaria, condominioVM.PortariaMorador,
-                 condominioVM.Classificado, condominioVM.ClassificadoMorador, condominioVM.Mural, condominioVM.MuralMorador,
-                 condominioVM.Chat, condominioVM.ChatMorador, condominioVM.Reserva, condominioVM.ReservaNaPortaria,
-                 condominioVM.Ocorrencia, condominioVM.OcorrenciaMorador, condominioVM.Correspondencia,
-                 condominioVM.CorrespondenciaNaPortaria, condominioVM.LimiteTempoReserva);
-            }
-            catch (Exception ex)
-            {
-                AdicionarErroProcessamento(ex.Message);
-                return null;
-            }
-        }
-
-        private CadastrarGrupoCommand CadastrarGrupoCommandFactory(GrupoViewModel grupoVM)
-        {
-            try
-            {
-                return new CadastrarGrupoCommand(
-                 grupoVM.Descricao, grupoVM.CondominioId);
-            }
-            catch (Exception ex)
-            {
-                AdicionarErroProcessamento(ex.Message);
-                return null;
-            }
-        }
-
-        private CadastrarUnidadeCommand CadastrarUnidadeCommandFactory(UnidadeViewModel unidadeVM)
-        {
-            try
-            {
-                return new CadastrarUnidadeCommand(
-                unidadeVM.Codigo, unidadeVM.Numero, unidadeVM.Andar,
-                unidadeVM.Vagas, unidadeVM.Telefone, unidadeVM.Ramal, unidadeVM.Complemento,
-                unidadeVM.GrupoId, unidadeVM.CondominioId);
-            }
-            catch (Exception ex)
-            {
-                AdicionarErroProcessamento(ex.Message);
-                return null;
-            }
-        }
-
-        private AlterarUnidadeCommand AlterarUnidadeCommandFactory(UnidadeViewModel unidadeVM)
-        {
-            return new AlterarUnidadeCommand(
-            unidadeVM.UnidadeId, unidadeVM.Numero, unidadeVM.Andar,
-            unidadeVM.Vagas, unidadeVM.Telefone, unidadeVM.Ramal, unidadeVM.Complemento,
-            unidadeVM.GrupoId, unidadeVM.CondominioId);
-        }
-
-        private AlterarGrupoCommand AlterarGrupoCommandFactory(GrupoViewModel grupoVM)
-        {
-            try
-            {
-                return new AlterarGrupoCommand(
-                grupoVM.GrupoId, grupoVM.Descricao);
-            }
-            catch (Exception ex)
-            {
-                AdicionarErroProcessamento(ex.Message);
-                return null;
-            }
-        }
-
-        private AlterarCondominioCommand AlterarCondominioCommandFactory(AlteraCondominioViewModel condominioVM)
-        {
-            try
-            {
-                return new AlterarCondominioCommand(
-                 condominioVM.CodominioId, condominioVM.Cnpj, condominioVM.Nome, condominioVM.Descricao, condominioVM.LogoMarca,
-                 condominioVM.NomeOriginal, condominioVM.Telefone);
-            }
-            catch (Exception ex)
-            {
-                AdicionarErroProcessamento(ex.Message);
-                return null;
-            }
-        }
-
-        private AlterarConfiguracaoCondominioCommand AlterarConfiguracaoCondominioCommandFactory(AlteraConfiguracaoCondominioViewModel condominioVM)
-        {
-            try
-            {
-                return new AlterarConfiguracaoCondominioCommand(
-                 condominioVM.CodominioId, condominioVM.Portaria, condominioVM.PortariaMorador,
-                 condominioVM.Classificado, condominioVM.ClassificadoMorador, condominioVM.Mural, condominioVM.MuralMorador,
-                 condominioVM.Chat, condominioVM.ChatMorador, condominioVM.Reserva, condominioVM.ReservaNaPortaria,
-                 condominioVM.Ocorrencia, condominioVM.OcorrenciaMorador, condominioVM.Correspondencia,
-                 condominioVM.CorrespondenciaNaPortaria, condominioVM.LimiteTempoReserva);
-            }
-            catch (Exception ex)
-            {
-                AdicionarErroProcessamento(ex.Message);
-                return null;
-            }
-        }
-
+        }     
 
     }
 }
