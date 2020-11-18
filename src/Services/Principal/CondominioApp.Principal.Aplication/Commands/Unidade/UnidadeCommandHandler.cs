@@ -160,7 +160,13 @@ namespace CondominioApp.Principal.Aplication.Commands
         private Unidade UnidadeFactory(UnidadeCommand request)
         {
             try
-            {
+            {               
+                if (!_condominioRepository.CondominioExiste(request.CondominioId).Result)
+                {
+                    AdicionarErro("Condominio não encontrado.");
+                    return null;
+                }
+
                 var unidade = new Unidade(
                     request.Numero, request.Andar, request.Vaga, new Telefone(request.Telefone),
                     request.Ramal, request.Complemento, request.GrupoId, request.CondominioId);

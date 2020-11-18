@@ -30,7 +30,7 @@ namespace CondominioApp.Principal.Tests
             //Arrange
             var command = CondominioCommandFactory.CriarComandoCadastroDeCondominio();
 
-            _mocker.GetMock<ICondominioRepository>().Setup(r => r.CnpjCondominioJaCadastrado(command.Cnpj, command.CondominioId))
+            _mocker.GetMock<ICondominioRepository>().Setup(r => r.CnpjCondominioJaCadastrado(new Cnpj(command.Cnpj), command.CondominioId))
                 .Returns(Task.FromResult(false)); 
                 
 
@@ -55,8 +55,8 @@ namespace CondominioApp.Principal.Tests
             //Arrange
             var command = CondominioCommandFactory.CriarComandoAlteracaoDeCondominio();
 
-            var condominio = new Condominio(command.Cnpj, command.Nome, command.Descricao,
-              command.LogoMarca, command.Telefone, 0, null, null, null, false, false, false, 
+            var condominio = new Condominio(new Cnpj(command.Cnpj), command.Nome, command.Descricao,
+              new Foto(command.NomeOriginal, command.LogoMarca), new Telefone(command.Telefone), 0, null, null, null, false, false, false, 
               false, false, false, false, false, false, false, false, false, false, false, false);
 
             condominio.SetEntidadeId(command.CondominioId);
@@ -64,7 +64,7 @@ namespace CondominioApp.Principal.Tests
             _mocker.GetMock<ICondominioRepository>().Setup(r => r.ObterPorId(command.CondominioId))
                 .Returns(Task.FromResult(condominio));
 
-            _mocker.GetMock<ICondominioRepository>().Setup(r => r.CnpjCondominioJaCadastrado(command.Cnpj, command.CondominioId))
+            _mocker.GetMock<ICondominioRepository>().Setup(r => r.CnpjCondominioJaCadastrado(condominio.Cnpj, command.CondominioId))
                 .Returns(Task.FromResult(false));
 
             _mocker.GetMock<ICondominioRepository>().Setup(r => r.UnitOfWork.Commit())
@@ -87,16 +87,17 @@ namespace CondominioApp.Principal.Tests
             //Arrange
             var command = CondominioCommandFactory.CriarComandoAlteracaoDeCondominio();
 
-            var condominio = new Condominio(command.Cnpj, command.Nome, command.Descricao,
-              command.LogoMarca, command.Telefone, 0, null, null, null, false, false, false,
-              false, false, false, false, false, false, false, false, false, false, false, false);
+            var condominio = new Condominio(new Cnpj(command.Cnpj), command.Nome, command.Descricao,
+              new Foto(command.NomeOriginal, command.LogoMarca), new Telefone(command.Telefone), 0,
+              null, null, null, false, false, false, false, false, false, false, false, false, false,
+              false, false, false, false, false);
 
             condominio.SetEntidadeId(command.CondominioId);
 
             _mocker.GetMock<ICondominioRepository>().Setup(r => r.ObterPorId(command.CondominioId))
                 .Returns(Task.FromResult(condominio));
 
-            _mocker.GetMock<ICondominioRepository>().Setup(r => r.CnpjCondominioJaCadastrado(command.Cnpj, command.CondominioId))
+            _mocker.GetMock<ICondominioRepository>().Setup(r => r.CnpjCondominioJaCadastrado(condominio.Cnpj, command.CondominioId))
                 .Returns(Task.FromResult(false));
 
             _mocker.GetMock<ICondominioRepository>().Setup(r => r.UnitOfWork.Commit())

@@ -23,10 +23,12 @@ namespace CondominioApp.Principal.Domain
         /// </summary>
         protected Grupo()
         {
+            _Unidades = new List<Unidade>();
         }
 
         public Grupo(string descricao, Guid condominioId)
         {
+            _Unidades = new List<Unidade>();
             this.Descricao = descricao;
             this.CondominioId = condominioId;
         }

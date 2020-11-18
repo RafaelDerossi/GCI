@@ -30,17 +30,11 @@ namespace CondominioApp.Principal.Tests
             //Arrange
             var command = UnidadeCommandFactory.CriarComandoCadastroDeUnidade();
 
-            var condominio = new Condominio(new Cnpj("26585345000148"), "Condominio TU",
-               "Condominio Teste Unitario", new Foto("Foto.jpg", "Foto.jpg"), new Telefone("(21) 99796-7038"),
-               0, null, null, null, false, false, false, false, false, false, false, false, false, false, false,
-               false, false, false, false);
-
-            condominio.SetEntidadeId(command.CondominioId);
-
-            _mocker.GetMock<ICondominioRepository>().Setup(r => r.ObterPorId(command.CondominioId))
-              .Returns(Task.FromResult(condominio));
-
             var grupo = new Grupo("Bloco 1", command.GrupoId);
+
+
+            _mocker.GetMock<ICondominioRepository>().Setup(r => r.CondominioExiste(command.CondominioId))
+              .Returns(Task.FromResult(true));
 
             _mocker.GetMock<ICondominioRepository>().Setup(r => r.ObterGrupoPorId(command.GrupoId))
               .Returns(Task.FromResult(grupo));           
