@@ -6,8 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace CondominioApp.Api.Controllers
 {
     [Route("api/principal")]
@@ -23,29 +21,10 @@ namespace CondominioApp.Api.Controllers
         }
 
 
-
-        //// GET: api/<CondominioController>
-        //[HttpGet]
-        //public IEnumerable<string> Get()
-        //{
-        //    return new string[] { "value1", "value2" };
-        //}
-
-        //// GET api/<CondominioController>/5
-        //[HttpGet("{id}")]
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
-
-
-
-        // POST api/Novo-condominio
         [HttpPost("Novo-condominio")]
         public async Task<ActionResult> Post(CondominioViewModel condominioVM)
         {
-            //if (!ModelState.IsValid) return CustomResponse(ModelState);
-
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
 
             var comando = CadastrarCondominioCommandFactory(condominioVM);
 
@@ -69,7 +48,6 @@ namespace CondominioApp.Api.Controllers
             return CustomResponse();
         }
 
-        // PUT api/Alterar-condominio
         [HttpPut("Alterar-condominio")]
         public async Task<ActionResult> Put(AlteraCondominioViewModel AlteraCondominioVM)
         {
@@ -98,7 +76,6 @@ namespace CondominioApp.Api.Controllers
             return CustomResponse();
         }
 
-        // PUT api/Alterar-condominio
         [HttpPut("Alterar-configuracaoCondominio")]
         public async Task<ActionResult> Put(AlteraConfiguracaoCondominioViewModel AlteraCondominioVM)
         {
@@ -127,7 +104,6 @@ namespace CondominioApp.Api.Controllers
             return CustomResponse();
         }
 
-        // POST api/Novo-grupo
         [HttpPost("Novo-grupo")]
         public async Task<ActionResult> Post(GrupoViewModel grupoVM)
         {
@@ -156,7 +132,6 @@ namespace CondominioApp.Api.Controllers
             return CustomResponse();
         }
 
-        // PUT api/Alterar-grupo
         [HttpPut("Alterar-grupo")]
         public async Task<ActionResult> Put(GrupoViewModel grupoVM)
         {
@@ -185,8 +160,6 @@ namespace CondominioApp.Api.Controllers
             return CustomResponse();
         }
 
-
-        // POST api/Nova-unidade
         [HttpPost("Nova-unidade")]
         public async Task<ActionResult> Post(UnidadeViewModel unidadeVM)
         {
@@ -215,62 +188,28 @@ namespace CondominioApp.Api.Controllers
             return CustomResponse();
         }
 
-        // PUT api/Alterar-unidade
         [HttpPut("Alterar-unidade")]
         public async Task<ActionResult> Put(UnidadeViewModel unidadeVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-
             var comando = AlterarUnidadeCommandFactory(unidadeVM);
-
-            if (!OperacaoValida())
-            {
-                return CustomResponse();
-            }
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
-            if (!Resultado.IsValid)
-            {
-                return CustomResponse(Resultado);
-            }
-
-            foreach (var error in Resultado.Errors)
-            {
-                AdicionarErroProcessamento(error.ErrorMessage);
-            }
-
-            return CustomResponse();
+            return CustomResponse(Resultado);
         }
 
-        // PUT api/ResetCodigo-unidade
         [HttpPut("ResetCodigo-unidade")]
         public async Task<ActionResult> Put(Guid unidadeId)
         {
-            var comando = ResetCodigoUnidadeCommandFactory(unidadeId);
-
-            if (!OperacaoValida())
-            {
-                return CustomResponse();
-            }
+            var comando = new ResetCodigoUnidadeCommand(unidadeId);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
-            if (!Resultado.IsValid)
-            {
-                return CustomResponse(Resultado);
-            }
-
-            foreach (var error in Resultado.Errors)
-            {
-                AdicionarErroProcessamento(error.ErrorMessage);
-            }
-
-            return CustomResponse();
+            return CustomResponse(Resultado);
         }
-
-
+        
 
         /// Factories
 
@@ -326,18 +265,10 @@ namespace CondominioApp.Api.Controllers
 
         private AlterarUnidadeCommand AlterarUnidadeCommandFactory(UnidadeViewModel unidadeVM)
         {
-            try
-            {
-                return new AlterarUnidadeCommand(
-                unidadeVM.UnidadeId, unidadeVM.Numero, unidadeVM.Andar,
-                unidadeVM.Vagas, unidadeVM.Telefone, unidadeVM.Ramal, unidadeVM.Complemento,
-                unidadeVM.GrupoId, unidadeVM.CondominioId);
-            }
-            catch (Exception ex)
-            {
-                AdicionarErroProcessamento(ex.Message);
-                return null;
-            }
+            return new AlterarUnidadeCommand(
+            unidadeVM.UnidadeId, unidadeVM.Numero, unidadeVM.Andar,
+            unidadeVM.Vagas, unidadeVM.Telefone, unidadeVM.Ramal, unidadeVM.Complemento,
+            unidadeVM.GrupoId, unidadeVM.CondominioId);
         }
 
         private AlterarGrupoCommand AlterarGrupoCommandFactory(GrupoViewModel grupoVM)
@@ -387,17 +318,6 @@ namespace CondominioApp.Api.Controllers
             }
         }
 
-        private ResetCodigoUnidadeCommand ResetCodigoUnidadeCommandFactory(Guid unidadeId)
-        {
-            try
-            {
-                return new ResetCodigoUnidadeCommand(unidadeId);
-            }
-            catch (Exception ex)
-            {
-                AdicionarErroProcessamento(ex.Message);
-                return null;
-            }
-        }
+
     }
 }
