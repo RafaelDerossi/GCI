@@ -18,10 +18,11 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\Building Blocks\CondominioApp.Core\CondominioApp.Core.csproj" />
-    <ProjectReference Include="..\CondominioApp.Principal.Aplication\CondominioApp.Principal.Aplication.csproj" />
-    <ProjectReference Include="..\CondominioApp.Principal.Domain\CondominioApp.Principal.Domain.csproj" />
+  <ItemGroup>    
+    <ProjectReference Include="..\..\..\src\Building Blocks\CondominioApp.Core\CondominioApp.Core.csproj" />
+    <ProjectReference Include="..\..\..\src\Services\Principal\CondominioApp.Principal.Aplication\CondominioApp.Principal.Aplication.csproj" />
+    <ProjectReference Include="..\..\..\src\Services\Principal\CondominioApp.Principal.Domain\CondominioApp.Principal.Domain.csproj" />
+    <ProjectReference Include="..\..\..\src\Services\Principal\CondominioApp.Principal.Infra\CondominioApp.Principal.Infra.csproj" />   
   </ItemGroup>
 
 </Project>

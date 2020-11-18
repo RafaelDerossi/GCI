@@ -224,5 +224,22 @@ namespace CondominioApp.Principal.Tests
 
         }
 
+
+        /// <summary>
+        /// AlterarConfiguracaoCommand
+        /// </summary>
+        [Fact(DisplayName = "Alterar Configuracao de Condominio Válido")]
+        [Trait("Categoria", "Condominio - AlterarConfiguracaoCommand")]
+        public void AlteracaoDeConfiguracaoDeCondominio_CommandoValido_DevePassarNaValidacao()
+        {
+            //Arrange
+            var Command = CondominioCommandFactory.CriarComandoAlteracaoDeConfiguracaoDoCondominio();
+
+            //Act
+            var result = Command.EstaValido();
+
+            //Assert
+            Assert.True(result);
+        }
     }
 }
