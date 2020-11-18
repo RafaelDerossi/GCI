@@ -9,15 +9,17 @@ namespace CondominioApp.Principal.Aplication.Commands
     {
         public Guid CondominioId { get; protected set; }
 
-        public Cnpj Cnpj { get; protected set; }      
+        public string Cnpj { get; protected set; }      
 
         public string Nome { get; protected set; }
 
         public string Descricao { get; protected set; }
 
-        public Foto LogoMarca { get; protected set; }
+        public string LogoMarca { get; protected set; }
 
-        public Telefone Telefone { get; protected set; }
+        public string NomeOriginal { get; protected set; }
+
+        public string Telefone { get; protected set; }
 
 
 
@@ -31,7 +33,7 @@ namespace CondominioApp.Principal.Aplication.Commands
 
         public string BoletoFolder { get; protected set; }
 
-        public Url UrlWebServer { get; protected set; }
+        public string UrlWebServer { get; protected set; }
 
 
 

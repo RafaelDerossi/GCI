@@ -22,5 +22,7 @@ namespace CondominioApp.Principal.Domain.Interfaces
         Task<Unidade> ObterUnidadePorId(Guid Id);
 
         Task<bool> CodigoDaUnidadeJaExiste(string codigo, Guid unidadeId);
+
+        Task<bool> CondominioExiste(Guid condominioId);
     }
 }

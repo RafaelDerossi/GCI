@@ -30,29 +30,21 @@ namespace CondominioApp.Principal.Aplication.Commands
 
             if (!ValidationResult.IsValid) return ValidationResult;
 
-            //Verifica se um Grupo com a mesma descricao ja esta cadastrado
             try
             {
-                if (_condominioRepository.GrupoJaExiste(grupo.Descricao, grupo.CondominioId, grupo.Id).Result)
+                var condominio = _condominioRepository.ObterPorId(grupo.CondominioId).Result;
+                if (condominio == null)
                 {
-                    AdicionarErro("Grupo informado ja consta no sistema.");
+                    AdicionarErro("Condominio não encontrado.");
                     return ValidationResult;
                 }
+                condominio.AdicionarGrupo(grupo);
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 AdicionarErro(ex.Message);
                 return ValidationResult;
-            }
-
-            var condominio = _condominioRepository.ObterPorId(grupo.CondominioId).Result;
-            if (condominio == null)
-            {
-                AdicionarErro("Condominio não encontrado.");
-                return ValidationResult;
-            }
-            condominio.AdicionarGrupo(grupo);                      
-           
+            }   
 
             _condominioRepository.AdicionarGrupo(grupo);
 
@@ -63,49 +55,39 @@ namespace CondominioApp.Principal.Aplication.Commands
         {
             if (!request.EstaValido()) return request.ValidationResult;
 
-            var grupoBd = _condominioRepository.ObterGrupoPorId(request.GrupoId).Result;           
-            if (grupoBd == null)
-            {
-                AdicionarErro("Grupo não encontrado.");
-                return ValidationResult;
-            }
             try
             {
+                var grupoBd = _condominioRepository.ObterGrupoPorId(request.GrupoId).Result;
+                if (grupoBd == null)
+                {
+                    AdicionarErro("Grupo não encontrado.");
+                    return ValidationResult;
+                }
+
                 grupoBd.SetDescricao(request.Descricao);
-            }
-            catch (Exception ex)
-            {
-                AdicionarErro(ex.Message);
-                return ValidationResult;
-            }
 
-            if (!ValidationResult.IsValid) return ValidationResult;
-
-            //Verifica se um Grupo com a mesma descricao ja esta cadastrado
-            try
-            {
                 if (_condominioRepository.GrupoJaExiste(grupoBd.Descricao, grupoBd.CondominioId, grupoBd.Id).Result)
                 {
                     AdicionarErro("Grupo informado ja consta no sistema.");
                     return ValidationResult;
                 }
+
+                var condominio = _condominioRepository.ObterPorId(grupoBd.CondominioId).Result;
+                if (condominio == null)
+                {
+                    AdicionarErro("Condominio não encontrado.");
+                    return ValidationResult;
+                }
+                condominio.AlterarGrupo(grupoBd);
+
+                _condominioRepository.Atualizar(condominio);
+
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 AdicionarErro(ex.Message);
                 return ValidationResult;
-            }
-
-            var condominio = _condominioRepository.ObterPorId(grupoBd.CondominioId).Result;
-            if (condominio == null)
-            {
-                AdicionarErro("Condominio não encontrado.");
-                return ValidationResult;
-            }
-            condominio.AlterarGrupo(grupoBd);
-            
-
-            _condominioRepository.Atualizar(condominio);
+            }         
 
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }
@@ -117,6 +99,12 @@ namespace CondominioApp.Principal.Aplication.Commands
             try
             {
                 var grupo = new Grupo(request.Descricao, request.CondominioId);
+
+                //Verifica se um Grupo com a mesma descricao ja esta cadastrado
+                if (_condominioRepository.GrupoJaExiste(grupo.Descricao, grupo.CondominioId, grupo.Id).Result)
+                {
+                    AdicionarErro("Grupo informado ja consta no sistema.");                   
+                }                
 
                 return grupo;
             }

@@ -11,11 +11,12 @@ namespace CondominioApp.Principal.Aplication.Commands
             string logoMarca = null, string nomeOriginal = null, string telefone = null)
         {
             CondominioId = condominioId;
-            Cnpj = new Cnpj(cnpj);
+            Cnpj = cnpj;
             Nome = nome;
             Descricao = descricao;
-            LogoMarca = new Foto(nomeOriginal,logoMarca);
-            Telefone = new Telefone(telefone);           
+            LogoMarca = logoMarca;
+            NomeOriginal = nomeOriginal;
+            Telefone = telefone;           
         }
 
 
