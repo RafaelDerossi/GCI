@@ -55,6 +55,7 @@ namespace CondominioApp.Usuarios.App.Models
             Foto foto, TipoDeUsuario tpUsuario, Permissao permissao, DateTime? dataNascimento = null, Cpf cpf = null, string atribuicao = null, string funcao = null, 
             Telefone telefone = null, Endereco endereco = null, bool sindicoProfissional = false)
         {
+            _Mobiles = new List<Mobile>();
             Nome = nome;
             Sobrenome = sobrenome;
             Rg = rg;
@@ -108,6 +109,8 @@ namespace CondominioApp.Usuarios.App.Models
         public void SetTipoDeUsuario(TipoDeUsuario tipoDeUsuario) => TpUsuario = tipoDeUsuario;
 
         public void SetPermissao(Permissao permissao) => Permissao = permissao;
+
+        public void SetDataNascimento(DateTime? dataNascimento) => DataNascimento = dataNascimento;
 
         public void AdicionarMobile(Mobile mobile)
         {

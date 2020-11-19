@@ -15,7 +15,14 @@ namespace CondominioApp.Core.Messages
 
         protected async Task<ValidationResult> PersistirDados(IUnitOfWorks uow)
         {
-            if (!await uow.Commit()) AdicionarErro("Houve um erro ao persistir os dados");
+            try
+            {
+                if (!await uow.Commit()) AdicionarErro("Houve um erro ao persistir os dados");
+            }
+            catch (System.Exception ex)
+            {
+                AdicionarErro(ex.Message);
+            }          
 
             return ValidationResult;
         }

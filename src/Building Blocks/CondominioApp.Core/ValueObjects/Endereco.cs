@@ -16,9 +16,7 @@
 
         public string cidade { get; private set; }
 
-        public string estado { get; private set; }
-
-        public string municipio { get; private set; }
+        public string estado { get; private set; }    
 
         public string ObterCepFormatado
         {
@@ -45,7 +43,8 @@
 
         protected Endereco() { }
 
-        public Endereco(string Logradouro, string Complemento, string Numero, string CepDoEndereco, string Bairro, string Cidade, string Estado, string Municipio)
+        public Endereco(string Logradouro, string Complemento, string Numero, string CepDoEndereco,
+            string Bairro, string Cidade, string Estado)
         {
             setLogradouro(Logradouro);
             setComplemento(Complemento);
@@ -53,21 +52,14 @@
             setBairro(Bairro);
             setCidade(Cidade);
             setEstado(Estado);
-            setCep(CepDoEndereco);
-            setMunicipio(Municipio);
+            setCep(CepDoEndereco);            
         }
 
         public void setLogradouro(string logradouroStr)
         {
             if (!string.IsNullOrEmpty(logradouroStr))
                 logradouro = logradouroStr.Trim().ToUpper();
-        }
-
-        public void setMunicipio(string municipio)
-        {
-            if (!string.IsNullOrEmpty(municipio))
-                this.municipio = municipio.Trim().ToUpper();
-        }
+        }       
 
         public void setComplemento(string complementoStr)
         {

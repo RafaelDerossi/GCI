@@ -79,5 +79,53 @@ namespace CondominioApp.Usuarios.App.Tests
             //Assert
             Assert.False(result);
         }
+
+        [Fact(DisplayName = "Adicionar morador com CPF invalido")]
+        [Trait("Categoria", "Usuario - Morador Command CPF invalido")]
+        public void CadastroDeMoradorComCPFInvalido_CommandoInvalido_DeveNaoPassarNaValidacao()
+        {
+            try
+            {
+                //Arrange
+                var UsuarioCommand = UsuarioCommandFactory.CriarComandoCadastroDeMoradorCPFInvalido();
+
+                //Act
+                var result = UsuarioCommand.EstaValido();
+
+                //Assert
+                Assert.False(result);
+            }
+            catch (Exception)
+            {
+                //Assert
+                Assert.False(false);
+            }
+            
+        }
+
+        [Fact(DisplayName = "Adicionar morador com e-mail invalido")]
+        [Trait("Categoria", "Usuario - Morador Command e-mail invalido")]
+        public void CadastroDeMoradorComEmailInvalido_CommandoInvalido_DeveNaoPassarNaValidacao()
+        {
+           
+            try
+            {
+                //Arrange
+                var UsuarioCommand = UsuarioCommandFactory.CriarComandoCadastroDeMoradorComEmailInvalido();
+
+                //Act
+                var result = UsuarioCommand.EstaValido();
+
+                //Assert
+                Assert.False(result);
+            }
+            catch (Exception)
+            {
+                Assert.False(false);
+            }           
+
+           
+            
+        }
     }
 }

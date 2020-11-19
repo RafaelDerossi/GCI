@@ -1,9 +1,9 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using CondominioApp.Usuarios.App.Aplication.Commands;
+﻿using CondominioApp.Usuarios.App.Aplication.Commands;
 using CondominioApp.Usuarios.App.Models;
 using Moq;
 using Moq.AutoMock;
+using System.Threading;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace CondominioApp.Usuarios.App.Tests
