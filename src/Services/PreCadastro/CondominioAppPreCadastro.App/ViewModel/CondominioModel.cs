@@ -1,9 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace CondominioAppPreCadastro.App.ViewModel
 {
     public class CondominioModel
     {
+        public Guid CondominioId { get; set; }
+
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public string nomeDoCondominio { get; set; }
 
@@ -40,6 +43,8 @@ namespace CondominioAppPreCadastro.App.ViewModel
 
         public int plano { get; set; }
 
+        public bool Transferido { get; set; }
+
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public string logradouro { get; set; }
 
@@ -66,5 +71,15 @@ namespace CondominioAppPreCadastro.App.ViewModel
         public string TipoDeGrupoFormatada { get; set; }
 
         public string TipoDeDocumentoFormatada { get; set; }
+    }
+
+    public class TransferenciaModel
+    {
+
+        [Required(ErrorMessage = "O campo {0} é obrigatório")]
+        public Guid CondominioId { get; set; }
+
+        [Required(ErrorMessage = "O campo {0} é obrigatório")]
+        public Guid LeadId { get; set; }
     }
 }

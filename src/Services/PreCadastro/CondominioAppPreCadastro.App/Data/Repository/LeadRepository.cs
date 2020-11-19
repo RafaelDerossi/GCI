@@ -67,6 +67,11 @@ namespace CondominioAppPreCadastro.App.Data.Repository
             _context.Leads.Where(predicate).ToList().ForEach(del => del.EnviarParaLixeira());
         }
 
+        public async Task<Condominio> ObterCondominioPorId(Guid Id)
+        {
+            return await _context.Condominios.FirstOrDefaultAsync(c => c.Id == Id);
+        }
+
         public void Dispose()
         {
             _context?.Dispose();

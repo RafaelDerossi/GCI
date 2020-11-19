@@ -4,6 +4,7 @@ using CondominioAppPreCadastro.App.Models;
 using FluentValidation.Results;
 using MediatR;
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using CondominioApp.Core.Enumeradores;
@@ -13,7 +14,8 @@ using CondominioAppPreCadastro.App.ViewModel;
 namespace CondominioAppPreCadastro.App.Aplication.Commands
 {
     public class LeadCommandHandler : CommandHandler,
-        IRequestHandler<InserirNovoLeadCommand, ValidationResult>, IDisposable
+        IRequestHandler<InserirNovoLeadCommand, ValidationResult>,
+        IRequestHandler<TransferirCondominioCommand,ValidationResult>, IDisposable
     {
         private readonly ILeadRepository _leadRepository;
 
@@ -44,6 +46,24 @@ namespace CondominioAppPreCadastro.App.Aplication.Commands
             return await PersistirDados(_leadRepository.UnitOfWork);
         }
 
+        public async Task<ValidationResult> Handle(TransferirCondominioCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido()) return request.ValidationResult;
+
+            var lead = await _leadRepository.ObterPorId(request.LeadId);
+
+            lead.SetStatus(StatusPreCadastro.APROVADO);
+
+            var condominio = lead.Condominios.FirstOrDefault(c => c.Id == request.CondominioId);
+
+            if (condominio != null) condominio.Transferir();
+
+            _leadRepository.Atualizar(lead);
+            
+            return await PersistirDados(_leadRepository.UnitOfWork);
+        }
+
+
         public void Dispose()
         {
             _leadRepository?.Dispose();
@@ -71,5 +91,6 @@ namespace CondominioAppPreCadastro.App.Aplication.Commands
                 CondominioModel.quantidadeDeUnidades, CondominioModel.observacao,
                 new Endereco(CondominioModel.logradouro, CondominioModel.complemento, CondominioModel.numero, CondominioModel.cep, CondominioModel.bairro, CondominioModel.cidade, CondominioModel.estado), (TipoDePlano)CondominioModel.plano);
         }
+
     }
 }
