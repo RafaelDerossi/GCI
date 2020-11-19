@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CondominioApp.Api.Controllers
 {
-    [Route("api/principal")]
+    [Route("api/condominio")]
     [ApiController]
     public class CondominioController : MainController
     {
@@ -21,7 +21,7 @@ namespace CondominioApp.Api.Controllers
         }
 
 
-        [HttpPost("Novo-condominio")]
+        [HttpPost]
         public async Task<ActionResult> Post(CondominioViewModel condominioVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
@@ -41,7 +41,7 @@ namespace CondominioApp.Api.Controllers
             return CustomResponse(Resultado);          
         }
 
-        [HttpPut("Alterar-condominio")]
+        [HttpPut]
         public async Task<ActionResult> Put(AlteraCondominioViewModel AlteraCondominioVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
@@ -58,7 +58,7 @@ namespace CondominioApp.Api.Controllers
             return CustomResponse(Resultado);                      
         }
 
-        [HttpPut("Alterar-configuracaoCondominio")]
+        [HttpPut("Configuracao")]
         public async Task<ActionResult> Put(AlteraConfiguracaoCondominioViewModel AlteraCondominioVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
@@ -78,105 +78,15 @@ namespace CondominioApp.Api.Controllers
             return CustomResponse(Resultado);
         }
 
-        [HttpDelete("Remover-condominio")]
-        public async Task<ActionResult> Delete(Guid condominioId)
+        [HttpDelete("{Id:Guid}")]
+        public async Task<ActionResult> Delete(Guid Id)
         {
-           var comando = new RemoverCondominioCommand(condominioId);
+           var comando = new RemoverCondominioCommand(Id);
 
            var Resultado = await _mediatorHandler.EnviarComando(comando);
 
             return CustomResponse(Resultado);
-        }
-
-        [HttpPost("Novo-grupo")]
-        public async Task<ActionResult> Post(GrupoViewModel grupoVM)
-        {
-            if (!ModelState.IsValid) return CustomResponse(ModelState);
-
-            var comando =  new CadastrarGrupoCommand(
-                 grupoVM.Descricao, grupoVM.CondominioId);           
-
-            var Resultado = await _mediatorHandler.EnviarComando(comando);
-
-            return CustomResponse(Resultado);
-           
-        }
-
-        [HttpPut("Alterar-grupo")]
-        public async Task<ActionResult> Put(GrupoViewModel grupoVM)
-        {
-            if (!ModelState.IsValid) return CustomResponse(ModelState);
-
-            var comando = new AlterarGrupoCommand(
-                grupoVM.GrupoId, grupoVM.Descricao);
-
-          
-            var Resultado = await _mediatorHandler.EnviarComando(comando);
-
-            return CustomResponse(Resultado);
-
-        }
-
-        [HttpDelete("Remover-grupo")]
-        public async Task<ActionResult> DeleteGrupo(Guid grupoId)
-        {
-            var comando = new RemoverGrupoCommand(grupoId);
-
-            var Resultado = await _mediatorHandler.EnviarComando(comando);
-
-            return CustomResponse(Resultado);
-        }
-
-        [HttpPost("Nova-unidade")]
-        public async Task<ActionResult> Post(UnidadeViewModel unidadeVM)
-        {
-            if (!ModelState.IsValid) return CustomResponse(ModelState);
-
-            var comando = new CadastrarUnidadeCommand(
-                unidadeVM.Codigo, unidadeVM.Numero, unidadeVM.Andar,
-                unidadeVM.Vagas, unidadeVM.Telefone, unidadeVM.Ramal, unidadeVM.Complemento,
-                unidadeVM.GrupoId, unidadeVM.CondominioId);
-
-            var Resultado = await _mediatorHandler.EnviarComando(comando);
-
-            return CustomResponse(Resultado);
-            
-        }
-
-        [HttpPut("Alterar-unidade")]
-        public async Task<ActionResult> Put(UnidadeViewModel unidadeVM)
-        {
-            if (!ModelState.IsValid) return CustomResponse(ModelState);
-
-            var comando = new AlterarUnidadeCommand(
-            unidadeVM.UnidadeId, unidadeVM.Numero, unidadeVM.Andar,
-            unidadeVM.Vagas, unidadeVM.Telefone, unidadeVM.Ramal, unidadeVM.Complemento,
-            unidadeVM.GrupoId, unidadeVM.CondominioId);
-
-            var Resultado = await _mediatorHandler.EnviarComando(comando);
-
-            return CustomResponse(Resultado);
-        }
-
-        [HttpPut("ResetCodigo-unidade")]
-        public async Task<ActionResult> Put(Guid unidadeId)
-        {
-            var comando = new ResetCodigoUnidadeCommand(unidadeId);
-
-            var Resultado = await _mediatorHandler.EnviarComando(comando);
-
-            return CustomResponse(Resultado);
-        }
-
-        [HttpDelete("Remover-unidade")]
-        public async Task<ActionResult> DeleteUnidade(Guid unidadeId)
-        {
-            var comando = new RemoverUnidadeCommand(unidadeId);
-
-            var Resultado = await _mediatorHandler.EnviarComando(comando);
-
-            return CustomResponse(Resultado);
-        }
+        }       
 
     }
 }
