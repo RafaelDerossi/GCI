@@ -84,6 +84,7 @@ namespace CondominioAppPreCadastro.App.Aplication.Query
 
             LeadViewModel.condominios = lead.Condominios.Select(c => new CondominioModel()
             {
+                CondominioId = c.Id,
                 nomeDoCondominio = c.NomeDoCondominio,
                 razaoSocial = c.RazaoSocial,
                 nomeDoSindico = c.NomeDoSindico,
@@ -99,6 +100,7 @@ namespace CondominioAppPreCadastro.App.Aplication.Query
                 quantidadeDeUnidadesPorAndar = c.QuantidadeDeUnidadesPorAndar,
                 quantidadeDeUnidades = c.QuantidadeDeUnidades,
                 observacao = c.Observacao,
+                Transferido = c.Transferido,
                 cep = c.Endereco.ObterCepFormatado,
                 bairro = c.Endereco.bairro,
                 estado = c.Endereco.estado,

@@ -37,6 +37,7 @@ namespace CondominioApp.Api.Configuration
 
             //Pre Cadastro
             services.AddScoped<IRequestHandler<InserirNovoLeadCommand, ValidationResult>, LeadCommandHandler>();
+            services.AddScoped<IRequestHandler<TransferirCondominioCommand, ValidationResult>, LeadCommandHandler>();
             services.AddScoped<INotificationHandler<LeadCadastradoEvent>, LeadEventHandler>();
 
             //Query

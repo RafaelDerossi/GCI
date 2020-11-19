@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using CondominioApp.Core.Mediator;
-using CondominioAppPreCadastro.App.ViewModel;
-using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
+﻿using CondominioApp.Core.Mediator;
 using CondominioApp.WebApi.Core.Controllers;
 using CondominioAppPreCadastro.App.Aplication.Commands;
 using CondominioAppPreCadastro.App.Aplication.Query;
+using CondominioAppPreCadastro.App.ViewModel;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CondominioApp.Api.Controllers
 {
@@ -35,7 +34,7 @@ namespace CondominioApp.Api.Controllers
         {
             return await _queryLead.ObterPorId(Id);
         }
-        
+
         [HttpGet("Intervalo")]
         public async Task<IEnumerable<LeadViewModel>> Intervalo(DateTime DataInicio, DateTime DataFim)
         {
@@ -57,6 +56,18 @@ namespace CondominioApp.Api.Controllers
             var comando = new InserirNovoLeadCommand(model.nome, model.email, model.telefone, model.plano,
                 model.statusPreCadastro, model.motivoStatus, model.condominios);
 
+
+            var resultado = await _mediatorHandler.EnviarComando(comando);
+
+            return CustomResponse(resultado);
+        }
+
+        [HttpPost("transferir")]
+        public async Task<IActionResult> Transferir(TransferenciaModel model)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            var comando = new TransferirCondominioCommand(model.LeadId,model.CondominioId);
 
             var resultado = await _mediatorHandler.EnviarComando(comando);
 
