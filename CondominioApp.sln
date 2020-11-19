@@ -45,6 +45,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioAppPreCadastro.Ap
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioApp.Principal.Tests", "Tests\Principal\CondominioApp.Principal.Tests\CondominioApp.Principal.Tests.csproj", "{414AC53F-54E4-41A4-8B13-B469F751B7D9}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Marketplace", "Marketplace", "{18B51529-FE9B-4D9C-A79E-AC053EBC1218}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CondominioAppMarketplace.Domain", "src\Services\Marketplace\CondominioAppMarketplace.Domain\CondominioAppMarketplace.Domain.csproj", "{2F8A1E09-51DA-4C58-87E7-AD4D3C08FEBC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -95,6 +99,10 @@ Global
 		{414AC53F-54E4-41A4-8B13-B469F751B7D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{414AC53F-54E4-41A4-8B13-B469F751B7D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{414AC53F-54E4-41A4-8B13-B469F751B7D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F8A1E09-51DA-4C58-87E7-AD4D3C08FEBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F8A1E09-51DA-4C58-87E7-AD4D3C08FEBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F8A1E09-51DA-4C58-87E7-AD4D3C08FEBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F8A1E09-51DA-4C58-87E7-AD4D3C08FEBC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -120,6 +128,8 @@ Global
 		{3605F6B5-C02D-4DE9-85AD-BA54910B7672} = {133F3FB7-18C5-46F1-B62D-1A65EA05AC53}
 		{524D5BCE-44E6-4EC5-90A5-F729D4287BF2} = {91A91913-2BE0-41E9-B7D2-E85D3DCA6611}
 		{414AC53F-54E4-41A4-8B13-B469F751B7D9} = {133F3FB7-18C5-46F1-B62D-1A65EA05AC53}
+		{18B51529-FE9B-4D9C-A79E-AC053EBC1218} = {27DA6887-B451-4D5D-A232-00FBE20152FB}
+		{2F8A1E09-51DA-4C58-87E7-AD4D3C08FEBC} = {18B51529-FE9B-4D9C-A79E-AC053EBC1218}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DA60CBD7-8A6E-436D-B07E-D654D162CE4B}
