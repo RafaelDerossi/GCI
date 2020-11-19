@@ -122,7 +122,46 @@ namespace CondominioApp.Principal.Domain.FlatModel
         /// </summary>
         public bool LimiteTempoReserva { get; set; }
 
-
-        
+        public CondominioFlat(Guid id, string cnpj, string nome, string descricao, string logoMarca, 
+            string telefone, string logradouro, string complemento, string numero, string cep, 
+            string bairro, string cidade, string estado, int? refereciaId, string linkGeraBoleto, 
+            string boletoFolder, string urlWebServer, bool portaria, bool portariaMorador, bool classificado,
+            bool classificadoMorador, bool mural, bool muralMorador, bool chat, bool chatMorador, bool reserva,
+            bool reservaNaPortaria, bool ocorrencia, bool ocorrenciaMorador, bool correspondencia,
+            bool correspondenciaNaPortaria, bool limiteTempoReserva)
+        {
+            Id = id;
+            Cnpj = cnpj;
+            Nome = nome;
+            Descricao = descricao;
+            LogoMarca = logoMarca;
+            Telefone = telefone;
+            this.logradouro = logradouro;
+            this.complemento = complemento;
+            this.numero = numero;
+            this.cep = cep;
+            this.bairro = bairro;
+            this.cidade = cidade;
+            this.estado = estado;
+            RefereciaId = refereciaId;
+            LinkGeraBoleto = linkGeraBoleto;
+            BoletoFolder = boletoFolder;
+            UrlWebServer = urlWebServer;
+            Portaria = portaria;
+            PortariaMorador = portariaMorador;
+            Classificado = classificado;
+            ClassificadoMorador = classificadoMorador;
+            Mural = mural;
+            MuralMorador = muralMorador;
+            Chat = chat;
+            ChatMorador = chatMorador;
+            Reserva = reserva;
+            ReservaNaPortaria = reservaNaPortaria;
+            Ocorrencia = ocorrencia;
+            OcorrenciaMorador = ocorrenciaMorador;
+            Correspondencia = correspondencia;
+            CorrespondenciaNaPortaria = correspondenciaNaPortaria;
+            LimiteTempoReserva = limiteTempoReserva;
+        }
     }
 }

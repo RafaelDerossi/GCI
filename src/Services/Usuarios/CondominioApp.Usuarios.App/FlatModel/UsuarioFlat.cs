@@ -55,6 +55,37 @@ namespace CondominioApp.Usuarios.App.Models.FlatModel
         public string estado { get; set; }
 
         public bool SindicoProfissional { get; private set; }
-       
+
+        public UsuarioFlat(Guid id, string nome, string sobrenome, string rg, string cpf, string cel, 
+            string telefone, string email, string foto, string tpUsuario, string permissao, bool ativo,
+            string atribuicao, string funcao, DateTime? dataNascimento, DateTime? ultimoLogin,
+            string logradouro, string complemento, string numero, string cep, string bairro,
+            string cidade, string estado, bool sindicoProfissional)
+        {
+            Id = id;
+            Nome = nome;
+            Sobrenome = sobrenome;
+            Rg = rg;
+            Cpf = cpf;
+            Cel = cel;
+            Telefone = telefone;
+            Email = email;
+            Foto = foto;
+            TpUsuario = tpUsuario;
+            Permissao = permissao;
+            Ativo = ativo;
+            Atribuicao = atribuicao;
+            Funcao = funcao;
+            DataNascimento = dataNascimento;
+            UltimoLogin = ultimoLogin;
+            this.logradouro = logradouro;
+            this.complemento = complemento;
+            this.numero = numero;
+            this.cep = cep;
+            this.bairro = bairro;
+            this.cidade = cidade;
+            this.estado = estado;
+            SindicoProfissional = sindicoProfissional;
+        }
     }
 }

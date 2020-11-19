@@ -3,7 +3,7 @@ using System;
 
 namespace CondominioApp.Usuarios.App.Models.FlatModel
 {
-    public class MobileFlat : Entity
+    public class MobileFlat 
     {
         public Guid Id { get; set; }
 
@@ -34,5 +34,27 @@ namespace CondominioApp.Usuarios.App.Models.FlatModel
         public string UsuarioAtribuicao { get; private set; }
 
         public string UsuarioFuncao { get; private set; }
+
+        public MobileFlat(Guid id, string deviceKey, string mobileId, string modelo, string plataforma,
+            string versao, Guid usuarioId, string usuarioNome, string usuarioEmail, string usuarioFoto,
+            string tpUsuario, string usuarioPermissao, bool usuarioAtivo, string usuarioAtribuicao, 
+            string usuarioFuncao)
+        {
+            Id = id;
+            DeviceKey = deviceKey;
+            MobileId = mobileId;
+            Modelo = modelo;
+            Plataforma = plataforma;
+            Versao = versao;
+            UsuarioId = usuarioId;
+            UsuarioNome = usuarioNome;
+            UsuarioEmail = usuarioEmail;
+            UsuarioFoto = usuarioFoto;
+            TpUsuario = tpUsuario;
+            UsuarioPermissao = usuarioPermissao;
+            UsuarioAtivo = usuarioAtivo;
+            UsuarioAtribuicao = usuarioAtribuicao;
+            UsuarioFuncao = usuarioFuncao;
+        }
     }
 }

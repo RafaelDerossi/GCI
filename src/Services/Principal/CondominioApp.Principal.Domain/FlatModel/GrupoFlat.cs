@@ -18,5 +18,15 @@ namespace CondominioApp.Principal.Domain.FlatModel
 
         public string CondominioLogoMarca { get; set; }
 
+        public GrupoFlat(Guid id, string grupoDescricao, Guid condominioId, string condominioCnpj,
+            string condominioNome, string condominioLogoMarca)
+        {
+            Id = id;
+            GrupoDescricao = grupoDescricao;
+            CondominioId = condominioId;
+            CondominioCnpj = condominioCnpj;
+            CondominioNome = condominioNome;
+            CondominioLogoMarca = condominioLogoMarca;
+        }
     }
 }
