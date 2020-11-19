@@ -2,7 +2,9 @@
 using CondominioApp.Core.ValueObjects;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using FluentValidation.Results;
 
 namespace CondominioApp.Principal.Domain
 {
@@ -27,7 +29,7 @@ namespace CondominioApp.Principal.Domain
         /// Id de referencia externa do condominio
         /// </summary>
         public int? RefereciaId { get; private set; }
-       
+
         public string LinkGeraBoleto { get; private set; }
 
         public string BoletoFolder { get; private set; }
@@ -106,7 +108,7 @@ namespace CondominioApp.Principal.Domain
         /// Habilita/Desabilita Correspondencia na Portaria
         /// </summary>
         public bool CorrespondenciaNaPortaria { get; private set; }
-        
+
         /// <summary>
         /// Habilita/Desabilita Limite de Tempo na Reserva
         /// </summary>
@@ -134,7 +136,7 @@ namespace CondominioApp.Principal.Domain
 
         }
 
-        public Condominio(Cnpj cnpj, string nome, string descricao, Foto logoMarca, 
+        public Condominio(Cnpj cnpj, string nome, string descricao, Foto logoMarca,
             Telefone telefone, Endereco endereco, int? refereciaId, string linkGeraBoleto, string boletoFolder,
             Url urlWebServer, bool portaria, bool portariaMorador, bool classificado,
             bool classificadoMorador, bool mural, bool muralMorador, bool chat, bool
@@ -215,7 +217,7 @@ namespace CondominioApp.Principal.Domain
         public void DesativarMural() => Mural = false;
         public void AtivarMuralMorador() => MuralMorador = true;
         public void DesativarMuralMorador() => MuralMorador = false;
-       
+
 
         /// <summary>
         /// Chat
@@ -239,7 +241,7 @@ namespace CondominioApp.Principal.Domain
         public void AtivarOcorrencia() => Ocorrencia = true;
         public void DesativarOcorrencia() => Ocorrencia = false;
         public void AtivarOcorrenciaMorador() => OcorrenciaMorador = true;
-        public void DesativarOcorrenciaMorador() => OcorrenciaMorador= false;
+        public void DesativarOcorrenciaMorador() => OcorrenciaMorador = false;
 
         /// <summary>
         /// Correspondencia
@@ -256,16 +258,36 @@ namespace CondominioApp.Principal.Domain
         public void DesativarLimiteTempoReserva() => LimiteTempoReserva = false;
 
 
-
         /// Metodos 
-        public void AdicionarGrupo(Grupo grupo)
-        {               
-            _Grupos.Add(grupo);
-        }
-        public void AlterarGrupo(Grupo grupo)
+        public ValidationResult AdicionarGrupo(Grupo grupo)
         {
-            _Grupos.RemoveAll(u => u.Id == grupo.Id);
+            if (_Grupos.Any(g => g.Descricao.Trim().ToUpper() == grupo.Descricao.Trim().ToUpper()))
+            {
+                AdicionarErrosDaEntidade("Já existe um grupo com esta descrição no condomínio!");
+                return ValidationResult;
+            }
+
             _Grupos.Add(grupo);
+            return ValidationResult;
+        }
+
+        public ValidationResult AlterarGrupo(Grupo grupo)
+        {
+            if (_Grupos.Any(g => g.Descricao.Trim().ToUpper() == grupo.Descricao.Trim().ToUpper() && g.Id != grupo.Id))
+            {
+                AdicionarErrosDaEntidade("Já existe um grupo com esta descrição no condomínio!");
+                return ValidationResult;
+            }
+
+            var GrupoObtido = _Grupos.FirstOrDefault(u => u.Id == grupo.Id);
+
+            _Grupos.Remove(GrupoObtido);
+
+            GrupoObtido.SetDescricao(grupo.Descricao);
+
+            _Grupos.Add(GrupoObtido);
+
+            return ValidationResult;
         }
 
         public void AdicionarUnidade(Unidade unidade)
@@ -275,8 +297,8 @@ namespace CondominioApp.Principal.Domain
         public void AlterarUnidade(Unidade unidade)
         {
             _Unidades.RemoveAll(u => u.Id == unidade.Id);
-            _Unidades.Add(unidade);                        
-          
+            _Unidades.Add(unidade);
+
         }
 
     }
