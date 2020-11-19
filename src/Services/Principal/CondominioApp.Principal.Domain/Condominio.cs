@@ -131,6 +131,7 @@ namespace CondominioApp.Principal.Domain
         {
             _Grupos = new List<Grupo>();
             _Unidades = new List<Unidade>();
+
         }
 
         public Condominio(Cnpj cnpj, string nome, string descricao, Foto logoMarca, 
@@ -148,6 +149,7 @@ namespace CondominioApp.Principal.Domain
             Descricao = descricao;
             LogoMarca = logoMarca;
             Telefone = telefone;
+            Endereco = endereco;
             RefereciaId = refereciaId;
             LinkGeraBoleto = linkGeraBoleto;
             BoletoFolder = boletoFolder;
