@@ -13,7 +13,8 @@ namespace CondominioApp.Principal.Aplication.Commands
     public class CondominioCommandHandler : CommandHandler,
          IRequestHandler<CadastrarCondominioCommand, ValidationResult>,
          IRequestHandler<AlterarCondominioCommand, ValidationResult>,
-         IRequestHandler<AlterarConfiguracaoCondominioCommand, ValidationResult>, IDisposable
+         IRequestHandler<AlterarConfiguracaoCondominioCommand, ValidationResult>,
+         IRequestHandler<RemoverCondominioCommand, ValidationResult>, IDisposable
     {
 
         private ICondominioRepository _condominioRepository;
@@ -241,6 +242,33 @@ namespace CondominioApp.Principal.Aplication.Commands
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }
 
+        public async Task<ValidationResult> Handle(RemoverCondominioCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido())
+                return request.ValidationResult;
+
+            try
+            {
+                var condominioBd = _condominioRepository.ObterPorId(request.CondominioId).Result;
+                if (condominioBd == null)
+                {
+                    AdicionarErro("Condominio não encontrado.");
+                    return ValidationResult;
+                }
+
+                condominioBd.EnviarParaLixeira();
+
+                _condominioRepository.Atualizar(condominioBd);
+
+            }
+            catch (Exception ex)
+            {
+                AdicionarErro(ex.Message);
+                return ValidationResult;
+            }
+
+            return await PersistirDados(_condominioRepository.UnitOfWork);
+        }
 
 
 

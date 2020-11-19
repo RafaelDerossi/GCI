@@ -11,7 +11,8 @@ namespace CondominioApp.Principal.Aplication.Commands
 {
     public class GrupoCommandHandler : CommandHandler,
          IRequestHandler<CadastrarGrupoCommand, ValidationResult>,
-        IRequestHandler<AlterarGrupoCommand, ValidationResult>, IDisposable
+         IRequestHandler<AlterarGrupoCommand, ValidationResult>,
+         IRequestHandler<RemoverGrupoCommand, ValidationResult>, IDisposable
     {
 
         private ICondominioRepository _condominioRepository;
@@ -88,6 +89,41 @@ namespace CondominioApp.Principal.Aplication.Commands
                 AdicionarErro(ex.Message);
                 return ValidationResult;
             }         
+
+            return await PersistirDados(_condominioRepository.UnitOfWork);
+        }
+
+        public async Task<ValidationResult> Handle(RemoverGrupoCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido()) return request.ValidationResult;
+
+            try
+            {
+                var grupoBd = _condominioRepository.ObterGrupoPorId(request.GrupoId).Result;
+                if (grupoBd == null)
+                {
+                    AdicionarErro("Grupo não encontrado.");
+                    return ValidationResult;
+                }
+
+                grupoBd.EnviarParaLixeira();
+
+                var condominio = _condominioRepository.ObterPorId(grupoBd.CondominioId).Result;
+                if (condominio == null)
+                {
+                    AdicionarErro("Condominio não encontrado.");
+                    return ValidationResult;
+                }
+                condominio.AlterarGrupo(grupoBd);
+
+                _condominioRepository.Atualizar(condominio);
+
+            }
+            catch (Exception ex)
+            {
+                AdicionarErro(ex.Message);
+                return ValidationResult;
+            }
 
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }

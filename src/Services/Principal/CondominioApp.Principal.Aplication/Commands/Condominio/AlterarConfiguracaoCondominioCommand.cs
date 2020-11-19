@@ -43,6 +43,7 @@ namespace CondominioApp.Principal.Aplication.Commands
         {
             public AlterarConfiguracaoCondominioCommandValidation()
             {
+                ValidateId();
                 ValidatePortaria();
                 ValidatePortariaMorador();
                 ValidateClassificado();

@@ -78,6 +78,16 @@ namespace CondominioApp.Api.Controllers
             return CustomResponse(Resultado);
         }
 
+        [HttpDelete("Remover-condominio")]
+        public async Task<ActionResult> Delete(Guid condominioId)
+        {
+           var comando = new RemoverCondominioCommand(condominioId);
+
+           var Resultado = await _mediatorHandler.EnviarComando(comando);
+
+            return CustomResponse(Resultado);
+        }
+
         [HttpPost("Novo-grupo")]
         public async Task<ActionResult> Post(GrupoViewModel grupoVM)
         {
@@ -105,6 +115,16 @@ namespace CondominioApp.Api.Controllers
 
             return CustomResponse(Resultado);
 
+        }
+
+        [HttpDelete("Remover-grupo")]
+        public async Task<ActionResult> DeleteGrupo(Guid grupoId)
+        {
+            var comando = new RemoverGrupoCommand(grupoId);
+
+            var Resultado = await _mediatorHandler.EnviarComando(comando);
+
+            return CustomResponse(Resultado);
         }
 
         [HttpPost("Nova-unidade")]
@@ -146,7 +166,17 @@ namespace CondominioApp.Api.Controllers
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
             return CustomResponse(Resultado);
-        }     
+        }
+
+        [HttpDelete("Remover-unidade")]
+        public async Task<ActionResult> DeleteUnidade(Guid unidadeId)
+        {
+            var comando = new RemoverUnidadeCommand(unidadeId);
+
+            var Resultado = await _mediatorHandler.EnviarComando(comando);
+
+            return CustomResponse(Resultado);
+        }
 
     }
 }

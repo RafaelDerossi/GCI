@@ -13,7 +13,8 @@ namespace CondominioApp.Principal.Aplication.Commands
     public class UnidadeCommandHandler : CommandHandler,
          IRequestHandler<CadastrarUnidadeCommand, ValidationResult>,
          IRequestHandler<AlterarUnidadeCommand, ValidationResult>,
-        IRequestHandler<ResetCodigoUnidadeCommand, ValidationResult>, IDisposable
+         IRequestHandler<ResetCodigoUnidadeCommand, ValidationResult>,
+         IRequestHandler<RemoverUnidadeCommand, ValidationResult>, IDisposable
     {
 
         private ICondominioRepository _condominioRepository;
@@ -123,6 +124,52 @@ namespace CondominioApp.Principal.Aplication.Commands
 
                 //Verifica se o codigo da unidade ja esta cadastrado
                 VerificaSeCodigoJaEstaCadastrado(unidadeBD);
+
+                var grupo = _condominioRepository.ObterGrupoPorId(unidadeBD.GrupoId).Result;
+                if (grupo == null)
+                {
+                    AdicionarErro("Grupo não encontrado.");
+                    return ValidationResult;
+                }
+
+                grupo.AlterarUnidade(unidadeBD);
+
+                var condominio = _condominioRepository.ObterPorId(unidadeBD.CondominioId).Result;
+                if (condominio == null)
+                {
+                    AdicionarErro("Condominio não encontrado.");
+                    return ValidationResult;
+                }
+
+                condominio.AlterarGrupo(grupo);
+
+                _condominioRepository.Atualizar(condominio);
+
+            }
+            catch (Exception ex)
+            {
+                AdicionarErro(ex.Message);
+                return ValidationResult;
+            }
+
+            return await PersistirDados(_condominioRepository.UnitOfWork);
+        }
+
+        public async Task<ValidationResult> Handle(RemoverUnidadeCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido()) return request.ValidationResult;
+
+            try
+            {
+                var unidadeBD = _condominioRepository.ObterUnidadePorId(request.UnidadeId).Result;
+
+                if (unidadeBD == null)
+                {
+                    AdicionarErro("Unidade não encontrada.");
+                    return ValidationResult;
+                }
+
+                unidadeBD.EnviarParaLixeira();
 
                 var grupo = _condominioRepository.ObterGrupoPorId(unidadeBD.GrupoId).Result;
                 if (grupo == null)

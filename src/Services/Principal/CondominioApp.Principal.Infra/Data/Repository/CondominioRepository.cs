@@ -73,11 +73,16 @@ namespace CondominioApp.Principal.Infra.Data.Repository
 
         public async Task<Condominio> ObterPorId(Guid Id)
         {
-            return await _context.Condominios
-                .Include(c => c.Grupos)
-                .Include(c => c.Unidades)
+            return await _context.Condominios                  
                 .FirstOrDefaultAsync(u => u.Id == Id);
         }
+
+        //public async Task<Condominio> ObterPorIdCompleto(Guid Id)
+        //{
+        //    return await _context.Condominios
+        //        .Include(c => c.Grupos.Select(it => it.Unidades))
+        //        .FirstOrDefaultAsync(u => u.Id == Id);
+        //}
 
         public async Task<IEnumerable<Condominio>> ObterTodos()
         {
@@ -139,7 +144,9 @@ namespace CondominioApp.Principal.Infra.Data.Repository
 
         public async Task<Grupo> ObterGrupoPorId(Guid Id)
         {
-            return await _context.Grupos.FirstOrDefaultAsync(u => u.Id == Id);
+            return await _context.Grupos
+                .Include(c => c.Unidades)
+                .FirstOrDefaultAsync(u => u.Id == Id);
         }
 
         public async Task<Unidade> ObterUnidadePorId(Guid Id)

@@ -39,7 +39,8 @@ namespace CondominioApp.Principal.Aplication.Commands
         public class AlterarCondominioCommandValidation : CondominioValidation<AlterarCondominioCommand>
         {
             public AlterarCondominioCommandValidation()
-            {               
+            {
+                ValidateId();
                 ValidateCNPJ();
                 ValidateNome();                
             }
