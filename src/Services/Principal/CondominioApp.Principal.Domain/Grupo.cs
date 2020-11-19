@@ -58,10 +58,21 @@ namespace CondominioApp.Principal.Domain
             return ValidationResult;
         }
 
-        public void AlterarUnidade(Unidade unidade)
+        public ValidationResult AlterarUnidade(Unidade unidade)
         {
-            _Unidades.RemoveAll(u => u.Id == unidade.Id);
+            if (_Unidades.Any(u => u.Numero == unidade.Numero && u.Andar == unidade.Andar &&
+                                   u.GrupoId == unidade.GrupoId && u.CondominioId == unidade.CondominioId &&
+                                   u.Id != unidade.Id))
+            {
+                AdicionarErrosDaEntidade("Já existe uma unidade com este número e andar neste bloco!");
+                return ValidationResult;
+            }
+                      
+
+            _Unidades.Remove(unidade);
             _Unidades.Add(unidade);
+
+            return ValidationResult;
 
         }
     }

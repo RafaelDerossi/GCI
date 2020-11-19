@@ -58,8 +58,8 @@ namespace CondominioApp.Principal.Aplication.Commands
                 condominioBd.SetDescricao(request.Descricao);
                 condominioBd.SetFoto(new Foto(request.NomeOriginal,request.LogoMarca));
                 condominioBd.SetTelefone(new Telefone(request.Telefone));
-                condominioBd.SetEndereco(new Endereco(request.Logradouro, request.Complemento, request.Numero, request.Cep,
-                    request.Bairro, request.Cidade, request.Estado));
+                condominioBd.SetEndereco(new Endereco(request.Logradouro, request.Complemento,
+                    request.Numero, request.Cep, request.Bairro, request.Cidade, request.Estado));
 
                 //Verifica se um condominio com o mesmo cnpj ja esta cadastrado
                 if (_condominioRepository.CnpjCondominioJaCadastrado(condominioBd.Cnpj, condominioBd.Id).Result)

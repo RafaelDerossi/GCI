@@ -58,6 +58,8 @@ namespace CondominioApp.Principal.Aplication.Commands
                 return ValidationResult;
             }
 
+            grupoBd.SetDescricao(request.Descricao);
+
             var condominio = _condominioRepository.ObterPorId(grupoBd.CondominioId).Result;
             if (condominio == null)
             {

@@ -279,13 +279,17 @@ namespace CondominioApp.Principal.Domain
                 return ValidationResult;
             }
 
-            var GrupoObtido = _Grupos.FirstOrDefault(u => u.Id == grupo.Id);
+            //var GrupoObtido = _Grupos.FirstOrDefault(u => u.Id == grupo.Id);
 
-            _Grupos.Remove(GrupoObtido);
+            //_Grupos.Remove(GrupoObtido);
 
-            GrupoObtido.SetDescricao(grupo.Descricao);
+            //GrupoObtido.SetDescricao(grupo.Descricao);
 
-            _Grupos.Add(GrupoObtido);
+            //_Grupos.Add(GrupoObtido);
+
+
+            _Grupos.Remove(grupo);
+            _Grupos.Add(grupo);
 
             return ValidationResult;
         }

@@ -40,8 +40,8 @@ namespace CondominioApp.Principal.Tests
 
            
 
-            _mocker.GetMock<ICondominioRepository>().Setup(r => r.GrupoJaExiste(command.Descricao,command.CondominioId,command.GrupoId))
-                .Returns(Task.FromResult(true));
+            //_mocker.GetMock<ICondominioRepository>().Setup(r => r.GrupoJaExiste(command.Descricao,command.CondominioId,command.GrupoId))
+            //    .Returns(Task.FromResult(true));
 
             _mocker.GetMock<ICondominioRepository>().Setup(r => r.ObterPorId(command.CondominioId))
                .Returns(Task.FromResult(condominio));
@@ -84,8 +84,8 @@ namespace CondominioApp.Principal.Tests
             _mocker.GetMock<ICondominioRepository>().Setup(r => r.ObterPorId(command.CondominioId))
                .Returns(Task.FromResult(condominio));
 
-            _mocker.GetMock<ICondominioRepository>().Setup(r => r.GrupoJaExiste(grupo.Descricao, grupo.CondominioId, grupo.Id))
-              .Returns(Task.FromResult(false));
+            //_mocker.GetMock<ICondominioRepository>().Setup(r => r.GrupoJaExiste(grupo.Descricao, grupo.CondominioId, grupo.Id))
+            //  .Returns(Task.FromResult(false));
 
             _mocker.GetMock<ICondominioRepository>().Setup(r => r.UnitOfWork.Commit())
                .Returns(Task.FromResult(true));
