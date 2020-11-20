@@ -10,7 +10,8 @@ namespace CondominioAppMarketplace.Domain
 {
     public class Parceiro : Entity, IAggregateRoot
     {
-        public const int NomeCompletoMaximo = 150, NomeDoResponsavelMaximo = 150, DescricaoMaximo = 1000, LogoMarcaMaximo = 50, CorMaximo = 50;
+        public const int NomeCompletoMaximo = 150, NomeDoResponsavelMaximo = 150,
+            DescricaoMaximo = 1000, LogoMarcaMaximo = 50, CorMaximo = 50;
 
         public string NomeCompleto { get; private set; }
 
@@ -151,6 +152,11 @@ namespace CondominioAppMarketplace.Domain
                     .NotNull()
                     .WithMessage("O e-mail não pode estar vazio!");
 
+                RuleFor(c => c.Email.Endereco)
+                    .NotNull()
+                    .NotEmpty().WithMessage("O Email não pode ser vazio!")
+                    .EmailAddress().WithMessage("Digite um e-mail válido!");
+
                 RuleFor(c => c.Cnpj)
                     .NotNull()
                     .WithMessage("O CNPJ não pode estar vazio!");
@@ -188,6 +194,11 @@ namespace CondominioAppMarketplace.Domain
                 RuleFor(c => c.Email)
                     .NotNull()
                     .WithMessage("O e-mail não pode estar vazio!");
+
+                RuleFor(c => c.Email.Endereco)
+                    .NotNull()
+                    .NotEmpty().WithMessage("O Email não pode ser vazio!")
+                    .EmailAddress().WithMessage("Digite um e-mail válido!");
 
                 RuleFor(c => c.Contrato)
                     .NotNull()

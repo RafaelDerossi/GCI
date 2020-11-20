@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Threading;
 using CondominioApp.Core.DomainObjects;
+using FluentValidation;
+using FluentValidation.Results;
 
 namespace CondominioAppMarketplace.Domain
 {
@@ -47,7 +50,7 @@ namespace CondominioAppMarketplace.Domain
             setPorcentagemDeDesconto(porcentagemDeDesconto);
             setPreco(preco);
             ConfigurarIntervalo(dataDeInicio, dataDeFim);
-            Validar();
+           
         }
 
         public string PrecoDoProduto
@@ -101,21 +104,36 @@ namespace CondominioAppMarketplace.Domain
             }
         }
 
-        public void setVendedor(Vendedor vendedor)
+        public void setVendedor(Vendedor vendedor) => Vendedor = vendedor;
+      
+
+        public void setProduto(Produto produto) => Produto = produto;
+       
+
+        public ValidationResult Validar()
         {
-            Vendedor = vendedor;
+            
+            var Result = new ItemDeVendaValidation().Validate(this);
+
+            return Result;
         }
 
-        public void setProduto(Produto produto)
+        public class ItemDeVendaValidation : AbstractValidator<ItemDeVenda>
         {
-            Produto = produto;
-        }
+            public ItemDeVendaValidation()
+            {
+                RuleFor(c => c.ProdutoId)
+                    .NotEqual(Guid.Empty)
+                    .WithMessage("O Id do Produto do item de venda não pode estar vazio!");
 
-        public void Validar()
-        {
-            if (ProdutoId == Guid.Empty) throw new DomainException("O Id do Produto do item de venda não pode estar vazio!");
-            if (VendedorId == Guid.Empty) throw new DomainException("O Id do Vendedor do item de venda não pode estar vazio!");
-            if (ParceiroId == Guid.Empty) throw new DomainException("O Id do Parceir do item de venda não pode estar vazio!");
+                RuleFor(c => c.VendedorId)
+                    .NotEqual(Guid.Empty)
+                    .WithMessage("O Id do Vendedor do item de venda não pode estar vazio!");
+
+                RuleFor(c => c.ParceiroId)
+                    .NotEqual(Guid.Empty)
+                    .WithMessage("O Id do Parceir do item de venda não pode estar vazio!");
+            }
         }
     }
 }

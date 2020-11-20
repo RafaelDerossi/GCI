@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using CondominioApp.Core.DomainObjects;
 using CondominioApp.Core.ValueObjects;
+using FluentValidation;
+using FluentValidation.Results;
 
 namespace CondominioAppMarketplace.Domain
 {
@@ -34,8 +36,6 @@ namespace CondominioAppMarketplace.Domain
             Telefone = telefone;
             Endereco = endereco;
             ParceiroId = parceiroId;
-
-            Validar();
         }
 
         public void setNome(string nomeDoVendedor)
@@ -49,24 +49,10 @@ namespace CondominioAppMarketplace.Domain
             Email = email;
         }
 
-        public void setTelefone(TelefoneMovel telefone)
-        {
-            Telefone = telefone;
-        }
-
-        public void setEndereco(Endereco endereco)
-        {
-            Endereco = endereco;
-        }
-
-        public override void Validar()
-        {
-            if (string.IsNullOrEmpty(Nome)) throw new DomainException("O Nome do vendedor não pode estar vazio!");
-            if (Email == null) throw new DomainException("O Email não pode ser vazio!");
-            if (Telefone == null) throw new DomainException("O Telefone não pode estar vazia!");
-            if (ParceiroId == Guid.Empty) throw new DomainException("O Id do parceiro não pode estar vazio!");
-        }
-
+        public void setTelefone(Telefone telefone) => Telefone = telefone;
+       
+        public void setEndereco(Endereco endereco) => Endereco = endereco;
+       
         public override bool Equals(object obj)
         {
             Vendedor vendedor = (Vendedor)obj;
@@ -79,6 +65,41 @@ namespace CondominioAppMarketplace.Domain
         public override int GetHashCode()
         {
             return base.GetHashCode();
+        }
+
+        public ValidationResult Validar()
+        {
+            var Result = new VendedorValidation().Validate(this);
+            return Result;
+        }
+
+        public class VendedorValidation : AbstractValidator<Vendedor>
+        {
+            public VendedorValidation()
+            {
+                RuleFor(c => c.Nome)
+                    .NotEmpty()
+                    .NotNull()
+                    .WithMessage("O Nome do vendedor não pode estar vazio!");
+
+                RuleFor(c => c.Email)
+                    .NotNull()
+                    .WithMessage("O Email não pode ser vazio!");
+
+                RuleFor(c => c.Email.Endereco)
+                    .NotNull()
+                    .NotEmpty().WithMessage("O Email não pode ser vazio!")
+                    .EmailAddress().WithMessage("Digite um e-mail válido!");
+
+                RuleFor(c => c.Telefone)
+                    .NotNull()
+                    .NotEmpty().WithMessage("O Telefone não pode ser vazio!");
+
+                RuleFor(c => c.ParceiroId)
+                    .NotEqual(Guid.Empty)
+                    .WithMessage("O Id do parceiro não pode estar vazio!");
+
+            }
         }
     }
 }

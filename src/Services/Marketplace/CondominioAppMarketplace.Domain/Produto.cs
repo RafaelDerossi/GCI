@@ -4,6 +4,8 @@ using System.Linq;
 using CondominioApp.Core.DomainObjects;
 using CondominioApp.Core.Helpers;
 using CondominioApp.Core.ValueObjects;
+using FluentValidation;
+using FluentValidation.Results;
 
 namespace CondominioAppMarketplace.Domain
 {
@@ -73,11 +75,8 @@ namespace CondominioAppMarketplace.Domain
 
         public void Desativar() => Ativo = false;
 
-        public void setUrl(Url url)
-        {
-            this.Url = url;
-        }
-
+        public void setUrl(Url url) => Url = url;
+        
         public void setNome(string nomeDoProduto)
         {
             if (string.IsNullOrEmpty(nomeDoProduto))
@@ -87,32 +86,12 @@ namespace CondominioAppMarketplace.Domain
             Nome = nomeDoProduto;
         }
 
-        public void setChamada(string chamadaDoProduto)
-        {
-            if (string.IsNullOrEmpty(chamadaDoProduto))
-                return;
-
-            Guarda.ValidarTamanho(chamadaDoProduto, ChamadaMaximo);
-            Chamada = chamadaDoProduto;
-        }
-
-        public void setDescricao(string descricao)
-        {
-            if (string.IsNullOrEmpty(descricao))
-                return;
-
-            Guarda.ValidarTamanho(descricao, DescricaoMaximo);
-            Descricao = descricao;
-        }
-
-        public void setEspecificacaoTecnica(string especificacaoTecnica)
-        {
-            if (string.IsNullOrEmpty(especificacaoTecnica))
-                return;
-
-            EspecificacaoTecnica = especificacaoTecnica;
-        }
-
+        public void setChamada(string chamadaDoProduto) => Chamada = chamadaDoProduto;
+       
+        public void setDescricao(string descricao) => Descricao = descricao;
+        
+        public void setEspecificacaoTecnica(string especificacaoTecnica) => EspecificacaoTecnica = especificacaoTecnica;
+       
         public void AdicionarFotos(FotoDoProduto Foto)
         {
             Fotos.Add(Foto);
@@ -132,12 +111,36 @@ namespace CondominioAppMarketplace.Domain
             Fotos.FirstOrDefault(x => x.Id == FotoDoProdutoId).MarcarComoPrincipal();
         }
 
-        public override void Validar()
+        public ValidationResult Validar()
         {
-            if (string.IsNullOrEmpty(Nome)) throw new DomainException("O Nome do produto não pode estar vazio!");
-            if (string.IsNullOrEmpty(Descricao)) throw new DomainException("A descrição não pode estar vazia!");
-            if (string.IsNullOrEmpty(Chamada)) throw new DomainException("A chamada não pode estar vazia!");
-            if (ParceiroId == Guid.Empty) throw new DomainException("O Id do parceiro não pode estar vazio!");
+            var Result = new ProdutoValidation().Validate(this);
+
+            return Result;
+        }
+
+        public class ProdutoValidation : AbstractValidator<Produto>
+        {
+            public ProdutoValidation()
+            {
+                RuleFor(c => c.Nome)
+                    .NotEmpty()
+                    .NotNull()
+                    .WithMessage("O Nome do produto não pode estar vazio!");
+
+                RuleFor(c => c.Descricao)
+                    .NotEmpty()
+                    .NotNull()
+                    .WithMessage("A descrição não pode estar vazia!");
+
+                RuleFor(c => c.Chamada)
+                    .NotEmpty()
+                    .NotNull()
+                    .WithMessage("A chamada não pode estar vazia!");
+
+                RuleFor(c => c.ParceiroId)
+                    .NotEqual(Guid.Empty)
+                    .WithMessage("O Id do parceiro não pode estar vazio!");
+            }
         }
     }
 }

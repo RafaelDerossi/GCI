@@ -1,12 +1,15 @@
 ﻿using System;
 using CondominioApp.Core.DomainObjects;
 using CondominioApp.Core.ValueObjects;
+using FluentValidation;
+using FluentValidation.Results;
 
 namespace CondominioAppMarketplace.Domain
 {
     public class Lead : Entity, IAggregateRoot
     {
-        public const int NomeDoCondominioMaximo = 150, NomeDoClienteMaximo = 150, BlocoMaximo = 150, UnidadeMaximo = 50, ObservacaoMaxmo = 300;
+        public const int NomeDoCondominioMaximo = 150, NomeDoClienteMaximo = 150, BlocoMaximo = 150, 
+            UnidadeMaximo = 50, ObservacaoMaxmo = 300;
 
         public string NomeDoCondominio { get; private set; }
 
@@ -39,19 +42,51 @@ namespace CondominioAppMarketplace.Domain
             Telefone = telefone;
             EmailDoCliente = emailDoCliente;
             ItemDeVendaId = itemDeVendaId;
-
-            Validar();
         }
 
-        public void Validar()
+        public ValidationResult Validar()
         {
-            if (string.IsNullOrEmpty(NomeDoCondominio)) throw new DomainException("O Nome do condominio do lead não pode estar vazio!");
-            if (string.IsNullOrEmpty(NomeDoCliente)) throw new DomainException("O Nome do cliente do lead não pode estar vazio!");
-            if (string.IsNullOrEmpty(Bloco)) throw new DomainException("O Bloco no lead não pode estar vazio!");
-            if (string.IsNullOrEmpty(Unidade)) throw new DomainException("A Unidade no lead não pode estar vazio!");
-            if (Telefone == null) throw new DomainException("O Telefone do cliente no lead não pode estar vazio!");
-            if (EmailDoCliente == null) throw new DomainException("O E-mail do cliente no lead não pode estar vazio!");
-            if (ItemDeVendaId == Guid.Empty) throw new DomainException("O Id do item de venda no lead não pode estar vazio!");
+            var Resultado = new LeadValidation().Validate(this);
+
+            return Resultado;
+        }
+
+        public class LeadValidation : AbstractValidator<Lead>
+        {
+            public LeadValidation()
+            {
+                RuleFor(c => c.NomeDoCondominio)
+                    .NotEmpty()
+                    .NotNull()
+                    .WithMessage("O Nome do condominio do lead não pode estar vazio!");
+
+                RuleFor(c => c.NomeDoCliente)
+                    .NotEmpty()
+                    .NotNull()
+                    .WithMessage("O Nome do cliente do lead não pode estar vazio!");
+
+                RuleFor(c => c.Bloco)
+                    .NotEmpty()
+                    .NotNull()
+                    .WithMessage("O Bloco no lead não pode estar vazio!");
+
+                RuleFor(c => c.Unidade)
+                    .NotEmpty()
+                    .NotNull()
+                    .WithMessage("A Unidade no lead não pode estar vazio!");
+
+                RuleFor(c => c.Telefone)
+                    .NotNull()
+                    .WithMessage("O Telefone do cliente no lead não pode estar vazio!");
+
+                RuleFor(c => c.EmailDoCliente)
+                    .NotNull()
+                    .WithMessage("O E-mail do cliente no lead não pode estar vazio!");
+
+                RuleFor(c => c.ItemDeVendaId)
+                    .NotEqual(Guid.Empty)
+                    .WithMessage("O Id do item de venda no lead não pode estar vazio!");
+            }
         }
     }
 }
