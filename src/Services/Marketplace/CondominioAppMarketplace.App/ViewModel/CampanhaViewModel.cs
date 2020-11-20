@@ -44,7 +44,5 @@ namespace CondominioAppMarketplace.App.ViewModel
         public Guid ParceiroId { get; set; }
 
         public bool EVisualizacaoDaWeb { get; set; }
-
-        public List<CondominioViewModel> Condominios { get; set; }
     }
 }

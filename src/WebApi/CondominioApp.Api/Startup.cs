@@ -23,11 +23,14 @@ namespace CondominioApp.Api
 
             services.AddJwtConfiguration(Configuration);
 
+            services.ConfigurarAutoMapper();
+
             services.AddSwaggerConfiguration();
 
             services.AddMediatR(typeof(Startup));
 
             services.RegisterServices();
+           
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

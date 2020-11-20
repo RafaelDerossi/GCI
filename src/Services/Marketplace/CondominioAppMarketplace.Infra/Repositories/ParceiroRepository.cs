@@ -15,8 +15,8 @@ namespace CondominioAppMarketplace.Infra.Repositories
     {
         public const int QtdMax = 20;
 
-        private readonly LojaContext _ContextoBanco;
-        public ParceiroRepository(LojaContext ContextoBanco)
+        private readonly MarketplaceContext _ContextoBanco;
+        public ParceiroRepository(MarketplaceContext ContextoBanco)
         {
             _ContextoBanco = ContextoBanco;
         }

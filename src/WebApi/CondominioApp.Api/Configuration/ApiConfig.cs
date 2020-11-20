@@ -1,6 +1,7 @@
 ﻿using CondominioApp.Principal.Infra.Data;
 using CondominioApp.Usuarios.App.Data;
 using CondominioApp.WebApi.Core.Identidade;
+using CondominioAppMarketplace.Infra.Data;
 using CondominioAppPreCadastro.App.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -28,6 +29,9 @@ namespace CondominioApp.Api.Configuration
 
             services.AddDbContext<PreCadastroContextDB>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("PreCadastroConnection")));
+
+            services.AddDbContext<MarketplaceContext>(options =>
+                options.UseSqlServer(configuration.GetConnectionString("MarketplaceConnection")));
 
             services.Configure<ApiBehaviorOptions>(options =>
             {

@@ -62,7 +62,5 @@ namespace CondominioAppMarketplace.App.ViewModel
         public string TelefoneCelular { get; set; }
 
         public bool Whatsapp { get; set; }
-
-        public List<CondominioViewModel> Condominios { get; set; }
     }
 }

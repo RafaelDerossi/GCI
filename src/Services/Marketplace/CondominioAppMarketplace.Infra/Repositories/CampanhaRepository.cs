@@ -13,9 +13,9 @@ namespace CondominioAppMarketplace.Infra.Repositories
 {
     public class CampanhaRepository : ICampanhaRepository
     {
-        private readonly LojaContext _ContextoBanco;
+        private readonly MarketplaceContext _ContextoBanco;
 
-        public CampanhaRepository(LojaContext ContextoBanco)
+        public CampanhaRepository(MarketplaceContext ContextoBanco)
         {
             _ContextoBanco = ContextoBanco;
         }

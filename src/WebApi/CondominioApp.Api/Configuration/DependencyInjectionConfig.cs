@@ -2,6 +2,10 @@
 using CondominioApp.Principal.Aplication.Commands;
 using CondominioApp.Principal.Domain.Interfaces;
 using CondominioApp.Principal.Infra.Data.Repository;
+using CondominioAppMarketplace.App;
+using CondominioAppMarketplace.App.Interfaces;
+using CondominioAppMarketplace.Domain.Interfaces;
+using CondominioAppMarketplace.Infra.Repositories;
 using CondominioAppPreCadastro.App.Aplication.Commands;
 using CondominioAppPreCadastro.App.Aplication.Events;
 using CondominioAppPreCadastro.App.Aplication.Query;
@@ -48,6 +52,30 @@ namespace CondominioApp.Api.Configuration
             //Repositórios
             services.AddScoped<ICondominioRepository, CondominioRepository>();
             services.AddScoped<ILeadRepository, LeadRepository>();
+
+
+
+            //Marketplace
+
+            //Parceiro
+            services.AddScoped<IAppServiceParceiro, AppServiceParceiro>();
+            services.AddScoped<IParceiroRepository, ParceiroRepository>();
+
+            //Item de venda
+            services.AddScoped<IAppServiceItemDeVenda, AppServiceItemDeVenda>();
+            services.AddScoped<IItemDeVendaRepository, ItemDeVendaRepository>();
+
+            //Produto
+            services.AddScoped<IAppServiceProduto, AppServiceProduto>();
+            services.AddScoped<IProdutoRepository, ProdutoRepository>();
+
+            //Campanha
+            services.AddScoped<IAppServiceCampanha, AppServiceCampanha>();
+            services.AddScoped<ICampanhaRepository, CampanhaRepository>();
+
+            //Lead
+            services.AddScoped<IAppServiceLead, AppServiceLead>();
+
         }
     }
 }

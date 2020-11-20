@@ -11,7 +11,7 @@ using FluentValidation.Results;
 
 namespace CondominioAppMarketplace.Infra.Data
 {
-    public class LojaContext : DbContext, IUnitOfWorks
+    public class MarketplaceContext : DbContext, IUnitOfWorks
     {
         private readonly IMediatorHandler _mediatorHandler;
         public DbSet<Parceiro> Parceiros { get; set; }
@@ -26,7 +26,7 @@ namespace CondominioAppMarketplace.Infra.Data
 
         public DbSet<Vendedor> Vendedores { get; set; }
         
-        public LojaContext(DbContextOptions<LojaContext> options, IMediatorHandler mediatorHandler) : base(options)
+        public MarketplaceContext(DbContextOptions<MarketplaceContext> options, IMediatorHandler mediatorHandler) : base(options)
         {
             _mediatorHandler = mediatorHandler;
         }
@@ -35,7 +35,7 @@ namespace CondominioAppMarketplace.Infra.Data
         {
             modelBuilder.Ignore<ValidationResult>();
             modelBuilder.Ignore<Event>();
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(LojaContext).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(MarketplaceContext).Assembly);
 
             ////Configuração de relacionamento evitando conflito em cascata                       
             modelBuilder.Entity<Campanha>()

@@ -21,8 +21,6 @@ namespace CondominioAppMarketplace.Domain
 
         public bool Ativo { get; private set; }
 
-        public bool TodosOsCondominios { get; private set; }
-
         public int NumeroDeCliques { get; private set; }
 
         public Guid ItemDeVendaId { get; private set; }
@@ -31,13 +29,11 @@ namespace CondominioAppMarketplace.Domain
 
         protected Campanha() { }
 
-        public Campanha(string titulo, string descricao, string banner, DateTime dataDeInicio, DateTime dataDeFim,
-            bool todosOsCondominios, Guid itemDeVendaId)
+        public Campanha(string titulo, string descricao, string banner, DateTime dataDeInicio, DateTime dataDeFim, Guid itemDeVendaId)
         {
             Titulo = titulo;
             Descricao = descricao;
             Banner = banner;
-            TodosOsCondominios = todosOsCondominios;
             ItemDeVendaId = itemDeVendaId;
 
             ConfigurarIntervalo(dataDeInicio, dataDeFim);
@@ -48,10 +44,6 @@ namespace CondominioAppMarketplace.Domain
         public void Desativar() => Ativo = false;
 
         public void Ativar() => Ativo = true;
-
-        public void HabilitarTodosOsCondominios() => TodosOsCondominios = true;
-
-        public void DesabilitarTodosOsCondominios() => TodosOsCondominios = false;
 
         public void setTitulo(string titulo)
         {
