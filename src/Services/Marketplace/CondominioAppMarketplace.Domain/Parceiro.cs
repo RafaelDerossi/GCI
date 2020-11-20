@@ -58,7 +58,7 @@ namespace CondominioAppMarketplace.Domain
         protected Parceiro() { }
 
         public Parceiro(string nomeCompleto, string descricao, Cnpj cnpj, Endereco endereco, 
-            Contrato contrato, string nomeDoResponsavel, Email email, Telefone telefoneCelular, Telefone telefoneFixo, bool preCadastro = false, string logoMarca = null, string cor = null)
+            string nomeDoResponsavel, Email email, Telefone telefoneCelular, Telefone telefoneFixo, bool preCadastro = false, Contrato contrato = null, string logoMarca = null, string cor = null)
         {
 
             _Vendedores = new List<Vendedor>();

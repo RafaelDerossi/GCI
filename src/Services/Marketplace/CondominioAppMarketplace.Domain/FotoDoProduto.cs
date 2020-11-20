@@ -24,12 +24,15 @@ namespace CondominioAppMarketplace.Domain
 
         protected FotoDoProduto() { }
 
-        public FotoDoProduto(string nomeOriginal, string extensao, bool principal, string nomeDoArquivo = null)
+        public FotoDoProduto(string nomeOriginal, bool principal, string nomeDoArquivo = null)
         {
             NomeOriginal = nomeOriginal;
-            Extensao = extensao;
             Principal = principal;
+
+            setExtensao();
         }
+
+        public void AssociarFotoAoProduto(Produto produto) => Produto = produto;
 
         public void MarcarComoPrincipal() => Principal = true;
 

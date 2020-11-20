@@ -94,6 +94,7 @@ namespace CondominioAppMarketplace.Domain
        
         public void AdicionarFotos(FotoDoProduto Foto)
         {
+            Foto.AssociarFotoAoProduto(this);
             Fotos.Add(Foto);
         }
 

@@ -41,7 +41,6 @@ namespace CondominioAppMarketplace.Domain
             ItemDeVendaId = itemDeVendaId;
 
             ConfigurarIntervalo(dataDeInicio, dataDeFim);
-            Validar();
         }
 
         public void ContaCliques() => NumeroDeCliques++;
@@ -72,16 +71,18 @@ namespace CondominioAppMarketplace.Domain
                 Banner = banner;
         }
 
-        public void ConfigurarIntervalo(DateTime dataDeInicio, DateTime dataDeFim)
+        public ValidationResult ConfigurarIntervalo(DateTime dataDeInicio, DateTime dataDeFim)
         {
-            if (dataDeInicio != null && dataDeFim != null)
+            if (dataDeFim < dataDeInicio)
             {
-                if (dataDeFim < dataDeInicio)
-                    throw new DomainException("Data de início da campanha não pode ser maior que a de fim");
-
-                DataDeInicio = dataDeInicio;
-                DataDeFim = dataDeFim;
+                AdicionarErrosDaEntidade("Data de início da campanha não pode ser maior que a de fim");
+                return ValidationResult;
             }
+            
+            DataDeInicio = dataDeInicio;
+            DataDeFim = dataDeFim;
+
+            return ValidationResult;
         }
 
         public ValidationResult Validar()

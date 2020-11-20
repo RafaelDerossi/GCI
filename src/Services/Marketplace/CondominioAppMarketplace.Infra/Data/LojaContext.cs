@@ -4,11 +4,16 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using CondominioApp.Core.Extensions;
+using CondominioApp.Core.Mediator;
+using CondominioApp.Core.Messages;
+using FluentValidation.Results;
 
 namespace CondominioAppMarketplace.Infra.Data
 {
     public class LojaContext : DbContext, IUnitOfWorks
     {
+        private readonly IMediatorHandler _mediatorHandler;
         public DbSet<Parceiro> Parceiros { get; set; }
 
         public DbSet<Campanha> Campanhas { get; set; }
@@ -20,12 +25,16 @@ namespace CondominioAppMarketplace.Infra.Data
         public DbSet<ItemDeVenda> ItensDeVenda { get; set; }
 
         public DbSet<Vendedor> Vendedores { get; set; }
-
-        public LojaContext() { }
-        public LojaContext(DbContextOptions<LojaContext> options) : base(options) { }
+        
+        public LojaContext(DbContextOptions<LojaContext> options, IMediatorHandler mediatorHandler) : base(options)
+        {
+            _mediatorHandler = mediatorHandler;
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Ignore<ValidationResult>();
+            modelBuilder.Ignore<Event>();
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(LojaContext).Assembly);
 
             ////Configuração de relacionamento evitando conflito em cascata                       
@@ -59,7 +68,10 @@ namespace CondominioAppMarketplace.Infra.Data
                 }
             }
 
-            return await SaveChangesAsync() > 0;
+            var sucesso = await SaveChangesAsync() > 0;
+            if (sucesso) await _mediatorHandler.PublicarEventos(this);
+
+            return sucesso;
         }
     }
 }

@@ -41,7 +41,7 @@ namespace CondominioAppMarketplace.Domain
         protected ItemDeVenda() { }
 
         public ItemDeVenda(decimal preco, int porcentagemDeDesconto, DateTime dataDeInicio, DateTime dataDeFim, Guid produtoId, Guid vendedorId, Guid parceiroId, Guid condominioId)
-        {   
+        {
             ProdutoId = produtoId;
             VendedorId = vendedorId;
             ParceiroId = parceiroId;
@@ -50,7 +50,7 @@ namespace CondominioAppMarketplace.Domain
             setPorcentagemDeDesconto(porcentagemDeDesconto);
             setPreco(preco);
             ConfigurarIntervalo(dataDeInicio, dataDeFim);
-           
+
         }
 
         public string PrecoDoProduto
@@ -60,12 +60,12 @@ namespace CondominioAppMarketplace.Domain
 
         public string PrecoComDescontoFormatado
         {
-            get 
+            get
             {
                 var porcentagemDoValor = Preco * (Convert.ToDecimal(PorcentagemDeDesconto) / Convert.ToDecimal(100));
                 var ValorFinal = Preco - porcentagemDoValor;
 
-                return ValorFinal.ToString("C", InformacaoDeNumeroFormatado); 
+                return ValorFinal.ToString("C", InformacaoDeNumeroFormatado);
             }
         }
 
@@ -92,27 +92,30 @@ namespace CondominioAppMarketplace.Domain
                 PorcentagemDeDesconto = porcentagemDeDesconto;
         }
 
-        public void ConfigurarIntervalo(DateTime dataDeInicio, DateTime dataDeFim)
+        public ValidationResult ConfigurarIntervalo(DateTime dataDeInicio, DateTime dataDeFim)
         {
-            if (dataDeInicio != null && dataDeFim != null)
+            if (dataDeFim < dataDeInicio)
             {
-                if (dataDeFim < dataDeInicio)
-                    throw new DomainException("Data de início do item de venda não pode ser maior que a de fim");
-
-                DataDeInicio = dataDeInicio.Date;
-                DataDeFim = dataDeFim.Date;
+                AdicionarErrosDaEntidade("Data de início do item de venda não pode ser maior que a de fim");
+                return ValidationResult;
             }
+            
+            DataDeInicio = dataDeInicio.Date;
+            DataDeFim = dataDeFim.Date;
+
+            return ValidationResult;
+
         }
 
         public void setVendedor(Vendedor vendedor) => Vendedor = vendedor;
-      
+
 
         public void setProduto(Produto produto) => Produto = produto;
-       
+
 
         public ValidationResult Validar()
         {
-            
+
             var Result = new ItemDeVendaValidation().Validate(this);
 
             return Result;
