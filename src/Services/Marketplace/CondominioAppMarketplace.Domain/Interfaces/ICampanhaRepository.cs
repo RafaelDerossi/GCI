@@ -1,4 +1,5 @@
 ﻿using System;
+using CondominioApp.Core.Data;
 
 namespace CondominioAppMarketplace.Domain.Interfaces
 {

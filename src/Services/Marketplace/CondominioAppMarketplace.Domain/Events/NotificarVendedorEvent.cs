@@ -1,4 +1,5 @@
 ﻿using System;
+using CondominioApp.Core.Messages.CommonMessages.DomainEvents;
 
 namespace CondominioAppMarketplace.Domain.Events
 {
