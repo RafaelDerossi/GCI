@@ -10,8 +10,6 @@ namespace CondominioAppMarketplace.App.ViewModel
 
         public Guid ParceiroId { get; set; }
 
-        public Guid CondominioId { get; set; }
-
         public DateTime DataDeInicioDaExposicao { get; set; }
 
         public DateTime DataDeFinalDaExposicao { get; set; }

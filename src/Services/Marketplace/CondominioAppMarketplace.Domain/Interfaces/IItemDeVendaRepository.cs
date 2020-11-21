@@ -18,7 +18,7 @@ namespace CondominioAppMarketplace.Domain.Interfaces
    
         ItemDeVenda ObterItemDeVendaAleatorio();
 
-        bool VerificarExistenciaDoItemDeVenda(Guid ProdutoId, Guid CondominioId);
+        bool VerificarExistenciaDoItemDeVenda(Guid ProdutoId, Guid ParceiroId);
 
         void AdicionarLead(Lead Lead);
     }

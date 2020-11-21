@@ -16,7 +16,7 @@ namespace CondominioAppMarketplace.App.AutoMapper
 
             CreateMap<ItemDeVendaViewModel, ItemDeVenda>()
                 .ConstructUsing(itemDeVenda => new ItemDeVenda(itemDeVenda.PrecoDoProduto, itemDeVenda.PorcentagemDeDesconto, itemDeVenda.DataDeInicioDaExposicao, itemDeVenda.DataDeFinalDaExposicao,
-                                        itemDeVenda.ProdutoId, itemDeVenda.VendedorId, itemDeVenda.ParceiroId, itemDeVenda.CondominioId));
+                                        itemDeVenda.ProdutoId, itemDeVenda.VendedorId, itemDeVenda.ParceiroId));
 
 
             CreateMap<CampanhaNovaViewModel, Campanha>()

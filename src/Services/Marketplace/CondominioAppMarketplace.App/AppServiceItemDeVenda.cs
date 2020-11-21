@@ -34,21 +34,6 @@ namespace CondominioAppMarketplace.App
             return await Task.FromResult(_mapper.Map<IEnumerable<ItemDaVitrineViewModel>>(ItensDeVenda));
         }
 
-        public async Task<ValidationResult> ExporItemNaVitrine(ItemDeVendaViewModel ViewModel)
-        {
-            var itemDeVenda = _mapper.Map<ItemDeVenda>(ViewModel);
-
-            if (_repository.VerificarExistenciaDoItemDeVenda(itemDeVenda.ParceiroId, itemDeVenda.ProdutoId))
-            {
-                AdicionarErro("Ja existe um item na vitrine para este produto e condomínio!");
-                return ValidationResult;
-            }
-
-            _repository.Adicionar(itemDeVenda);
-
-            return await PersistirDados(_repository.UnitOfWork);
-        }
-
         public async Task<ValidationResult> AlterarPreco(Guid ItemDeVendaId, decimal novoPreco)
         {
             var ItemDeVenda = await _repository.ObterPorId(ItemDeVendaId);
@@ -57,18 +42,7 @@ namespace CondominioAppMarketplace.App
             return await PersistirDados(_repository.UnitOfWork);
         }
 
-        public async Task<IEnumerable<ItemDaVitrineViewModel>> ObterPorCondominioId(Guid CondominioId)
-        {
-            DateTime Hoje = DateTime.Now.Date;
-
-            var ItensDeVenda = await _repository.Obter(m => m.DataDeInicio.Date <= Hoje &&
-                                                       m.DataDeFim.Date >= Hoje &&
-                                                       m.CondominioId == CondominioId &&
-                                                       !m.Lixeira, true, 100);
-
-            return await Task.FromResult(_mapper.Map<IEnumerable<ItemDaVitrineViewModel>>(ItensDeVenda));
-        }
-
+       
         public async Task<IEnumerable<ItemDaVitrineViewModel>> ObterPorParceiroId(Guid ParceiroId)
         {
             DateTime Hoje = DateTime.Now.Date;
@@ -92,13 +66,19 @@ namespace CondominioAppMarketplace.App
 
             return await Task.FromResult(_mapper.Map<IEnumerable<ItemDaVitrineViewModel>>(ItensDeVenda));
         }
-
-
+        
         public async Task<ItemDaVitrineViewModel> ObterItemDaVitrine(Guid ItemDeVendaId)
         {
             var ItemDeVenda = _repository.Obter(x => x.Id == ItemDeVendaId, false, 1).Result.FirstOrDefault();
 
             return await Task.FromResult(_mapper.Map<ItemDaVitrineViewModel>(ItemDeVenda));
+        }
+
+        public async Task<ItemDaVitrineViewModel> ProdutoAleatorioDaVitrine()
+        {
+            var ItemDaVitrine = _repository.ObterItemDeVendaAleatorio();
+
+            return await Task.FromResult(_mapper.Map<ItemDaVitrineViewModel>(ItemDaVitrine));
         }
 
         public async Task<bool> RemoverDaVitrine(Guid ItemDeVendaId)
@@ -108,11 +88,24 @@ namespace CondominioAppMarketplace.App
 
             return await _repository.UnitOfWork.Commit();
         }
-        public async Task<ItemDaVitrineViewModel> ProdutoAleatorioDaVitrine()
-        {
-            var ItemDaVitrine = _repository.ObterItemDeVendaAleatorio();
 
-            return await Task.FromResult(_mapper.Map<ItemDaVitrineViewModel>(ItemDaVitrine));
+        public async Task<ValidationResult> ExporItemNaVitrine(ItemDeVendaViewModel ViewModel)
+        {
+            //var itemDeVenda = _mapper.Map<ItemDeVenda>(ViewModel);
+
+            var itemDeVenda = new ItemDeVenda(ViewModel.PrecoDoProduto,ViewModel.PorcentagemDeDesconto,
+                ViewModel.DataDeInicioDaExposicao,ViewModel.DataDeFinalDaExposicao,
+                ViewModel.ProdutoId,ViewModel.VendedorId,ViewModel.ParceiroId);
+
+            if (_repository.VerificarExistenciaDoItemDeVenda(itemDeVenda.ProdutoId, itemDeVenda.ParceiroId))
+            {
+                AdicionarErro("Ja existe um item na vitrine para este produto e condomínio!");
+                return ValidationResult;
+            }
+
+            _repository.Adicionar(itemDeVenda);
+
+            return await PersistirDados(_repository.UnitOfWork);
         }
 
         public async Task<bool> ContarClique(Guid ItemDeVendaId)
@@ -142,8 +135,7 @@ namespace CondominioAppMarketplace.App
 
             return await PersistirDados(_repository.UnitOfWork);
         }
-
-
+        
         public void Dispose()
         {
             _repository?.Dispose();

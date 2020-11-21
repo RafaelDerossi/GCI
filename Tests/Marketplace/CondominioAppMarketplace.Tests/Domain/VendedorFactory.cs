@@ -1,5 +1,6 @@
 ﻿using CondominioApp.Core.ValueObjects;
 using CondominioAppMarketplace.Domain;
+using Microsoft.VisualBasic.CompilerServices;
 
 namespace CondominioAppMarketplace.Tests.Domain
 {

@@ -93,12 +93,12 @@ namespace CondominioAppMarketplace.Infra.Repositories
                                             .OrderBy(x => Guid.NewGuid()).Take(1).FirstOrDefault();
         }
 
-        public bool VerificarExistenciaDoItemDeVenda(Guid ProdutoId, Guid CondominioId)
+        public bool VerificarExistenciaDoItemDeVenda(Guid ProdutoId, Guid ParceiroId)
         {
             DateTime Hoje = DateTime.Now.Date;
 
             return _ContextoBanco.ItensDeVenda.Any(x => x.ProdutoId == ProdutoId &&
-                                                    x.CondominioId == CondominioId &&
+                                                    x.ParceiroId == ParceiroId &&
                                                     x.DataDeInicio <= Hoje &&
                                                     x.DataDeFim >= Hoje &&
                                                     !x.Lixeira);

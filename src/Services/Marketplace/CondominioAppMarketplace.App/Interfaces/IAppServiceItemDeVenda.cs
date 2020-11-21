@@ -10,8 +10,6 @@ namespace CondominioAppMarketplace.App.Interfaces
     {
         Task<IEnumerable<ItemDaVitrineViewModel>> ObterTodos();
 
-        Task<IEnumerable<ItemDaVitrineViewModel>> ObterPorCondominioId(Guid CondominioId);
-
         Task<IEnumerable<ItemDaVitrineViewModel>> ObterPorParceiroId(Guid ParceiroId);
 
         Task<IEnumerable<ItemDaVitrineViewModel>> ObterPorVendedorId(Guid VendedorId);

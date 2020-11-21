@@ -32,21 +32,18 @@ namespace CondominioAppMarketplace.Domain
 
         public Guid ParceiroId { get; private set; }
 
-        public Guid CondominioId { get; private set; }
-
         public ICollection<Lead> Leads { get; private set; }
 
         public ICollection<Campanha> Campanhas { get; private set; }
 
         protected ItemDeVenda() { }
 
-        public ItemDeVenda(decimal preco, int porcentagemDeDesconto, DateTime dataDeInicio, DateTime dataDeFim, Guid produtoId, Guid vendedorId, Guid parceiroId, Guid condominioId)
+        public ItemDeVenda(decimal preco, int porcentagemDeDesconto, DateTime dataDeInicio, DateTime dataDeFim, Guid produtoId, Guid vendedorId, Guid parceiroId)
         {
             ProdutoId = produtoId;
             VendedorId = vendedorId;
             ParceiroId = parceiroId;
-            CondominioId = condominioId;
-
+           
             setPorcentagemDeDesconto(porcentagemDeDesconto);
             setPreco(preco);
             ConfigurarIntervalo(dataDeInicio, dataDeFim);
@@ -136,6 +133,19 @@ namespace CondominioAppMarketplace.Domain
                 RuleFor(c => c.ParceiroId)
                     .NotEqual(Guid.Empty)
                     .WithMessage("O Id do Parceir do item de venda não pode estar vazio!");
+
+                RuleFor(c => c.DataDeInicio)
+                    .NotNull()
+                    .WithMessage("O Data de fim do item de venda não pode estar vazio!");
+
+                RuleFor(c => c.DataDeFim)
+                    .NotNull()
+                    .WithMessage("O Data de fim do item de venda não pode estar vazio!");
+
+                RuleFor(c => c.DataDeFim)
+                    .NotNull().WithMessage("Data de fim do item de venda é obrigatória!")
+                    .GreaterThan(m => m.DataDeInicio)
+                    .WithMessage("Data de início do item de venda deve ser menor que a de fim!");
             }
         }
     }
