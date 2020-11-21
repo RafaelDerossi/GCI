@@ -11,7 +11,7 @@ namespace CondominioAppMarketplace.App.AutoMapper
         {
             CreateMap<VendedorViewModel, Vendedor>()
                     .ConstructUsing(vendedor => new Vendedor(vendedor.Nome, new Email(vendedor.EmailDoVendedor), new Cpf(vendedor.CpfDoVendedor), new Telefone(vendedor.TelefoneDoVendedor, vendedor.Whatsapp),
-                                  new Endereco(vendedor.logradouro, vendedor.complemento, vendedor.numero, vendedor.cep, vendedor.bairro, vendedor.cidade, vendedor.estado), vendedor.ParceiroId));
+                                  new Endereco(vendedor.logradouro, vendedor.complemento, vendedor.numero, vendedor.cep, vendedor.bairro, vendedor.cidade, vendedor.estado)));
 
 
             CreateMap<ItemDeVendaViewModel, ItemDeVenda>()
@@ -20,7 +20,7 @@ namespace CondominioAppMarketplace.App.AutoMapper
 
 
             CreateMap<CampanhaNovaViewModel, Campanha>()
-                .ConstructUsing(campanha => new Campanha(campanha.Titulo, campanha.Descricao, campanha.Banner, campanha.DataDeInicio, campanha.DataDeFim, campanha.ItemDeVendaId));
+                .ConstructUsing(campanha => new Campanha(campanha.Titulo, campanha.Descricao, campanha.Banner, campanha.DataDeInicio, campanha.DataDeFim));
 
 
             CreateMap<LeadNovoViewModel, Lead>()

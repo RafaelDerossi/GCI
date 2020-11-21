@@ -21,22 +21,25 @@ namespace CondominioAppMarketplace.Domain
 
         public Endereco Endereco { get; private set; }
 
-        public Guid ParceiroId { get; private set; }
-
         public Parceiro Parceiro { get; private set; }
+        
+        private readonly List<ItemDeVenda> _ItensDeVenda;
 
-        public ICollection<ItemDeVenda> ItensDeVenda { get; private set; }
+        public IReadOnlyCollection<ItemDeVenda> ItensDeVenda => _ItensDeVenda;
 
         protected Vendedor() { }
-        public Vendedor(string nome, Email email, Cpf cpf, Telefone telefone, Endereco endereco, Guid parceiroId)
+
+        public Vendedor(string nome, Email email, Cpf cpf, Telefone telefone, 
+            Endereco endereco)
         {
             Nome = nome;
             Email = email;
             Cpf = cpf;
             Telefone = telefone;
             Endereco = endereco;
-            ParceiroId = parceiroId;
         }
+
+        public void AssociarAoParceiro(Parceiro parceiro) => Parceiro = parceiro;
 
         public void setNome(string nomeDoVendedor)
         {
@@ -56,7 +59,7 @@ namespace CondominioAppMarketplace.Domain
         public override bool Equals(object obj)
         {
             Vendedor vendedor = (Vendedor)obj;
-            if (vendedor.Email.Endereco == Email.Endereco && vendedor.ParceiroId == ParceiroId)
+            if (vendedor.Email.Endereco == Email.Endereco && vendedor.Parceiro.Id == Parceiro.Id)
                 return true;
 
             return false;
@@ -94,11 +97,6 @@ namespace CondominioAppMarketplace.Domain
                 RuleFor(c => c.Telefone)
                     .NotNull()
                     .NotEmpty().WithMessage("O Telefone não pode ser vazio!");
-
-                RuleFor(c => c.ParceiroId)
-                    .NotEqual(Guid.Empty)
-                    .WithMessage("O Id do parceiro não pode estar vazio!");
-
             }
         }
     }

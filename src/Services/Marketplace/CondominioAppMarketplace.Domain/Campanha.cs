@@ -29,15 +29,16 @@ namespace CondominioAppMarketplace.Domain
 
         protected Campanha() { }
 
-        public Campanha(string titulo, string descricao, string banner, DateTime dataDeInicio, DateTime dataDeFim, Guid itemDeVendaId)
+        public Campanha(string titulo, string descricao, string banner, DateTime dataDeInicio, DateTime dataDeFim)
         {
             Titulo = titulo;
             Descricao = descricao;
             Banner = banner;
-            ItemDeVendaId = itemDeVendaId;
-
-            ConfigurarIntervalo(dataDeInicio, dataDeFim);
+            DataDeInicio = dataDeInicio;
+            DataDeFim = dataDeFim;
         }
+
+        public void AssociarAoItemDeVenda(ItemDeVenda itemDeVenda) => ItemDeVenda = itemDeVenda;
 
         public void ContaCliques() => NumeroDeCliques++;
 
@@ -45,23 +46,11 @@ namespace CondominioAppMarketplace.Domain
 
         public void Ativar() => Ativo = true;
 
-        public void setTitulo(string titulo)
-        {
-            if (!string.IsNullOrEmpty(titulo))
-                Titulo = titulo;
-        }
+        public void setTitulo(string titulo) => Titulo = titulo;
 
-        public void setDescricao(string descricao)
-        {
-            if (!string.IsNullOrEmpty(descricao))
-                Descricao = descricao;
-        }
+        public void setDescricao(string descricao) => Descricao = descricao;
 
-        public void setBanner(string banner)
-        {
-            if (!string.IsNullOrEmpty(banner))
-                Banner = banner;
-        }
+        public void setBanner(string banner) => Banner = banner;
 
         public ValidationResult ConfigurarIntervalo(DateTime dataDeInicio, DateTime dataDeFim)
         {
@@ -105,9 +94,10 @@ namespace CondominioAppMarketplace.Domain
                     .NotNull()
                     .WithMessage("O Data de fim da campanha não pode estar vazio!");
 
-                RuleFor(c => c.ItemDeVendaId)
-                    .NotEqual(Guid.Empty)
-                    .WithMessage("O Id do Item de venda da campanha não pode estar vazio!");
+                RuleFor(c => c.DataDeFim)
+                    .NotNull().WithMessage("Data de fim da campanha é obrigatória!")
+                    .GreaterThan(m => m.DataDeInicio)
+                    .WithMessage("Data de início da campanha deve ser menor que a de fim!");
             }
         }
     }

@@ -13,7 +13,6 @@ namespace CondominioAppMarketplace.App
     public class AppServiceCampanha : AppService, IAppServiceCampanha
     {
         private readonly ICampanhaRepository _repository;
-
         private readonly IMapper _mapper;
 
         public AppServiceCampanha(ICampanhaRepository repository, IMapper mapper)
@@ -120,7 +119,7 @@ namespace CondominioAppMarketplace.App
 
         public async Task<ValidationResult> IniciarCampanha(CampanhaNovaViewModel ViewModel)
         {
-            var CampanhaNova = _mapper.Map<Campanha>(ViewModel);
+            var CampanhaNova = new Campanha(ViewModel.Titulo,ViewModel.Descricao,ViewModel.Banner,ViewModel.DataDeInicio,ViewModel.DataDeFim);
 
             if (_repository.VerificaExistenciaDaCampanha(CampanhaNova.ItemDeVendaId))
             {

@@ -112,11 +112,13 @@ namespace CondominioAppMarketplace.Domain
        
         public ValidationResult Contratar(Vendedor vendedor)
         {
-            if (this.Vendedores.Any(x => x.Email.Endereco == vendedor.Email.Endereco))
+            if (_Vendedores.Any(x => x.Email.Endereco == vendedor.Email.Endereco))
             {
                 AdicionarErrosDaEntidade("Vendedor já cadastrado para este parceiro!");
                 return ValidationResult;
             }
+
+            vendedor.AssociarAoParceiro(this);
 
             _Vendedores.Add(vendedor);
 

@@ -107,7 +107,7 @@ namespace CondominioAppMarketplace.App
 
         public async Task<IEnumerable<VendedorViewModel>> ObterVendedoresDoParceiro(Guid ParceiroId)
         {
-            var vendedores = await _repository.ObterVendedores(x => !x.Lixeira && x.ParceiroId == ParceiroId, false, 250);
+            var vendedores = await _repository.ObterVendedores(x => !x.Lixeira && x.Parceiro.Id == ParceiroId, false, 250);
 
             return await Task.FromResult(_mapper.Map<IEnumerable<VendedorViewModel>>(vendedores));
         }
