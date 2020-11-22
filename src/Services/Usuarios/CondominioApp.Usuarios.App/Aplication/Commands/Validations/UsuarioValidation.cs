@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using FluentValidation;
+﻿using FluentValidation;
+using System;
 
 namespace CondominioApp.Usuarios.App.Aplication.Commands.Validations
-{    
+{
     public abstract class UsuarioValidation<T> : AbstractValidator<T> where T : UsuarioCommand
     {
         protected void ValidateNome()
@@ -27,7 +25,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands.Validations
         {
             RuleFor(c => c.UsuarioId)
                 .NotEqual(Guid.Empty);
-        }      
+        }
 
     }
 }

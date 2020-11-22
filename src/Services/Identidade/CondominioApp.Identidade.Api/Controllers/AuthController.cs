@@ -26,7 +26,7 @@ namespace CondominioApp.Identidade.Api.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly AppSettings _appSettings;
         private readonly IMediatorHandler _mediatorHandler;
-        
+
         public AuthController(SignInManager<IdentityUser> signInManager,
                               UserManager<IdentityUser> userManager,
                               IOptions<AppSettings> appSettings,
@@ -37,7 +37,7 @@ namespace CondominioApp.Identidade.Api.Controllers
             _appSettings = appSettings.Value;
             _mediatorHandler = mediatorHandler;
         }
-        
+
 
         [HttpPut("{Id:Guid}")]
         public async Task<ActionResult> AtualizarSenha(Guid Id, UsuarioSenhaViewModel UsuarioSenhaModel)
@@ -57,7 +57,7 @@ namespace CondominioApp.Identidade.Api.Controllers
             return CustomResponse();
         }
 
-        [HttpPost("Esqueceu-senha")]
+        [HttpPost("esqueceu-senha")]
         public async Task<IActionResult> EsqueciASenha(UsuarioEsqueciSenhaViewModel UsuarioModel)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
@@ -73,7 +73,7 @@ namespace CondominioApp.Identidade.Api.Controllers
             return CustomResponse();
         }
 
-        [HttpPost("Alterar-senha")]
+        [HttpPost("alterar-senha")]
         public async Task<IActionResult> AlterarSenha(UsuarioRedefinirSenhaViewModel usuarioViewModel)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
@@ -93,35 +93,23 @@ namespace CondominioApp.Identidade.Api.Controllers
         }
 
 
-        [HttpPost("Nova-conta")]
+        [HttpPost("nova-conta")]
         public async Task<ActionResult> Registrar(UsuarioRegistro usuarioRegistro)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            
             var user = IdentityUserFactory(usuarioRegistro);
-
-            if (!OperacaoValida())
-            {               
-                return CustomResponse();
-            }
 
             var result = await _userManager.CreateAsync(user, usuarioRegistro.Senha);
 
             if (result.Succeeded)
             {
                 usuarioRegistro.UsuarioId = Guid.Parse(user.Id);
-                
+
                 await _userManager.AddClaimAsync(user, new Claim("TipoUsuario",
                     Enum.GetName(typeof(TipoDeUsuario), usuarioRegistro.TpUsuario)));
-                
-                var comando = CadastrarMoradorCommandFactory(usuarioRegistro);
 
-                if (!OperacaoValida())
-                {
-                    await _userManager.DeleteAsync(user);
-                    return CustomResponse();
-                }                               
+                var comando = CadastrarMoradorCommandFactory(usuarioRegistro);
 
                 var Resultado = await _mediatorHandler.EnviarComando(comando);
 
@@ -167,8 +155,7 @@ namespace CondominioApp.Identidade.Api.Controllers
             AdicionarErroProcessamento("Usuário ou Senha incorretos");
             return CustomResponse();
         }
-
-
+        
 
         private async Task<UsuarioRespostaLogin> GerarJwt(string login)
         {
@@ -236,59 +223,27 @@ namespace CondominioApp.Identidade.Api.Controllers
         private static long ToUnixEpochDate(DateTime date)
             => (long)Math.Round((date.ToUniversalTime() - new DateTimeOffset(1970, 1, 1, 0, 0, 0, TimeSpan.Zero)).TotalSeconds);
 
-
-        //private async Task<ValidationResult> CriarInscricaoDeUsuario(InscricaoModel Model)
-        //{
-        //    var Http = new HttpClient();
-
-        //    Http.DefaultRequestHeaders.Authorization =
-        //        new AuthenticationHeaderValue("Bearer", GerarJwt(Model.Email).Result.AccessToken);
-
-        //    var conteudo = ObterConteudo(Model);
-
-
-        //    var response = await Http.PostAsync("https://inscricoes.conect.studio/api/inscricao", conteudo);
-           
-        //    return await DeserializarObjetoResponse<ValidationResult>(response);
-
-        //}
-
         #region MétodosAuxiliares
 
         private IdentityUser IdentityUserFactory(UsuarioRegistro usuarioRegistro)
         {
-            try
+            return new IdentityUser
             {
-                return new IdentityUser
-                {
-                    Id = Guid.NewGuid().ToString(),
-                    UserName = usuarioRegistro.Email,
-                    Email = usuarioRegistro.Email,
-                    EmailConfirmed = true
-                };
-            }
-            catch (Exception ex)
-            {
-                AdicionarErroProcessamento(ex.Message);
-                return null;
-            }
-           
+                Id = Guid.NewGuid().ToString(),
+                UserName = usuarioRegistro.Email,
+                Email = usuarioRegistro.Email,
+                EmailConfirmed = true
+            };
         }
 
         private CadastrarMoradorCommand CadastrarMoradorCommandFactory(UsuarioRegistro usuarioRegistro)
         {
-            try
-            {
-                return new CadastrarMoradorCommand(
-                 usuarioRegistro.UsuarioId, usuarioRegistro.Nome, usuarioRegistro.Sobrenome, usuarioRegistro.Email,
-                 null, usuarioRegistro.Cpf, usuarioRegistro.Celular, usuarioRegistro.Foto, usuarioRegistro.NomeOriginal,
-                 usuarioRegistro.DataDeNascimento);
-            }
-            catch (Exception ex)
-            {              
-                AdicionarErroProcessamento(ex.Message);
-                return null;
-            }  
+
+            return new CadastrarMoradorCommand(
+             usuarioRegistro.UsuarioId, usuarioRegistro.Nome, usuarioRegistro.Sobrenome, usuarioRegistro.Email,
+             null, usuarioRegistro.Cpf, usuarioRegistro.Celular, usuarioRegistro.Foto, usuarioRegistro.NomeOriginal,
+             usuarioRegistro.DataDeNascimento);
+
         }
 
         #endregion

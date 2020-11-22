@@ -30,5 +30,53 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
         public Permissao Permissao { get; protected set; }
 
         public DateTime? DataNascimento { get; protected set; }
+
+        public void SetCpf(string cpf)
+        {
+            try
+            {
+                Cpf = new Cpf(cpf);
+            }
+            catch (Exception e)
+            {
+                AdicionarErrosDeProcessamentoDoComando(e.Message);
+            }
+        }
+
+        public void SetCelular(string cel)
+        {
+            try
+            {
+                Cel = new Telefone(cel);
+            }
+            catch (Exception e)
+            {
+                AdicionarErrosDeProcessamentoDoComando(e.Message);
+            }
+        }
+
+        public void SetEmail(string email)
+        {
+            try
+            {
+                Email = new Email(email);
+            }
+            catch (Exception e)
+            {
+                AdicionarErrosDeProcessamentoDoComando(e.Message);
+            }
+        }
+
+        public void SetFoto(string foto, string nomeOriginal)
+        {
+            try
+            {
+                Foto = new Foto(nomeOriginal, foto);
+            }
+            catch (Exception e)
+            {
+                AdicionarErrosDeProcessamentoDoComando(e.Message);
+            }
+        }
     }
 }
