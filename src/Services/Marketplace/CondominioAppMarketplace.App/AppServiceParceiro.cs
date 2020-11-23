@@ -29,6 +29,8 @@ namespace CondominioAppMarketplace.App
             _itemDeVendaRepository = itemDeVendaRepository;
         }
 
+
+
         public async Task<ParceiroViewModel> ObterPorId(Guid Id)
         {
             var parceiro = await _repository.ObterPorId(Id);
@@ -39,7 +41,39 @@ namespace CondominioAppMarketplace.App
         {
             var parceiros = await _repository.ObterTodos();
             return await Task.FromResult(_mapper.Map<IEnumerable<ParceiroViewModel>>(parceiros));
+        }        
+
+        private bool EsteParceiroEstaCadastrado(Parceiro Parceiro)
+        {
+            var parceiro = _repository.Obter(x => x.Cnpj.numero == Parceiro.Cnpj.numero &&
+                                                  !x.Lixeira).Result.FirstOrDefault();
+            if (parceiro != null)
+                return true;
+
+            return false;
+        }        
+
+        public async Task<IEnumerable<VendedorViewModel>> ObterTodosVendedores()
+        {
+            var vendedores = await _repository.ObterVendedores(x => !x.Lixeira, false, 250);
+            return await Task.FromResult(_mapper.Map<IEnumerable<VendedorViewModel>>(vendedores));
         }
+
+        public async Task<IEnumerable<VendedorViewModel>> ObterVendedoresDoParceiro(Guid ParceiroId)
+        {
+            var vendedores = await _repository.ObterVendedores(x => !x.Lixeira && x.Parceiro.Id == ParceiroId, false, 250);
+
+            return await Task.FromResult(_mapper.Map<IEnumerable<VendedorViewModel>>(vendedores));
+        }       
+
+        public async Task<IEnumerable<ParceiroViewModel>> ObterAtivos()
+        {
+            var parceiros = await _repository.Obter(x => !x.PreCadastro && !x.Lixeira, true, 250);
+
+            return await Task.FromResult(_mapper.Map<IEnumerable<ParceiroViewModel>>(parceiros));
+        }
+
+
 
         public async Task<ValidationResult> Adicionar(ParceiroViewModel ViewModel)
         {
@@ -70,48 +104,6 @@ namespace CondominioAppMarketplace.App
 
         }
 
-        private bool EsteParceiroEstaCadastrado(Parceiro Parceiro)
-        {
-            var parceiro = _repository.Obter(x => x.Cnpj.numero == Parceiro.Cnpj.numero &&
-                                                  !x.Lixeira).Result.FirstOrDefault();
-            if (parceiro != null)
-                return true;
-
-            return false;
-        }
-
-
-        public async Task<ValidationResult> ContratarVendedor(VendedorViewModel ViewModel)
-        {
-            var vendedor = _mapper.Map<Vendedor>(ViewModel);
-
-            var VendedorObtido = _repository.ObterVendedores(x => x.Email.Endereco == vendedor.Email.Endereco &&
-                                                                  !x.Lixeira, false, 1).Result.FirstOrDefault();
-
-            if (VendedorObtido != null && VendedorObtido.Equals(vendedor))
-            {
-                AdicionarErro("Vendedor ja cadastrado para este parceiro!");
-                return ValidationResult;
-            }
-
-            _repository.AdicionarVendedor(vendedor);
-
-            return await PersistirDados(_repository.UnitOfWork);
-        }
-
-        public async Task<IEnumerable<VendedorViewModel>> ObterTodosVendedores()
-        {
-            var vendedores = await _repository.ObterVendedores(x => !x.Lixeira, false, 250);
-            return await Task.FromResult(_mapper.Map<IEnumerable<VendedorViewModel>>(vendedores));
-        }
-
-        public async Task<IEnumerable<VendedorViewModel>> ObterVendedoresDoParceiro(Guid ParceiroId)
-        {
-            var vendedores = await _repository.ObterVendedores(x => !x.Lixeira && x.Parceiro.Id == ParceiroId, false, 250);
-
-            return await Task.FromResult(_mapper.Map<IEnumerable<VendedorViewModel>>(vendedores));
-        }
-
         public async Task<ValidationResult> AtualizarVendedor(VendedorAlterarViewModel ViewModel)
         {
             var vendedor = await _repository.ObterVendedorPorId(ViewModel.VendedorId);
@@ -140,12 +132,23 @@ namespace CondominioAppMarketplace.App
             return await PersistirDados(_repository.UnitOfWork);
         }
 
-        public async Task<IEnumerable<ParceiroViewModel>> ObterAtivos()
+        public async Task<ValidationResult> ContratarVendedor(VendedorViewModel ViewModel)
         {
-            var parceiros = await _repository.Obter(x => !x.PreCadastro && !x.Lixeira, true, 250);
+            var vendedor = _mapper.Map<Vendedor>(ViewModel);
 
-            return await Task.FromResult(_mapper.Map<IEnumerable<ParceiroViewModel>>(parceiros));
-        }
+            var VendedorObtido = _repository.ObterVendedores(x => x.Email.Endereco == vendedor.Email.Endereco &&
+                                                                  !x.Lixeira, false, 1).Result.FirstOrDefault();
+
+            if (VendedorObtido != null && VendedorObtido.Equals(vendedor))
+            {
+                AdicionarErro("Vendedor ja cadastrado para este parceiro!");
+                return ValidationResult;
+            }
+
+            _repository.AdicionarVendedor(vendedor);
+
+            return await PersistirDados(_repository.UnitOfWork);
+        }        
 
         public async Task<ValidationResult> DesativarPreCadastro(Guid ParceiroId)
         {
