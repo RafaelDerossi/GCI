@@ -81,12 +81,12 @@ namespace CondominioAppMarketplace.App
             return await Task.FromResult(_mapper.Map<ItemDaVitrineViewModel>(ItemDaVitrine));
         }
 
-        public async Task<bool> RemoverDaVitrine(Guid ItemDeVendaId)
+        public async Task<ValidationResult> RemoverDaVitrine(Guid ItemDeVendaId)
         {
             var ItemDeVenda = await _repository.ObterPorId(ItemDeVendaId);
             ItemDeVenda.EnviarParaLixeira();
 
-            return await _repository.UnitOfWork.Commit();
+            return await PersistirDados(_repository.UnitOfWork);          
         }
 
         public async Task<ValidationResult> ExporItemNaVitrine(ItemDeVendaViewModel ViewModel)
@@ -108,12 +108,12 @@ namespace CondominioAppMarketplace.App
             return await PersistirDados(_repository.UnitOfWork);
         }
 
-        public async Task<bool> ContarClique(Guid ItemDeVendaId)
+        public async Task<ValidationResult> ContarClique(Guid ItemDeVendaId)
         {
             var ItemDaVitrine = await _repository.ObterPorId(ItemDeVendaId);
             ItemDaVitrine.ContaCliques();
 
-            return await Task.FromResult(await _repository.UnitOfWork.Commit());
+            return await PersistirDados(_repository.UnitOfWork);
         }
 
         public async Task<ValidationResult> RestauraProdutosDaVitrine(Guid ParceiroId)

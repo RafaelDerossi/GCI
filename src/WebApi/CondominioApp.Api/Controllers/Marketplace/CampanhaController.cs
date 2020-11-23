@@ -18,6 +18,7 @@ namespace CondominioApp.Api.Controllers.Marketplace
             _AppService = appServiceCampanha;
         }
 
+
         [HttpGet]
         public async Task<IEnumerable<CampanhaViewModel>> ObterCampanhas()
         {
@@ -55,6 +56,7 @@ namespace CondominioApp.Api.Controllers.Marketplace
             return await _AppService.CampanhasFuturasDoParceiro(parceiroId);
         }
 
+
         [HttpPost]
         public async Task<IActionResult> IniciarCampanha(CampanhaNovaViewModel viewModel)
         {
@@ -66,13 +68,13 @@ namespace CondominioApp.Api.Controllers.Marketplace
         [HttpPut("contabilizar-cliques/{Id:Guid}")]
         public async Task<IActionResult> ContabilizarCliques(Guid Id)
         {
-            return Ok(await _AppService.ContabilizarCliques(Id));
+            return CustomResponse(await _AppService.ContabilizarCliques(Id));            
         }
 
         [HttpPut("declinar-campanha/{Id:Guid}")]
         public async Task<IActionResult> DeclinarCampanha(Guid Id)
         {
-            return Ok(await _AppService.DeclinarCampanha(Id));
+            return CustomResponse(await _AppService.DeclinarCampanha(Id));
         }
 
         [HttpPut("reconfigurar-intervalo/{Id:Guid}")]
@@ -84,5 +86,7 @@ namespace CondominioApp.Api.Controllers.Marketplace
 
             return CustomResponse(await _AppService.ReconfigurarIntervalos(viewModel));
         }
+
+
     }
 }

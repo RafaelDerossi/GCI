@@ -106,7 +106,7 @@ namespace CondominioAppMarketplace.App
             return await PersistirDados(_repository.UnitOfWork);
         }
 
-        public async Task<bool> ContabilizarCliques(Guid CampanhaId)
+        public async Task<ValidationResult> ContabilizarCliques(Guid CampanhaId)
         {
             var campanha = await _repository.ObterPorId(CampanhaId);
 
@@ -114,7 +114,7 @@ namespace CondominioAppMarketplace.App
 
             _repository.Atualizar(campanha);
 
-            return await _repository.UnitOfWork.Commit();
+            return await PersistirDados(_repository.UnitOfWork);           
         }
 
         public async Task<ValidationResult> IniciarCampanha(CampanhaNovaViewModel ViewModel)
@@ -132,7 +132,7 @@ namespace CondominioAppMarketplace.App
             return await PersistirDados(_repository.UnitOfWork);
         }
 
-        public async Task<bool> DeclinarCampanha(Guid CampanhaId)
+        public async Task<ValidationResult> DeclinarCampanha(Guid CampanhaId)
         {
             var Campanha = await _repository.ObterPorId(CampanhaId);
 
@@ -140,7 +140,7 @@ namespace CondominioAppMarketplace.App
 
             _repository.Atualizar(Campanha);
 
-            return await _repository.UnitOfWork.Commit();
+            return await PersistirDados(_repository.UnitOfWork);
         }
 
 

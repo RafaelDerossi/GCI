@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using CondominioAppMarketplace.App.ViewModel;
+using FluentValidation.Results;
 
 namespace CondominioAppMarketplace.App.Interfaces
 {
@@ -13,6 +14,6 @@ namespace CondominioAppMarketplace.App.Interfaces
 
         Task<IEnumerable<LeadViewModel>> ObterPorParceiro(Guid ParceiroId);
 
-        Task<bool> EnviarLead(LeadNovoViewModel ViewModel);
+        Task<ValidationResult> EnviarLead(LeadNovoViewModel ViewModel);
     }
 }

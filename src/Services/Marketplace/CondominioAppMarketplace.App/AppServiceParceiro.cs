@@ -111,6 +111,7 @@ namespace CondominioAppMarketplace.App
 
             return await Task.FromResult(_mapper.Map<IEnumerable<VendedorViewModel>>(vendedores));
         }
+
         public async Task<ValidationResult> AtualizarVendedor(VendedorAlterarViewModel ViewModel)
         {
             var vendedor = await _repository.ObterVendedorPorId(ViewModel.VendedorId);
@@ -129,14 +130,14 @@ namespace CondominioAppMarketplace.App
             return await PersistirDados(_repository.UnitOfWork);
         }
 
-        public async Task<bool> RemoverParceiro(Guid ParceiroId)
+        public async Task<ValidationResult> RemoverParceiro(Guid ParceiroId)
         {
             var Parceiro = await _repository.ObterPorId(ParceiroId);
             Parceiro.EnviarParaLixeira();
 
             _repository.Atualizar(Parceiro);
 
-            return await _repository.UnitOfWork.Commit();
+            return await PersistirDados(_repository.UnitOfWork);
         }
 
         public async Task<IEnumerable<ParceiroViewModel>> ObterAtivos()

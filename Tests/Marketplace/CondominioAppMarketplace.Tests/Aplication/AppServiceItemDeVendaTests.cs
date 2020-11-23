@@ -39,7 +39,7 @@ namespace CondominioAppMarketplace.Tests.Aplication
             var result = await _appServiceItemDeVenda.RemoverDaVitrine(ItemDeVendaId);
 
             //Assert
-            Assert.True(result);
+            Assert.True(result.IsValid);
             _mocker.GetMock<IItemDeVendaRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
         }
 

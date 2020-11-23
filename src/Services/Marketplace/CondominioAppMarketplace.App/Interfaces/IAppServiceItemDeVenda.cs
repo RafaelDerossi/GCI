@@ -20,11 +20,11 @@ namespace CondominioAppMarketplace.App.Interfaces
 
         Task<ValidationResult> AlterarPreco(Guid ItemDeVendaId, decimal novoPreco);
 
-        Task<bool> RemoverDaVitrine(Guid ItemDeVendaId);
+        Task<ValidationResult> RemoverDaVitrine(Guid ItemDeVendaId);
 
         Task<ItemDaVitrineViewModel> ProdutoAleatorioDaVitrine();
 
-        Task<bool> ContarClique(Guid ItemDeVendaId);
+        Task<ValidationResult> ContarClique(Guid ItemDeVendaId);
 
         Task<ValidationResult> RestauraProdutosDaVitrine(Guid ParceiroId);
 

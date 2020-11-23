@@ -4,6 +4,7 @@ using CondominioAppMarketplace.App.ViewModel;
 using CondominioAppMarketplace.Domain;
 using CondominioAppMarketplace.Domain.Events;
 using CondominioAppMarketplace.Domain.Interfaces;
+using FluentValidation.Results;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -45,7 +46,7 @@ namespace CondominioAppMarketplace.App
         }
 
 
-        public async Task<bool> EnviarLead(LeadNovoViewModel ViewModel)
+        public async Task<ValidationResult> EnviarLead(LeadNovoViewModel ViewModel)
         {
             var lead = _mapper.Map<Lead>(ViewModel);
 
@@ -55,7 +56,8 @@ namespace CondominioAppMarketplace.App
 
             lead.AdicionarEvento(new NotificarVendedorEvent(lead.Id, ItemDeVenda.VendedorId));
 
-            return PersistirDados(_itemDeVendaRepository.UnitOfWork).Result.IsValid;
+            return await PersistirDados(_itemDeVendaRepository.UnitOfWork);           
+           
         }
 
         public void Dispose()

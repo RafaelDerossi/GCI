@@ -69,12 +69,10 @@ namespace CondominioApp.Api.Controllers
                  AlteraCondominioVM.MuralMorador, AlteraCondominioVM.Chat, AlteraCondominioVM.ChatMorador, 
                  AlteraCondominioVM.Reserva, AlteraCondominioVM.ReservaNaPortaria, AlteraCondominioVM.Ocorrencia,
                  AlteraCondominioVM.OcorrenciaMorador, AlteraCondominioVM.Correspondencia, 
-                 AlteraCondominioVM.CorrespondenciaNaPortaria, AlteraCondominioVM.LimiteTempoReserva);
+                 AlteraCondominioVM.CorrespondenciaNaPortaria, AlteraCondominioVM.LimiteTempoReserva);          
+                    
 
-            
-            var Resultado = await _mediatorHandler.EnviarComando(comando);            
-
-            return CustomResponse(Resultado);
+            return CustomResponse(await _mediatorHandler.EnviarComando(comando));
         }
 
         [HttpDelete("{Id:Guid}")]

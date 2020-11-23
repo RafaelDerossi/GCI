@@ -37,7 +37,7 @@ namespace CondominioAppMarketplace.App.Interfaces
 
         Task<ValidationResult> LimparLogoMarca(Guid ParceiroId);
 
-        Task<bool> RemoverParceiro(Guid ParceiroId);
+        Task<ValidationResult> RemoverParceiro(Guid ParceiroId);
 
         Task<ValidationResult> DesativarLoja(Guid ParceiroId);
 

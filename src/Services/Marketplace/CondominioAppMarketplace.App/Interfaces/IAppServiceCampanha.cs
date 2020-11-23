@@ -24,8 +24,8 @@ namespace CondominioAppMarketplace.App.Interfaces
 
         Task<ValidationResult> ReconfigurarIntervalos(IntervaloDeCampanhaViewModel ViewModel);
 
-        Task<bool> DeclinarCampanha(Guid CampanhaId);
+        Task<ValidationResult> DeclinarCampanha(Guid CampanhaId);
 
-        Task<bool> ContabilizarCliques(Guid CampanhaId);
+        Task<ValidationResult> ContabilizarCliques(Guid CampanhaId);
     }
 }

@@ -66,7 +66,7 @@ namespace CondominioAppMarketplace.Tests.Aplication
             var result = await _appServiceCampanha.ContabilizarCliques(campanhaId);
 
             //Assert
-            Assert.True(result);
+            Assert.True(result.IsValid);
             _mocker.GetMock<ICampanhaRepository>().Verify(r => r.Atualizar(It.IsAny<Campanha>()), Times.Once);
             _mocker.GetMock<ICampanhaRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
         }
@@ -120,7 +120,7 @@ namespace CondominioAppMarketplace.Tests.Aplication
             var result = await _appServiceCampanha.DeclinarCampanha(campanhaId);
 
             //Assert
-            Assert.True(result);
+            Assert.True(result.IsValid);
             _mocker.GetMock<ICampanhaRepository>().Verify(r => r.Atualizar(It.IsAny<Campanha>()), Times.Once);
             _mocker.GetMock<ICampanhaRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
         }
