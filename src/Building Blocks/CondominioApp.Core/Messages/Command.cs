@@ -18,5 +18,10 @@ namespace CondominioApp.Core.Messages
         {
             return ValidationResult.IsValid;
         }
+
+        public void AdicionarErrosDeProcessamentoDoComando(string mensagemDeErro)
+        {
+            ValidationResult.Errors.Add(new ValidationFailure(string.Empty,mensagemDeErro));
+        }
     }
 }

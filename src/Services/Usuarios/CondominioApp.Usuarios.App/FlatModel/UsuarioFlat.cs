@@ -40,19 +40,19 @@ namespace CondominioApp.Usuarios.App.Models.FlatModel
 
         public DateTime? UltimoLogin { get; private set; }
 
-        public string logradouro { get; set; }
+        public string Logradouro { get; set; }
 
-        public string complemento { get; set; }
+        public string Complemento { get; set; }
 
-        public string numero { get; set; }
+        public string Numero { get; set; }
 
-        public string cep { get; set; }
+        public string Cep { get; set; }
 
-        public string bairro { get; set; }
+        public string Bairro { get; set; }
 
-        public string cidade { get; set; }
+        public string Cidade { get; set; }
 
-        public string estado { get; set; }
+        public string Estado { get; set; }
 
         public bool SindicoProfissional { get; private set; }
 
@@ -78,13 +78,13 @@ namespace CondominioApp.Usuarios.App.Models.FlatModel
             Funcao = funcao;
             DataNascimento = dataNascimento;
             UltimoLogin = ultimoLogin;
-            this.logradouro = logradouro;
-            this.complemento = complemento;
-            this.numero = numero;
-            this.cep = cep;
-            this.bairro = bairro;
-            this.cidade = cidade;
-            this.estado = estado;
+            Logradouro = logradouro;
+            Complemento = complemento;
+            Numero = numero;
+            Cep = cep;
+            Bairro = bairro;
+            Cidade = cidade;
+            Estado = estado;
             SindicoProfissional = sindicoProfissional;
         }
     }

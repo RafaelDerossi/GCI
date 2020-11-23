@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using CondominioApp.Core.Messages;
+using CondominioApp.Core.ValueObjects;
 using CondominioApp.Usuarios.App.Models;
 using FluentValidation.Results;
 using MediatR;
@@ -20,15 +21,11 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
             _usuarioRepository = usuarioRepository;
         }
 
-
-
         public async Task<ValidationResult> Handle(CadastrarMoradorCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido()) return request.ValidationResult;
 
             var Morador = MoradorFactory(request);
-
-            if (!ValidationResult.IsValid) return ValidationResult;
 
             Morador.SetEntidadeId(request.UsuarioId);
 
@@ -64,18 +61,10 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
 
         private Usuario MoradorFactory(CadastrarMoradorCommand request)
         {
-            try
-            {
-                var morador = new Usuario(request.Nome, request.Sobrenome, request.Rg, request.Cel, request.Email, request.Foto, request.TpUsuario,
-               request.Permissao, request.DataNascimento, request.Cpf);
+            var morador = new Usuario(request.Nome, request.Sobrenome, request.Rg,
+                 request.Cel, request.Email, request.Foto,request.TpUsuario, request.Permissao, request.DataNascimento, request.Cpf);
 
-                return morador;
-            }
-            catch (Exception ex)
-            {
-                AdicionarErro(ex.Message);
-                return null;
-            }
+            return morador;
         }
 
         public void Dispose()
