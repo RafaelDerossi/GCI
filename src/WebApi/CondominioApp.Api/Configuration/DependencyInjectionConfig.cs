@@ -1,4 +1,6 @@
-﻿using CondominioApp.Core.Mediator;
+﻿using CondominioApp.BS.App.Services;
+using CondominioApp.BS.App.Services.Interfaces;
+using CondominioApp.Core.Mediator;
 using CondominioApp.Principal.Aplication.Commands;
 using CondominioApp.Principal.Domain.Interfaces;
 using CondominioApp.Principal.Infra.Data.Repository;
@@ -48,6 +50,9 @@ namespace CondominioApp.Api.Configuration
             //Repositórios
             services.AddScoped<ICondominioRepository, CondominioRepository>();
             services.AddScoped<ILeadRepository, LeadRepository>();
+
+            //Base software
+            services.AddScoped<IBoletoService, BoletoService>();
         }
     }
 }
