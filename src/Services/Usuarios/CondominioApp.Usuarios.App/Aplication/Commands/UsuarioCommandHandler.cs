@@ -27,8 +27,6 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
 
             var Morador = MoradorFactory(request);
 
-            if (!ValidationResult.IsValid) return ValidationResult;
-
             Morador.SetEntidadeId(request.UsuarioId);
 
             _usuarioRepository.Adicionar(Morador);

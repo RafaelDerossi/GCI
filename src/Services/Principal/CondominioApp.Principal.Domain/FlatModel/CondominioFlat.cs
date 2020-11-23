@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using CondominioApp.Core.DomainObjects;
 
 namespace CondominioApp.Principal.Domain.FlatModel
 {
-   public class CondominioFlat
-    {
+   public class CondominioFlat : Entity, IAggregateRoot
+   {
         public Guid Id { get; set; }
+
         public string Cnpj { get; set; }
 
         public string Nome { get; set; }
@@ -43,8 +45,7 @@ namespace CondominioApp.Principal.Domain.FlatModel
         public string BoletoFolder { get; set; }
 
         public string UrlWebServer { get; set; }
-
-
+        
 
         ///Parametros
         /// <summary>
@@ -121,6 +122,8 @@ namespace CondominioApp.Principal.Domain.FlatModel
         /// Habilita/Desabilita Limite de Tempo na Reserva
         /// </summary>
         public bool LimiteTempoReserva { get; set; }
+
+        protected CondominioFlat() { }
 
         public CondominioFlat(Guid id, string cnpj, string nome, string descricao, string logoMarca, 
             string telefone, string logradouro, string complemento, string numero, string cep, 

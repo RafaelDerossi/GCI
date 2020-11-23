@@ -26,4 +26,8 @@
     <ProjectReference Include="..\CondominioApp.Principal.Domain\CondominioApp.Principal.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DataQuery\" />
+  </ItemGroup>
+
 </Project>
