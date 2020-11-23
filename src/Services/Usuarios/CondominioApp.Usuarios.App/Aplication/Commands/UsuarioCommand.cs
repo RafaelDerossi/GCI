@@ -1,12 +1,11 @@
-﻿using System;
-using CondominioApp.Core.Enumeradores;
+﻿using CondominioApp.Core.Enumeradores;
 using CondominioApp.Core.Messages;
 using CondominioApp.Core.ValueObjects;
-using FluentValidation;
+using System;
 
 
 namespace CondominioApp.Usuarios.App.Aplication.Commands
-{   
+{
     public abstract class UsuarioCommand : Command
     {
         public Guid UsuarioId { get; protected set; }
