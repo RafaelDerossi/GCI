@@ -55,6 +55,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CondominioApp.BS.Compilador
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CondominioApp.BS.App", "src\Services\BaseSoftware\CondominioApp.BS.App\CondominioApp.BS.App.csproj", "{0F9EB64C-A17F-4A2C-8B82-7540E18B56F8}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Marketplace", "Marketplace", "{18B51529-FE9B-4D9C-A79E-AC053EBC1218}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioAppMarketplace.Domain", "src\Services\Marketplace\CondominioAppMarketplace.Domain\CondominioAppMarketplace.Domain.csproj", "{2F8A1E09-51DA-4C58-87E7-AD4D3C08FEBC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioAppMarketplace.Infra", "src\Services\Marketplace\CondominioAppMarketplace.Infra\CondominioAppMarketplace.Infra.csproj", "{1806E606-3A24-43E7-9B23-BFBF75A75F9B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioAppMarketplace.App", "src\Services\Marketplace\CondominioAppMarketplace.App\CondominioAppMarketplace.App.csproj", "{9652C079-03F3-43B2-BE37-F4379F191404}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CondominioAppMarketplace.Tests", "Tests\Marketplace\CondominioAppMarketplace.Tests\CondominioAppMarketplace.Tests.csproj", "{E7A9DC34-1383-40FC-9355-9069A23DFE22}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -117,6 +127,22 @@ Global
 		{0F9EB64C-A17F-4A2C-8B82-7540E18B56F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F9EB64C-A17F-4A2C-8B82-7540E18B56F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F9EB64C-A17F-4A2C-8B82-7540E18B56F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F8A1E09-51DA-4C58-87E7-AD4D3C08FEBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F8A1E09-51DA-4C58-87E7-AD4D3C08FEBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F8A1E09-51DA-4C58-87E7-AD4D3C08FEBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F8A1E09-51DA-4C58-87E7-AD4D3C08FEBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1806E606-3A24-43E7-9B23-BFBF75A75F9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1806E606-3A24-43E7-9B23-BFBF75A75F9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1806E606-3A24-43E7-9B23-BFBF75A75F9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1806E606-3A24-43E7-9B23-BFBF75A75F9B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9652C079-03F3-43B2-BE37-F4379F191404}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9652C079-03F3-43B2-BE37-F4379F191404}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9652C079-03F3-43B2-BE37-F4379F191404}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9652C079-03F3-43B2-BE37-F4379F191404}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7A9DC34-1383-40FC-9355-9069A23DFE22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7A9DC34-1383-40FC-9355-9069A23DFE22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7A9DC34-1383-40FC-9355-9069A23DFE22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7A9DC34-1383-40FC-9355-9069A23DFE22}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -147,6 +173,11 @@ Global
 		{93DF2432-0AD1-46FF-80C6-773042C6A214} = {EE12255D-43EC-44E4-A424-F39C6AB45792}
 		{30F0F0EA-CE5E-487C-A458-E941018B23D7} = {EE12255D-43EC-44E4-A424-F39C6AB45792}
 		{0F9EB64C-A17F-4A2C-8B82-7540E18B56F8} = {4394804E-EF40-4EDD-A770-A086F423156C}
+		{18B51529-FE9B-4D9C-A79E-AC053EBC1218} = {27DA6887-B451-4D5D-A232-00FBE20152FB}
+		{2F8A1E09-51DA-4C58-87E7-AD4D3C08FEBC} = {18B51529-FE9B-4D9C-A79E-AC053EBC1218}
+		{1806E606-3A24-43E7-9B23-BFBF75A75F9B} = {18B51529-FE9B-4D9C-A79E-AC053EBC1218}
+		{9652C079-03F3-43B2-BE37-F4379F191404} = {18B51529-FE9B-4D9C-A79E-AC053EBC1218}
+		{E7A9DC34-1383-40FC-9355-9069A23DFE22} = {18B51529-FE9B-4D9C-A79E-AC053EBC1218}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DA60CBD7-8A6E-436D-B07E-D654D162CE4B}

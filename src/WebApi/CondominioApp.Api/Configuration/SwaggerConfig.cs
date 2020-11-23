@@ -14,7 +14,7 @@ namespace CondominioApp.Api.Configuration
                 c.SwaggerDoc("v1", new OpenApiInfo()
                 {
                     Title = "CondominioApp API 2.0",
-                    Description = "Esta api expõe os recursos do sistema condominioapp para diversas interfaces (web/mobile)",
+                    Description = "Esta api expõe os recursos do sistema condominioapp para diversas interfaces (web/mobile) e serviços auxiliares como Marketplace, integrações com administradoras e features de tempo real.",
                     Contact = new OpenApiContact() { Name = "CondominioApp Developer", Email = "contato@condominioapp.com"},
                     License = new OpenApiLicense() { Name = "CondominioApp", Url = new Uri("https://www.condominioapp.com")}
                 });

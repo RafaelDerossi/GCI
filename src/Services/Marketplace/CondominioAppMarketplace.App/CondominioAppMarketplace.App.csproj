@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="8.1.1"/>
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.1"/>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Building Blocks\CondominioApp.Core\CondominioApp.Core.csproj" />
+    <ProjectReference Include="..\CondominioAppMarketplace.Domain\CondominioAppMarketplace.Domain.csproj" />
+    <ProjectReference Include="..\CondominioAppMarketplace.Infra\CondominioAppMarketplace.Infra.csproj" />
+  </ItemGroup>
+
+</Project>

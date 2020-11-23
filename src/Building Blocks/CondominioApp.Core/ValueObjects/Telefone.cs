@@ -9,11 +9,14 @@ namespace CondominioApp.Core.ValueObjects
         public const int NumeroMaximo = 15;
         public string Numero { get; private set; }
 
+        public bool WhatsApp { get; private set; }
+
         protected Telefone() { }
 
-        public Telefone(string numeroTelephone)
+        public Telefone(string numeroTelephone, bool whatsApp = false)
         {
             setNumero(numeroTelephone);
+            WhatsApp = whatsApp;
         }
 
         private void setNumero(string telNumber)
@@ -32,6 +35,10 @@ namespace CondominioApp.Core.ValueObjects
             else
                 throw new DomainException("Número de telefone inválido.");
         }
+
+        public void NumeroEhWhatsApp() => WhatsApp = true;
+
+        public void NumeroNaoEhWhatsApp() => WhatsApp = false;
 
 
         public string ObterNumeroFormatado

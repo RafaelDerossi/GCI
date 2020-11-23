@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 namespace CondominioApp.Api.Controllers
 {
     [Route("api/unidade")]
-    [ApiController]
     public class UnidadeController : MainController
     {
 

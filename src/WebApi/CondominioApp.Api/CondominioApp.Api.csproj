@@ -12,7 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Configuration\" />
     <Folder Include="wwwroot\Email\" />
   </ItemGroup>
 
@@ -38,6 +37,9 @@
     <ProjectReference Include="..\..\Building Blocks\CondominioApp.Core\CondominioApp.Core.csproj" />
     <ProjectReference Include="..\..\Building Blocks\CondominioApp.WebApi.Core\CondominioApp.WebApi.Core.csproj" />
     <ProjectReference Include="..\..\Services\BaseSoftware\CondominioApp.BS.App\CondominioApp.BS.App.csproj" />
+    <ProjectReference Include="..\..\Services\Marketplace\CondominioAppMarketplace.App\CondominioAppMarketplace.App.csproj" />
+    <ProjectReference Include="..\..\Services\Marketplace\CondominioAppMarketplace.Domain\CondominioAppMarketplace.Domain.csproj" />
+    <ProjectReference Include="..\..\Services\Marketplace\CondominioAppMarketplace.Infra\CondominioAppMarketplace.Infra.csproj" />
     <ProjectReference Include="..\..\Services\PreCadastro\CondominioAppPreCadastro.App\CondominioAppPreCadastro.App.csproj" />
     <ProjectReference Include="..\..\Services\Principal\CondominioApp.Principal.Aplication\CondominioApp.Principal.Aplication.csproj" />
     <ProjectReference Include="..\..\Services\Principal\CondominioApp.Principal.Domain\CondominioApp.Principal.Domain.csproj" />
