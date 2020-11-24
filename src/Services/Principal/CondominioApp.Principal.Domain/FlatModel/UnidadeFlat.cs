@@ -8,19 +8,25 @@ namespace CondominioApp.Principal.Domain.FlatModel
     {
         public Guid Id { get; private set; }
 
-        public string UnidadeCodigo { get; private set; }
+        public DateTime DataDeCadastro { get; private set; }
 
-        public string UnidadeNumero { get; private set; }
+        public DateTime DataDeAlteracao { get; private set; }
 
-        public string UnidadeAndar { get; private set; }
+        public bool Lixeira { get; private set; }
 
-        public int UnidadeVagas { get; private set; }
+        public string Codigo { get; private set; }
 
-        public string UnidadeTelefone { get; private set; }
+        public string Numero { get; private set; }
 
-        public string UnidadeRamal { get; private set; }
+        public string Andar { get; private set; }
 
-        public string UnidadeComplemento { get; private set; }
+        public int Vagas { get; private set; }
+
+        public string Telefone { get; private set; }
+
+        public string Ramal { get; private set; }
+
+        public string Complemento { get; private set; }
 
         public Guid GrupoId { get; private set; }
 
@@ -42,13 +48,13 @@ namespace CondominioApp.Principal.Domain.FlatModel
             string condominioLogoMarca)
         {
             Id = id;
-            UnidadeCodigo = unidadeCodigo;
-            UnidadeNumero = unidadeNumero;
-            UnidadeAndar = unidadeAndar;
-            UnidadeVagas = unidadeVagas;
-            UnidadeTelefone = unidadeTelefone;
-            UnidadeRamal = unidadeRamal;
-            UnidadeComplemento = unidadeComplemento;
+            Codigo = unidadeCodigo;
+            Numero = unidadeNumero;
+            Andar = unidadeAndar;
+            Vagas = unidadeVagas;
+            Telefone = unidadeTelefone;
+            Ramal = unidadeRamal;
+            Complemento = unidadeComplemento;
             GrupoId = grupoId;
             GrupoDescricao = grupoDescricao;
             CondominioId = condominioId;
@@ -56,5 +62,10 @@ namespace CondominioApp.Principal.Domain.FlatModel
             CondominioNome = condominioNome;
             CondominioLogoMarca = condominioLogoMarca;
         }
+
+
+        public void EnviarParaLixeira() => Lixeira = true;
+
+        public void RestaurarDaLixeira() => Lixeira = false;
     }
 }

@@ -54,17 +54,10 @@ namespace CondominioApp.Principal.Infra.Data
                 }
             }
 
-            try
-            {
-                var sucesso = await SaveChangesAsync() > 0;
-                if (sucesso) await _mediatorHandler.PublicarEventos(this);
+            var sucesso = await SaveChangesAsync() > 0;
+            if (sucesso) await _mediatorHandler.PublicarEventos(this);
 
-                return sucesso;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            return sucesso;
           
         }
     }

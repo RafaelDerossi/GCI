@@ -1,16 +1,5 @@
-﻿using System;
-using System.Threading.Tasks;
-using AutoMapper;
-using CondominioApp.Core.ValueObjects;
-using CondominioAppMarketplace.App;
-using CondominioAppMarketplace.App.ViewModel;
-using CondominioAppMarketplace.Domain;
-using CondominioAppMarketplace.Domain.Interfaces;
-using CondominioAppMarketplace.Infra.Repositories;
-using CondominioAppMarketplace.Tests.Domain;
-using Moq;
+﻿using CondominioAppMarketplace.App;
 using Moq.AutoMock;
-using Xunit;
 
 namespace CondominioAppMarketplace.Tests.Aplication
 {

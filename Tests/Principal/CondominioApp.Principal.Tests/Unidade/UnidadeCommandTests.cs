@@ -67,19 +67,6 @@ namespace CondominioApp.Principal.Tests
             Assert.False(result);
         }
 
-        [Fact(DisplayName = "Adicionar Unidade Inválido")]
-        [Trait("Categoria", "Unidade - CadastrarCommand")]
-        public void CadastroDeUnidadeSemCondominio_CommandoInvalido_NaoDevePassarNaValidacao()
-        {
-
-            //Arrange
-            var Command = UnidadeCommandFactory.CriarComandoCadastroDeUnidadeSemCondominio();
-
-            //Act
-            var result = Command.EstaValido();
-
-            //Assert
-            Assert.False(result);
-        }
+       
     }
 }

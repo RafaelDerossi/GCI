@@ -6,17 +6,23 @@ namespace CondominioApp.Principal.Domain.FlatModel
 {
    public class GrupoFlat
     {
-        public Guid Id { get; set; }
+        public Guid Id { get; private set; }
 
-        public string GrupoDescricao { get; set; }
+        public DateTime DataDeCadastro { get; private set; }
 
-        public Guid CondominioId { get; set; }
+        public DateTime DataDeAlteracao { get; private set; }
 
-        public string CondominioCnpj { get; set; }
+        public bool Lixeira { get; private set; }
 
-        public string CondominioNome { get; set; }
+        public string Descricao { get; private set; }
 
-        public string CondominioLogoMarca { get; set; }
+        public Guid CondominioId { get; private set; }
+
+        public string CondominioCnpj { get; private set; }
+
+        public string CondominioNome { get; private set; }
+
+        public string CondominioLogoMarca { get; private set; }
 
         protected GrupoFlat() { }
 
@@ -24,11 +30,15 @@ namespace CondominioApp.Principal.Domain.FlatModel
             string condominioNome, string condominioLogoMarca)
         {
             Id = id;
-            GrupoDescricao = grupoDescricao;
+            Descricao = grupoDescricao;
             CondominioId = condominioId;
             CondominioCnpj = condominioCnpj;
             CondominioNome = condominioNome;
             CondominioLogoMarca = condominioLogoMarca;
         }
+
+        public void EnviarParaLixeira() => Lixeira = true;
+
+        public void RestaurarDaLixeira() => Lixeira = false;
     }
 }

@@ -1,9 +1,12 @@
 ﻿using CondominioApp.Core.Mediator;
 using CondominioApp.Principal.Aplication.Commands;
+using CondominioApp.Principal.Aplication.Query.Interfaces;
 using CondominioApp.Principal.Aplication.ViewModels;
+using CondominioApp.Principal.Domain.FlatModel;
 using CondominioApp.WebApi.Core.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace CondominioApp.Api.Controllers
@@ -13,11 +16,33 @@ namespace CondominioApp.Api.Controllers
     {
 
         private readonly IMediatorHandler _mediatorHandler;
-
+        private readonly ICondominioQuery _condominioQuery; 
         public CondominioController(IMediatorHandler mediatorHandler)
         {
             _mediatorHandler = mediatorHandler;
         }
+
+
+
+        [HttpGet]
+        public async Task<IEnumerable<CondominioFlat>> ObterTodos()
+        {
+            return await _condominioQuery.ObterTodos();
+        }
+
+        [HttpGet("{Id:Guid}")]
+        public async Task<CondominioFlat> ObterPorId(Guid Id)
+        {
+            return await _condominioQuery.ObterPorId(Id);
+        }
+          
+        [HttpGet("Removidos")]
+        public async Task<IEnumerable<CondominioFlat>> ObterRemovidos()
+        {
+            return await _condominioQuery.ObterRemovidos();
+        }
+
+
 
 
         [HttpPost]
@@ -85,6 +110,8 @@ namespace CondominioApp.Api.Controllers
 
             return CustomResponse(Resultado);
         }       
+
+
 
     }
 }

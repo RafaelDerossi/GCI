@@ -1,5 +1,4 @@
 using CondominioApp.Principal.Domain;
-using CondominioApp.Core.ValueObjects;
 using System;
 using Xunit;
 

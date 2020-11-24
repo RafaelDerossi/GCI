@@ -16,6 +16,8 @@ namespace CondominioApp.Principal.Aplication.Query
             _condominioQueryRepository = condominioQueryRepository;
         }
 
+
+
         public async Task<CondominioFlat> ObterPorId(Guid Id)
         {
             return await _condominioQueryRepository.ObterPorId(Id);

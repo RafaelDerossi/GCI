@@ -96,6 +96,8 @@ namespace CondominioApp.Principal.Infra.Data.Repository
         }
 
 
+
+
         public async Task<bool> CondominioExiste(Guid condominioId)
         {
             return await _context.Condominios
@@ -103,31 +105,7 @@ namespace CondominioApp.Principal.Infra.Data.Repository
                     (u => !u.Lixeira &&
                     u.Id == condominioId)
                 .CountAsync() > 0;
-        }
-
-
-        //public async Task<bool> GrupoJaExiste(string descricao, Guid condominioId, Guid grupoId)
-        //{
-        //    return await _context.Grupos
-        //        .Where
-        //            (u => !u.Lixeira &&
-        //             u.Descricao == descricao &&
-        //             u.CondominioId == condominioId &&
-        //             u.Id != grupoId)
-        //        .CountAsync()>0;
-        //}
-
-        //public async Task<bool> UnidadeJaExiste(string numero, string andar, Guid grupoId, Guid condominioId)
-        //{
-        //    return await _context.Unidades
-        //        .Where
-        //            (u => !u.Lixeira &&                      
-        //             u.Numero == numero &&
-        //             u.Andar == andar && 
-        //             u.GrupoId == grupoId &&
-        //             u.CondominioId == condominioId)
-        //        .CountAsync() > 0;
-        //}
+        }       
 
         public async Task<bool> CodigoDaUnidadeJaExiste(string codigo, Guid unidadeId)
         {
@@ -150,6 +128,8 @@ namespace CondominioApp.Principal.Infra.Data.Repository
         {
             return await _context.Unidades.FirstOrDefaultAsync(u => u.Id == Id);
         }
+
+
 
         public void Dispose()
         {
