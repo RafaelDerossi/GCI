@@ -1,5 +1,5 @@
 ﻿using CondominioApp.Core.Messages;
-using CondominioApp.Core.ValueObjects;
+using CondominioApp.Principal.Domain.ValueObjects;
 using System;
 
 namespace CondominioApp.Principal.Aplication.Commands

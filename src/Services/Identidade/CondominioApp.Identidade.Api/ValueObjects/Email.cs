@@ -1,7 +1,7 @@
 ﻿using System.Text.RegularExpressions;
 using CondominioApp.Core.DomainObjects;
 
-namespace CondominioApp.Core.ValueObjects
+namespace CondominioApp.Identidade.Api.ValueObjects
 {
     public class Email
     {

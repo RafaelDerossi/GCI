@@ -21,14 +21,14 @@ namespace CondominioApp.Api.Controllers
 
        
         [HttpPost]
-        public async Task<ActionResult> Post(UnidadeViewModel unidadeVM)
+        public async Task<ActionResult> Post(CadastraUnidadeViewModel unidadeVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
             var comando = new CadastrarUnidadeCommand(
                 unidadeVM.Codigo, unidadeVM.Numero, unidadeVM.Andar,
-                unidadeVM.Vagas, unidadeVM.Telefone, unidadeVM.Ramal, unidadeVM.Complemento,
-                unidadeVM.GrupoId, unidadeVM.CondominioId);
+                unidadeVM.Vagas, unidadeVM.Telefone, unidadeVM.Ramal,
+                unidadeVM.Complemento, unidadeVM.GrupoId);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
@@ -38,14 +38,13 @@ namespace CondominioApp.Api.Controllers
 
 
         [HttpPut]
-        public async Task<ActionResult> Put(UnidadeViewModel unidadeVM)
+        public async Task<ActionResult> Put(AlteraUnidadeViewModel unidadeVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
             var comando = new AlterarUnidadeCommand(
             unidadeVM.UnidadeId, unidadeVM.Numero, unidadeVM.Andar,
-            unidadeVM.Vagas, unidadeVM.Telefone, unidadeVM.Ramal, unidadeVM.Complemento,
-            unidadeVM.GrupoId, unidadeVM.CondominioId);
+            unidadeVM.Vagas, unidadeVM.Telefone, unidadeVM.Ramal, unidadeVM.Complemento);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 

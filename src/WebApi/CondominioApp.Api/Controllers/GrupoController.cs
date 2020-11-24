@@ -20,7 +20,7 @@ namespace CondominioApp.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Post(GrupoViewModel grupoVM)
+        public async Task<ActionResult> Post(CadastraGrupoViewModel grupoVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
@@ -34,7 +34,7 @@ namespace CondominioApp.Api.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> Put(GrupoViewModel grupoVM)
+        public async Task<ActionResult> Put(AlteraGrupoViewModel grupoVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 

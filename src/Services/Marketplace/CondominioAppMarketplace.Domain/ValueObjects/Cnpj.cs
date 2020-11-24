@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 using CondominioApp.Core.DomainObjects;
 using CondominioApp.Core.Helpers;
 
-namespace CondominioApp.Core.ValueObjects
+namespace CondominioAppMarketplace.Domain.ValueObjects
 {
     public class Cnpj
     {

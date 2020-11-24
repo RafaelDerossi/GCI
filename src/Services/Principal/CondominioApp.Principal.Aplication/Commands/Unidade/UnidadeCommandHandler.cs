@@ -1,5 +1,4 @@
 ﻿using CondominioApp.Core.Messages;
-using CondominioApp.Core.ValueObjects;
 using CondominioApp.Principal.Domain;
 using CondominioApp.Principal.Domain.Interfaces;
 using FluentValidation.Results;
@@ -129,12 +128,12 @@ namespace CondominioApp.Principal.Aplication.Commands
                     request.Codigo);
         }
 
-        private async void VerificaSeCodigoJaEstaCadastrado(Unidade unidade)
+        private void VerificaSeCodigoJaEstaCadastrado(Unidade unidade)
         {
             bool codigoIsValid = false;
             while (codigoIsValid == false)
             {
-                if (await _condominioRepository.CodigoDaUnidadeJaExiste(unidade.Codigo, unidade.Id))
+                if (_condominioRepository.CodigoDaUnidadeJaExiste(unidade.Codigo, unidade.Id).Result)
                 {
                     unidade.ResetCodigo();
                 }

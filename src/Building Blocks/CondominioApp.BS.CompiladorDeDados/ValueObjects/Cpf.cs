@@ -4,7 +4,7 @@ using CondominioApp.Core.DomainObjects;
 using CondominioApp.Core.Helpers;
 using CondominioApp.Core.Utils;
 
-namespace CondominioApp.Core.ValueObjects
+namespace CondominioApp.BS.CompiladorDeDados.ValueObjects
 {
     public class Cpf
     {

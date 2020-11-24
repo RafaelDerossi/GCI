@@ -1,5 +1,4 @@
-﻿using CondominioApp.Core.ValueObjects;
-using CondominioApp.Principal.Aplication.Commands.Validations;
+﻿using CondominioApp.Principal.Aplication.Commands.Validations;
 using System;
 
 namespace CondominioApp.Principal.Aplication.Commands

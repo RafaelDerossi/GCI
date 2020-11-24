@@ -4,11 +4,8 @@ using System.Text;
 
 namespace CondominioApp.Principal.Aplication.ViewModels
 {
-   public class CondominioViewModel
+   public class CadastraCondominioViewModel
     {
-
-        public Guid CodominioId { get; set; }
-
         public string Cnpj { get; set; }       
 
         public string Nome { get; set; }

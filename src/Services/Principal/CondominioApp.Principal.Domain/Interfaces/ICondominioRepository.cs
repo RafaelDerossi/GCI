@@ -1,5 +1,5 @@
 ﻿using CondominioApp.Core.Data;
-using CondominioApp.Core.ValueObjects;
+using CondominioApp.Principal.Domain.ValueObjects;
 using System;
 using System.Threading.Tasks;
 

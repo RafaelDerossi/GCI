@@ -2,7 +2,7 @@
 using System.Linq;
 using CondominioApp.Core.DomainObjects;
 
-namespace CondominioApp.Core.ValueObjects
+namespace CondominioAppPreCadastro.App.ValueObjects
 {
     public class Foto
     {

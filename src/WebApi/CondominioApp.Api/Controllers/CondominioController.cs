@@ -21,7 +21,7 @@ namespace CondominioApp.Api.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult> Post(CondominioViewModel condominioVM)
+        public async Task<ActionResult> Post(CadastraCondominioViewModel condominioVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 

@@ -47,12 +47,13 @@ namespace CondominioApp.Principal.Domain
         {
             
             if (_Unidades.Any(u => u.Numero == unidade.Numero && u.Andar == unidade.Andar &&
-                                   u.GrupoId == unidade.GrupoId && u.CondominioId == unidade.CondominioId))
+                                   u.GrupoId == unidade.GrupoId))
             {
                 AdicionarErrosDaEntidade("Já existe uma unidade com este número e andar neste bloco!");
                 return ValidationResult;
             }
 
+            unidade.SetCondominioId(CondominioId);
             _Unidades.Add(unidade);
 
             return ValidationResult;
@@ -61,8 +62,7 @@ namespace CondominioApp.Principal.Domain
         public ValidationResult AlterarUnidade(Unidade unidade)
         {
             if (_Unidades.Any(u => u.Numero == unidade.Numero && u.Andar == unidade.Andar &&
-                                   u.GrupoId == unidade.GrupoId && u.CondominioId == unidade.CondominioId &&
-                                   u.Id != unidade.Id))
+                                   u.GrupoId == unidade.GrupoId && u.Id != unidade.Id))
             {
                 AdicionarErrosDaEntidade("Já existe uma unidade com este número e andar neste bloco!");
                 return ValidationResult;

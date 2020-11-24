@@ -1,5 +1,5 @@
 ﻿using CondominioApp.Core.DomainObjects;
-using CondominioApp.Core.ValueObjects;
+using CondominioApp.Principal.Domain.ValueObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using CondominioApp.BS.App.Model;
 using CondominioApp.BS.App.Services.Interfaces;
-using CondominioApp.Core.ValueObjects;
+using CondominioApp.BS.CompiladorDeDados.ValueObjects;
 using CondominioApp.WebApi.Core.Controllers;
 using Microsoft.AspNetCore.Mvc;
 

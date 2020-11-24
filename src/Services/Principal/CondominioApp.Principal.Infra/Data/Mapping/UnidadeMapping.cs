@@ -1,10 +1,7 @@
-﻿using CondominioApp.Core.ValueObjects;
-using CondominioApp.Principal.Domain;
+﻿using CondominioApp.Principal.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using CondominioApp.Principal.Domain.ValueObjects;
 
 namespace CondominioApp.Principal.Infra.Data.Mapping
 {

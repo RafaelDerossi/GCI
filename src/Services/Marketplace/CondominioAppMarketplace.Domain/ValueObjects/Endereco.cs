@@ -1,4 +1,4 @@
-﻿namespace CondominioApp.Core.ValueObjects
+﻿namespace CondominioAppMarketplace.Domain.ValueObjects
 {
     public class Endereco
     {

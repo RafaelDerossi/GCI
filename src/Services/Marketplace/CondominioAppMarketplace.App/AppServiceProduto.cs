@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using CondominioApp.Core.ValueObjects;
+using CondominioAppMarketplace.Domain.ValueObjects;
 using CondominioAppMarketplace.App.Interfaces;
 using CondominioAppMarketplace.App.ProdutoFactory;
 using CondominioAppMarketplace.App.ViewModel;

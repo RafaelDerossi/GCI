@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using CondominioApp.Core.DomainObjects;
 using CondominioApp.Core.Enumeradores;
-using CondominioApp.Core.ValueObjects;
+using CondominioApp.Usuarios.App.ValueObjects;
 
 namespace CondominioApp.Usuarios.App.Models
 {

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Xml;
-using CondominioApp.Core.ValueObjects;
+using CondominioApp.BS.CompiladorDeDados.ValueObjects;
 using Newtonsoft.Json;
 
 namespace CondominioApp.BS.CompiladorDeDados

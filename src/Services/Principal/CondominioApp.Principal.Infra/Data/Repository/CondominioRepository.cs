@@ -1,5 +1,5 @@
 ﻿using CondominioApp.Core.Data;
-using CondominioApp.Core.ValueObjects;
+using CondominioApp.Principal.Domain.ValueObjects;
 using CondominioApp.Principal.Domain;
 using CondominioApp.Principal.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;

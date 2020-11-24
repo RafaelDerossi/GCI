@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace CondominioApp.Core.ValueObjects
+namespace CondominioAppPreCadastro.App.ValueObjects
 {
     public class Cep
     {

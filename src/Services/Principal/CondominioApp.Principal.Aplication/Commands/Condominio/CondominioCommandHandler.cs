@@ -1,5 +1,4 @@
 ﻿using CondominioApp.Core.Messages;
-using CondominioApp.Core.ValueObjects;
 using CondominioApp.Principal.Domain;
 using CondominioApp.Principal.Domain.Interfaces;
 using FluentValidation.Results;
@@ -30,7 +29,13 @@ namespace CondominioApp.Principal.Aplication.Commands
             if (!request.EstaValido())
                 return request.ValidationResult;
 
-            var condominio = CondominioFactory(request);           
+            var condominio = CondominioFactory(request);
+
+            if (_condominioRepository.CnpjCondominioJaCadastrado(request.Cnpj, request.CondominioId).Result)
+            {
+                AdicionarErro("CNPJ informado ja consta no sistema.");
+                return ValidationResult;
+            }
 
             _condominioRepository.Adicionar(condominio);
 

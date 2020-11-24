@@ -2,7 +2,6 @@
 using System.Threading;
 using System.Threading.Tasks;
 using CondominioApp.Core.Messages;
-using CondominioApp.Core.ValueObjects;
 using CondominioApp.Usuarios.App.Models;
 using FluentValidation.Results;
 using MediatR;

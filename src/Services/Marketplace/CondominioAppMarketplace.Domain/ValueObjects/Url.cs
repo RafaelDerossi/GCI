@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using CondominioApp.Core.DomainObjects;
 
-namespace CondominioApp.Core.ValueObjects
+namespace CondominioAppMarketplace.Domain.ValueObjects
 {
     public class Url
     {
