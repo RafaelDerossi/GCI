@@ -15,24 +15,12 @@ namespace CondominioApp.Principal.Aplication.Commands
             bool mural = false, bool muralMorador = false, bool chat = false, bool chatMorador = false, bool reserva = false,
             bool reservaNaPortaria = false, bool ocorrencia = false, bool ocorrenciaMorador = false, bool correspondencia = false,
             bool correspondenciaNaPortaria = false, bool limiteTempoReserva = false)
-        {
-            Cnpj = cnpj;          
+        {                    
             Nome = nome;
-            Descricao = descricao;
-            LogoMarca = logoMarca;
-            NomeOriginal = nomeOriginal;
-            Telefone = telefone;
-            Logradouro = logradouro;
-            Complemento = complemento;
-            Numero = numero;
-            Cep = cep;
-            Bairro = bairro;
-            Cidade = cidade;
-            Estado = estado;
+            Descricao = descricao;          
             RefereciaId = refereciaId;
             LinkGeraBoleto = linkGeraBoleto;
-            BoletoFolder = boletoFolder;
-            UrlWebServer = urlWebServer;
+            BoletoFolder = boletoFolder;            
             Portaria = portaria;
             PortariaMorador = portariaMorador;
             Classificado = classificado;
@@ -48,6 +36,12 @@ namespace CondominioApp.Principal.Aplication.Commands
             Correspondencia = correspondencia;
             CorrespondenciaNaPortaria = correspondenciaNaPortaria;
             LimiteTempoReserva = limiteTempoReserva;
+
+            SetCNPJ(cnpj);
+            SetFoto(logoMarca, nomeOriginal);
+            SetTelefone(telefone);
+            SetEndereco(logradouro, complemento, numero, cep, bairro, cidade, estado);
+            SetUrlWebServer(urlWebServer);
         }
 
 

@@ -30,9 +30,7 @@ namespace CondominioApp.Principal.Aplication.Commands
             if (!request.EstaValido())
                 return request.ValidationResult;
 
-            var condominio = CondominioFactory(request);
-
-            if (!ValidationResult.IsValid) return ValidationResult;
+            var condominio = CondominioFactory(request);           
 
             _condominioRepository.Adicionar(condominio);
 
@@ -50,18 +48,18 @@ namespace CondominioApp.Principal.Aplication.Commands
                 return ValidationResult;
             }
 
-            condominioBd.SetCNPJ(new Cnpj(request.Cnpj));
-            condominioBd.SetNome(request.Nome);
-            condominioBd.SetDescricao(request.Descricao);
-            condominioBd.SetFoto(new Foto(request.NomeOriginal, request.LogoMarca));
-            condominioBd.SetTelefone(new Telefone(request.Telefone));
-            condominioBd.SetEndereco(new Endereco(request.Logradouro, request.Complemento,request.Numero, request.Cep, request.Bairro, request.Cidade, request.Estado));
-
-            if (_condominioRepository.CnpjCondominioJaCadastrado(condominioBd.Cnpj, condominioBd.Id).Result)
+            if (_condominioRepository.CnpjCondominioJaCadastrado(request.Cnpj, request.CondominioId).Result)
             {
                 AdicionarErro("CNPJ informado ja consta no sistema.");
                 return ValidationResult;
             }
+
+            condominioBd.SetCNPJ(request.Cnpj);
+            condominioBd.SetNome(request.Nome);
+            condominioBd.SetDescricao(request.Descricao);
+            condominioBd.SetFoto(request.LogoMarca);
+            condominioBd.SetTelefone(request.Telefone);
+            condominioBd.SetEndereco(request.Endereco);            
 
             _condominioRepository.Atualizar(condominioBd);
 
@@ -195,13 +193,9 @@ namespace CondominioApp.Principal.Aplication.Commands
 
         private Condominio CondominioFactory(CadastrarCondominioCommand request)
         {
-
-            var condominio = new Condominio(new Cnpj(request.Cnpj), request.Nome, request.Descricao,
-                new Foto(request.NomeOriginal, request.LogoMarca), new Telefone(request.Telefone),
-                new Endereco(request.Logradouro, request.Complemento, request.Numero, request.Cep,
-                request.Bairro, request.Cidade, request.Estado),
-                request.RefereciaId, request.LinkGeraBoleto, request.BoletoFolder,
-                new Url(request.UrlWebServer), request.Portaria, request.PortariaMorador, request.Classificado,
+            var condominio = new Condominio(request.Cnpj, request.Nome, request.Descricao, request.LogoMarca, 
+                request.Telefone, request.Endereco, request.RefereciaId, request.LinkGeraBoleto, request.BoletoFolder,
+                request.UrlWebServer, request.Portaria, request.PortariaMorador, request.Classificado,
                 request.ClassificadoMorador, request.Mural, request.MuralMorador, request.Chat, request.ChatMorador,
                 request.Reserva, request.ReservaNaPortaria, request.Ocorrencia, request.OcorrenciaMorador,
                 request.Correspondencia, request.CorrespondenciaNaPortaria, request.LimiteTempoReserva);

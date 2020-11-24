@@ -12,12 +12,13 @@ namespace CondominioApp.Principal.Aplication.Commands
             Codigo = codigo;
             Numero = numero;
             Andar = andar;
-            Vaga = vaga;
-            Telefone = telefone;
+            Vaga = vaga;            
             Ramal = ramal;
             Complemento = complemento;
             GrupoId = grupoId;
             CondominioId = condominioId;
+
+            SetTelefone(telefone);
         }
 
         public override bool EstaValido()
