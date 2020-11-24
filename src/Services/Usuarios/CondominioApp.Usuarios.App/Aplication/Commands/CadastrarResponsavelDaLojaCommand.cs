@@ -1,4 +1,5 @@
 ﻿using System;
+using CondominioApp.Core.Enumeradores;
 using CondominioApp.Usuarios.App.Aplication.Commands.Validations;
 
 namespace CondominioApp.Usuarios.App.Aplication.Commands
@@ -11,6 +12,10 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
             UsuarioId = usuarioId;
             Nome = nome;
             Sobrenome = sobrenome;
+
+            TpUsuario = TipoDeUsuario.LOJISTA;
+            Permissao = Permissao.USUARIO;
+
             SetCelular(cel);
             SetEmail(email);
             SetCpf(cpf);

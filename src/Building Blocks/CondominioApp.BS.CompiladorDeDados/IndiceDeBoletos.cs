@@ -56,11 +56,18 @@ namespace CondominioApp.BS.CompiladorDeDados
 
             EscreverNovoIndiceDeBoletos();
 
+            //EnviarArquivoFTP(
+            //    CaminhoNovoIndiceDeBoletos,
+            //    "waws-prod-sn1-017.ftp.azurewebsites.windows.net",
+            //    "$integracaobasesoftware",
+            //    "YYaafGG3xDjtkm7BhgNS1Px7zFySzTS9c1bS8dvdjb5inX1hLnNFoD3sBhLe",
+            //    "Estasa");
+
             EnviarArquivoFTP(
                 CaminhoNovoIndiceDeBoletos,
-                "waws-prod-sn1-017.ftp.azurewebsites.windows.net",
-                "$integracaobasesoftware",
-                "YYaafGG3xDjtkm7BhgNS1Px7zFySzTS9c1bS8dvdjb5inX1hLnNFoD3sBhLe",
+                "ftp.site4now.net",
+                "techdog-003",
+                "techdog2016!",
                 "Estasa");
         }
 
@@ -70,7 +77,7 @@ namespace CondominioApp.BS.CompiladorDeDados
             {
                 Console.WriteLine("Enviando para o servidor...");
 
-                FtpWebRequest ftp = (FtpWebRequest)WebRequest.Create($"ftp://{usuario}:{senha}@{url}/site/wwwroot/wwwroot/boletos/{folderServer}/indiceDeBoletos.txt");
+                FtpWebRequest ftp = (FtpWebRequest)WebRequest.Create($"ftp://{usuario}:{senha}@{url}/basesoftware/boletos/{folderServer}/indiceDeBoletos.txt");
                 ftp.Method = WebRequestMethods.Ftp.UploadFile;
 
                 ftp.KeepAlive = false;
