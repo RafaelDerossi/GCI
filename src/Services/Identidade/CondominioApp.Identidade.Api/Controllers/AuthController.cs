@@ -14,6 +14,7 @@ using CondominioApp.WebApi.Core.Controllers;
 using CondominioApp.WebApi.Core.Identidade;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
@@ -133,7 +134,31 @@ namespace CondominioApp.Identidade.Api.Controllers
             return CustomResponse();
         }
 
-        [HttpPost("Autenticar")]
+        [HttpPost("nova-identidade")]
+        public async Task<IActionResult> NovaIdentidade(List<UsuarioDTO> dtos)
+        {
+            foreach (var dto in dtos)
+            {
+                var Useridentity = new IdentityUser
+                {
+                    Id = dto.Id.ToString(),
+                    UserName = dto.Email,
+                    Email = dto.Email,
+                    EmailConfirmed = true
+                };
+
+                var result = await _userManager.CreateAsync(Useridentity, "123456");
+
+                if (result.Succeeded)
+                {
+                    await _userManager.AddClaimAsync(Useridentity, new Claim("TipoUsuario", TipoDeUsuario.LOJISTA.ToString()));
+                }
+            }
+
+            return CustomResponse();
+        }
+
+        [HttpPost("autenticar")]
         public async Task<ActionResult> Login(UsuarioLogin usuarioLogin)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
@@ -155,8 +180,7 @@ namespace CondominioApp.Identidade.Api.Controllers
             AdicionarErroProcessamento("Usuário ou Senha incorretos");
             return CustomResponse();
         }
-        
-
+      
         private async Task<UsuarioRespostaLogin> GerarJwt(string login)
         {
             var user = await _userManager.FindByNameAsync(login);
@@ -238,12 +262,9 @@ namespace CondominioApp.Identidade.Api.Controllers
 
         private CadastrarMoradorCommand CadastrarMoradorCommandFactory(UsuarioRegistro usuarioRegistro)
         {
-
-            return new CadastrarMoradorCommand(
-             usuarioRegistro.UsuarioId, usuarioRegistro.Nome, usuarioRegistro.Sobrenome, usuarioRegistro.Email,
-             null, usuarioRegistro.Cpf, usuarioRegistro.Celular, usuarioRegistro.Foto, usuarioRegistro.NomeOriginal,
+            return new CadastrarMoradorCommand(usuarioRegistro.UsuarioId, usuarioRegistro.Nome, usuarioRegistro.Sobrenome, usuarioRegistro.Email,
+             usuarioRegistro.Rg, usuarioRegistro.Cpf, usuarioRegistro.Celular, usuarioRegistro.Foto, usuarioRegistro.NomeOriginal,
              usuarioRegistro.DataDeNascimento);
-
         }
 
         #endregion

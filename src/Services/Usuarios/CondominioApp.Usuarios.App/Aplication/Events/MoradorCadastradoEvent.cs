@@ -47,9 +47,5 @@ namespace CondominioApp.Usuarios.App.Aplication.Events
             Email = new Email(email);
             Foto = new Foto(nomeOriginal, foto);
         }
-
-
-
-
     }
 }

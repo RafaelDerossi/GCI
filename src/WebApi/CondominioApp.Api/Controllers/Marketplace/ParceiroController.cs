@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using CondominioApp.WebApi.Core.Controllers;
 using CondominioAppMarketplace.App.Interfaces;
 using CondominioAppMarketplace.App.Model;
 using CondominioAppMarketplace.App.ViewModel;
+using CondominioAppMarketplace.Domain;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,31 +31,38 @@ namespace CondominioApp.Api.Controllers.Marketplace
             return await _AppService.ObterTodos();
         }
 
+        [HttpGet("criar-identidade")]
+        public async Task<ValidationResult> criarIdentidade()
+        {
+            var parceiros = await _AppService.ObterAtivos();
+
+            var listaDeDtos = new List<UsuarioDTO>();
+
+            foreach (var parceiro in parceiros)
+            {
+                listaDeDtos.Add(new UsuarioDTO()
+                {
+                    Email = parceiro.EmailDoResponsavel,
+                    Id = parceiro.ParceiroId,
+                    UserName = parceiro.NomeDoResponsavel
+                });
+            }
+
+            var Http = new HttpClient();
+
+            var conteudo = ObterConteudo(listaDeDtos);
+            
+            var response = await Http.PostAsync("https://localhost:5001/api/identidade/nova-identidade", conteudo);
+
+            return await DeserializarObjetoResponse<ValidationResult>(response);
+        }
+
+
         [HttpGet("Obter-Ativos")]
         public async Task<IEnumerable<ParceiroViewModel>> ObterAtivos()
         {
             return await _AppService.ObterAtivos();
         }
-
-
-
-        [HttpPost]
-        public async Task<IActionResult> Adicionar([FromBody] ParceiroViewModel ViewModel)
-        {
-            if (!ModelState.IsValid) return CustomResponse(ModelState);
-
-            return CustomResponse(await _AppService.Adicionar(ViewModel));           
-        }
-
-        [HttpPost("Contratar-Vendedor")]
-        public async Task<IActionResult> ContratarVendedor(VendedorViewModel ViewModel)
-        {
-            if (!ModelState.IsValid) return CustomResponse(ModelState);
-
-            return CustomResponse(await _AppService.ContratarVendedor(ViewModel));
-        }    
-
-       
 
 
         [HttpPut]
@@ -101,8 +111,22 @@ namespace CondominioApp.Api.Controllers.Marketplace
             return CustomResponse(await _AppService.AtualizarContrato(Model));
            
         }
-        
 
+        [HttpPost]
+        public async Task<IActionResult> Adicionar([FromBody] ParceiroViewModel ViewModel)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            return CustomResponse(await _AppService.Adicionar(ViewModel));
+        }
+
+        [HttpPost("Contratar-Vendedor")]
+        public async Task<IActionResult> ContratarVendedor(VendedorViewModel ViewModel)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            return CustomResponse(await _AppService.ContratarVendedor(ViewModel));
+        }
 
         [HttpDelete("{Id:Guid}")]
         public async Task<IActionResult> RemoverParceiro(Guid Id)

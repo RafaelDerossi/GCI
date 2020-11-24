@@ -14,6 +14,7 @@
         FUNCIONARIO = 2,
         CLIENTE = 3,
         SUPERADMIN = 4,
+        LOJISTA = 5
     }
 
     public enum Permissao

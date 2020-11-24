@@ -25,12 +25,20 @@ namespace CondominioApp.BS.Balancete
                 var NomeDoArquivo = ObterNomeDoArquivo(CorrigirBarrasDoCaminho(CaminhoDoArquivo));
 
                 EnviarArquivoFTP(
-                        CaminhoDoArquivo,
-                        "waws-prod-sn1-017.ftp.azurewebsites.windows.net",
-                        "$integracaobasesoftware",
-                        "YYaafGG3xDjtkm7BhgNS1Px7zFySzTS9c1bS8dvdjb5inX1hLnNFoD3sBhLe",
-                        "BalanceteAnalitico",
-                        NomeDoArquivo);
+                    CaminhoDoArquivo,
+                    "ftp.site4now.net",
+                    "techdog-003",
+                    "techdog2016!",
+                    "BalanceteAnalitico",
+                    NomeDoArquivo);
+
+                //EnviarArquivoFTP(
+                //        CaminhoDoArquivo,
+                //        "waws-prod-sn1-017.ftp.azurewebsites.windows.net",
+                //        "$integracaobasesoftware",
+                //        "YYaafGG3xDjtkm7BhgNS1Px7zFySzTS9c1bS8dvdjb5inX1hLnNFoD3sBhLe",
+                //        "BalanceteAnalitico",
+                //        NomeDoArquivo);
             }
 
             Console.WriteLine("Upload de Balancetes completo!");
@@ -41,7 +49,7 @@ namespace CondominioApp.BS.Balancete
         {
             try
             {
-                FtpWebRequest ftp = (FtpWebRequest)WebRequest.Create($"ftp://{usuario}:{senha}@{url}/site/wwwroot/wwwroot/balancetes/Estasa/{folderServer}/{nomeDoArquivo}");
+                FtpWebRequest ftp = (FtpWebRequest)WebRequest.Create($"ftp://{usuario}:{senha}@{url}/basesoftware/balancetes/Estasa/{folderServer}/{nomeDoArquivo}");
                 ftp.Method = WebRequestMethods.Ftp.UploadFile;
 
                 ftp.KeepAlive = false;
