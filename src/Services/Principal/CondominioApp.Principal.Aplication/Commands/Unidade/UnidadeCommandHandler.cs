@@ -1,4 +1,5 @@
 ﻿using CondominioApp.Core.Messages;
+using CondominioApp.Principal.Aplication.Events;
 using CondominioApp.Principal.Domain;
 using CondominioApp.Principal.Domain.Interfaces;
 using FluentValidation.Results;
@@ -28,8 +29,8 @@ namespace CondominioApp.Principal.Aplication.Commands
         {
             if (!request.EstaValido()) return request.ValidationResult;
 
-            var unidade = UnidadeFactory(request);          
-            
+            var unidade = UnidadeFactory(request);           
+
             var grupo = await _condominioRepository.ObterGrupoPorId(unidade.GrupoId);
             if (grupo == null)
             {
@@ -45,6 +46,20 @@ namespace CondominioApp.Principal.Aplication.Commands
             VerificaSeCodigoJaEstaCadastrado(unidade);
 
             _condominioRepository.AdicionarUnidade(unidade);
+
+            var condominio = await _condominioRepository.ObterPorId(grupo.CondominioId);
+            if (condominio == null)
+            {
+                AdicionarErro("Condominio não encontrado.");
+                return ValidationResult;
+            }
+
+            unidade.AdicionarEvento(
+               new UnidadeCadastradaEvent(unidade.Id,unidade.DataDeCadastro, unidade.DataDeAlteracao,
+               unidade.Lixeira, unidade.Codigo, unidade.Numero, unidade.Andar, unidade.Vagas,
+               unidade.Telefone.Numero, unidade.Ramal, unidade.Complemento, unidade.GrupoId, 
+               grupo.Descricao, unidade.CondominioId, condominio.Cnpj.NumeroFormatado, 
+               condominio.Nome, condominio.LogoMarca.NomeDoArquivo ));
 
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }

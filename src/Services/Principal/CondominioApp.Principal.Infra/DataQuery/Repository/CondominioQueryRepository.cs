@@ -1,13 +1,10 @@
 ﻿using CondominioApp.Core.Data;
-using CondominioApp.Principal.Domain.ValueObjects;
-using CondominioApp.Principal.Domain;
 using CondominioApp.Principal.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 using CondominioApp.Principal.Infra.DataQuery;
 using CondominioApp.Principal.Domain.FlatModel;

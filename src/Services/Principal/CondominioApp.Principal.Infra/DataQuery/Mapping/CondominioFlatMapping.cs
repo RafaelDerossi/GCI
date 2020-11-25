@@ -1,5 +1,4 @@
 ﻿using CondominioApp.Principal.Domain.ValueObjects;
-using CondominioApp.Principal.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using CondominioApp.Principal.Domain.FlatModel;
@@ -14,9 +13,9 @@ namespace CondominioApp.Principal.Infra.DataQuery.Mapping
 
             builder.ToTable("CondominiosFlat");
 
-            builder.Property(u => u.Nome).IsRequired().HasColumnType($"varchar({Condominio.Max})");
+            builder.Property(u => u.Nome).IsRequired().HasColumnType($"varchar({CondominioFlat.Max})");
 
-            builder.Property(u => u.Descricao).HasColumnType($"varchar({Condominio.Max})");
+            builder.Property(u => u.Descricao).HasColumnType($"varchar({CondominioFlat.Max})");
 
             builder.Property(u => u.Cnpj).HasColumnType($"varchar({Cnpj.Maxlength})");
 
@@ -24,9 +23,9 @@ namespace CondominioApp.Principal.Infra.DataQuery.Mapping
 
             builder.Property(u => u.LogoMarca).HasColumnType($"varchar({Foto.NomeFotoMaximo})");           
 
-            builder.Property(u => u.LinkGeraBoleto).HasColumnType($"varchar({Condominio.Max})");
+            builder.Property(u => u.LinkGeraBoleto).HasColumnType($"varchar({CondominioFlat.Max})");
 
-            builder.Property(u => u.BoletoFolder).HasColumnType($"varchar({Condominio.Max})");
+            builder.Property(u => u.BoletoFolder).HasColumnType($"varchar({CondominioFlat.Max})");
 
             builder.Property(u => u.UrlWebServer).HasColumnType($"varchar({Url.TamanhoMaximo})");           
 

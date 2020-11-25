@@ -7,6 +7,7 @@ namespace CondominioApp.Principal.Domain.FlatModel
 {
    public class CondominioFlat : IAggregateRoot
    {
+        public const int Max = 200;
         public Guid Id { get; private set; }
 
         public DateTime DataDeCadastro { get; private set; }
@@ -40,10 +41,7 @@ namespace CondominioApp.Principal.Domain.FlatModel
         public string Estado { get; private set; }
         
 
-        /// Referencia Externa
-        /// <summary>
-        /// Id de referencia externa do condominio
-        /// </summary>
+       
         public int? RefereciaId { get; private set; }
 
         public string LinkGeraBoleto { get; private set; }
@@ -53,85 +51,42 @@ namespace CondominioApp.Principal.Domain.FlatModel
         public string UrlWebServer { get; private set; }
         
 
-        ///Parametros
-        /// <summary>
-        /// Habilita/Desabilita Portaria
-        /// </summary>
-        public bool Portaria { get; private set; }
 
-        /// <summary>
-        /// Habilita/Desabilita Portaria Para o Morador
-        /// </summary>
+        public bool Portaria { get; private set; }
+       
         public bool PortariaMorador { get; private set; }
 
-        /// <summary>
-        ///  Habilita/Desabilita Classificado
-        /// </summary>
         public bool Classificado { get; private set; }
 
-        /// <summary>
-        /// Habilita/Desabilita Classificado para o morador
-        /// </summary>
         public bool ClassificadoMorador { get; private set; }
 
-        /// <summary>
-        ///  Habilita/Desabilita Mural
-        /// </summary>
         public bool Mural { get; private set; }
 
-        /// <summary>
-        /// Habilita/Desabilita Mural para o morador
-        /// </summary>
         public bool MuralMorador { get; private set; }
 
-        /// <summary>
-        /// Habilita/Desabilita Chat
-        /// </summary>
         public bool Chat { get; private set; }
 
-        /// <summary>
-        /// Habilita/Desabilita Chat para o morador
-        /// </summary>
         public bool ChatMorador { get; private set; }
 
-        /// <summary>
-        /// Habilita/Desabilita Reserva
-        /// </summary>
         public bool Reserva { get; private set; }
 
-        /// <summary>
-        /// Habilita/Desabilita Reserva na Portaria
-        /// </summary>
         public bool ReservaNaPortaria { get; private set; }
 
-        /// <summary>
-        /// Habilita/Desabilita Ocorrencia
-        /// </summary>
         public bool Ocorrencia { get; private set; }
 
-        /// <summary>
-        /// Habilita/Desabilita Ocorrencia para o morador
-        /// </summary>
         public bool OcorrenciaMorador { get; private set; }
-
-        /// <summary>
-        /// Habilita/Desabilita Correspondencia 
-        /// </summary>
+        
         public bool Correspondencia { get; private set; }
 
-        /// <summary>
-        /// Habilita/Desabilita Correspondencia na Portaria
-        /// </summary>
         public bool CorrespondenciaNaPortaria { get; private set; }
 
-        /// <summary>
-        /// Habilita/Desabilita Limite de Tempo na Reserva
-        /// </summary>
         public bool LimiteTempoReserva { get; private set; }
+
 
         protected CondominioFlat() { }
 
-        public CondominioFlat(Guid id, string cnpj, string nome, string descricao, string logoMarca, 
+        public CondominioFlat(Guid id, DateTime dataDeCadastro, DateTime dataDeAlteracao, bool lixeira, 
+            string cnpj, string nome, string descricao, string logoMarca, 
             string telefone, string logradouro, string complemento, string numero, string cep, 
             string bairro, string cidade, string estado, int? refereciaId, string linkGeraBoleto, 
             string boletoFolder, string urlWebServer, bool portaria, bool portariaMorador, bool classificado,
@@ -140,6 +95,9 @@ namespace CondominioApp.Principal.Domain.FlatModel
             bool correspondenciaNaPortaria, bool limiteTempoReserva)
         {
             Id = id;
+            DataDeCadastro = dataDeCadastro;
+            DataDeAlteracao = dataDeAlteracao;
+            Lixeira = lixeira; 
             Cnpj = cnpj;
             Nome = nome;
             Descricao = descricao;

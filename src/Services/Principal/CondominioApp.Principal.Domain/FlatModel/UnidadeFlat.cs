@@ -6,6 +6,8 @@ namespace CondominioApp.Principal.Domain.FlatModel
 {
    public class UnidadeFlat
     {
+        public const int Max = 200;
+
         public Guid Id { get; private set; }
 
         public DateTime DataDeCadastro { get; private set; }
@@ -42,12 +44,16 @@ namespace CondominioApp.Principal.Domain.FlatModel
 
         protected UnidadeFlat() { }
 
-        public UnidadeFlat(Guid id, string unidadeCodigo, string unidadeNumero, string unidadeAndar,
+        public UnidadeFlat(Guid id, DateTime dataDeCadastro, DateTime dataDeAlteracao, bool lixeira, 
+            string unidadeCodigo, string unidadeNumero, string unidadeAndar,
             int unidadeVagas, string unidadeTelefone, string unidadeRamal, string unidadeComplemento,
             Guid grupoId, string grupoDescricao, Guid condominioId, string condominioCnpj, string condominioNome,
             string condominioLogoMarca)
         {
             Id = id;
+            DataDeCadastro = dataDeCadastro;
+            DataDeAlteracao = dataDeAlteracao;
+            Lixeira = lixeira;
             Codigo = unidadeCodigo;
             Numero = unidadeNumero;
             Andar = unidadeAndar;

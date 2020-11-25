@@ -1,4 +1,5 @@
 ﻿using CondominioApp.Core.Messages;
+using CondominioApp.Principal.Aplication.Events;
 using CondominioApp.Principal.Domain;
 using CondominioApp.Principal.Domain.Interfaces;
 using FluentValidation.Results;
@@ -38,6 +39,16 @@ namespace CondominioApp.Principal.Aplication.Commands
             }
 
             _condominioRepository.Adicionar(condominio);
+
+            condominio.AdicionarEvento(
+                new CondominioCadastradoEvent(condominio.Id,condominio.DataDeCadastro, condominio.DataDeAlteracao,
+                condominio.Lixeira, condominio.Cnpj, condominio.Nome, condominio.Descricao, condominio.LogoMarca,
+                condominio.Telefone, condominio.Endereco, condominio.RefereciaId, condominio.LinkGeraBoleto, 
+                condominio.BoletoFolder, condominio.UrlWebServer, condominio.Portaria, condominio.PortariaMorador,
+                condominio.Classificado, condominio.ClassificadoMorador, condominio.Mural,
+                condominio.MuralMorador, condominio.Chat, condominio.ChatMorador, condominio.Reserva,
+                condominio.ReservaNaPortaria, condominio.Ocorrencia, condominio.OcorrenciaMorador,
+                condominio.Correspondencia, condominio.CorrespondenciaNaPortaria, condominio.LimiteTempoReserva));
 
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }

@@ -1,4 +1,5 @@
 ﻿using CondominioApp.Core.Messages;
+using CondominioApp.Principal.Aplication.Events;
 using CondominioApp.Principal.Domain;
 using CondominioApp.Principal.Domain.Interfaces;
 using FluentValidation.Results;
@@ -43,6 +44,11 @@ namespace CondominioApp.Principal.Aplication.Commands
             if (!resultado.IsValid) return resultado;
 
             _condominioRepository.AdicionarGrupo(grupo);
+
+            grupo.AdicionarEvento(
+                new GrupoCadastradoEvent(grupo.Id, grupo.DataDeCadastro, grupo.DataDeAlteracao,
+                grupo.Lixeira, grupo.Descricao, grupo.CondominioId, condominio.Cnpj.NumeroFormatado,
+                condominio.Nome, condominio.LogoMarca.NomeDoArquivo));
 
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }

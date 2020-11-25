@@ -1,13 +1,11 @@
 ﻿using CondominioApp.Core.Data;
-using CondominioApp.Core.Extensions;
-using CondominioApp.Core.Helpers;
 using CondominioApp.Core.Mediator;
 using CondominioApp.Core.Messages;
+using CondominioApp.Principal.Domain;
 using CondominioApp.Principal.Domain.FlatModel;
+using CondominioApp.Principal.Domain.ValueObjects;
 using FluentValidation.Results;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace CondominioApp.Principal.Infra.DataQuery
@@ -33,22 +31,21 @@ namespace CondominioApp.Principal.Infra.DataQuery
             modelBuilder.Ignore<ValidationResult>();
             modelBuilder.Ignore<Event>();
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(PrincipalQueryContextDB).Assembly);
+
+            modelBuilder.Ignore<Condominio>();
+            modelBuilder.Ignore<Grupo>();
+            modelBuilder.Ignore<Unidade>();
+            modelBuilder.Ignore<Cnpj>();
+            modelBuilder.Ignore<Cpf>();
+            modelBuilder.Ignore<Foto>();
+            modelBuilder.Ignore<Endereco>();
+            modelBuilder.Ignore<Url>();
         }
 
         public async Task<bool> Commit()
         {
-            try
-            {
-                var sucesso = await SaveChangesAsync() > 0;
-                if (sucesso) await _mediatorHandler.PublicarEventos(this);
+            return await SaveChangesAsync() > 0; 
 
-                return sucesso;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-          
         }
     }
 }
