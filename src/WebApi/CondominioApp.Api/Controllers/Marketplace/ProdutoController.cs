@@ -31,6 +31,12 @@ namespace CondominioApp.Api.Controllers.Marketplace
             return await _AppServiceProduto.ExibirCatalogo();
         }
 
+        [HttpGet("{Id:Guid}")]
+        public async Task<ProdutoViewModel> ObterPorId(Guid Id)
+        {
+            return await _AppServiceProduto.ObterPorId(Id);
+        }
+
         [HttpGet("Vitrine")]
         public async Task<IEnumerable<ItemDaVitrineViewModel>> Vitrine()
         {

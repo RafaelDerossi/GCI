@@ -35,6 +35,13 @@ namespace CondominioAppMarketplace.App
             return await Task.FromResult(_mapper.Map<IEnumerable<ProdutoViewModel>>(produtos));
         }
 
+        public async Task<ProdutoViewModel> ObterPorId(Guid Id)
+        {
+            return await Task.FromResult(_mapper.Map<ProdutoViewModel>(
+                await _repository.ObterPorId(Id)
+                ));
+        }
+
 
         public async Task<ValidationResult> Adicionar(ProdutoViewModel ViewModel)
         {

@@ -17,5 +17,7 @@ namespace CondominioAppMarketplace.App.Interfaces
         Task<ValidationResult> AtualizarPreco(Guid ItemDeVendaId);
 
         Task<IEnumerable<ProdutoViewModel>> ExibirCatalogo();
+
+        Task<ProdutoViewModel> ObterPorId(Guid Id);
     }
 }
