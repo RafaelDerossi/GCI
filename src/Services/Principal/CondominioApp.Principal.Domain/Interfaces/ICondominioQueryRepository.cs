@@ -1,6 +1,7 @@
 ﻿using CondominioApp.Core.Data;
 using CondominioApp.Principal.Domain.FlatModel;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace CondominioApp.Principal.Domain.Interfaces
@@ -13,7 +14,7 @@ namespace CondominioApp.Principal.Domain.Interfaces
 
         Task<GrupoFlat> ObterGrupoPorId(Guid Id);
 
-        Task<GrupoFlat> ObterGruposPorCondominio(Guid condominioId);
+        Task<IEnumerable<GrupoFlat>> ObterGruposPorCondominio(Guid condominioId);
 
 
         void AdicionarUnidade(UnidadeFlat entity);
@@ -22,8 +23,8 @@ namespace CondominioApp.Principal.Domain.Interfaces
 
         Task<UnidadeFlat> ObterUnidadePorId(Guid Id);
 
-        Task<UnidadeFlat> ObterUnidadesPorGrupo(Guid grupoId);
+        Task<IEnumerable<UnidadeFlat>> ObterUnidadesPorGrupo(Guid grupoId);
 
-        Task<UnidadeFlat> ObterUnidadesPorCondominio(Guid condominioId);
+        Task<IEnumerable<UnidadeFlat>> ObterUnidadesPorCondominio(Guid condominioId);
     }
 }

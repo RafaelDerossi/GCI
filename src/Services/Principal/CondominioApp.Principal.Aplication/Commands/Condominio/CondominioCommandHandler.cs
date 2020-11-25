@@ -79,6 +79,11 @@ namespace CondominioApp.Principal.Aplication.Commands
 
             _condominioRepository.Atualizar(condominioBd);
 
+            condominioBd.AdicionarEvento(
+               new CondominioAlteradoEvent(condominioBd.Id, condominioBd.DataDeCadastro, condominioBd.DataDeAlteracao,
+               condominioBd.Lixeira, condominioBd.Cnpj, condominioBd.Nome, condominioBd.Descricao, condominioBd.LogoMarca,
+               condominioBd.Telefone, condominioBd.Endereco));
+
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }
 
@@ -184,6 +189,14 @@ namespace CondominioApp.Principal.Aplication.Commands
 
 
             _condominioRepository.Atualizar(condominioBd);
+
+            condominioBd.AdicionarEvento(
+              new CondominioConfiguracaoAlteradoEvent(condominioBd.Id, condominioBd.DataDeAlteracao,
+              condominioBd.Portaria, condominioBd.PortariaMorador, condominioBd.Classificado, 
+              condominioBd.ClassificadoMorador, condominioBd.Mural, condominioBd.MuralMorador, 
+              condominioBd.Chat, condominioBd.ChatMorador, condominioBd.Reserva,
+              condominioBd.ReservaNaPortaria, condominioBd.Ocorrencia, condominioBd.OcorrenciaMorador,
+              condominioBd.Correspondencia, condominioBd.CorrespondenciaNaPortaria, condominioBd.LimiteTempoReserva));
 
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }

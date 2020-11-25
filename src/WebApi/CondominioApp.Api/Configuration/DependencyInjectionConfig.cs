@@ -34,6 +34,8 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<IRequestHandler<AlterarConfiguracaoCondominioCommand, ValidationResult>, CondominioCommandHandler>();
             services.AddScoped<IRequestHandler<RemoverCondominioCommand, ValidationResult>, CondominioCommandHandler>();
             services.AddScoped<INotificationHandler<CondominioCadastradoEvent>,CondominioEventHandler>();
+            services.AddScoped<INotificationHandler<CondominioAlteradoEvent>, CondominioEventHandler>();
+            services.AddScoped<INotificationHandler<CondominioConfiguracaoAlteradoEvent>, CondominioEventHandler>();
 
             //Grupo
             services.AddScoped<IRequestHandler<CadastrarGrupoCommand, ValidationResult>, GrupoCommandHandler>();

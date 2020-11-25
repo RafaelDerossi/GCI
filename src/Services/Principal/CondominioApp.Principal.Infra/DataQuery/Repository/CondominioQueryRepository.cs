@@ -93,10 +93,9 @@ namespace CondominioApp.Principal.Infra.Data.Repository
                 .FirstOrDefaultAsync(u => u.Id == Id);
         }
 
-        public async Task<GrupoFlat> ObterGruposPorCondominio(Guid condominioId)
+        public async Task<IEnumerable<GrupoFlat>> ObterGruposPorCondominio(Guid condominioId)
         {
-            return await _context.GruposFlat
-                .FirstOrDefaultAsync(u => u.CondominioId == condominioId);
+            return await _context.GruposFlat.Where(u => u.CondominioId == condominioId).ToListAsync();
         }
 
         #endregion
@@ -119,16 +118,16 @@ namespace CondominioApp.Principal.Infra.Data.Repository
                 .FirstOrDefaultAsync(u => u.Id == Id);
         }
 
-        public async Task<UnidadeFlat> ObterUnidadesPorGrupo(Guid grupoId)
+        public async Task<IEnumerable<UnidadeFlat>> ObterUnidadesPorGrupo(Guid grupoId)
         {
             return await _context.UnidadesFlat
-                .FirstOrDefaultAsync(u => u.GrupoId == grupoId);
+                .Where(u => u.GrupoId == grupoId).ToListAsync();
         }
 
-        public async Task<UnidadeFlat> ObterUnidadesPorCondominio(Guid condominioId)
+        public async Task<IEnumerable<UnidadeFlat>> ObterUnidadesPorCondominio(Guid condominioId)
         {
             return await _context.UnidadesFlat
-                .FirstOrDefaultAsync(u => u.CondominioId == condominioId);
+                .Where(u => u.CondominioId == condominioId).ToListAsync();
         }
 
         #endregion

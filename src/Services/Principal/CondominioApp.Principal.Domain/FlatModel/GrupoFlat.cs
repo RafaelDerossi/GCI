@@ -45,5 +45,15 @@ namespace CondominioApp.Principal.Domain.FlatModel
         public void EnviarParaLixeira() => Lixeira = true;
 
         public void RestaurarDaLixeira() => Lixeira = false;
+
+        public void SetDataDeAlteracao(DateTime dataDeAlteracao) => DataDeAlteracao = dataDeAlteracao;
+
+        public void SetDescricao(string descricao) => Descricao = descricao;
+
+        public void SetCondominioCNPJ(string cnpj) => CondominioCnpj = cnpj;
+
+        public void SetCondominioNome(string nome) => CondominioNome = nome;
+
+        public void SetCondominioLogomarca(string logomarca) => CondominioLogoMarca = logomarca;
     }
 }

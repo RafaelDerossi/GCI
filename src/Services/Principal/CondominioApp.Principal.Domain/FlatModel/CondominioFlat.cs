@@ -137,6 +137,8 @@ namespace CondominioApp.Principal.Domain.FlatModel
         public void RestaurarDaLixeira() => Lixeira = false;
 
 
+        public void SetDataDeAlteracao(DateTime dataDeAlteracao) => DataDeAlteracao = dataDeAlteracao;
+
         public void SetCNPJ(string cnpj) => Cnpj = cnpj;
 
         public void SetNome(string nome) => Nome = nome;
