@@ -37,31 +37,37 @@ namespace CondominioApp.Api.Controllers.Marketplace
             return await _AppServiceProduto.ObterPorId(Id);
         }
 
-        [HttpGet("Vitrine")]
+        [HttpGet("produtos-do-parceiro/{Id:Guid}")]
+        public async Task<IEnumerable<ProdutoViewModel>> ObterProdutoDoParceiro(Guid Id)
+        {
+            return await _AppServiceProduto.ObterProdutoDoParceiro(Id);
+        }
+
+        [HttpGet("vitrine")]
         public async Task<IEnumerable<ItemDaVitrineViewModel>> Vitrine()
         {
             return await _AppServiceItemDeVenda.ObterTodos();
         }
 
-        [HttpGet("Obter-Produto-Da-Vitrine/{itemDeVendaId:Guid}")]
+        [HttpGet("obter-produto-da-vitrine/{itemDeVendaId:Guid}")]
         public async Task<ItemDaVitrineViewModel> ObterProdutoDaVitrine(Guid itemDeVendaId)
         {
             return await _AppServiceItemDeVenda.ObterItemDaVitrine(itemDeVendaId);
         }
 
-        [HttpGet("Vitrine-Do-Parceiro/{parceiroId:Guid}")]
+        [HttpGet("vitrine-do-parceiro/{parceiroId:Guid}")]
         public async Task<IEnumerable<ItemDaVitrineViewModel>> VitrineDoParceiro(Guid parceiroId)
         {
             return await _AppServiceItemDeVenda.ObterPorParceiroId(parceiroId);
         }
 
-        [HttpGet("Vitrine-Do-Vendedor/{vendedorId:Guid}")]
+        [HttpGet("vitrine-do-vendedor/{vendedorId:Guid}")]
         public async Task<IEnumerable<ItemDaVitrineViewModel>> VitrineDoVendedor(Guid vendedorId)
         {
             return await _AppServiceItemDeVenda.ObterPorVendedorId(vendedorId);
         }     
 
-        [HttpGet("Produto-Aleatorio-Da-Vitrine")]
+        [HttpGet("produto-aleatorio-da-vitrine")]
         public async Task<ItemDaVitrineViewModel> ProdutoAleatorioDaVitrine()
         {
             return await _AppServiceItemDeVenda.ProdutoAleatorioDaVitrine();
@@ -77,7 +83,7 @@ namespace CondominioApp.Api.Controllers.Marketplace
             return CustomResponse(await _AppServiceProduto.Adicionar(viewModel));
         }
 
-        [HttpPost("Expor-Produto-Na-Vitrine")]
+        [HttpPost("expor-produto-na-vitrine")]
         public async Task<IActionResult> ExporProdutoNaVitrine([FromBody] ItemDeVendaViewModel viewModel)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
@@ -85,7 +91,7 @@ namespace CondominioApp.Api.Controllers.Marketplace
             return CustomResponse(await _AppServiceItemDeVenda.ExporItemNaVitrine(viewModel));
         }
 
-        [HttpPost("Marcar-Foto-Principal")]
+        [HttpPost("marcar-foto-principal")]
         public async Task<IActionResult> MarcarFotoPrincipal([FromBody] FotoPrincipalViewModel viewModel)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
@@ -95,23 +101,22 @@ namespace CondominioApp.Api.Controllers.Marketplace
 
 
 
-        [HttpPut("Contabilizar-Cliques/{itemDeVendaId:Guid}")]
+        [HttpPut("contabilizar-cliques/{itemDeVendaId:Guid}")]
         public async Task<IActionResult> ContabilizarCliques(Guid itemDeVendaId)
         {
             return CustomResponse(await _AppServiceItemDeVenda.ContarClique(itemDeVendaId));
         }
 
-        [HttpPut("Remover-Produto-Da-Vitrine/{itemDeVendaId:Guid}")]
+        [HttpPut("remover-produto-da-vitrine/{itemDeVendaId:Guid}")]
         public async Task<IActionResult> RemoverProdutoDaVitrine(Guid itemDeVendaId)
         {
             return CustomResponse(await _AppServiceItemDeVenda.RemoverDaVitrine(itemDeVendaId));
         }
 
-        [HttpPut("Restaurar-Produtos-Da-Vitrine/{parceiroId:Guid}")]
+        [HttpPut("restaurar-produtos-da-vitrine/{parceiroId:Guid}")]
         public async Task<IActionResult> RestauraProdutosDaVitrine(Guid parceiroId)
         {
             return CustomResponse(await _AppServiceItemDeVenda.RestauraProdutosDaVitrine(parceiroId));            
-        } 
-
+        }
     }
 }

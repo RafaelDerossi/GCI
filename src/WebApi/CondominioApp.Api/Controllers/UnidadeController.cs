@@ -37,10 +37,16 @@ namespace CondominioApp.Api.Controllers
         }
 
 
-        [HttpPut]
-        public async Task<ActionResult> Put(UnidadeViewModel unidadeVM)
+        [HttpPut("{Id:Guid}")]
+        public async Task<ActionResult> Put(Guid Id, UnidadeViewModel unidadeVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            if (Id != unidadeVM.UnidadeId)
+            {
+                AdicionarErroProcessamento("Id não confere!");
+                return CustomResponse();
+            }
 
             var comando = new AlterarUnidadeCommand(
             unidadeVM.UnidadeId, unidadeVM.Numero, unidadeVM.Andar,
@@ -53,7 +59,7 @@ namespace CondominioApp.Api.Controllers
         }
 
 
-        [HttpPut("ResetCodigo/{Id:Guid}")]
+        [HttpPut("atualizar-codigo/{Id:Guid}")]
         public async Task<ActionResult> Put(Guid Id)
         {
             var comando = new ResetCodigoUnidadeCommand(Id);

@@ -42,6 +42,13 @@ namespace CondominioAppMarketplace.App
                 ));
         }
 
+        public async Task<IEnumerable<ProdutoViewModel>> ObterProdutoDoParceiro(Guid parceiroId)
+        {
+            var produtos = await _repository.Obter(p => !p.Lixeira && p.ParceiroId == parceiroId, true, 250);
+
+            return await Task.FromResult(_mapper.Map<IEnumerable<ProdutoViewModel>>(produtos));
+        }
+
 
         public async Task<ValidationResult> Adicionar(ProdutoViewModel ViewModel)
         {

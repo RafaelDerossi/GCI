@@ -35,13 +35,13 @@ namespace CondominioApp.Api.Controllers
             return await _queryLead.ObterPorId(Id);
         }
 
-        [HttpGet("Intervalo")]
+        [HttpGet("intervalo")]
         public async Task<IEnumerable<LeadViewModel>> Intervalo(DateTime DataInicio, DateTime DataFim)
         {
             return await _queryLead.ObterPorDatas(DataInicio, DataFim);
         }
 
-        [HttpGet("Pendentes")]
+        [HttpGet("pendentes")]
         public async Task<IEnumerable<LeadViewModel>> Pendentes()
         {
             return await _queryLead.ObterPendentes();

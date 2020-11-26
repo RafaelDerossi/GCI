@@ -27,7 +27,7 @@ namespace CondominioApp.Api.Controllers.Marketplace
             return await _AppServiceParceiro.ObterTodosVendedores();
         }
 
-        [HttpGet("Obter-Por-Parceiro/{parceiroId:Guid}")]
+        [HttpGet("obter-por-parceiro/{parceiroId:Guid}")]
         public async Task<IEnumerable<VendedorViewModel>> ObterPorParceiro(Guid parceiroId)
         {
             return await _AppServiceParceiro.ObterVendedoresDoParceiro(parceiroId);

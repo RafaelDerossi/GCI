@@ -58,7 +58,7 @@ namespace CondominioApp.Api.Controllers.Marketplace
         }
 
 
-        [HttpGet("Obter-Ativos")]
+        [HttpGet("obter-ativos")]
         public async Task<IEnumerable<ParceiroViewModel>> ObterAtivos()
         {
             return await _AppService.ObterAtivos();
@@ -73,19 +73,19 @@ namespace CondominioApp.Api.Controllers.Marketplace
             return CustomResponse(await _AppService.Atualizar(ViewModel));           
         }
 
-        [HttpPut("Limpar-LogoMarca/{Id:Guid}")]
+        [HttpPut("limpar-logoMarca/{Id:Guid}")]
         public async Task<IActionResult> LimparLogoMarca(Guid Id)
         {
             return CustomResponse(await _AppService.LimparLogoMarca(Id));
         }
 
-        [HttpPut("Desativar-PreCadastro/{Id:Guid}")]
+        [HttpPut("desativar-precadastro/{Id:Guid}")]
         public async Task<IActionResult> DesativarPreCadastro(Guid Id)
         {
             return CustomResponse(await _AppService.DesativarPreCadastro(Id));
         }
 
-        [HttpPut("Atualizar-Cnpj")]
+        [HttpPut("atualizar-cnpj")]
         public async Task<IActionResult> AtualizarCnpj([FromBody] ParceiroCnpjModel Model)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
@@ -94,7 +94,7 @@ namespace CondominioApp.Api.Controllers.Marketplace
            
         }
 
-        [HttpPut("Atualizar-LogoMarca")]
+        [HttpPut("atualizar-logomarca")]
         public async Task<IActionResult> AtualizarLogoMarca([FromBody] ParceiroLogoMarcaModel Model)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
@@ -103,7 +103,7 @@ namespace CondominioApp.Api.Controllers.Marketplace
            
         }        
 
-        [HttpPut("Atualizar-Contrato")]
+        [HttpPut("atualizar-contrato")]
         public async Task<IActionResult> AtualizarContrato([FromBody] ContratoModel Model)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
@@ -120,7 +120,7 @@ namespace CondominioApp.Api.Controllers.Marketplace
             return CustomResponse(await _AppService.Adicionar(ViewModel));
         }
 
-        [HttpPost("Contratar-Vendedor")]
+        [HttpPost("contratar-vendedor")]
         public async Task<IActionResult> ContratarVendedor(VendedorViewModel ViewModel)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);

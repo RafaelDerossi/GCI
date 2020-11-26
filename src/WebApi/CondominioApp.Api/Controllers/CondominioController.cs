@@ -57,11 +57,10 @@ namespace CondominioApp.Api.Controllers
             return CustomResponse(Resultado);                      
         }
 
-        [HttpPut("Configuracao")]
+        [HttpPut("configuracao")]
         public async Task<ActionResult> Put(AlteraConfiguracaoCondominioViewModel AlteraCondominioVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
-
 
             var comando = new AlterarConfiguracaoCondominioCommand(
                  AlteraCondominioVM.CodominioId, AlteraCondominioVM.Portaria, AlteraCondominioVM.PortariaMorador,
@@ -83,7 +82,6 @@ namespace CondominioApp.Api.Controllers
            var Resultado = await _mediatorHandler.EnviarComando(comando);
 
             return CustomResponse(Resultado);
-        }       
-
+        }
     }
 }

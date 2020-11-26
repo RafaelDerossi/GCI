@@ -19,5 +19,7 @@ namespace CondominioAppMarketplace.App.Interfaces
         Task<IEnumerable<ProdutoViewModel>> ExibirCatalogo();
 
         Task<ProdutoViewModel> ObterPorId(Guid Id);
+
+        Task<IEnumerable<ProdutoViewModel>> ObterProdutoDoParceiro(Guid parceiroId);
     }
 }

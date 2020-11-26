@@ -27,13 +27,13 @@ namespace CondominioApp.Api.Controllers.Marketplace
             return await _AppService.ObterTodos();
         }
 
-        [HttpGet("Obter-Por-Vendedor/{vendedorId:Guid}")]
+        [HttpGet("obter-por-vendedor/{vendedorId:Guid}")]
         public async Task<IEnumerable<LeadMarketplaceViewModel>> ObterPorVendedor(Guid vendedorId)
         {
             return await _AppService.ObterPorVendedor(vendedorId);
         }
 
-        [HttpGet("Obter-Por-Parceiro/{parceiroId:Guid}")]
+        [HttpGet("obter-por-parceiro/{parceiroId:Guid}")]
         public async Task<IEnumerable<LeadMarketplaceViewModel>> ObterPorParceiroId(Guid parceiroId)
         {
             return await _AppService.ObterPorParceiro(parceiroId);
