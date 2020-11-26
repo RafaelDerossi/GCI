@@ -1,5 +1,5 @@
 ﻿using CondominioApp.Core.Messages;
-using CondominioApp.Core.ValueObjects;
+using CondominioApp.Principal.Aplication.Events;
 using CondominioApp.Principal.Domain;
 using CondominioApp.Principal.Domain.Interfaces;
 using FluentValidation.Results;
@@ -32,9 +32,23 @@ namespace CondominioApp.Principal.Aplication.Commands
 
             var condominio = CondominioFactory(request);
 
-            if (!ValidationResult.IsValid) return ValidationResult;
+            if (_condominioRepository.CnpjCondominioJaCadastrado(request.Cnpj, request.CondominioId).Result)
+            {
+                AdicionarErro("CNPJ informado ja consta no sistema.");
+                return ValidationResult;
+            }
 
             _condominioRepository.Adicionar(condominio);
+
+            condominio.AdicionarEvento(
+                new CondominioCadastradoEvent(condominio.Id,condominio.DataDeCadastro, condominio.DataDeAlteracao,
+                condominio.Cnpj, condominio.Nome, condominio.Descricao, condominio.LogoMarca,
+                condominio.Telefone, condominio.Endereco, condominio.RefereciaId, condominio.LinkGeraBoleto, 
+                condominio.BoletoFolder, condominio.UrlWebServer, condominio.Portaria, condominio.PortariaMorador,
+                condominio.Classificado, condominio.ClassificadoMorador, condominio.Mural,
+                condominio.MuralMorador, condominio.Chat, condominio.ChatMorador, condominio.Reserva,
+                condominio.ReservaNaPortaria, condominio.Ocorrencia, condominio.OcorrenciaMorador,
+                condominio.Correspondencia, condominio.CorrespondenciaNaPortaria, condominio.LimiteTempoReserva));
 
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }
@@ -50,20 +64,25 @@ namespace CondominioApp.Principal.Aplication.Commands
                 return ValidationResult;
             }
 
-            condominioBd.SetCNPJ(new Cnpj(request.Cnpj));
-            condominioBd.SetNome(request.Nome);
-            condominioBd.SetDescricao(request.Descricao);
-            condominioBd.SetFoto(new Foto(request.NomeOriginal, request.LogoMarca));
-            condominioBd.SetTelefone(new Telefone(request.Telefone));
-            condominioBd.SetEndereco(new Endereco(request.Logradouro, request.Complemento,request.Numero, request.Cep, request.Bairro, request.Cidade, request.Estado));
-
-            if (_condominioRepository.CnpjCondominioJaCadastrado(condominioBd.Cnpj, condominioBd.Id).Result)
+            if (_condominioRepository.CnpjCondominioJaCadastrado(request.Cnpj, request.CondominioId).Result)
             {
                 AdicionarErro("CNPJ informado ja consta no sistema.");
                 return ValidationResult;
             }
 
+            condominioBd.SetCNPJ(request.Cnpj);
+            condominioBd.SetNome(request.Nome);
+            condominioBd.SetDescricao(request.Descricao);
+            condominioBd.SetFoto(request.LogoMarca);
+            condominioBd.SetTelefone(request.Telefone);
+            condominioBd.SetEndereco(request.Endereco);            
+
             _condominioRepository.Atualizar(condominioBd);
+
+            condominioBd.AdicionarEvento(
+               new CondominioAlteradoEvent(condominioBd.Id, condominioBd.DataDeCadastro, condominioBd.DataDeAlteracao,
+               condominioBd.Cnpj, condominioBd.Nome, condominioBd.Descricao, condominioBd.LogoMarca,
+               condominioBd.Telefone, condominioBd.Endereco));
 
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }
@@ -171,6 +190,14 @@ namespace CondominioApp.Principal.Aplication.Commands
 
             _condominioRepository.Atualizar(condominioBd);
 
+            condominioBd.AdicionarEvento(
+              new CondominioConfiguracaoAlteradoEvent(condominioBd.Id, condominioBd.DataDeAlteracao,
+              condominioBd.Portaria, condominioBd.PortariaMorador, condominioBd.Classificado, 
+              condominioBd.ClassificadoMorador, condominioBd.Mural, condominioBd.MuralMorador, 
+              condominioBd.Chat, condominioBd.ChatMorador, condominioBd.Reserva,
+              condominioBd.ReservaNaPortaria, condominioBd.Ocorrencia, condominioBd.OcorrenciaMorador,
+              condominioBd.Correspondencia, condominioBd.CorrespondenciaNaPortaria, condominioBd.LimiteTempoReserva));
+
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }
 
@@ -189,19 +216,17 @@ namespace CondominioApp.Principal.Aplication.Commands
 
             _condominioRepository.Atualizar(condominioBd);
 
+            condominioBd.AdicionarEvento(new CondominioRemovidoEvent(condominioBd.Id, condominioBd.DataDeAlteracao));
+
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }
 
 
         private Condominio CondominioFactory(CadastrarCondominioCommand request)
         {
-
-            var condominio = new Condominio(new Cnpj(request.Cnpj), request.Nome, request.Descricao,
-                new Foto(request.NomeOriginal, request.LogoMarca), new Telefone(request.Telefone),
-                new Endereco(request.Logradouro, request.Complemento, request.Numero, request.Cep,
-                request.Bairro, request.Cidade, request.Estado),
-                request.RefereciaId, request.LinkGeraBoleto, request.BoletoFolder,
-                new Url(request.UrlWebServer), request.Portaria, request.PortariaMorador, request.Classificado,
+            var condominio = new Condominio(request.Cnpj, request.Nome, request.Descricao, request.LogoMarca, 
+                request.Telefone, request.Endereco, request.RefereciaId, request.LinkGeraBoleto, request.BoletoFolder,
+                request.UrlWebServer, request.Portaria, request.PortariaMorador, request.Classificado,
                 request.ClassificadoMorador, request.Mural, request.MuralMorador, request.Chat, request.ChatMorador,
                 request.Reserva, request.ReservaNaPortaria, request.Ocorrencia, request.OcorrenciaMorador,
                 request.Correspondencia, request.CorrespondenciaNaPortaria, request.LimiteTempoReserva);

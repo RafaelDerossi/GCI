@@ -51,9 +51,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BaseSoftware", "BaseSoftwar
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioApp.BS.Balancete", "src\Building Blocks\CondominioApp.BS.Balancete\CondominioApp.BS.Balancete.csproj", "{93DF2432-0AD1-46FF-80C6-773042C6A214}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CondominioApp.BS.CompiladorDeDados", "src\Building Blocks\CondominioApp.BS.CompiladorDeDados\CondominioApp.BS.CompiladorDeDados.csproj", "{30F0F0EA-CE5E-487C-A458-E941018B23D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioApp.BS.CompiladorDeDados", "src\Building Blocks\CondominioApp.BS.CompiladorDeDados\CondominioApp.BS.CompiladorDeDados.csproj", "{30F0F0EA-CE5E-487C-A458-E941018B23D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CondominioApp.BS.App", "src\Services\BaseSoftware\CondominioApp.BS.App\CondominioApp.BS.App.csproj", "{0F9EB64C-A17F-4A2C-8B82-7540E18B56F8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioApp.BS.App", "src\Services\BaseSoftware\CondominioApp.BS.App\CondominioApp.BS.App.csproj", "{0F9EB64C-A17F-4A2C-8B82-7540E18B56F8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Marketplace", "Marketplace", "{18B51529-FE9B-4D9C-A79E-AC053EBC1218}"
 EndProject
@@ -63,7 +63,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioAppMarketplace.In
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioAppMarketplace.App", "src\Services\Marketplace\CondominioAppMarketplace.App\CondominioAppMarketplace.App.csproj", "{9652C079-03F3-43B2-BE37-F4379F191404}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CondominioAppMarketplace.Tests", "Tests\Marketplace\CondominioAppMarketplace.Tests\CondominioAppMarketplace.Tests.csproj", "{E7A9DC34-1383-40FC-9355-9069A23DFE22}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioAppMarketplace.Tests", "Tests\Marketplace\CondominioAppMarketplace.Tests\CondominioAppMarketplace.Tests.csproj", "{E7A9DC34-1383-40FC-9355-9069A23DFE22}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

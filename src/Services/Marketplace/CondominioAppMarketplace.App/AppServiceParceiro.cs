@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using CondominioApp.Core.ValueObjects;
+using CondominioAppMarketplace.Domain.ValueObjects;
 using CondominioAppMarketplace.App.Interfaces;
 using CondominioAppMarketplace.App.Model;
 using CondominioAppMarketplace.App.ParceiroFactory;

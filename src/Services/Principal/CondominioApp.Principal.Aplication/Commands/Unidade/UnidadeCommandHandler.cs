@@ -1,5 +1,5 @@
 ﻿using CondominioApp.Core.Messages;
-using CondominioApp.Core.ValueObjects;
+using CondominioApp.Principal.Aplication.Events;
 using CondominioApp.Principal.Domain;
 using CondominioApp.Principal.Domain.Interfaces;
 using FluentValidation.Results;
@@ -29,11 +29,9 @@ namespace CondominioApp.Principal.Aplication.Commands
         {
             if (!request.EstaValido()) return request.ValidationResult;
 
-            var unidade = UnidadeFactory(request);
+            var unidade = UnidadeFactory(request);           
 
-            if (!ValidationResult.IsValid) return ValidationResult;
-            
-            var grupo = _condominioRepository.ObterGrupoPorId(unidade.GrupoId).Result;
+            var grupo = await _condominioRepository.ObterGrupoPorId(unidade.GrupoId);
             if (grupo == null)
             {
                 AdicionarErro("Grupo não encontrado.");
@@ -49,6 +47,20 @@ namespace CondominioApp.Principal.Aplication.Commands
 
             _condominioRepository.AdicionarUnidade(unidade);
 
+            var condominio = await _condominioRepository.ObterPorId(grupo.CondominioId);
+            if (condominio == null)
+            {
+                AdicionarErro("Condominio não encontrado.");
+                return ValidationResult;
+            }
+
+            unidade.AdicionarEvento(
+               new UnidadeCadastradaEvent(unidade.Id,unidade.DataDeCadastro, unidade.DataDeAlteracao,
+               unidade.Codigo, unidade.Numero, unidade.Andar, unidade.Vagas,
+               unidade.Telefone.Numero, unidade.Ramal, unidade.Complemento, unidade.GrupoId, 
+               grupo.Descricao, unidade.CondominioId, condominio.Cnpj.NumeroFormatado, 
+               condominio.Nome, condominio.LogoMarca.NomeDoArquivo ));
+
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }
 
@@ -62,22 +74,13 @@ namespace CondominioApp.Principal.Aplication.Commands
                 AdicionarErro("Unidade não encontrada.");
                 return ValidationResult;
             }
-
-            try
-            {
-                unidadeBD.SetNumero(request.Numero);
-                unidadeBD.SetAndar(request.Andar);
-                unidadeBD.SetVagas(request.Vaga);
-                unidadeBD.SetTelefone(new Telefone(request.Telefone));
-                unidadeBD.SetRamal(request.Ramal);
-                unidadeBD.SetComplemento(request.Complemento);                
-            }
-            catch (Exception ex)
-            {
-                AdicionarErro(ex.Message);
-                return ValidationResult;
-            }
-
+            
+            unidadeBD.SetNumero(request.Numero);
+            unidadeBD.SetAndar(request.Andar);
+            unidadeBD.SetVagas(request.Vaga);
+            unidadeBD.SetTelefone(request.Telefone);
+            unidadeBD.SetRamal(request.Ramal);
+            unidadeBD.SetComplemento(request.Complemento);          
 
             var grupo = _condominioRepository.ObterGrupoPorId(unidadeBD.GrupoId).Result;
             if (grupo == null)
@@ -87,7 +90,12 @@ namespace CondominioApp.Principal.Aplication.Commands
             }
 
             grupo.AlterarUnidade(unidadeBD);
-            
+
+            unidadeBD.AdicionarEvento(
+               new UnidadeAlteradaEvent(unidadeBD.Id, unidadeBD.DataDeAlteracao,
+               unidadeBD.Numero, unidadeBD.Andar, unidadeBD.Vagas, unidadeBD.Telefone.Numero,
+               unidadeBD.Ramal, unidadeBD.Complemento));
+
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }
 
@@ -107,7 +115,9 @@ namespace CondominioApp.Principal.Aplication.Commands
 
             //Verifica se o codigo da unidade ja esta cadastrado
             VerificaSeCodigoJaEstaCadastrado(unidadeBD);
-           
+
+            unidadeBD.AdicionarEvento(
+              new CodigoUnidadeResetadoEvent(unidadeBD.Id, unidadeBD.DataDeAlteracao, unidadeBD.Codigo));
 
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }
@@ -126,6 +136,8 @@ namespace CondominioApp.Principal.Aplication.Commands
 
             unidadeBD.EnviarParaLixeira();
 
+            unidadeBD.AdicionarEvento(new UnidadeRemovidaEvent(unidadeBD.Id, unidadeBD.DataDeAlteracao));
+
             return await PersistirDados(_condominioRepository.UnitOfWork);
 
         }
@@ -135,16 +147,9 @@ namespace CondominioApp.Principal.Aplication.Commands
 
         private Unidade UnidadeFactory(UnidadeCommand request)
         {
-            try
-            {
-                return new Unidade(request.Numero, request.Andar, request.Vaga, new Telefone(request.Telefone),
-                    request.Ramal, request.Complemento, request.GrupoId, request.CondominioId, request.Codigo);
-            }
-            catch (Exception ex)
-            {
-                AdicionarErro(ex.Message);
-                return null;
-            }
+            return new Unidade(request.Numero, request.Andar, request.Vaga, request.Telefone,
+                    request.Ramal, request.Complemento, request.GrupoId, request.CondominioId,
+                    request.Codigo);
         }
 
         private void VerificaSeCodigoJaEstaCadastrado(Unidade unidade)
@@ -152,20 +157,14 @@ namespace CondominioApp.Principal.Aplication.Commands
             bool codigoIsValid = false;
             while (codigoIsValid == false)
             {
-                try
+                if (_condominioRepository.CodigoDaUnidadeJaExiste(unidade.Codigo, unidade.Id).Result)
                 {
-                    if (_condominioRepository.CodigoDaUnidadeJaExiste(unidade.Codigo, unidade.Id).Result)
-                    {
-                        unidade.ResetCodigo();
-                    }
-                    else
-                    {
-                        codigoIsValid = true;
-                    }
+                    unidade.ResetCodigo();
                 }
-                catch (Exception)
+                else
                 {
-                }
+                    codigoIsValid = true;
+                }                
             }
         }
 

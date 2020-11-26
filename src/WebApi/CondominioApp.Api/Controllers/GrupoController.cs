@@ -1,9 +1,12 @@
 ﻿using CondominioApp.Core.Mediator;
 using CondominioApp.Principal.Aplication.Commands;
+using CondominioApp.Principal.Aplication.Query.Interfaces;
 using CondominioApp.Principal.Aplication.ViewModels;
+using CondominioApp.Principal.Domain.FlatModel;
 using CondominioApp.WebApi.Core.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace CondominioApp.Api.Controllers
@@ -13,14 +16,31 @@ namespace CondominioApp.Api.Controllers
     {
 
         private readonly IMediatorHandler _mediatorHandler;
+        private readonly ICondominioQuery _condominioQuery;
 
-        public GrupoController(IMediatorHandler mediatorHandler)
+        public GrupoController(IMediatorHandler mediatorHandler, ICondominioQuery condominioQuery)
         {
             _mediatorHandler = mediatorHandler;
+            _condominioQuery = condominioQuery;
         }
 
+
+        [HttpGet("{id:Guid}")]
+        public async Task<GrupoFlat> ObterGrupoPorId(Guid id)
+        {
+            return await _condominioQuery.ObterGrupoPorId(id);
+        }
+
+        [HttpGet("por-condominio/{condominioId:Guid}")]
+        public async Task<IEnumerable<GrupoFlat>> ObterGruposPorCondominio(Guid condominioId)
+        {
+            return await _condominioQuery.ObterGruposPorCondominio(condominioId);
+        }
+
+
+
         [HttpPost]
-        public async Task<ActionResult> Post(GrupoViewModel grupoVM)
+        public async Task<ActionResult> Post(CadastraGrupoViewModel grupoVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
@@ -34,7 +54,7 @@ namespace CondominioApp.Api.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> Put(GrupoViewModel grupoVM)
+        public async Task<ActionResult> Put(AlteraGrupoViewModel grupoVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using CondominioApp.Core.DomainObjects;
-using CondominioApp.Core.Enumeradores;
-using CondominioApp.Core.ValueObjects;
 
 namespace CondominioApp.Usuarios.App.Models.FlatModel
 {

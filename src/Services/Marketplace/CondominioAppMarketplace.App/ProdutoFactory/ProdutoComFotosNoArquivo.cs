@@ -1,4 +1,4 @@
-﻿using CondominioApp.Core.ValueObjects;
+﻿using CondominioAppMarketplace.Domain.ValueObjects;
 using CondominioAppMarketplace.App.ViewModel;
 using CondominioAppMarketplace.Domain;
 

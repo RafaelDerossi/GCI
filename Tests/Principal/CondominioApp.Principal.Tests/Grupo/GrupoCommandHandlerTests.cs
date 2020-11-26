@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 using Xunit;
 using CondominioApp.Principal.Domain.Interfaces;
 using CondominioApp.Principal.Domain;
-using CondominioApp.Core.ValueObjects;
 using System;
+using CondominioApp.Principal.Domain.ValueObjects;
 
 namespace CondominioApp.Principal.Tests
 {

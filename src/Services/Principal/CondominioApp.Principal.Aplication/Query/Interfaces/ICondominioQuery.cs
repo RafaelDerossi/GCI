@@ -14,5 +14,17 @@ namespace CondominioApp.Principal.Aplication.Query.Interfaces
 
         Task<IEnumerable<CondominioFlat>> ObterRemovidos();
 
+
+
+        Task<GrupoFlat> ObterGrupoPorId(Guid Id);
+
+        Task<IEnumerable<GrupoFlat>> ObterGruposPorCondominio(Guid condominioId);
+
+
+        Task<UnidadeFlat> ObterUnidadePorId(Guid Id);
+
+        Task<IEnumerable<UnidadeFlat>> ObterUnidadesPorGrupo(Guid grupoId);
+
+        Task<IEnumerable<UnidadeFlat>> ObterUnidadesPorCondominio(Guid condominioId);
     }
 }

@@ -1,7 +1,7 @@
 ﻿using CondominioApp.Core.Enumeradores;
 using CondominioApp.Core.Messages;
-using CondominioApp.Core.ValueObjects;
-using System;
+using CondominioApp.Usuarios.App.ValueObjects;
+using FluentValidation;
 
 
 namespace CondominioApp.Usuarios.App.Aplication.Commands

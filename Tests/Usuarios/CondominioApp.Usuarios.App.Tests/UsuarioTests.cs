@@ -1,8 +1,8 @@
 using System;
 using CondominioApp.Core.Enumeradores;
-using CondominioApp.Core.ValueObjects;
 using CondominioApp.Usuarios.App.Aplication.Commands;
 using CondominioApp.Usuarios.App.Models;
+using CondominioApp.Usuarios.App.ValueObjects;
 using Xunit;
 
 namespace CondominioApp.Usuarios.App.Tests

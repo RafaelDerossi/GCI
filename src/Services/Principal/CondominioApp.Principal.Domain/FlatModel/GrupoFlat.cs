@@ -6,29 +6,54 @@ namespace CondominioApp.Principal.Domain.FlatModel
 {
    public class GrupoFlat
     {
-        public Guid Id { get; set; }
+        public const int Max = 200;
+        public Guid Id { get; private set; }
 
-        public string GrupoDescricao { get; set; }
+        public DateTime DataDeCadastro { get; private set; }
 
-        public Guid CondominioId { get; set; }
+        public DateTime DataDeAlteracao { get; private set; }
 
-        public string CondominioCnpj { get; set; }
+        public bool Lixeira { get; private set; }
 
-        public string CondominioNome { get; set; }
+        public string Descricao { get; private set; }
 
-        public string CondominioLogoMarca { get; set; }
+        public Guid CondominioId { get; private set; }
+
+        public string CondominioCnpj { get; private set; }
+
+        public string CondominioNome { get; private set; }
+
+        public string CondominioLogoMarca { get; private set; }
 
         protected GrupoFlat() { }
 
-        public GrupoFlat(Guid id, string grupoDescricao, Guid condominioId, string condominioCnpj,
+        public GrupoFlat(Guid id, DateTime dataDeCadastro, DateTime dataDeAlteracao,
+            bool lixeira, string grupoDescricao, Guid condominioId, string condominioCnpj,
             string condominioNome, string condominioLogoMarca)
         {
             Id = id;
-            GrupoDescricao = grupoDescricao;
+            DataDeCadastro = dataDeCadastro;
+            DataDeAlteracao = dataDeAlteracao;
+            Lixeira = lixeira;
+            Descricao = grupoDescricao;
             CondominioId = condominioId;
             CondominioCnpj = condominioCnpj;
             CondominioNome = condominioNome;
             CondominioLogoMarca = condominioLogoMarca;
         }
+
+        public void EnviarParaLixeira() => Lixeira = true;
+
+        public void RestaurarDaLixeira() => Lixeira = false;
+
+        public void SetDataDeAlteracao(DateTime dataDeAlteracao) => DataDeAlteracao = dataDeAlteracao;
+
+        public void SetDescricao(string descricao) => Descricao = descricao;
+
+        public void SetCondominioCNPJ(string cnpj) => CondominioCnpj = cnpj;
+
+        public void SetCondominioNome(string nome) => CondominioNome = nome;
+
+        public void SetCondominioLogomarca(string logomarca) => CondominioLogoMarca = logomarca;
     }
 }

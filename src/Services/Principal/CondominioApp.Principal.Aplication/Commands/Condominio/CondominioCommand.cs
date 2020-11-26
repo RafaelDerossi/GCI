@@ -1,5 +1,5 @@
 ﻿using CondominioApp.Core.Messages;
-using CondominioApp.Core.ValueObjects;
+using CondominioApp.Principal.Domain.ValueObjects;
 using System;
 
 
@@ -9,31 +9,19 @@ namespace CondominioApp.Principal.Aplication.Commands
     {
         public Guid CondominioId { get; protected set; }
 
-        public string Cnpj { get; protected set; }      
+        public Cnpj Cnpj { get; protected set; }      
 
         public string Nome { get; protected set; }
 
         public string Descricao { get; protected set; }
 
-        public string LogoMarca { get; protected set; }
+        public Foto LogoMarca { get; protected set; }       
 
-        public string NomeOriginal { get; protected set; }
+        public Telefone Telefone { get; protected set; }
 
-        public string Telefone { get; protected set; }
+        public Endereco Endereco { get; protected set; }
 
-        public string Logradouro { get; protected set; }
-
-        public string Complemento { get; protected set; }
-
-        public string Numero { get; protected set; }
-
-        public string Cep { get; protected set; }
-
-        public string Bairro { get; protected set; }
-
-        public string Cidade { get; protected set; }
-
-        public string Estado { get; protected set; }
+       
 
         /// Referencia Externa
         /// <summary>
@@ -45,7 +33,7 @@ namespace CondominioApp.Principal.Aplication.Commands
 
         public string BoletoFolder { get; protected set; }
 
-        public string UrlWebServer { get; protected set; }
+        public Url UrlWebServer { get; protected set; }
 
 
 
@@ -123,7 +111,71 @@ namespace CondominioApp.Principal.Aplication.Commands
         /// <summary>
         /// Habilita/Desabilita Limite de Tempo na Reserva
         /// </summary>
-        public bool LimiteTempoReserva { get; protected set; }       
+        public bool LimiteTempoReserva { get; protected set; }
+
+
+
+
+        public void SetCNPJ(string cnpj)
+        {
+            try
+            {
+                Cnpj = new Cnpj(cnpj);
+            }
+            catch (Exception e)
+            {
+                AdicionarErrosDeProcessamentoDoComando(e.Message);
+            }
+        }            
+
+        public void SetFoto(string logomarca, string nomeOriginal)
+        {
+            try
+            {
+                LogoMarca = new Foto(nomeOriginal, logomarca);
+            }
+            catch (Exception e)
+            {
+                AdicionarErrosDeProcessamentoDoComando(e.Message);
+            }
+        }
+
+        public void SetTelefone(string telefone)
+        {
+            try
+            {
+                Telefone = new Telefone(telefone);
+            }
+            catch (Exception e)
+            {
+                AdicionarErrosDeProcessamentoDoComando(e.Message);
+            }
+        }
+
+        public void SetEndereco(string logradouro, string complemento, string numero, 
+            string cep, string bairro, string cidade, string estado)
+        {
+            try
+            {
+                Endereco = new Endereco(logradouro,complemento,numero,cep,bairro,cidade,estado);
+            }
+            catch (Exception e)
+            {
+                AdicionarErrosDeProcessamentoDoComando(e.Message);
+            }
+        }
+
+        public void SetUrlWebServer(string url)
+        {
+            try
+            {
+                UrlWebServer = new Url(url);
+            }
+            catch (Exception e)
+            {
+                AdicionarErrosDeProcessamentoDoComando(e.Message);
+            }
+        }
 
     }
 }

@@ -8,8 +8,4 @@
     <ProjectReference Include="..\..\..\Building Blocks\CondominioApp.Core\CondominioApp.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="ValueObjects\" />
-  </ItemGroup>
-
 </Project>

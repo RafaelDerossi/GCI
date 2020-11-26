@@ -12,7 +12,7 @@ namespace CondominioApp.Principal.Tests
             try
             {
                 return new CadastrarUnidadeCommand(null,"101","1",2, 
-                    "(21) 96404-9371", "100", "complemento teste", Guid.NewGuid(), Guid.NewGuid());
+                   "(21) 96404-9371", "100", "complemento teste", Guid.NewGuid());
             }
             catch (Exception)
             {
@@ -25,7 +25,7 @@ namespace CondominioApp.Principal.Tests
             try
             {
                 return new CadastrarUnidadeCommand(null, null, "1", 2,
-                    "(21) 96404-9371", "100", "complemento teste", Guid.NewGuid(), Guid.NewGuid());
+                    "(21) 96404-9371", "100", "complemento teste", Guid.NewGuid());
             }
             catch (Exception)
             {
@@ -38,7 +38,7 @@ namespace CondominioApp.Principal.Tests
             try
             {
                 return new CadastrarUnidadeCommand(null, "101", null, 2,
-                    "(21) 96404-9371", "100", "complemento teste", Guid.NewGuid(), Guid.NewGuid());
+                    "(21) 96404-9371", "100", "complemento teste", Guid.NewGuid());
             }
             catch (Exception)
             {
@@ -51,7 +51,7 @@ namespace CondominioApp.Principal.Tests
             try
             {
                 return new CadastrarUnidadeCommand(null, "101", "1", 2,
-                    "(21) 96404-9371", "100", "complemento teste", Guid.Empty, Guid.NewGuid());
+                    "(21) 96404-9371", "100", "complemento teste", Guid.Empty);
             }
             catch (Exception)
             {
@@ -59,17 +59,6 @@ namespace CondominioApp.Principal.Tests
             }
         }
 
-        public static CadastrarUnidadeCommand CriarComandoCadastroDeUnidadeSemCondominio()
-        {
-            try
-            {
-                return new CadastrarUnidadeCommand(null, "101", "1", 2,
-                    "(21) 96404-9371", "100", "complemento teste", Guid.NewGuid(), Guid.Empty);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
+       
     }
 }

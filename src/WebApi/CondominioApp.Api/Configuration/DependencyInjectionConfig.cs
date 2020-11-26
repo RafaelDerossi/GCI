@@ -2,6 +2,9 @@
 using CondominioApp.BS.App.Services.Interfaces;
 using CondominioApp.Core.Mediator;
 using CondominioApp.Principal.Aplication.Commands;
+using CondominioApp.Principal.Aplication.Events;
+using CondominioApp.Principal.Aplication.Query;
+using CondominioApp.Principal.Aplication.Query.Interfaces;
 using CondominioApp.Principal.Domain.Interfaces;
 using CondominioApp.Principal.Infra.Data.Repository;
 using CondominioAppMarketplace.App;
@@ -30,18 +33,28 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<IRequestHandler<AlterarCondominioCommand, ValidationResult>, CondominioCommandHandler>();
             services.AddScoped<IRequestHandler<AlterarConfiguracaoCondominioCommand, ValidationResult>, CondominioCommandHandler>();
             services.AddScoped<IRequestHandler<RemoverCondominioCommand, ValidationResult>, CondominioCommandHandler>();
+            services.AddScoped<INotificationHandler<CondominioCadastradoEvent>,CondominioEventHandler>();
+            services.AddScoped<INotificationHandler<CondominioAlteradoEvent>, CondominioEventHandler>();
+            services.AddScoped<INotificationHandler<CondominioConfiguracaoAlteradoEvent>, CondominioEventHandler>();
+            services.AddScoped<INotificationHandler<CondominioRemovidoEvent>, CondominioEventHandler>();
 
             //Grupo
             services.AddScoped<IRequestHandler<CadastrarGrupoCommand, ValidationResult>, GrupoCommandHandler>();
             services.AddScoped<IRequestHandler<AlterarGrupoCommand, ValidationResult>, GrupoCommandHandler>();
             services.AddScoped<IRequestHandler<RemoverGrupoCommand, ValidationResult>, GrupoCommandHandler>();
-
+            services.AddScoped<INotificationHandler<GrupoCadastradoEvent>, GrupoEventHandler>();
+            services.AddScoped<INotificationHandler<GrupoAlteradoEvent>, GrupoEventHandler>();
+            services.AddScoped<INotificationHandler<GrupoRemovidoEvent>, GrupoEventHandler>();
 
             //Unidades
             services.AddScoped<IRequestHandler<CadastrarUnidadeCommand, ValidationResult>, UnidadeCommandHandler>();
             services.AddScoped<IRequestHandler<AlterarUnidadeCommand, ValidationResult>, UnidadeCommandHandler>();
             services.AddScoped<IRequestHandler<ResetCodigoUnidadeCommand, ValidationResult>, UnidadeCommandHandler>();
             services.AddScoped<IRequestHandler<RemoverUnidadeCommand, ValidationResult>, UnidadeCommandHandler>();
+            services.AddScoped<INotificationHandler<UnidadeCadastradaEvent>, UnidadeEventHandler>();
+            services.AddScoped<INotificationHandler<UnidadeAlteradaEvent>, UnidadeEventHandler>();
+            services.AddScoped<INotificationHandler<CodigoUnidadeResetadoEvent>, UnidadeEventHandler>();
+            services.AddScoped<INotificationHandler<UnidadeRemovidaEvent>, UnidadeEventHandler>();
 
             //Pre Cadastro
             services.AddScoped<IRequestHandler<InserirNovoLeadCommand, ValidationResult>, LeadCommandHandler>();
@@ -50,10 +63,12 @@ namespace CondominioApp.Api.Configuration
 
             //Query
             services.AddScoped<IQueryLead, QueryLead>();
+            services.AddScoped<ICondominioQuery, CondominioQuery>();
 
             //Repositórios
             services.AddScoped<ICondominioRepository, CondominioRepository>();
             services.AddScoped<ILeadRepository, LeadRepository>();
+            services.AddScoped<ICondominioQueryRepository, CondominioQueryRepository>();
 
             //Base software
             services.AddScoped<IBoletoService, BoletoService>();

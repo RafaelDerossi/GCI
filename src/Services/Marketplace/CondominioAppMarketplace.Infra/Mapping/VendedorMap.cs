@@ -1,4 +1,4 @@
-﻿using CondominioApp.Core.ValueObjects;
+﻿using CondominioAppMarketplace.Domain.ValueObjects;
 using CondominioAppMarketplace.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;

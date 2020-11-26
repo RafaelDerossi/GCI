@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using CondominioApp.Core.DomainObjects;
-using CondominioApp.Core.ValueObjects;
+using CondominioAppMarketplace.Domain.ValueObjects;
 using FluentValidation;
 using FluentValidation.Results;
 

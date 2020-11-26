@@ -1,5 +1,4 @@
-﻿using CondominioApp.Core.ValueObjects;
-using CondominioApp.Principal.Aplication.Commands.Validations;
+﻿using CondominioApp.Principal.Aplication.Commands.Validations;
 using System;
 
 namespace CondominioApp.Principal.Aplication.Commands
@@ -7,17 +6,17 @@ namespace CondominioApp.Principal.Aplication.Commands
     public class CadastrarUnidadeCommand : UnidadeCommand
     {
         public CadastrarUnidadeCommand(string codigo, string numero, string andar, 
-            int vaga, string telefone, string ramal, string complemento, Guid grupoId, Guid condominioId)
+            int vaga, string telefone, string ramal, string complemento, Guid grupoId)
         {
             Codigo = codigo;
             Numero = numero;
             Andar = andar;
-            Vaga = vaga;
-            Telefone = telefone;
+            Vaga = vaga;            
             Ramal = ramal;
             Complemento = complemento;
-            GrupoId = grupoId;
-            CondominioId = condominioId;
+            GrupoId = grupoId;            
+
+            SetTelefone(telefone);
         }
 
         public override bool EstaValido()
@@ -34,8 +33,7 @@ namespace CondominioApp.Principal.Aplication.Commands
                 ValidateNumero();
                 ValidateAndar();
                 ValidateVaga();
-                ValidateGrupoId();
-                ValidateCondominioId();                
+                ValidateGrupoId();                              
             }
         }
 

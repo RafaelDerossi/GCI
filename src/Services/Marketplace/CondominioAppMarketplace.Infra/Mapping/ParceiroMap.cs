@@ -1,4 +1,4 @@
-﻿using CondominioApp.Core.ValueObjects;
+﻿using CondominioAppMarketplace.Domain.ValueObjects;
 using CondominioAppMarketplace.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -24,7 +24,7 @@ namespace CondominioAppMarketplace.Infra.Mapping
 
             builder.OwnsOne(x => x.TelefoneCelular, telefoneCelular =>
             {
-                telefoneCelular.Property(x => x.Numero).HasColumnName("Celular").HasMaxLength(Email.EmailMaximo);
+                telefoneCelular.Property(x => x.Numero).HasColumnName("Celular").HasMaxLength(Telefone.NumeroMaximo);
             });
 
             builder.OwnsOne(x => x.TelefoneFixo, telefoneFixo => 

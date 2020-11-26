@@ -1,4 +1,5 @@
 ﻿using CondominioApp.Principal.Infra.Data;
+using CondominioApp.Principal.Infra.DataQuery;
 using CondominioApp.Usuarios.App.Data;
 using CondominioApp.WebApi.Core.Identidade;
 using CondominioAppMarketplace.Infra.Data;
@@ -32,6 +33,9 @@ namespace CondominioApp.Api.Configuration
 
             services.AddDbContext<MarketplaceContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("MarketplaceConnection")));
+
+            services.AddDbContext<PrincipalQueryContextDB>(options =>
+              options.UseSqlServer(configuration.GetConnectionString("QueryConnection")));
 
             services.Configure<ApiBehaviorOptions>(options =>
             {

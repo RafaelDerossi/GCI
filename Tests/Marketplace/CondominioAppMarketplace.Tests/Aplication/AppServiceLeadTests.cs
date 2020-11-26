@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
 using AutoMapper;
-using CondominioApp.Core.ValueObjects;
 using CondominioAppMarketplace.App;
 using CondominioAppMarketplace.App.ViewModel;
 using CondominioAppMarketplace.Domain;
 using CondominioAppMarketplace.Domain.Interfaces;
+using CondominioAppMarketplace.Domain.ValueObjects;
 using CondominioAppMarketplace.Infra.Repositories;
 using CondominioAppMarketplace.Tests.Domain;
 using Moq;

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Xunit;
 using CondominioApp.Principal.Domain.Interfaces;
 using CondominioApp.Principal.Domain;
-using CondominioApp.Core.ValueObjects;
+
 using System;
 
 namespace CondominioApp.Principal.Tests
@@ -30,7 +30,7 @@ namespace CondominioApp.Principal.Tests
             //Arrange
             var command = CondominioCommandFactory.CriarComandoCadastroDeCondominio();
 
-            _mocker.GetMock<ICondominioRepository>().Setup(r => r.CnpjCondominioJaCadastrado(new Cnpj(command.Cnpj), command.CondominioId))
+            _mocker.GetMock<ICondominioRepository>().Setup(r => r.CnpjCondominioJaCadastrado(command.Cnpj, command.CondominioId))
                 .Returns(Task.FromResult(false)); 
                 
 
@@ -55,11 +55,10 @@ namespace CondominioApp.Principal.Tests
             //Arrange
             var command = CondominioCommandFactory.CriarComandoAlteracaoDeCondominio();
 
-            var condominio = new Condominio(new Cnpj(command.Cnpj), command.Nome, command.Descricao,
-              new Foto(command.NomeOriginal, command.LogoMarca), new Telefone(command.Telefone),
-              new Endereco("Rua...", null, "1001", "23063260", "Bairro", "Cidade", "RJ"),
-              0, null, null, null, false, false, false, 
-              false, false, false, false, false, false, false, false, false, false, false, false);
+            var condominio = new Condominio(command.Cnpj, command.Nome, command.Descricao,
+              command.LogoMarca, command.Telefone, command.Endereco, 0, null, null, null, 
+              false, false, false, false, false, false, false, false, false, false, false,
+              false, false, false, false);
 
             condominio.SetEntidadeId(command.CondominioId);
 
@@ -89,10 +88,9 @@ namespace CondominioApp.Principal.Tests
             //Arrange
             var command = CondominioCommandFactory.CriarComandoAlteracaoDeCondominio();
 
-            var condominio = new Condominio(new Cnpj(command.Cnpj), command.Nome, command.Descricao,
-              new Foto(command.NomeOriginal, command.LogoMarca), new Telefone(command.Telefone),
-              new Endereco("Rua...", null, "1001", "23063260", "Bairro", "Cidade", "RJ"),0,
-              null, null, null, false, false, false, false, false, false, false, false, false, false,
+            var condominio = new Condominio(command.Cnpj, command.Nome, command.Descricao,
+              command.LogoMarca, command.Telefone, command.Endereco, 0, null, null, null, 
+              false, false, false, false, false, false, false, false, false, false,
               false, false, false, false, false);
 
             condominio.SetEntidadeId(command.CondominioId);

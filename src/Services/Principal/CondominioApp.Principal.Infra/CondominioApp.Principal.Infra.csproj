@@ -5,6 +5,29 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\PrincipalQueryContextDBMigrations\20201125144037_QueryDB_Init.cs" />
+    <Compile Remove="Migrations\PrincipalQueryContextDBMigrations\20201125144037_QueryDB_Init.Designer.cs" />
+    <Compile Remove="Migrations\PrincipalQueryContextDBMigrations\20201125144229_QueryDB_Init.cs" />
+    <Compile Remove="Migrations\PrincipalQueryContextDBMigrations\20201125144229_QueryDB_Init.Designer.cs" />
+    <Compile Remove="Migrations\PrincipalQueryContextDBMigrations\20201125145808_QueryDB_Init.cs" />
+    <Compile Remove="Migrations\PrincipalQueryContextDBMigrations\20201125145808_QueryDB_Init.Designer.cs" />
+    <Compile Remove="Migrations\PrincipalQueryContextDBMigrations\20201125163610_QueryDB_Init.cs" />
+    <Compile Remove="Migrations\PrincipalQueryContextDBMigrations\20201125163610_QueryDB_Init.Designer.cs" />
+    <Compile Remove="Migrations\PrincipalQueryContextDBMigrations\20201125165008_QueryDB_Init.cs" />
+    <Compile Remove="Migrations\PrincipalQueryContextDBMigrations\20201125165008_QueryDB_Init.Designer.cs" />
+    <Compile Remove="Migrations\PrincipalQueryContextDBMigrations\20201125165226_QueryDB_Init.cs" />
+    <Compile Remove="Migrations\PrincipalQueryContextDBMigrations\20201125165226_QueryDB_Init.Designer.cs" />
+    <Compile Remove="Migrations\PrincipalQueryContextDBMigrations\20201125170636_QueryDB_Init.cs" />
+    <Compile Remove="Migrations\PrincipalQueryContextDBMigrations\20201125170636_QueryDB_Init.Designer.cs" />
+    <Compile Remove="Migrations\PrincipalQueryContextDBMigrations\20201125171252_QueryDB_Init.cs" />
+    <Compile Remove="Migrations\PrincipalQueryContextDBMigrations\20201125171252_QueryDB_Init.Designer.cs" />
+    <Compile Remove="Migrations\PrincipalQueryContextDBMigrations\20201125171638_QueryDB_Init.cs" />
+    <Compile Remove="Migrations\PrincipalQueryContextDBMigrations\20201125171638_QueryDB_Init.Designer.cs" />
+    <Compile Remove="Migrations\PrincipalQueryContextDBMigrations\20201125172842_QueryDB_Init.cs" />
+    <Compile Remove="Migrations\PrincipalQueryContextDBMigrations\20201125172842_QueryDB_Init.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.2">
       <PrivateAssets>all</PrivateAssets>
@@ -27,7 +50,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DataQuery\" />
+    <Folder Include="Migrations\PrincipalQueryContextDBMigrations\" />
   </ItemGroup>
 
 </Project>
