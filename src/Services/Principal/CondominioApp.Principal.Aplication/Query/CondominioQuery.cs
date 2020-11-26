@@ -17,7 +17,7 @@ namespace CondominioApp.Principal.Aplication.Query
         }
 
 
-
+        #region Condominio
         public async Task<CondominioFlat> ObterPorId(Guid Id)
         {
             return await _condominioQueryRepository.ObterPorId(Id);
@@ -32,6 +32,41 @@ namespace CondominioApp.Principal.Aplication.Query
         {
             return await _condominioQueryRepository.Obter(c => c.Lixeira);
         }
+        #endregion
+
+
+
+        #region Grupo
+        public async Task<GrupoFlat> ObterGrupoPorId(Guid Id)
+        {
+            return await _condominioQueryRepository.ObterGrupoPorId(Id);
+        }
+
+        public async Task<IEnumerable<GrupoFlat>> ObterGruposPorCondominio(Guid condominioId)
+        {
+            return await _condominioQueryRepository.ObterGruposPorCondominio(condominioId);
+        }
+        #endregion
+
+
+        #region Unidade
+        public async Task<UnidadeFlat> ObterUnidadePorId(Guid Id)
+        {
+            return await _condominioQueryRepository.ObterUnidadePorId(Id);
+        }
+
+        public async Task<IEnumerable<UnidadeFlat>> ObterUnidadesPorGrupo(Guid grupoId)
+        {
+            return await _condominioQueryRepository.ObterUnidadesPorGrupo(grupoId);
+        }
+
+        public async Task<IEnumerable<UnidadeFlat>> ObterUnidadesPorCondominio(Guid condominioId)
+        {
+            return await _condominioQueryRepository.ObterUnidadesPorCondominio(condominioId);
+        }
+
+        #endregion
+
 
         public void Dispose()
         {

@@ -17,9 +17,10 @@ namespace CondominioApp.Api.Controllers
 
         private readonly IMediatorHandler _mediatorHandler;
         private readonly ICondominioQuery _condominioQuery; 
-        public CondominioController(IMediatorHandler mediatorHandler)
+        public CondominioController(IMediatorHandler mediatorHandler, ICondominioQuery condominioQuery)
         {
             _mediatorHandler = mediatorHandler;
+            _condominioQuery = condominioQuery;
         }
 
 
@@ -42,6 +43,7 @@ namespace CondominioApp.Api.Controllers
             return await _condominioQuery.ObterRemovidos();
         }
 
+                
 
 
 

@@ -1,9 +1,12 @@
 ﻿using CondominioApp.Core.Mediator;
 using CondominioApp.Principal.Aplication.Commands;
+using CondominioApp.Principal.Aplication.Query.Interfaces;
 using CondominioApp.Principal.Aplication.ViewModels;
+using CondominioApp.Principal.Domain.FlatModel;
 using CondominioApp.WebApi.Core.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace CondominioApp.Api.Controllers
@@ -13,13 +16,36 @@ namespace CondominioApp.Api.Controllers
     {
 
         private readonly IMediatorHandler _mediatorHandler;
+        private readonly ICondominioQuery _condominioQuery;
 
-        public UnidadeController(IMediatorHandler mediatorHandler)
+        public UnidadeController(IMediatorHandler mediatorHandler, ICondominioQuery condominioQuery)
         {
             _mediatorHandler = mediatorHandler;
+            _condominioQuery = condominioQuery;
         }
 
-       
+
+
+        [HttpGet("{id:Guid}")]
+        public async Task<UnidadeFlat> ObterUnidadePorId(Guid id)
+        {
+            return await _condominioQuery.ObterUnidadePorId(id);
+        }
+
+        [HttpGet("por-grupo/{grupoId:Guid}")]
+        public async Task<IEnumerable<UnidadeFlat>> ObterUnidadesPorGrupo(Guid grupoId)
+        {
+            return await _condominioQuery.ObterUnidadesPorGrupo(grupoId);
+        }
+
+        [HttpGet("por-condominio/{condominioId:Guid}")]
+        public async Task<IEnumerable<UnidadeFlat>> ObterUnidadesPorCondominio(Guid condominioId)
+        {
+            return await _condominioQuery.ObterUnidadesPorCondominio(condominioId);
+        }
+
+
+
         [HttpPost]
         public async Task<ActionResult> Post(CadastraUnidadeViewModel unidadeVM)
         {
