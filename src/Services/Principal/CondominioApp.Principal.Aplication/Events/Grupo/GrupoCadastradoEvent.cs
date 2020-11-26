@@ -6,13 +6,12 @@ namespace CondominioApp.Principal.Aplication.Events
     {
 
         public GrupoCadastradoEvent(Guid grupoId, DateTime dataDeCadastro, DateTime dataDeAlteracao,
-            bool lixeira, string descricao, Guid condominioId, string condominioCnpj, string condominioNome,
+            string descricao, Guid condominioId, string condominioCnpj, string condominioNome,
             string condominioLogoMarca)
         {
             GrupoId = grupoId;
             DataDeCadastro = dataDeCadastro;
-            DataDeAlteracao = dataDeAlteracao;
-            Lixeira = lixeira;
+            DataDeAlteracao = dataDeAlteracao;           
             Descricao = descricao;
             CondominioId = condominioId;
             CondominioCnpj = condominioCnpj;

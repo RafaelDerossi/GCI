@@ -11,9 +11,7 @@ namespace CondominioApp.Principal.Aplication.Events
 
         public DateTime DataDeCadastro { get; protected set; }
 
-        public DateTime DataDeAlteracao { get; protected set; }
-
-        public bool Lixeira { get; protected set; }
+        public DateTime DataDeAlteracao { get; protected set; }       
 
         public Cnpj Cnpj { get; protected set; }
 

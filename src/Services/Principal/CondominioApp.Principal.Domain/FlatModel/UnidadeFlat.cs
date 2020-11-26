@@ -91,6 +91,8 @@ namespace CondominioApp.Principal.Domain.FlatModel
 
         public void SetComplemento(string complemento) => Complemento = complemento;
 
+        public void SetGrupoDescricao(string descricao) => GrupoDescricao = descricao;
+
         public void SetCondominioCNPJ(string cnpj) => CondominioCnpj = cnpj;
 
         public void SetCondominioNome(string nome) => CondominioNome = nome;

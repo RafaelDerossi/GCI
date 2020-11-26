@@ -12,6 +12,7 @@ namespace CondominioApp.Principal.Aplication.Events
         INotificationHandler<CondominioCadastradoEvent>,
         INotificationHandler<CondominioAlteradoEvent>,
         INotificationHandler<CondominioConfiguracaoAlteradoEvent>,
+        INotificationHandler<CondominioRemovidoEvent>,
         System.IDisposable
     {
         private ICondominioQueryRepository _condominioQueryRepository;
@@ -25,7 +26,7 @@ namespace CondominioApp.Principal.Aplication.Events
         {
             var condominioFlat = new CondominioFlat
                 (notification.CondominioId, notification.DataDeCadastro, notification.DataDeAlteracao,
-                notification.Lixeira, notification.Cnpj.NumeroFormatado, notification.Nome, notification.Descricao, 
+                false, notification.Cnpj.NumeroFormatado, notification.Nome, notification.Descricao, 
                 notification.LogoMarca.NomeDoArquivo, notification.Telefone.ObterNumeroFormatado,
                 notification.Endereco.logradouro, notification.Endereco.complemento, 
                 notification.Endereco.numero, notification.Endereco.cep, notification.Endereco.bairro,
@@ -186,6 +187,21 @@ namespace CondominioApp.Principal.Aplication.Events
 
             await PersistirDados(_condominioQueryRepository.UnitOfWork);
         }
+
+        public async Task Handle(CondominioRemovidoEvent notification, CancellationToken cancellationToken)
+        {
+            //Atualizar no CondominioFlat
+            var condominioFlat = await _condominioQueryRepository.ObterPorId(notification.CondominioId);
+
+            condominioFlat.SetDataDeAlteracao(notification.DataDeAlteracao);
+
+            condominioFlat.EnviarParaLixeira();
+
+            _condominioQueryRepository.Atualizar(condominioFlat);
+
+            await PersistirDados(_condominioQueryRepository.UnitOfWork);
+        }
+
 
 
         public void Dispose()

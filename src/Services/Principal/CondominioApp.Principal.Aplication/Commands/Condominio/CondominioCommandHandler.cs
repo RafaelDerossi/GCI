@@ -42,7 +42,7 @@ namespace CondominioApp.Principal.Aplication.Commands
 
             condominio.AdicionarEvento(
                 new CondominioCadastradoEvent(condominio.Id,condominio.DataDeCadastro, condominio.DataDeAlteracao,
-                condominio.Lixeira, condominio.Cnpj, condominio.Nome, condominio.Descricao, condominio.LogoMarca,
+                condominio.Cnpj, condominio.Nome, condominio.Descricao, condominio.LogoMarca,
                 condominio.Telefone, condominio.Endereco, condominio.RefereciaId, condominio.LinkGeraBoleto, 
                 condominio.BoletoFolder, condominio.UrlWebServer, condominio.Portaria, condominio.PortariaMorador,
                 condominio.Classificado, condominio.ClassificadoMorador, condominio.Mural,
@@ -81,7 +81,7 @@ namespace CondominioApp.Principal.Aplication.Commands
 
             condominioBd.AdicionarEvento(
                new CondominioAlteradoEvent(condominioBd.Id, condominioBd.DataDeCadastro, condominioBd.DataDeAlteracao,
-               condominioBd.Lixeira, condominioBd.Cnpj, condominioBd.Nome, condominioBd.Descricao, condominioBd.LogoMarca,
+               condominioBd.Cnpj, condominioBd.Nome, condominioBd.Descricao, condominioBd.LogoMarca,
                condominioBd.Telefone, condominioBd.Endereco));
 
             return await PersistirDados(_condominioRepository.UnitOfWork);
@@ -215,6 +215,8 @@ namespace CondominioApp.Principal.Aplication.Commands
             condominioBd.EnviarParaLixeira();
 
             _condominioRepository.Atualizar(condominioBd);
+
+            condominioBd.AdicionarEvento(new CondominioRemovidoEvent(condominioBd.Id, condominioBd.DataDeAlteracao));
 
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }

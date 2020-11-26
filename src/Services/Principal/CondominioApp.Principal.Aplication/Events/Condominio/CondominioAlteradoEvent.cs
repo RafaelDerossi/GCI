@@ -9,13 +9,12 @@ namespace CondominioApp.Principal.Aplication.Events
     {
       
         public CondominioAlteradoEvent(Guid id, DateTime dataDeCadastro, DateTime dataDeAlteracao,
-           bool lixeira, Cnpj cnpj, string nome, string descricao, Foto logoMarca,
+           Cnpj cnpj, string nome, string descricao, Foto logoMarca,
            Telefone telefone, Endereco endereo)            
         {
             CondominioId = id;
             DataDeCadastro = dataDeCadastro;
-            DataDeAlteracao = dataDeAlteracao;
-            Lixeira = lixeira; 
+            DataDeAlteracao = dataDeAlteracao;          
             Cnpj = cnpj;
             Nome = nome;
             Descricao = descricao;

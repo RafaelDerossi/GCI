@@ -9,9 +9,7 @@ namespace CondominioApp.Principal.Aplication.Events
 
         public DateTime DataDeCadastro { get; protected set; }
 
-        public DateTime DataDeAlteracao { get; protected set; }
-
-        public bool Lixeira { get; protected set; }
+        public DateTime DataDeAlteracao { get; protected set; }        
 
         public string Descricao { get; protected set; }
 

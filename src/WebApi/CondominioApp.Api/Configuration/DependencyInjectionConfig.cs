@@ -36,12 +36,15 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<INotificationHandler<CondominioCadastradoEvent>,CondominioEventHandler>();
             services.AddScoped<INotificationHandler<CondominioAlteradoEvent>, CondominioEventHandler>();
             services.AddScoped<INotificationHandler<CondominioConfiguracaoAlteradoEvent>, CondominioEventHandler>();
+            services.AddScoped<INotificationHandler<CondominioRemovidoEvent>, CondominioEventHandler>();
 
             //Grupo
             services.AddScoped<IRequestHandler<CadastrarGrupoCommand, ValidationResult>, GrupoCommandHandler>();
             services.AddScoped<IRequestHandler<AlterarGrupoCommand, ValidationResult>, GrupoCommandHandler>();
             services.AddScoped<IRequestHandler<RemoverGrupoCommand, ValidationResult>, GrupoCommandHandler>();
             services.AddScoped<INotificationHandler<GrupoCadastradoEvent>, GrupoEventHandler>();
+            services.AddScoped<INotificationHandler<GrupoAlteradoEvent>, GrupoEventHandler>();
+            services.AddScoped<INotificationHandler<GrupoRemovidoEvent>, GrupoEventHandler>();
 
             //Unidades
             services.AddScoped<IRequestHandler<CadastrarUnidadeCommand, ValidationResult>, UnidadeCommandHandler>();
@@ -49,6 +52,9 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<IRequestHandler<ResetCodigoUnidadeCommand, ValidationResult>, UnidadeCommandHandler>();
             services.AddScoped<IRequestHandler<RemoverUnidadeCommand, ValidationResult>, UnidadeCommandHandler>();
             services.AddScoped<INotificationHandler<UnidadeCadastradaEvent>, UnidadeEventHandler>();
+            services.AddScoped<INotificationHandler<UnidadeAlteradaEvent>, UnidadeEventHandler>();
+            services.AddScoped<INotificationHandler<CodigoUnidadeResetadoEvent>, UnidadeEventHandler>();
+            services.AddScoped<INotificationHandler<UnidadeRemovidaEvent>, UnidadeEventHandler>();
 
             //Pre Cadastro
             services.AddScoped<IRequestHandler<InserirNovoLeadCommand, ValidationResult>, LeadCommandHandler>();

@@ -47,7 +47,7 @@ namespace CondominioApp.Principal.Aplication.Commands
 
             grupo.AdicionarEvento(
                 new GrupoCadastradoEvent(grupo.Id, grupo.DataDeCadastro, grupo.DataDeAlteracao,
-                grupo.Lixeira, grupo.Descricao, grupo.CondominioId, condominio.Cnpj.NumeroFormatado,
+                grupo.Descricao, grupo.CondominioId, condominio.Cnpj.NumeroFormatado,
                 condominio.Nome, condominio.LogoMarca.NomeDoArquivo));
 
             return await PersistirDados(_condominioRepository.UnitOfWork);
@@ -79,6 +79,9 @@ namespace CondominioApp.Principal.Aplication.Commands
 
             _condominioRepository.Atualizar(condominio);
 
+            grupoBd.AdicionarEvento(
+              new GrupoAlteradoEvent(grupoBd.Id, grupoBd.DataDeAlteracao, grupoBd.Descricao));
+
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }
 
@@ -95,6 +98,9 @@ namespace CondominioApp.Principal.Aplication.Commands
             }
 
             grupoBd.EnviarParaLixeira();
+
+            grupoBd.AdicionarEvento(
+             new GrupoRemovidoEvent(grupoBd.Id, grupoBd.DataDeAlteracao));
 
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }
