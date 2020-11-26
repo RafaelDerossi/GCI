@@ -2,7 +2,7 @@
 using CondominioApp.Core.Messages;
 using CondominioApp.Usuarios.App.ValueObjects;
 using FluentValidation;
-
+using System;
 
 namespace CondominioApp.Usuarios.App.Aplication.Commands
 {
