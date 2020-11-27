@@ -4,17 +4,12 @@ using System.Collections.Generic;
 
 namespace CondominioApp.Enquetes.App.Aplication.Commands
 {
-   public class AlterarEnqueteCommand : EnqueteCommand
+   public class RemoverEnqueteCommand : EnqueteCommand
     {
 
-        public AlterarEnqueteCommand(Guid enqueteId, string descricao, DateTime dataInicio, DateTime dataFim, bool apenasProprietarios)
+        public RemoverEnqueteCommand(Guid enqueteId)
         {
-            Id = enqueteId;
-            Descricao = descricao;           
-            ApenasProprietarios = apenasProprietarios;
-
-            SetDataInicio(dataInicio);
-            SetDataFim(dataFim);            
+            Id = enqueteId;           
         }
 
 
@@ -23,14 +18,14 @@ namespace CondominioApp.Enquetes.App.Aplication.Commands
             if (!base.EstaValido())
                 return ValidationResult.IsValid;
 
-            ValidationResult = new AlterarEnqueteCommandValidation().Validate(this);
+            ValidationResult = new RemoverEnqueteCommandValidation().Validate(this);
             return ValidationResult.IsValid;
         }
 
 
-        public class AlterarEnqueteCommandValidation : EnqueteValidation<AlterarEnqueteCommand>
+        public class RemoverEnqueteCommandValidation : EnqueteValidation<RemoverEnqueteCommand>
         {
-            public AlterarEnqueteCommandValidation()
+            public RemoverEnqueteCommandValidation()
             {
                 ValidateId();
                 ValidateDescricao();
