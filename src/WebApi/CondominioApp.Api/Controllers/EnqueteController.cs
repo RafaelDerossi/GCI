@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CondominioApp.Api.Controllers
 {
-    [Route("api/grupo")]
+    [Route("api/enquete")]
     public class EnqueteController : MainController
     {
 
@@ -46,7 +46,7 @@ namespace CondominioApp.Api.Controllers
                  enqueteVM.Descricao, enqueteVM.DataInicio, enqueteVM.DataFim,
                  enqueteVM.CondominioId, enqueteVM.CondominioNome,
                  enqueteVM.UsuarioId, enqueteVM.UsuarioNome,
-                 enqueteVM.ApenasProprietarios, enqueteVM.Alternativas);
+                 enqueteVM.ApenasProprietarios, enqueteVM.Alternativas);           
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
@@ -54,20 +54,21 @@ namespace CondominioApp.Api.Controllers
 
         }
 
-        //[HttpPut]
-        //public async Task<ActionResult> Put(AlteraGrupoViewModel grupoVM)
-        //{
-        //    if (!ModelState.IsValid) return CustomResponse(ModelState);
+        [HttpPut]
+        public async Task<ActionResult> Put(AlteraEnqueteViewModel enqueteVM)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-        //    var comando = new AlterarGrupoCommand(
-        //        grupoVM.GrupoId, grupoVM.Descricao);
+            var comando = new AlterarEnqueteCommand(
+                enqueteVM.EnqueteId, enqueteVM.Descricao, enqueteVM.DataInicio, 
+                enqueteVM.DataFim, enqueteVM.ApenasProprietarios);
 
 
-        //    var Resultado = await _mediatorHandler.EnviarComando(comando);
+            var Resultado = await _mediatorHandler.EnviarComando(comando);
 
-        //    return CustomResponse(Resultado);
+            return CustomResponse(Resultado);
 
-        //}
+        }
 
         //[HttpDelete("{Id:Guid}")]
         //public async Task<ActionResult> DeleteGrupo(Guid Id)
@@ -79,6 +80,6 @@ namespace CondominioApp.Api.Controllers
         //    return CustomResponse(Resultado);
         //}
 
-       
+
     }
 }

@@ -1,6 +1,4 @@
-﻿using CondominioApp.Core.Enumeradores;
-using CondominioApp.Core.Messages;
-using CondominioApp.Enquetes.App.Models;
+﻿using CondominioApp.Core.Messages;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
@@ -29,31 +27,36 @@ namespace CondominioApp.Enquetes.App.Aplication.Commands
 
         public IEnumerable<string> Alternativas { get; private set; }
 
-        protected void SetDataInicio(DateTime data)
+        public void SetDataInicio(DateTime data)
         {
             if (data < DateTime.Now.Date) AdicionarErrosDeProcessamentoDoComando("Data inicial não pode ser menor que a data de hoje!");
 
             DataInicio = data;
         }
 
-        protected void SetDataFim(DateTime data)
+        public void SetDataFim(DateTime data)
         {
             if (data < DateTime.Now.Date) AdicionarErrosDeProcessamentoDoComando("Data final não pode ser menor que a data de hoje!");
 
             DataFim = data;
         }
 
-        protected void SetAlternativas(IEnumerable<string> alternativas)
+        public void SetAlternativas(IEnumerable<string> alternativas)
         {
+            Alternativas = new List<string>();
+
             if (alternativas==null || alternativas.Count() < 2) 
                 AdicionarErrosDeProcessamentoDoComando("Uma enquete precisa ter pelo menos duas alternativas!");            
 
             foreach (string alternativa in alternativas)
             {
-                if (Alternativas.Any(g => g.Trim().ToUpper() == alternativa.Trim().ToUpper()))
-                    AdicionarErrosDeProcessamentoDoComando("Há alternativas repetidas!");                
+                if (alternativas.Where(g => g.Trim().ToUpper() == alternativa.Trim().ToUpper()).Count()>1)
+                {
+                    AdicionarErrosDeProcessamentoDoComando("Há alternativas repetidas!");
+                    break;
+                }
+                    
             }
-
             Alternativas = alternativas;
         }
     }

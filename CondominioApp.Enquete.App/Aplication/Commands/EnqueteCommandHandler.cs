@@ -11,14 +11,15 @@ namespace CondominioApp.Enquetes.App.Aplication.Commands
 {
     public class EnqueteCommandHandler : CommandHandler,
          IRequestHandler<CadastrarEnqueteCommand, ValidationResult>,
+         IRequestHandler<AlterarEnqueteCommand, ValidationResult>,
          IDisposable
     {
 
-        private IEnqueteRepository _enqueteRepository;
+        private IEnqueteRepository _EnqueteRepository;
 
         public EnqueteCommandHandler(IEnqueteRepository enqueteRepository)
         {
-            _enqueteRepository = enqueteRepository;
+            _EnqueteRepository = enqueteRepository;
         }
 
 
@@ -29,16 +30,36 @@ namespace CondominioApp.Enquetes.App.Aplication.Commands
 
             var enquete = EnqueteFactory(request);
                         
-            _enqueteRepository.Adicionar(enquete);
+            _EnqueteRepository.Adicionar(enquete);           
 
-            //enquete.AdicionarEvento(
-            //    new EnqueteCadastradaEvent(enquete.Id, enquete.DataDeCadastro, enquete.DataDeAlteracao,
-            //    enquete.Descricao, ));
-
-            return await PersistirDados(_enqueteRepository.UnitOfWork);
+            return await PersistirDados(_EnqueteRepository.UnitOfWork);
         }
 
-       
+        public async Task<ValidationResult> Handle(AlterarEnqueteCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido())
+                return request.ValidationResult;
+
+
+            var enqueteBd = await _EnqueteRepository.ObterPorId(request.Id);
+            if (enqueteBd == null)
+            {
+                AdicionarErro("Enquete não encontrada.");
+                return ValidationResult;
+            }
+           
+            enqueteBd.SetDescricao(request.Descricao);
+            enqueteBd.SetDataInicial(request.DataInicio);
+            enqueteBd.SetDataFim(request.DataFim);
+            enqueteBd.SetApenasProprietarios(request.ApenasProprietarios);
+           
+            _EnqueteRepository.Atualizar(enqueteBd);
+
+
+            return await PersistirDados(_EnqueteRepository.UnitOfWork);
+        }
+
+
 
         private Enquete EnqueteFactory(CadastrarEnqueteCommand request)
         {
@@ -52,7 +73,7 @@ namespace CondominioApp.Enquetes.App.Aplication.Commands
 
         public void Dispose()
         {
-            _enqueteRepository?.Dispose();
+            _EnqueteRepository?.Dispose();
         }
 
 

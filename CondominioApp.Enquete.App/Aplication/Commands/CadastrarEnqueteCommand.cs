@@ -1,5 +1,4 @@
 ﻿using CondominioApp.Enquetes.App.Aplication.Commands.Validations;
-using CondominioApp.Enquetes.App.Models;
 using System;
 using System.Collections.Generic;
 
@@ -17,6 +16,7 @@ namespace CondominioApp.Enquetes.App.Aplication.Commands
             CondominioNome = condominioNome;
             UsuarioId = usuarioId;
             UsuarioNome = usuarioNome;
+            ApenasProprietarios = apenasProprietarios;
 
             SetDataInicio(dataInicio);
             SetDataFim(dataFim);
@@ -26,6 +26,9 @@ namespace CondominioApp.Enquetes.App.Aplication.Commands
 
         public override bool EstaValido()
         {
+            if (!base.EstaValido())
+                return ValidationResult.IsValid;
+
             ValidationResult = new CadastrarEnqueteCommandValidation().Validate(this);
             return ValidationResult.IsValid;
         }

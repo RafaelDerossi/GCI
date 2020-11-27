@@ -13,13 +13,16 @@ namespace CondominioApp.Principal.Aplication.Commands
             Andar = andar;
             Vaga = vaga;         
             Ramal = ramal;
-            Complemento = complemento;          
+            Complemento = complemento;
 
             SetTelefone(telefone);
         }
 
         public override bool EstaValido()
         {
+            if (!base.EstaValido())
+                return ValidationResult.IsValid;
+
             ValidationResult = new AlterarUnidadeCommandValidation().Validate(this);
             return ValidationResult.IsValid;
         }

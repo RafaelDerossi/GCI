@@ -70,6 +70,8 @@ namespace CondominioApp.Enquetes.App.Models
 
         public void SetCondominioNome(string condominioNome) => CondominioNome = condominioNome;
 
+        public void SetApenasProprietarios(bool apenasProprietarios) => ApenasProprietarios = apenasProprietarios;
+
         public void SetAlternativas(IEnumerable<string> alternativas)
         {
             foreach (string alternativa in alternativas)

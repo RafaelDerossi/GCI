@@ -61,6 +61,7 @@ namespace CondominioApp.Api.Configuration
 
             //Enquete
             services.AddScoped<IRequestHandler<CadastrarEnqueteCommand, ValidationResult>, EnqueteCommandHandler>();
+            services.AddScoped<IRequestHandler<AlterarEnqueteCommand, ValidationResult>, EnqueteCommandHandler>();
 
             //Pre Cadastro
             services.AddScoped<IRequestHandler<InserirNovoLeadCommand, ValidationResult>, LeadCommandHandler>();

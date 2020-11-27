@@ -12,6 +12,7 @@ namespace CondominioApp.Core.Messages
         protected Command()
         {
             Timestamp = DateTime.Now;
+            ValidationResult = new ValidationResult();
         }
 
         public virtual bool EstaValido()
