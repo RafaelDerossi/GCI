@@ -1,10 +1,11 @@
-﻿using System;
+﻿using CondominioApp.Core.DomainObjects;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace CondominioApp.Enquetes.App.Models
 {
-   public class RespostaEnquete
+   public class RespostaEnquete : Entity
     {
         public Guid UnidadeId { get; set; }
 

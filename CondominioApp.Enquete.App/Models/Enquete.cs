@@ -2,10 +2,11 @@
 using FluentValidation.Results;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CondominioApp.Enquetes.App.Models
 {
-   public class Enquete : Entity
+   public class Enquete : Entity, IAggregateRoot
     {
         public const int Max = 200;
         public string Descricao { get; private set; }
@@ -39,7 +40,8 @@ namespace CondominioApp.Enquetes.App.Models
                        string condominioNome,
                        bool apenasProprietarios,
                        Guid usuarioId,
-                       string usuarioNome)
+                       string usuarioNome,
+                       IEnumerable<string> alternativas)
         {
             _Alternativas = new List<AlternativaEnquete>();
             ApenasProprietarios = apenasProprietarios;
@@ -50,6 +52,8 @@ namespace CondominioApp.Enquetes.App.Models
             CondominioNome = condominioNome;
             UsuarioId = usuarioId;
             UsuarioNome = usuarioNome;
+
+            SetAlternativas(alternativas);
         }
 
         public void SetDataInicial(DateTime data) => DataInicio = data;
@@ -66,14 +70,34 @@ namespace CondominioApp.Enquetes.App.Models
 
         public void SetCondominioNome(string condominioNome) => CondominioNome = condominioNome;
 
+        public void SetAlternativas(IEnumerable<string> alternativas)
+        {
+            foreach (string alternativa in alternativas)
+            {
+                _Alternativas.Add(new AlternativaEnquete(alternativa,Id));
+            }            
+        }
+
         public ValidationResult AdicionarAlternativa(AlternativaEnquete alternativa)
         {
+            if (_Alternativas.Any(g => g.Descricao.Trim().ToUpper() == alternativa.Descricao.Trim().ToUpper()))
+            {
+                AdicionarErrosDaEntidade("Ja existe uma alternativa com esta descrição!");
+                return ValidationResult;
+            }
+            
             _Alternativas.Add(alternativa);
             return ValidationResult;
         }
 
         public ValidationResult AlterarAlternativa(AlternativaEnquete alternativa)
         {
+            if (_Alternativas.Any(g => g.Descricao.Trim().ToUpper() == alternativa.Descricao.Trim().ToUpper() && g.Id != alternativa.Id))
+            {
+                AdicionarErrosDaEntidade("Ja existe uma alternativa com esta descrição!");
+                return ValidationResult;
+            }
+            
             _Alternativas.Remove(alternativa);
             _Alternativas.Add(alternativa);
 

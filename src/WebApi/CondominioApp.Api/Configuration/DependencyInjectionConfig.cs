@@ -1,6 +1,9 @@
 ﻿using CondominioApp.BS.App.Services;
 using CondominioApp.BS.App.Services.Interfaces;
 using CondominioApp.Core.Mediator;
+using CondominioApp.Enquetes.App.Aplication.Commands;
+using CondominioApp.Enquetes.App.Data.Repository;
+using CondominioApp.Enquetes.App.Models;
 using CondominioApp.Principal.Aplication.Commands;
 using CondominioApp.Principal.Aplication.Events;
 using CondominioApp.Principal.Aplication.Query;
@@ -56,10 +59,14 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<INotificationHandler<CodigoUnidadeResetadoEvent>, UnidadeEventHandler>();
             services.AddScoped<INotificationHandler<UnidadeRemovidaEvent>, UnidadeEventHandler>();
 
+            //Enquete
+            services.AddScoped<IRequestHandler<CadastrarEnqueteCommand, ValidationResult>, EnqueteCommandHandler>();
+
             //Pre Cadastro
             services.AddScoped<IRequestHandler<InserirNovoLeadCommand, ValidationResult>, LeadCommandHandler>();
             services.AddScoped<IRequestHandler<TransferirCondominioCommand, ValidationResult>, LeadCommandHandler>();
             services.AddScoped<INotificationHandler<LeadCadastradoEvent>, LeadEventHandler>();
+           
 
             //Query
             services.AddScoped<IQueryLead, QueryLead>();
@@ -69,7 +76,8 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<ICondominioRepository, CondominioRepository>();
             services.AddScoped<ILeadRepository, LeadRepository>();
             services.AddScoped<ICondominioQueryRepository, CondominioQueryRepository>();
-
+            services.AddScoped<IEnqueteRepository, EnqueteRepository>();
+            
             //Base software
             services.AddScoped<IBoletoService, BoletoService>();
 
