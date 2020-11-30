@@ -1,5 +1,6 @@
 ﻿using CondominioApp.Core.Mediator;
 using CondominioApp.Enquetes.App.Aplication.Commands;
+using CondominioApp.Enquetes.App.Aplication.Query;
 using CondominioApp.Enquetes.App.ViewModels;
 using CondominioApp.Principal.Aplication.Commands;
 using CondominioApp.Principal.Aplication.ViewModels;
@@ -15,7 +16,8 @@ namespace CondominioApp.Api.Controllers
     {
 
         private readonly IMediatorHandler _mediatorHandler;
-        
+
+        private readonly IEnqueteQuery _enqueteQuery;
 
         public EnqueteController(IMediatorHandler mediatorHandler)
         {
@@ -60,7 +62,7 @@ namespace CondominioApp.Api.Controllers
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
             var comando = new AlterarEnqueteCommand(
-                enqueteVM.EnqueteId, enqueteVM.Descricao, enqueteVM.DataInicio, 
+                enqueteVM.Id, enqueteVM.Descricao, enqueteVM.DataInicio, 
                 enqueteVM.DataFim, enqueteVM.ApenasProprietarios);
 
 
@@ -70,16 +72,30 @@ namespace CondominioApp.Api.Controllers
 
         }
 
-        //[HttpDelete("{Id:Guid}")]
-        //public async Task<ActionResult> DeleteGrupo(Guid Id)
-        //{
-        //    var comando = new RemoverGrupoCommand(Id);
+        [HttpDelete("{Id:Guid}")]
+        public async Task<ActionResult> Delete(Guid Id)
+        {
+            var comando = new RemoverEnqueteCommand(Id);
 
-        //    var Resultado = await _mediatorHandler.EnviarComando(comando);
+            var Resultado = await _mediatorHandler.EnviarComando(comando);
 
-        //    return CustomResponse(Resultado);
-        //}
+            return CustomResponse(Resultado);
+        }
 
 
+        [HttpPut("alterar-alternativa")]
+        public async Task<ActionResult> Put(AlterarAlternativaViewModel alternativaVM)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            var comando = new AlterarAlternativaCommand(
+                alternativaVM.Id, alternativaVM.Descricao);
+
+
+            var Resultado = await _mediatorHandler.EnviarComando(comando);
+
+            return CustomResponse(Resultado);
+
+        }
     }
 }

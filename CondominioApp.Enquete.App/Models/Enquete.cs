@@ -51,9 +51,7 @@ namespace CondominioApp.Enquetes.App.Models
             CondominioId = condominioId;
             CondominioNome = condominioNome;
             UsuarioId = usuarioId;
-            UsuarioNome = usuarioNome;
-
-            SetAlternativas(alternativas);
+            UsuarioNome = usuarioNome;           
         }
 
         public void SetDataInicial(DateTime data) => DataInicio = data;
@@ -70,21 +68,13 @@ namespace CondominioApp.Enquetes.App.Models
 
         public void SetCondominioNome(string condominioNome) => CondominioNome = condominioNome;
 
-        public void SetApenasProprietarios(bool apenasProprietarios) => ApenasProprietarios = apenasProprietarios;
-
-        public void SetAlternativas(IEnumerable<string> alternativas)
-        {
-            foreach (string alternativa in alternativas)
-            {
-                _Alternativas.Add(new AlternativaEnquete(alternativa,Id));
-            }            
-        }
+        public void SetApenasProprietarios(bool apenasProprietarios) => ApenasProprietarios = apenasProprietarios;        
 
         public ValidationResult AdicionarAlternativa(AlternativaEnquete alternativa)
         {
             if (_Alternativas.Any(g => g.Descricao.Trim().ToUpper() == alternativa.Descricao.Trim().ToUpper()))
             {
-                AdicionarErrosDaEntidade("Ja existe uma alternativa com esta descrição!");
+                AdicionarErrosDaEntidade("Alternativas Repetidas!");
                 return ValidationResult;
             }
             

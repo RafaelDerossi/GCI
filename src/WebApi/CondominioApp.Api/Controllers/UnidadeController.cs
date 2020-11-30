@@ -68,14 +68,14 @@ namespace CondominioApp.Api.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            if (Id != unidadeVM.UnidadeId)
+            if (Id != unidadeVM.Id)
             {
                 AdicionarErroProcessamento("Id não confere!");
                 return CustomResponse();
             }
 
             var comando = new AlterarUnidadeCommand(
-            unidadeVM.UnidadeId, unidadeVM.Numero, unidadeVM.Andar,
+            unidadeVM.Id, unidadeVM.Numero, unidadeVM.Andar,
             unidadeVM.Vagas, unidadeVM.Telefone, unidadeVM.Ramal, unidadeVM.Complemento);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);

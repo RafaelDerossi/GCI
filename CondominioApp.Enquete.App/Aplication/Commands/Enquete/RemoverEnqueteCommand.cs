@@ -15,9 +15,6 @@ namespace CondominioApp.Enquetes.App.Aplication.Commands
 
         public override bool EstaValido()
         {
-            if (!base.EstaValido())
-                return ValidationResult.IsValid;
-
             ValidationResult = new RemoverEnqueteCommandValidation().Validate(this);
             return ValidationResult.IsValid;
         }
@@ -27,11 +24,7 @@ namespace CondominioApp.Enquetes.App.Aplication.Commands
         {
             public RemoverEnqueteCommandValidation()
             {
-                ValidateId();
-                ValidateDescricao();
-                ValidateDataInicial();
-                ValidateDataFinal();              
-                ValidateApenasProprietarios();               
+                ValidateId();                         
             }
         }
 

@@ -25,7 +25,9 @@ namespace CondominioApp.Enquetes.App.Data.Repository
 
         public async Task<Enquete> ObterPorId(Guid Id)
         {
-            return await _context.Enquetes.FirstOrDefaultAsync(u => u.Id == Id);
+            return await _context.Enquetes
+                .Include(e=>e.Alternativas)
+                .FirstOrDefaultAsync(u => u.Id == Id);
         }
 
         public async Task<IEnumerable<Enquete>> ObterTodos()
@@ -53,6 +55,7 @@ namespace CondominioApp.Enquetes.App.Data.Repository
                                     .OrderBy(x => x.DataDeCadastro).ToListAsync();
         }
 
+       
         public void Adicionar(Enquete entity)
         {
             _context.Enquetes.Add(entity);
@@ -68,9 +71,14 @@ namespace CondominioApp.Enquetes.App.Data.Repository
             _context.Enquetes.Where(predicate).ToList().ForEach(del => del.EnviarParaLixeira());
         }
 
-       
 
-        
+
+        public async Task<AlternativaEnquete> ObterAlternativaPorId(Guid Id)
+        {
+            return await _context.AlternativasEnquete.FirstOrDefaultAsync(u => u.Id == Id);
+        }
+
+
 
         public void Dispose()
         {

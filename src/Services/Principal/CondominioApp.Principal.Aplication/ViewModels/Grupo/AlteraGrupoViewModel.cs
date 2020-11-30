@@ -6,7 +6,7 @@ namespace CondominioApp.Principal.Aplication.ViewModels
 {
    public class AlteraGrupoViewModel
     {
-        public Guid GrupoId { get; set; }
+        public Guid Id { get; set; }
 
         public string Descricao { get; set; }      
        

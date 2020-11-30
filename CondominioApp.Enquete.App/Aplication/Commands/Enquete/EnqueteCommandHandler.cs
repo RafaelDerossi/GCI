@@ -12,6 +12,7 @@ namespace CondominioApp.Enquetes.App.Aplication.Commands
     public class EnqueteCommandHandler : CommandHandler,
          IRequestHandler<CadastrarEnqueteCommand, ValidationResult>,
          IRequestHandler<AlterarEnqueteCommand, ValidationResult>,
+         IRequestHandler<RemoverEnqueteCommand, ValidationResult>,
          IDisposable
     {
 
@@ -59,6 +60,27 @@ namespace CondominioApp.Enquetes.App.Aplication.Commands
             enqueteBd.SetDataInicial(request.DataInicio);
             enqueteBd.SetDataFim(request.DataFim);
             enqueteBd.SetApenasProprietarios(request.ApenasProprietarios);
+           
+            _EnqueteRepository.Atualizar(enqueteBd);
+
+
+            return await PersistirDados(_EnqueteRepository.UnitOfWork);
+        }
+
+        public async Task<ValidationResult> Handle(RemoverEnqueteCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido())
+                return request.ValidationResult;
+
+
+            var enqueteBd = await _EnqueteRepository.ObterPorId(request.Id);
+            if (enqueteBd == null)
+            {
+                AdicionarErro("Enquete não encontrada.");
+                return ValidationResult;
+            }
+
+            enqueteBd.EnviarParaLixeira();
            
             _EnqueteRepository.Atualizar(enqueteBd);
 

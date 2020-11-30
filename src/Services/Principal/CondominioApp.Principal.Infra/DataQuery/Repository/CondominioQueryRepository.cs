@@ -65,12 +65,13 @@ namespace CondominioApp.Principal.Infra.Data.Repository
         public async Task<CondominioFlat> ObterPorId(Guid Id)
         {
             return await _context.CondominiosFlat
+                 .AsNoTracking()
                  .FirstOrDefaultAsync(u => u.Id == Id);
         }
 
         public async Task<IEnumerable<CondominioFlat>> ObterTodos()
         {
-            return await _context.CondominiosFlat.Where(u => !u.Lixeira).ToListAsync();
+            return await _context.CondominiosFlat.AsNoTracking().Where(u => !u.Lixeira).ToListAsync();
         }
 
         #endregion
@@ -90,12 +91,13 @@ namespace CondominioApp.Principal.Infra.Data.Repository
         public async Task<GrupoFlat> ObterGrupoPorId(Guid Id)
         {
             return await _context.GruposFlat
+                .AsNoTracking()
                 .FirstOrDefaultAsync(u => u.Id == Id);
         }
 
         public async Task<IEnumerable<GrupoFlat>> ObterGruposPorCondominio(Guid condominioId)
         {
-            return await _context.GruposFlat.Where(u => u.CondominioId == condominioId).ToListAsync();
+            return await _context.GruposFlat.AsNoTracking().Where(u => u.CondominioId == condominioId).ToListAsync();
         }
 
         #endregion
@@ -115,18 +117,21 @@ namespace CondominioApp.Principal.Infra.Data.Repository
         public async Task<UnidadeFlat> ObterUnidadePorId(Guid Id)
         {
             return await _context.UnidadesFlat
+                .AsNoTracking()
                 .FirstOrDefaultAsync(u => u.Id == Id);
         }
 
         public async Task<IEnumerable<UnidadeFlat>> ObterUnidadesPorGrupo(Guid grupoId)
         {
             return await _context.UnidadesFlat
+                .AsNoTracking()
                 .Where(u => u.GrupoId == grupoId).ToListAsync();
         }
 
         public async Task<IEnumerable<UnidadeFlat>> ObterUnidadesPorCondominio(Guid condominioId)
         {
             return await _context.UnidadesFlat
+                .AsNoTracking()
                 .Where(u => u.CondominioId == condominioId).ToListAsync();
         }
 

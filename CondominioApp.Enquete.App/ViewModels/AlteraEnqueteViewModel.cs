@@ -6,7 +6,7 @@ namespace CondominioApp.Enquetes.App.ViewModels
 {
    public class AlteraEnqueteViewModel
     {
-        public Guid EnqueteId { get; set; }
+        public Guid Id { get; set; }
         public string Descricao { get; set; }
 
         public DateTime DataInicio { get; set; }

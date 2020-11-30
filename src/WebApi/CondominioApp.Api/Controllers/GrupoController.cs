@@ -59,7 +59,7 @@ namespace CondominioApp.Api.Controllers
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
             var comando = new AlterarGrupoCommand(
-                grupoVM.GrupoId, grupoVM.Descricao);
+                grupoVM.Id, grupoVM.Descricao);
 
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);

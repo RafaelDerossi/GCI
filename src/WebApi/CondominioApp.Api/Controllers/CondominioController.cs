@@ -74,7 +74,7 @@ namespace CondominioApp.Api.Controllers
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
             var comando = new AlterarCondominioCommand(
-                 AlteraCondominioVM.CodominioId, AlteraCondominioVM.Cnpj, AlteraCondominioVM.Nome,
+                 AlteraCondominioVM.Id, AlteraCondominioVM.Cnpj, AlteraCondominioVM.Nome,
                  AlteraCondominioVM.Descricao, AlteraCondominioVM.LogoMarca, AlteraCondominioVM.NomeOriginal,
                  AlteraCondominioVM.Telefone, AlteraCondominioVM.Logradouro, AlteraCondominioVM.Complemento,
                  AlteraCondominioVM.Numero, AlteraCondominioVM.Cep, AlteraCondominioVM.Bairro, 
@@ -91,7 +91,7 @@ namespace CondominioApp.Api.Controllers
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
             var comando = new AlterarConfiguracaoCondominioCommand(
-                 AlteraCondominioVM.CodominioId, AlteraCondominioVM.Portaria, AlteraCondominioVM.PortariaMorador,
+                 AlteraCondominioVM.Id, AlteraCondominioVM.Portaria, AlteraCondominioVM.PortariaMorador,
                  AlteraCondominioVM.Classificado, AlteraCondominioVM.ClassificadoMorador, AlteraCondominioVM.Mural,
                  AlteraCondominioVM.MuralMorador, AlteraCondominioVM.Chat, AlteraCondominioVM.ChatMorador, 
                  AlteraCondominioVM.Reserva, AlteraCondominioVM.ReservaNaPortaria, AlteraCondominioVM.Ocorrencia,

@@ -7,7 +7,7 @@ namespace CondominioApp.Principal.Aplication.ViewModels
    public class AlteraCondominioViewModel
     {
 
-        public Guid CodominioId { get; set; }
+        public Guid Id { get; set; }
 
         public string Cnpj { get; set; }
 
