@@ -47,16 +47,7 @@ namespace CondominioApp.Enquetes.App.Aplication.Commands
 
             if (alternativas==null || alternativas.Count() < 2) 
                 AdicionarErrosDeProcessamentoDoComando("Uma enquete precisa ter pelo menos duas alternativas!");            
-
-            foreach (string alternativa in alternativas)
-            {
-                if (alternativas.Where(g => g.Trim().ToUpper() == alternativa.Trim().ToUpper()).Count()>1)
-                {
-                    AdicionarErrosDeProcessamentoDoComando("Há alternativas repetidas!");
-                    break;
-                }
-                    
-            }
+                       
             Alternativas = alternativas;
         }
     }

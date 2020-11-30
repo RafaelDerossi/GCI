@@ -29,7 +29,14 @@ namespace CondominioApp.Enquetes.App.Aplication.Commands
                 return request.ValidationResult;
 
             var enquete = EnqueteFactory(request);
-                        
+
+            foreach (string alternativa_str in request.Alternativas)
+            {
+                var alternativa = new AlternativaEnquete(alternativa_str, enquete.Id);
+                var resultado = enquete.AdicionarAlternativa(alternativa);
+                if (!resultado.IsValid) return resultado;
+            }
+
             _EnqueteRepository.Adicionar(enquete);           
 
             return await PersistirDados(_EnqueteRepository.UnitOfWork);

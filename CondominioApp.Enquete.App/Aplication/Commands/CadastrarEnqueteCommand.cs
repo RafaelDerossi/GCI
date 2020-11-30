@@ -26,7 +26,7 @@ namespace CondominioApp.Enquetes.App.Aplication.Commands
 
         public override bool EstaValido()
         {
-            if (!base.EstaValido())
+            if (!ValidationResult.IsValid)
                 return ValidationResult.IsValid;
 
             ValidationResult = new CadastrarEnqueteCommandValidation().Validate(this);

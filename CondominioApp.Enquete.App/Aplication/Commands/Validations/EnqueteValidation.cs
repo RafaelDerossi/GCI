@@ -22,7 +22,7 @@ namespace CondominioApp.Enquetes.App.Aplication.Commands.Validations
         {
             RuleFor(c => c.DataInicio)
                 .NotEmpty()
-                .NotNull()
+                .NotNull()                
                 .WithMessage("Data Inicial não pode estar vazio!");
         }
 
@@ -69,5 +69,6 @@ namespace CondominioApp.Enquetes.App.Aplication.Commands.Validations
                 .WithMessage("Apenas Proprietarios não pode estar vazio!");
         }
         
+
     }
 }

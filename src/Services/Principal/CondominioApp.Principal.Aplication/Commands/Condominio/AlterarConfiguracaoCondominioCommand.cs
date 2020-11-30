@@ -33,7 +33,7 @@ namespace CondominioApp.Principal.Aplication.Commands
 
         public override bool EstaValido()
         {
-            if (!base.EstaValido())
+            if (!ValidationResult.IsValid)
                 return ValidationResult.IsValid;
 
             ValidationResult = new AlterarConfiguracaoCondominioCommandValidation().Validate(this);
