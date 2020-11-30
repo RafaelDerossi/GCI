@@ -27,6 +27,7 @@ namespace CondominioApp.Enquetes.App.Models
             EnqueteId = enqueteId;
         }
 
+
         public void SetDescricao(string descricao) => Descricao = descricao;
                 
         public ValidationResult AdicionarResposta(RespostaEnquete resposta)

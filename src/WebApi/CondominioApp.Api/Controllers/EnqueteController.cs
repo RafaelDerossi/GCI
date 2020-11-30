@@ -1,12 +1,15 @@
-﻿using CondominioApp.Core.Mediator;
+﻿using AutoMapper;
+using CondominioApp.Core.Mediator;
 using CondominioApp.Enquetes.App.Aplication.Commands;
 using CondominioApp.Enquetes.App.Aplication.Query;
+using CondominioApp.Enquetes.App.Models;
 using CondominioApp.Enquetes.App.ViewModels;
 using CondominioApp.Principal.Aplication.Commands;
 using CondominioApp.Principal.Aplication.ViewModels;
 using CondominioApp.WebApi.Core.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace CondominioApp.Api.Controllers
@@ -19,23 +22,49 @@ namespace CondominioApp.Api.Controllers
 
         private readonly IEnqueteQuery _enqueteQuery;
 
-        public EnqueteController(IMediatorHandler mediatorHandler)
+        public readonly IMapper _mapper;
+
+        public EnqueteController(IMediatorHandler mediatorHandler, IEnqueteQuery enqueteQuery, IMapper mapper)
         {
-            _mediatorHandler = mediatorHandler;           
+            _mediatorHandler = mediatorHandler;
+            _enqueteQuery = enqueteQuery;
+            _mapper = mapper;
         }
 
 
-        //[HttpGet("{id:Guid}")]
-        //public async Task<GrupoFlat> ObterGrupoPorId(Guid id)
-        //{
-        //    return await _condominioQuery.ObterGrupoPorId(id);
-        //}
+        [HttpGet("{id:Guid}")]
+        public async Task<EnqueteViewModel> ObterPorId(Guid id)
+        {
+            return _mapper.Map<EnqueteViewModel>(await _enqueteQuery.ObterPorId(id));
+        }
 
-        //[HttpGet("por-condominio/{condominioId:Guid}")]
-        //public async Task<IEnumerable<GrupoFlat>> ObterGruposPorCondominio(Guid condominioId)
-        //{
-        //    return await _condominioQuery.ObterGruposPorCondominio(condominioId);
-        //}
+        [HttpGet("por-condominio/{condominioId:Guid}")]
+        public async Task<IEnumerable<EnqueteViewModel>> ObterEnquetesPorCondominio(Guid condominioId)
+        {
+            var enquetes = await _enqueteQuery.ObterPorCondominio(condominioId);
+
+            var enquetesVM = new List<EnqueteViewModel>();
+            foreach (Enquete item in enquetes)
+            {
+                var enqueteVM = _mapper.Map<EnqueteViewModel>(item);
+                enquetesVM.Add(enqueteVM);
+            }
+            return enquetesVM;
+        }
+
+        [HttpGet("ativas-por-condominio/{condominioId:Guid}")]
+        public async Task<IEnumerable<EnqueteViewModel>> ObterEnquetesAtivasPorCondominio(Guid condominioId)
+        {
+            var enquetes = await _enqueteQuery.ObterAtivasPorCondominio(condominioId);
+
+            var enquetesVM = new List<EnqueteViewModel>();
+            foreach (Enquete item in enquetes)
+            {
+                var enqueteVM = _mapper.Map<EnqueteViewModel>(item);
+                enquetesVM.Add(enqueteVM);
+            }
+            return enquetesVM;
+        }
 
 
 
@@ -83,6 +112,7 @@ namespace CondominioApp.Api.Controllers
         }
 
 
+
         [HttpPut("alterar-alternativa")]
         public async Task<ActionResult> Put(AlterarAlternativaViewModel alternativaVM)
         {
@@ -91,6 +121,33 @@ namespace CondominioApp.Api.Controllers
             var comando = new AlterarAlternativaCommand(
                 alternativaVM.Id, alternativaVM.Descricao);
 
+
+            var Resultado = await _mediatorHandler.EnviarComando(comando);
+
+            return CustomResponse(Resultado);
+
+        }
+
+        [HttpDelete("remover-alternativa/{alternativaId:Guid}")]
+        public async Task<ActionResult> DeleteAlternativa(Guid alternativaId)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            var comando = new RemoverAlternativaCommand(alternativaId);
+
+            var Resultado = await _mediatorHandler.EnviarComando(comando);
+
+            return CustomResponse(Resultado);
+
+        }
+
+
+        [HttpPost("votar-enquete")]
+        public async Task<ActionResult> VotarEnquete(VotoEnqueteViewModel votoEnqueteVM)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            var comando = new CadastrarRespostaCommand();
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 

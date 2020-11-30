@@ -22,17 +22,20 @@ namespace CondominioApp.Enquetes.App.Data.Repository
         public IUnitOfWorks UnitOfWork => _context;
 
 
-
         public async Task<Enquete> ObterPorId(Guid Id)
         {
             return await _context.Enquetes
-                .Include(e=>e.Alternativas)
+                .Include(e => e.Alternativas)
+                    .ThenInclude(it => it.Respostas)
                 .FirstOrDefaultAsync(u => u.Id == Id);
         }
 
         public async Task<IEnumerable<Enquete>> ObterTodos()
         {
-            return await _context.Enquetes.Where(u => !u.Lixeira).ToListAsync();
+            return await _context.Enquetes
+                .Include(e => e.Alternativas)
+                    .ThenInclude(it => it.Respostas)
+                .Where(u => !u.Lixeira).ToListAsync();
         }
 
         public async Task<IEnumerable<Enquete>> Obter(Expression<Func<Enquete, bool>> expression, bool OrderByDesc = false, int take = 0)
@@ -40,19 +43,39 @@ namespace CondominioApp.Enquetes.App.Data.Repository
             if (OrderByDesc)
             {
                 if (take > 0)
-                    return await _context.Enquetes.AsNoTracking().Where(expression)
-                                        .OrderByDescending(x => x.DataDeCadastro).Take(take).ToListAsync();
+                    return await _context.Enquetes
+                        .AsNoTracking()
+                        .Where(expression)
+                        .Include(e => e.Alternativas)
+                            .ThenInclude(it => it.Respostas)
+                        .OrderByDescending(x => x.DataDeCadastro).Take(take).ToListAsync();
 
-                return await _context.Enquetes.AsNoTracking().Where(expression)
-                                        .OrderByDescending(x => x.DataDeCadastro).ToListAsync();
+                return await _context.Enquetes
+                    .AsNoTracking()
+                    .Where(expression)
+                    .Include(e => e.Alternativas)
+                        .ThenInclude(it => it.Respostas)
+                    .OrderByDescending(x => x.DataDeCadastro)
+                    .ToListAsync();
             }
 
             if (take > 0)
-                return await _context.Enquetes.AsNoTracking().Where(expression)
-                                        .OrderBy(x => x.DataDeCadastro).Take(take).ToListAsync();
+                return await _context.Enquetes
+                    .AsNoTracking()
+                    .Where(expression)
+                    .Include(e => e.Alternativas)
+                        .ThenInclude(it => it.Respostas)
+                    .OrderBy(x => x.DataDeCadastro)
+                    .Take(take)
+                    .ToListAsync();
 
-            return await _context.Enquetes.AsNoTracking().Where(expression)
-                                    .OrderBy(x => x.DataDeCadastro).ToListAsync();
+            return await _context.Enquetes
+                .AsNoTracking()
+                .Include(e => e.Alternativas)
+                    .ThenInclude(it => it.Respostas)
+                .Where(expression)                
+                .OrderBy(x => x.DataDeCadastro)
+                .ToListAsync();
         }
 
        

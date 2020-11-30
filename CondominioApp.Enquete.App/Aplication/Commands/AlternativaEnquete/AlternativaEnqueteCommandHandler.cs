@@ -10,7 +10,8 @@ using System.Threading.Tasks;
 namespace CondominioApp.Enquetes.App.Aplication.Commands
 {
     public class AlternativaEnqueteCommandHandler : CommandHandler,        
-         IRequestHandler<AlterarAlternativaCommand, ValidationResult>,        
+         IRequestHandler<AlterarAlternativaCommand, ValidationResult>,
+         IRequestHandler<RemoverAlternativaCommand, ValidationResult>,
          IDisposable
     {
 
@@ -41,7 +42,32 @@ namespace CondominioApp.Enquetes.App.Aplication.Commands
             return await PersistirDados(_EnqueteRepository.UnitOfWork);
         }
 
-     
+        public async Task<ValidationResult> Handle(RemoverAlternativaCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido())
+                return request.ValidationResult;
+
+            var alternativa = await _EnqueteRepository.ObterAlternativaPorId(request.Id);
+            
+            var enquete = await _EnqueteRepository.ObterPorId(alternativa.EnqueteId);
+
+            if (enquete.Alternativas.Where(a =>!a.Lixeira).Count()<3)
+            {
+                AdicionarErro("Uma enquete precisa ter pelo menos duas alternativas.");
+                return ValidationResult;
+            }
+
+            alternativa.EnviarParaLixeira();
+
+            var resultado = enquete.AlterarAlternativa(alternativa);
+
+            if (!resultado.IsValid) return resultado;
+
+            _EnqueteRepository.Atualizar(enquete);
+
+            return await PersistirDados(_EnqueteRepository.UnitOfWork);
+        }
+
 
 
         public void Dispose()

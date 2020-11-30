@@ -1,4 +1,5 @@
-﻿using CondominioAppMarketplace.App.AutoMapper;
+﻿using CondominioApp.Enquetes.App.AutoMapper;
+using CondominioAppMarketplace.App.AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CondominioApp.Api.Configuration
@@ -13,7 +14,8 @@ namespace CondominioApp.Api.Configuration
             {
                 cfg.AddProfile(new EntityToViewModelLoja());
                 cfg.AddProfile(new ViewModelToEntityLoja());
-
+                cfg.AddProfile(new EntityToViewModelEnquete());
+                
                 //cfg.AddProfile(new EntityToViewModelEstatistica());
                 //cfg.AddProfile(new ViewModelToEntityEstatistica());
             });

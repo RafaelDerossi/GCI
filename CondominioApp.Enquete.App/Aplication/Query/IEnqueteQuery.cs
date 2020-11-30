@@ -12,5 +12,9 @@ namespace CondominioApp.Enquetes.App.Aplication.Query
         Task<IEnumerable<Enquete>> ObterTodos();
 
         Task<IEnumerable<Enquete>> ObterRemovidos();
+
+        Task<IEnumerable<Enquete>> ObterPorCondominio(Guid condominioId);
+
+        Task<IEnumerable<Enquete>> ObterAtivasPorCondominio(Guid condominioId);
     }
 }

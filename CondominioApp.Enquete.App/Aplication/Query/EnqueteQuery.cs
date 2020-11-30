@@ -30,10 +30,23 @@ namespace CondominioApp.Enquetes.App.Aplication.Query
         {
             return await _enqueteRepository.Obter(c => c.Lixeira);
         }
+
+        public async Task<IEnumerable<Enquete>> ObterPorCondominio(Guid condominioId)
+        {
+            return await _enqueteRepository.Obter(e => e.CondominioId == condominioId && !e.Lixeira);
+        }
+
+        public async Task<IEnumerable<Enquete>> ObterAtivasPorCondominio(Guid condominioId)
+        {
+            return await _enqueteRepository.Obter(e=>e.CondominioId == condominioId && !e.Lixeira && e.DataInicio <= DateTime.Now && e.DataFim >= DateTime.Now);
+        }
+
+      
+
         #endregion
 
 
-       
+
 
 
         public void Dispose()

@@ -2,6 +2,7 @@
 using CondominioApp.BS.App.Services.Interfaces;
 using CondominioApp.Core.Mediator;
 using CondominioApp.Enquetes.App.Aplication.Commands;
+using CondominioApp.Enquetes.App.Aplication.Query;
 using CondominioApp.Enquetes.App.Data.Repository;
 using CondominioApp.Enquetes.App.Models;
 using CondominioApp.Principal.Aplication.Commands;
@@ -66,6 +67,7 @@ namespace CondominioApp.Api.Configuration
 
             //AlternativasEnquete
             services.AddScoped<IRequestHandler<AlterarAlternativaCommand, ValidationResult>, AlternativaEnqueteCommandHandler>();
+            services.AddScoped<IRequestHandler<RemoverAlternativaCommand, ValidationResult>, AlternativaEnqueteCommandHandler>();
 
             //Pre Cadastro
             services.AddScoped<IRequestHandler<InserirNovoLeadCommand, ValidationResult>, LeadCommandHandler>();
@@ -76,6 +78,7 @@ namespace CondominioApp.Api.Configuration
             //Query
             services.AddScoped<IQueryLead, QueryLead>();
             services.AddScoped<ICondominioQuery, CondominioQuery>();
+            services.AddScoped<IEnqueteQuery, EnqueteQuery>();
 
             //Repositórios
             services.AddScoped<ICondominioRepository, CondominioRepository>();

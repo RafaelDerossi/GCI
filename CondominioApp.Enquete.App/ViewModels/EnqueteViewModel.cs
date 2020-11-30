@@ -7,17 +7,17 @@ namespace CondominioApp.Enquetes.App.ViewModels
 {
    public class EnqueteViewModel
     {
-        public Guid id { get; set; }
+        public Guid Id { get; set; }
 
-        public DateTime DataDeCadastro { get; set; }
+        public string DataDeCadastro { get; set; }
 
-        public DateTime DataDeAlteracao { get; set; }
+        public string DataDeAlteracao { get; set; }
 
         public string Descricao { get; set; }       
 
-        public DateTime DataInicio { get; set; }
+        public string DataInicio { get; set; }
 
-        public DateTime DataFim { get; set; }
+        public string DataFim { get; set; }
 
 
         public Guid CondominioId { get; set; }
@@ -28,6 +28,6 @@ namespace CondominioApp.Enquetes.App.ViewModels
         public Guid UsuarioId { get; set; }
         public string UsuarioNome { get; set; }
 
-        public IEnumerable<AlternativaEnquete> Alternativas { get; set; }
+        public IEnumerable<AlternativaEnqueteViewModel> Alternativas { get; set; }
     }
 }

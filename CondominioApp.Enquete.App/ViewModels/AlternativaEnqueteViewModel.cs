@@ -8,6 +8,13 @@ namespace CondominioApp.Enquetes.App.ViewModels
     {
         public Guid Id { get; set; }
 
+        public string DataDeCadastro { get; set; }
+
+        public string DataDeAlteracao { get; set; }
+
         public string Descricao { get; set; }
+
+        public IEnumerable<RespostaEnqueteViewModel> Respostas { get; set; }
+       
     }
 }
