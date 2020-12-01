@@ -45,7 +45,7 @@ namespace CondominioApp.Enquetes.App.AutoMapper
               .ForMember(c => c.UsuarioId, p => p.MapFrom(x => x.UsuarioId))
               .ForMember(c => c.UsuarioNome, p => p.MapFrom(x => x.UsuarioNome))
               .ForMember(c => c.TipoDeUsuario, p => p.MapFrom(x => x.TipoDeUsuario))
-              .ForMember(c => c.AlternativaId, p => p.MapFrom(x => x.AlternativaId));
+              .ForMember(c => c.AlternativaId, p => p.MapFrom(x => x.AlternativaEnqueteId));
         }
     }
 }

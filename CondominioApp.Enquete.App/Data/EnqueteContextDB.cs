@@ -20,6 +20,7 @@ namespace CondominioApp.Enquetes.App.Data
 
         public DbSet<AlternativaEnquete> AlternativasEnquete { get; set; }
 
+        public DbSet<RespostaEnquete> RespostasEnquete { get; set; }
 
         public EnqueteContextDB(DbContextOptions<EnqueteContextDB> options, IMediatorHandler mediatorHandler)
             : base(options)

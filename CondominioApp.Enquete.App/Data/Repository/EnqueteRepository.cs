@@ -44,17 +44,17 @@ namespace CondominioApp.Enquetes.App.Data.Repository
             {
                 if (take > 0)
                     return await _context.Enquetes
-                        .AsNoTracking()
-                        .Where(expression)
+                        .AsNoTracking()                       
                         .Include(e => e.Alternativas)
                             .ThenInclude(it => it.Respostas)
+                         .Where(expression)
                         .OrderByDescending(x => x.DataDeCadastro).Take(take).ToListAsync();
 
                 return await _context.Enquetes
-                    .AsNoTracking()
-                    .Where(expression)
+                    .AsNoTracking()                    
                     .Include(e => e.Alternativas)
                         .ThenInclude(it => it.Respostas)
+                    .Where(expression)
                     .OrderByDescending(x => x.DataDeCadastro)
                     .ToListAsync();
             }
@@ -62,9 +62,9 @@ namespace CondominioApp.Enquetes.App.Data.Repository
             if (take > 0)
                 return await _context.Enquetes
                     .AsNoTracking()
-                    .Where(expression)
                     .Include(e => e.Alternativas)
                         .ThenInclude(it => it.Respostas)
+                    .Where(expression)                    
                     .OrderBy(x => x.DataDeCadastro)
                     .Take(take)
                     .ToListAsync();
@@ -98,9 +98,16 @@ namespace CondominioApp.Enquetes.App.Data.Repository
 
         public async Task<AlternativaEnquete> ObterAlternativaPorId(Guid Id)
         {
-            return await _context.AlternativasEnquete.FirstOrDefaultAsync(u => u.Id == Id);
+            return await _context.AlternativasEnquete
+                .Include(a=>a.Respostas)
+                .FirstOrDefaultAsync(u => u.Id == Id);
         }
 
+
+        public void AdicionarResposta(RespostaEnquete entity)
+        {
+            _context.RespostasEnquete.Add(entity);
+        }
 
 
         public void Dispose()

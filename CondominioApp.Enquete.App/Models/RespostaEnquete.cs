@@ -19,7 +19,7 @@ namespace CondominioApp.Enquetes.App.Models
 
         public string TipoDeUsuario { get; set; }
 
-        public Guid AlternativaId { get; set; }
+        public Guid AlternativaEnqueteId { get; set; }
        
                
 
@@ -34,7 +34,7 @@ namespace CondominioApp.Enquetes.App.Models
             UsuarioId = usuarioId;
             UsuarioNome = usuarioNome;
             TipoDeUsuario = tipoDeUsuario;
-            AlternativaId = alternativaId;
+            AlternativaEnqueteId = alternativaId;
         }
 
         
@@ -50,7 +50,7 @@ namespace CondominioApp.Enquetes.App.Models
 
         public void SetTipoDeUsuario(string tipoDeUsuario) => TipoDeUsuario = tipoDeUsuario;
 
-        public void SetAlternativaId(Guid alternativaId) => AlternativaId = alternativaId;
+        public void SetAlternativaId(Guid alternativaId) => AlternativaEnqueteId = alternativaId;
        
     }
 }

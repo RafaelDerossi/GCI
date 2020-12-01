@@ -2,6 +2,7 @@
 using FluentValidation.Results;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace CondominioApp.Enquetes.App.Models
@@ -11,9 +12,9 @@ namespace CondominioApp.Enquetes.App.Models
         public string Descricao { get; private set; }   
         
         public Guid EnqueteId { get; private set; }
-
         
         private readonly List<RespostaEnquete> _Respostas;
+
         public IReadOnlyCollection<RespostaEnquete> Respostas => _Respostas;
 
         public AlternativaEnquete()
@@ -32,6 +33,12 @@ namespace CondominioApp.Enquetes.App.Models
                 
         public ValidationResult AdicionarResposta(RespostaEnquete resposta)
         {
+            if (_Respostas.Any(g => g.UsuarioId == resposta.UsuarioId))
+            {
+                AdicionarErrosDaEntidade("É permitido somente um voto por condômino.");
+                return ValidationResult;
+            }
+
             _Respostas.Add(resposta);
             return ValidationResult;
         }

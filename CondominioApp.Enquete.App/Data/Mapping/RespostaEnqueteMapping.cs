@@ -24,7 +24,7 @@ namespace CondominioApp.Enquetes.App.Data.Mapping
 
             builder.Property(u => u.TipoDeUsuario).IsRequired().HasColumnType($"varchar({Enquete.Max})");
 
-            builder.Property(u => u.AlternativaId).IsRequired();
+            builder.Property(u => u.AlternativaEnqueteId).IsRequired();
         }
     }
 }

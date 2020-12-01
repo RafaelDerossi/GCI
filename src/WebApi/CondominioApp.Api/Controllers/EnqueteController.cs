@@ -147,7 +147,10 @@ namespace CondominioApp.Api.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var comando = new CadastrarRespostaCommand();
+            var comando = new CadastrarRespostaCommand(
+                votoEnqueteVM.UnidadeId, votoEnqueteVM.Unidade, votoEnqueteVM.Bloco,
+                votoEnqueteVM.UsuarioId, votoEnqueteVM.UsuarioNome, votoEnqueteVM.TipoDeUsuario, 
+                votoEnqueteVM.AlternativaId);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
