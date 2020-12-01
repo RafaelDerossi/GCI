@@ -73,6 +73,12 @@ namespace CondominioApp.Api.Configuration
 
             app.UseAuthConfiguration();
 
+            app.Use((context, next) =>
+            {
+                context.Request.PathBase = "/";
+                return next();
+            });
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
