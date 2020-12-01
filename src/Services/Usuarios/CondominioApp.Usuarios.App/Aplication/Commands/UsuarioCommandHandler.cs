@@ -5,9 +5,6 @@ using CondominioApp.Core.Messages;
 using CondominioApp.Usuarios.App.Models;
 using FluentValidation.Results;
 using MediatR;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace CondominioApp.Usuarios.App.Aplication.Commands
 {

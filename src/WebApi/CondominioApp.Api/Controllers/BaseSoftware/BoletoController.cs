@@ -19,7 +19,7 @@ namespace CondominioApp.Api.Controllers.BaseSoftware
         }
 
         [HttpGet("{cpf}")]
-        public async Task<IActionResult> ObterPorCpf(string cpf, string Administradora)
+        public IActionResult ObterPorCpf(string cpf, string Administradora)
         {
             try
             {

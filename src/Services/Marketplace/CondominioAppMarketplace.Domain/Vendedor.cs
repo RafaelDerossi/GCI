@@ -27,7 +27,7 @@ namespace CondominioAppMarketplace.Domain
 
         public IReadOnlyCollection<ItemDeVenda> ItensDeVenda => _ItensDeVenda;
 
-        protected Vendedor() { }
+        protected Vendedor(){}
 
         public Vendedor(string nome, Email email, Cpf cpf, Telefone telefone, 
             Endereco endereco)
@@ -37,6 +37,8 @@ namespace CondominioAppMarketplace.Domain
             Cpf = cpf;
             Telefone = telefone;
             Endereco = endereco;
+
+            _ItensDeVenda = new List<ItemDeVenda>();
         }
 
         public void AssociarAoParceiro(Parceiro parceiro) => Parceiro = parceiro;
