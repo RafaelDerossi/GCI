@@ -63,8 +63,6 @@ namespace CondominioApp.Api.Configuration
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UsePathBase("/");
-
             app.UseHttpsRedirection();
 
             app.UseRouting();
@@ -72,12 +70,6 @@ namespace CondominioApp.Api.Configuration
             app.UseCors(PermissoesEspecificasDeOrigem);
 
             app.UseAuthConfiguration();
-
-            app.Use((context, next) =>
-            {
-                context.Request.PathBase = "/";
-                return next();
-            });
 
             app.UseEndpoints(endpoints =>
             {
