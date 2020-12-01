@@ -12,62 +12,36 @@ namespace CondominioApp.Principal.Tests
         [Fact(DisplayName = "Criar um Condominio")]
         public void Criar_Condominio_Valido()
         {
-            //Act   
-            try
-            {
-                var condominio = new Condominio(new Cnpj("26585345000148"), "Condominio TU",
+            //Act
+            var condominio = new Condominio(new Cnpj("26585345000148"), "Condominio TU",
                 "Condominio Teste Unitario", new Foto("Foto.jpg", "Foto.jpg"), new Telefone("(21) 99796-7038"),
                  new Endereco("Rua...", null, "1001", "23063260", "Bairro", "Cidade", "RJ"),
                 0, null, null, null, false, false, false, false, false, false, false, false, false, false, false,
-                false, false, false, false);
-                Assert.True(true);
-            }
-            catch (Exception)
-            {
-                Assert.True(false);
-            }
-            
+                false, false, false, false);  
         }
 
         [Fact(DisplayName = "Criar um Condominio Sem Foto")]
         public void Criar_Condominio_Valido_SemFoto()
         {
             //Act
-            try
-            {
-                var condominio = new Condominio(new Cnpj("26.585.345/0001-48"), "Condominio TU",
-                               "Condominio Teste Unitario", null, new Telefone("(21) 99796-7038"),
-                                new Endereco("Rua...", null, "1001", "23063260", "Bairro", "Cidade", "RJ"),
-                               0, null, null, null, false, false, false, false, false, false, false, false, false, false, false,
-                               false, false, false, false);
-                Assert.True(true);
-            }
-            catch (Exception)
-            {
-                Assert.True(false);
-            }
-                        
-           
+            var condominio = new Condominio(new Cnpj("26.585.345/0001-48"), "Condominio TU",
+                              "Condominio Teste Unitario", null, new Telefone("(21) 99796-7038"),
+                               new Endereco("Rua...", null, "1001", "23063260", "Bairro", "Cidade", "RJ"),
+                              0, null, null, null, false, false, false, false, false, false, false, false, false, false, false,
+                              false, false, false, false);
+
         }
 
         [Fact(DisplayName = "Criar um Condominio Sem Telefone")]
         public void Criar_Condominio_Valido_SemTelefone()
         {
             //Act
-            try
-            {
-                var condominio = new Condominio(new Cnpj("26585345000148"), "Condominio TU",
+            var condominio = new Condominio(new Cnpj("26585345000148"), "Condominio TU",
                                "Condominio Teste Unitario", null, null,
                                 new Endereco("Rua...", null, "1001", "23063260", "Bairro", "Cidade", "RJ"),
                                0, null, null, null, false, false, false, false, false, false, false, false, false, false, false,
                                false, false, false, false);
-                Assert.True(true);
-            }
-            catch (Exception)
-            {
-                Assert.True(false);
-            }
-           
+            
         }
 
 

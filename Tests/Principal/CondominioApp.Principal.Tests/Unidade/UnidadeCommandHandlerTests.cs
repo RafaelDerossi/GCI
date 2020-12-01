@@ -8,6 +8,7 @@ using Xunit;
 using CondominioApp.Principal.Domain.Interfaces;
 using CondominioApp.Principal.Domain;
 using System;
+using CondominioApp.Principal.Domain.ValueObjects;
 
 namespace CondominioApp.Principal.Tests
 {
@@ -30,14 +31,20 @@ namespace CondominioApp.Principal.Tests
             var command = UnidadeCommandFactory.CriarComandoCadastroDeUnidade();
 
             var grupo = new Grupo("Bloco 1", command.GrupoId);
+            grupo.SetCondominioId(Guid.NewGuid());
 
-
-            _mocker.GetMock<ICondominioRepository>().Setup(r => r.CondominioExiste(command.CondominioId))
-              .Returns(Task.FromResult(true));
+            var condominio = new Condominio(new Cnpj("26585345000148"), "Condominio TU",
+               "Condominio Teste Unitario", new Foto("Foto.jpg", "Foto.jpg"), new Telefone("(21) 99796-7038"),
+                new Endereco("Rua...", null, "1001", "23063260", "Bairro", "Cidade", "RJ"),
+               0, null, null, null, false, false, false, false, false, false, false, false, false, false, false,
+               false, false, false, false);
+            condominio.SetEntidadeId(grupo.CondominioId);
 
             _mocker.GetMock<ICondominioRepository>().Setup(r => r.ObterGrupoPorId(command.GrupoId))
-              .Returns(Task.FromResult(grupo));           
+              .Returns(Task.FromResult(grupo));
 
+            _mocker.GetMock<ICondominioRepository>().Setup(r => r.ObterPorId(grupo.CondominioId))
+              .Returns(Task.FromResult(condominio));
 
             _mocker.GetMock<ICondominioRepository>().Setup(r => r.UnitOfWork.Commit())
                .Returns(Task.FromResult(true));
