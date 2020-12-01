@@ -63,6 +63,8 @@ namespace CondominioApp.Api.Configuration
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UsePathBase("/");
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
