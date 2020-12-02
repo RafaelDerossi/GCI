@@ -10,7 +10,7 @@ namespace CondominioApp.Principal.Aplication.Events
 {
     public class UnidadeEventHandler : EventHandler,
         INotificationHandler<UnidadeCadastradaEvent>,
-        INotificationHandler<UnidadeAlteradaEvent>,
+        INotificationHandler<UnidadeEditadaEvent>,
         INotificationHandler<CodigoUnidadeResetadoEvent>,
         INotificationHandler<UnidadeRemovidaEvent>,
         System.IDisposable
@@ -36,7 +36,7 @@ namespace CondominioApp.Principal.Aplication.Events
             await PersistirDados(_condominioQueryRepository.UnitOfWork);
         }
 
-        public async Task Handle(UnidadeAlteradaEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(UnidadeEditadaEvent notification, CancellationToken cancellationToken)
         {
             var unidadeFlat = await _condominioQueryRepository.ObterUnidadePorId(notification.UnidadeId);
 

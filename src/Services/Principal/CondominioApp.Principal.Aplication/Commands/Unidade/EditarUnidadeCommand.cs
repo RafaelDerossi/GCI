@@ -3,9 +3,9 @@ using System;
 
 namespace CondominioApp.Principal.Aplication.Commands
 {
-    public class AlterarUnidadeCommand : UnidadeCommand
+    public class EditarUnidadeCommand : UnidadeCommand
     {
-        public AlterarUnidadeCommand(Guid unidadeId, string numero, string andar, 
+        public EditarUnidadeCommand(Guid unidadeId, string numero, string andar, 
             int vaga, string telefone, string ramal, string complemento)
         {
             UnidadeId = unidadeId;           
@@ -23,14 +23,14 @@ namespace CondominioApp.Principal.Aplication.Commands
             if (!ValidationResult.IsValid)
                 return ValidationResult.IsValid;
 
-            ValidationResult = new AlterarUnidadeCommandValidation().Validate(this);
+            ValidationResult = new EditarUnidadeCommandValidation().Validate(this);
             return ValidationResult.IsValid;
         }
 
 
-        public class AlterarUnidadeCommandValidation : UnidadeValidation<AlterarUnidadeCommand>
+        public class EditarUnidadeCommandValidation : UnidadeValidation<EditarUnidadeCommand>
         {
-            public AlterarUnidadeCommandValidation()
+            public EditarUnidadeCommandValidation()
             {
                 ValidateId();                
                 ValidateNumero();

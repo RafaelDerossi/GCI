@@ -41,12 +41,12 @@ namespace CondominioApp.Enquetes.App.Tests
         }
 
 
-        [Fact(DisplayName = "Alterar Enquete Válido")]
+        [Fact(DisplayName = "Editar Enquete Válido")]
         [Trait("Categoria", "Enquetes - EnqueteCommandHandler")]
-        public async Task AlterarEnquete_CommandoValido_DevePassarNaValidacao()
+        public async Task EditarEnquete_CommandoValido_DevePassarNaValidacao()
         {
             //Arrange
-            var command = EnqueteCommandFactory.CriarComandoAlteracaoDeEnquete();
+            var command = EnqueteCommandFactory.CriarComandoEdicaoDeEnquete();
         
             var alternativas = new List<string>();
             alternativas.Add("SIM");

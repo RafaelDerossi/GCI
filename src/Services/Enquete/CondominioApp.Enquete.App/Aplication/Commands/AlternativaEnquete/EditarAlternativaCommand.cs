@@ -4,10 +4,10 @@ using System.Collections.Generic;
 
 namespace CondominioApp.Enquetes.App.Aplication.Commands
 {
-   public class AlterarAlternativaCommand : AlternativaEnqueteCommand
+   public class EditarAlternativaCommand : AlternativaEnqueteCommand
     {
 
-        public AlterarAlternativaCommand(Guid alternativaId, string descricao)
+        public EditarAlternativaCommand(Guid alternativaId, string descricao)
         {
             Id = alternativaId;
             Descricao = descricao;                  
@@ -18,14 +18,14 @@ namespace CondominioApp.Enquetes.App.Aplication.Commands
             if (!ValidationResult.IsValid)
                 return ValidationResult.IsValid;
 
-            ValidationResult = new AlterarAlternativaCommandValidation().Validate(this);
+            ValidationResult = new EditarAlternativaCommandValidation().Validate(this);
             return ValidationResult.IsValid;
         }
 
 
-        public class AlterarAlternativaCommandValidation : AlternativaEnqueteValidation<AlterarAlternativaCommand>
+        public class EditarAlternativaCommandValidation : AlternativaEnqueteValidation<EditarAlternativaCommand>
         {
-            public AlterarAlternativaCommandValidation()
+            public EditarAlternativaCommandValidation()
             {
                 ValidateId();
                 ValidateDescricao();                             

@@ -12,19 +12,10 @@ namespace CondominioApp.Principal.Tests
         [Fact(DisplayName = "Criar uma Unidade")]
         public void Criar_Unidade_Valido()
         {
-            //Act   
-            try
-            {
-                var unidade = new Unidade("101","1",1, new Telefone("(21) 99796-7038"),"100",
-                    "Perto da entrada",Guid.NewGuid(), Guid.NewGuid());
-                unidade.ResetCodigo();
-                Assert.True(true);
-            }
-            catch (Exception)
-            {
-                Assert.True(false);
-            }
-            
+            //Act
+            var unidade = new Unidade("101", "1", 1, new Telefone("(21) 99796-7038"), "100",
+                    "Perto da entrada", Guid.NewGuid(), Guid.NewGuid());
+            unidade.ResetCodigo();            
         }
 
         [Fact(DisplayName = "Criar uma unidade Sem Telefone")]

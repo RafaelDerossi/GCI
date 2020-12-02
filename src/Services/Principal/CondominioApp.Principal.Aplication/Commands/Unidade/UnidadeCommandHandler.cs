@@ -12,7 +12,7 @@ namespace CondominioApp.Principal.Aplication.Commands
 {
     public class UnidadeCommandHandler : CommandHandler,
          IRequestHandler<CadastrarUnidadeCommand, ValidationResult>,
-         IRequestHandler<AlterarUnidadeCommand, ValidationResult>,
+         IRequestHandler<EditarUnidadeCommand, ValidationResult>,
          IRequestHandler<ResetCodigoUnidadeCommand, ValidationResult>,
          IRequestHandler<RemoverUnidadeCommand, ValidationResult>, IDisposable
     {
@@ -64,7 +64,7 @@ namespace CondominioApp.Principal.Aplication.Commands
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }
 
-        public async Task<ValidationResult> Handle(AlterarUnidadeCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(EditarUnidadeCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido()) return request.ValidationResult;
 
@@ -92,7 +92,7 @@ namespace CondominioApp.Principal.Aplication.Commands
             grupo.AlterarUnidade(unidadeBD);
 
             unidadeBD.AdicionarEvento(
-               new UnidadeAlteradaEvent(unidadeBD.Id, unidadeBD.DataDeAlteracao,
+               new UnidadeEditadaEvent(unidadeBD.Id, unidadeBD.DataDeAlteracao,
                unidadeBD.Numero, unidadeBD.Andar, unidadeBD.Vagas, unidadeBD.Telefone.Numero,
                unidadeBD.Ramal, unidadeBD.Complemento));
 

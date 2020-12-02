@@ -48,12 +48,12 @@ namespace CondominioApp.Principal.Tests
         }
 
 
-        [Fact(DisplayName = "Alterar Condominio Válido")]
+        [Fact(DisplayName = "Editar Condominio Válido")]
         [Trait("Categoria", "Condominios - CondominioCommandHandler")]
-        public async Task AlterarCondominio_CommandoValido_DevePassarNaValidacao()
+        public async Task EditarCondominio_CommandoValido_DevePassarNaValidacao()
         {
             //Arrange
-            var command = CondominioCommandFactory.CriarComandoAlteracaoDeCondominio();
+            var command = CondominioCommandFactory.CriarComandoEdicaoDeCondominio();
 
             var condominio = new Condominio(command.Cnpj, command.Nome, command.Descricao,
               command.LogoMarca, command.Telefone, command.Endereco, 0, null, null, null, 
@@ -81,12 +81,12 @@ namespace CondominioApp.Principal.Tests
         }
 
 
-        [Fact(DisplayName = "Alterar Configuracao Condominio Válido")]
+        [Fact(DisplayName = "Editar Configuracao Condominio Válido")]
         [Trait("Categoria", "Condominios - CondominioCommandHandler")]
-        public async Task AlterarConfiguracaoCondominio_CommandoValido_DevePassarNaValidacao()
+        public async Task EditarConfiguracaoCondominio_CommandoValido_DevePassarNaValidacao()
         {
             //Arrange
-            var command = CondominioCommandFactory.CriarComandoAlteracaoDeCondominio();
+            var command = CondominioCommandFactory.CriarComandoEdicaoDeCondominio();
 
             var condominio = new Condominio(command.Cnpj, command.Nome, command.Descricao,
               command.LogoMarca, command.Telefone, command.Endereco, 0, null, null, null, 

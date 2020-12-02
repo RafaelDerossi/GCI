@@ -11,7 +11,7 @@ namespace CondominioApp.Enquetes.App.Aplication.Commands
 {
     public class EnqueteCommandHandler : CommandHandler,
          IRequestHandler<CadastrarEnqueteCommand, ValidationResult>,
-         IRequestHandler<AlterarEnqueteCommand, ValidationResult>,
+         IRequestHandler<EditarEnqueteCommand, ValidationResult>,
          IRequestHandler<RemoverEnqueteCommand, ValidationResult>,
          IDisposable
     {
@@ -43,7 +43,7 @@ namespace CondominioApp.Enquetes.App.Aplication.Commands
             return await PersistirDados(_EnqueteRepository.UnitOfWork);
         }
 
-        public async Task<ValidationResult> Handle(AlterarEnqueteCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(EditarEnqueteCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido())
                 return request.ValidationResult;

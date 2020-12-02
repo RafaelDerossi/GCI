@@ -60,12 +60,12 @@ namespace CondominioApp.Principal.Tests
 
 
 
-        [Fact(DisplayName = "Alterar Grupo Válido")]
+        [Fact(DisplayName = "Editar Grupo Válido")]
         [Trait("Categoria", "Grupos - GrupoCommandHandler")]
-        public async Task AlterarGrupo_CommandoValido_DevePassarNaValidacao()
+        public async Task EditarGrupo_CommandoValido_DevePassarNaValidacao()
         {
             //Arrange
-            var command = GrupoCommandFactory.CriarComandoAlteracaoDeGrupo();
+            var command = GrupoCommandFactory.CriarComandoEdicaoDeGrupo();
 
             var grupo = new Grupo(command.Descricao, command.CondominioId);
             grupo.SetEntidadeId(command.GrupoId);

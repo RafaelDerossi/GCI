@@ -22,12 +22,12 @@ namespace CondominioApp.Enquetes.App.Tests
         }    
 
 
-        [Fact(DisplayName = "Alterar AlternativaEnquete Válido")]
+        [Fact(DisplayName = "Editar AlternativaEnquete Válido")]
         [Trait("Categoria", "AlternativasEnquete - AlternativaEnqueteCommandHandler")]
-        public async Task AlterarAlternativaEnquete_CommandoValido_DevePassarNaValidacao()
+        public async Task EditarAlternativaEnquete_CommandoValido_DevePassarNaValidacao()
         {
             //Arrange
-            var command = AlternativaEnqueteCommandFactory.CriarComandoAlteracaoDeAlternativaEnquete();
+            var command = AlternativaEnqueteCommandFactory.CriarComandoEdicaoDeAlternativaEnquete();
 
             var alternativa = new AlternativaEnquete("COM CERTEZA", Guid.NewGuid());
             

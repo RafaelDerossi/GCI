@@ -5,10 +5,10 @@ using FluentValidation;
 
 namespace CondominioApp.Principal.Aplication.Events
 {
-    public class CondominioAlteradoEvent : CondominioEvent
+    public class CondominioEditadoEvent : CondominioEvent
     {
       
-        public CondominioAlteradoEvent(Guid id, DateTime dataDeCadastro, DateTime dataDeAlteracao,
+        public CondominioEditadoEvent(Guid id, DateTime dataDeCadastro, DateTime dataDeAlteracao,
            Cnpj cnpj, string nome, string descricao, Foto logoMarca,
            Telefone telefone, Endereco endereo)            
         {

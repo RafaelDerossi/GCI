@@ -3,10 +3,10 @@ using System;
 
 namespace CondominioApp.Principal.Aplication.Commands
 {
-   public class AlterarConfiguracaoCondominioCommand : CondominioCommand
+   public class EditarConfiguracaoCondominioCommand : CondominioCommand
     {
 
-        public AlterarConfiguracaoCondominioCommand(Guid condominioId, bool portaria = false, bool portariaMorador = false,
+        public EditarConfiguracaoCondominioCommand(Guid condominioId, bool portaria = false, bool portariaMorador = false,
             bool classificado = false, bool classificadoMorador = false, bool mural = false, bool muralMorador = false,
             bool chat = false, bool chatMorador = false, bool reserva = false, bool reservaNaPortaria = false,
             bool ocorrencia = false, bool ocorrenciaMorador = false, bool correspondencia = false,
@@ -41,7 +41,7 @@ namespace CondominioApp.Principal.Aplication.Commands
         }
 
 
-        public class AlterarConfiguracaoCondominioCommandValidation : CondominioValidation<AlterarConfiguracaoCondominioCommand>
+        public class AlterarConfiguracaoCondominioCommandValidation : CondominioValidation<EditarConfiguracaoCondominioCommand>
         {
             public AlterarConfiguracaoCondominioCommandValidation()
             {

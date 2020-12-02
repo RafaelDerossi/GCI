@@ -3,9 +3,9 @@ using System;
 
 namespace CondominioApp.Principal.Aplication.Events
 {
-    public class UnidadeAlteradaEvent : UnidadeEvent
+    public class UnidadeEditadaEvent : UnidadeEvent
     {
-        public UnidadeAlteradaEvent(Guid id, DateTime dataDeAlteracao,
+        public UnidadeEditadaEvent(Guid id, DateTime dataDeAlteracao,
             string unidadeNumero, string unidadeAndar, int unidadeVagas, string unidadeTelefone,
             string unidadeRamal, string unidadeComplemento)
         {

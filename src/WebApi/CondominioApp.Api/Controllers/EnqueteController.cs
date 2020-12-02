@@ -90,7 +90,7 @@ namespace CondominioApp.Api.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var comando = new AlterarEnqueteCommand(
+            var comando = new EditarEnqueteCommand(
                 enqueteVM.Id, enqueteVM.Descricao, enqueteVM.DataInicio, 
                 enqueteVM.DataFim, enqueteVM.ApenasProprietarios);
 
@@ -118,7 +118,7 @@ namespace CondominioApp.Api.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var comando = new AlterarAlternativaCommand(
+            var comando = new EditarAlternativaCommand(
                 alternativaVM.Id, alternativaVM.Descricao);
 
 

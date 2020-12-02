@@ -64,7 +64,7 @@ namespace CondominioApp.Api.Controllers
 
 
         [HttpPut("{Id:Guid}")]
-        public async Task<ActionResult> Put(Guid Id, AlteraUnidadeViewModel unidadeVM)
+        public async Task<ActionResult> Put(Guid Id, EditaUnidadeViewModel unidadeVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
@@ -74,7 +74,7 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }
 
-            var comando = new AlterarUnidadeCommand(
+            var comando = new EditarUnidadeCommand(
             unidadeVM.Id, unidadeVM.Numero, unidadeVM.Andar,
             unidadeVM.Vagas, unidadeVM.Telefone, unidadeVM.Ramal, unidadeVM.Complemento);
 

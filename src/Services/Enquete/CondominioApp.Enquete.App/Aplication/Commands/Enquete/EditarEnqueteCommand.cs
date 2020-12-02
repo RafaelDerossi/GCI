@@ -4,10 +4,10 @@ using System.Collections.Generic;
 
 namespace CondominioApp.Enquetes.App.Aplication.Commands
 {
-   public class AlterarEnqueteCommand : EnqueteCommand
+   public class EditarEnqueteCommand : EnqueteCommand
     {
 
-        public AlterarEnqueteCommand(Guid enqueteId, string descricao, DateTime dataInicio, DateTime dataFim, bool apenasProprietarios)
+        public EditarEnqueteCommand(Guid enqueteId, string descricao, DateTime dataInicio, DateTime dataFim, bool apenasProprietarios)
         {
             Id = enqueteId;
             Descricao = descricao;           
@@ -23,14 +23,14 @@ namespace CondominioApp.Enquetes.App.Aplication.Commands
             if (!ValidationResult.IsValid)
                 return ValidationResult.IsValid;
 
-            ValidationResult = new AlterarEnqueteCommandValidation().Validate(this);
+            ValidationResult = new EditarEnqueteCommandValidation().Validate(this);
             return ValidationResult.IsValid;
         }
 
 
-        public class AlterarEnqueteCommandValidation : EnqueteValidation<AlterarEnqueteCommand>
+        public class EditarEnqueteCommandValidation : EnqueteValidation<EditarEnqueteCommand>
         {
-            public AlterarEnqueteCommandValidation()
+            public EditarEnqueteCommandValidation()
             {
                 ValidateId();
                 ValidateDescricao();

@@ -3,10 +3,10 @@ using System;
 
 namespace CondominioApp.Principal.Aplication.Commands
 {
-    public class AlterarGrupoCommand : GrupoCommand
+    public class EditarGrupoCommand : GrupoCommand
     {
 
-        public AlterarGrupoCommand(Guid grupoId, string descricao)
+        public EditarGrupoCommand(Guid grupoId, string descricao)
         {            
             Descricao = descricao;
             GrupoId = grupoId;
@@ -18,14 +18,14 @@ namespace CondominioApp.Principal.Aplication.Commands
             if (!ValidationResult.IsValid)
                 return ValidationResult.IsValid;
 
-            ValidationResult = new AlterarGrupoCommandValidation().Validate(this);
+            ValidationResult = new EditarGrupoCommandValidation().Validate(this);
             return ValidationResult.IsValid;
         }
 
 
-        public class AlterarGrupoCommandValidation : GrupoValidation<AlterarGrupoCommand>
+        public class EditarGrupoCommandValidation : GrupoValidation<EditarGrupoCommand>
         {
-            public AlterarGrupoCommandValidation()
+            public EditarGrupoCommandValidation()
             {
                 ValidateId();
                 ValidateDescricao();                               

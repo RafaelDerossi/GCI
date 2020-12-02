@@ -39,6 +39,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
         
 
         public async Task<ValidationResult> Handle(EditarMoradorCommand request, CancellationToken cancellationToken)
+
         {
             if (!request.EstaValido()) return request.ValidationResult;
 
@@ -55,7 +56,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
             Morador.SetPermissao(request.Permissao);
             Morador.SetDataNascimento(request.DataNascimento);
 
-            _usuarioRepository.Adicionar(Morador);
+            _usuarioRepository.Atualizar(Morador);
 
             return await PersistirDados(_usuarioRepository.UnitOfWork);
         }

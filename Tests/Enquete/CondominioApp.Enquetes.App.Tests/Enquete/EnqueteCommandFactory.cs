@@ -130,10 +130,10 @@ namespace CondominioApp.Enquetes.App.Tests
                 "Nome do Condominio", Guid.NewGuid(), "", false, alternativas);
         }
 
-        public static AlterarEnqueteCommand CriarComandoAlteracaoDeEnquete()
+        public static EditarEnqueteCommand CriarComandoEdicaoDeEnquete()
         {           
             //Act
-            return new AlterarEnqueteCommand(Guid.NewGuid(), "SIM ou NAO?", DateTime.Now, DateTime.Now.AddDays(30), false);
+            return new EditarEnqueteCommand(Guid.NewGuid(), "SIM ou NAO?", DateTime.Now, DateTime.Now.AddDays(30), false);
         }
     }
 }

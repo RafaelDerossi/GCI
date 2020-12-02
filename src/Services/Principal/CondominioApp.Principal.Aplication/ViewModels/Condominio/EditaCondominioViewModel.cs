@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CondominioApp.Principal.Aplication.ViewModels
 {
-   public class AlteraCondominioViewModel
+   public class EditaCondominioViewModel
     {
 
         public Guid Id { get; set; }

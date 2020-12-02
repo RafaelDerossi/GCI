@@ -6,10 +6,10 @@ namespace CondominioApp.Enquetes.App.Tests
 {
     public class AlternativaEnqueteCommandFactory
     {
-        public static AlterarAlternativaCommand CriarComandoAlteracaoDeAlternativaEnquete()
+        public static EditarAlternativaCommand CriarComandoEdicaoDeAlternativaEnquete()
         {
             //Act
-            return new AlterarAlternativaCommand(Guid.NewGuid(), "COM CERTEZA");
+            return new EditarAlternativaCommand(Guid.NewGuid(), "COM CERTEZA");
         }
     }
 }

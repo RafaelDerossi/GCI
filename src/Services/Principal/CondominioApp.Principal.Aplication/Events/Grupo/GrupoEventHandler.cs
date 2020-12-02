@@ -10,7 +10,7 @@ namespace CondominioApp.Principal.Aplication.Events
 {
     public class GrupoEventHandler : EventHandler,
         INotificationHandler<GrupoCadastradoEvent>,
-        INotificationHandler<GrupoAlteradoEvent>,
+        INotificationHandler<GrupoEditadoEvent>,
         INotificationHandler<GrupoRemovidoEvent>,
         System.IDisposable
     {
@@ -34,7 +34,7 @@ namespace CondominioApp.Principal.Aplication.Events
             await PersistirDados(_condominioQueryRepository.UnitOfWork);
         }
 
-        public async Task Handle(GrupoAlteradoEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(GrupoEditadoEvent notification, CancellationToken cancellationToken)
         {
 
             //Atualizar no GrupoFlat

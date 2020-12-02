@@ -3,10 +3,10 @@ using System;
 
 namespace CondominioApp.Principal.Aplication.Events
 {
-    public class GrupoAlteradoEvent : GrupoEvent
+    public class GrupoEditadoEvent : GrupoEvent
     {
 
-        public GrupoAlteradoEvent(Guid grupoId, DateTime dataDeAlteracao, string descricao)
+        public GrupoEditadoEvent(Guid grupoId, DateTime dataDeAlteracao, string descricao)
         {
             DataDeAlteracao = dataDeAlteracao;
             Descricao = descricao;

@@ -54,11 +54,11 @@ namespace CondominioApp.Api.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> Put(AlteraGrupoViewModel grupoVM)
+        public async Task<ActionResult> Put(EditaGrupoViewModel grupoVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var comando = new AlterarGrupoCommand(
+            var comando = new EditarGrupoCommand(
                 grupoVM.Id, grupoVM.Descricao);
 
 

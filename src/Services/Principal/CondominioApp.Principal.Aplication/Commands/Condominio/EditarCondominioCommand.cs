@@ -3,10 +3,10 @@ using System;
 
 namespace CondominioApp.Principal.Aplication.Commands
 {
-   public class AlterarCondominioCommand : CondominioCommand
+   public class EditarCondominioCommand : CondominioCommand
     {
 
-        public AlterarCondominioCommand(Guid condominioId, string cnpj, string nome, string descricao = null, 
+        public EditarCondominioCommand(Guid condominioId, string cnpj, string nome, string descricao = null, 
             string logoMarca = null, string nomeOriginal = null, string telefone = null, string logradouro = null,
             string complemento = null, string numero = null, string cep = null, string bairro = null, 
             string cidade = null, string estado = null)
@@ -27,14 +27,14 @@ namespace CondominioApp.Principal.Aplication.Commands
             if (!ValidationResult.IsValid)
                 return ValidationResult.IsValid;
 
-            ValidationResult = new AlterarCondominioCommandValidation().Validate(this);
+            ValidationResult = new EditarCondominioCommandValidation().Validate(this);
             return ValidationResult.IsValid;
         }
 
 
-        public class AlterarCondominioCommandValidation : CondominioValidation<AlterarCondominioCommand>
+        public class EditarCondominioCommandValidation : CondominioValidation<EditarCondominioCommand>
         {
-            public AlterarCondominioCommandValidation()
+            public EditarCondominioCommandValidation()
             {
                 ValidateId();
                 ValidateCNPJ();

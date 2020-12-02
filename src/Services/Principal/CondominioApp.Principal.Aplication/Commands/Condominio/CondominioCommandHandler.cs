@@ -12,8 +12,8 @@ namespace CondominioApp.Principal.Aplication.Commands
 {
     public class CondominioCommandHandler : CommandHandler,
          IRequestHandler<CadastrarCondominioCommand, ValidationResult>,
-         IRequestHandler<AlterarCondominioCommand, ValidationResult>,
-         IRequestHandler<AlterarConfiguracaoCondominioCommand, ValidationResult>,
+         IRequestHandler<EditarCondominioCommand, ValidationResult>,
+         IRequestHandler<EditarConfiguracaoCondominioCommand, ValidationResult>,
          IRequestHandler<RemoverCondominioCommand, ValidationResult>, IDisposable
     {
 
@@ -53,7 +53,7 @@ namespace CondominioApp.Principal.Aplication.Commands
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }
 
-        public async Task<ValidationResult> Handle(AlterarCondominioCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(EditarCondominioCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido()) return request.ValidationResult;
             
@@ -80,14 +80,14 @@ namespace CondominioApp.Principal.Aplication.Commands
             _condominioRepository.Atualizar(condominioBd);
 
             condominioBd.AdicionarEvento(
-               new CondominioAlteradoEvent(condominioBd.Id, condominioBd.DataDeCadastro, condominioBd.DataDeAlteracao,
+               new CondominioEditadoEvent(condominioBd.Id, condominioBd.DataDeCadastro, condominioBd.DataDeAlteracao,
                condominioBd.Cnpj, condominioBd.Nome, condominioBd.Descricao, condominioBd.LogoMarca,
                condominioBd.Telefone, condominioBd.Endereco));
 
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }
 
-        public async Task<ValidationResult> Handle(AlterarConfiguracaoCondominioCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(EditarConfiguracaoCondominioCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido())
                 return request.ValidationResult;
@@ -191,7 +191,7 @@ namespace CondominioApp.Principal.Aplication.Commands
             _condominioRepository.Atualizar(condominioBd);
 
             condominioBd.AdicionarEvento(
-              new CondominioConfiguracaoAlteradoEvent(condominioBd.Id, condominioBd.DataDeAlteracao,
+              new CondominioConfiguracaoEditadoEvent(condominioBd.Id, condominioBd.DataDeAlteracao,
               condominioBd.Portaria, condominioBd.PortariaMorador, condominioBd.Classificado, 
               condominioBd.ClassificadoMorador, condominioBd.Mural, condominioBd.MuralMorador, 
               condominioBd.Chat, condominioBd.ChatMorador, condominioBd.Reserva,

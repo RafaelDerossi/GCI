@@ -87,53 +87,53 @@ namespace CondominioApp.Principal.Tests
         }
 
         /// <summary>
-        /// AlterarCommand
+        /// EditarCommand
         /// </summary>
         /// <returns></returns>
-        public static AlterarCondominioCommand CriarComandoAlteracaoDeCondominio()
+        public static EditarCondominioCommand CriarComandoEdicaoDeCondominio()
         {
 
-            return new AlterarCondominioCommand(Guid.NewGuid(), "26585345000148", "Condominio TU",
+            return new EditarCondominioCommand(Guid.NewGuid(), "26585345000148", "Condominio TU",
                 "Condominio Teste Unitario", "Foto.jpg", "Foto.jpg", "(21) 99796-7038",
                 "Rua...", null, "1001", "23063260", "Bairro", "Cidade", "RJ");
 
         }
 
-        public static AlterarCondominioCommand CriarComandoAlteracaoDeCondominioSemCNPJ()
+        public static EditarCondominioCommand CriarComandoEdicaoDeCondominioSemCNPJ()
         {
 
-            return new AlterarCondominioCommand(Guid.NewGuid(), null, "Condominio TU",
+            return new EditarCondominioCommand(Guid.NewGuid(), null, "Condominio TU",
                 "Condominio Teste Unitario", "Foto.jpg", "Foto.jpg", "(21) 99796-7038",
                 "Rua...", null, "1001", "23063260", "Bairro", "Cidade", "RJ");
 
         }
 
-        public static AlterarCondominioCommand CriarComandoAlteracaoDeCondominioComCNPJInvalido()
+        public static EditarCondominioCommand CriarComandoEdicaoDeCondominioComCNPJInvalido()
         {
 
-            return new AlterarCondominioCommand(Guid.NewGuid(), "26585345000150", "Condominio TU",
+            return new EditarCondominioCommand(Guid.NewGuid(), "26585345000150", "Condominio TU",
                 "Condominio Teste Unitario", "Foto.jpg", "Foto.jpg", "(21) 99796-7038",
                 "Rua...", null, "1001", "23063260", "Bairro", "Cidade", "RJ");
 
         }
 
-        public static AlterarCondominioCommand CriarComandoAlteracaoDeCondominioSemNome()
+        public static EditarCondominioCommand CriarComandoEdicaoDeCondominioSemNome()
         {
 
-            return new AlterarCondominioCommand(Guid.NewGuid(), "26585345000148", null,
+            return new EditarCondominioCommand(Guid.NewGuid(), "26585345000148", null,
                 "Condominio Teste Unitario", "Foto.jpg", "Foto.jpg", "(21) 99796-7038",
                 "Rua...", null, "1001", "23063260", "Bairro", "Cidade", "RJ");
 
         }
 
         /// <summary>
-        /// AlterarConfiguracaoCommand
+        /// EditarConfiguracaoCommand
         /// </summary>
         /// <returns></returns>
-        public static AlterarConfiguracaoCondominioCommand CriarComandoAlteracaoDeConfiguracaoDoCondominio()
+        public static EditarConfiguracaoCondominioCommand CriarComandoEdicaoDeConfiguracaoDoCondominio()
         {
 
-            return new AlterarConfiguracaoCondominioCommand(Guid.NewGuid(), true, false, true,
+            return new EditarConfiguracaoCondominioCommand(Guid.NewGuid(), true, false, true,
                 false, false, false, false, false, false, false, false, false, false, false, false);
 
         }
