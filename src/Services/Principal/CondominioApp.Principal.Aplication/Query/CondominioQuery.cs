@@ -35,7 +35,6 @@ namespace CondominioApp.Principal.Aplication.Query
         #endregion
 
 
-
         #region Grupo
         public async Task<GrupoFlat> ObterGrupoPorId(Guid Id)
         {

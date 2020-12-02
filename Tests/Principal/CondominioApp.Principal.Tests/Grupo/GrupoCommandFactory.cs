@@ -50,14 +50,14 @@ namespace CondominioApp.Principal.Tests
 
 
         /// <summary>
-        /// AlterarGrupoCommand
+        /// EditarGrupoCommand
         /// </summary>
         /// <returns></returns>
-        public static AlterarGrupoCommand CriarComandoAlteracaoDeGrupo()
+        public static EditarGrupoCommand CriarComandoEdicaoDeGrupo()
         {
             try
             {
-                return new AlterarGrupoCommand(Guid.NewGuid(), "Bloco 1");
+                return new EditarGrupoCommand(Guid.NewGuid(), "Bloco 1");
             }
             catch (Exception)
             {
@@ -65,11 +65,11 @@ namespace CondominioApp.Principal.Tests
             }
         }
 
-        public static AlterarGrupoCommand CriarComandoAlteracaoDeGrupoSemDescricao()
+        public static EditarGrupoCommand CriarComandoEdicaoDeGrupoSemDescricao()
         {
             try
             {
-                return new AlterarGrupoCommand(Guid.NewGuid(), null);
+                return new EditarGrupoCommand(Guid.NewGuid(), null);
             }
             catch (Exception)
             {
@@ -77,11 +77,11 @@ namespace CondominioApp.Principal.Tests
             }
         }
 
-        public static AlterarGrupoCommand CriarComandoAlteracaoDeGrupoSemCondominio()
+        public static EditarGrupoCommand CriarComandoEdicaoDeGrupoSemCondominio()
         {
             try
             {
-                return new AlterarGrupoCommand(Guid.Empty, "Bloco 1");
+                return new EditarGrupoCommand(Guid.Empty, "Bloco 1");
             }
             catch (Exception)
             {

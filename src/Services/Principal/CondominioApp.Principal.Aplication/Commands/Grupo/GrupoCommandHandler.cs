@@ -12,7 +12,7 @@ namespace CondominioApp.Principal.Aplication.Commands
 {
     public class GrupoCommandHandler : CommandHandler,
          IRequestHandler<CadastrarGrupoCommand, ValidationResult>,
-         IRequestHandler<AlterarGrupoCommand, ValidationResult>,
+         IRequestHandler<EditarGrupoCommand, ValidationResult>,
          IRequestHandler<RemoverGrupoCommand, ValidationResult>, IDisposable
     {
 
@@ -53,7 +53,7 @@ namespace CondominioApp.Principal.Aplication.Commands
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }
 
-        public async Task<ValidationResult> Handle(AlterarGrupoCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(EditarGrupoCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido()) return request.ValidationResult;
 
@@ -80,7 +80,7 @@ namespace CondominioApp.Principal.Aplication.Commands
             _condominioRepository.Atualizar(condominio);
 
             grupoBd.AdicionarEvento(
-              new GrupoAlteradoEvent(grupoBd.Id, grupoBd.DataDeAlteracao, grupoBd.Descricao));
+              new GrupoEditadoEvent(grupoBd.Id, grupoBd.DataDeAlteracao, grupoBd.Descricao));
 
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }

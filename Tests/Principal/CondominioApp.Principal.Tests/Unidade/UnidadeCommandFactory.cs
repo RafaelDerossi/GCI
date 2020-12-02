@@ -7,58 +7,68 @@ namespace CondominioApp.Principal.Tests
 {
    public class UnidadeCommandFactory
     {
+
+        /// CadastroCommand
         public static CadastrarUnidadeCommand CriarComandoCadastroDeUnidade()
         {
-            try
-            {
-                return new CadastrarUnidadeCommand(null,"101","1",2, 
-                   "(21) 96404-9371", "100", "complemento teste", Guid.NewGuid());
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            return new CadastrarUnidadeCommand(null, "101", "1", 2,
+                  "(21) 96404-9371", "100", "complemento teste", Guid.NewGuid());            
         }
 
         public static CadastrarUnidadeCommand CriarComandoCadastroDeUnidadeSemNumero()
         {
-            try
-            {
-                return new CadastrarUnidadeCommand(null, null, "1", 2,
-                    "(21) 96404-9371", "100", "complemento teste", Guid.NewGuid());
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
+            return new CadastrarUnidadeCommand(null, null, "1", 2,
+                   "(21) 96404-9371", "100", "complemento teste", Guid.NewGuid());
+        }           
 
         public static CadastrarUnidadeCommand CriarComandoCadastroDeUnidadeSemAndar()
         {
-            try
-            {
-                return new CadastrarUnidadeCommand(null, "101", null, 2,
-                    "(21) 96404-9371", "100", "complemento teste", Guid.NewGuid());
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            return new CadastrarUnidadeCommand(null, "101", null, 2,
+                    "(21) 96404-9371", "100", "complemento teste", Guid.NewGuid());           
         }
 
         public static CadastrarUnidadeCommand CriarComandoCadastroDeUnidadeSemGrupo()
         {
-            try
-            {
-                return new CadastrarUnidadeCommand(null, "101", "1", 2,
-                    "(21) 96404-9371", "100", "complemento teste", Guid.Empty);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            return new CadastrarUnidadeCommand(null, "101", "1", 2,
+                   "(21) 96404-9371", "100", "complemento teste", Guid.Empty);            
         }
 
-       
+        public static CadastrarUnidadeCommand CriarComandoCadastroDeUnidadeSemTelefone()
+        {
+            return new CadastrarUnidadeCommand(null, "101", "1", 2,
+                  "", "100", "complemento teste", Guid.NewGuid());
+        }
+
+
+        /// EditarCommand        
+        public static EditarUnidadeCommand CriarComandoEdicaoDeUnidade()
+        {
+            return new EditarUnidadeCommand(Guid.NewGuid(), "101", "1", 2, "(21) 96404-9371",
+                   "100", "complemento teste");            
+        }
+
+        public static EditarUnidadeCommand CriarComandoEdicaoDeUnidadeSemNumero()
+        {
+            return new EditarUnidadeCommand(Guid.NewGuid(), "", "1", 2, "(21) 96404-9371",
+                   "100", "complemento teste");
+        }
+
+        public static EditarUnidadeCommand CriarComandoEdicaoDeUnidadeSemAndar()
+        {
+            return new EditarUnidadeCommand(Guid.NewGuid(), "101", "", 2, "(21) 96404-9371",
+                   "100", "complemento teste");
+        }
+
+        public static EditarUnidadeCommand CriarComandoEdicaoDeUnidadeSemTelefone()
+        {
+            return new EditarUnidadeCommand(Guid.NewGuid(), "101", "1", 2, "(21) 96404-9371",
+                   "100", "complemento teste");
+        }
+
+        ///ResetarCodigoCommand
+        public static ResetCodigoUnidadeCommand CriarComandoResetarCodigoDaUnidade()
+        {
+            return new ResetCodigoUnidadeCommand(Guid.NewGuid());
+        }
     }
 }

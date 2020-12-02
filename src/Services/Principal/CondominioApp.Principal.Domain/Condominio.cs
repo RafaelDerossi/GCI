@@ -294,16 +294,6 @@ namespace CondominioApp.Principal.Domain
             return ValidationResult;
         }
 
-        public void AdicionarUnidade(Unidade unidade)
-        {
-            _Unidades.Add(unidade);
-        }
-        public void AlterarUnidade(Unidade unidade)
-        {
-            _Unidades.RemoveAll(u => u.Id == unidade.Id);
-            _Unidades.Add(unidade);
-
-        }
-
+       
     }
 }

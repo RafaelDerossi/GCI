@@ -12,6 +12,9 @@ namespace CondominioApp.Principal.Aplication.Commands
 
         public override bool EstaValido()
         {
+            if (!ValidationResult.IsValid)
+                return ValidationResult.IsValid;
+
             ValidationResult = new ResetCodigoUnidadeCommandValidation().Validate(this);
             return ValidationResult.IsValid;
         }

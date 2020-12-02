@@ -54,12 +54,12 @@ namespace CondominioApp.Api.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> Put(AlteraGrupoViewModel grupoVM)
+        public async Task<ActionResult> Put(EditaGrupoViewModel grupoVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var comando = new AlterarGrupoCommand(
-                grupoVM.GrupoId, grupoVM.Descricao);
+            var comando = new EditarGrupoCommand(
+                grupoVM.Id, grupoVM.Descricao);
 
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);

@@ -64,18 +64,18 @@ namespace CondominioApp.Api.Controllers
 
 
         [HttpPut("{Id:Guid}")]
-        public async Task<ActionResult> Put(Guid Id, AlteraUnidadeViewModel unidadeVM)
+        public async Task<ActionResult> Put(Guid Id, EditaUnidadeViewModel unidadeVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            if (Id != unidadeVM.UnidadeId)
+            if (Id != unidadeVM.Id)
             {
                 AdicionarErroProcessamento("Id não confere!");
                 return CustomResponse();
             }
 
-            var comando = new AlterarUnidadeCommand(
-            unidadeVM.UnidadeId, unidadeVM.Numero, unidadeVM.Andar,
+            var comando = new EditarUnidadeCommand(
+            unidadeVM.Id, unidadeVM.Numero, unidadeVM.Andar,
             unidadeVM.Vagas, unidadeVM.Telefone, unidadeVM.Ramal, unidadeVM.Complemento);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);

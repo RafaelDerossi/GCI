@@ -21,6 +21,9 @@ namespace CondominioApp.Principal.Aplication.Commands
 
         public override bool EstaValido()
         {
+            if (!ValidationResult.IsValid)
+                return ValidationResult.IsValid;
+
             ValidationResult = new CadastrarUnidadeCommandValidation().Validate(this);
             return ValidationResult.IsValid;
         }

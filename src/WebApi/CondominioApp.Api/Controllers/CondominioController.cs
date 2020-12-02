@@ -69,16 +69,16 @@ namespace CondominioApp.Api.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> Put(AlteraCondominioViewModel AlteraCondominioVM)
+        public async Task<ActionResult> Put(EditaCondominioViewModel EditaCondominioVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var comando = new AlterarCondominioCommand(
-                 AlteraCondominioVM.CodominioId, AlteraCondominioVM.Cnpj, AlteraCondominioVM.Nome,
-                 AlteraCondominioVM.Descricao, AlteraCondominioVM.LogoMarca, AlteraCondominioVM.NomeOriginal,
-                 AlteraCondominioVM.Telefone, AlteraCondominioVM.Logradouro, AlteraCondominioVM.Complemento,
-                 AlteraCondominioVM.Numero, AlteraCondominioVM.Cep, AlteraCondominioVM.Bairro, 
-                 AlteraCondominioVM.Cidade, AlteraCondominioVM.Estado);
+            var comando = new EditarCondominioCommand(
+                 EditaCondominioVM.Id, EditaCondominioVM.Cnpj, EditaCondominioVM.Nome,
+                 EditaCondominioVM.Descricao, EditaCondominioVM.LogoMarca, EditaCondominioVM.NomeOriginal,
+                 EditaCondominioVM.Telefone, EditaCondominioVM.Logradouro, EditaCondominioVM.Complemento,
+                 EditaCondominioVM.Numero, EditaCondominioVM.Cep, EditaCondominioVM.Bairro, 
+                 EditaCondominioVM.Cidade, EditaCondominioVM.Estado);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
@@ -86,17 +86,17 @@ namespace CondominioApp.Api.Controllers
         }
 
         [HttpPut("configuracao")]
-        public async Task<ActionResult> Put(AlteraConfiguracaoCondominioViewModel AlteraCondominioVM)
+        public async Task<ActionResult> Put(EditaConfiguracaoCondominioViewModel EditaCondominioVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var comando = new AlterarConfiguracaoCondominioCommand(
-                 AlteraCondominioVM.CodominioId, AlteraCondominioVM.Portaria, AlteraCondominioVM.PortariaMorador,
-                 AlteraCondominioVM.Classificado, AlteraCondominioVM.ClassificadoMorador, AlteraCondominioVM.Mural,
-                 AlteraCondominioVM.MuralMorador, AlteraCondominioVM.Chat, AlteraCondominioVM.ChatMorador, 
-                 AlteraCondominioVM.Reserva, AlteraCondominioVM.ReservaNaPortaria, AlteraCondominioVM.Ocorrencia,
-                 AlteraCondominioVM.OcorrenciaMorador, AlteraCondominioVM.Correspondencia, 
-                 AlteraCondominioVM.CorrespondenciaNaPortaria, AlteraCondominioVM.LimiteTempoReserva);          
+            var comando = new EditarConfiguracaoCondominioCommand(
+                 EditaCondominioVM.Id, EditaCondominioVM.Portaria, EditaCondominioVM.PortariaMorador,
+                 EditaCondominioVM.Classificado, EditaCondominioVM.ClassificadoMorador, EditaCondominioVM.Mural,
+                 EditaCondominioVM.MuralMorador, EditaCondominioVM.Chat, EditaCondominioVM.ChatMorador, 
+                 EditaCondominioVM.Reserva, EditaCondominioVM.ReservaNaPortaria, EditaCondominioVM.Ocorrencia,
+                 EditaCondominioVM.OcorrenciaMorador, EditaCondominioVM.Correspondencia, 
+                 EditaCondominioVM.CorrespondenciaNaPortaria, EditaCondominioVM.LimiteTempoReserva);          
                     
 
             return CustomResponse(await _mediatorHandler.EnviarComando(comando));

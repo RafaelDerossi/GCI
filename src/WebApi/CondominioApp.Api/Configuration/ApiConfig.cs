@@ -1,4 +1,5 @@
-﻿using CondominioApp.Principal.Infra.Data;
+﻿using CondominioApp.Enquetes.App.Data;
+using CondominioApp.Principal.Infra.Data;
 using CondominioApp.Principal.Infra.DataQuery;
 using CondominioApp.Usuarios.App.Data;
 using CondominioApp.WebApi.Core.Identidade;
@@ -36,6 +37,9 @@ namespace CondominioApp.Api.Configuration
 
             services.AddDbContext<PrincipalQueryContextDB>(options =>
               options.UseSqlServer(configuration.GetConnectionString("QueryConnection")));
+
+            services.AddDbContext<EnqueteContextDB>(options =>
+            options.UseSqlServer(configuration.GetConnectionString("EnqueteConnection")));
 
             services.Configure<ApiBehaviorOptions>(options =>
             {
