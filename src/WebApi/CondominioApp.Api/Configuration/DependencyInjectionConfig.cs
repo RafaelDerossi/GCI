@@ -1,6 +1,9 @@
 ﻿using CondominioApp.BS.App.Services;
 using CondominioApp.BS.App.Services.Interfaces;
 using CondominioApp.Core.Mediator;
+using CondominioApp.Correspondencias.App.Aplication.Commands;
+using CondominioApp.Correspondencias.App.Data.Repository;
+using CondominioApp.Correspondencias.App.Models;
 using CondominioApp.Enquetes.App.Aplication.Commands;
 using CondominioApp.Enquetes.App.Aplication.Events;
 using CondominioApp.Enquetes.App.Aplication.Query;
@@ -74,6 +77,15 @@ namespace CondominioApp.Api.Configuration
             //RespostaEnquete
             services.AddScoped<IRequestHandler<CadastrarRespostaCommand, ValidationResult>, RespostaEnqueteCommandHandler>();
 
+
+            //Correspondencia
+            services.AddScoped<IRequestHandler<CadastrarCorrespondenciaCommand, ValidationResult>, CorrespondenciaCommandHandler>();
+            services.AddScoped<IRequestHandler<MarcarCorrespondenciaVistaCommand, ValidationResult>, CorrespondenciaCommandHandler>();
+            services.AddScoped<IRequestHandler<MarcarCorrespondenciaRetiradaCommand, ValidationResult>, CorrespondenciaCommandHandler>();            
+            services.AddScoped<IRequestHandler<MarcarCorrespondenciaDevolvidaCommand, ValidationResult>, CorrespondenciaCommandHandler>();
+            services.AddScoped<IRequestHandler<DispararAlertaDeCorrespondenciaCommand, ValidationResult>, CorrespondenciaCommandHandler>();
+            services.AddScoped<IRequestHandler<RemoverCorrespondenciaCommand, ValidationResult>, CorrespondenciaCommandHandler>();
+
             //Pre Cadastro
             services.AddScoped<IRequestHandler<InserirNovoLeadCommand, ValidationResult>, LeadCommandHandler>();
             services.AddScoped<IRequestHandler<TransferirCondominioCommand, ValidationResult>, LeadCommandHandler>();
@@ -84,13 +96,16 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<IQueryLead, QueryLead>();
             services.AddScoped<ICondominioQuery, CondominioQuery>();
             services.AddScoped<IEnqueteQuery, EnqueteQuery>();
+           
 
             //Repositórios
             services.AddScoped<ICondominioRepository, CondominioRepository>();
             services.AddScoped<ILeadRepository, LeadRepository>();
             services.AddScoped<ICondominioQueryRepository, CondominioQueryRepository>();
             services.AddScoped<IEnqueteRepository, EnqueteRepository>();
-            
+            services.AddScoped<ICorrespondenciaRepository, CorrespondenciaRepository>();
+
+
             //Base software
             services.AddScoped<IBoletoService, BoletoService>();
 

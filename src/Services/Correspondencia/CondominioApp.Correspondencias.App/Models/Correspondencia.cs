@@ -9,6 +9,8 @@ namespace CondominioApp.Correspondencias.App.Models
     {
         public const int Max = 200;
 
+        public Guid CondominioId { get; private set; }
+
         public Guid UnidadeId { get; private set; }
 
         public string NumeroUnidade { get; private set; }
@@ -47,11 +49,12 @@ namespace CondominioApp.Correspondencias.App.Models
         public Correspondencia()
         {
         }
-        public Correspondencia(Guid unidadeId, string numeroUnidade, string bloco, bool visto, 
+        public Correspondencia(Guid condominioId, Guid unidadeId, string numeroUnidade, string bloco, bool visto, 
             string nomeRetirante, string observacao, DateTime dataDaRetirada, Guid usuarioId, 
             string nomeUsuario, Foto foto, string numeroRastreamentoCorreio, DateTime dataDeChegada, 
             int quantidadeDeAlertasFeitos, string tipoDeCorrespondencia, StatusCorrespondencia status)
         {
+            CondominioId = condominioId;
             UnidadeId = unidadeId;
             NumeroUnidade = numeroUnidade;
             Bloco = bloco;
@@ -72,8 +75,9 @@ namespace CondominioApp.Correspondencias.App.Models
 
         ///Metodos Set
         ///
+        public void SetCondominioId(Guid condominioId) => CondominioId = condominioId;
 
-        public void SetUnidadeId(Guid id) => UnidadeId = id;
+        public void SetUnidadeId(Guid unidadeId) => UnidadeId = unidadeId;
 
         public void SetNumeroUnidade(string numeroUnidade) => NumeroUnidade = numeroUnidade;
 
@@ -99,11 +103,15 @@ namespace CondominioApp.Correspondencias.App.Models
 
         public void SetDataDeChegada(DateTime dataDeChegada) => DataDeChegada = dataDeChegada;
 
-        public void SomarAlerta() => QuantidadeDeAlertasFeitos = QuantidadeDeAlertasFeitos++;
+        public void SomarAlerta() => QuantidadeDeAlertasFeitos += 1;
 
         public void SetTipoDeCorrespondencia(string tipoDeCorrespondencia) => TipoDeCorrespondencia = tipoDeCorrespondencia;
 
-        public void SetStatus(StatusCorrespondencia status) => Status = status;
+        public void SetPendente() => Status = StatusCorrespondencia.PENDENTE;
+
+        public void SetRetirado() => Status = StatusCorrespondencia.RETIRADO;
+
+        public void SetDevolvido() => Status = StatusCorrespondencia.DEVOLVIDO;
 
     }
 }

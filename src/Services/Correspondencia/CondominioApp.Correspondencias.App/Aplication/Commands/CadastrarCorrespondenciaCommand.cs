@@ -1,4 +1,5 @@
 ﻿using CondominioApp.Core.Enumeradores;
+using CondominioApp.Core.Helpers;
 using CondominioApp.Correspondencias.App.Aplication.Commands.Validations;
 using System;
 
@@ -7,29 +8,27 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
     public class CadastrarCorrespondenciaCommand : CorrespondenciaCommand
     {
         public CadastrarCorrespondenciaCommand(
-            Guid correspondenciaId, Guid unidadeId, string numeroUnidade, string bloco,
-            bool visto, string nomeRetirante, string observacao, DateTime dataDaRetirada,
-            Guid usuarioId, string nomeUsuario, string foto, string nomeOriginal, string numeroRastreamentoCorreio,
-            DateTime dataDeChegada, int quantidadeDeAlertasFeitos, string tipoDeCorrespondencia,
-            StatusCorrespondencia status)
+            Guid condominioId, Guid unidadeId, string numeroUnidade, string bloco, string observacao, Guid usuarioId, 
+            string nomeUsuario, string foto, string nomeOriginal, string numeroRastreamentoCorreio,
+            DateTime dataDeChegada, string tipoDeCorrespondencia, StatusCorrespondencia status)
         {
-            CorrespondenciaId = correspondenciaId;
+            CondominioId = condominioId;
             UnidadeId = unidadeId;
             NumeroUnidade = numeroUnidade;
-            Bloco = bloco;
-            Visto = visto;
-            NomeRetirante = nomeRetirante;
+            Bloco = bloco;            
             Observacao = observacao;
-            DataDaRetirada = dataDaRetirada;
             UsuarioId = usuarioId;
             NomeUsuario = nomeUsuario;
             NumeroRastreamentoCorreio = numeroRastreamentoCorreio;
             DataDeChegada = dataDeChegada;
-            QuantidadeDeAlertasFeitos = quantidadeDeAlertasFeitos;
             TipoDeCorrespondencia = tipoDeCorrespondencia;
-            Status = status;
+            
+            DataDaRetirada = DataHoraDeBrasilia.Get();         
+            QuantidadeDeAlertasFeitos = 1;
 
             SetFoto(foto, nomeOriginal);
+            SetNaoVisto();
+            SetStatus(status);
         }
 
 
@@ -47,11 +46,10 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
         {
             public CadastrarCorrespondenciaCommandValidation()
             {
+                ValidateCondominioId();
                 ValidateUnidadeId();
                 ValidateNumeroUnidade();
-                ValidateBloco();
-                ValidateVisto();
-                ValidateQuantidadeDeAlertasFeitos();
+                ValidateBloco();               
                 ValidateStatus();
                 ValidateUsuarioId();
                 ValidateNomeUsuario();

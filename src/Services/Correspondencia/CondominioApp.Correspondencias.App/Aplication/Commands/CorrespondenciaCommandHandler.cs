@@ -1,4 +1,6 @@
-﻿using CondominioApp.Core.Messages;
+﻿using CondominioApp.Core.Enumeradores;
+using CondominioApp.Core.Helpers;
+using CondominioApp.Core.Messages;
 using CondominioApp.Correspondencias.App.Models;
 using FluentValidation.Results;
 using MediatR;
@@ -10,7 +12,12 @@ using System.Threading.Tasks;
 namespace CondominioApp.Correspondencias.App.Aplication.Commands
 {
     public class CorrespondenciaCommandHandler : CommandHandler,
-         IRequestHandler<CadastrarCorrespondenciaCommand, ValidationResult>,         
+         IRequestHandler<CadastrarCorrespondenciaCommand, ValidationResult>,
+         IRequestHandler<MarcarCorrespondenciaVistaCommand, ValidationResult>,
+         IRequestHandler<MarcarCorrespondenciaRetiradaCommand, ValidationResult>,
+         IRequestHandler<MarcarCorrespondenciaDevolvidaCommand, ValidationResult>,
+         IRequestHandler<DispararAlertaDeCorrespondenciaCommand, ValidationResult>,
+         IRequestHandler<RemoverCorrespondenciaCommand, ValidationResult>,
          IDisposable
     {
 
@@ -27,21 +34,157 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
             if (!request.EstaValido())
                 return request.ValidationResult;
 
-            var enquete = CorrespondenciaFactory(request);           
+            var correspondencia = CorrespondenciaFactory(request);           
 
-            _CorrespondenciaRepository.Adicionar(enquete);           
+            _CorrespondenciaRepository.Adicionar(correspondencia);           
 
             return await PersistirDados(_CorrespondenciaRepository.UnitOfWork);
         }
 
-       
-        
+        public async Task<ValidationResult> Handle(MarcarCorrespondenciaVistaCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido())
+                return request.ValidationResult;
+
+            var correspondenciaBd = await _CorrespondenciaRepository.ObterPorId(request.CorrespondenciaId);
+            if (correspondenciaBd == null)
+            {
+                AdicionarErro("Correspondência não encontrada.");
+                return ValidationResult;
+            }
+
+            correspondenciaBd.SetVisto();
+
+            _CorrespondenciaRepository.Atualizar(correspondenciaBd);
+
+            return await PersistirDados(_CorrespondenciaRepository.UnitOfWork);
+        }
+
+        public async Task<ValidationResult> Handle(MarcarCorrespondenciaRetiradaCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido())
+                return request.ValidationResult;
+
+            var correspondenciaBd = await _CorrespondenciaRepository.ObterPorId(request.CorrespondenciaId);
+            if (correspondenciaBd == null)
+            {
+                AdicionarErro("Correspondência não encontrada.");
+                return ValidationResult;
+            }
+
+            if (correspondenciaBd.Status == StatusCorrespondencia.DEVOLVIDO)
+            {
+                AdicionarErro("Essa Correspondência consta como DEVOLVIDA.");
+                return ValidationResult;
+            }
+
+            if (correspondenciaBd.Status == StatusCorrespondencia.RETIRADO)
+            {
+                AdicionarErro("Essa Correspondência ja consta como RETIRADA.");
+                return ValidationResult;
+            }
+
+            correspondenciaBd.SetNomeRetirante(request.NomeRetirante);            
+            correspondenciaBd.SetObservacao(request.Observacao);
+            correspondenciaBd.SetUsuarioId(request.UsuarioId);
+            correspondenciaBd.SetNomeUsuario(request.NomeUsuario);
+
+            correspondenciaBd.SetRetirado();
+            correspondenciaBd.SetDataRetirada(DataHoraDeBrasilia.Get());
+            correspondenciaBd.SetVisto();
+
+            _CorrespondenciaRepository.Atualizar(correspondenciaBd);
+
+            return await PersistirDados(_CorrespondenciaRepository.UnitOfWork);
+        }
+
+        public async Task<ValidationResult> Handle(MarcarCorrespondenciaDevolvidaCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido())
+                return request.ValidationResult;
+
+            var correspondenciaBd = await _CorrespondenciaRepository.ObterPorId(request.CorrespondenciaId);
+            if (correspondenciaBd == null)
+            {
+                AdicionarErro("Correspondência não encontrada.");
+                return ValidationResult;
+            }
+            if (correspondenciaBd.Status == StatusCorrespondencia.DEVOLVIDO)
+            {
+                AdicionarErro("Essa Correspondência ja consta como DEVOLVIDA.");
+                return ValidationResult;
+            }
+
+            if (correspondenciaBd.Status == StatusCorrespondencia.RETIRADO)
+            {
+                AdicionarErro("Essa Correspondência consta como RETIRADA.");
+                return ValidationResult;
+            }
+            correspondenciaBd.SetDevolvido();
+            correspondenciaBd.SetObservacao(request.Observacao);
+            correspondenciaBd.SetUsuarioId(request.UsuarioId);
+            correspondenciaBd.SetNomeUsuario(request.NomeUsuario);
+
+            _CorrespondenciaRepository.Atualizar(correspondenciaBd);
+
+            return await PersistirDados(_CorrespondenciaRepository.UnitOfWork);
+        }
+
+        public async Task<ValidationResult> Handle(DispararAlertaDeCorrespondenciaCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido())
+                return request.ValidationResult;
+
+            var correspondenciaBd = await _CorrespondenciaRepository.ObterPorId(request.CorrespondenciaId);
+            if (correspondenciaBd == null)
+            {
+                AdicionarErro("Correspondência não encontrada.");
+                return ValidationResult;
+            }
+
+            if (correspondenciaBd.Status == StatusCorrespondencia.DEVOLVIDO)
+            {
+                AdicionarErro("Essa Correspondência consta como DEVOLVIDA.");
+                return ValidationResult;
+            }
+
+            if (correspondenciaBd.Status == StatusCorrespondencia.RETIRADO)
+            {
+                AdicionarErro("Essa Correspondência consta como RETIRADA.");
+                return ValidationResult;
+            }
+           
+            correspondenciaBd.SomarAlerta();
+            
+            _CorrespondenciaRepository.Atualizar(correspondenciaBd);
+
+            return await PersistirDados(_CorrespondenciaRepository.UnitOfWork);
+        }
+
+        public async Task<ValidationResult> Handle(RemoverCorrespondenciaCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido())
+                return request.ValidationResult;
+
+            var correspondenciaBd = await _CorrespondenciaRepository.ObterPorId(request.CorrespondenciaId);
+            if (correspondenciaBd == null)
+            {
+                AdicionarErro("Correspondência não encontrada.");
+                return ValidationResult;
+            }
+
+            correspondenciaBd.EnviarParaLixeira();
+
+            _CorrespondenciaRepository.Atualizar(correspondenciaBd);
+
+            return await PersistirDados(_CorrespondenciaRepository.UnitOfWork);
+        }
 
 
         private Correspondencia CorrespondenciaFactory(CadastrarCorrespondenciaCommand request)
         {
             var correspondencia = new Correspondencia(
-                request.UnidadeId, request.NumeroUnidade, request.Bloco, request.Visto, request.NomeRetirante,
+                request.CondominioId, request.UnidadeId, request.NumeroUnidade, request.Bloco, request.Visto, request.NomeRetirante,
                 request.Observacao, request.DataDaRetirada, request.UsuarioId, request.NomeUsuario, request.Foto,
                 request.NumeroRastreamentoCorreio, request.DataDeChegada, request.QuantidadeDeAlertasFeitos,
                 request.TipoDeCorrespondencia, request.Status);
