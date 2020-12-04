@@ -46,5 +46,7 @@ namespace CondominioApp.Correspondencias.App.ViewModels
         public string TipoDeCorrespondencia { get; set; }
 
         public string Status { get; set; }
+
+        public bool Lixeira { get; set; }
     }
 }

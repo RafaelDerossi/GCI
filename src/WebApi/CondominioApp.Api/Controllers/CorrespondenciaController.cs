@@ -1,5 +1,9 @@
-﻿using CondominioApp.Core.Mediator;
+﻿using AutoMapper;
+using CondominioApp.Core.Enumeradores;
+using CondominioApp.Core.Mediator;
 using CondominioApp.Correspondencias.App.Aplication.Commands;
+using CondominioApp.Correspondencias.App.Aplication.Query;
+using CondominioApp.Correspondencias.App.Models;
 using CondominioApp.Correspondencias.App.ViewModels;
 using CondominioApp.WebApi.Core.Controllers;
 using Microsoft.AspNetCore.Mvc;
@@ -14,46 +18,53 @@ namespace CondominioApp.Api.Controllers
     {
 
         private readonly IMediatorHandler _mediatorHandler;
-
-        public CorrespondenciaController(IMediatorHandler mediatorHandler)
+        private readonly IMapper _mapper;
+        private readonly ICorrespondenciaQuery _correspondenciaQuery;
+        public CorrespondenciaController(IMediatorHandler mediatorHandler, IMapper mapper, ICorrespondenciaQuery correspondenciaQuery)
         {
             _mediatorHandler = mediatorHandler;
+            _mapper = mapper;
+            _correspondenciaQuery = correspondenciaQuery;
         }
 
 
-        //[HttpGet("{id:Guid}")]
-        //public async Task<EnqueteViewModel> ObterPorId(Guid id)
-        //{
-        //    return _mapper.Map<EnqueteViewModel>(await _enqueteQuery.ObterPorId(id));
-        //}
+        [HttpGet("{id:Guid}")]
+        public async Task<CorrespondenciaViewModel> ObterPorId(Guid id)
+        {
+            return _mapper.Map<CorrespondenciaViewModel>(await _correspondenciaQuery.ObterPorId(id));
+        }
 
-        //[HttpGet("por-condominio/{condominioId:Guid}")]
-        //public async Task<IEnumerable<EnqueteViewModel>> ObterEnquetesPorCondominio(Guid condominioId)
-        //{
-        //    var enquetes = await _enqueteQuery.ObterPorCondominio(condominioId);
+        [HttpGet("por-unidade-e-periodo")]
+        public async Task<IEnumerable<CorrespondenciaViewModel>> ObterPorUnidadeEPeriodo(
+            Guid unidadeId, DateTime dataInicio, DateTime dataFim)
+        {
+            var correspondencias = await _correspondenciaQuery.ObterPorUnidadeEPeriodo(
+                unidadeId, dataInicio, dataFim);
 
-        //    var enquetesVM = new List<EnqueteViewModel>();
-        //    foreach (Enquete item in enquetes)
-        //    {
-        //        var enqueteVM = _mapper.Map<EnqueteViewModel>(item);
-        //        enquetesVM.Add(enqueteVM);
-        //    }
-        //    return enquetesVM;
-        //}
+            var correspondenciasVM = new List<CorrespondenciaViewModel>();
+            foreach (Correspondencia item in correspondencias)
+            {
+                var enqueteVM = _mapper.Map<CorrespondenciaViewModel>(item);
+                correspondenciasVM.Add(enqueteVM);
+            }
+            return correspondenciasVM;
+        }
 
-        //[HttpGet("ativas-por-condominio/{condominioId:Guid}")]
-        //public async Task<IEnumerable<EnqueteViewModel>> ObterEnquetesAtivasPorCondominio(Guid condominioId)
-        //{
-        //    var enquetes = await _enqueteQuery.ObterAtivasPorCondominio(condominioId);
+        [HttpGet("por-condominio-periodo-e-status")]
+        public async Task<IEnumerable<CorrespondenciaViewModel>> ObterEnquetesAtivasPorCondominio(
+            Guid condominioId, DateTime dataInicio, DateTime dataFim, StatusCorrespondencia status)
+        {
+            var correspondencias = await _correspondenciaQuery.ObterPorCondominioPeriodoEStatus(
+                condominioId, dataInicio, dataFim, status);
 
-        //    var enquetesVM = new List<EnqueteViewModel>();
-        //    foreach (Enquete item in enquetes)
-        //    {
-        //        var enqueteVM = _mapper.Map<EnqueteViewModel>(item);
-        //        enquetesVM.Add(enqueteVM);
-        //    }
-        //    return enquetesVM;
-        //}
+            var correspondenciasVM = new List<CorrespondenciaViewModel>();
+            foreach (Correspondencia item in correspondencias)
+            {
+                var enqueteVM = _mapper.Map<CorrespondenciaViewModel>(item);
+                correspondenciasVM.Add(enqueteVM);
+            }
+            return correspondenciasVM;
+        }
 
 
 

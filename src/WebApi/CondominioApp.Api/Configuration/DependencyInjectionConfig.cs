@@ -4,6 +4,7 @@ using CondominioApp.Core.Mediator;
 using CondominioApp.Correspondencias.App.Aplication.Commands;
 using CondominioApp.Correspondencias.App.Data.Repository;
 using CondominioApp.Correspondencias.App.Models;
+using CondominioApp.Correspondencias.App.Aplication.Query;
 using CondominioApp.Enquetes.App.Aplication.Commands;
 using CondominioApp.Enquetes.App.Aplication.Events;
 using CondominioApp.Enquetes.App.Aplication.Query;
@@ -96,7 +97,7 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<IQueryLead, QueryLead>();
             services.AddScoped<ICondominioQuery, CondominioQuery>();
             services.AddScoped<IEnqueteQuery, EnqueteQuery>();
-           
+            services.AddScoped<ICorrespondenciaQuery, CorrespondenciaQuery>();
 
             //Repositórios
             services.AddScoped<ICondominioRepository, CondominioRepository>();

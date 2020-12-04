@@ -25,7 +25,9 @@ namespace CondominioApp.Correspondencias.App.Aplication.Query
             Guid unidadeId, DateTime dataInicio, DateTime dataFim)
         {
             return await _correspondenciaRepository.Obter(
-                c=>c.UnidadeId == unidadeId && c.DataDeCadastro>=dataInicio && c.DataDeCadastro<=dataFim );
+                c=>c.UnidadeId == unidadeId && 
+                c.DataDeCadastro>=dataInicio && c.DataDeCadastro<=dataFim && 
+                !c.Lixeira);
         }
 
         public async Task<IEnumerable<Correspondencia>> ObterPorCondominioPeriodoEStatus(
@@ -34,7 +36,8 @@ namespace CondominioApp.Correspondencias.App.Aplication.Query
             return await _correspondenciaRepository.Obter(
                  c => c.CondominioId == condominioId &&
                  c.DataDeCadastro >= dataInicio && c.DataDeCadastro <= dataFim &&
-                 c.Status == status);
+                 c.Status == status &&
+                 !c.Lixeira);
         }        
                 
 

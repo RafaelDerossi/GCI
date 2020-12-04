@@ -27,8 +27,9 @@ namespace CondominioApp.Correspondencias.App.AutoMapper
                 .ForMember(c => c.NumeroRastreamentoCorreio, p => p.MapFrom(x => x.NumeroRastreamentoCorreio))
                 .ForMember(c => c.DataDeChegada, p => p.MapFrom(x => x.DataDeChegada))
                 .ForMember(c => c.QuantidadeDeAlertasFeitos, p => p.MapFrom(x => x.QuantidadeDeAlertasFeitos))
-                .ForMember(c => c.NomeUsuario, p => p.MapFrom(x => x.TipoDeCorrespondencia))                
-                .ForMember(c => c.NomeUsuario, p => p.MapFrom(x => x.Status.ToString()));           
+                .ForMember(c => c.TipoDeCorrespondencia, p => p.MapFrom(x => x.TipoDeCorrespondencia))                
+                .ForMember(c => c.Status, p => p.MapFrom(x => x.Status.ToString()))
+                .ForMember(c => c.Lixeira, p => p.MapFrom(x => x.Lixeira));           
         }
     }
 }
