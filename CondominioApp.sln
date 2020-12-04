@@ -73,7 +73,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioApp.Enquetes.App"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Correspondencia", "Correspondencia", "{C1690D07-7DCF-4846-B755-BCDC155A8673}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CondominioApp.Correspondencias.App", "src\Services\Correspondencia\CondominioApp.Correspondencias.App\CondominioApp.Correspondencias.App.csproj", "{C9D081F5-CB91-42B5-8ED4-8A220CA8B61B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioApp.Correspondencias.App", "src\Services\Correspondencia\CondominioApp.Correspondencias.App\CondominioApp.Correspondencias.App.csproj", "{C9D081F5-CB91-42B5-8ED4-8A220CA8B61B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CondominioApp.Correspondencias.App.Tests", "Tests\Correspondencia\CondominioApp.Correspondencia.App.Tests\CondominioApp.Correspondencias.App.Tests.csproj", "{67DD85AB-5F20-4F11-9307-C018AD634532}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -165,6 +167,10 @@ Global
 		{C9D081F5-CB91-42B5-8ED4-8A220CA8B61B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C9D081F5-CB91-42B5-8ED4-8A220CA8B61B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C9D081F5-CB91-42B5-8ED4-8A220CA8B61B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67DD85AB-5F20-4F11-9307-C018AD634532}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67DD85AB-5F20-4F11-9307-C018AD634532}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67DD85AB-5F20-4F11-9307-C018AD634532}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67DD85AB-5F20-4F11-9307-C018AD634532}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -205,6 +211,7 @@ Global
 		{14B933B8-D064-43C1-AA5B-5020B02E0402} = {69ADD3EB-B0DA-43ED-BA39-298085632AF3}
 		{C1690D07-7DCF-4846-B755-BCDC155A8673} = {27DA6887-B451-4D5D-A232-00FBE20152FB}
 		{C9D081F5-CB91-42B5-8ED4-8A220CA8B61B} = {C1690D07-7DCF-4846-B755-BCDC155A8673}
+		{67DD85AB-5F20-4F11-9307-C018AD634532} = {C1690D07-7DCF-4846-B755-BCDC155A8673}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DA60CBD7-8A6E-436D-B07E-D654D162CE4B}
