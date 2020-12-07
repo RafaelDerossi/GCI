@@ -1,10 +1,12 @@
 ﻿using CondominioApp.Core.Enumeradores;
 using CondominioApp.Core.Helpers;
 using CondominioApp.Core.Messages;
+using CondominioApp.Correspondencias.App.DTO;
 using CondominioApp.Correspondencias.App.Models;
 using FluentValidation.Results;
 using MediatR;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -18,6 +20,7 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
          IRequestHandler<MarcarCorrespondenciaDevolvidaCommand, ValidationResult>,
          IRequestHandler<DispararAlertaDeCorrespondenciaCommand, ValidationResult>,
          IRequestHandler<RemoverCorrespondenciaCommand, ValidationResult>,
+         IRequestHandler<GerarExcelCorrespondenciaCommand, ValidationResult>,
          IDisposable
     {
 
@@ -178,6 +181,46 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
             _CorrespondenciaRepository.Atualizar(correspondenciaBd);
 
             return await PersistirDados(_CorrespondenciaRepository.UnitOfWork);
+        }
+
+        public async Task<ValidationResult> Handle(GerarExcelCorrespondenciaCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido())
+                return request.ValidationResult;
+
+            var listaCorrespondencias = new List<CorrespondenciaExcelDTO>();
+
+            foreach (Guid correspondenciaId in request.ListaCorrespondenciaId)
+            {                
+                var correspondencia = await _CorrespondenciaRepository.ObterPorId(correspondenciaId);
+
+                if (!correspondencia.Lixeira)
+                {
+                    var CorrespondenciaDTO = new CorrespondenciaExcelDTO
+                    {
+                        DataDaChegada = correspondencia.DataDeCadastroFormatada,
+                        EntreguePor = correspondencia.NomeUsuario,
+                        DataDaRetirada = correspondencia.DataDaRetirada.ToString(),
+                        RetiradoPor = correspondencia.NomeRetirante,
+                        Observacao = correspondencia.Observacao
+                    };
+                    listaCorrespondencias.Add(CorrespondenciaDTO);
+                }              
+            }
+
+            List<string> cabecalho = new List<string>();
+            cabecalho.Add("Data da Chegada");
+            cabecalho.Add("Data da Retirada");
+            cabecalho.Add("Entregue por");           
+            cabecalho.Add("Retirado por");
+            cabecalho.Add("Observação");
+
+            var geradorExcel = new GeradorDeExcel<CorrespondenciaExcelDTO>
+                (cabecalho, listaCorrespondencias, request.NomeArquivo, "Relatório de Correspondência",
+                request.CaminhoRaiz);
+                        
+
+            return geradorExcel.GerarExcel();
         }
 
 

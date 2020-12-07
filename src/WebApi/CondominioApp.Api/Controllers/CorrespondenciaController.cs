@@ -6,6 +6,7 @@ using CondominioApp.Correspondencias.App.Aplication.Query;
 using CondominioApp.Correspondencias.App.Models;
 using CondominioApp.Correspondencias.App.ViewModels;
 using CondominioApp.WebApi.Core.Controllers;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -20,11 +21,14 @@ namespace CondominioApp.Api.Controllers
         private readonly IMediatorHandler _mediatorHandler;
         private readonly IMapper _mapper;
         private readonly ICorrespondenciaQuery _correspondenciaQuery;
-        public CorrespondenciaController(IMediatorHandler mediatorHandler, IMapper mapper, ICorrespondenciaQuery correspondenciaQuery)
+        private readonly IWebHostEnvironment _webHostEnvironment;
+
+        public CorrespondenciaController(IMediatorHandler mediatorHandler, IMapper mapper, ICorrespondenciaQuery correspondenciaQuery, IWebHostEnvironment webHostEnvironment)
         {
             _mediatorHandler = mediatorHandler;
             _mapper = mapper;
             _correspondenciaQuery = correspondenciaQuery;
+            _webHostEnvironment = webHostEnvironment;
         }
 
 
@@ -141,5 +145,23 @@ namespace CondominioApp.Api.Controllers
         }
 
 
+        [HttpPost("gerar-excel")]
+        public async Task<ActionResult> GerarExcel(List<Guid> lstCorrespondencias)
+        {
+            string sWebRootFolder = _webHostEnvironment.WebRootPath;
+            string nomeDoArquivo = @"/" + Guid.NewGuid().ToString() + ".xlsx";
+
+            var comando = new GerarExcelCorrespondenciaCommand(lstCorrespondencias, sWebRootFolder, nomeDoArquivo);
+
+            var Resultado = await _mediatorHandler.EnviarComando(comando);
+            
+            if (Resultado.IsValid)
+                return CustomResponse(nomeDoArquivo);
+
+            return CustomResponse(Resultado);
+        }
+
+
+       
     }
 }
