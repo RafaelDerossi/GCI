@@ -11,7 +11,7 @@ namespace CondominioApp.Principal.Aplication.Commands
             Codigo = codigo;
             Numero = numero;
             Andar = andar;
-            Vaga = vaga;            
+            Vaga = vaga;
             Ramal = ramal;
             Complemento = complemento;
             GrupoId = grupoId;            
@@ -32,7 +32,7 @@ namespace CondominioApp.Principal.Aplication.Commands
         public class CadastrarUnidadeCommandValidation : UnidadeValidation<CadastrarUnidadeCommand>
         {
             public CadastrarUnidadeCommandValidation()
-            {  
+            {
                 ValidateNumero();
                 ValidateAndar();
                 ValidateVaga();

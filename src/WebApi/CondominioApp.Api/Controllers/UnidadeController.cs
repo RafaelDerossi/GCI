@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using FluentValidation;
+using FluentValidation.Results;
 
 namespace CondominioApp.Api.Controllers
 {
@@ -51,12 +53,19 @@ namespace CondominioApp.Api.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var comando = new CadastrarUnidadeCommand(
-                unidadeVM.Codigo, unidadeVM.Numero, unidadeVM.Andar,
-                unidadeVM.Vagas, unidadeVM.Telefone, unidadeVM.Ramal,
-                unidadeVM.Complemento, unidadeVM.GrupoId);
+            var Resultado = new ValidationResult();
+            for (int i = unidadeVM.NumeroInicial; i <= unidadeVM.NumeroFinal; i++)
+            {
+                var comando = new CadastrarUnidadeCommand(
+                 unidadeVM.Codigo, i.ToString(), unidadeVM.Andar,
+                 unidadeVM.Vagas, unidadeVM.Telefone, unidadeVM.Ramal,
+                 unidadeVM.Complemento, unidadeVM.GrupoId);
 
-            var Resultado = await _mediatorHandler.EnviarComando(comando);
+                Resultado = await _mediatorHandler.EnviarComando(comando);
+
+                if (!Resultado.IsValid)
+                    CustomResponse(Resultado);
+            }            
 
             return CustomResponse(Resultado);
             

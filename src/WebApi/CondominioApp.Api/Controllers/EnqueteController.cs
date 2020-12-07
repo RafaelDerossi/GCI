@@ -4,8 +4,6 @@ using CondominioApp.Enquetes.App.Aplication.Commands;
 using CondominioApp.Enquetes.App.Aplication.Query;
 using CondominioApp.Enquetes.App.Models;
 using CondominioApp.Enquetes.App.ViewModels;
-using CondominioApp.Principal.Aplication.Commands;
-using CondominioApp.Principal.Aplication.ViewModels;
 using CondominioApp.WebApi.Core.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using System;

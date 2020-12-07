@@ -58,4 +58,11 @@
         CASA = 2,
         SALA = 3
     }
+
+    public enum StatusCorrespondencia
+    {
+        PENDENTE = 0,
+        RETIRADO = 1,
+        DEVOLVIDO = 2,
+    }
 }
