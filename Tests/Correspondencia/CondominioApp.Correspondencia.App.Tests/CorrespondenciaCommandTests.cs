@@ -243,7 +243,21 @@ namespace CondominioApp.Correspondencias.App.Tests
             Assert.True(result);
         }
 
-      
+
+
+        [Fact(DisplayName = "Gerar Excel De Correspondencia Valido")]
+        [Trait("Categoria", "Correspondencia -GerarExcelCorrespondenciaCommand")]
+        public void GerarExcelCorrespondencia_CommandoValido_DevePassarNaValidacao()
+        {
+            //Arrange
+            var command = CorrespondenciaCommandFactory.CriarComandGerarExcelDeCorrespondencia();
+
+            //Act
+            var result = command.EstaValido();
+
+            //Assert
+            Assert.True(result);
+        }
     }
 
 }

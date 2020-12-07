@@ -17,9 +17,9 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
         public string NomeArquivo { get; set; }
 
         public GerarExcelCorrespondenciaCommand(
-            List<Guid> condominioId, string caminhoRaiz, string nomeArquivo)
+            List<Guid> correspondenciaId, string caminhoRaiz, string nomeArquivo)
         {            
-            ListaCorrespondenciaId = condominioId;
+            ListaCorrespondenciaId = correspondenciaId;
             CaminhoRaiz = caminhoRaiz;
             NomeArquivo = nomeArquivo;
         }

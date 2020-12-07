@@ -124,5 +124,19 @@ namespace CondominioApp.Correspondencias.App.Tests
             //Act
             return new DispararAlertaDeCorrespondenciaCommand(Guid.NewGuid());
         }
+
+        public static GerarExcelCorrespondenciaCommand CriarComandGerarExcelDeCorrespondencia()
+        {
+            //Arrange
+            var lista = new List<Guid>();
+            lista.Add(Guid.NewGuid());
+            lista.Add(Guid.NewGuid());
+
+            //Act
+            return new GerarExcelCorrespondenciaCommand
+                (lista,
+                @"C:\Users\rafael souza\source\repos\CondominioAppBackEnd2.0\src\WebApi\CondominioApp.Api\wwwroot",
+                Guid.NewGuid().ToString());
+        }
     }
 }

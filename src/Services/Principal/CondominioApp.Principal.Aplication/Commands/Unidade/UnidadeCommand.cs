@@ -26,7 +26,6 @@ namespace CondominioApp.Principal.Aplication.Commands
 
         public Guid CondominioId { get; protected set; }
 
-
         public void SetTelefone(string telefone)
         {
             try

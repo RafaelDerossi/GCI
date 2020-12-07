@@ -39,5 +39,6 @@ namespace CondominioApp.Principal.Aplication.Commands.Validations
             RuleFor(c => c.CondominioId)
                .NotEqual(Guid.Empty);
         }
+
     }
 }

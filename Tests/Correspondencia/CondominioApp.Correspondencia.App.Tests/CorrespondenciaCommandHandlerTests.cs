@@ -310,5 +310,36 @@ namespace CondominioApp.Correspondencias.App.Tests
             Assert.False(result.IsValid);
         }
 
+        
+
+        [Fact(DisplayName = "Gerar Excel De Correspondencia Valido")]
+        [Trait("Categoria", "Correspondencias - CorrespondenciaCommandHandler")]
+        public async Task GerarExcelDeCorrespondencia_CommandoValido_DevePassarNaValidacao()
+        {
+            //Arrange
+            var command = CorrespondenciaCommandFactory.CriarComandGerarExcelDeCorrespondencia();
+
+            var correspondencia = new Correspondencia(
+               Guid.NewGuid(), Guid.NewGuid(), "101", "Bloco 1", false, null, null,
+               DataHoraDeBrasilia.Get(), Guid.NewGuid(), "Rafael", null, null,
+               DataHoraDeBrasilia.Get(), 1, null, StatusCorrespondencia.PENDENTE);
+
+            _mocker.GetMock<ICorrespondenciaRepository>().Setup(r => r.ObterPorId(command.ListaCorrespondenciaId[0]))
+             .Returns(Task.FromResult(correspondencia));
+
+
+            _mocker.GetMock<ICorrespondenciaRepository>().Setup(r => r.ObterPorId(command.ListaCorrespondenciaId[1]))
+             .Returns(Task.FromResult(correspondencia));
+
+            _mocker.GetMock<ICorrespondenciaRepository>().Setup(r => r.UnitOfWork.Commit())
+               .Returns(Task.FromResult(true));
+
+            //Act
+            var result = await _correspondenciaCommandCommandHandler.Handle(command, CancellationToken.None);
+
+            //Assert
+            Assert.True(result.IsValid);
+        }
+
     }
 }
