@@ -65,4 +65,25 @@
         RETIRADO = 1,
         DEVOLVIDO = 2,
     }
+
+    public enum CategoriaComunicado
+    {
+        COMUNICADO = 0,
+        ATA = 1,
+        URGENCIA = 2,
+        BALANCETE = 3,
+        COBRANÇA = 4,
+        MANUTENÇÃO = 5,
+        AVISO = 6,
+        OBRA_REFORMA = 7,
+        OUTROS = 8
+    }
+
+    public enum VisibilidadeComunicado
+    {
+        PUBLICO = 0,
+        PROPRIETARIOS = 1,
+        UNIDADES = 2,
+        PROPRIETARIOS_UNIDADES = 3      
+    }
 }

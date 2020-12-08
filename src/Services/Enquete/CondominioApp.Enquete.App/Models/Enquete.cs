@@ -71,7 +71,7 @@ namespace CondominioApp.Enquetes.App.Models
         public void SetApenasProprietarios(bool apenasProprietarios) => ApenasProprietarios = apenasProprietarios;        
 
         public ValidationResult AdicionarAlternativa(AlternativaEnquete alternativa)
-        {
+        {           
             if (_Alternativas.Any(g => g.Descricao.Trim().ToUpper() == alternativa.Descricao.Trim().ToUpper()))
             {
                 AdicionarErrosDaEntidade("Alternativas Repetidas!");

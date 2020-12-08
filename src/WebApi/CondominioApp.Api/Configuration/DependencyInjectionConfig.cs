@@ -28,6 +28,9 @@ using CondominioAppPreCadastro.App.Models;
 using FluentValidation.Results;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using CondominioApp.Comunicados.App.Aplication.Commands;
+using CondominioApp.Comunicados.App.Models;
+using CondominioApp.Comunicados.App.Data.Repository;
 
 namespace CondominioApp.Api.Configuration
 {
@@ -88,6 +91,10 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<IRequestHandler<RemoverCorrespondenciaCommand, ValidationResult>, CorrespondenciaCommandHandler>();
             services.AddScoped<IRequestHandler<GerarExcelCorrespondenciaCommand, ValidationResult>, CorrespondenciaCommandHandler>();
 
+            //Comunicado
+            services.AddScoped<IRequestHandler<CadastrarComunicadoCommand, ValidationResult>, ComunicadoCommandHandler>();
+           
+
             //Pre Cadastro
             services.AddScoped<IRequestHandler<InserirNovoLeadCommand, ValidationResult>, LeadCommandHandler>();
             services.AddScoped<IRequestHandler<TransferirCondominioCommand, ValidationResult>, LeadCommandHandler>();
@@ -106,7 +113,7 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<ICondominioQueryRepository, CondominioQueryRepository>();
             services.AddScoped<IEnqueteRepository, EnqueteRepository>();
             services.AddScoped<ICorrespondenciaRepository, CorrespondenciaRepository>();
-
+            services.AddScoped<IComunidadoRepository, ComunicadoRepository>();
 
             //Base software
             services.AddScoped<IBoletoService, BoletoService>();
