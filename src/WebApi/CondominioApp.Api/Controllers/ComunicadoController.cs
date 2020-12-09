@@ -1,8 +1,13 @@
-﻿using CondominioApp.Comunicados.App.Aplication.Commands;
+﻿using AutoMapper;
+using CondominioApp.Comunicados.App.Aplication.Commands;
+using CondominioApp.Comunicados.App.Aplication.Query;
+using CondominioApp.Comunicados.App.Models;
 using CondominioApp.Comunicados.App.ViewModels;
 using CondominioApp.Core.Mediator;
 using CondominioApp.WebApi.Core.Controllers;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -13,38 +18,38 @@ namespace CondominioApp.Api.Controllers
     {
 
         private readonly IMediatorHandler _mediatorHandler;
-        //private readonly IMapper _mapper;
-        //private readonly IComunicadoQuery _comunicadoQuery;        
+        private readonly IMapper _mapper;
+        private readonly IComunicadoQuery _comunicadoQuery;        
 
-        public ComunicadoController(IMediatorHandler mediatorHandler) //, IMapper mapper, ICorrespondenciaQuery correspondenciaQuery)
+        public ComunicadoController(IMediatorHandler mediatorHandler, IMapper mapper, IComunicadoQuery comunicadoQuery)
         {
             _mediatorHandler = mediatorHandler;
-            //_mapper = mapper;
-            //_comunicadoQuery = correspondenciaQuery;            
+            _mapper = mapper;
+            _comunicadoQuery = comunicadoQuery;           
         }
 
 
-        //[HttpGet("{id:Guid}")]
-        //public async Task<CorrespondenciaViewModel> ObterPorId(Guid id)
-        //{
-        //    return _mapper.Map<CorrespondenciaViewModel>(await _comunicadoQuery.ObterPorId(id));
-        //}
+        [HttpGet("{id:Guid}")]
+        public async Task<ComunicadoViewModel> ObterPorId(Guid id)
+        {
+            return _mapper.Map<ComunicadoViewModel>(await _comunicadoQuery.ObterPorId(id));
+        }
 
-        //[HttpGet("por-unidade-e-periodo")]
-        //public async Task<IEnumerable<CorrespondenciaViewModel>> ObterPorUnidadeEPeriodo(
-        //    Guid unidadeId, DateTime dataInicio, DateTime dataFim)
-        //{
-        //    var correspondencias = await _comunicadoQuery.ObterPorUnidadeEPeriodo(
-        //        unidadeId, dataInicio, dataFim);
+        [HttpGet("por-condominio-unidade-e-proprietario")]
+        public async Task<IEnumerable<ComunicadoViewModel>> ObterPorUnidadeEPeriodo(
+            Guid condominioId, Guid unidadeId, bool IsProprietario)
+        {
+            var correspondencias = await _comunicadoQuery.ObterPorCondominioUnidadeEProprietario(
+                condominioId, unidadeId, IsProprietario);
 
-        //    var correspondenciasVM = new List<CorrespondenciaViewModel>();
-        //    foreach (Correspondencia item in correspondencias)
-        //    {
-        //        var enqueteVM = _mapper.Map<CorrespondenciaViewModel>(item);
-        //        correspondenciasVM.Add(enqueteVM);
-        //    }
-        //    return correspondenciasVM;
-        //}
+            var comunicadosVM = new List<ComunicadoViewModel>();
+            foreach (Comunicado item in correspondencias)
+            {
+                var comunicadoVM = _mapper.Map<ComunicadoViewModel>(item);
+                comunicadosVM.Add(comunicadoVM);
+            }
+            return comunicadosVM;
+        }
 
         //[HttpGet("por-condominio-periodo-e-status")]
         //public async Task<IEnumerable<CorrespondenciaViewModel>> ObterEnquetesAtivasPorCondominio(
@@ -67,26 +72,30 @@ namespace CondominioApp.Api.Controllers
         [HttpPost]
         public async Task<ActionResult> Post(CadastrarComunicadoViewModel comunicadoVM)
         {
-            if (!ModelState.IsValid) return CustomResponse(ModelState);
+            if (!ModelState.IsValid) return CustomResponse(ModelState);           
 
-            bool temAnexos = false;
-            if (comunicadoVM.Anexos != null)
+            var listaUnidades = new List<Unidade>();
+            if (comunicadoVM.Unidades != null)
             {
-                temAnexos = comunicadoVM.Anexos.Count() > 0;             
+                foreach (UnidadeViewModel unidadeVM in comunicadoVM.Unidades)
+                {
+                    var unidade = _mapper.Map<Unidade>(unidadeVM);
+                    listaUnidades.Add(unidade);
+                }
             }
+            
 
             //Salva Comunicado
             var comando = new CadastrarComunicadoCommand(
                 comunicadoVM.Titulo, comunicadoVM.Descricao, comunicadoVM.DataDeRealizacao,
                 comunicadoVM.CondominioId, comunicadoVM.NomeCondominio, comunicadoVM.UsuarioId,
                 comunicadoVM.NomeUsuario, comunicadoVM.Visibilidade, comunicadoVM.Categoria,
-                temAnexos, comunicadoVM.CriadoPelaAdministradora,
-                comunicadoVM.Unidades);           
+                comunicadoVM.TemAnexos, comunicadoVM.CriadoPelaAdministradora, listaUnidades);           
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
             //Salva Anexos
-            if (Resultado.IsValid && temAnexos)
+            if (Resultado.IsValid && comunicadoVM.TemAnexos)
             {
 
             }
@@ -95,14 +104,53 @@ namespace CondominioApp.Api.Controllers
 
         }
 
-        //[HttpDelete("{id:Guid}")]
-        //public async Task<ActionResult> Delete(Guid id)
-        //{
-        //    var comando = new RemoverCorrespondenciaCommand(id);
+        [HttpPut]
+        public async Task<ActionResult> Put(EditarComunicadoViewModel comunicadoVM)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);           
 
-        //    var Resultado = await _mediatorHandler.EnviarComando(comando);
+            var listaUnidades = new List<Unidade>();
+            if (comunicadoVM.Unidades != null)
+            {
+                foreach (UnidadeViewModel unidadeVM in comunicadoVM.Unidades)
+                {
+                    var unidade = _mapper.Map<Unidade>(unidadeVM);
+                    listaUnidades.Add(unidade);
+                }
+            }
 
-        //    return CustomResponse(Resultado);
-        //}
+            //Edita Comunicado
+            var comando = new EditarComunicadoCommand(
+                comunicadoVM.ComunicadoId, comunicadoVM.Titulo, comunicadoVM.Descricao, comunicadoVM.DataDeRealizacao,
+                comunicadoVM.UsuarioId, comunicadoVM.NomeUsuario, comunicadoVM.Visibilidade, comunicadoVM.Categoria,
+                comunicadoVM.TemAnexos, listaUnidades);
+
+            var Resultado = await _mediatorHandler.EnviarComando(comando);
+
+            //Editar Anexos
+            if (Resultado.IsValid)
+            {
+
+            }
+
+            return CustomResponse(Resultado);
+
+        }
+
+        [HttpDelete("{id:Guid}")]
+        public async Task<ActionResult> Delete(Guid id)
+        {
+            var comando = new RemoverComunicadoCommand(id);
+
+            var Resultado = await _mediatorHandler.EnviarComando(comando);
+
+            //Remover Anexos
+            if (Resultado.IsValid)
+            {
+
+            }
+
+            return CustomResponse(Resultado);
+        }
     }
 }

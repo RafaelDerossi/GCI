@@ -10,7 +10,9 @@ namespace CondominioApp.Comunicados.App.Data.Mapping
         {
             builder.HasKey(u => u.Id);
 
-            builder.ToTable("Unidades");           
+            builder.ToTable("Unidades");
+
+            builder.Property(u => u.UnidadeId).IsRequired();
 
             builder.Property(u => u.Numero).IsRequired().HasColumnType($"varchar({Comunicado.Max})");
            

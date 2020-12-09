@@ -86,6 +86,10 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands.Validations
         {
             RuleForEach(c => c.Unidades).ChildRules(Regra =>
             {
+                Regra.RuleFor(a => a.UnidadeId)
+               .NotEqual(Guid.Empty)
+               .WithMessage("Id da Unidade não pode estar vazio!");
+
                 Regra.RuleFor(a => a.Numero)
                 .NotNull().WithMessage("Número da Unidade não pode ser nulo!")
                 .NotEmpty().WithMessage("Número da Unidade não pode estar vazio!");

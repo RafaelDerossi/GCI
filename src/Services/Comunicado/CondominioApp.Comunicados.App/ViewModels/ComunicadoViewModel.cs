@@ -7,8 +7,10 @@ using System.Text;
 
 namespace CondominioApp.Comunicados.App.ViewModels
 {
-   public class CadastrarComunicadoViewModel
+   public class ComunicadoViewModel
     {
+        public Guid Id { get; set; }
+
         public string Titulo { get; set; }
 
         public string Descricao { get; set; }

@@ -73,15 +73,16 @@ namespace CondominioApp.Comunicados.App.Models
 
         public void SetDescricao(string descricao) => Descricao = descricao;
 
-        public void SetDataDeRealizacao(DateTime dataDeRealizacao) => DataDeRealizacao = dataDeRealizacao;
+        public void SetDataDeRealizacao(DateTime? dataDeRealizacao) => DataDeRealizacao = dataDeRealizacao;
+
+        public void SetUsuarioId(Guid usuarioId) => UsuarioId = usuarioId;
+
+        public void SetNomeUsuario(string nomeUsuario) => NomeUsuario = nomeUsuario;
 
         public void SetVisibilidade(VisibilidadeComunicado visibilidade) => Visibilidade = visibilidade;
 
         public void SetCategoria(CategoriaComunicado categoria) => Categoria = categoria;
 
-        public void SetTemAnexos() => TemAnexos = true;
-
-        public void SetNaoTemAnexos() => TemAnexos = false;
 
         public void SetCriadoPelaAdministradora() => CriadoPelaAdministradora = true;
 
@@ -89,10 +90,9 @@ namespace CondominioApp.Comunicados.App.Models
         public ValidationResult AdicionarUnidade(Unidade unidade)
         {
 
-            if (_Unidades.Any(u => u.Numero == unidade.Numero && u.Andar == unidade.Andar &&
-                                   u.GrupoId == unidade.GrupoId))
+            if (_Unidades.Any(u => u.Id == unidade.Id))
             {
-                AdicionarErrosDaEntidade("Esta unidade ja esta na lista!");
+                AdicionarErrosDaEntidade("Unidade repetida!");
                 return ValidationResult;
             }
 
@@ -103,19 +103,17 @@ namespace CondominioApp.Comunicados.App.Models
 
         public ValidationResult AlterarUnidade(Unidade unidade)
         {
-            if (_Unidades.Any(u => u.Numero == unidade.Numero && u.Andar == unidade.Andar &&
-                                   u.GrupoId == unidade.GrupoId && u.Id != unidade.Id))
-            {
-                AdicionarErrosDaEntidade("Esta unidade ja esta na lista!");
-                return ValidationResult;
-            }
-
-
             _Unidades.Remove(unidade);
             _Unidades.Add(unidade);
 
             return ValidationResult;
 
         }
+
+        public void RemoverTodasUnidade()
+        {
+            _Unidades.Clear();
+        }
+
     }
 }

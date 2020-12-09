@@ -6,14 +6,16 @@ using System.Text;
 namespace CondominioApp.Comunicados.App.Models
 {
    public class Unidade : Entity
-    {        
+    {
+        public Guid UnidadeId { get; private set; }
         public string Numero { get; private set; }
         public string Andar { get; private set; }              
         public Guid GrupoId { get; private set; }
-        public string DescricaoGrupo { get; protected set; }            
-        
+        public string DescricaoGrupo { get; protected set; }
 
-        
+        public Guid ComunicadoId { get; set; }
+        public Comunicado Comunicado { get; set; }
+
         /// <summary>
         /// Construtores
         /// </summary>
@@ -21,8 +23,9 @@ namespace CondominioApp.Comunicados.App.Models
         {
         }
 
-        public Unidade(string numero, string andar, Guid grupoId, string descrcaiGrupo)
+        public Unidade(Guid unidadeId, string numero, string andar, Guid grupoId, string descrcaiGrupo)
         {
+            UnidadeId = unidadeId;
             Numero = numero;
             Andar = andar;            
             GrupoId = grupoId;

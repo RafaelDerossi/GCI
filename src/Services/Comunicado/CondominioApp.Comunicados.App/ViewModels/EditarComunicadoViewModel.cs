@@ -7,17 +7,15 @@ using System.Text;
 
 namespace CondominioApp.Comunicados.App.ViewModels
 {
-   public class CadastrarComunicadoViewModel
+   public class EditarComunicadoViewModel
     {
+        public Guid ComunicadoId { get; set; }
+
         public string Titulo { get; set; }
 
         public string Descricao { get; set; }
 
         public DateTime? DataDeRealizacao { get; set; }
-
-        public Guid CondominioId { get; set; }
-
-        public string NomeCondominio { get; set; }
 
         public Guid UsuarioId { get; set; }
 
@@ -25,9 +23,7 @@ namespace CondominioApp.Comunicados.App.ViewModels
 
         public VisibilidadeComunicado Visibilidade { get; set; }
 
-        public CategoriaComunicado Categoria { get; set; }       
-
-        public bool CriadoPelaAdministradora { get; set; }
+        public CategoriaComunicado Categoria { get; set; }
 
         public IEnumerable<UnidadeViewModel> Unidades { get; set; }
 
@@ -35,14 +31,15 @@ namespace CondominioApp.Comunicados.App.ViewModels
 
         public bool TemAnexos
         {
-            get {
+            get
+            {
                 bool temAnexos = false;
                 if (Anexos != null)
                 {
                     temAnexos = Anexos.Count() > 0;
                 }
                 return temAnexos;
-            }         
+            }
         }
     }
 }

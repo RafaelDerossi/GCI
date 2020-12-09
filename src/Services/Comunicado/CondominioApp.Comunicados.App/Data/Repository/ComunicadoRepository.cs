@@ -23,13 +23,15 @@ namespace CondominioApp.Comunicados.App.Data.Repository
 
         public async Task<Comunicado> ObterPorId(Guid Id)
         {
-            return await _context.Comunicados                    
+            return await _context.Comunicados 
+                .Include(c=>c.Unidades)
                 .FirstOrDefaultAsync(u => u.Id == Id);
         }
 
         public async Task<IEnumerable<Comunicado>> ObterTodos()
         {
             return await _context.Comunicados
+                .Include(c => c.Unidades)
                 .Where(u => !u.Lixeira).ToListAsync();
         }
 
@@ -39,11 +41,13 @@ namespace CondominioApp.Comunicados.App.Data.Repository
             {
                 if (take > 0)
                     return await _context.Comunicados
+                        .Include(c => c.Unidades)
                         .AsNoTracking()  
                         .Where(expression)
                         .OrderByDescending(x => x.DataDeCadastro).Take(take).ToListAsync();
 
                 return await _context.  Comunicados
+                    .Include(c => c.Unidades)
                     .AsNoTracking()
                     .Where(expression)
                     .OrderByDescending(x => x.DataDeCadastro)
@@ -52,6 +56,7 @@ namespace CondominioApp.Comunicados.App.Data.Repository
 
             if (take > 0)
                 return await _context.Comunicados
+                    .Include(c => c.Unidades)
                     .AsNoTracking()
                     .Where(expression)                    
                     .OrderBy(x => x.DataDeCadastro)
@@ -59,13 +64,50 @@ namespace CondominioApp.Comunicados.App.Data.Repository
                     .ToListAsync();
 
             return await _context.Comunicados
+                .Include(c => c.Unidades)
                 .AsNoTracking()
                 .Where(expression)                
                 .OrderBy(x => x.DataDeCadastro)
                 .ToListAsync();
         }
+        
+        public async Task<IEnumerable<Unidade>> ObterUnidades(Expression<Func<Unidade, bool>> expression, bool OrderByDesc = false, int take = 0)
+        {
+            if (OrderByDesc)
+            {
+                if (take > 0)
+                    return await _context.Unidades
+                        .Include(c => c.Comunicado)
+                        .AsNoTracking()
+                        .Where(expression)
+                        .OrderByDescending(x => x.DataDeCadastro).Take(take).ToListAsync();
 
-       
+                return await _context.Unidades
+                    .Include(c => c.Comunicado)
+                    .AsNoTracking()
+                    .Where(expression)
+                    .OrderByDescending(x => x.DataDeCadastro)
+                    .ToListAsync();
+            }
+
+            if (take > 0)
+                return await _context.Unidades
+                    .Include(c => c.Comunicado)
+                    .AsNoTracking()
+                    .Where(expression)
+                    .OrderBy(x => x.DataDeCadastro)
+                    .Take(take)
+                    .ToListAsync();
+
+            return await _context.Unidades
+                .Include(c => c.Comunicado)
+                .AsNoTracking()
+                .Where(expression)
+                .OrderBy(x => x.DataDeCadastro)
+                .ToListAsync();
+        }
+
+
         public void Adicionar(Comunicado entity)
         {
             _context.Comunicados.Add(entity);
@@ -82,6 +124,15 @@ namespace CondominioApp.Comunicados.App.Data.Repository
         }
 
 
+        public void AdicionarUnidade(Unidade entity)
+        {
+            _context.Unidades.Add(entity);
+        }
+
+        public void RemoverUnidade(Unidade entity)
+        {
+            _context.Unidades.Remove(entity);
+        }
 
         public void Dispose()
         {

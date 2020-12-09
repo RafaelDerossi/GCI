@@ -17,7 +17,8 @@ namespace CondominioApp.Api.Configuration
                 cfg.AddProfile(new ViewModelToEntityLoja());
                 cfg.AddProfile(new EntityToViewModelEnquete());
                 cfg.AddProfile(new EntityToViewModelCorrespondencia());
-                
+                cfg.AddProfile(new ViewModelToEntityUnidadeComunicado());
+
                 //cfg.AddProfile(new EntityToViewModelEstatistica());
                 //cfg.AddProfile(new ViewModelToEntityEstatistica());
             });
