@@ -23,13 +23,13 @@ namespace CondominioApp.Comunicados.App.Models
         {
         }
 
-        public Unidade(Guid unidadeId, string numero, string andar, Guid grupoId, string descrcaiGrupo)
+        public Unidade(Guid unidadeId, string numero, string andar, Guid grupoId, string descricaoGrupo)
         {
             UnidadeId = unidadeId;
             Numero = numero;
             Andar = andar;            
             GrupoId = grupoId;
-            DescricaoGrupo = descrcaiGrupo;
+            DescricaoGrupo = descricaoGrupo;
         }
 
 

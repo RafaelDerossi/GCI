@@ -90,7 +90,7 @@ namespace CondominioApp.Comunicados.App.Models
         public ValidationResult AdicionarUnidade(Unidade unidade)
         {
 
-            if (_Unidades.Any(u => u.Id == unidade.Id))
+            if (_Unidades.Any(u => u.UnidadeId == unidade.UnidadeId))
             {
                 AdicionarErrosDaEntidade("Unidade repetida!");
                 return ValidationResult;
@@ -99,15 +99,6 @@ namespace CondominioApp.Comunicados.App.Models
             _Unidades.Add(unidade);
 
             return ValidationResult;
-        }
-
-        public ValidationResult AlterarUnidade(Unidade unidade)
-        {
-            _Unidades.Remove(unidade);
-            _Unidades.Add(unidade);
-
-            return ValidationResult;
-
         }
 
         public void RemoverTodasUnidade()

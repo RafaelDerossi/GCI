@@ -11,11 +11,15 @@ namespace CondominioApp.Comunicados.App.ViewModels
     {
         public Guid Id { get; set; }
 
+        public string DataDeCadastro { get; set; }
+
+        public string DataDeAlteracao { get; set; }
+
         public string Titulo { get; set; }
 
         public string Descricao { get; set; }
 
-        public DateTime? DataDeRealizacao { get; set; }
+        public string DataDeRealizacao { get; set; }
 
         public Guid CondominioId { get; set; }
 

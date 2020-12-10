@@ -8,6 +8,8 @@ namespace CondominioApp.Comunicados.App.ViewModels
    public class UnidadeViewModel
     {        
         public Guid UnidadeId { get; set; }
+        public string DataDeCadastro { get; set; }
+        public string DataDeAlteracao { get; set; }
         public string Numero { get; set; }
         public string Andar { get; set; }              
         public Guid GrupoId { get; set; }

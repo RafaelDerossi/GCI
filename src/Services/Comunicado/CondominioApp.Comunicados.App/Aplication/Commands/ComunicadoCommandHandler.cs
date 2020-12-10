@@ -53,6 +53,7 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
             return await PersistirDados(_ComunicadoRepository.UnitOfWork);
         }
 
+
         public async Task<ValidationResult> Handle(EditarComunicadoCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido())

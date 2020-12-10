@@ -4,9 +4,9 @@ using CondominioApp.Comunicados.App.ViewModels;
 
 namespace CondominioApp.Correspondencias.App.AutoMapper
 {  
-    public class ViewModelToEntityUnidadeComunicado : Profile
+    public class ViewModelToEntityComunicado : Profile
     {
-        public ViewModelToEntityUnidadeComunicado()
+        public ViewModelToEntityComunicado()
         {
             CreateMap<UnidadeViewModel, Unidade>()
                 .ForMember(m => m.UnidadeId, cfg => cfg.MapFrom(x => x.UnidadeId))

@@ -32,40 +32,59 @@ namespace CondominioApp.Api.Controllers
         [HttpGet("{id:Guid}")]
         public async Task<ComunicadoViewModel> ObterPorId(Guid id)
         {
-            return _mapper.Map<ComunicadoViewModel>(await _comunicadoQuery.ObterPorId(id));
+            var comunicado = await _comunicadoQuery.ObterPorId(id);            
+
+            //Obtem Anexos
+            if(comunicado.TemAnexos)
+            {
+
+            }
+
+            return _mapper.Map<ComunicadoViewModel>(comunicado);
         }
 
         [HttpGet("por-condominio-unidade-e-proprietario")]
-        public async Task<IEnumerable<ComunicadoViewModel>> ObterPorUnidadeEPeriodo(
+        public async Task<IEnumerable<ComunicadoViewModel>> ObterPorCondominioUnidadeEProprietario(
             Guid condominioId, Guid unidadeId, bool IsProprietario)
         {
-            var correspondencias = await _comunicadoQuery.ObterPorCondominioUnidadeEProprietario(
+            var comunicados = await _comunicadoQuery.ObterPorCondominioUnidadeEProprietario(
                 condominioId, unidadeId, IsProprietario);
 
             var comunicadosVM = new List<ComunicadoViewModel>();
-            foreach (Comunicado item in correspondencias)
-            {
-                var comunicadoVM = _mapper.Map<ComunicadoViewModel>(item);
+            foreach (Comunicado comunicado in comunicados)
+            {                
+                //Obtem Anexos
+                if (comunicado.TemAnexos)
+                {
+
+                }
+                var comunicadoVM = _mapper.Map<ComunicadoViewModel>(comunicado);
                 comunicadosVM.Add(comunicadoVM);
             }
             return comunicadosVM;
         }
 
-        //[HttpGet("por-condominio-periodo-e-status")]
-        //public async Task<IEnumerable<CorrespondenciaViewModel>> ObterEnquetesAtivasPorCondominio(
-        //    Guid condominioId, DateTime dataInicio, DateTime dataFim, StatusCorrespondencia status)
-        //{
-        //    var correspondencias = await _comunicadoQuery.ObterPorCondominioPeriodoEStatus(
-        //        condominioId, dataInicio, dataFim, status);
+        [HttpGet("por-condominio-e-usuario")]
+        public async Task<IEnumerable<ComunicadoViewModel>> ObterPorCondominioEUsuario(
+            Guid condominioId, Guid usuarioId)
+        {
+            var comunicados = await _comunicadoQuery.ObterPorCondominioEUsuario(
+                condominioId, usuarioId);
 
-        //    var correspondenciasVM = new List<CorrespondenciaViewModel>();
-        //    foreach (Correspondencia item in correspondencias)
-        //    {
-        //        var enqueteVM = _mapper.Map<CorrespondenciaViewModel>(item);
-        //        correspondenciasVM.Add(enqueteVM);
-        //    }
-        //    return correspondenciasVM;
-        //}
+            var comunicadosVM = new List<ComunicadoViewModel>();
+            foreach (Comunicado comunicado in comunicados)
+            {
+                //Obtem Anexos
+                if (comunicado.TemAnexos)
+                {
+
+                }
+                var comunicadoVM = _mapper.Map<ComunicadoViewModel>(comunicado);
+                comunicadosVM.Add(comunicadoVM);
+            }
+
+            return comunicadosVM;
+        }
 
 
 

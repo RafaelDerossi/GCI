@@ -39,7 +39,7 @@ namespace CondominioApp.Comunicados.App.Aplication.Query
                 c => c.Comunicado.CondominioId == condominioId &&
                 c.Comunicado.Visibilidade == VisibilidadeComunicado.UNIDADES &&
                 c.UnidadeId == UnidadeId && 
-                !c.Lixeira);
+                !c.Comunicado.Lixeira);
 
             if (listaUnidades != null)
             {
@@ -75,7 +75,7 @@ namespace CondominioApp.Comunicados.App.Aplication.Query
                     c => c.Comunicado.CondominioId == condominioId &&
                     c.Comunicado.Visibilidade == VisibilidadeComunicado.PROPRIETARIOS_UNIDADES &&
                     c.UnidadeId == UnidadeId &&
-                    !c.Lixeira);
+                    !c.Comunicado.Lixeira);
 
                 if (listaProprietarioUnidade != null)
                 {

@@ -31,6 +31,7 @@ using Microsoft.Extensions.DependencyInjection;
 using CondominioApp.Comunicados.App.Aplication.Commands;
 using CondominioApp.Comunicados.App.Models;
 using CondominioApp.Comunicados.App.Data.Repository;
+using CondominioApp.Comunicados.App.Aplication.Query;
 
 namespace CondominioApp.Api.Configuration
 {
@@ -107,6 +108,7 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<ICondominioQuery, CondominioQuery>();
             services.AddScoped<IEnqueteQuery, EnqueteQuery>();
             services.AddScoped<ICorrespondenciaQuery, CorrespondenciaQuery>();
+            services.AddScoped<IComunicadoQuery, ComunicadoQuery>();
 
             //Repositórios
             services.AddScoped<ICondominioRepository, CondominioRepository>();
