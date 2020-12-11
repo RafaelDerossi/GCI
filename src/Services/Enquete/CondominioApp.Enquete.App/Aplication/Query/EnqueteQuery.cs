@@ -1,4 +1,5 @@
-﻿using CondominioApp.Enquetes.App.Models;
+﻿using CondominioApp.Core.Helpers;
+using CondominioApp.Enquetes.App.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -38,7 +39,7 @@ namespace CondominioApp.Enquetes.App.Aplication.Query
 
         public async Task<IEnumerable<Enquete>> ObterAtivasPorCondominio(Guid condominioId)
         {
-            return await _enqueteRepository.Obter(e=>e.CondominioId == condominioId && !e.Lixeira && e.DataInicio <= DateTime.Now && e.DataFim >= DateTime.Now);
+            return await _enqueteRepository.Obter(e=>e.CondominioId == condominioId && !e.Lixeira && e.DataInicio <= DataHoraDeBrasilia.Get() && e.DataFim >= DataHoraDeBrasilia.Get());
         }
 
       
