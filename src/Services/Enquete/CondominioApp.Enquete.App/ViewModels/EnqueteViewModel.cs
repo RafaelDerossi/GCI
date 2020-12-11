@@ -28,6 +28,10 @@ namespace CondominioApp.Enquetes.App.ViewModels
         public Guid UsuarioId { get; set; }
         public string UsuarioNome { get; set; }
 
+        public int QuantidadeDeVotos { get; set; }
+
+        public bool EnqueteAtiva { get; set; }
+
         public IEnumerable<AlternativaEnqueteViewModel> Alternativas { get; set; }
     }
 }

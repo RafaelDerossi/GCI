@@ -1,4 +1,5 @@
 ﻿using CondominioApp.Core.DomainObjects;
+using CondominioApp.Core.Helpers;
 using FluentValidation.Results;
 using System;
 using System.Collections.Generic;
@@ -94,6 +95,35 @@ namespace CondominioApp.Enquetes.App.Models
             _Alternativas.Add(alternativa);
 
             return ValidationResult;
+        }
+
+
+        public int ObterQuantidadeDeVotos
+        {
+            get{
+                int qtdVotos = 0;
+                foreach (AlternativaEnquete alternativa in _Alternativas)
+                {
+                    if (alternativa.Respostas != null)
+                        qtdVotos += alternativa.Respostas.Count;
+                }
+                return qtdVotos;
+            }            
+        }
+
+        public bool EnqueteAtiva
+        {
+            get
+            {
+                if (DataInicio <= DataHoraDeBrasilia.Get() && DataFim >= DataHoraDeBrasilia.Get())
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }            
         }
     }
 }
