@@ -2,6 +2,7 @@
 using CondominioApp.Enquetes.App.AutoMapper;
 using CondominioAppMarketplace.App.AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
+using System.Collections.Generic;
 
 namespace CondominioApp.Api.Configuration
 {
@@ -17,13 +18,15 @@ namespace CondominioApp.Api.Configuration
                 cfg.AddProfile(new ViewModelToEntityLoja());
                 cfg.AddProfile(new EntityToViewModelEnquete());
                 cfg.AddProfile(new EntityToViewModelCorrespondencia());
-                
+                cfg.AddProfile(new ViewModelToEntityComunicado());
+                cfg.AddProfile(new EntityToViewModelComunicado());
+
                 //cfg.AddProfile(new EntityToViewModelEstatistica());
                 //cfg.AddProfile(new ViewModelToEntityEstatistica());
             });
 
             var mapper = config.CreateMapper();
             services.AddSingleton(mapper);
-        }
-    }
+        }              
+    }  
 }

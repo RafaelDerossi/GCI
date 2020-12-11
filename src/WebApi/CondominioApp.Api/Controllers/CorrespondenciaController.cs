@@ -64,8 +64,8 @@ namespace CondominioApp.Api.Controllers
             var correspondenciasVM = new List<CorrespondenciaViewModel>();
             foreach (Correspondencia item in correspondencias)
             {
-                var enqueteVM = _mapper.Map<CorrespondenciaViewModel>(item);
-                correspondenciasVM.Add(enqueteVM);
+                var correspondenciaVM = _mapper.Map<CorrespondenciaViewModel>(item);
+                correspondenciasVM.Add(correspondenciaVM);
             }
             return correspondenciasVM;
         }

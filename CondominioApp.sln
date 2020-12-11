@@ -75,7 +75,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Correspondencia", "Correspo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioApp.Correspondencias.App", "src\Services\Correspondencia\CondominioApp.Correspondencias.App\CondominioApp.Correspondencias.App.csproj", "{C9D081F5-CB91-42B5-8ED4-8A220CA8B61B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CondominioApp.Correspondencias.App.Tests", "Tests\Correspondencia\CondominioApp.Correspondencia.App.Tests\CondominioApp.Correspondencias.App.Tests.csproj", "{67DD85AB-5F20-4F11-9307-C018AD634532}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioApp.Correspondencias.App.Tests", "Tests\Correspondencia\CondominioApp.Correspondencia.App.Tests\CondominioApp.Correspondencias.App.Tests.csproj", "{67DD85AB-5F20-4F11-9307-C018AD634532}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Comunicado", "Comunicado", "{9F4D3385-7CEF-4C13-9899-62DB710A8AEB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioApp.Comunicados.App", "src\Services\Comunicado\CondominioApp.Comunicados.App\CondominioApp.Comunicados.App.csproj", "{1CE7D4F4-6AAE-4575-A60A-A4E61F6DD442}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CondominioApp.Comunicados.App.Tests", "Tests\Comunicado\CondominioApp.Comunicados.App.Tests\CondominioApp.Comunicados.App.Tests\CondominioApp.Comunicados.App.Tests.csproj", "{CBDD2D97-7A42-4370-813D-2F46E8322073}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -171,6 +177,14 @@ Global
 		{67DD85AB-5F20-4F11-9307-C018AD634532}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{67DD85AB-5F20-4F11-9307-C018AD634532}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{67DD85AB-5F20-4F11-9307-C018AD634532}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CE7D4F4-6AAE-4575-A60A-A4E61F6DD442}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CE7D4F4-6AAE-4575-A60A-A4E61F6DD442}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CE7D4F4-6AAE-4575-A60A-A4E61F6DD442}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CE7D4F4-6AAE-4575-A60A-A4E61F6DD442}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBDD2D97-7A42-4370-813D-2F46E8322073}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBDD2D97-7A42-4370-813D-2F46E8322073}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBDD2D97-7A42-4370-813D-2F46E8322073}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBDD2D97-7A42-4370-813D-2F46E8322073}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -212,6 +226,9 @@ Global
 		{C1690D07-7DCF-4846-B755-BCDC155A8673} = {27DA6887-B451-4D5D-A232-00FBE20152FB}
 		{C9D081F5-CB91-42B5-8ED4-8A220CA8B61B} = {C1690D07-7DCF-4846-B755-BCDC155A8673}
 		{67DD85AB-5F20-4F11-9307-C018AD634532} = {C1690D07-7DCF-4846-B755-BCDC155A8673}
+		{9F4D3385-7CEF-4C13-9899-62DB710A8AEB} = {27DA6887-B451-4D5D-A232-00FBE20152FB}
+		{1CE7D4F4-6AAE-4575-A60A-A4E61F6DD442} = {9F4D3385-7CEF-4C13-9899-62DB710A8AEB}
+		{CBDD2D97-7A42-4370-813D-2F46E8322073} = {9F4D3385-7CEF-4C13-9899-62DB710A8AEB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DA60CBD7-8A6E-436D-B07E-D654D162CE4B}

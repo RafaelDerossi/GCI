@@ -68,7 +68,16 @@ namespace CondominioApp.Enquetes.App.Aplication.Commands.Validations
                 .NotNull()
                 .WithMessage("Apenas Proprietarios não pode estar vazio!");
         }
-        
 
+        protected void ValidateAlternativas()
+        {
+            RuleForEach(c => c.Alternativas).ChildRules(Regra =>
+            {
+                Regra.RuleFor(a => a)
+                .NotNull()
+                .NotEmpty()
+                .WithMessage("Descrição da Alternativa não pode estar vazia!");
+            });
+        }
     }
 }

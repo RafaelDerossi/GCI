@@ -1,4 +1,5 @@
 ﻿using CondominioApp.Enquetes.App.Aplication.Commands.Validations;
+using FluentValidation;
 using System;
 using System.Collections.Generic;
 
@@ -45,7 +46,8 @@ namespace CondominioApp.Enquetes.App.Aplication.Commands
                 ValidateUsuarioNome();
                 ValidateCondominioId();
                 ValidateCondominioNome();
-                ValidateApenasProprietarios();               
+                ValidateApenasProprietarios();
+                ValidateAlternativas();               
             }
         }
 
