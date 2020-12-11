@@ -33,20 +33,20 @@ namespace CondominioApp.ReservaAreaComum.Domain
         public int NumeroLimiteDeReservaSobrepostaPorUnidade { get; private set; }
 
 
-        //private readonly List<Periodo> _Periodos;
-        //public IReadOnlyCollection<Periodo> Grupos => _Periodos;
+        private readonly List<Periodo> _Periodos;
+        public IReadOnlyCollection<Periodo> Periodos => _Periodos;
 
 
-        //private readonly List<Reserva> _Reservas;
-        //public IReadOnlyCollection<Reserva> Reservas => _Reservas;
+        private readonly List<Reserva> _Reservas;
+        public IReadOnlyCollection<Reserva> Reservas => _Reservas;
         
 
         
         /// Construtores       
         public AreaComum()
         {
-            //_Periodos = new List<Periodo>();
-            //_Reservas = new List<Reserva>();           
+            _Periodos = new List<Periodo>();
+            _Reservas = new List<Reserva>();           
         }
 
         public AreaComum
@@ -58,8 +58,8 @@ namespace CondominioApp.ReservaAreaComum.Domain
             bool permiteReservaSobreposta, int numeroLimiteDeReservaSobreposta,
             int numeroLimiteDeReservaSobrepostaPorUnidade)
         {
-            //_Periodos = new List<Periodo>();
-            //_Reservas = new List<Reserva>();
+            _Periodos = new List<Periodo>();
+            _Reservas = new List<Reserva>();
             Nome = nome;
             Descricao = descricao;
             TermoDeUso = termoDeUso;
@@ -150,7 +150,7 @@ namespace CondominioApp.ReservaAreaComum.Domain
             return Nome + "|" + Descricao;
         }
 
-        public string ObterEstadoAtual
+        public string EstadoAtual
         {
             get
             {
