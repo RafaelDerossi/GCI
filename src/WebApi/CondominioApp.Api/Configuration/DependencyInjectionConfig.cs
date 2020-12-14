@@ -97,6 +97,9 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<IRequestHandler<EditarComunicadoCommand, ValidationResult>, ComunicadoCommandHandler>();
             services.AddScoped<IRequestHandler<RemoverComunicadoCommand, ValidationResult>, ComunicadoCommandHandler>();
 
+            //Reserva Area Comum
+            
+
             //Pre Cadastro
             services.AddScoped<IRequestHandler<InserirNovoLeadCommand, ValidationResult>, LeadCommandHandler>();
             services.AddScoped<IRequestHandler<TransferirCondominioCommand, ValidationResult>, LeadCommandHandler>();
@@ -117,6 +120,7 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<IEnqueteRepository, EnqueteRepository>();
             services.AddScoped<ICorrespondenciaRepository, CorrespondenciaRepository>();
             services.AddScoped<IComunidadoRepository, ComunicadoRepository>();
+            services.AddScoped<IAreaComumRepository, AreaComumRepository>();
 
             //Base software
             services.AddScoped<IBoletoService, BoletoService>();

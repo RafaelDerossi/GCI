@@ -85,7 +85,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioApp.Comunicados.A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ReservaAreaComum", "ReservaAreaComum", "{796E764A-11CE-4E0D-8A38-346A53E43821}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CondominioApp.ReservaAreaComum.Domain", "src\Services\ReservaAreaComum\CondominioApp.ReservaAreaComum.Domain\CondominioApp.ReservaAreaComum.Domain.csproj", "{B4EB6597-4AB9-452D-A10C-CA59101CD622}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioApp.ReservaAreaComum.Domain", "src\Services\ReservaAreaComum\CondominioApp.ReservaAreaComum.Domain\CondominioApp.ReservaAreaComum.Domain.csproj", "{B4EB6597-4AB9-452D-A10C-CA59101CD622}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CondominioApp.ReservaAreaComum.Infra", "src\Services\ReservaAreaComum\CondominioApp.ReservaAreaComum.Infra\CondominioApp.ReservaAreaComum.Infra.csproj", "{0D650EA7-3587-4924-8DC7-63B6ABDEAF44}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioApp.ReservaAreaComum.Aplication", "src\Services\ReservaAreaComum\CondominioApp.ReservaAreaComum.Aplication\CondominioApp.ReservaAreaComum.Aplication.csproj", "{A75D81F4-5425-4C33-97FA-C4929B042C34}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -193,6 +197,14 @@ Global
 		{B4EB6597-4AB9-452D-A10C-CA59101CD622}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B4EB6597-4AB9-452D-A10C-CA59101CD622}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B4EB6597-4AB9-452D-A10C-CA59101CD622}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D650EA7-3587-4924-8DC7-63B6ABDEAF44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D650EA7-3587-4924-8DC7-63B6ABDEAF44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D650EA7-3587-4924-8DC7-63B6ABDEAF44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D650EA7-3587-4924-8DC7-63B6ABDEAF44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A75D81F4-5425-4C33-97FA-C4929B042C34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A75D81F4-5425-4C33-97FA-C4929B042C34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A75D81F4-5425-4C33-97FA-C4929B042C34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A75D81F4-5425-4C33-97FA-C4929B042C34}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -239,6 +251,8 @@ Global
 		{CBDD2D97-7A42-4370-813D-2F46E8322073} = {9F4D3385-7CEF-4C13-9899-62DB710A8AEB}
 		{796E764A-11CE-4E0D-8A38-346A53E43821} = {27DA6887-B451-4D5D-A232-00FBE20152FB}
 		{B4EB6597-4AB9-452D-A10C-CA59101CD622} = {796E764A-11CE-4E0D-8A38-346A53E43821}
+		{0D650EA7-3587-4924-8DC7-63B6ABDEAF44} = {796E764A-11CE-4E0D-8A38-346A53E43821}
+		{A75D81F4-5425-4C33-97FA-C4929B042C34} = {796E764A-11CE-4E0D-8A38-346A53E43821}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DA60CBD7-8A6E-436D-B07E-D654D162CE4B}

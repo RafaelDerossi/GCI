@@ -122,27 +122,26 @@ namespace CondominioApp.ReservaAreaComum.Domain
 
                 return 0;
             }
-        }       
+        }
 
+        public bool SaberSeReservaSobrepoeOutraOuEIgual(Reserva reserva)
+        {
+            if (
+                 (reserva.HoraInicio == HoraInicio && reserva.HoraFim == HoraFim)
+                 ||
+                 (reserva.ObterHoraFim > ObterHoraInicio && reserva.ObterHoraFim < ObterHoraFim)
+                 ||
+                 (ObterHoraFim > reserva.ObterHoraInicio && ObterHoraFim < reserva.ObterHoraFim)
+                 ||
+                 (ObterHoraInicio > reserva.ObterHoraInicio && ObterHoraFim < reserva.ObterHoraFim)
+                 ||
+                 (reserva.ObterHoraInicio > ObterHoraInicio && reserva.ObterHoraFim < ObterHoraFim)
+                 )
+            {
+                return true;
+            }
 
-
-        //public void ReprovarReserva(string justificativa)
-        //{
-        //    if (!string.IsNullOrEmpty(justificativa))
-        //    {
-        //        if (justificativa.Length > 5)
-        //        {
-        //            this.justificativa = justificativa;
-        //            this.lixeira = true;
-        //            this.ativo = false;
-        //            this.fila = false;
-        //        }
-        //        else
-        //            throw new Exception("Digite no mínimo 5 letras para a justificativa.");
-        //    }
-        //    else
-        //        throw new Exception("É necessário inserir uma justificativa para a reprovação da reserva.");
-        //}
-
+            return false;
+        }
     }
 }

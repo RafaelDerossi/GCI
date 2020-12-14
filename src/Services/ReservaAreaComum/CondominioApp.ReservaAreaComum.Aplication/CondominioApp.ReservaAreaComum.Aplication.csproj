@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Events\" />
+    <Folder Include="ViewModels\" />
+    <Folder Include="Query\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Building Blocks\CondominioApp.Core\CondominioApp.Core.csproj" />
+    <ProjectReference Include="..\CondominioApp.ReservaAreaComum.Domain\CondominioApp.ReservaAreaComum.Domain.csproj" />
+    <ProjectReference Include="..\CondominioApp.ReservaAreaComum.Infra\CondominioApp.ReservaAreaComum.Infra.csproj" />
+  </ItemGroup>
+
+</Project>

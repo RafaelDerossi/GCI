@@ -48,6 +48,7 @@
     <ProjectReference Include="..\..\Services\Principal\CondominioApp.Principal.Aplication\CondominioApp.Principal.Aplication.csproj" />
     <ProjectReference Include="..\..\Services\Principal\CondominioApp.Principal.Domain\CondominioApp.Principal.Domain.csproj" />
     <ProjectReference Include="..\..\Services\Principal\CondominioApp.Principal.Infra\CondominioApp.Principal.Infra.csproj" />
+    <ProjectReference Include="..\..\Services\ReservaAreaComum\CondominioApp.ReservaAreaComum.Infra\CondominioApp.ReservaAreaComum.Infra.csproj" />
     <ProjectReference Include="..\..\Services\Usuarios\CondominioApp.Usuarios.App\CondominioApp.Usuarios.App.csproj" />
   </ItemGroup>
 
