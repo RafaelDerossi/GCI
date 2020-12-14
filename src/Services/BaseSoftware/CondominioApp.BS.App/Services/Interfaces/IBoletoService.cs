@@ -2,6 +2,6 @@
 {
     public interface IBoletoService
     {
-        Boleto ObterBoletosDoCpf(string cpf, string NomeDaPasta);
+        Boleto ObterBoletosDoCpf(string CaminhoBase,string cpf, string NomeDaPasta);
     }
 }

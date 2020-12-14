@@ -8,12 +8,15 @@ namespace CondominioApp.BS.App.Services
 {
     public class BoletoService : IBoletoService
     {
-        string CaminhoDoIndiceDeBoleto = "./wwwroot/boletos";
+        string CaminhoDoIndiceDeBoleto = "\\Basesoftware\\boletos";
+
         string NomeDoArquivoDeIndices = "indiceDeBoletos.txt";
 
-        public Boleto ObterBoletosDoCpf(string cpf, string NomeDaPasta)
+        public Boleto ObterBoletosDoCpf(string CaminhoBase, string cpf, string NomeDaPasta)
         {
-            CaminhoDoIndiceDeBoleto = $"{CaminhoDoIndiceDeBoleto}/{NomeDaPasta}/{NomeDoArquivoDeIndices}";
+            CaminhoBase = CaminhoBase.Replace("\\backend\\","");
+
+            CaminhoDoIndiceDeBoleto = $"{CaminhoBase}{CaminhoDoIndiceDeBoleto}/{NomeDaPasta}/{NomeDoArquivoDeIndices}";
 
             if (!File.Exists(CaminhoDoIndiceDeBoleto)) return new Boleto();
 
