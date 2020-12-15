@@ -1,7 +1,6 @@
 ﻿using CondominioApp.Comunicados.App.Aplication.Commands.Validations;
 using CondominioApp.Comunicados.App.Models;
 using CondominioApp.Core.Enumeradores;
-using CondominioApp.Core.Helpers;
 using System;
 using System.Collections.Generic;
 

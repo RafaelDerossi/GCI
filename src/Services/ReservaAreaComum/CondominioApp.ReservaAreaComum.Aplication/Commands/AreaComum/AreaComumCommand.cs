@@ -21,8 +21,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
         public int AntecedenciaMinimaEmDias { get; protected set; }
         public int AntecedenciaMinimaParaCancelamentoEmDias { get; protected set; }
         public bool RequerAprovacaoDeReserva { get; protected set; }
-        public bool TemHorariosEspecificos { get; protected set; }
-        public bool TemIntervaloFixoEntreReservas { get; protected set; }
+        public bool TemHorariosEspecificos { get; protected set; }     
         public string TempoDeIntervaloEntreReservas { get; protected set; }
         public bool Ativa { get; protected set; }
         public string TempoDeDuracaoDeReserva { get; protected set; }

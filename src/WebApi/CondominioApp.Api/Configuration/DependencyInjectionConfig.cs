@@ -32,6 +32,7 @@ using CondominioApp.Comunicados.App.Aplication.Commands;
 using CondominioApp.Comunicados.App.Models;
 using CondominioApp.Comunicados.App.Data.Repository;
 using CondominioApp.Comunicados.App.Aplication.Query;
+using CondominioApp.ReservaAreaComum.Aplication.Commands;
 
 namespace CondominioApp.Api.Configuration
 {
@@ -98,7 +99,8 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<IRequestHandler<RemoverComunicadoCommand, ValidationResult>, ComunicadoCommandHandler>();
 
             //Reserva Area Comum
-            
+            services.AddScoped<IRequestHandler<CadastrarAreaComumCommand, ValidationResult>, AreaComumCommandHandler>();
+
 
             //Pre Cadastro
             services.AddScoped<IRequestHandler<InserirNovoLeadCommand, ValidationResult>, LeadCommandHandler>();

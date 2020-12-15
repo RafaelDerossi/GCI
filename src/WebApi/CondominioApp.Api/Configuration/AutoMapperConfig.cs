@@ -1,5 +1,6 @@
 ﻿using CondominioApp.Correspondencias.App.AutoMapper;
 using CondominioApp.Enquetes.App.AutoMapper;
+using CondominioApp.ReservaAreaComum.Aplication.AutoMapper;
 using CondominioAppMarketplace.App.AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ namespace CondominioApp.Api.Configuration
                 cfg.AddProfile(new EntityToViewModelCorrespondencia());
                 cfg.AddProfile(new ViewModelToEntityComunicado());
                 cfg.AddProfile(new EntityToViewModelComunicado());
+                cfg.AddProfile(new ViewModelToEntityAreaComum());
 
                 //cfg.AddProfile(new EntityToViewModelEstatistica());
                 //cfg.AddProfile(new ViewModelToEntityEstatistica());

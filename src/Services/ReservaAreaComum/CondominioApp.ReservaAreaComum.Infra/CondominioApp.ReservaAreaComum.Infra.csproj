@@ -22,4 +22,8 @@
     <ProjectReference Include="..\CondominioApp.ReservaAreaComum.Domain\CondominioApp.ReservaAreaComum.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

@@ -91,25 +91,9 @@ namespace CondominioApp.Api.Controllers
         [HttpPost]
         public async Task<ActionResult> Post(CadastrarComunicadoViewModel comunicadoVM)
         {
-            if (!ModelState.IsValid) return CustomResponse(ModelState);           
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var listaUnidades = new List<Unidade>();
-            if (comunicadoVM.Unidades != null)
-            {
-                foreach (UnidadeViewModel unidadeVM in comunicadoVM.Unidades)
-                {
-                    var unidade = _mapper.Map<Unidade>(unidadeVM);
-                    listaUnidades.Add(unidade);
-                }
-            }
-            
-
-            //Salva Comunicado
-            var comando = new CadastrarComunicadoCommand(
-                comunicadoVM.Titulo, comunicadoVM.Descricao, comunicadoVM.DataDeRealizacao,
-                comunicadoVM.CondominioId, comunicadoVM.NomeCondominio, comunicadoVM.UsuarioId,
-                comunicadoVM.NomeUsuario, comunicadoVM.Visibilidade, comunicadoVM.Categoria,
-                comunicadoVM.TemAnexos, comunicadoVM.CriadoPelaAdministradora, listaUnidades);           
+            var comando = CadastrarComunicadoCommandFactory(comunicadoVM);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
@@ -126,23 +110,10 @@ namespace CondominioApp.Api.Controllers
         [HttpPut]
         public async Task<ActionResult> Put(EditarComunicadoViewModel comunicadoVM)
         {
-            if (!ModelState.IsValid) return CustomResponse(ModelState);           
+            if (!ModelState.IsValid) return CustomResponse(ModelState);         
 
-            var listaUnidades = new List<Unidade>();
-            if (comunicadoVM.Unidades != null)
-            {
-                foreach (UnidadeViewModel unidadeVM in comunicadoVM.Unidades)
-                {
-                    var unidade = _mapper.Map<Unidade>(unidadeVM);
-                    listaUnidades.Add(unidade);
-                }
-            }
-
-            //Edita Comunicado
-            var comando = new EditarComunicadoCommand(
-                comunicadoVM.ComunicadoId, comunicadoVM.Titulo, comunicadoVM.Descricao, comunicadoVM.DataDeRealizacao,
-                comunicadoVM.UsuarioId, comunicadoVM.NomeUsuario, comunicadoVM.Visibilidade, comunicadoVM.Categoria,
-                comunicadoVM.TemAnexos, listaUnidades);
+           
+            var comando = EditarComunicadoCommandFactory(comunicadoVM);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
@@ -170,6 +141,48 @@ namespace CondominioApp.Api.Controllers
             }
 
             return CustomResponse(Resultado);
+        }
+
+
+
+
+        private CadastrarComunicadoCommand CadastrarComunicadoCommandFactory(CadastrarComunicadoViewModel comunicadoVM)
+        {
+            var listaUnidades = new List<Unidade>();
+            if (comunicadoVM.Unidades != null)
+            {
+                foreach (UnidadeViewModel unidadeVM in comunicadoVM.Unidades)
+                {
+                    var unidade = _mapper.Map<Unidade>(unidadeVM);
+                    listaUnidades.Add(unidade);
+                }
+            }
+           
+           return new CadastrarComunicadoCommand(
+                comunicadoVM.Titulo, comunicadoVM.Descricao, comunicadoVM.DataDeRealizacao,
+                comunicadoVM.CondominioId, comunicadoVM.NomeCondominio, comunicadoVM.UsuarioId,
+                comunicadoVM.NomeUsuario, comunicadoVM.Visibilidade, comunicadoVM.Categoria,
+                comunicadoVM.TemAnexos, comunicadoVM.CriadoPelaAdministradora, listaUnidades);
+        }
+
+        private EditarComunicadoCommand EditarComunicadoCommandFactory(EditarComunicadoViewModel comunicadoVM)
+        {
+            var listaUnidades = new List<Unidade>();
+            if (comunicadoVM.Unidades != null)
+            {
+                foreach (UnidadeViewModel unidadeVM in comunicadoVM.Unidades)
+                {
+                    var unidade = _mapper.Map<Unidade>(unidadeVM);
+                    listaUnidades.Add(unidade);
+                }
+            }
+
+            //Edita Comunicado
+          return new EditarComunicadoCommand(
+                comunicadoVM.ComunicadoId, comunicadoVM.Titulo, comunicadoVM.Descricao, comunicadoVM.DataDeRealizacao,
+                comunicadoVM.UsuarioId, comunicadoVM.NomeUsuario, comunicadoVM.Visibilidade, comunicadoVM.Categoria,
+                comunicadoVM.TemAnexos, listaUnidades);
+
         }
     }
 }

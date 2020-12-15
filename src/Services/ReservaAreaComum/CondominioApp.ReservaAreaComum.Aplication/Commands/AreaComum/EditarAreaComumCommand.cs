@@ -7,22 +7,20 @@ using System.Collections.Generic;
 
 namespace CondominioApp.ReservaAreaComum.Aplication.Commands
 {
-   public class CadastrarAreaComumCommand : AreaComumCommand
+   public class EditarAreaComumCommand : AreaComumCommand
     {
 
-        public CadastrarAreaComumCommand(
-            string nome, string descricao, string termoDeUso, Guid condominioId, 
-            string nomeCondominio, int capacidade, string diasPermitidos, int antecedenciaMaximaEmMeses,
-            int antecedenciaMaximaEmDias, int antecedenciaMinimaEmDias, int antecedenciaMinimaParaCancelamentoEmDias,
-            bool requerAprovacaoDeReserva, bool temHorariosEspecificos, string tempoDeIntervaloEntreReservas, bool ativa,
-            string tempoDeDuracaoDeReserva, int numeroLimiteDeReservaPorUnidade, bool permiteReservaSobreposta,
-            int numeroLimiteDeReservaSobreposta, int numeroLimiteDeReservaSobrepostaPorUnidade, ICollection<Periodo> periodos)
+        public EditarAreaComumCommand(
+            Guid areaComumId, string nome, string descricao, string termoDeUso, int capacidade, string diasPermitidos,
+            int antecedenciaMaximaEmMeses, int antecedenciaMaximaEmDias, int antecedenciaMinimaEmDias,
+            int antecedenciaMinimaParaCancelamentoEmDias, bool requerAprovacaoDeReserva, bool temHorariosEspecificos,
+            string tempoDeIntervaloEntreReservas, bool ativa, string tempoDeDuracaoDeReserva, 
+            int numeroLimiteDeReservaPorUnidade, bool permiteReservaSobreposta, int numeroLimiteDeReservaSobreposta,
+            int numeroLimiteDeReservaSobrepostaPorUnidade, ICollection<Periodo> periodos)
         {           
             Nome = nome;
             Descricao = descricao;
             TermoDeUso = termoDeUso;
-            CondominioId = condominioId;
-            NomeCondominio = nomeCondominio;
             Capacidade = capacidade;
             DiasPermitidos = diasPermitidos;
             AntecedenciaMaximaEmMeses = antecedenciaMaximaEmMeses;
@@ -46,18 +44,17 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
             if (!ValidationResult.IsValid)
                 return ValidationResult.IsValid;
 
-            ValidationResult = new CadastrarAreaComumCommandValidation().Validate(this);
+            ValidationResult = new EditarAreaComumCommandValidation().Validate(this);
             return ValidationResult.IsValid;
         }
 
 
-        public class CadastrarAreaComumCommandValidation :AreaComumValidation<CadastrarAreaComumCommand>
+        public class EditarAreaComumCommandValidation :AreaComumValidation<EditarAreaComumCommand>
         {
-            public CadastrarAreaComumCommandValidation()
-            { 
+            public EditarAreaComumCommandValidation()
+            {
+                ValidateId();
                 ValidateNome();
-                ValidateCondominioId();
-                ValidateNomeCondominio();
                 ValidateDiasPermitidos();
                 ValidateAntecedenciaMaximaEmMeses();
                 ValidateAntecedenciaMaximaEmDias();

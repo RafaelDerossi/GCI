@@ -36,8 +36,6 @@ namespace CondominioApp.Principal.Infra.Data.Mapping
 
             builder.Property(u => u.TemHorariosEspecificos).IsRequired();
 
-            builder.Property(u => u.TemIntervaloFixoEntreReservas).IsRequired();           
-
             builder.Property(u => u.TempoDeIntervaloEntreReservas).HasColumnType($"varchar({AreaComum.Max})");
 
             builder.Property(u => u.Ativa).IsRequired();

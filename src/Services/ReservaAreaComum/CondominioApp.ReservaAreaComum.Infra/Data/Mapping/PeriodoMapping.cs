@@ -18,7 +18,7 @@ namespace CondominioApp.Principal.Infra.Data.Mapping
 
             builder.Property(u => u.AreaComumId).IsRequired();
 
-            builder.Property(u => u.Valor).IsRequired().HasColumnType($"varchar({AreaComum.Max})"); 
+            builder.Property(u => u.Valor).IsRequired().HasColumnType($"decimal(14,2)"); 
 
             builder.Property(u => u.Ativo).IsRequired();
 

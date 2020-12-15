@@ -26,7 +26,6 @@ namespace CondominioApp.ReservaAreaComum.Domain
         public int AntecedenciaMinimaParaCancelamentoEmDias { get; private set; }
         public bool RequerAprovacaoDeReserva { get; private set; }
         public bool TemHorariosEspecificos { get; private set; }
-        public bool TemIntervaloFixoEntreReservas { get; private set; }
         public string TempoDeIntervaloEntreReservas {  get; private set; }
         public bool Ativa { get; private set; }
         public string TempoDeDuracaoDeReserva { get; private set; }
@@ -48,7 +47,7 @@ namespace CondominioApp.ReservaAreaComum.Domain
 
         
         /// Construtores       
-        public AreaComum()
+        protected AreaComum()
         {
             _Periodos = new List<Periodo>();
             _Reservas = new List<Reserva>();           
@@ -56,9 +55,9 @@ namespace CondominioApp.ReservaAreaComum.Domain
 
         public AreaComum
             (string nome, string descricao, string termoDeUso, Guid condominioId, string nomeCondominio,
-            int capacidade, string diasPossiveis, int antecedenciaMaximaEmMeses, int antecedenciaMaximaEmDias,
+            int capacidade, string diasPermitidos, int antecedenciaMaximaEmMeses, int antecedenciaMaximaEmDias,
             int antecedenciaMinimaEmDias, int antecedenciaMinimaParaCancelamentoEmDias, bool requerAprovacaoDeReserva,
-            bool horariosEspecificos, bool intervaloFixo, string intervalo, bool ativo, string duracaoDaReserva,
+            bool horariosEspecificos, string tempoDeIntervaloEntreReservas, bool ativo, string tempoDeDuracaoDaReserva,
             int numeroLimiteDeReservaPorUnidade, DateTime? dataBloqueioInicio, DateTime? dataBloqueioFim,
             bool permiteReservaSobreposta, int numeroLimiteDeReservaSobreposta,
             int numeroLimiteDeReservaSobrepostaPorUnidade)
@@ -71,17 +70,16 @@ namespace CondominioApp.ReservaAreaComum.Domain
             CondominioId = condominioId;
             NomeCondominio = nomeCondominio;
             Capacidade = capacidade;
-            DiasPermitidos = diasPossiveis;
+            DiasPermitidos = diasPermitidos;
             AntecedenciaMaximaEmMeses = antecedenciaMaximaEmMeses;
             AntecedenciaMaximaEmDias = antecedenciaMaximaEmDias;
             AntecedenciaMinimaEmDias = antecedenciaMinimaEmDias;
             AntecedenciaMinimaParaCancelamentoEmDias = antecedenciaMinimaParaCancelamentoEmDias;
             RequerAprovacaoDeReserva = requerAprovacaoDeReserva;
-            TemHorariosEspecificos = horariosEspecificos;
-            TemIntervaloFixoEntreReservas = intervaloFixo;
-            TempoDeIntervaloEntreReservas = intervalo;
+            TemHorariosEspecificos = horariosEspecificos;           
+            TempoDeIntervaloEntreReservas = tempoDeIntervaloEntreReservas;
             Ativa = ativo;
-            TempoDeDuracaoDeReserva = duracaoDaReserva;
+            TempoDeDuracaoDeReserva = tempoDeDuracaoDaReserva;
             NumeroLimiteDeReservaPorUnidade = numeroLimiteDeReservaPorUnidade;
             DataInicioBloqueio = dataBloqueioInicio;
             DataFimBloqueio = dataBloqueioFim;
@@ -111,9 +109,7 @@ namespace CondominioApp.ReservaAreaComum.Domain
 
         public void HabilitarHorariosEspecifcos() => TemHorariosEspecificos = true;
         public void DesabilitarHorariosEspecifcos() => TemHorariosEspecificos = false;
-
-        public void HabilitarIntervaloFixoEntreReservas() => TemIntervaloFixoEntreReservas = true;
-        public void DesabilitarIntervaloFixoEntreReservas() => TemIntervaloFixoEntreReservas = false;
+       
         public void SetTempoDeIntervaloEntreReservas(string intervalo) => TempoDeIntervaloEntreReservas = intervalo;
 
         public void SetTempoDeDuracaoDeReserva(string tempo) => TempoDeDuracaoDeReserva = tempo;
@@ -188,6 +184,49 @@ namespace CondominioApp.ReservaAreaComum.Domain
             }
         }
 
+        public bool TemIntervaloFixoEntreReservas
+        {
+            get
+            {
+                return ObterTempoDeIntervaloEntreReservas > 0;
+            }
+        }
+
+        public ValidationResult AdicionarPeriodo(Periodo periodo)
+        {
+            if (periodo.ObterHoraInicio >= periodo.ObterHoraFim)
+            {
+                AdicionarErrosDaEntidade("Período inválido!");
+                return ValidationResult;
+            }
+
+            if (_Periodos.Any(u => u.HoraInicio == periodo.HoraInicio || u.HoraFim == periodo.HoraFim))
+            {
+                AdicionarErrosDaEntidade("Período repetido!");
+                return ValidationResult;
+            }
+
+            if (_Periodos.Any(p => p.ObterHoraInicio < periodo.ObterHoraInicio && p.ObterHoraFim > periodo.ObterHoraInicio))
+            {
+                AdicionarErrosDaEntidade("Período incompatível com outro período ja existente!");
+                return ValidationResult;
+            }
+
+            if (_Periodos.Any(p => p.ObterHoraInicio > periodo.ObterHoraInicio && p.ObterHoraInicio < periodo.ObterHoraFim))
+            {
+                AdicionarErrosDaEntidade("Período incompatível com outro período ja existente!");
+                return ValidationResult;
+            }
+
+            _Periodos.Add(periodo);
+
+            return ValidationResult;
+        }
+
+        public void RemoverTodosOsPeriodos()
+        {
+            _Periodos.Clear();
+        }
 
         public ValidationResult AdicionarReserva(Reserva reserva)
         {
