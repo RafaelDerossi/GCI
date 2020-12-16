@@ -4,16 +4,12 @@ using System.Text;
 
 namespace CondominioApp.ReservaAreaComum.Aplication.ViewModels
 {
-   public class AreaComumViewModels
+   public class EditaAreaComumViewModel
     {
-        public Guid Id { get; set; }
-        public string DataDeCadastro { get; set; }
-        public string DataDeAlteracao { get; set; }
+        public Guid Id { get; set; }       
         public string Nome { get; set; }
         public string Descricao { get; set; }
         public string TermoDeUso { get; set; }
-        public Guid CondominioId { get; set; }
-        public string NomeCondominio { get; set; }
         public int Capacidade { get; set; }
         public string DiasPermitidos { get; set; }
         public int AntecedenciaMaximaEmMeses { get; set; }
@@ -23,7 +19,6 @@ namespace CondominioApp.ReservaAreaComum.Aplication.ViewModels
         public bool RequerAprovacaoDeReserva { get; set; }
         public bool TemHorariosEspecificos { get; set; }
         public string TempoDeIntervaloEntreReservas { get; set; }
-        public bool Ativa { get; set; }
         public string TempoDeDuracaoDeReserva { get; set; }
         public int NumeroLimiteDeReservaPorUnidade { get; set; }
         public string DataInicioBloqueio { get; set; }

@@ -4,12 +4,16 @@ using System.Text;
 
 namespace CondominioApp.ReservaAreaComum.Aplication.ViewModels
 {
-   public class EditarAreaComumViewModels
+   public class AreaComumViewModel
     {
-        public Guid Id { get; set; }       
+        public Guid Id { get; set; }
+        public string DataDeCadastro { get; set; }
+        public string DataDeAlteracao { get; set; }
         public string Nome { get; set; }
         public string Descricao { get; set; }
         public string TermoDeUso { get; set; }
+        public Guid CondominioId { get; set; }
+        public string NomeCondominio { get; set; }
         public int Capacidade { get; set; }
         public string DiasPermitidos { get; set; }
         public int AntecedenciaMaximaEmMeses { get; set; }

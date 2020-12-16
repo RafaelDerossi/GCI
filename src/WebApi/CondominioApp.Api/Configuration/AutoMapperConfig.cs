@@ -22,6 +22,7 @@ namespace CondominioApp.Api.Configuration
                 cfg.AddProfile(new ViewModelToEntityComunicado());
                 cfg.AddProfile(new EntityToViewModelComunicado());
                 cfg.AddProfile(new ViewModelToEntityAreaComum());
+                cfg.AddProfile(new EntityToViewModelAreaComum());
 
                 //cfg.AddProfile(new EntityToViewModelEstatistica());
                 //cfg.AddProfile(new ViewModelToEntityEstatistica());

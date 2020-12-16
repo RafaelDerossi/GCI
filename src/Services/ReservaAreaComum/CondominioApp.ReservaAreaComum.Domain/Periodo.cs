@@ -44,7 +44,7 @@ namespace CondominioApp.ReservaAreaComum.Domain
 
                 return 0;
             }
-        }
+        }       
 
     }
 }

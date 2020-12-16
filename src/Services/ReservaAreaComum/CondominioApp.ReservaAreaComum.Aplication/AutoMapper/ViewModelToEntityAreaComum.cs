@@ -9,10 +9,10 @@ namespace CondominioApp.ReservaAreaComum.Aplication.AutoMapper
         public ViewModelToEntityAreaComum()
         {
             CreateMap<PeriodoViewModel, Periodo>()
-                .ForMember(m => m.HoraInicio, cfg => cfg.MapFrom(x => x.HoraInicio))
-                .ForMember(c => c.HoraFim, p  => p.MapFrom(x => x.HoraFim))
-                .ForMember(c => c.Valor, p => p.MapFrom(x => x.Valor))
-                .ForMember(c => c.Ativo, p => p.MapFrom(x => x.Ativo));           
+                .ForMember(e => e.HoraInicio, cfg => cfg.MapFrom(x => x.HoraInicio))
+                .ForMember(e => e.HoraFim, cfg => cfg.MapFrom(x => x.HoraFim))
+                .ForMember(e => e.Valor, cfg => cfg.MapFrom(x => x.Valor))
+                .ForMember(e => e.Ativo, cfg => cfg.MapFrom(x => x.Ativo));           
         }
     }
 }

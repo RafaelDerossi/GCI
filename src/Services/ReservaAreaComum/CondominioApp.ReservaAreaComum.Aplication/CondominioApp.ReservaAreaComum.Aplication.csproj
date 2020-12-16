@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <Folder Include="Events\" />
-    <Folder Include="Query\" />
   </ItemGroup>
 
   <ItemGroup>

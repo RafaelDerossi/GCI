@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CondominioApp.ReservaAreaComum.Aplication.ViewModels
 {
-   public class CadastraAreaComumViewModels
+   public class CadastraAreaComumViewModel
     {
         public string Nome { get; set; }
         public string Descricao { get; set; }

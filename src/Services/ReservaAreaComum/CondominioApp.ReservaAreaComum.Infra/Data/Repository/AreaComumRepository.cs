@@ -37,15 +37,19 @@ namespace CondominioApp.Principal.Infra.Data.Repository
             _context.AreasComuns.Update(entity);
         }
 
-
-        public void AdicionarGrupo(AreaComum entity)
+        public void AdicionarPeriodo(Periodo entity)
         {
-            _context.AreasComuns.Add(entity);
+            _context.Periodos.Add(entity);
         }
-      
-        public void AdicionarUnidade(AreaComum entity)
+
+        public void RemoverPeriodo(Periodo entity)
         {
-            _context.AreasComuns.Add(entity);
+            _context.Periodos.Remove(entity);
+        }
+       
+        public void AdicionarReserva(Reserva entity)
+        {
+            _context.Reservas.Add(entity);
         }
        
 
@@ -55,32 +59,32 @@ namespace CondominioApp.Principal.Infra.Data.Repository
             if (OrderByDesc)
             {
                 if (take > 0)
-                    return await _context.AreasComuns.AsNoTracking().Where(expression)
+                    return await _context.AreasComuns.AsNoTracking().Include(a => a.Periodos).Where(expression)
                                         .OrderByDescending(x => x.DataDeCadastro).Take(take).ToListAsync();
 
-                return await _context.AreasComuns.AsNoTracking().Where(expression)
+                return await _context.AreasComuns.AsNoTracking().Include(a => a.Periodos).Where(expression)
                                         .OrderByDescending(x => x.DataDeCadastro).ToListAsync();
             }
 
             if (take > 0)
-                return await _context.AreasComuns.AsNoTracking().Where(expression)
+                return await _context.AreasComuns.AsNoTracking().Include(a => a.Periodos).Where(expression)
                                         .OrderBy(x => x.DataDeCadastro).Take(take).ToListAsync();
 
-            return await _context.AreasComuns.AsNoTracking().Where(expression)
+            return await _context.AreasComuns.AsNoTracking().Include(a => a.Periodos).Where(expression)
                                     .OrderBy(x => x.DataDeCadastro).ToListAsync();
         }
 
         public async Task<AreaComum> ObterPorId(Guid Id)
         {
             return await _context.AreasComuns
-                //.Include(g => g.Reservas)                  
-                .FirstOrDefaultAsync(u => u.Id == Id);
+                .Include(a => a.Periodos)                  
+                .FirstOrDefaultAsync(a => a.Id == Id);
         }
 
 
         public async Task<IEnumerable<AreaComum>> ObterTodos()
         {
-            return await _context.AreasComuns.Where(u => !u.Lixeira).ToListAsync();
+            return await _context.AreasComuns.Where(u => !u.Lixeira).Include(a => a.Periodos).ToListAsync();
         }
 
         public void Dispose()

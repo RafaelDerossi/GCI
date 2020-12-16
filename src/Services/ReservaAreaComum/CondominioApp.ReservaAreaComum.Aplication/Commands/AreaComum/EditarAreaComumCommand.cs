@@ -14,10 +14,11 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
             Guid areaComumId, string nome, string descricao, string termoDeUso, int capacidade, string diasPermitidos,
             int antecedenciaMaximaEmMeses, int antecedenciaMaximaEmDias, int antecedenciaMinimaEmDias,
             int antecedenciaMinimaParaCancelamentoEmDias, bool requerAprovacaoDeReserva, bool temHorariosEspecificos,
-            string tempoDeIntervaloEntreReservas, bool ativa, string tempoDeDuracaoDeReserva, 
+            string tempoDeIntervaloEntreReservas, string tempoDeDuracaoDeReserva, 
             int numeroLimiteDeReservaPorUnidade, bool permiteReservaSobreposta, int numeroLimiteDeReservaSobreposta,
             int numeroLimiteDeReservaSobrepostaPorUnidade, ICollection<Periodo> periodos)
-        {           
+        {
+            AreaComumId = areaComumId;
             Nome = nome;
             Descricao = descricao;
             TermoDeUso = termoDeUso;
@@ -30,7 +31,6 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
             RequerAprovacaoDeReserva = requerAprovacaoDeReserva;
             TemHorariosEspecificos = temHorariosEspecificos;
             TempoDeIntervaloEntreReservas = tempoDeIntervaloEntreReservas;
-            Ativa = ativa;
             TempoDeDuracaoDeReserva = tempoDeDuracaoDeReserva;
             NumeroLimiteDeReservaPorUnidade = numeroLimiteDeReservaPorUnidade;
             PermiteReservaSobreposta = permiteReservaSobreposta;
@@ -62,7 +62,6 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
                 ValidateAntecedenciaMinimaParaCancelamentoEmDias();
                 ValidateRequerAprovacaoDeReserva();
                 ValidateTemHorariosEspecificos();
-                ValidateAtiva();
                 ValidatePermiteReservaSobreposta();
                 ValidateNumeroLimiteDeReservaSobreposta();
                 ValidateNumeroLimiteDeReservaSobrepostaPorUnidade();

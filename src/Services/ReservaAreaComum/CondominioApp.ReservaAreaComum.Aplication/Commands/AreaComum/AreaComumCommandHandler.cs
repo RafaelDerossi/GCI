@@ -13,6 +13,9 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
     public class AreaComumCommandHandler : CommandHandler,
          IRequestHandler<CadastrarAreaComumCommand, ValidationResult>,
          IRequestHandler<EditarAreaComumCommand, ValidationResult>,
+         IRequestHandler<RemoverAreaComumCommand, ValidationResult>,
+         IRequestHandler<AtivarAreaComumCommand, ValidationResult>,
+         IRequestHandler<DesativarAreaComumCommand, ValidationResult>,
          IDisposable
     {
 
@@ -28,7 +31,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
         {
             if (!request.EstaValido()) return request.ValidationResult;
 
-            var AreaComum = AreaComumFactory(request);         
+            var areaComum = AreaComumFactory(request);         
 
             if (request.Periodos == null || request.Periodos.Count() == 0)
                 AdicionarErro("Informe um Período de funcionamento para a area comum.");
@@ -37,11 +40,11 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
 
             foreach (Periodo periodo in request.Periodos)
             {
-               var Result = AreaComum.AdicionarPeriodo(periodo);
+               var Result = areaComum.AdicionarPeriodo(periodo);
                 if (!Result.IsValid) return Result;
             }           
 
-            _areaComumRepository.Adicionar(AreaComum);
+            _areaComumRepository.Adicionar(areaComum);
 
            //Evento
            //
@@ -77,50 +80,107 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
             areacomum.SetNumeroLimiteDeReservaSobreposta(request.NumeroLimiteDeReservaSobreposta);
             areacomum.SetNumeroLimiteDeReservaSobrepostaPorUnidade(request.NumeroLimiteDeReservaSobrepostaPorUnidade);
 
-            //public void HabilitarAprovacaoDeReserva() => RequerAprovacaoDeReserva = true;
-            //public void DesabilitarAprovacaoDeReserva() => RequerAprovacaoDeReserva = false;
+            areacomum.DesabilitarAprovacaoDeReserva();
+            if (request.RequerAprovacaoDeReserva) areacomum.HabilitarAprovacaoDeReserva();
 
-            //public void HabilitarHorariosEspecifcos() => TemHorariosEspecificos = true;
-            //public void DesabilitarHorariosEspecifcos() => TemHorariosEspecificos = false;
+            areacomum.DesabilitarHorariosEspecifcos();
+            if (request.TemHorariosEspecificos) areacomum.HabilitarHorariosEspecifcos();
 
-            //public void AtivarAreaComun() => Ativa = true;
-            //public void DesativarAreaComun() => Ativa = false;
+            areacomum.DesativarAreaComun();
+            if (request.Ativa) areacomum.AtivarAreaComun();
 
-            //public void HabilitarReservaSobreposta() => PermiteReservaSobreposta = true;
-            //public void DesabilitarReservaSobreposta() => PermiteReservaSobreposta = false;
+            areacomum.DesabilitarReservaSobreposta();
+            if (request.PermiteReservaSobreposta) areacomum.HabilitarReservaSobreposta();           
+           
 
 
-            if (areacomum.Unidades != null)
+            if (areacomum.Periodos != null)
             {
-                foreach (Unidade unidade in areacomum.Unidades)
+                foreach (Periodo periodo in areacomum.Periodos)
                 {
-                    _ComunicadoRepository.RemoverUnidade(unidade);
+                    _areaComumRepository.RemoverPeriodo(periodo);
                 }
             }
-            areacomum.RemoverTodasUnidade();
+            areacomum.RemoverTodosOsPeriodos();
 
-            if (areacomum.Visibilidade == VisibilidadeComunicado.UNIDADES || areacomum.Visibilidade == VisibilidadeComunicado.PROPRIETARIOS_UNIDADES)
+            if (request.Periodos == null || request.Periodos.Count() == 0)
             {
-                if (request.Unidades == null || request.Unidades.Count() == 0)
-                {
-                    AdicionarErro("Informe uma ou mais unidades.");
-                    return ValidationResult;
-                }
-
-                foreach (Unidade unidade in request.Unidades)
-                {
-                    var resultado = areacomum.AdicionarUnidade(unidade);
-                    if (!resultado.IsValid) return resultado;
-                    _ComunicadoRepository.AdicionarUnidade(unidade);
-                }
+                AdicionarErro("Informe um ou mais períodos de funcionamento da area comum.");
+                return ValidationResult;
             }
 
+            foreach (Periodo periodo in request.Periodos)
+            {
+                var resultado = areacomum.AdicionarPeriodo(periodo);
+                if (!resultado.IsValid) return resultado;
+                _areaComumRepository.AdicionarPeriodo(periodo);
+            }          
 
-            _ComunicadoRepository.Atualizar(areacomum);
 
-            return await PersistirDados(_ComunicadoRepository.UnitOfWork);
+            _areaComumRepository.Atualizar(areacomum);
+
+            return await PersistirDados(_areaComumRepository.UnitOfWork);
         }
 
+
+        public async Task<ValidationResult> Handle(RemoverAreaComumCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido())
+                return request.ValidationResult;
+
+            var areaComumBd = await _areaComumRepository.ObterPorId(request.AreaComumId);
+            if (areaComumBd == null)
+            {
+                AdicionarErro("Area Comum não encontrada.");
+                return ValidationResult;
+            }
+
+            areaComumBd.EnviarParaLixeira();
+
+            _areaComumRepository.Atualizar(areaComumBd);
+
+            return await PersistirDados(_areaComumRepository.UnitOfWork);
+        }
+
+
+        public async Task<ValidationResult> Handle(AtivarAreaComumCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido())
+                return request.ValidationResult;
+
+            var areaComumBd = await _areaComumRepository.ObterPorId(request.AreaComumId);
+            if (areaComumBd == null)
+            {
+                AdicionarErro("Area Comum não encontrada.");
+                return ValidationResult;
+            }
+
+            areaComumBd.AtivarAreaComun();
+
+            _areaComumRepository.Atualizar(areaComumBd);
+
+            return await PersistirDados(_areaComumRepository.UnitOfWork);
+        }
+
+
+        public async Task<ValidationResult> Handle(DesativarAreaComumCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido())
+                return request.ValidationResult;
+
+            var areaComumBd = await _areaComumRepository.ObterPorId(request.AreaComumId);
+            if (areaComumBd == null)
+            {
+                AdicionarErro("Area Comum não encontrada.");
+                return ValidationResult;
+            }
+
+            areaComumBd.DesativarAreaComun();
+
+            _areaComumRepository.Atualizar(areaComumBd);
+
+            return await PersistirDados(_areaComumRepository.UnitOfWork);
+        }
 
 
 

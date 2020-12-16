@@ -33,6 +33,7 @@ using CondominioApp.Comunicados.App.Models;
 using CondominioApp.Comunicados.App.Data.Repository;
 using CondominioApp.Comunicados.App.Aplication.Query;
 using CondominioApp.ReservaAreaComum.Aplication.Commands;
+using CondominioApp.ReservaAreaComum.App.Aplication.Query;
 
 namespace CondominioApp.Api.Configuration
 {
@@ -100,6 +101,10 @@ namespace CondominioApp.Api.Configuration
 
             //Reserva Area Comum
             services.AddScoped<IRequestHandler<CadastrarAreaComumCommand, ValidationResult>, AreaComumCommandHandler>();
+            services.AddScoped<IRequestHandler<EditarAreaComumCommand, ValidationResult>, AreaComumCommandHandler>();
+            services.AddScoped<IRequestHandler<RemoverAreaComumCommand, ValidationResult>, AreaComumCommandHandler>();
+            services.AddScoped<IRequestHandler<AtivarAreaComumCommand, ValidationResult>, AreaComumCommandHandler>();
+            services.AddScoped<IRequestHandler<DesativarAreaComumCommand, ValidationResult>, AreaComumCommandHandler>();
 
 
             //Pre Cadastro
@@ -114,6 +119,8 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<IEnqueteQuery, EnqueteQuery>();
             services.AddScoped<ICorrespondenciaQuery, CorrespondenciaQuery>();
             services.AddScoped<IComunicadoQuery, ComunicadoQuery>();
+            services.AddScoped<IAreaComumQuery, AreaComumQuery>();
+
 
             //Repositórios
             services.AddScoped<ICondominioRepository, CondominioRepository>();
