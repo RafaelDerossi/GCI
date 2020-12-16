@@ -17,7 +17,7 @@ namespace CondominioApp.Enquetes.App.Models
 
         public IReadOnlyCollection<RespostaEnquete> Respostas => _Respostas;
 
-        public AlternativaEnquete()
+        protected AlternativaEnquete()
         {
             _Respostas = new List<RespostaEnquete>();
         }

@@ -13,7 +13,7 @@ namespace CondominioApp.ReservaAreaComum.Domain
         public decimal Valor { get; private set; }
         public bool Ativo { get; private set; }
 
-        public Periodo() { }
+        protected Periodo() { }
 
         public Periodo(string horaInicio, string horaFim, Guid areaComumId, decimal valor, bool ativo)
         {

@@ -40,7 +40,7 @@ namespace CondominioApp.Comunicados.App.Models
 
 
         /// Construtores
-        public Comunicado()
+        protected Comunicado()
         {
             _Unidades = new List<Unidade>();
         }

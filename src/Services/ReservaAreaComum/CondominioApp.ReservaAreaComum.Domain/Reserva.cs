@@ -49,12 +49,12 @@ namespace CondominioApp.ReservaAreaComum.Domain
             }
         }
 
-        public Reserva() { }
+        protected Reserva() { }
 
         public Reserva(Guid areaComumId, string observacao, Guid unidadeId, string numeroUnidade, 
             string andarUnidade, string descricaoGrupoUnidade, Guid usuarioId, string nomeUsuario,
             DateTime dataDeRealizacao, string horaInicio, string horaFim, bool ativa, decimal preco,
-            bool estaNaFila, string justificativa, string origem, bool reservadoPelaAdministracao)
+            bool estaNaFila, string origem, bool reservadoPelaAdministracao)
         {
             AreaComumId = areaComumId;
             Observacao = observacao;

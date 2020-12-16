@@ -58,6 +58,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
                 ValidateNome();
                 ValidateCondominioId();
                 ValidateNomeCondominio();
+                ValidateTermoDeUso();
                 ValidateDiasPermitidos();
                 ValidateAntecedenciaMaximaEmMeses();
                 ValidateAntecedenciaMaximaEmDias();

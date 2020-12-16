@@ -46,7 +46,7 @@ namespace CondominioApp.Correspondencias.App.Models
         /// <summary>
         /// Construtores
         /// </summary>
-        public Correspondencia()
+        protected Correspondencia()
         {
         }
         public Correspondencia(Guid condominioId, Guid unidadeId, string numeroUnidade, string bloco, bool visto, 

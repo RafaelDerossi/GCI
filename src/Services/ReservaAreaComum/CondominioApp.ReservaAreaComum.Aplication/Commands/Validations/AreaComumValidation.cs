@@ -32,6 +32,12 @@ namespace CondominioApp.Principal.Aplication.Commands.Validations
                 .Length(2, 200).WithMessage("Nome do Condominio deve ter mais de 2 caracteres!");
         }
 
+        protected void ValidateTermoDeUso()
+        {
+            RuleFor(c => c.TermoDeUso)
+                .Length(0, 500).WithMessage("Termo de Uso deve ter no máximo 500 caracteres!");
+        }
+
         protected void ValidateDiasPermitidos()
         {
             RuleFor(c => c.DiasPermitidos)
@@ -115,11 +121,15 @@ namespace CondominioApp.Principal.Aplication.Commands.Validations
 
                 Regra.RuleFor(p => p.HoraInicio)
                 .NotEmpty().WithMessage("'Hora Inicio' no Periodo não pode estar vazia!")
-                .NotNull().WithMessage("'Hora Inicio' no Periodo não pode estar nulo!");
+                .NotNull().WithMessage("'Hora Inicio' no Periodo não pode estar nulo!")
+                .Length(5).WithMessage("'Hora Inicio' deve ter 5 caracteres!")
+                .Matches("[012][0-9]:[0-5][0-9]").WithMessage("Hora Inicio inválida!");
 
                 Regra.RuleFor(p => p.HoraFim)
                 .NotEmpty().WithMessage("'Hora Fim' no Periodo não pode estar vazia!")
-                .NotNull().WithMessage("'Hora Fim' no Periodo não pode estar nulo!");
+                .NotNull().WithMessage("'Hora Fim' no Periodo não pode estar nulo!")
+                .Length(5).WithMessage("'Hora Fim' deve ter 5 caracteres!")
+                .Matches("[012][0-9]:[0-5][0-9]").WithMessage("Hora Fim inválida!");
 
                 Regra.RuleFor(p => p.Valor)
                .NotNull().WithMessage("'Hora Fim' no Periodo não pode estar nulo!");
