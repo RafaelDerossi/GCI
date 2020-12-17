@@ -16,7 +16,7 @@ namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy
         public RegrasGlobaisParaReservar(Reserva reserva, AreaComum areaComum, IRegrasDeReservaSobrepostaStrategy strategyReservaSobreposta)
         {
             _reserva = reserva;
-            _areaComum = areaComum;
+            _areaComum = areaComum;            
             _strategyReservaSobreposta = strategyReservaSobreposta;
         }
 
@@ -28,7 +28,10 @@ namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy
             result = ValidarDuracaoLimiteDaReserva();
             if (!result.IsValid) return result;
 
-            return _strategyReservaSobreposta.Validar();
+            if (!_reserva.EstaNaFila)
+                return _strategyReservaSobreposta.Validar();
+
+            return result;
         }
 
         public ValidationResult VerificaReservasAprovadas()

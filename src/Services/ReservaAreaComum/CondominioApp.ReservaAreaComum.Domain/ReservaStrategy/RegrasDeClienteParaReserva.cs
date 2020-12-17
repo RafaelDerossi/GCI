@@ -22,6 +22,13 @@ namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy
 
         public override ValidationResult Validar()
         {
+            //Regra para não permitir Reserva Retroativa
+            if (_reserva.DataDeRealizacao.Date < DateTime.Today.Date)
+            {
+                AdicionarErros("A data de realização da reserva deve ser maior ou igual a de hoje");
+                return ValidationResult;
+            }
+
             //Regra de bloqueio
             if (!string.IsNullOrEmpty(_areaComum.DataInicioBloqueio.ToString()))
             {

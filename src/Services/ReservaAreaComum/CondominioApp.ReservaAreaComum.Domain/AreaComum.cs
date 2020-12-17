@@ -58,8 +58,7 @@ namespace CondominioApp.ReservaAreaComum.Domain
             int capacidade, string diasPermitidos, int antecedenciaMaximaEmMeses, int antecedenciaMaximaEmDias,
             int antecedenciaMinimaEmDias, int antecedenciaMinimaParaCancelamentoEmDias, bool requerAprovacaoDeReserva,
             bool horariosEspecificos, string tempoDeIntervaloEntreReservas, bool ativo, string tempoDeDuracaoDaReserva,
-            int numeroLimiteDeReservaPorUnidade, DateTime? dataBloqueioInicio, DateTime? dataBloqueioFim,
-            bool permiteReservaSobreposta, int numeroLimiteDeReservaSobreposta,
+            int numeroLimiteDeReservaPorUnidade, bool permiteReservaSobreposta, int numeroLimiteDeReservaSobreposta,
             int numeroLimiteDeReservaSobrepostaPorUnidade)
         {
             _Periodos = new List<Periodo>();
@@ -81,8 +80,6 @@ namespace CondominioApp.ReservaAreaComum.Domain
             Ativa = ativo;
             TempoDeDuracaoDeReserva = tempoDeDuracaoDaReserva;
             NumeroLimiteDeReservaPorUnidade = numeroLimiteDeReservaPorUnidade;
-            DataInicioBloqueio = dataBloqueioInicio;
-            DataFimBloqueio = dataBloqueioFim;
             PermiteReservaSobreposta = permiteReservaSobreposta;
             NumeroLimiteDeReservaSobreposta = numeroLimiteDeReservaSobreposta;
             NumeroLimiteDeReservaSobrepostaPorUnidade = numeroLimiteDeReservaSobrepostaPorUnidade;
@@ -193,12 +190,7 @@ namespace CondominioApp.ReservaAreaComum.Domain
         }
 
         public ValidationResult AdicionarPeriodo(Periodo periodo)
-        {
-            if (periodo.ObterHoraInicio >= periodo.ObterHoraFim)
-            {
-                AdicionarErrosDaEntidade("Período inválido!");
-                return ValidationResult;
-            }
+        {          
 
             if (_Periodos.Any(u => u.HoraInicio == periodo.HoraInicio || u.HoraFim == periodo.HoraFim))
             {
@@ -206,18 +198,16 @@ namespace CondominioApp.ReservaAreaComum.Domain
                 return ValidationResult;
             }
 
-            if (_Periodos.Any(p => p.ObterHoraInicio < periodo.ObterHoraInicio && p.ObterHoraFim > periodo.ObterHoraInicio))
+            if (
+                _Periodos.Any(p => p.ObterHoraInicio < periodo.ObterHoraInicio && p.ObterHoraFim > periodo.ObterHoraInicio) ||
+                _Periodos.Any(p => p.ObterHoraInicio > periodo.ObterHoraInicio && p.ObterHoraInicio < periodo.ObterHoraFim) ||
+                _Periodos.Any(p => p.ObterHoraInicio > periodo.ObterHoraFim && p.ObterHoraFim > periodo.ObterHoraInicio)
+                )
             {
                 AdicionarErrosDaEntidade("Período incompatível com outro período ja existente!");
                 return ValidationResult;
             }
-
-            if (_Periodos.Any(p => p.ObterHoraInicio > periodo.ObterHoraInicio && p.ObterHoraInicio < periodo.ObterHoraFim))
-            {
-                AdicionarErrosDaEntidade("Período incompatível com outro período ja existente!");
-                return ValidationResult;
-            }
-
+          
             _Periodos.Add(periodo);
 
             return ValidationResult;
@@ -230,25 +220,31 @@ namespace CondominioApp.ReservaAreaComum.Domain
 
         public ValidationResult AdicionarReserva(Reserva reserva)
         {
+
             GerenciadorDeReserva Gerenciador;
 
             if (reserva.Origem != "Sistema Web")
             {
                 Gerenciador = new GerenciadorDeReserva(new RegrasDeClienteParaReservar(reserva, this));
                 
-                return Gerenciador.Validar();
+                var resultado = Gerenciador.Validar();
+
+                if (!resultado.IsValid) return resultado;
             }
 
-            if (PermiteReservaSobreposta && !RequerAprovacaoDeReserva)
+            if (PermiteReservaSobreposta)
                 Gerenciador = new GerenciadorDeReserva(
-                    new RegrasGlobaisParaReservar(reserva, this, new RegrasDeReservaLimiteDeVagasPorHorario(this, reserva)));
-            else
-                Gerenciador = new GerenciadorDeReserva(new RegrasGlobaisParaReservar(reserva, this, new RegraDeReservaSobreposta(reserva, this)));
+                    new RegrasGlobaisParaReservar(reserva, this, new RegraDeReservaSobreposta(this, reserva)));
+            else 
+                Gerenciador = new GerenciadorDeReserva(
+                    new RegrasGlobaisParaReservar(reserva, this, new RegrasDeReservaLimiteDeVagasPorHorario(reserva, this)));
 
             var result = Gerenciador.Validar();
             if (!result.IsValid) return result;
 
+
             if (!RequerAprovacaoDeReserva) reserva.Aprovar();
+            
             _Reservas.Add(reserva);
            
             return ValidationResult;
@@ -296,7 +292,7 @@ namespace CondominioApp.ReservaAreaComum.Domain
 
         public ValidationResult AprovarReservaPendente(Reserva reserva)
         {
-            var ValidacaoGlobal = new RegrasGlobaisParaReservar(reserva, this, new RegraDeReservaSobreposta(reserva, this));
+            var ValidacaoGlobal = new RegrasGlobaisParaReservar(reserva, this, new RegrasDeReservaLimiteDeVagasPorHorario(reserva, this));
 
             var ret = ValidacaoGlobal.VerificaReservasAprovadas();
 

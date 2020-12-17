@@ -6,53 +6,62 @@ namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.ReservaSobrepost
 {
     public class RegrasDeReservaLimiteDeVagasPorHorario : RegrasDeReservaSobrepostaStrategy
     {
-        private readonly AreaComum _areaComum;
-
         private readonly Reserva _reserva;
 
-        public RegrasDeReservaLimiteDeVagasPorHorario(AreaComum areaComum, Reserva reserva)
+        private readonly AreaComum _areaComum;
+
+        public RegrasDeReservaLimiteDeVagasPorHorario(Reserva reserva, AreaComum areaComum)
         {
-            _areaComum = areaComum;
             _reserva = reserva;
+            _areaComum = areaComum;
         }
 
         public override ValidationResult Validar()
         {
-            var validationResultQuantidadeDeVagas = ValidarQuantidadeDeVagas();
-            if (!validationResultQuantidadeDeVagas.IsValid) return validationResultQuantidadeDeVagas;
+            List<Reserva> ReservasAprovadas = _areaComum.Reservas.Where(x => x.Ativa && !x.EstaNaFila && !x.Lixeira).ToList();
 
-            return ValidarQuantidadeDeVagasPorUnidade();
-        }
-
-        private ValidationResult ValidarQuantidadeDeVagas()
-        {
-            int quantidadeReservaMesmoHorario = _areaComum.Reservas.Count(x => x.Ativa && !x.EstaNaFila && !x.Lixeira &&
-                                                                               x.ObterHoraInicio == _reserva.ObterHoraInicio &&
-                                                                               x.ObterHoraFim == _reserva.ObterHoraFim);
-
-            if (quantidadeReservaMesmoHorario >= _areaComum.NumeroLimiteDeReservaSobreposta)
+            if (OverLap(ReservasAprovadas, _reserva))
             {
-                AdicionarErros("Não ha mais vagas para o período selecionado!");
+                //Bloquear reserva quando ha uma reserva da administração
+                if (ReservasAprovadas.Any(x => (x.ReservadoPelaAdministracao && _reserva.SaberSeReservaSobrepoeOutraOuEIgual(x))))
+                {
+                    AdicionarErros("Este período foi reservado pela administração de seu condomínio!");
+                    return ValidationResult;
+                }
+
+                AdicionarErros("O horário que você deseja esta comprometido, deseja ficar em uma fila de espera?");
                 return ValidationResult;
             }
-
-            return ValidationResult;
+            else
+                return ValidationResult;
         }
 
-        private ValidationResult ValidarQuantidadeDeVagasPorUnidade()
+        /// <summary>
+        /// Verificação de reservas sobrepostas
+        /// </summary>
+        /// <param name="ReservasAprovadas"></param>
+        /// <param name="nova"></param>
+        /// <returns></returns>
+        private bool OverLap(List<Reserva> ReservasAprovadas, Reserva nova)
         {
-            int quantidadeReservaMesmoHorarioPorUnidade = _areaComum.Reservas.Count(x => x.Ativa && !x.EstaNaFila && !x.Lixeira &&
-                                                                                         x.ObterHoraInicio == _reserva.ObterHoraInicio &&
-                                                                                         x.ObterHoraFim == _reserva.ObterHoraFim &&
-                                                                                         x.UnidadeId == _reserva.UnidadeId);
-
-            if (quantidadeReservaMesmoHorarioPorUnidade >= _areaComum.NumeroLimiteDeReservaSobrepostaPorUnidade)
+            foreach (var reserva in ReservasAprovadas)
             {
-                AdicionarErros("Não ha mais vagas no período selecionado para sua unidade!");
-                return ValidationResult;
-            }
+                bool overlap = nova.ObterHoraInicio < reserva.ObterHoraFim && reserva.ObterHoraInicio < nova.ObterHoraFim;
 
-            return ValidationResult;
+                int hInicio = nova.ObterHoraInicio;
+                int hrInicio = reserva.ObterHoraInicio;
+
+                //if (!overlap)
+                //{
+                //    hrInicio++;
+                //    hrInicio++;
+                //    overlap = hInicio > reserva.HoraFim && hrInicio > reserva.HoraFim;
+                //}
+
+                if (overlap)
+                    return true;
+            }
+            return false;
         }
     }
 }

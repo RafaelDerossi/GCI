@@ -77,7 +77,8 @@ namespace CondominioApp.Principal.Infra.Data.Repository
         public async Task<AreaComum> ObterPorId(Guid Id)
         {
             return await _context.AreasComuns
-                .Include(a => a.Periodos)                  
+                .Include(a => a.Periodos)
+                .Include(a => a.Reservas)
                 .FirstOrDefaultAsync(a => a.Id == Id);
         }
 

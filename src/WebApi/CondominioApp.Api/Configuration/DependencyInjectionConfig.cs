@@ -99,12 +99,15 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<IRequestHandler<EditarComunicadoCommand, ValidationResult>, ComunicadoCommandHandler>();
             services.AddScoped<IRequestHandler<RemoverComunicadoCommand, ValidationResult>, ComunicadoCommandHandler>();
 
-            //Reserva Area Comum
+            //Area Comum
             services.AddScoped<IRequestHandler<CadastrarAreaComumCommand, ValidationResult>, AreaComumCommandHandler>();
             services.AddScoped<IRequestHandler<EditarAreaComumCommand, ValidationResult>, AreaComumCommandHandler>();
             services.AddScoped<IRequestHandler<RemoverAreaComumCommand, ValidationResult>, AreaComumCommandHandler>();
             services.AddScoped<IRequestHandler<AtivarAreaComumCommand, ValidationResult>, AreaComumCommandHandler>();
             services.AddScoped<IRequestHandler<DesativarAreaComumCommand, ValidationResult>, AreaComumCommandHandler>();
+
+            //Reserva
+            services.AddScoped<IRequestHandler<CadastrarReservaCommand, ValidationResult>, ReservaCommandHandler>();
 
 
             //Pre Cadastro

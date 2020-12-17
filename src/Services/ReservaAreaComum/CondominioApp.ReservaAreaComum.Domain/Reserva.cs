@@ -53,7 +53,7 @@ namespace CondominioApp.ReservaAreaComum.Domain
 
         public Reserva(Guid areaComumId, string observacao, Guid unidadeId, string numeroUnidade, 
             string andarUnidade, string descricaoGrupoUnidade, Guid usuarioId, string nomeUsuario,
-            DateTime dataDeRealizacao, string horaInicio, string horaFim, bool ativa, decimal preco,
+            DateTime dataDeRealizacao, string horaInicio, string horaFim, decimal preco,
             bool estaNaFila, string origem, bool reservadoPelaAdministracao)
         {
             AreaComumId = areaComumId;
@@ -67,10 +67,8 @@ namespace CondominioApp.ReservaAreaComum.Domain
             DataDeRealizacao = dataDeRealizacao;
             HoraInicio = horaInicio;
             HoraFim = horaFim;
-            Ativa = ativa;
             Preco = preco;
             EstaNaFila = estaNaFila;
-            Justificativa = justificativa;
             Origem = origem;
             ReservadoPelaAdministracao = reservadoPelaAdministracao;
         }
@@ -100,6 +98,13 @@ namespace CondominioApp.ReservaAreaComum.Domain
 
         public void SetOrigem(string origem) => Origem = origem;
 
+        public void SetUnidade(Guid unidadeId,string numeroUnidade,string andarUnidade, string descricaoGrupoUnidade)
+        {
+            UnidadeId = unidadeId;
+            NumeroUnidade = numeroUnidade;
+            AndarUnidade = andarUnidade;
+            DescricaoGrupoUnidade = descricaoGrupoUnidade;
+        }
               
 
         public int ObterHoraInicio

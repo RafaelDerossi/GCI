@@ -191,8 +191,8 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
                 request.Capacidade, request.DiasPermitidos, request.AntecedenciaMaximaEmMeses, request.AntecedenciaMaximaEmDias,
                 request.AntecedenciaMinimaEmDias, request.AntecedenciaMinimaParaCancelamentoEmDias, request.RequerAprovacaoDeReserva,
                 request.TemHorariosEspecificos, request.TempoDeIntervaloEntreReservas, request.Ativa, request.TempoDeDuracaoDeReserva,
-                request.NumeroLimiteDeReservaPorUnidade, request.DataInicioBloqueio, request.DataFimBloqueio,
-                request.PermiteReservaSobreposta, request.NumeroLimiteDeReservaSobreposta, request.NumeroLimiteDeReservaSobrepostaPorUnidade);
+                request.NumeroLimiteDeReservaPorUnidade, request.PermiteReservaSobreposta, request.NumeroLimiteDeReservaSobreposta,
+                request.NumeroLimiteDeReservaSobrepostaPorUnidade);
         }
         
         public void Dispose()

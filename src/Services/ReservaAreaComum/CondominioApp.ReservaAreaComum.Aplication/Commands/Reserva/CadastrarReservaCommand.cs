@@ -10,11 +10,11 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
    public class CadastrarReservaCommand : ReservaCommand
     {
 
-        protected CadastrarReservaCommand
+        public CadastrarReservaCommand
             (Guid areaComumId, string observacao, Guid unidadeId, string numeroUnidade,
             string andarUnidade, string descricaoGrupoUnidade, Guid usuarioId, string nomeUsuario,
-            DateTime dataDeRealizacao, string horaInicio, string horaFim, bool ativa, decimal preco,
-            bool estaNaFila, string justificativa, string origem, bool reservadoPelaAdministracao)
+            DateTime dataDeRealizacao, string horaInicio, string horaFim, decimal preco,
+            bool estaNaFila, string origem, bool reservadoPelaAdministracao)
         {            
             AreaComumId = areaComumId;
             Observacao = observacao;
@@ -27,7 +27,6 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
             DataDeRealizacao = dataDeRealizacao;
             HoraInicio = horaInicio;
             HoraFim = horaFim;
-            Ativa = ativa;
             Preco = preco;
             EstaNaFila = estaNaFila;
             Origem = origem;
@@ -59,11 +58,9 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
                 ValidateNomeUsuario();
                 ValidateDataDeRealizacao();
                 ValidateHoraInicio();
-                ValidateHoraFim();
-                ValidateAtiva();
+                ValidateHoraFim();               
                 ValidatePreco();
                 ValidateEstaNaFila();
-                ValidateJustificativa();
                 ValidateOrigem();
                 ValidateReservadoPelaAdministracao();
             }

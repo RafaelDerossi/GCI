@@ -6,62 +6,57 @@ namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.ReservaSobrepost
 {
     public class RegraDeReservaSobreposta : RegrasDeReservaSobrepostaStrategy
     {
-        private readonly Reserva _reserva;
-
         private readonly AreaComum _areaComum;
 
-        public RegraDeReservaSobreposta(Reserva reserva, AreaComum areaComum)
+        private readonly Reserva _reserva;
+
+        public RegraDeReservaSobreposta(AreaComum areaComum, Reserva reserva)
         {
-            _reserva = reserva;
             _areaComum = areaComum;
+            _reserva = reserva;
         }
 
         public override ValidationResult Validar()
         {
-            List<Reserva> ReservasAprovadas = _areaComum.Reservas.Where(x => x.Ativa && !x.EstaNaFila && !x.Lixeira).ToList();
+            var validationResultQuantidadeDeVagas = ValidarQuantidadeDeVagas();
+            if (!validationResultQuantidadeDeVagas.IsValid) return validationResultQuantidadeDeVagas;
 
-            if (OverLap(ReservasAprovadas, _reserva))
-            {
-                //Bloquear reserva quando ha uma reserva da administração
-                if (ReservasAprovadas.Any(x => (x.ReservadoPelaAdministracao && _reserva.SaberSeReservaSobrepoeOutraOuEIgual(x))))
-                {
-                    AdicionarErros("Este período foi reservado pela administração de seu condomínio!");
-                    return ValidationResult;
-                }
-
-                AdicionarErros("O horário que você deseja esta comprometido, deseja ficar em uma fila de espera?");
-                return ValidationResult;
-            }
-            else
-                return ValidationResult;
+            return ValidarQuantidadeDeVagasPorUnidade();
         }
 
-        /// <summary>
-        /// Verificação de reservas sobrepostas
-        /// </summary>
-        /// <param name="ReservasAprovadas"></param>
-        /// <param name="nova"></param>
-        /// <returns></returns>
-        private bool OverLap(List<Reserva> ReservasAprovadas, Reserva nova)
+        private ValidationResult ValidarQuantidadeDeVagas()
         {
-            foreach (var reserva in ReservasAprovadas)
+            int quantidadeReservaMesmoHorario = _areaComum.Reservas.Count(x => x.Ativa && !x.EstaNaFila && !x.Lixeira &&
+                                                                               x.ObterHoraInicio == _reserva.ObterHoraInicio &&
+                                                                               x.ObterHoraFim == _reserva.ObterHoraFim &&
+                                                                               x.DataDeRealizacao == _reserva.DataDeRealizacao);
+
+            if (quantidadeReservaMesmoHorario > 0 && _areaComum.NumeroLimiteDeReservaSobreposta > 0 && 
+                quantidadeReservaMesmoHorario >= _areaComum.NumeroLimiteDeReservaSobreposta)
             {
-                bool overlap = nova.ObterHoraInicio < reserva.ObterHoraFim && reserva.ObterHoraInicio < nova.ObterHoraFim;
-
-                int hInicio = nova.ObterHoraInicio;
-                int hrInicio = reserva.ObterHoraInicio;
-
-                //if (!overlap)
-                //{
-                //    hrInicio++;
-                //    hrInicio++;
-                //    overlap = hInicio > reserva.HoraFim && hrInicio > reserva.HoraFim;
-                //}
-
-                if (overlap)
-                    return true;
+                AdicionarErros("Não ha mais vagas para o período selecionado!");
+                return ValidationResult;
             }
-            return false;
+
+            return ValidationResult;
+        }
+
+        private ValidationResult ValidarQuantidadeDeVagasPorUnidade()
+        {
+            int quantidadeReservaMesmoHorarioPorUnidade = _areaComum.Reservas.Count(x => x.Ativa && !x.EstaNaFila && !x.Lixeira &&
+                                                                                         x.ObterHoraInicio == _reserva.ObterHoraInicio &&
+                                                                                         x.ObterHoraFim == _reserva.ObterHoraFim &&
+                                                                                         x.UnidadeId == _reserva.UnidadeId &&
+                                                                                         x.DataDeRealizacao == _reserva.DataDeRealizacao);
+
+            if (quantidadeReservaMesmoHorarioPorUnidade > 0 && _areaComum.NumeroLimiteDeReservaSobrepostaPorUnidade > 0 &&
+                quantidadeReservaMesmoHorarioPorUnidade >= _areaComum.NumeroLimiteDeReservaSobrepostaPorUnidade)
+            {
+                AdicionarErros("Não ha mais vagas no período selecionado para sua unidade!");
+                return ValidationResult;
+            }
+
+            return ValidationResult;
         }
     }
 }
