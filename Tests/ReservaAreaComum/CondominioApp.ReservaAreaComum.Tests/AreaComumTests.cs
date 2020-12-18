@@ -9,7 +9,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
         public void Criar_AreaComum_AprovacaoDeAdministracao()
         {
             //act
-            var Areacomum = AreaComumFactory.CriarAreaComumAprovacaoDeAdministracao();
+            var Areacomum = AreaComumFactory.CriarAreaComum_AprovacaoDeAdministracao();
            
         }
 
@@ -17,7 +17,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
         public void Criar_AreaComum_AprovacaoAutomatica()
         {
             //act
-            var Areacomum = AreaComumFactory.CriarAreaComumAprovacaoAutomatica();
+            var Areacomum = AreaComumFactory.CriarAreaComum_AprovacaoAutomatica();
 
         }
 
@@ -25,7 +25,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
         public void Criar_AreaComum_AprovacaoAutomatica_PermitirReservaSobreposta()
         {
             //act
-            var Areacomum = AreaComumFactory.CriarAreaComumAprovacaoAutomaticaPermitirReservaSobreposta();
+            var Areacomum = AreaComumFactory.CriarAreaComum_AprovacaoAutomatica_PermitirReservaSobreposta();
 
         }
 
@@ -33,7 +33,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
         public void Criar_AreaComum_AprovacaoAutomatica_Permitir_Reserva_Sobreposta_MeioPeriodo()
         {
             //act
-            var Areacomum = AreaComumFactory.CriarAreaComumAprovacaoAutomaticaPermitirReservaSobrepostaMeioPeriodo();
+            var Areacomum = AreaComumFactory.CriarAreaComum_AprovacaoAutomatica_PermitirReservaSobreposta_2HorariosFixos();
 
         }
 
@@ -41,7 +41,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
         public void Criar_AreaComum_Apenas_Sabado()
         {
             //act
-            var Areacomum = AreaComumFactory.CriarAreaComumApenasSabado();
+            var Areacomum = AreaComumFactory.CriarAreaComum_AprovacaoAutomatica_ApenasSabados();
 
         }
 
@@ -49,7 +49,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
         public void Criar_AreaComum_AprovacaoAutomatica_AntecedenciaMaxima_1Mes()
         {
             //act
-            var Areacomum = AreaComumFactory.CriarAreaComumAprovacaoAutomaticaAntecedenciaMaxima1Mes();
+            var Areacomum = AreaComumFactory.CriarAreaComum_AprovacaoAutomatica_AntecedenciaMaxima1Mes();
 
         }
 
@@ -57,7 +57,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
         public void Criar_AreaComum_AprovacaoAutomatica_AntecedenciaMaxima_5Dias()
         {
             //act
-            var Areacomum = AreaComumFactory.CriarAreaComumAprovacaoAutomaticaAntecedenciaMaxima5Dias();
+            var Areacomum = AreaComumFactory.CriarAreaComum_AprovacaoAutomatica_AntecedenciaMaxima5Dias();
 
         }
 
@@ -65,7 +65,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
         public void Criar_AreaComum_AprovacaoAutomatica_AntecedenciaMinima_1Dia()
         {
             //act
-            var Areacomum = AreaComumFactory.CriarAreaComumAprovacaoAutomaticaAntecedenciaMinima1Dia();
+            var Areacomum = AreaComumFactory.CriarAreaComum_AprovacaoAutomatica_AntecedenciaMinima1Dia();
 
         }
     }

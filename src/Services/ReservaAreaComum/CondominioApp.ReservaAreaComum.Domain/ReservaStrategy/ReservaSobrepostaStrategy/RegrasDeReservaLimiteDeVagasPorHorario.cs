@@ -18,7 +18,8 @@ namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.ReservaSobrepost
 
         public override ValidationResult Validar()
         {
-            List<Reserva> ReservasAprovadas = _areaComum.Reservas.Where(x => x.Ativa && !x.EstaNaFila && !x.Lixeira).ToList();
+            List<Reserva> ReservasAprovadas = _areaComum.Reservas
+                .Where(x => x.Ativa && x.DataDeRealizacao == _reserva.DataDeRealizacao && !x.EstaNaFila && !x.Lixeira).ToList();
 
             if (OverLap(ReservasAprovadas, _reserva))
             {

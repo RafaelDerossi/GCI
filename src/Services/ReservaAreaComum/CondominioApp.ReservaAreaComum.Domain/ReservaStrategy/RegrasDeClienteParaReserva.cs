@@ -49,7 +49,7 @@ namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy
 
                 if (dataRealizacaoSubtraida.Date > DataHoraDeBrasilia.Get().Date)
                 {
-                    AdicionarErros($"Esta reserva é permitida no máximo até dia {string.Format("{ 0:d }", dataHojeSomada)}!");
+                    AdicionarErros($"Esta reserva é permitida no máximo até dia {string.Format("{0:d }", dataHojeSomada)}!");
                     return ValidationResult;
                 }                   
             }
@@ -77,7 +77,9 @@ namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy
             //Regra limite de reservas por Unidade
             if (_areaComum.NumeroLimiteDeReservaPorUnidade > 0)
             {
-                if (_areaComum.Reservas.Where(x => x.UnidadeId == _reserva.UnidadeId).Count() >= _areaComum.NumeroLimiteDeReservaPorUnidade)
+                if (_areaComum.Reservas
+                    .Where(x => x.UnidadeId == _reserva.UnidadeId && x.DataDeRealizacao == _reserva.DataDeRealizacao)
+                    .Count() >= _areaComum.NumeroLimiteDeReservaPorUnidade)
                 {
                     AdicionarErros("Limite de reservas diárias desta unidade alcançado!");
                     return ValidationResult;
@@ -104,18 +106,31 @@ namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy
         /// <returns></returns>
         private ValidationResult ValidaLimitesDeHorario()
         {
+            var HoraInicioPermitido = _areaComum.HorarioDeInicioParaReservar();
+            var HoraFimPermitido = _areaComum.HorarioDeFimParaReservar();
+            var HoraInicioReversa = _reserva.ObterHoraInicio;
+            var HoraFimReserva = _reserva.ObterHoraFim;
 
-            if (_reserva.ObterHoraInicio < _areaComum.HorarioDeInicioParaReservar())
+            if (HoraInicioPermitido < HoraFimPermitido)
             {
-                AdicionarErros("Hora de início é menor do que o mínimo permitido.");
-                return ValidationResult;
+                if (HoraInicioReversa < HoraInicioPermitido ||
+                    HoraInicioReversa >= HoraFimPermitido ||
+                    HoraFimReserva > HoraFimPermitido ||
+                    HoraFimReserva <= HoraInicioPermitido)
+                {
+                    AdicionarErros("Horário não permitido.");
+                    return ValidationResult;
+                }
             }
-
-            if (_reserva.ObterHoraFim > _areaComum.HorarioDeFimParaReservar())
+            else if (HoraInicioPermitido > HoraFimPermitido)
             {
-                AdicionarErros("Hora de fim é maior do que o máximo permitido.");
-                return ValidationResult;
-            }
+                if ((HoraInicioReversa < HoraInicioPermitido && HoraInicioReversa >= HoraFimPermitido) ||
+                    (HoraFimReserva > HoraFimPermitido && HoraFimReserva <= HoraInicioPermitido))
+                {
+                    AdicionarErros("Horário não permitido.");
+                    return ValidationResult;
+                }
+            }           
 
             return ValidationResult;
         }
