@@ -35,6 +35,15 @@ namespace CondominioApp.ReservaAreaComum.Tests
             
         }
 
+        public static Reserva CriarReservaValidaMobile0800_0900()
+        {
+            var reserva = Factory();
+            reserva.SetOrigem("Mobile");
+            reserva.SetHoraInicioEHoraFim("08:00", "09:00");
+            return reserva;
+
+        }
+
         public static Reserva CriarReservaValidaMobile1300_1700()
         {
             var reserva = Factory();
@@ -94,7 +103,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             reserva.SetHoraInicioEHoraFim("15:00", "23:00");
             return reserva;
 
-        }
+        }     
 
         public static Reserva CriarReservaRetroativaWeb()
         {
@@ -102,6 +111,24 @@ namespace CondominioApp.ReservaAreaComum.Tests
             reserva.SetOrigem("Sistema Web");
             reserva.SetHoraInicioEHoraFim("08:00", "17:00");
             reserva.SetDataDeRealizacao(DateTime.Now.AddDays(-30).Date);
+            return reserva;
+        }
+
+        public static Reserva CriarReservaRetroativaWebInvalida()
+        {
+            var reserva = Factory();
+            reserva.SetOrigem("Sistema Web");
+            reserva.SetHoraInicioEHoraFim("08:00", "17:00");
+            reserva.SetDataDeRealizacao(DateTime.Now.AddYears(-6).Date);
+            return reserva;
+        }
+
+        public static Reserva CriarReservaWebDataRealizacaoInvalida()
+        {
+            var reserva = Factory();
+            reserva.SetOrigem("Sistema Web");
+            reserva.SetHoraInicioEHoraFim("08:00", "17:00");
+            reserva.SetDataDeRealizacao(DateTime.Now.AddYears(6).Date);
             return reserva;
         }
 

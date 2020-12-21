@@ -5,7 +5,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
 {
     public class ReservasTests
     {
-        [Fact(DisplayName = "Criar Reserva Valida - Web")]
+        [Fact(DisplayName = "Reserva - Criar Reserva Valida - Web")]
         [Trait("Categoria", "Reservas - Reserva Valida WEB")]
         public void Criar_Reserva_Valida_Web()
         {
@@ -20,7 +20,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             Assert.True(resultado.IsValid);
         }
 
-        [Fact(DisplayName = "Criar Reserva Valida - Mobile")]
+        [Fact(DisplayName = "Reserva - Criar Reserva Valida - Mobile")]
         [Trait("Categoria", "Reservas - Reserva Valida Mobile")]
         public void Criar_Reserva_Valida_Mobile()
         {
@@ -35,7 +35,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             Assert.True(resultado.IsValid);
         }
 
-        [Fact(DisplayName = "Criar Reserva Valida - Mobile 08:00--12:00")]
+        [Fact(DisplayName = "Reserva - Criar Reserva Valida - Mobile 08:00--12:00")]
         [Trait("Categoria", "Reservas - Reserva Valida Mobile 08:00--12:00")]
         public void Criar_Reserva_Valida_Mobile_08_12()
         {
@@ -68,7 +68,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
 
 
 
-        [Fact(DisplayName = "Criar Reserva Valida - Com data Retroativa Web")]
+        [Fact(DisplayName = "Reserva - Criar Reserva Valida - Com data Retroativa - Web")]
         [Trait("Categoria", "Reservas - Reservar com data Retroativa Web")]
         public void Reservar_com_dataRetroativa_Web()
         {
@@ -82,9 +82,38 @@ namespace CondominioApp.ReservaAreaComum.Tests
             //assert
             Assert.True(resultado.IsValid);
         }
-        
 
-        [Fact(DisplayName = "Criar Reserva Inválida - Com data Retroativa Mobile")]
+        [Fact(DisplayName = "Reserva - Criar Reserva Inválida - Com data Retroativa - Web")]
+        [Trait("Categoria", "Reservas - Reservar com data Retroativa Web")]
+        public void Reservar_com_dataRetroativa_Web_Invalida()
+        {
+            //Arrange
+            var Areacomum = AreaComumFactory.CriarAreaComum_AprovacaoDeAdministracao();
+            var reserva = ReservaFactory.CriarReservaRetroativaWebInvalida();
+
+            //act
+            var resultado = Areacomum.AdicionarReserva(reserva);
+
+            //assert
+            Assert.False(resultado.IsValid);
+        }
+
+        [Fact(DisplayName = "Reserva - Criar Reserva Inválida - Com data de Realizacao - Web")]
+        [Trait("Categoria", "Reservas - Reservar com data de Realizacao Web")]
+        public void Reservar_com_dataRealizacao_Web_Invalida()
+        {
+            //Arrange
+            var Areacomum = AreaComumFactory.CriarAreaComum_AprovacaoDeAdministracao();
+            var reserva = ReservaFactory.CriarReservaWebDataRealizacaoInvalida();
+
+            //act
+            var resultado = Areacomum.AdicionarReserva(reserva);
+
+            //assert
+            Assert.False(resultado.IsValid);
+        }
+
+        [Fact(DisplayName = "Reserva - Criar Reserva Inválida - Com data Retroativa Mobile")]
         [Trait("Categoria", "Reservas - Reservar com data Retroativa Mobile")]
         public void Reservar_com_dataRetroativa_Mobile()
         {
@@ -100,7 +129,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
         }
 
 
-        [Fact(DisplayName = "Criar Reserva Inválida - Não Permitir Para o mesmo horário (Sem sobreposicao)")]
+        [Fact(DisplayName = "Reserva - Criar Reserva Inválida - Não Permitir Para o mesmo horário (Sem sobreposicao)")]
         [Trait("Categoria", "Reservas - Reservar para o mesmo horário")]
         public void Reservar_para_o_mesmoHorario()
         {
@@ -119,7 +148,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
         }
 
 
-        [Fact(DisplayName = "Criar Reserva Inválida - Não Permitir Para horários conflitantes")]
+        [Fact(DisplayName = "Reserva - Criar Reserva Inválida - Não Permitir Para horários conflitantes")]
         [Trait("Categoria", "Reservas - horários conflitantes")]
         public void Reservar_para_o_Horario_conflitante()
         {
@@ -137,7 +166,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             Assert.False(result.IsValid);
         }
 
-        [Fact(DisplayName = "Criar Reserva Válida - Mesma Unidade dias Diferentes Com Limite Diario (Sem sobreposicao)")]
+        [Fact(DisplayName = "Reserva - Criar Reserva Válida - Mesma Unidade dias Diferentes Com Limite Diario (Sem sobreposicao)")]
         [Trait("Categoria", "Reservas - Mesma Unidade dias Diferentes Com Limite Diario")]
         public void Reservar_Dias_Diferentes_limite_vagas_por_unidade()
         {
@@ -169,7 +198,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
         }
         
         
-        [Fact(DisplayName = "Criar Reserva Inválida - Bloquear Limite Diario por Unidade e Area (Sem sobreposicao)")]
+        [Fact(DisplayName = "Reserva - Criar Reserva Inválida - Bloquear Limite Diario por Unidade e Area (Sem sobreposicao)")]
         [Trait("Categoria", "Reservas - Bloquear Limite Diario por Unidade e Area")]
         public void Bloquear_Limite_Diario_por_Unidade_e_Area()
         {
@@ -195,7 +224,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
         }
 
 
-        [Fact(DisplayName = "Criar Reserva Válida - Permitir reservas para o mesmo horario (Com sobreposicao)")]
+        [Fact(DisplayName = "Reserva - Criar Reserva Válida - Permitir reservas para o mesmo horario (Com sobreposicao)")]
         [Trait("Categoria", "Reservas - permitir horários sobrepostos")]
         public void Reservar_Permitir_Horario_sobreposto()
         {
@@ -214,7 +243,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
         }
 
 
-        [Fact(DisplayName = "Criar Reserva Inválida - Bloquear limite de Reservas por horario (Com sobreposicao)")]
+        [Fact(DisplayName = "Reserva - Criar Reserva Inválida - Bloquear limite de Reservas por horario (Com sobreposicao)")]
         [Trait("Categoria", "Reservas - limite de vagas no mesmo horario")]
         public void Reservar_bloquear_limite_vagas_mesmo_horario()
         {
@@ -237,7 +266,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
         }
 
 
-        [Fact(DisplayName = "Criar Reserva Inválida - Bloquear limite de Reservas por unidade por horario (Com sobreposicao)")]
+        [Fact(DisplayName = "Reserva - Criar Reserva Inválida - Bloquear limite de Reservas por unidade por horario (Com sobreposicao)")]
         [Trait("Categoria", "Reservas - limite de vagas por unidade")]
         public void Reservar_bloquear_limite_vagas_por_unidade()
         {
@@ -263,7 +292,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
         }
 
 
-        [Fact(DisplayName = "Criar Reserva Válida - Horários Diferentes para uma area (Com sobreposicao)")]
+        [Fact(DisplayName = "Reserva - Criar Reserva Válida - Horários Diferentes para uma area (Com sobreposicao)")]
         [Trait("Categoria", "Reservas - diferentes para uma area")]
         public void Reservar_direfentes_para_sobreposta()
         {
@@ -285,7 +314,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
         }
 
 
-        [Fact(DisplayName = "Criar Reserva Válida - Horários e dias Diferentes para uma area (Com sobreposicao)")]
+        [Fact(DisplayName = "Reserva - Criar Reserva Válida - Horários e dias Diferentes para uma area (Com sobreposicao)")]
         [Trait("Categoria", "Reservas - diferentes para uma area")]
         public void Reservar_DiasDirefentes_para_Mesma_Area_sobreposta()
         {
@@ -308,7 +337,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
         }
 
 
-        [Fact(DisplayName = "Criar Reserva Inválida - Reservar fora do periodo. (Com sobreposicao)")]
+        [Fact(DisplayName = "Reserva - Criar Reserva Inválida - Reservar fora do periodo. (Com sobreposicao)")]
         [Trait("Categoria", "Reservas - Reservar fora do periodo")]
         public void Reservar_Fora_do_Periodo_sobreposta()
         {
@@ -327,7 +356,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
         }
 
 
-        [Fact(DisplayName = "Criar Reserva inválida - Antecedencia máxima de 5 Dias pra reservar")]
+        [Fact(DisplayName = "Reserva - Criar Reserva inválida - Antecedencia máxima de 5 Dias pra reservar")]
         [Trait("Categoria", "Bloquear Reserva - Antecedencia maxima de 5 Dias pra reservar")]
         public void Bloquear_Antecedencia_Maxima_5Dias()
         {
@@ -346,7 +375,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
         }
 
 
-        [Fact(DisplayName = "Criar Reserva inválida - Antecedencia máxima de um Mes pra reservar")]
+        [Fact(DisplayName = "Reserva - Criar Reserva inválida - Antecedencia máxima de um Mes pra reservar")]
         [Trait("Categoria", "Bloquear Reserva - Antecedencia maxima de um mes pra reservar")]
         public void Bloquear_Antecedencia_Maxima_UmMes()
         {
@@ -365,7 +394,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
         }
 
 
-        [Fact(DisplayName = "Criar Reserva inválida - Antecedencia mínima de um dia pra reservar")]
+        [Fact(DisplayName = "Reserva - Criar Reserva inválida - Antecedencia mínima de um dia pra reservar")]
         [Trait("Categoria", "Bloquear Reserva - Antecedencia mínima de um dia pra reservar")]
         public void Bloquear_Antecedencia_Minima_UmDia()
         {
@@ -384,7 +413,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
         }
 
 
-        [Fact(DisplayName = "Criar Reserva inválida - Reservar em area bloqueada")]
+        [Fact(DisplayName = "Reserva - Criar Reserva inválida - Reservar em area bloqueada")]
         [Trait("Categoria", "Bloquear Reserva - Em area bloqueada")]
         public void Bloquear_Reserva_em_Area_Bloqueada()
         {
@@ -403,7 +432,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
         }
 
 
-        [Fact(DisplayName = "Criar Reserva inválida - Em Dia não permitido")]
+        [Fact(DisplayName = "Reserva - Criar Reserva inválida - Em Dia não permitido")]
         [Trait("Categoria", "Bloquear Reserva - Em Dia não permitido")]
         public void Bloquear_Reserva_em_dia_nao_permitido()
         {
@@ -437,7 +466,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             Assert.True(result.IsValid);
         }
 
-        [Fact(DisplayName = "Criar Reserva Válida - Pra horário livre Pernoite")]
+        [Fact(DisplayName = "Reserva - Criar Reserva Válida - Pra horário livre Pernoite")]
         [Trait("Categoria", "Reservas - Horários livres")]
         public void Reservar_para_o_Horario_pernoite()
         {
@@ -452,7 +481,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             Assert.True(result.IsValid);
         }
 
-        [Fact(DisplayName = "Criar Reserva Inválida - Pra horário livre Pernoite")]
+        [Fact(DisplayName = "Reserva - Criar Reserva Inválida - Pra horário livre Pernoite")]
         [Trait("Categoria", "Reservas - Horários livres")]
         public void Reservar_para_pernoite_Invalido()
         {
@@ -467,44 +496,221 @@ namespace CondominioApp.ReservaAreaComum.Tests
             Assert.False(result.IsValid);
         }
 
-        //[Fact(DisplayName = "Reserva data de realização Inválida SysWeb")]
-        //[Trait("Categoria", "Reservas - data de realização Inválida SysWeb")]
-        //public void Criar_reserva_com_data_RealizacaoInValidaWeb()
-        //{
-        //    var reserva = new Reserva("Teste", new DateTime(2020, 04, 30),
-        //        "08:00", "12:00", true, "Sistema Web", 10, 2,
-        //        20, 150);
+        [Fact(DisplayName = "Reserva - Criar Reserva Válida - Pra Intervalo Fixo")]
+        [Trait("Categoria", "Reservas - Intervalo Fixo")]
+        public void Reservar_para_o_Intervalo_Fixo()
+        {
+            //Arrange
+            var areacomum = AreaComumFactory.CriarAreaComum_AprovacaoAutomatica_IntervaloFixo_0030();
+            var reserva1 = ReservaFactory.CriarReservaValidaMobile0800_0900();
+            var reserva2 = ReservaFactory.CriarReservaValidaMobile0930_1030();
 
-        //    Assert.True(reserva != null);
-        //}
+            areacomum.AdicionarReserva(reserva1);
+
+            //act
+            var result = areacomum.AdicionarReserva(reserva2);
+
+            //assert
+            Assert.True(result.IsValid);
+        }
+
+        [Fact(DisplayName = "Reserva - Criar Reserva Inválida - Pra Intervalo Fixo")]
+        [Trait("Categoria", "Reservas - Intervalo Fixo")]
+        public void Reservar_para_o_Intervalo_Fixo_Invalido()
+        {
+            //Arrange
+            var areacomum = AreaComumFactory.CriarAreaComum_AprovacaoAutomatica_IntervaloFixo_0030();
+            var reserva1 = ReservaFactory.CriarReservaValidaMobile0900_1000();
+            var reserva2 = ReservaFactory.CriarReservaValidaMobile1000_1400();
+
+            areacomum.AdicionarReserva(reserva1);
+
+            //act
+            var result = areacomum.AdicionarReserva(reserva2);
+
+            //assert
+            Assert.False(result.IsValid);
+        }
+
+        [Fact(DisplayName = "Reserva - Criar Reserva Válida - Pra Duracao da Reserva")]
+        [Trait("Categoria", "Reservas -Duracao da Rerserva")]
+        public void Reservar_para_o_Duracao_Reserva()
+        {
+            //Arrange
+            var areacomum = AreaComumFactory.CriarAreaComum_AprovacaoAutomatica_Duracao_0100();            
+            var reserva1 = ReservaFactory.CriarReservaValidaMobile0930_1030();
+
+            //act
+            var result = areacomum.AdicionarReserva(reserva1);
+
+            //assert
+            Assert.True(result.IsValid);
+        }
 
 
-        //[Fact(DisplayName = "Restaurar reserva da fila")]
-        //[Trait("Categoria", "Reserva - restaurar reservas da fila")]
-        //public void Resturar_reservas_da_fila()
-        //{
-        //    //Arrange
-        //    var Areacomum = AreaComumFactory.CriarAreaComumAprovacaoAutomatica();
+        [Fact(DisplayName = "Reserva - Criar Reserva Inválida - Pra Duracao da Reserva")]
+        [Trait("Categoria", "Reservas -Duracao da Rerserva")]
+        public void Reservar_para_o_Duracao_Reserva_Invalida()
+        {
+            //Arrange
+            var areacomum = AreaComumFactory.CriarAreaComum_AprovacaoAutomatica_Duracao_0100();
+            var reserva1 = ReservaFactory.CriarReservaValidaMobile0800_1200();
 
-        //    var reserva1 = ReservaFactory.CriarReservaValidaMobile();
-        //    var reserva2 = ReservaFactory.CriarReservaValidaMobile();
-        //    var reserva3 = ReservaFactory.CriarReservaValidaMobile();
+            //act
+            var result = areacomum.AdicionarReserva(reserva1);
 
-        //    reserva2.dataDeCadastro = DateTime.Now.AddMinutes(2);
-        //    reserva3.dataDeCadastro = DateTime.Now.AddMinutes(5);
+            //assert
+            Assert.False(result.IsValid);
+        }
 
-        //    reserva2.setUnidadeId(526);
-        //    reserva3.setUnidadeId(527);
 
-        //    Areacomum.AdicionarReservaParaEstaArea(reserva1);
-        //    Areacomum.AdicionarReservaParaFila(reserva2);
-        //    Areacomum.AdicionarReservaParaFila(reserva3);
+        [Fact(DisplayName = "Reserva - Colocar na Fila Válido")]
+        [Trait("Categoria", "Reservas - Colocar na Fila")]
+        public void Colocar_Reserva_na_Fila()
+        {
+            //Arrange
+            var areacomum = AreaComumFactory.CriarAreaComum_AprovacaoAutomatica();
+            var reserva1 = ReservaFactory.CriarReservaValidaMobile0800_1200();
+            var reserva2 = ReservaFactory.CriarReservaValidaMobile0800_1200();
 
-        //    //act
-        //    var result = Areacomum.RetornaProximaReservaDaFila();
+            areacomum.AdicionarReserva(reserva1);
 
-        //    //assert
-        //    Assert.True(result.apartamentoId == 526);
-        //}
+            //act
+            var result = areacomum.AdicionarReserva(reserva2);
+            if (!result.IsValid)
+            {
+                reserva2.EnviarParaFila();
+                result = areacomum.AdicionarReserva(reserva2);
+
+                //assert
+                Assert.True(result.IsValid);
+            }
+            else
+            {
+                //assert
+                Assert.False(result.IsValid);
+            }
+          
+        }
+
+
+        [Fact(DisplayName = "Reserva - Retornar Proxima Reserva da fila Válido")]
+        [Trait("Categoria", "Reserva - Retornar proxima Reserva da Fila")]
+        public void Retornar_Reserva_da_Fila()
+        {
+            //Arrange
+            var areacomum = AreaComumFactory.CriarAreaComum_AprovacaoAutomatica();
+
+            var reserva1 = ReservaFactory.CriarReservaValidaMobile0800_1200();
+            var reserva2 = ReservaFactory.CriarReservaValidaMobile0800_1200();
+            var reserva3 = ReservaFactory.CriarReservaValidaMobile0800_1200();
+
+            areacomum.AdicionarReserva(reserva1);
+
+            reserva2.EnviarParaFila();
+            areacomum.AdicionarReserva(reserva2);            
+
+            reserva3.EnviarParaFila();
+            areacomum.AdicionarReserva(reserva3);
+                       
+            //act
+            var result = areacomum.RetornaProximaReservaDaFila();
+
+            //assert
+            Assert.True(result.Id == reserva2.Id);
+        }
+
+        [Fact(DisplayName = "Reserva - Aprovar Reserva Pendente Válido")]
+        [Trait("Categoria", "Reserva - Aprovar Reserva Pendente")]
+        public void Aprovar_Reserva_Pendente()
+        {
+            //Arrange
+            var areacomum = AreaComumFactory.CriarAreaComum_AprovacaoDeAdministracao();
+
+            var reserva1 = ReservaFactory.CriarReservaValidaMobile0800_1200();
+            
+            areacomum.AdicionarReserva(reserva1);
+                        
+            //act
+            var result = areacomum.AprovarReservaPendente(reserva1.Id);
+
+            //assert
+            Assert.True(result.IsValid);
+        }
+
+        [Fact(DisplayName = "Reserva - Cancelar Reserva Válido - Usuario")]
+        [Trait("Categoria", "Reserva - Cancelar Reserva Usuario")]
+        public void Cancelar_Reserva_Usuario()
+        {
+            //Arrange
+            var areacomum = AreaComumFactory.CriarAreaComum_AprovacaoAutomatica();
+
+            var reserva1 = ReservaFactory.CriarReservaValidaMobile0800_1200();
+
+            areacomum.AdicionarReserva(reserva1);
+
+            //act
+            var result = areacomum.CancelarReservaComoUsuario(reserva1.Id, "Justificativa");
+
+            //assert
+            Assert.True(result.IsValid);
+        }
+
+        [Fact(DisplayName = "Reserva - Cancelar Reserva Válido - Administrador")]
+        [Trait("Categoria", "Reserva - Cancelar Reserva Administrador")]
+        public void Cancelar_Reserva_Administrador()
+        {
+            //Arrange
+            var areacomum = AreaComumFactory.CriarAreaComum_AprovacaoAutomatica();
+
+            var reserva1 = ReservaFactory.CriarReservaValidaMobile0800_1200();
+
+            areacomum.AdicionarReserva(reserva1);
+
+            //act
+            var result = areacomum.CancelarReservaComoAdministrador(reserva1.Id, "Justificativa");
+
+            //assert
+            Assert.True(result.IsValid);
+        }
+
+
+        [Fact(DisplayName = "Reserva - Cancelar Reserva Com Antecedencia Minima Válido - Usuario")]
+        [Trait("Categoria", "Reserva - Cancelar Reserva Usuario")]
+        public void Cancelar_Reserva_com_Antecedencia_minima_Usuario()
+        {
+            //Arrange
+            var areacomum = AreaComumFactory.CriarAreaComum_AprovacaoAutomatica_AntecedenciaMinimaParaCancelamento1Dia();
+
+            var reserva1 = ReservaFactory.CriarReservaValidaMobile0800_1200();
+            reserva1.SetDataDeRealizacao(DateTime.Today.AddDays(2));
+
+            areacomum.AdicionarReserva(reserva1);
+
+            //act
+            var result = areacomum.CancelarReservaComoUsuario(reserva1.Id, "Justificativa");
+
+            //assert
+            Assert.True(result.IsValid);
+        }
+
+        [Fact(DisplayName = "Reserva - Cancelar Reserva Com Antecedencia Minima Inválido - Usuario")]
+        [Trait("Categoria", "Reserva - Cancelar Reserva Usuario")]
+        public void Cancelar_Reserva_com_Antecedencia_minima_Usuario_Invalido()
+        {
+            //Arrange
+            var areacomum = AreaComumFactory.CriarAreaComum_AprovacaoAutomatica_AntecedenciaMinimaParaCancelamento1Dia();
+
+            var reserva1 = ReservaFactory.CriarReservaValidaMobile0800_1200();
+            reserva1.SetDataDeRealizacao(DateTime.Today.AddDays(1));
+
+            areacomum.AdicionarReserva(reserva1);
+
+            //act
+            var result = areacomum.CancelarReservaComoUsuario(reserva1.Id, "Justificativa");
+
+            //assert
+            Assert.False(result.IsValid);
+        }
     }
 }

@@ -25,6 +25,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             return areaComum;
         }
 
+      
         public static AreaComum CriarAreaComum_AprovacaoAutomatica()
         {
             var areaComum = Factory();
@@ -144,6 +145,19 @@ namespace CondominioApp.ReservaAreaComum.Tests
             return areaComum;
         }
 
+        public static AreaComum CriarAreaComum_AprovacaoAutomatica_AntecedenciaMinimaParaCancelamento1Dia()
+        {
+            var areaComum = Factory();
+
+            areaComum.DesabilitarAprovacaoDeReserva();
+
+            areaComum.SetAntecedenciaMinimaParaCancelamentoEmDias(1);
+
+            areaComum.AdicionarPeriodo(new Periodo("08:00", "17:00", Guid.Empty, 155, true));
+
+            return areaComum;
+        }
+
         public static AreaComum CriarAreaComum_AprovacaoAutomatica_BloqueadaPor15Dias()
         {
             var areaComum = Factory();
@@ -233,6 +247,32 @@ namespace CondominioApp.ReservaAreaComum.Tests
             areaComum.DesabilitarAprovacaoDeReserva();           
 
             areaComum.AdicionarPeriodo(new Periodo("17:00", "02:00", Guid.Empty, 155, true));
+
+            return areaComum;
+        }
+
+        public static AreaComum CriarAreaComum_AprovacaoAutomatica_IntervaloFixo_0030()
+        {
+            var areaComum = Factory();
+
+            areaComum.DesabilitarAprovacaoDeReserva();
+
+            areaComum.SetTempoDeIntervaloEntreReservas("00:30");
+
+            areaComum.AdicionarPeriodo(new Periodo("08:00", "17:00", Guid.Empty, 155, true));
+
+            return areaComum;
+        }
+
+        public static AreaComum CriarAreaComum_AprovacaoAutomatica_Duracao_0100()
+        {
+            var areaComum = Factory();
+
+            areaComum.DesabilitarAprovacaoDeReserva();
+
+            areaComum.SetTempoDeDuracaoDeReserva("01:00");
+
+            areaComum.AdicionarPeriodo(new Periodo("08:00", "17:00", Guid.Empty, 155, true));
 
             return areaComum;
         }

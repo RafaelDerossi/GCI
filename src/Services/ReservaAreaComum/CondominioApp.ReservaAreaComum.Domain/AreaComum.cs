@@ -218,6 +218,8 @@ namespace CondominioApp.ReservaAreaComum.Domain
             _Periodos.Clear();
         }
 
+
+
         public ValidationResult AdicionarReserva(Reserva reserva)
         {
 
@@ -227,6 +229,14 @@ namespace CondominioApp.ReservaAreaComum.Domain
             {
                 Gerenciador = new GerenciadorDeReserva(new RegrasDeClienteParaReservar(reserva, this));
                 
+                var resultado = Gerenciador.Validar();
+
+                if (!resultado.IsValid) return resultado;
+            }
+            else
+            {
+                Gerenciador = new GerenciadorDeReserva(new RegrasDeAdministradorParaReservar(reserva, this));
+
                 var resultado = Gerenciador.Validar();
 
                 if (!resultado.IsValid) return resultado;
@@ -247,6 +257,109 @@ namespace CondominioApp.ReservaAreaComum.Domain
             
             _Reservas.Add(reserva);
            
+            return ValidationResult;
+        }
+
+      
+
+        public Reserva RetornaProximaReservaDaFila()
+        {
+            if (!_Reservas.Any(x => x.EstaNaFila)) return null;
+
+            if (RequerAprovacaoDeReserva) return RetornaReservaNaoAprovadaDaFila();
+
+            return RetornaReservaAprovadaDaFila();
+        }
+        private Reserva RetornaReservaAprovadaDaFila()
+        {
+            var reserva = _Reservas.OrderBy(x => x.DataDeCadastro).FirstOrDefault(x => x.EstaNaFila && x.Ativa);
+            if (reserva == null) return reserva;
+
+            reserva.RemoverDaFila();
+            reserva.SetObservacao(reserva.Observacao + " (Reserva restaurada da fila)");
+
+            return reserva;
+        }
+        private Reserva RetornaReservaNaoAprovadaDaFila()
+        {
+            var reserva = _Reservas.OrderBy(x => x.DataDeCadastro).FirstOrDefault(x => x.EstaNaFila && !x.Ativa);
+            if (reserva == null) return reserva;
+
+            reserva.RemoverDaFila();
+            reserva.SetObservacao(reserva.Observacao + " (Reserva restaurada da fila)");
+
+            return reserva;
+        }        
+
+
+        public ValidationResult AprovarReservaPendente(Guid reservaId)
+        {
+            var reserva = _Reservas.FirstOrDefault(x => x.Id == reservaId);
+
+            var ValidacaoGlobal = new RegrasGlobaisParaReservar(reserva, this, new RegrasDeReservaLimiteDeVagasPorHorario(reserva, this));
+
+            var result = ValidacaoGlobal.VerificaReservasAprovadas();
+
+            if (result.IsValid) reserva.Aprovar();
+
+            return result;
+        }
+
+
+        public ValidationResult CancelarReservaComoUsuario(Guid reservaId, string justificativa)
+        {
+            var reserva = _Reservas.FirstOrDefault(x => x.Id == reservaId);
+
+            if (reserva.EstaNaFila)
+                reserva.SetJustificativa(justificativa);
+            else
+            {
+                var result = ValidarRemocaoDeReserva(reserva);
+                if (result.IsValid)
+                    reserva.SetJustificativa("Removida pelo usuário");
+                else
+                    return result;
+            }
+
+            reserva.EnviarParaLixeira();
+
+            return ValidationResult;
+        }
+        public ValidationResult CancelarReservaComoAdministrador(Guid reservaId, string justificativa)
+        {
+            var reserva = _Reservas.Where(x => x.Id == reservaId).FirstOrDefault();
+
+            reserva.SetJustificativa(justificativa);
+
+            reserva.EnviarParaLixeira();
+
+            return ValidationResult;
+        }
+        private ValidationResult ValidarRemocaoDeReserva(Reserva reserva)
+        {
+            var dataAtual = DataHoraDeBrasilia.Get();
+
+            if (reserva.Ativa)
+            {
+                int qtdDias = Convert.ToInt32((reserva.DataDeRealizacao.Date - dataAtual.Date).TotalDays);
+                if (qtdDias <= AntecedenciaMinimaParaCancelamentoEmDias && AntecedenciaMinimaParaCancelamentoEmDias > 0)
+                {
+                    AdicionarErrosDaEntidade("Prazo para cancelamento expirado!");
+                    return ValidationResult;
+                }
+                else if (qtdDias == 0 && AntecedenciaMinimaParaCancelamentoEmDias == 0)
+                {
+                    var horaAtual = dataAtual.ToString("HH:mm");
+                    var horaAtualInt = Convert.ToInt32(horaAtual.Replace(":", ""));
+
+                    if (horaAtualInt >= reserva.ObterHoraInicio)
+                    {
+                        AdicionarErrosDaEntidade("Prazo para cancelamento expirado!");
+                        return ValidationResult;
+                    }
+                }
+            }
+
             return ValidationResult;
         }
 
@@ -288,114 +401,7 @@ namespace CondominioApp.ReservaAreaComum.Domain
             if (_Periodos == null) return 0;
 
             return _Periodos.OrderByDescending(p => p.ObterHoraFim).FirstOrDefault().ObterHoraFim;
-        }
-
-        public ValidationResult AprovarReservaPendente(Reserva reserva)
-        {
-            var ValidacaoGlobal = new RegrasGlobaisParaReservar(reserva, this, new RegrasDeReservaLimiteDeVagasPorHorario(reserva, this));
-
-            var ret = ValidacaoGlobal.VerificaReservasAprovadas();
-
-            if (ret.IsValid) reserva.Aprovar();
-
-            return ret;
-        }
-
-        public void AdicionarReservaParaFila(Reserva reserva)
-        {
-            reserva.EnviarParaFila();
-
-            if (!RequerAprovacaoDeReserva) reserva.Aprovar();
-
-            if (reserva.Id == Guid.Empty) _Reservas.Add(reserva);
-        }
-
-        public Reserva RemoverReservaComoUsuario(Guid reservaId, string justificativa)
-        {
-            var reserva = _Reservas.FirstOrDefault(x => x.Id == reservaId);
-
-            if (reserva.EstaNaFila)
-                reserva.SetJustificativa(justificativa);
-            else
-            {
-                if (ValidarRemocaoDeReserva(reserva))
-                    reserva.SetJustificativa("Removida pelo usuário");
-                else
-                    return null;
-            }
-
-            reserva.EnviarParaLixeira();
-
-            return reserva;
-        }
-
-        public Reserva RemoverReservaComoAdministrador(Guid reservaId, string justificativa)
-        {
-            var reserva = _Reservas.Where(x => x.Id == reservaId).FirstOrDefault();
-
-            reserva.SetJustificativa(justificativa);
-
-            reserva.EnviarParaLixeira();
-
-            return reserva;
-        }
-
-        public Reserva RetornaProximaReservaDaFila()
-        {
-            if (!_Reservas.Any(x => x.EstaNaFila)) return null;
-
-            if (RequerAprovacaoDeReserva) return RetornaReservaNaoAprovadaDaFila();
-
-            return RetornaReservaAprovadaDaFila();
-
-        }
-
-        private Reserva RetornaReservaAprovadaDaFila()
-        {
-            var reserva = _Reservas.OrderBy(x => x.DataDeCadastro).FirstOrDefault(x => x.EstaNaFila && x.Ativa);
-            if (reserva == null) return reserva;
-
-            reserva.RemoverDaFila();
-            reserva.SetObservacao(reserva.Observacao + " (Reserva restaurada da fila)");
-
-            return reserva;
-        }
-
-        private Reserva RetornaReservaNaoAprovadaDaFila()
-        {
-            var reserva = _Reservas.OrderBy(x => x.DataDeCadastro).FirstOrDefault(x => x.EstaNaFila && !x.Ativa);
-            if (reserva == null) return reserva;
-
-            reserva.RemoverDaFila();
-            reserva.SetObservacao(reserva.Observacao + " (Reserva restaurada da fila)");
-
-            return reserva;
-        }
-
-        private bool ValidarRemocaoDeReserva(Reserva reserva)
-        {
-            var dataAtual = DataHoraDeBrasilia.Get();
-
-            if (reserva.Ativa)
-            {
-                int qtdDias = Convert.ToInt32((reserva.DataDeRealizacao.Date - dataAtual.Date).TotalDays);
-                if (qtdDias <= AntecedenciaMinimaParaCancelamentoEmDias && AntecedenciaMinimaParaCancelamentoEmDias > 0)
-                {
-                    return false;
-                }
-                else if (qtdDias == 0 && AntecedenciaMinimaParaCancelamentoEmDias == 0)
-                {
-                    var horaAtual = dataAtual.ToString("HH:mm");
-                    var horaAtualInt = Convert.ToInt32(horaAtual.Replace(":", ""));
-
-                    if (horaAtualInt >= reserva.ObterHoraInicio)
-                    {
-                        return false;
-                    }
-                }
-            }
-            
-            return true;
-        }
+        }      
+        
     }
 }

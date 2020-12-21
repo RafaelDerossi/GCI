@@ -76,7 +76,7 @@ namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy
                 int HorarioFimDaUltimaReservaFeita = _areaComum.Reservas.OrderByDescending(r => r.DataDeCadastro)
                     .ToList().FirstOrDefault().ObterHoraFim;
 
-                if ((HorarioFimDaUltimaReservaFeita + _areaComum.ObterTempoDeIntervaloEntreReservas) >= _reserva.ObterHoraInicio)
+                if ((HorarioFimDaUltimaReservaFeita + _areaComum.ObterTempoDeIntervaloEntreReservas) > _reserva.ObterHoraInicio)
                 {
                     AdicionarErros("Esta área esta configurada para reservas com intervalos, não foi possível criar sua reserva, tente um outro horário");
                     return ValidationResult;
