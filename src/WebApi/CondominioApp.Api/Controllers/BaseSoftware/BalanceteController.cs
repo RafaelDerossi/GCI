@@ -19,7 +19,11 @@ namespace CondominioApp.Api.Controllers.BaseSoftware
         [HttpGet("Analitico")]
         public async Task<IActionResult> Analitico(int Id, string Administradora)
         {
-            var CaminhoDoArquivo = $"./wwwroot/balancetes/{Administradora}/BalanceteAnalitico/{Id}.htm";
+            var Caminho = _env.ContentRootPath;
+
+            Caminho = Caminho.Replace("\\backend\\", "");
+
+            var CaminhoDoArquivo = $"{Caminho}\\Basesoftware\\balancetes\\{Administradora}\\BalanceteAnalitico\\{Id}.htm";
 
             if (Id == 0) return NotFound();
 
