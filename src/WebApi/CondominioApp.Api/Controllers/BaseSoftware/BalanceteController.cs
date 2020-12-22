@@ -11,17 +11,15 @@ namespace CondominioApp.Api.Controllers.BaseSoftware
     public class BalanceteController : MainController
     {
         private readonly IWebHostEnvironment _env;
-        private readonly IHostingEnvironment _hostingEnvironment;
-        public BalanceteController(IWebHostEnvironment env, IHostingEnvironment hostingEnvironment = null)
+        public BalanceteController(IWebHostEnvironment env)
         {
             _env = env;
-            _hostingEnvironment = hostingEnvironment;
         }
 
         [HttpGet("Analitico")]
         public async Task<IActionResult> Analitico(int Id, string Administradora)
         {
-            var Caminho = _hostingEnvironment.ContentRootPath;
+            var Caminho = _env.ContentRootPath;
 
             Caminho = Caminho.Replace("\\backend\\", "");
 
