@@ -63,6 +63,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
                 ValidateAntecedenciaMinimaParaCancelamentoEmDias();
                 ValidateRequerAprovacaoDeReserva();
                 ValidateTemHorariosEspecificos();
+                ValidateNumeroLimiteDeReservaPorUnidade();
                 ValidatePermiteReservaSobreposta();
                 ValidateNumeroLimiteDeReservaSobreposta();
                 ValidateNumeroLimiteDeReservaSobrepostaPorUnidade();

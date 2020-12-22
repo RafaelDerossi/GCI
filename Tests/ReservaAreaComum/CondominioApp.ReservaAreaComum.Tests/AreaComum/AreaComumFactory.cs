@@ -20,7 +20,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
 
             areaComum.HabilitarAprovacaoDeReserva();
 
-            areaComum.AdicionarPeriodo(new Periodo("08:00", "17:00", Guid.Empty, 155, true));
+            areaComum.AdicionarPeriodo(new Periodo("08:00", "17:00", 155, true));
 
             return areaComum;
         }
@@ -32,7 +32,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
 
             areaComum.DesabilitarAprovacaoDeReserva();
 
-            areaComum.AdicionarPeriodo(new Periodo("08:00", "17:00", Guid.Empty, 155, true));
+            areaComum.AdicionarPeriodo(new Periodo("08:00", "17:00", 155, true));
 
             return areaComum;
         }
@@ -51,7 +51,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             areaComum.SetNumeroLimiteDeReservaSobrepostaPorUnidade(2);
 
 
-            areaComum.AdicionarPeriodo(new Periodo("08:00", "17:00", Guid.Empty, 155, true));
+            areaComum.AdicionarPeriodo(new Periodo("08:00", "17:00", 155, true));
 
             return areaComum;
         }
@@ -70,8 +70,8 @@ namespace CondominioApp.ReservaAreaComum.Tests
 
             areaComum.HabilitarHorariosEspecifcos();
 
-            areaComum.AdicionarPeriodo(new Periodo("08:00", "12:00", Guid.Empty, 155, true));
-            areaComum.AdicionarPeriodo(new Periodo("13:00", "18:00", Guid.Empty, 155, true));
+            areaComum.AdicionarPeriodo(new Periodo("08:00", "12:00", 155, true));
+            areaComum.AdicionarPeriodo(new Periodo("13:00", "18:00", 155, true));
 
             return areaComum;
         }
@@ -88,7 +88,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
 
             areaComum.SetNumeroLimiteDeReservaSobrepostaPorUnidade(2);
 
-            areaComum.AdicionarPeriodo(new Periodo("08:00", "12:00", Guid.Empty, 155, true));           
+            areaComum.AdicionarPeriodo(new Periodo("08:00", "12:00", 155, true));           
 
             return areaComum;
         }
@@ -101,7 +101,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
 
             areaComum.SetDiasPermitidos("SATURDAY");
 
-            areaComum.AdicionarPeriodo(new Periodo("08:00", "17:00", Guid.Empty, 155, true));
+            areaComum.AdicionarPeriodo(new Periodo("08:00", "17:00", 155, true));
 
             return areaComum;
         }
@@ -114,7 +114,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
 
             areaComum.SetAntecedenciaMaximaEmMeses(1);
 
-            areaComum.AdicionarPeriodo(new Periodo("08:00", "17:00", Guid.Empty, 155, true));
+            areaComum.AdicionarPeriodo(new Periodo("08:00", "17:00", 155, true));
 
             return areaComum;
         }
@@ -127,7 +127,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
 
             areaComum.SetAntecedenciaMaximaEmDias(5);
 
-            areaComum.AdicionarPeriodo(new Periodo("08:00", "17:00", Guid.Empty, 155, true));
+            areaComum.AdicionarPeriodo(new Periodo("08:00", "17:00", 155, true));
 
             return areaComum;
         }
@@ -140,7 +140,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
 
             areaComum.SetAntecedenciaMinimaEmDias(1);
 
-            areaComum.AdicionarPeriodo(new Periodo("08:00", "17:00", Guid.Empty, 155, true));
+            areaComum.AdicionarPeriodo(new Periodo("08:00", "17:00", 155, true));
 
             return areaComum;
         }
@@ -153,7 +153,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
 
             areaComum.SetAntecedenciaMinimaParaCancelamentoEmDias(1);
 
-            areaComum.AdicionarPeriodo(new Periodo("08:00", "17:00", Guid.Empty, 155, true));
+            areaComum.AdicionarPeriodo(new Periodo("08:00", "17:00", 155, true));
 
             return areaComum;
         }
@@ -168,7 +168,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
 
             areaComum.SetDataFimBloqueio(DateTime.Today.AddDays(7));
 
-            areaComum.AdicionarPeriodo(new Periodo("08:00", "17:00", Guid.Empty, 155, true));
+            areaComum.AdicionarPeriodo(new Periodo("08:00", "17:00", 155, true));
 
             return areaComum;
         }
@@ -181,7 +181,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
 
             areaComum.SetNumeroLimiteDeReservaPorUnidade(2);
 
-            areaComum.AdicionarPeriodo(new Periodo("08:00", "17:00", Guid.Empty, 155, true));
+            areaComum.AdicionarPeriodo(new Periodo("08:00", "17:00", 155, true));
 
             return areaComum;
         }
@@ -196,7 +196,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
 
             areaComum.SetNumeroLimiteDeReservaSobreposta(3);
 
-            areaComum.AdicionarPeriodo(new Periodo("08:00", "17:00", Guid.Empty, 155, true));
+            areaComum.AdicionarPeriodo(new Periodo("08:00", "17:00", 155, true));
 
             return areaComum;
         }
@@ -213,7 +213,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
 
             areaComum.SetNumeroLimiteDeReservaSobrepostaPorUnidade(2);
 
-            areaComum.AdicionarPeriodo(new Periodo("08:00", "17:00", Guid.Empty, 155, true));
+            areaComum.AdicionarPeriodo(new Periodo("08:00", "17:00", 155, true));
 
             return areaComum;
         }
@@ -226,15 +226,15 @@ namespace CondominioApp.ReservaAreaComum.Tests
 
             areaComum.HabilitarHorariosEspecifcos();
 
-            areaComum.AdicionarPeriodo(new Periodo("08:00", "09:00", Guid.Empty, 155, true));
-            areaComum.AdicionarPeriodo(new Periodo("09:00", "10:00", Guid.Empty, 155, true));
-            areaComum.AdicionarPeriodo(new Periodo("10:00", "11:00", Guid.Empty, 155, true));
-            areaComum.AdicionarPeriodo(new Periodo("11:00", "12:00", Guid.Empty, 155, true));
+            areaComum.AdicionarPeriodo(new Periodo("08:00", "09:00", 155, true));
+            areaComum.AdicionarPeriodo(new Periodo("09:00", "10:00", 155, true));
+            areaComum.AdicionarPeriodo(new Periodo("10:00", "11:00", 155, true));
+            areaComum.AdicionarPeriodo(new Periodo("11:00", "12:00", 155, true));
 
-            areaComum.AdicionarPeriodo(new Periodo("13:00", "14:00", Guid.Empty, 155, true));
-            areaComum.AdicionarPeriodo(new Periodo("14:00", "15:00", Guid.Empty, 155, true));
-            areaComum.AdicionarPeriodo(new Periodo("15:00", "16:00", Guid.Empty, 155, true));
-            areaComum.AdicionarPeriodo(new Periodo("16:00", "17:00", Guid.Empty, 155, true));
+            areaComum.AdicionarPeriodo(new Periodo("13:00", "14:00", 155, true));
+            areaComum.AdicionarPeriodo(new Periodo("14:00", "15:00", 155, true));
+            areaComum.AdicionarPeriodo(new Periodo("15:00", "16:00", 155, true));
+            areaComum.AdicionarPeriodo(new Periodo("16:00", "17:00", 155, true));
 
 
             return areaComum;
@@ -246,7 +246,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
 
             areaComum.DesabilitarAprovacaoDeReserva();           
 
-            areaComum.AdicionarPeriodo(new Periodo("17:00", "02:00", Guid.Empty, 155, true));
+            areaComum.AdicionarPeriodo(new Periodo("17:00", "02:00", 155, true));
 
             return areaComum;
         }
@@ -259,7 +259,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
 
             areaComum.SetTempoDeIntervaloEntreReservas("00:30");
 
-            areaComum.AdicionarPeriodo(new Periodo("08:00", "17:00", Guid.Empty, 155, true));
+            areaComum.AdicionarPeriodo(new Periodo("08:00", "17:00", 155, true));
 
             return areaComum;
         }
@@ -272,7 +272,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
 
             areaComum.SetTempoDeDuracaoDeReserva("01:00");
 
-            areaComum.AdicionarPeriodo(new Periodo("08:00", "17:00", Guid.Empty, 155, true));
+            areaComum.AdicionarPeriodo(new Periodo("08:00", "17:00", 155, true));
 
             return areaComum;
         }

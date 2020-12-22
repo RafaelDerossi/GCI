@@ -67,6 +67,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
                 ValidateRequerAprovacaoDeReserva();
                 ValidateTemHorariosEspecificos();
                 ValidateAtiva();
+                ValidateNumeroLimiteDeReservaPorUnidade();
                 ValidatePermiteReservaSobreposta();
                 ValidateNumeroLimiteDeReservaSobreposta();
                 ValidateNumeroLimiteDeReservaSobrepostaPorUnidade();

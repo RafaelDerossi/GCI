@@ -27,7 +27,8 @@ namespace CondominioApp.Principal.Aplication.Commands.Validations
 
         protected void ValidateNomeCondominio()
         {
-            RuleFor(c => c.Nome)
+            RuleFor(c => c.NomeCondominio)
+                .NotNull().WithMessage("Nome do condominio não pode estar vazio!")
                 .NotEmpty().WithMessage("Nome do condominio não pode estar vazio!")
                 .Length(2, 200).WithMessage("Nome do Condominio deve ter mais de 2 caracteres!");
         }
@@ -48,25 +49,29 @@ namespace CondominioApp.Principal.Aplication.Commands.Validations
         protected void ValidateAntecedenciaMaximaEmMeses()
         {
             RuleFor(c => c.AntecedenciaMaximaEmMeses)
-                .NotNull().WithMessage("Antecedência Máxima em meses não pode estar vazio!");
+                .NotNull().WithMessage("Antecedência Máxima em meses não pode estar vazio!")
+                .GreaterThan(-1).WithMessage("Antecedência Máxima em meses deve ser maior ou igual a zero!");
         }
 
         protected void ValidateAntecedenciaMaximaEmDias()
         {
-            RuleFor(c => c.AntecedenciaMaximaEmMeses)
-                .NotNull().WithMessage("Antecedência Máxima em dias não pode estar vazio!");
+            RuleFor(c => c.AntecedenciaMaximaEmDias)
+                .NotNull().WithMessage("Antecedência Máxima em dias não pode estar vazio!")
+                .GreaterThan(-1).WithMessage("Antecedência Máxima em dias deve ser maior ou igual a zero!");
         }
 
         protected void ValidateAntecedenciaMinimaEmDias()
         {
             RuleFor(c => c.AntecedenciaMinimaEmDias)
-                .NotNull().WithMessage("Antecedência Mínima em dias não pode estar vazio!");
+                .NotNull().WithMessage("Antecedência Mínima em dias não pode estar vazio!")
+                .GreaterThan(-1).WithMessage("Antecedência Mínima deve ser maior ou igual a zero!");
         }
 
         protected void ValidateAntecedenciaMinimaParaCancelamentoEmDias()
         {
             RuleFor(c => c.AntecedenciaMinimaParaCancelamentoEmDias)
-                .NotNull().WithMessage("Antecedência Mínima para Cancelamento em dias não pode estar vazio!");
+                .NotNull().WithMessage("Antecedência Mínima para Cancelamento em dias não pode estar vazio!")
+                .GreaterThan(-1).WithMessage("Antecedência Mínima para cancelamento deve ser maior ou igual a zero!");
         }
 
         protected void ValidateRequerAprovacaoDeReserva()
@@ -90,7 +95,8 @@ namespace CondominioApp.Principal.Aplication.Commands.Validations
         protected void ValidateNumeroLimiteDeReservaPorUnidade()
         {
             RuleFor(c => c.NumeroLimiteDeReservaPorUnidade)
-                .NotNull().WithMessage("Número Limite De Reserva Por Unidade não pode estar vazio!");
+                .NotNull().WithMessage("Número Limite De Reserva Por Unidade não pode estar vazio!")
+                .GreaterThan(-1).WithMessage("Número Limite de Reserva por Unidade deve ser maior ou igual a zero!");
         }
 
         protected void ValidatePermiteReservaSobreposta()
@@ -102,13 +108,15 @@ namespace CondominioApp.Principal.Aplication.Commands.Validations
         protected void ValidateNumeroLimiteDeReservaSobreposta()
         {
             RuleFor(c => c.NumeroLimiteDeReservaSobreposta)
-                .NotNull().WithMessage("Número Limite de Reserva Sobreposta não pode estar vazio!");
+                .NotNull().WithMessage("Número Limite de Reserva Sobreposta não pode estar vazio!")
+                .GreaterThan(-1).WithMessage("Número Limite de Reserva Sobreposta deve ser maior ou igual a zero!");
         }
 
         protected void ValidateNumeroLimiteDeReservaSobrepostaPorUnidade()
         {
             RuleFor(c => c.NumeroLimiteDeReservaSobrepostaPorUnidade)
-                .NotNull().WithMessage("Número Limite de Reserva Sobreposta por Unidade não pode estar vazio!");
+                .NotNull().WithMessage("Número Limite de Reserva Sobreposta por Unidade não pode estar vazio!")
+                .GreaterThan(-1).WithMessage("Número Limite de Reserva Sobreposta por Unidade deve ser maior ou igual a zero!");
         }
 
         protected void ValidatePeriodos()
@@ -132,9 +140,10 @@ namespace CondominioApp.Principal.Aplication.Commands.Validations
                 .Matches("[012][0-9]:[0-5][0-9]").WithMessage("Hora Fim inválida!");
 
                 Regra.RuleFor(p => p.Valor)
-               .NotNull().WithMessage("'Hora Fim' no Periodo não pode estar nulo!");
+               .NotNull().WithMessage("'Valor' do Periodo não pode estar nulo!");
             });
 
         }
+
     }
 }

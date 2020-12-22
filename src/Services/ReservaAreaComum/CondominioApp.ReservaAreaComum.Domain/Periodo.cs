@@ -15,11 +15,10 @@ namespace CondominioApp.ReservaAreaComum.Domain
 
         protected Periodo() { }
 
-        public Periodo(string horaInicio, string horaFim, Guid areaComumId, decimal valor, bool ativo)
+        public Periodo(string horaInicio, string horaFim, decimal valor, bool ativo)
         {
             HoraInicio = horaInicio;
             HoraFim = horaFim;
-            AreaComumId = areaComumId;
             Valor = valor;
             Ativo = ativo;
         }

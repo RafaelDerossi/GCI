@@ -46,8 +46,8 @@ namespace CondominioApp.Principal.Aplication.Commands.Validations
 
         protected void ValidateDescricaoGrupoUnidade()
         {
-            RuleFor(c => c.NumeroUnidade)
-                .NotEmpty().WithMessage("Descrição do Grupo da Unidade não pode estar vazio!")
+            RuleFor(c => c.DescricaoGrupoUnidade)
+                .NotNull().WithMessage("Descrição do Grupo da Unidade não pode estar vazio!")
                 .Length(2, 200).WithMessage("Descrição do Grupo da Unidade deve ter mais de 2 caracteres!");
         }
 
@@ -59,7 +59,7 @@ namespace CondominioApp.Principal.Aplication.Commands.Validations
 
         protected void ValidateNomeUsuario()
         {
-            RuleFor(c => c.NumeroUnidade)
+            RuleFor(c => c.NomeUsuario)
                 .NotEmpty().WithMessage("Nome do Usuario não pode estar vazio!")
                 .Length(2, 200).WithMessage("Nome do Usuario deve ter mais de 2 caracteres!");
         }
