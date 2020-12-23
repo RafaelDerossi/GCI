@@ -14,9 +14,9 @@ namespace CondominioApp.BS.App.Services
 
         public Boleto ObterBoletosDoCpf(string CaminhoBase, string cpf, string NomeDaPasta)
         {
-            CaminhoBase = CaminhoBase.Replace("\\backend\\","");
+            CaminhoBase = CaminhoBase.Replace("\\backend","");
 
-            CaminhoDoIndiceDeBoleto = $"{CaminhoBase}{CaminhoDoIndiceDeBoleto}/{NomeDaPasta}/{NomeDoArquivoDeIndices}";
+            CaminhoDoIndiceDeBoleto = $"{CaminhoBase}{CaminhoDoIndiceDeBoleto}\\{NomeDaPasta}\\{NomeDoArquivoDeIndices}";
 
             if (!File.Exists(CaminhoDoIndiceDeBoleto)) return new Boleto();
 

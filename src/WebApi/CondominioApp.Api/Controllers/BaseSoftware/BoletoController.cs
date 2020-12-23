@@ -21,7 +21,7 @@ namespace CondominioApp.Api.Controllers.BaseSoftware
             _hostingEnvironment = hostingEnvironment;
         }
 
-        [HttpGet("{cpf}")]
+        [HttpGet]
         public IActionResult ObterPorCpf(string cpf, string Administradora)
         {
             try
@@ -32,7 +32,7 @@ namespace CondominioApp.Api.Controllers.BaseSoftware
                 var boleto = _boletoService.ObterBoletosDoCpf(Caminho, Cpf.ObterNumeroFormatado(), Administradora);
                 var modelBoleto = new SegundaViaDeBoletoModel();
 
-                modelBoleto.BOLETO.Add(new BoletoModel(boleto.Id.ToString(), Caminho, boleto.ValorDoc,
+                modelBoleto.BOLETO.Add(new BoletoModel(boleto.Id.ToString(),boleto.Vencimento, boleto.ValorDoc,
                     boleto.CodeBarra, boleto.Beneficiario,
                     boleto.BeneficiarioCnpj, boleto.Pagador, boleto.DataDoc, boleto.Mensagem, boleto.UrlBoleto));
 
