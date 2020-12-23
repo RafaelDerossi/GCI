@@ -7,6 +7,7 @@ using System;
 using CondominioApp.ReservaAreaComum.Aplication.Commands;
 using CondominioApp.Principal.Domain.Interfaces;
 using CondominioApp.ReservaAreaComum.Domain;
+using System.Linq;
 
 namespace CondominioApp.ReservaAreaComum.Tests
 {
@@ -36,7 +37,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             var result = await _areaComumCommandHandler.Handle(command, CancellationToken.None);
 
             //Assert
-            Assert.True(result.IsValid);
+            Assert.True(result.IsValid);           
             _mocker.GetMock<IAreaComumRepository>().Verify(r => r.Adicionar(It.IsAny<AreaComum>()), Times.Once);
             _mocker.GetMock<IAreaComumRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
         }
@@ -50,7 +51,15 @@ namespace CondominioApp.ReservaAreaComum.Tests
 
             var areaComum = AreaComumFactory.CriarAreaComum_AprovacaoAutomatica();
 
-            var command = AreaComumCommandFactory.CriarComandoEdicaoDeAreaComum();
+            var command = new EditarAreaComumCommand
+              (areaComum.Id, areaComum.Nome, areaComum.Descricao, areaComum.TermoDeUso,
+               areaComum.Capacidade, areaComum.DiasPermitidos, areaComum.AntecedenciaMaximaEmMeses,
+               areaComum.AntecedenciaMaximaEmDias, areaComum.AntecedenciaMinimaEmDias,
+               areaComum.AntecedenciaMinimaParaCancelamentoEmDias , areaComum.RequerAprovacaoDeReserva,
+               areaComum.TemHorariosEspecificos, areaComum.TempoDeIntervaloEntreReservas, areaComum.TempoDeDuracaoDeReserva,
+               areaComum.NumeroLimiteDeReservaPorUnidade, areaComum.PermiteReservaSobreposta, areaComum.NumeroLimiteDeReservaSobreposta,
+               areaComum.NumeroLimiteDeReservaSobrepostaPorUnidade, areaComum.Periodos.ToList());
+
 
             _mocker.GetMock<IAreaComumRepository>().Setup(r => r.ObterPorId(command.AreaComumId))
                 .Returns(Task.FromResult(areaComum));
@@ -63,6 +72,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
 
             //Assert
             Assert.True(result.IsValid);
+            _mocker.GetMock<IAreaComumRepository>().Verify(r => r.AdicionarPeriodo(It.IsAny<Periodo>()), Times.Once);
             _mocker.GetMock<IAreaComumRepository>().Verify(r => r.Atualizar(It.IsAny<AreaComum>()), Times.Once);
             _mocker.GetMock<IAreaComumRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
         }

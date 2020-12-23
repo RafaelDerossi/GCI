@@ -78,21 +78,16 @@ namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy
             if (_areaComum.NumeroLimiteDeReservaPorUnidade > 0)
             {
                 if (_areaComum.Reservas
-                    .Where(x => x.UnidadeId == _reserva.UnidadeId && x.DataDeRealizacao == _reserva.DataDeRealizacao)
+                    .Where(x => x.UnidadeId == _reserva.UnidadeId &&
+                           x.DataDeRealizacao == _reserva.DataDeRealizacao &&
+                           !x.Cancelada && 
+                           !x.Lixeira)
                     .Count() >= _areaComum.NumeroLimiteDeReservaPorUnidade)
                 {
                     AdicionarErros("Limite de reservas diárias desta unidade alcançado!");
                     return ValidationResult;
                 }
-            }
-            else if (!_areaComum.PermiteReservaSobreposta)
-            {
-                if (_areaComum.Reservas.Any(x => x.UnidadeId == _reserva.UnidadeId))
-                {
-                    AdicionarErros("Já existe uma solicitação de reserva para esta unidade!");
-                    return ValidationResult;
-                }
-            }
+            }           
 
             //Regra verifica se o horário da reserva esta dentro dos limites permitidos
             if (_areaComum.TemIntervaloFixoEntreReservas || !_areaComum.TemHorariosEspecificos) return ValidaLimitesDeHorario();

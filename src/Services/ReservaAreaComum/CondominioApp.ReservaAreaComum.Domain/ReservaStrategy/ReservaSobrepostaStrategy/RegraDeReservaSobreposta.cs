@@ -26,7 +26,7 @@ namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.ReservaSobrepost
 
         private ValidationResult ValidarQuantidadeDeVagas()
         {
-            int quantidadeReservaMesmoHorario = _areaComum.Reservas.Count(x => x.Ativa && !x.EstaNaFila && !x.Lixeira &&
+            int quantidadeReservaMesmoHorario = _areaComum.Reservas.Count(x => x.Ativa && !x.EstaNaFila && !x.Cancelada && !x.Lixeira &&
                                                                                x.ObterHoraInicio == _reserva.ObterHoraInicio &&
                                                                                x.ObterHoraFim == _reserva.ObterHoraFim &&
                                                                                x.DataDeRealizacao == _reserva.DataDeRealizacao);
@@ -43,7 +43,7 @@ namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.ReservaSobrepost
 
         private ValidationResult ValidarQuantidadeDeVagasPorUnidade()
         {
-            int quantidadeReservaMesmoHorarioPorUnidade = _areaComum.Reservas.Count(x => x.Ativa && !x.EstaNaFila && !x.Lixeira &&
+            int quantidadeReservaMesmoHorarioPorUnidade = _areaComum.Reservas.Count(x => x.Ativa && !x.EstaNaFila && !x.Cancelada && !x.Lixeira &&
                                                                                          x.ObterHoraInicio == _reserva.ObterHoraInicio &&
                                                                                          x.ObterHoraFim == _reserva.ObterHoraFim &&
                                                                                          x.UnidadeId == _reserva.UnidadeId &&

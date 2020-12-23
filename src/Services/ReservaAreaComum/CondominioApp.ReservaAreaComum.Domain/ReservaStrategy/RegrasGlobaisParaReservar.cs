@@ -74,7 +74,7 @@ namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy
             if (_areaComum.Reservas.Any())
             {
                 int HorarioFimDaUltimaReservaFeita = _areaComum.Reservas.OrderByDescending(r => r.DataDeCadastro)
-                    .ToList().FirstOrDefault().ObterHoraFim;
+                    .ToList().FirstOrDefault(x => !x.Cancelada && !x.Lixeira).ObterHoraFim;
 
                 if ((HorarioFimDaUltimaReservaFeita + _areaComum.ObterTempoDeIntervaloEntreReservas) > _reserva.ObterHoraInicio)
                 {

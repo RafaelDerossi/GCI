@@ -22,6 +22,7 @@ namespace CondominioApp.ReservaAreaComum.Domain
         public bool Ativa { get; private set; }        
         public decimal Preco { get; private set; }
         public bool EstaNaFila { get; private set; }
+        public bool Cancelada { get; private set; }
         public string Justificativa { get; private set; }
         public string Origem { get; private set; }
         public bool ReservadoPelaAdministracao { get; private set; }
@@ -30,10 +31,13 @@ namespace CondominioApp.ReservaAreaComum.Domain
         {
             get
             {
-                if (!Ativa && !Lixeira && DataDeRealizacao < DataHoraDeBrasilia.Get())
+                if (Cancelada && !Lixeira)
+                    return "Cancelada";
+
+                if (!Ativa && DataDeRealizacao < DataHoraDeBrasilia.Get() && !Lixeira)
                     return "Expirada";
 
-                if (Ativa && !Lixeira && !EstaNaFila)
+                if (Ativa && !EstaNaFila && !Lixeira)
                     return "Aprovada";
 
                 if (!Ativa && !EstaNaFila && !Lixeira)
@@ -94,7 +98,12 @@ namespace CondominioApp.ReservaAreaComum.Domain
 
         public void RemoverDaFila() => EstaNaFila = false;
 
-        public void SetJustificativa(string justificativa) => Justificativa = justificativa;
+        public void Cancelar(string justificativa)
+        {
+            Justificativa = justificativa;
+            Cancelada = true;
+        }
+        
 
         public void SetOrigem(string origem) => Origem = origem;
 
@@ -106,6 +115,7 @@ namespace CondominioApp.ReservaAreaComum.Domain
             DescricaoGrupoUnidade = descricaoGrupoUnidade;
         }
               
+
 
         public int ObterHoraInicio
         {

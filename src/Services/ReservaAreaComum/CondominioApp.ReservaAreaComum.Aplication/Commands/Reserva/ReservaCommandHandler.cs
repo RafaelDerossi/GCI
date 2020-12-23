@@ -11,7 +11,10 @@ using System.Threading.Tasks;
 namespace CondominioApp.ReservaAreaComum.Aplication.Commands
 {
     public class ReservaCommandHandler : CommandHandler,
-         IRequestHandler<CadastrarReservaCommand, ValidationResult>,       
+         IRequestHandler<CadastrarReservaCommand, ValidationResult>,
+         IRequestHandler<AprovarReservaCommand, ValidationResult>,
+         IRequestHandler<CancelarReservaComoUsuarioCommand, ValidationResult>,
+         IRequestHandler<CancelarReservaComoAdministradorCommand, ValidationResult>,
          IDisposable
     {
 
@@ -50,7 +53,74 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
         }
 
 
-        
+        public async Task<ValidationResult> Handle(AprovarReservaCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido()) return request.ValidationResult;
+
+            var reserva = await _areaComumRepository.ObterReservaPorId(request.Id);
+            if (reserva == null)
+            {
+                AdicionarErro("Reserva não encontrada!");
+                return ValidationResult;
+            }
+
+            reserva.Aprovar();
+
+            //Evento
+            //
+
+            return await PersistirDados(_areaComumRepository.UnitOfWork);
+        }
+
+
+        public async Task<ValidationResult> Handle(CancelarReservaComoUsuarioCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido()) return request.ValidationResult;
+
+           
+            var areaComum = await _areaComumRepository.ObterPorId(await _areaComumRepository.ObterAreaComumIdPorReservaId(request.Id));
+            if (areaComum == null)
+            {
+                AdicionarErro("Area Comum não encontrada!");
+                return ValidationResult;
+            }
+
+            var result = areaComum.CancelarReservaComoUsuario(request.Id, request.Justificativa);
+            if (!result.IsValid)
+                return result;
+
+            //Retirar proxima da fila
+            var reservaRetiradaDaFila = areaComum.RetirarProximaReservaDaFila(reserva);
+
+            //Evento
+            //
+
+
+            return await PersistirDados(_areaComumRepository.UnitOfWork);
+        }
+
+        public async Task<ValidationResult> Handle(CancelarReservaComoAdministradorCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido()) return request.ValidationResult;
+
+            var areaComum = await _areaComumRepository.ObterPorId(await _areaComumRepository.ObterAreaComumIdPorReservaId(request.Id));
+            if (areaComum == null)
+            {
+                AdicionarErro("Area Comum não encontrada!");
+                return ValidationResult;
+            }
+
+            var result = areaComum.CancelarReservaComoAdministrador(request.Id, request.Justificativa);
+            if (!result.IsValid)
+                return result;
+
+            //Evento
+            //
+
+            return await PersistirDados(_areaComumRepository.UnitOfWork);
+        }
+
+
         private Reserva ReservaFactory(CadastrarReservaCommand request)
         {
             return new Reserva

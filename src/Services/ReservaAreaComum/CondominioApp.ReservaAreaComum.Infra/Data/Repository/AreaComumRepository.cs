@@ -82,6 +82,19 @@ namespace CondominioApp.Principal.Infra.Data.Repository
                 .FirstOrDefaultAsync(a => a.Id == Id);
         }
 
+        public async Task<Reserva> ObterReservaPorId(Guid Id)
+        {
+            return await _context.Reservas
+                .FirstOrDefaultAsync(a => a.Id == Id);
+        }
+
+        public async Task<Guid> ObterAreaComumIdPorReservaId(Guid reservaId)
+        {
+            var reserva = await _context.Reservas
+                .FirstOrDefaultAsync(a => a.Id == reservaId);
+
+            return reserva.AreaComumId;
+        }
 
         public async Task<IEnumerable<AreaComum>> ObterTodos()
         {

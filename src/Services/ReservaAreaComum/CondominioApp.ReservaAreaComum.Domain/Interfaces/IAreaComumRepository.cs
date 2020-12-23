@@ -7,6 +7,10 @@ namespace CondominioApp.Principal.Domain.Interfaces
 {
     public interface IAreaComumRepository : IRepository<AreaComum>
     {
+        Task<Reserva> ObterReservaPorId(Guid id);
+
+        Task<Guid> ObterAreaComumIdPorReservaId(Guid reservaId);
+
         void AdicionarPeriodo(Periodo entity);
 
         void RemoverPeriodo(Periodo entity);

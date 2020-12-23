@@ -61,28 +61,37 @@ namespace CondominioApp.Api.Controllers
             return CustomResponse(Resultado);
         }
 
-        //[HttpPut]
-        //public async Task<ActionResult> Put(EditaAreaComumViewModel areaComumVM)
-        //{
-        //    if (!ModelState.IsValid) return CustomResponse(ModelState);
+        [HttpPut("aprovar/{id:Guid}")]
+        public async Task<ActionResult> PutAprovar(Guid id)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-        //    var comando = EditarAreaComumCommandFactory(areaComumVM);
+            var comando = new AprovarReservaCommand(id);
 
-        //    var Resultado = await _mediatorHandler.EnviarComando(comando);
+            var Resultado = await _mediatorHandler.EnviarComando(comando);
 
-        //    return CustomResponse(Resultado);
-        //}
+            return CustomResponse(Resultado);
+        }
 
-        //[HttpDelete("{Id:Guid}")]
-        //public async Task<ActionResult> Delete(Guid Id)
-        //{
-        //    var comando = new RemoverAreaComumCommand(Id);
+        [HttpDelete("cancelar-como-usuario")]
+        public async Task<ActionResult> CancelarComoUsuario(CancelarReservaViewModel cancelarReservaVM)
+        {
+            var comando = new CancelarReservaComoUsuarioCommand(cancelarReservaVM.ReservaId, cancelarReservaVM.Justificativa);
 
-        //    var Resultado = await _mediatorHandler.EnviarComando(comando);
+            var Resultado = await _mediatorHandler.EnviarComando(comando);
 
-        //    return CustomResponse(Resultado);
-        //}
+            return CustomResponse(Resultado);
+        }
 
+        [HttpDelete("cancelar-como-administrador")]
+        public async Task<ActionResult> CancelarComoAdministrador(CancelarReservaViewModel cancelarReservaVM)
+        {
+            var comando = new CancelarReservaComoAdministradorCommand(cancelarReservaVM.ReservaId, cancelarReservaVM.Justificativa);
+
+            var Resultado = await _mediatorHandler.EnviarComando(comando);
+
+            return CustomResponse(Resultado);
+        }
 
 
 

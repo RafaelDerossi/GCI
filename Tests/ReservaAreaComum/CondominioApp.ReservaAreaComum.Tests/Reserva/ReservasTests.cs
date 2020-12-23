@@ -592,33 +592,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             }
           
         }
-
-
-        [Fact(DisplayName = "Reserva - Retornar Proxima Reserva da fila Válido")]
-        [Trait("Categoria", "Reserva - Retornar proxima Reserva da Fila")]
-        public void Retornar_Reserva_da_Fila()
-        {
-            //Arrange
-            var areacomum = AreaComumFactory.CriarAreaComum_AprovacaoAutomatica();
-
-            var reserva1 = ReservaFactory.CriarReservaValidaMobile0800_1200();
-            var reserva2 = ReservaFactory.CriarReservaValidaMobile0800_1200();
-            var reserva3 = ReservaFactory.CriarReservaValidaMobile0800_1200();
-
-            areacomum.AdicionarReserva(reserva1);
-
-            reserva2.EnviarParaFila();
-            areacomum.AdicionarReserva(reserva2);            
-
-            reserva3.EnviarParaFila();
-            areacomum.AdicionarReserva(reserva3);
-                       
-            //act
-            var result = areacomum.RetornaProximaReservaDaFila();
-
-            //assert
-            Assert.True(result.Id == reserva2.Id);
-        }
+        
 
         [Fact(DisplayName = "Reserva - Aprovar Reserva Pendente Válido")]
         [Trait("Categoria", "Reserva - Aprovar Reserva Pendente")]
@@ -711,6 +685,79 @@ namespace CondominioApp.ReservaAreaComum.Tests
 
             //assert
             Assert.False(result.IsValid);
+        }
+
+        [Fact(DisplayName = "Reserva - Cancelar Reserva Apos a Data de Realização - Usuario")]
+        [Trait("Categoria", "Reserva - Cancelar Reserva Usuario")]
+        public void Cancelar_Reserva_apos_DataRealizacao_Usuario_Invalido()
+        {
+            //Arrange
+            var areacomum = AreaComumFactory.CriarAreaComum_AprovacaoAutomatica();
+
+            var reserva1 = ReservaFactory.CriarReservaRetroativaWeb();
+            reserva1.SetDataDeRealizacao(DateTime.Today.AddDays(-1));
+
+            areacomum.AdicionarReserva(reserva1);
+
+            //act
+            var result = areacomum.CancelarReservaComoUsuario(reserva1.Id, "Justificativa");
+
+            //assert
+            Assert.False(result.IsValid);
+        }
+
+        [Fact(DisplayName = "Reserva - Cancelar e Retirar Proxima (Primeira) da fila - Usuario")]
+        [Trait("Categoria", "Reserva - Cancelar Reserva Usuario")]
+        public void Cancelar_Reserva_E_Retirar_Proxima_Da_Fila_Usuario()
+        {
+            var areacomum = AreaComumFactory.CriarAreaComum_AprovacaoAutomatica();
+            var reserva1 = ReservaFactory.CriarReservaValidaMobile0800_1200();
+            var reserva2 = ReservaFactory.CriarReservaValidaMobile0800_0900();
+            var reserva3 = ReservaFactory.CriarReservaValidaMobile0800_1200();
+
+            areacomum.AdicionarReserva(reserva1);
+
+            reserva2.EnviarParaFila();
+            areacomum.AdicionarReserva(reserva2);
+
+            reserva3.EnviarParaFila();
+            areacomum.AdicionarReserva(reserva3);
+
+            //act
+            areacomum.CancelarReservaComoUsuario(reserva1.Id, "Justificativa");
+            var reservaRetiradaDaFila = areacomum.RetirarProximaReservaDaFila(reserva1);
+
+            //assert
+            Assert.True(reservaRetiradaDaFila.Id==reserva2.Id);
+            
+        }
+
+        [Fact(DisplayName = "Reserva - Cancelar e Retirar Proxima (segunda) da fila - Usuario")]
+        [Trait("Categoria", "Reserva - Cancelar Reserva Usuario")]
+        public void Cancelar_Reserva_E_Retirar_Proxima_Segunda_Da_Fila_Usuario()
+        {
+            var areacomum = AreaComumFactory.CriarAreaComum_AprovacaoAutomatica();
+            var reserva1 = ReservaFactory.CriarReservaValidaMobile0800_1200();
+            var reserva2 = ReservaFactory.CriarReservaValidaMobile1300_1700();
+            var reserva3 = ReservaFactory.CriarReservaValidaMobile1000_1400();
+            var reserva4 = ReservaFactory.CriarReservaValidaMobile0800_1200();
+
+            areacomum.AdicionarReserva(reserva1);            
+            areacomum.AdicionarReserva(reserva2);
+
+            reserva3.EnviarParaFila();
+            areacomum.AdicionarReserva(reserva3);
+
+            reserva4.EnviarParaFila();
+            areacomum.AdicionarReserva(reserva4);
+
+            //act
+            areacomum.CancelarReservaComoUsuario(reserva1.Id, "Justificativa");
+            var reservaRetiradaDaFila = areacomum.RetirarProximaReservaDaFila(reserva1);
+
+            //assert
+            Assert.True(reservaRetiradaDaFila.Id == reserva4.Id);
+
         }
     }
 }

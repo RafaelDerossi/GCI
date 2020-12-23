@@ -27,11 +27,16 @@ namespace CondominioApp.Enquetes.App.Aplication.Commands
             if (!request.EstaValido())
                 return request.ValidationResult;
 
-            var respostaEnquete = RespostaEnqueteFactory(request);
+            var respostaEnquete = RespostaEnqueteFactory(request);           
 
             var alternativa = await _EnqueteRepository.ObterAlternativaPorId(request.AlternativaId);
+            if (alternativa == null)
+            {
+                AdicionarErro("Alternativa não encontrada!");
+                return ValidationResult;
+            }
 
-           var resultado = alternativa.AdicionarResposta(respostaEnquete);
+            var resultado = alternativa.AdicionarResposta(respostaEnquete);
 
             if (!resultado.IsValid) return resultado;
 
