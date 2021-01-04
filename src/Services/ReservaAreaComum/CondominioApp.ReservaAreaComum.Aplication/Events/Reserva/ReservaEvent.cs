@@ -8,8 +8,12 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Events
 {
     public abstract class ReservaEvent : Event
     {
-        public Guid Id { get; protected set; }
+        public Guid Id { get; protected set; }       
         public Guid AreaComumId { get; protected set; }
+        public string NomeAreaComum { get; protected set; }
+        public Guid CondominioId { get; protected set; }
+        public string NomeCondominio { get; protected set; }
+        public int Capacidade { get; protected set; }
         public string Observacao { get; protected set; }
         public Guid UnidadeId { get; protected set; }
         public string NumeroUnidade { get; protected set; }

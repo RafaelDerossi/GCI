@@ -6,9 +6,8 @@ namespace CondominioApp.Principal.Aplication.Events
     public class GrupoEditadoEvent : GrupoEvent
     {
 
-        public GrupoEditadoEvent(Guid grupoId, DateTime dataDeAlteracao, string descricao)
-        {
-            DataDeAlteracao = dataDeAlteracao;
+        public GrupoEditadoEvent(Guid grupoId, string descricao)
+        {           
             Descricao = descricao;
             GrupoId = grupoId;
         }

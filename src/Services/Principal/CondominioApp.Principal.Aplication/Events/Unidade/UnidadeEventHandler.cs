@@ -25,7 +25,7 @@ namespace CondominioApp.Principal.Aplication.Events
         public async Task Handle(UnidadeCadastradaEvent notification, CancellationToken cancellationToken)
         {
             var unidadeFlat = new UnidadeFlat
-                (notification.UnidadeId, notification.DataDeCadastro, notification.DataDeAlteracao, 
+                (notification.UnidadeId, 
                  false, notification.Codigo, notification.Numero, notification.Andar,
                  notification.Vaga, notification.Telefone, notification.Ramal, notification.Complemento,
                  notification.GrupoId, notification.GrupoDescricao, notification.CondominioId, 
@@ -39,8 +39,7 @@ namespace CondominioApp.Principal.Aplication.Events
         public async Task Handle(UnidadeEditadaEvent notification, CancellationToken cancellationToken)
         {
             var unidadeFlat = await _condominioQueryRepository.ObterUnidadePorId(notification.UnidadeId);
-
-            unidadeFlat.SetDataDeAlteracao(notification.DataDeAlteracao);
+            
             unidadeFlat.SetNumero(notification.Numero);
             unidadeFlat.SetAndar(notification.Andar);
             unidadeFlat.SetVagas(notification.Vaga);
@@ -57,7 +56,6 @@ namespace CondominioApp.Principal.Aplication.Events
         {
             var unidadeFlat = await _condominioQueryRepository.ObterUnidadePorId(notification.UnidadeId);
 
-            unidadeFlat.SetDataDeAlteracao(notification.DataDeAlteracao);
             unidadeFlat.SetCodigo(notification.Codigo);          
 
             _condominioQueryRepository.AtualizarUnidade(unidadeFlat);
@@ -68,8 +66,7 @@ namespace CondominioApp.Principal.Aplication.Events
         public async Task Handle(UnidadeRemovidaEvent notification, CancellationToken cancellationToken)
         {
             var unidadeFlat = await _condominioQueryRepository.ObterUnidadePorId(notification.UnidadeId);
-
-            unidadeFlat.SetDataDeAlteracao(notification.DataDeAlteracao);
+           
             unidadeFlat.EnviarParaLixeira();
 
             _condominioQueryRepository.AtualizarUnidade(unidadeFlat);

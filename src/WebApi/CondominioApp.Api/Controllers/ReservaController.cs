@@ -76,11 +76,16 @@ namespace CondominioApp.Api.Controllers
         [HttpDelete("cancelar-como-usuario")]
         public async Task<ActionResult> CancelarComoUsuario(CancelarReservaViewModel cancelarReservaVM)
         {
-            var comando = new CancelarReservaComoUsuarioCommand(cancelarReservaVM.ReservaId, cancelarReservaVM.Justificativa);
+            var comandoCancelarReserva = new CancelarReservaComoUsuarioCommand(cancelarReservaVM.ReservaId, cancelarReservaVM.Justificativa);
 
-            var Resultado = await _mediatorHandler.EnviarComando(comando);
+            var result = await _mediatorHandler.EnviarComando(comandoCancelarReserva);
+            if (!result.IsValid)
+                return CustomResponse(result);
 
-            return CustomResponse(Resultado);
+            var comando2RetirarDaFila = new RetirarReservaDaFilaCommand(cancelarReservaVM.ReservaId);
+            result = await _mediatorHandler.EnviarComando(comando2RetirarDaFila);
+
+            return CustomResponse(result);
         }
 
         [HttpDelete("cancelar-como-administrador")]
@@ -88,9 +93,14 @@ namespace CondominioApp.Api.Controllers
         {
             var comando = new CancelarReservaComoAdministradorCommand(cancelarReservaVM.ReservaId, cancelarReservaVM.Justificativa);
 
-            var Resultado = await _mediatorHandler.EnviarComando(comando);
+            var result = await _mediatorHandler.EnviarComando(comando);
+            if (!result.IsValid)
+                return CustomResponse(result);
 
-            return CustomResponse(Resultado);
+            var comandoRetirarDaFila = new RetirarReservaDaFilaCommand(cancelarReservaVM.ReservaId);
+            result = await _mediatorHandler.EnviarComando(comandoRetirarDaFila);
+
+            return CustomResponse(result);           
         }
 
 

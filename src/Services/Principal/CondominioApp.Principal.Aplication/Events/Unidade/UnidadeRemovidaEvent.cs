@@ -5,10 +5,9 @@ namespace CondominioApp.Principal.Aplication.Events
 {
     public class UnidadeRemovidaEvent : UnidadeEvent
     {
-        public UnidadeRemovidaEvent(Guid unidadeId, DateTime dataDeAlteracao)
+        public UnidadeRemovidaEvent(Guid unidadeId)
         {  
             UnidadeId = unidadeId;
-            DataDeAlteracao = dataDeAlteracao;
         }
     }
 }

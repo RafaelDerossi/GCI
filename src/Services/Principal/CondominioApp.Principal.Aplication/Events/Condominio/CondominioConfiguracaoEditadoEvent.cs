@@ -8,14 +8,13 @@ namespace CondominioApp.Principal.Aplication.Events
     public class CondominioConfiguracaoEditadoEvent : CondominioEvent
     {
       
-        public CondominioConfiguracaoEditadoEvent(Guid id, DateTime dataDeAlteracao,
+        public CondominioConfiguracaoEditadoEvent(Guid id,
            bool portaria, bool portariaMorador, bool classificado, bool classificadoMorador,
            bool mural, bool muralMorador, bool chat, bool chatMorador, bool reserva,
            bool reservaNaPortaria, bool ocorrencia, bool ocorrenciaMorador, bool correspondencia,
            bool correspondenciaNaPortaria, bool limiteTempoReserva)            
         {
-            CondominioId = id;          
-            DataDeAlteracao = dataDeAlteracao;           
+            CondominioId = id;       
             Portaria = portaria;
             PortariaMorador = portariaMorador;
             Classificado = classificado;

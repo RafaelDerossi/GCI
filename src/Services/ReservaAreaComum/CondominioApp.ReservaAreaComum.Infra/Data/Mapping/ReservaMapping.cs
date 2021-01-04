@@ -34,7 +34,7 @@ namespace CondominioApp.Principal.Infra.Data.Mapping
 
             builder.Property(u => u.Ativa).IsRequired();
 
-            builder.Property(u => u.Preco).IsRequired();
+            builder.Property(u => u.Preco).IsRequired().HasColumnType($"decimal(14,2)");
 
             builder.Property(u => u.EstaNaFila).IsRequired();           
 

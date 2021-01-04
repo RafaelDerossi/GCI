@@ -34,10 +34,10 @@ namespace CondominioApp.ReservaAreaComum.Tests
                 150, false, "Mobile", false);
 
             
-            _mocker.GetMock<IAreaComumRepository>().Setup(r => r.ObterPorId(command.AreaComumId))
+            _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.ObterPorId(command.AreaComumId))
                .Returns(Task.FromResult(areaComum));
 
-            _mocker.GetMock<IAreaComumRepository>().Setup(r => r.UnitOfWork.Commit())
+            _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.UnitOfWork.Commit())
                .Returns(Task.FromResult(true));
 
             //Act
@@ -45,8 +45,8 @@ namespace CondominioApp.ReservaAreaComum.Tests
 
             //Assert
             Assert.True(result.IsValid);
-            _mocker.GetMock<IAreaComumRepository>().Verify(r => r.AdicionarReserva(It.IsAny<Reserva>()), Times.Once);
-            _mocker.GetMock<IAreaComumRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
+            _mocker.GetMock<IReservaAreaComumRepository>().Verify(r => r.AdicionarReserva(It.IsAny<Reserva>()), Times.Once);
+            _mocker.GetMock<IReservaAreaComumRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
         }
 
         [Fact(DisplayName = "Aprovar Reserva Válido")]
@@ -56,10 +56,10 @@ namespace CondominioApp.ReservaAreaComum.Tests
             //Arrange
             var command = new AprovarReservaCommand(Guid.NewGuid());
 
-            _mocker.GetMock<IAreaComumRepository>().Setup(r => r.ObterReservaPorId(command.Id))
+            _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.ObterReservaPorId(command.Id))
                .Returns(Task.FromResult(ReservaFactory.CriarReservaValidaMobile()));
 
-            _mocker.GetMock<IAreaComumRepository>().Setup(r => r.UnitOfWork.Commit())
+            _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.UnitOfWork.Commit())
                .Returns(Task.FromResult(true));
 
             //Act
@@ -67,7 +67,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
 
             //Assert
             Assert.True(result.IsValid);            
-            _mocker.GetMock<IAreaComumRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
+            _mocker.GetMock<IReservaAreaComumRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
         }
 
         [Fact(DisplayName = "Cancelar Reserva Como Usuario Válido")]
@@ -86,13 +86,13 @@ namespace CondominioApp.ReservaAreaComum.Tests
             var command = new CancelarReservaComoUsuarioCommand
                 (reserva.Id, "Justificativa");
 
-            _mocker.GetMock<IAreaComumRepository>().Setup(r => r.ObterAreaComumIdPorReservaId(reserva.Id))
+            _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.ObterAreaComumIdPorReservaId(reserva.Id))
               .Returns(Task.FromResult(areaComum.Id));
 
-            _mocker.GetMock<IAreaComumRepository>().Setup(r => r.ObterPorId(areaComum.Id))
+            _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.ObterPorId(areaComum.Id))
                .Returns(Task.FromResult(areaComum));           
 
-            _mocker.GetMock<IAreaComumRepository>().Setup(r => r.UnitOfWork.Commit())
+            _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.UnitOfWork.Commit())
                .Returns(Task.FromResult(true));
 
             //Act
@@ -100,7 +100,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
 
             //Assert
             Assert.True(result.IsValid);           
-            _mocker.GetMock<IAreaComumRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
+            _mocker.GetMock<IReservaAreaComumRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
         }
 
         [Fact(DisplayName = "Cancelar Reserva Como Administrador Válido")]
@@ -119,13 +119,13 @@ namespace CondominioApp.ReservaAreaComum.Tests
             var command = new CancelarReservaComoAdministradorCommand
                 (reserva.Id, "Justificativa");
 
-            _mocker.GetMock<IAreaComumRepository>().Setup(r => r.ObterAreaComumIdPorReservaId(reserva.Id))
+            _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.ObterAreaComumIdPorReservaId(reserva.Id))
               .Returns(Task.FromResult(areaComum.Id));
 
-            _mocker.GetMock<IAreaComumRepository>().Setup(r => r.ObterPorId(areaComum.Id))
+            _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.ObterPorId(areaComum.Id))
                .Returns(Task.FromResult(areaComum));
 
-            _mocker.GetMock<IAreaComumRepository>().Setup(r => r.UnitOfWork.Commit())
+            _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.UnitOfWork.Commit())
                .Returns(Task.FromResult(true));
 
             //Act
@@ -133,7 +133,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
 
             //Assert
             Assert.True(result.IsValid);
-            _mocker.GetMock<IAreaComumRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
+            _mocker.GetMock<IReservaAreaComumRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
         }
 
     }

@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace CondominioApp.ReservaAreaComum.App.Aplication.Query
 {
-    public class AreaComumQuery : IAreaComumQuery
+    public class ReservaAreaComumQuery : IReservaAreaComumQuery
     {
-        private IAreaComumRepository _areaComumRepository;
+        private IReservaAreaComumRepository _areaComumRepository;
 
-        public AreaComumQuery(IAreaComumRepository comunicadoRepository)
+        public ReservaAreaComumQuery(IReservaAreaComumRepository comunicadoRepository)
         {
             _areaComumRepository = comunicadoRepository;
         }

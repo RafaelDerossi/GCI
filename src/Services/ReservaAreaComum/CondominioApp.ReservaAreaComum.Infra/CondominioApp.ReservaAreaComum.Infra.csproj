@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\ReservaAreaComumQueryContextDBMigrations\20210104161745_CriaReservaFlat.cs" />
+    <Compile Remove="Migrations\ReservaAreaComumQueryContextDBMigrations\20210104161745_CriaReservaFlat.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.2">
       <PrivateAssets>all</PrivateAssets>
@@ -20,11 +25,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\Building Blocks\CondominioApp.Core\CondominioApp.Core.csproj" />
     <ProjectReference Include="..\CondominioApp.ReservaAreaComum.Domain\CondominioApp.ReservaAreaComum.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Migrations\" />
-    <Folder Include="DataQuery\" />
   </ItemGroup>
 
 </Project>

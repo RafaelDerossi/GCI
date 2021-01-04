@@ -11,11 +11,11 @@ using System.Threading.Tasks;
 
 namespace CondominioApp.Principal.Infra.Data.Repository
 {
-    public class AreaComumRepository : IAreaComumRepository
+    public class ReservaAreaComumRepository : IReservaAreaComumRepository
     {
         private readonly ReservaAreaComumContextDB _context;
        
-        public AreaComumRepository(ReservaAreaComumContextDB context)
+        public ReservaAreaComumRepository(ReservaAreaComumContextDB context)
         {
             _context = context;
         }

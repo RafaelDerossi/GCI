@@ -8,13 +8,11 @@ namespace CondominioApp.Principal.Aplication.Events
     public class CondominioEditadoEvent : CondominioEvent
     {
       
-        public CondominioEditadoEvent(Guid id, DateTime dataDeCadastro, DateTime dataDeAlteracao,
+        public CondominioEditadoEvent(Guid id,
            Cnpj cnpj, string nome, string descricao, Foto logoMarca,
            Telefone telefone, Endereco endereo)            
         {
-            CondominioId = id;
-            DataDeCadastro = dataDeCadastro;
-            DataDeAlteracao = dataDeAlteracao;          
+            CondominioId = id;        
             Cnpj = cnpj;
             Nome = nome;
             Descricao = descricao;

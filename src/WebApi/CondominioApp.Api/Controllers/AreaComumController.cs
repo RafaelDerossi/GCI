@@ -17,9 +17,9 @@ namespace CondominioApp.Api.Controllers
     {
         private readonly IMediatorHandler _mediatorHandler;
         private readonly IMapper _mapper;
-        private readonly IAreaComumQuery _areaComumQuery;
+        private readonly IReservaAreaComumQuery _areaComumQuery;
 
-        public AreaComumController(IMediatorHandler mediatorHandler, IMapper mapper, IAreaComumQuery areaComumQuery)
+        public AreaComumController(IMediatorHandler mediatorHandler, IMapper mapper, IReservaAreaComumQuery areaComumQuery)
         {
             _mediatorHandler = mediatorHandler;
             _mapper = mapper;

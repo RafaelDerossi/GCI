@@ -5,10 +5,9 @@ namespace CondominioApp.Principal.Aplication.Events
 {
     public class CodigoUnidadeResetadoEvent : UnidadeEvent
     {
-        public CodigoUnidadeResetadoEvent(Guid id, DateTime dataDeAlteracao, string unidadeCodigo)
+        public CodigoUnidadeResetadoEvent(Guid id, string unidadeCodigo)
         {
-            UnidadeId = id;
-            DataDeAlteracao = dataDeAlteracao;           
+            UnidadeId = id;         
             Codigo = unidadeCodigo;                
         }
 

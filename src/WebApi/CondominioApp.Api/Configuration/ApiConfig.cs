@@ -53,6 +53,10 @@ namespace CondominioApp.Api.Configuration
             services.AddDbContext<ReservaAreaComumContextDB>(options =>
               options.UseSqlServer(configuration.GetConnectionString("ReservaAreaComumConnection")));
 
+            services.AddDbContext<ReservaAreaComumQueryContextDB>(options =>
+             options.UseSqlServer(configuration.GetConnectionString("QueryConnection")));
+
+
             services.Configure<ApiBehaviorOptions>(options =>
             {
                 options.SuppressModelStateInvalidFilter = true;

@@ -5,15 +5,13 @@ namespace CondominioApp.Principal.Aplication.Events
 {
     public class UnidadeCadastradaEvent : UnidadeEvent
     {
-        public UnidadeCadastradaEvent(Guid id, DateTime dataDeCadastro, DateTime dataDeAlteracao,
+        public UnidadeCadastradaEvent(Guid id,
             string unidadeCodigo, string unidadeNumero, string unidadeAndar,
             int unidadeVagas, string unidadeTelefone, string unidadeRamal, string unidadeComplemento,
             Guid grupoId, string grupoDescricao, Guid condominioId, string condominioCnpj, string condominioNome,
             string condominioLogoMarca)
         {
             UnidadeId = id;
-            DataDeCadastro = dataDeCadastro;
-            DataDeAlteracao = dataDeAlteracao;
             Codigo = unidadeCodigo;
             Numero = unidadeNumero;
             Andar = unidadeAndar;

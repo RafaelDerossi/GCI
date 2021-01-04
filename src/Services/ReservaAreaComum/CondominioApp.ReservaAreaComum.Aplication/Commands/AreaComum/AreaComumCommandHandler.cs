@@ -19,9 +19,9 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
          IDisposable
     {
 
-        private IAreaComumRepository _areaComumRepository;
+        private IReservaAreaComumRepository _areaComumRepository;
 
-        public AreaComumCommandHandler(IAreaComumRepository areaComumRepository)
+        public AreaComumCommandHandler(IReservaAreaComumRepository areaComumRepository)
         {
             _areaComumRepository = areaComumRepository;
         }

@@ -8,10 +8,6 @@ namespace CondominioApp.Principal.Aplication.Events
     {
         public Guid UnidadeId { get; protected set; }
 
-        public DateTime DataDeCadastro { get; protected set; }
-
-        public DateTime DataDeAlteracao { get; protected set; }       
-
         public string Codigo { get; protected set; }
 
         public string Numero { get; protected set; }

@@ -8,16 +8,14 @@ namespace CondominioApp.Principal.Aplication.Events
     public class CondominioCadastradoEvent : CondominioEvent
     {
       
-        public CondominioCadastradoEvent(Guid id, DateTime dataDeCadastro, DateTime dataDeAlteracao,
+        public CondominioCadastradoEvent(Guid id,
            Cnpj cnpj, string nome, string descricao, Foto logoMarca, Telefone telefone, Endereco endereo,
            int? refereciaId, string linkGeraBoleto, string boletoFolder, Url urlWebServer, bool portaria, 
            bool portariaMorador, bool classificado, bool classificadoMorador, bool mural, bool muralMorador,
            bool chat, bool chatMorador, bool reserva, bool reservaNaPortaria, bool ocorrencia, bool ocorrenciaMorador,
            bool correspondencia, bool correspondenciaNaPortaria, bool limiteTempoReserva)            
         {
-            CondominioId = id;
-            DataDeCadastro = dataDeCadastro;
-            DataDeAlteracao = dataDeAlteracao;           
+            CondominioId = id;       
             Cnpj = cnpj;
             Nome = nome;
             Descricao = descricao;

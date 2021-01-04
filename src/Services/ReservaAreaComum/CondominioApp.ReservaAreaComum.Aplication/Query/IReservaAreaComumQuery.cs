@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace CondominioApp.ReservaAreaComum.App.Aplication.Query
 {
-    public interface IAreaComumQuery : IDisposable
+    public interface IReservaAreaComumQuery : IDisposable
     {
         Task<AreaComum> ObterPorId(Guid id);
 

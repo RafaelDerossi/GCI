@@ -1,28 +1,24 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using CondominioApp.Core.Data;
-using CondominioApp.Core.Extensions;
+﻿using CondominioApp.Core.Data;
 using CondominioApp.Core.Helpers;
 using CondominioApp.Core.Mediator;
 using CondominioApp.Core.Messages;
+using CondominioApp.ReservaAreaComum.Domain;
+using CondominioApp.ReservaAreaComum.Domain.FlatModel;
 using FluentValidation.Results;
 using Microsoft.EntityFrameworkCore;
-using CondominioApp.Enquetes.App.Models;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace CondominioApp.Enquetes.App.Data
+namespace CondominioApp.Principal.Infra.DataQuery
 {
-    public class EnqueteContextDB : DbContext, IUnitOfWorks
+    public class ReservaAreaComumQueryContextDB : DbContext, IUnitOfWorks
     {
         private readonly IMediatorHandler _mediatorHandler;
 
-        public DbSet<Enquete> Enquetes { get; set; }
-
-        public DbSet<AlternativaEnquete> AlternativasEnquete { get; set; }
-
-        public DbSet<RespostaEnquete> RespostasEnquete { get; set; }
-
-        public EnqueteContextDB(DbContextOptions<EnqueteContextDB> options, IMediatorHandler mediatorHandler)
+        public DbSet<ReservaFlat> ReservasFlat { get; set; }
+      
+        public ReservaAreaComumQueryContextDB(DbContextOptions<ReservaAreaComumQueryContextDB> options, IMediatorHandler mediatorHandler)
             : base(options)
         {
             _mediatorHandler = mediatorHandler;
@@ -32,7 +28,11 @@ namespace CondominioApp.Enquetes.App.Data
         {
             modelBuilder.Ignore<ValidationResult>();
             modelBuilder.Ignore<Event>();
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(EnqueteContextDB).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(ReservaAreaComumQueryContextDB).Assembly);
+
+            modelBuilder.Ignore<AreaComum>();
+            modelBuilder.Ignore<Periodo>();
+            modelBuilder.Ignore<Reserva>();           
         }
 
         public async Task<bool> Commit()
@@ -48,7 +48,7 @@ namespace CondominioApp.Enquetes.App.Data
                         TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, cetZone);
                     entry.Property("DataDeAlteracao").CurrentValue =
                         entry.Property("DataDeCadastro").CurrentValue;
-                }
+                }                   
 
                 if (entry.State == EntityState.Modified)
                 {
@@ -58,10 +58,7 @@ namespace CondominioApp.Enquetes.App.Data
                 }
             }
 
-            var sucesso = await SaveChangesAsync() > 0;
-            if (sucesso) await _mediatorHandler.PublicarEventos(this);
-
-            return sucesso;
+            return await SaveChangesAsync() > 0;
         }
     }
 }

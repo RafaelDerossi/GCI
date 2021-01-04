@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace CondominioApp.ReservaAreaComum.Domain.Interfaces
 {
-    public interface IAreaComumRepository : IRepository<AreaComum>
+    public interface IReservaAreaComumRepository : IRepository<AreaComum>
     {
         Task<Reserva> ObterReservaPorId(Guid id);
 

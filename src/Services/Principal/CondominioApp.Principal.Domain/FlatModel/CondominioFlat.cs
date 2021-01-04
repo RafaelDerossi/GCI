@@ -85,7 +85,7 @@ namespace CondominioApp.Principal.Domain.FlatModel
 
         protected CondominioFlat() { }
 
-        public CondominioFlat(Guid id, DateTime dataDeCadastro, DateTime dataDeAlteracao, bool lixeira, 
+        public CondominioFlat(Guid id, bool lixeira, 
             string cnpj, string nome, string descricao, string logoMarca, 
             string telefone, string logradouro, string complemento, string numero, string cep, 
             string bairro, string cidade, string estado, int? refereciaId, string linkGeraBoleto, 
@@ -95,8 +95,6 @@ namespace CondominioApp.Principal.Domain.FlatModel
             bool correspondenciaNaPortaria, bool limiteTempoReserva)
         {
             Id = id;
-            DataDeCadastro = dataDeCadastro;
-            DataDeAlteracao = dataDeAlteracao;
             Lixeira = lixeira; 
             Cnpj = cnpj;
             Nome = nome;
@@ -134,10 +132,7 @@ namespace CondominioApp.Principal.Domain.FlatModel
 
         public void EnviarParaLixeira() => Lixeira = true;
 
-        public void RestaurarDaLixeira() => Lixeira = false;
-
-
-        public void SetDataDeAlteracao(DateTime dataDeAlteracao) => DataDeAlteracao = dataDeAlteracao;
+        public void RestaurarDaLixeira() => Lixeira = false;        
 
         public void SetCNPJ(string cnpj) => Cnpj = cnpj;
 

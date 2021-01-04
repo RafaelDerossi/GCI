@@ -40,8 +40,12 @@ namespace CondominioApp.Comunicados.App.Models
                 .Where(entry => entry.Entity.GetType().GetProperty("DataDeCadastro") != null))
             {
                 if (entry.State == EntityState.Added)
+                {
                     entry.Property("DataDeCadastro").CurrentValue =
                         TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, cetZone);
+                    entry.Property("DataDeAlteracao").CurrentValue =
+                        entry.Property("DataDeCadastro").CurrentValue;
+                }
 
                 if (entry.State == EntityState.Modified)
                 {

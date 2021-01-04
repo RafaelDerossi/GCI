@@ -16,14 +16,15 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
          IRequestHandler<AprovarReservaCommand, ValidationResult>,
          IRequestHandler<CancelarReservaComoUsuarioCommand, ValidationResult>,
          IRequestHandler<CancelarReservaComoAdministradorCommand, ValidationResult>,
+         IRequestHandler<RetirarReservaDaFilaCommand, ValidationResult>,
          IDisposable
     {
 
-        private IAreaComumRepository _areaComumRepository;
+        private IReservaAreaComumRepository _reservaAreaComumRepository;
 
-        public ReservaCommandHandler(IAreaComumRepository areaComumRepository)
+        public ReservaCommandHandler(IReservaAreaComumRepository areaComumRepository)
         {
-            _areaComumRepository = areaComumRepository;
+            _reservaAreaComumRepository = areaComumRepository;            
         }
 
 
@@ -33,7 +34,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
 
             var reserva = ReservaFactory(request);
 
-            var areacomum = await _areaComumRepository.ObterPorId(request.AreaComumId);
+            var areacomum = await _reservaAreaComumRepository.ObterPorId(request.AreaComumId);
             if (areacomum == null)
             {
                 AdicionarErro("Area Comum não encontrada!");
@@ -44,13 +45,19 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
 
             if (!Result.IsValid) return Result;
             
-            _areaComumRepository.AdicionarReserva(reserva);
+            _reservaAreaComumRepository.AdicionarReserva(reserva);
 
+            //Evento
+            reserva.AdicionarEvento
+                (new ReservaCadastradaEvent
+                (reserva.Id, reserva.AreaComumId,
+                areacomum.Nome, areacomum.CondominioId, areacomum.NomeCondominio, areacomum.Capacidade,
+                reserva.Observacao, reserva.UnidadeId, reserva.NumeroUnidade, reserva.AndarUnidade,
+                reserva.DescricaoGrupoUnidade, reserva.UsuarioId, reserva.NomeUsuario, reserva.DataDeRealizacao,
+                reserva.HoraInicio, reserva.HoraFim, reserva.Ativa, reserva.Preco, reserva.EstaNaFila,
+                reserva.Origem, reserva.ReservadoPelaAdministracao));
 
-           //Evento
-           //
-
-            return await PersistirDados(_areaComumRepository.UnitOfWork);
+            return await PersistirDados(_reservaAreaComumRepository.UnitOfWork);
         }
 
 
@@ -58,7 +65,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
         {
             if (!request.EstaValido()) return request.ValidationResult;
 
-            var reserva = await _areaComumRepository.ObterReservaPorId(request.Id);
+            var reserva = await _reservaAreaComumRepository.ObterReservaPorId(request.Id);
             if (reserva == null)
             {
                 AdicionarErro("Reserva não encontrada!");
@@ -68,9 +75,9 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
             reserva.Aprovar();
 
             //Evento
-            //
+            reserva.AdicionarEvento(new ReservaAprovadaEvent(reserva.Id));
 
-            return await PersistirDados(_areaComumRepository.UnitOfWork);
+            return await PersistirDados(_reservaAreaComumRepository.UnitOfWork);
         }
 
 
@@ -79,7 +86,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
             if (!request.EstaValido()) return request.ValidationResult;
 
            
-            var areaComum = await _areaComumRepository.ObterPorId(await _areaComumRepository.ObterAreaComumIdPorReservaId(request.Id));
+            var areaComum = await _reservaAreaComumRepository.ObterPorId(await _reservaAreaComumRepository.ObterAreaComumIdPorReservaId(request.Id));
             if (areaComum == null)
             {
                 AdicionarErro("Area Comum não encontrada!");
@@ -94,17 +101,18 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
 
 
             //Evento
-            reserva.AdicionarEvento(new ReservaCanceladaEvent(reserva.Id));
+            reserva.AdicionarEvento(new ReservaCanceladaEvent(reserva.Id, reserva.Justificativa));
 
 
-            return await PersistirDados(_areaComumRepository.UnitOfWork);
+            return await PersistirDados(_reservaAreaComumRepository.UnitOfWork);
         }
+
 
         public async Task<ValidationResult> Handle(CancelarReservaComoAdministradorCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido()) return request.ValidationResult;
 
-            var areaComum = await _areaComumRepository.ObterPorId(await _areaComumRepository.ObterAreaComumIdPorReservaId(request.Id));
+            var areaComum = await _reservaAreaComumRepository.ObterPorId(await _reservaAreaComumRepository.ObterAreaComumIdPorReservaId(request.Id));
             if (areaComum == null)
             {
                 AdicionarErro("Area Comum não encontrada!");
@@ -118,9 +126,33 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
                 return result;
 
             //Evento
-            reserva.AdicionarEvento(new ReservaCanceladaEvent(reserva.Id));
+            reserva.AdicionarEvento(new ReservaCanceladaEvent(reserva.Id, reserva.Justificativa));
 
-            return await PersistirDados(_areaComumRepository.UnitOfWork);
+            return await PersistirDados(_reservaAreaComumRepository.UnitOfWork);
+          
+        }
+
+
+        public async Task<ValidationResult> Handle(RetirarReservaDaFilaCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido()) return request.ValidationResult;
+
+            //Obtem Area Comum
+            var areaComum = await _reservaAreaComumRepository.ObterPorId(await _reservaAreaComumRepository.ObterAreaComumIdPorReservaId(request.Id));
+            if (areaComum == null)
+            {
+                AdicionarErro("Area Comum não encontrada!");
+                return ValidationResult;
+            }
+
+            //Retira proxima Reserva da Fila da fila
+            var reservaCancelada = areaComum.ObterReserva(request.Id);
+            var reservaRetiradaDaFila = areaComum.RetirarProximaReservaDaFila(reservaCancelada);
+
+            //Evento
+            reservaRetiradaDaFila.AdicionarEvento(new ReservaRetiradaDaFilaEvent(reservaRetiradaDaFila.Id));
+            
+            return await PersistirDados(_reservaAreaComumRepository.UnitOfWork);
         }
 
 
@@ -135,7 +167,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
         
         public void Dispose()
         {
-            _areaComumRepository?.Dispose();
+            _reservaAreaComumRepository?.Dispose();
         }
 
     }
