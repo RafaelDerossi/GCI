@@ -624,7 +624,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             areacomum.AdicionarReserva(reserva1);
 
             //act
-            var result = areacomum.CancelarReservaComoUsuario(reserva1.Id, "Justificativa");
+            var result = areacomum.CancelarReservaComoUsuario(reserva1, "Justificativa");
 
             //assert
             Assert.True(result.IsValid);
@@ -642,7 +642,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             areacomum.AdicionarReserva(reserva1);
 
             //act
-            var result = areacomum.CancelarReservaComoAdministrador(reserva1.Id, "Justificativa");
+            var result = areacomum.CancelarReservaComoAdministrador(reserva1, "Justificativa");
 
             //assert
             Assert.True(result.IsValid);
@@ -662,7 +662,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             areacomum.AdicionarReserva(reserva1);
 
             //act
-            var result = areacomum.CancelarReservaComoUsuario(reserva1.Id, "Justificativa");
+            var result = areacomum.CancelarReservaComoUsuario(reserva1, "Justificativa");
 
             //assert
             Assert.True(result.IsValid);
@@ -681,7 +681,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             areacomum.AdicionarReserva(reserva1);
 
             //act
-            var result = areacomum.CancelarReservaComoUsuario(reserva1.Id, "Justificativa");
+            var result = areacomum.CancelarReservaComoUsuario(reserva1, "Justificativa");
 
             //assert
             Assert.False(result.IsValid);
@@ -700,7 +700,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             areacomum.AdicionarReserva(reserva1);
 
             //act
-            var result = areacomum.CancelarReservaComoUsuario(reserva1.Id, "Justificativa");
+            var result = areacomum.CancelarReservaComoUsuario(reserva1, "Justificativa");
 
             //assert
             Assert.False(result.IsValid);
@@ -724,7 +724,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             areacomum.AdicionarReserva(reserva3);
 
             //act
-            areacomum.CancelarReservaComoUsuario(reserva1.Id, "Justificativa");
+            areacomum.CancelarReservaComoUsuario(reserva1, "Justificativa");
             var reservaRetiradaDaFila = areacomum.RetirarProximaReservaDaFila(reserva1);
 
             //assert
@@ -752,7 +752,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             areacomum.AdicionarReserva(reserva4);
 
             //act
-            areacomum.CancelarReservaComoUsuario(reserva1.Id, "Justificativa");
+            areacomum.CancelarReservaComoUsuario(reserva1, "Justificativa");
             var reservaRetiradaDaFila = areacomum.RetirarProximaReservaDaFila(reserva1);
 
             //assert

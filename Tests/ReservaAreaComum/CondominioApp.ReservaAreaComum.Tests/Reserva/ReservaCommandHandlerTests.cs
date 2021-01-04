@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using Xunit;
 using System;
 using CondominioApp.ReservaAreaComum.Aplication.Commands;
-using CondominioApp.Principal.Domain.Interfaces;
 using CondominioApp.ReservaAreaComum.Domain;
+using CondominioApp.ReservaAreaComum.Domain.Interfaces;
 
 namespace CondominioApp.ReservaAreaComum.Tests
 {

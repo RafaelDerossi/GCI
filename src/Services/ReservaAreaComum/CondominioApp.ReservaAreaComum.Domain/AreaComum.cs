@@ -279,12 +279,14 @@ namespace CondominioApp.ReservaAreaComum.Domain
             foreach (Reserva reserva in reservas)
             {
                 _Reservas.Remove(reserva);
-                reserva.RemoverDaFila();
-                reserva.SetObservacao(reserva.Observacao + " (Reserva restaurada da fila)");
+                reserva.RemoverDaFila();               
 
                 var result = AdicionarReserva(reserva);                 
                 if (result.IsValid)
+                {
+                    reserva.SetObservacao(reserva.Observacao + " (Reserva restaurada da fila)");
                     return reserva;
+                }                    
                 else
                 {
                     reserva.EnviarParaFila();
@@ -309,29 +311,23 @@ namespace CondominioApp.ReservaAreaComum.Domain
         }
 
 
-        public ValidationResult CancelarReservaComoUsuario(Guid reservaId, string justificativa)
+        public ValidationResult CancelarReservaComoUsuario(Reserva reservaACancelar, string justificativa)
         {
-            var reserva = _Reservas.FirstOrDefault(x => x.Id == reservaId);
-
-            if (reserva.EstaNaFila)
-                reserva.Cancelar(justificativa);
+            if (reservaACancelar.EstaNaFila)
+                reservaACancelar.Cancelar(justificativa);
             else
             {
-                var result = ValidarRemocaoDeReserva(reserva);
+                var result = ValidarRemocaoDeReserva(reservaACancelar);
                 if (!result.IsValid) return result;
-           
-                reserva.Cancelar("Removida pelo usuário");               
+
+                reservaACancelar.Cancelar(justificativa + " (Cancelada pelo usuário)");               
             }          
 
             return ValidationResult;
         }
-        public ValidationResult CancelarReservaComoAdministrador(Guid reservaId, string justificativa)
+        public ValidationResult CancelarReservaComoAdministrador(Reserva reservaACancelar, string justificativa)
         {
-            var reserva = _Reservas.Where(x => x.Id == reservaId).FirstOrDefault();
-
-            reserva.Cancelar(justificativa);
-
-            RetirarProximaReservaDaFila(reserva);
+            reservaACancelar.Cancelar(justificativa + " (Cancelada pela Administração)");           
 
             return ValidationResult;
         }
@@ -368,6 +364,10 @@ namespace CondominioApp.ReservaAreaComum.Domain
             return ValidationResult;
         }
 
+        public Reserva ObterReserva(Guid reservaId)
+        {
+            return _Reservas.FirstOrDefault(x => x.Id == reservaId);           
+        }
 
         public override bool Equals(object obj)
         {

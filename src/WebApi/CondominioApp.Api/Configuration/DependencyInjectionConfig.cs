@@ -34,6 +34,8 @@ using CondominioApp.Comunicados.App.Data.Repository;
 using CondominioApp.Comunicados.App.Aplication.Query;
 using CondominioApp.ReservaAreaComum.Aplication.Commands;
 using CondominioApp.ReservaAreaComum.App.Aplication.Query;
+using CondominioApp.ReservaAreaComum.Domain.Interfaces;
+using CondominioApp.ReservaAreaComum.Aplication.Events;
 
 namespace CondominioApp.Api.Configuration
 {
@@ -111,7 +113,7 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<IRequestHandler<AprovarReservaCommand, ValidationResult>, ReservaCommandHandler>();
             services.AddScoped<IRequestHandler<CancelarReservaComoUsuarioCommand, ValidationResult>, ReservaCommandHandler>();
             services.AddScoped<IRequestHandler<CancelarReservaComoAdministradorCommand, ValidationResult>, ReservaCommandHandler>();
-
+            services.AddScoped<INotificationHandler<ReservaCanceladaEvent>, ReservaEventHandler>();
 
             //Pre Cadastro
             services.AddScoped<IRequestHandler<InserirNovoLeadCommand, ValidationResult>, LeadCommandHandler>();

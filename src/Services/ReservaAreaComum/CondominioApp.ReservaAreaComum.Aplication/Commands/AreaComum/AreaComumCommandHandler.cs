@@ -1,6 +1,6 @@
 ﻿using CondominioApp.Core.Messages;
-using CondominioApp.Principal.Domain.Interfaces;
 using CondominioApp.ReservaAreaComum.Domain;
+using CondominioApp.ReservaAreaComum.Domain.Interfaces;
 using FluentValidation.Results;
 using MediatR;
 using System;

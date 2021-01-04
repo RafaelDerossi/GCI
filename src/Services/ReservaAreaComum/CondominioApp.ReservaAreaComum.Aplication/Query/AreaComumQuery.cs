@@ -1,6 +1,6 @@
 ﻿using CondominioApp.Core.Enumeradores;
-using CondominioApp.Principal.Domain.Interfaces;
 using CondominioApp.ReservaAreaComum.Domain;
+using CondominioApp.ReservaAreaComum.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;

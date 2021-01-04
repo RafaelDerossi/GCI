@@ -1,6 +1,7 @@
 ﻿using CondominioApp.Core.Messages;
-using CondominioApp.Principal.Domain.Interfaces;
+using CondominioApp.ReservaAreaComum.Aplication.Events;
 using CondominioApp.ReservaAreaComum.Domain;
+using CondominioApp.ReservaAreaComum.Domain.Interfaces;
 using FluentValidation.Results;
 using MediatR;
 using System;
@@ -85,15 +86,15 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
                 return ValidationResult;
             }
 
-            var result = areaComum.CancelarReservaComoUsuario(request.Id, request.Justificativa);
+            var reserva = areaComum.ObterReserva(request.Id);
+
+            var result = areaComum.CancelarReservaComoUsuario(reserva, request.Justificativa);
             if (!result.IsValid)
                 return result;
 
-            //Retirar proxima da fila
-            var reservaRetiradaDaFila = areaComum.RetirarProximaReservaDaFila(reserva);
 
             //Evento
-            //
+            reserva.AdicionarEvento(new ReservaCanceladaEvent(reserva.Id));
 
 
             return await PersistirDados(_areaComumRepository.UnitOfWork);
@@ -110,12 +111,14 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
                 return ValidationResult;
             }
 
-            var result = areaComum.CancelarReservaComoAdministrador(request.Id, request.Justificativa);
+            var reserva = areaComum.ObterReserva(request.Id);          
+
+            var result = areaComum.CancelarReservaComoAdministrador(reserva, request.Justificativa);
             if (!result.IsValid)
                 return result;
 
             //Evento
-            //
+            reserva.AdicionarEvento(new ReservaCanceladaEvent(reserva.Id));
 
             return await PersistirDados(_areaComumRepository.UnitOfWork);
         }

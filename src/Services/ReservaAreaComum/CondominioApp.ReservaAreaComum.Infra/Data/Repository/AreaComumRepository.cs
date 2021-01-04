@@ -1,6 +1,6 @@
 ﻿using CondominioApp.Core.Data;
-using CondominioApp.Principal.Domain.Interfaces;
 using CondominioApp.ReservaAreaComum.Domain;
+using CondominioApp.ReservaAreaComum.Domain.Interfaces;
 using CondominioApp.ReservaAreaComum.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
