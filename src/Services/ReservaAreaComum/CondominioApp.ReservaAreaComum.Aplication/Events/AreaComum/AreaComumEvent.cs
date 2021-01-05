@@ -1,14 +1,15 @@
 ﻿using CondominioApp.Core.Messages;
 using CondominioApp.ReservaAreaComum.Domain;
+using CondominioApp.ReservaAreaComum.Domain.FlatModel;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace CondominioApp.ReservaAreaComum.Aplication.Commands
+namespace CondominioApp.ReservaAreaComum.Aplication.Events
 {
-    public abstract class AreaComumCommand : Command
+    public abstract class AreaComumEvent : Event
     {
-        public Guid Id { get; protected set; }
+        public Guid Id { get; protected set; }      
         public string Nome { get; protected set; }
         public string Descricao { get; protected set; }
         public string TermoDeUso { get; protected set; }
@@ -32,8 +33,9 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
         public int NumeroLimiteDeReservaSobreposta { get; protected set; }
         public int NumeroLimiteDeReservaSobrepostaPorUnidade { get; protected set; }
 
-        public ICollection<Periodo> Periodos;
+        public bool TemIntervaloFixoEntreReservas { get; protected set; }
 
-   
+        public ICollection<Periodo> Periodos;
+        
     }
 }

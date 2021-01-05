@@ -8,8 +8,6 @@ namespace CondominioApp.ReservaAreaComum.Aplication.AutoMapper
     {
         public EntityToViewModelAreaComum()
         {
-            CreateMap<AreaComum, AreaComumViewModel>();
-
             CreateMap<Periodo, PeriodoViewModel>();
         }
     }

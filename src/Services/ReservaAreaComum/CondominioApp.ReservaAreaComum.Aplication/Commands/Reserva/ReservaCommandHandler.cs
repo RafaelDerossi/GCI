@@ -34,7 +34,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
 
             var reserva = ReservaFactory(request);
 
-            var areacomum = await _reservaAreaComumRepository.ObterReservaPorId(request.AreaComumId);
+            var areacomum = await _reservaAreaComumRepository.ObterPorId(request.AreaComumId);
             if (areacomum == null)
             {
                 AdicionarErro("Area Comum não encontrada!");
@@ -86,7 +86,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
             if (!request.EstaValido()) return request.ValidationResult;
 
            
-            var areaComum = await _reservaAreaComumRepository.ObterReservaPorId(await _reservaAreaComumRepository.ObterAreaComumIdPorReservaId(request.Id));
+            var areaComum = await _reservaAreaComumRepository.ObterPorId(await _reservaAreaComumRepository.Obter_AreaComumId_Por_ReservaId(request.Id));
             if (areaComum == null)
             {
                 AdicionarErro("Area Comum não encontrada!");
@@ -112,7 +112,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
         {
             if (!request.EstaValido()) return request.ValidationResult;
 
-            var areaComum = await _reservaAreaComumRepository.ObterReservaPorId(await _reservaAreaComumRepository.ObterAreaComumIdPorReservaId(request.Id));
+            var areaComum = await _reservaAreaComumRepository.ObterPorId(await _reservaAreaComumRepository.Obter_AreaComumId_Por_ReservaId(request.Id));
             if (areaComum == null)
             {
                 AdicionarErro("Area Comum não encontrada!");
@@ -138,7 +138,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
             if (!request.EstaValido()) return request.ValidationResult;
 
             //Obtem Area Comum
-            var areaComum = await _reservaAreaComumRepository.ObterReservaPorId(await _reservaAreaComumRepository.ObterAreaComumIdPorReservaId(request.Id));
+            var areaComum = await _reservaAreaComumRepository.ObterPorId(await _reservaAreaComumRepository.Obter_AreaComumId_Por_ReservaId(request.Id));
             if (areaComum == null)
             {
                 AdicionarErro("Area Comum não encontrada!");

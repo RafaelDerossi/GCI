@@ -7,7 +7,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
     {
         public RemoverAreaComumCommand(Guid areaComumId)
         {
-            AreaComumId = areaComumId;           
+            Id = areaComumId;           
         }
 
 

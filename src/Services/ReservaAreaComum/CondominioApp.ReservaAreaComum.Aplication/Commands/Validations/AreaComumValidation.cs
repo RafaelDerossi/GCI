@@ -8,7 +8,7 @@ namespace CondominioApp.Principal.Aplication.Commands.Validations
     {
         protected void ValidateId()
         {
-            RuleFor(c => c.AreaComumId)
+            RuleFor(c => c.Id)
                 .NotEqual(Guid.Empty);
         }
        

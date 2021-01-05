@@ -1,4 +1,5 @@
 ﻿using CondominioApp.Core.Messages;
+using CondominioApp.ReservaAreaComum.Aplication.Events;
 using CondominioApp.ReservaAreaComum.Domain;
 using CondominioApp.ReservaAreaComum.Domain.Interfaces;
 using FluentValidation.Results;
@@ -46,8 +47,17 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
 
             _areaComumRepository.Adicionar(areaComum);
 
-           //Evento
-           //
+            //Evento
+            areaComum.AdicionarEvento(new AreaComumCadastradaEvent
+                (areaComum.Id, areaComum.Nome, areaComum.Descricao, areaComum.TermoDeUso,
+                areaComum.CondominioId, areaComum.NomeCondominio, areaComum.Capacidade,
+                areaComum.DiasPermitidos, areaComum.AntecedenciaMaximaEmMeses,
+                areaComum.AntecedenciaMaximaEmDias, areaComum.AntecedenciaMinimaEmDias,
+                areaComum.AntecedenciaMinimaParaCancelamentoEmDias, areaComum.RequerAprovacaoDeReserva,
+                areaComum.TemHorariosEspecificos, areaComum.TempoDeIntervaloEntreReservas, areaComum.Ativa,
+                areaComum.TempoDeDuracaoDeReserva, areaComum.NumeroLimiteDeReservaPorUnidade,
+                areaComum.PermiteReservaSobreposta, areaComum.NumeroLimiteDeReservaSobreposta,
+                areaComum.NumeroLimiteDeReservaSobrepostaPorUnidade, areaComum.Periodos.ToList()));
 
             return await PersistirDados(_areaComumRepository.UnitOfWork);
         }
@@ -58,7 +68,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
             if (!request.EstaValido())
                 return request.ValidationResult;
 
-            var areacomum = await _areaComumRepository.ObterReservaPorId(request.AreaComumId);
+            var areacomum = await _areaComumRepository.ObterPorId(request.Id);
             if (areacomum == null)
             {
                 AdicionarErro("Area Comum não encontrada!");
@@ -86,8 +96,8 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
             areacomum.DesabilitarHorariosEspecifcos();
             if (request.TemHorariosEspecificos) areacomum.HabilitarHorariosEspecifcos();
 
-            areacomum.DesativarAreaComun();
-            if (request.Ativa) areacomum.AtivarAreaComun();
+            areacomum.DesativarAreaComum();
+            if (request.Ativa) areacomum.AtivarAreaComum();
 
             areacomum.DesabilitarReservaSobreposta();
             if (request.PermiteReservaSobreposta) areacomum.HabilitarReservaSobreposta();           
@@ -117,7 +127,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
             }          
 
 
-            _areaComumRepository.AtualizarReserva(areacomum);
+            _areaComumRepository.Atualizar(areacomum);
 
             return await PersistirDados(_areaComumRepository.UnitOfWork);
         }
@@ -128,7 +138,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
             if (!request.EstaValido())
                 return request.ValidationResult;
 
-            var areaComumBd = await _areaComumRepository.ObterReservaPorId(request.AreaComumId);
+            var areaComumBd = await _areaComumRepository.ObterPorId(request.Id);
             if (areaComumBd == null)
             {
                 AdicionarErro("Area Comum não encontrada.");
@@ -137,7 +147,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
 
             areaComumBd.EnviarParaLixeira();
 
-            _areaComumRepository.AtualizarReserva(areaComumBd);
+            _areaComumRepository.Atualizar(areaComumBd);
 
             return await PersistirDados(_areaComumRepository.UnitOfWork);
         }
@@ -148,16 +158,16 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
             if (!request.EstaValido())
                 return request.ValidationResult;
 
-            var areaComumBd = await _areaComumRepository.ObterReservaPorId(request.AreaComumId);
+            var areaComumBd = await _areaComumRepository.ObterPorId(request.Id);
             if (areaComumBd == null)
             {
                 AdicionarErro("Area Comum não encontrada.");
                 return ValidationResult;
             }
 
-            areaComumBd.AtivarAreaComun();
+            areaComumBd.AtivarAreaComum();
 
-            _areaComumRepository.AtualizarReserva(areaComumBd);
+            _areaComumRepository.Atualizar(areaComumBd);
 
             return await PersistirDados(_areaComumRepository.UnitOfWork);
         }
@@ -168,16 +178,16 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
             if (!request.EstaValido())
                 return request.ValidationResult;
 
-            var areaComumBd = await _areaComumRepository.ObterReservaPorId(request.AreaComumId);
+            var areaComumBd = await _areaComumRepository.ObterPorId(request.Id);
             if (areaComumBd == null)
             {
                 AdicionarErro("Area Comum não encontrada.");
                 return ValidationResult;
             }
 
-            areaComumBd.DesativarAreaComun();
+            areaComumBd.DesativarAreaComum();
 
-            _areaComumRepository.AtualizarReserva(areaComumBd);
+            _areaComumRepository.Atualizar(areaComumBd);
 
             return await PersistirDados(_areaComumRepository.UnitOfWork);
         }

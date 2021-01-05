@@ -4,14 +4,16 @@ using CondominioApp.Principal.Infra.DataQuery;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CondominioApp.ReservaAreaComum.Infra.Migrations.ReservaAreaComumQueryContextDBMigrations
 {
     [DbContext(typeof(ReservaAreaComumQueryContextDB))]
-    partial class ReservaAreaComumQueryContextDBModelSnapshot : ModelSnapshot
+    [Migration("20210105200912_AreaComumFlat")]
+    partial class AreaComumFlat
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -59,22 +61,19 @@ namespace CondominioApp.ReservaAreaComum.Infra.Migrations.ReservaAreaComumQueryC
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Descricao")
-                        .HasColumnType("varchar(200)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DiasPermitidos")
-                        .IsRequired()
-                        .HasColumnType("varchar(200)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Lixeira")
                         .HasColumnType("bit");
 
                     b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("varchar(200)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NomeCondominio")
-                        .IsRequired()
-                        .HasColumnType("varchar(200)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("NumeroLimiteDeReservaPorUnidade")
                         .HasColumnType("int");
@@ -101,10 +100,10 @@ namespace CondominioApp.ReservaAreaComum.Infra.Migrations.ReservaAreaComumQueryC
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TempoDeIntervaloEntreReservas")
-                        .HasColumnType("varchar(200)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TermoDeUso")
-                        .HasColumnType("varchar(500)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -133,18 +132,16 @@ namespace CondominioApp.ReservaAreaComum.Infra.Migrations.ReservaAreaComumQueryC
                         .HasColumnType("datetime2");
 
                     b.Property<string>("HoraFim")
-                        .IsRequired()
-                        .HasColumnType("varchar(200)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("HoraInicio")
-                        .IsRequired()
-                        .HasColumnType("varchar(200)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Lixeira")
                         .HasColumnType("bit");
 
                     b.Property<decimal>("Valor")
-                        .HasColumnType("decimal(14,2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 

@@ -61,7 +61,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
                areaComum.NumeroLimiteDeReservaSobrepostaPorUnidade, areaComum.Periodos.ToList());
 
 
-            _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.ObterReservaPorId(command.AreaComumId))
+            _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.ObterPorId(command.Id))
                 .Returns(Task.FromResult(areaComum));
 
             _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.UnitOfWork.Commit())
@@ -85,11 +85,11 @@ namespace CondominioApp.ReservaAreaComum.Tests
             //Arrange
 
             var areaComum = AreaComumFactory.CriarAreaComum_AprovacaoAutomatica();
-            areaComum.DesativarAreaComun();
+            areaComum.DesativarAreaComum();
 
             var command = AreaComumCommandFactory.CriarComandoAtivacaoDeAreaComum();
 
-            _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.ObterReservaPorId(command.AreaComumId))
+            _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.ObterPorId(command.Id))
                 .Returns(Task.FromResult(areaComum));
 
             _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.UnitOfWork.Commit())
@@ -111,11 +111,11 @@ namespace CondominioApp.ReservaAreaComum.Tests
             //Arrange
 
             var areaComum = AreaComumFactory.CriarAreaComum_AprovacaoAutomatica();
-            areaComum.AtivarAreaComun();
+            areaComum.AtivarAreaComum();
 
             var command = AreaComumCommandFactory.CriarComandoDesativacaoDeAreaComum();
 
-            _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.ObterReservaPorId(command.AreaComumId))
+            _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.ObterPorId(command.Id))
                 .Returns(Task.FromResult(areaComum));
 
             _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.UnitOfWork.Commit())

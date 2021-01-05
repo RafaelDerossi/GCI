@@ -18,7 +18,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
             int numeroLimiteDeReservaPorUnidade, bool permiteReservaSobreposta, int numeroLimiteDeReservaSobreposta,
             int numeroLimiteDeReservaSobrepostaPorUnidade, ICollection<Periodo> periodos)
         {
-            AreaComumId = areaComumId;
+            Id = areaComumId;
             Nome = nome;
             Descricao = descricao;
             TermoDeUso = termoDeUso;

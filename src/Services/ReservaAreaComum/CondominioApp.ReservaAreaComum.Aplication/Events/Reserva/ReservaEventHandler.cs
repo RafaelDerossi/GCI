@@ -48,12 +48,12 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Events
 
         public async Task Handle(ReservaAprovadaEvent notification, CancellationToken cancellationToken)
         {
-            var reservaFlat = await _reservaAreaComumQueryRepository.ObterPorId(notification.Id);
+            var reservaFlat = await _reservaAreaComumQueryRepository.ObterReservaPorId(notification.Id);
 
             if (reservaFlat !=null)
             {
                 reservaFlat.Aprovar();
-                _reservaAreaComumQueryRepository.Atualizar(reservaFlat);
+                _reservaAreaComumQueryRepository.AtualizarReserva(reservaFlat);
 
                 await PersistirDados(_reservaAreaComumQueryRepository.UnitOfWork);
             }           
@@ -61,15 +61,15 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Events
 
         public async Task Handle(ReservaCanceladaEvent notification, CancellationToken cancellationToken)
         {           
-            var reservaFlat = await _reservaAreaComumQueryRepository.ObterPorId(notification.Id);
+            var reservaFlat = await _reservaAreaComumQueryRepository.ObterReservaPorId(notification.Id);
             if (reservaFlat == null)
             {
-                return;               
+                return;
             }
 
             reservaFlat.Cancelar(notification.Justificativa);
 
-            _reservaAreaComumQueryRepository.Atualizar(reservaFlat);
+            _reservaAreaComumQueryRepository.AtualizarReserva(reservaFlat);
 
             await PersistirDados(_reservaAreaComumQueryRepository.UnitOfWork);
             
@@ -77,7 +77,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Events
 
         public async Task Handle(ReservaRetiradaDaFilaEvent notification, CancellationToken cancellationToken)
         {
-            var reservaFlat = await _reservaAreaComumQueryRepository.ObterPorId(notification.Id);
+            var reservaFlat = await _reservaAreaComumQueryRepository.ObterReservaPorId(notification.Id);
             if (reservaFlat == null)
             {
                 return;
@@ -85,7 +85,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Events
 
             reservaFlat.RemoverDaFila();
 
-            _reservaAreaComumQueryRepository.Atualizar(reservaFlat);
+            _reservaAreaComumQueryRepository.AtualizarReserva(reservaFlat);
 
             await PersistirDados(_reservaAreaComumQueryRepository.UnitOfWork);
 

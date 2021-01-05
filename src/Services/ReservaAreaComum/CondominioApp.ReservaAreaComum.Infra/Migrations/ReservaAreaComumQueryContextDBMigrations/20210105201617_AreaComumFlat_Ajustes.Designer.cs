@@ -4,14 +4,16 @@ using CondominioApp.Principal.Infra.DataQuery;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CondominioApp.ReservaAreaComum.Infra.Migrations.ReservaAreaComumQueryContextDBMigrations
 {
     [DbContext(typeof(ReservaAreaComumQueryContextDB))]
-    partial class ReservaAreaComumQueryContextDBModelSnapshot : ModelSnapshot
+    [Migration("20210105201617_AreaComumFlat_Ajustes")]
+    partial class AreaComumFlat_Ajustes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -16,9 +16,10 @@ namespace CondominioApp.ReservaAreaComum.Domain.FlatModel
 
         protected PeriodoFlat() { }
 
-        public PeriodoFlat(Guid id, string horaInicio, string horaFim, decimal valor, bool ativo)
+        public PeriodoFlat(Guid id, Guid areaComumId, string horaInicio, string horaFim, decimal valor, bool ativo)
         {
             Id = id;
+            AreaComumId = areaComumId;
             HoraInicio = horaInicio;
             HoraFim = horaFim;
             Valor = valor;

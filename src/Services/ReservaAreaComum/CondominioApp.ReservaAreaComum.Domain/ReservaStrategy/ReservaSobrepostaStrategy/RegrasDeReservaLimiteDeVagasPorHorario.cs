@@ -19,50 +19,43 @@ namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.ReservaSobrepost
         public override ValidationResult Validar()
         {
             List<Reserva> ReservasAprovadas = _areaComum.Reservas
-                .Where(x => x.Ativa && x.DataDeRealizacao == _reserva.DataDeRealizacao && !x.EstaNaFila && !x.Cancelada && !x.Lixeira).ToList();
-
-            if (OverLap(ReservasAprovadas, _reserva))
-            {
-                //Bloquear reserva quando ha uma reserva da administração
-                if (ReservasAprovadas.Any(x => (x.ReservadoPelaAdministracao && _reserva.SaberSeReservaSobrepoeOutraOuEIgual(x))))
-                {
-                    AdicionarErros("Este período foi reservado pela administração de seu condomínio!");
-                    return ValidationResult;
-                }
-
-                AdicionarErros("O horário que você deseja esta comprometido, deseja ficar em uma fila de espera?");
-                return ValidationResult;
-            }
-            else
-                return ValidationResult;
+                .Where(x => x.Ativa &&
+                            x.DataDeRealizacao == _reserva.DataDeRealizacao &&
+                            !x.EstaNaFila &&
+                            !x.Cancelada &&
+                            !x.Lixeira)
+                .ToList();
+            
+            return OverLap(ReservasAprovadas, _reserva);
+            
         }
 
         /// <summary>
         /// Verificação de reservas sobrepostas
         /// </summary>
-        /// <param name="ReservasAprovadas"></param>
-        /// <param name="nova"></param>
+        /// <param name="reservasAprovadas"></param>
+        /// <param name="reservaNova"></param>
         /// <returns></returns>
-        private bool OverLap(List<Reserva> ReservasAprovadas, Reserva nova)
+        private ValidationResult OverLap(List<Reserva> reservasAprovadas, Reserva reservaNova)
         {
-            foreach (var reserva in ReservasAprovadas)
+            var verificadorDeHorarios = new VerificadorDeHorariosConflitantes();
+            foreach (var reserva in reservasAprovadas)
             {
-                bool overlap = nova.ObterHoraInicio < reserva.ObterHoraFim && reserva.ObterHoraInicio < nova.ObterHoraFim;
+                bool overlap = verificadorDeHorarios.Verificar
+                    (reserva.ObterHoraInicio, reserva.ObterHoraFim, reservaNova.ObterHoraInicio, reservaNova.ObterHoraFim);
 
-                int hInicio = nova.ObterHoraInicio;
-                int hrInicio = reserva.ObterHoraInicio;
-
-                //if (!overlap)
-                //{
-                //    hrInicio++;
-                //    hrInicio++;
-                //    overlap = hInicio > reserva.HoraFim && hrInicio > reserva.HoraFim;
-                //}
-
-                if (overlap)
-                    return true;
+                if (overlap && reserva.ReservadoPelaAdministracao)
+                {
+                    AdicionarErros("Este período foi reservado pela administração de seu condomínio!");
+                    return ValidationResult;
+                }
+                else if(overlap)
+                {
+                    AdicionarErros("O horário que você deseja esta comprometido, deseja ficar em uma fila de espera?");
+                    return ValidationResult;
+                }
             }
-            return false;
+            return ValidationResult;
         }
     }
 }

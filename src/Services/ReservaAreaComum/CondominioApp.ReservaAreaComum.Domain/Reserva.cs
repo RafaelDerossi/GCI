@@ -138,25 +138,6 @@ namespace CondominioApp.ReservaAreaComum.Domain
                 return 0;
             }
         }
-
-        public bool SaberSeReservaSobrepoeOutraOuEIgual(Reserva reserva)
-        {
-            if (
-                 (reserva.HoraInicio == HoraInicio && reserva.HoraFim == HoraFim)
-                 ||
-                 (reserva.ObterHoraFim > ObterHoraInicio && reserva.ObterHoraFim < ObterHoraFim)
-                 ||
-                 (ObterHoraFim > reserva.ObterHoraInicio && ObterHoraFim < reserva.ObterHoraFim)
-                 ||
-                 (ObterHoraInicio > reserva.ObterHoraInicio && ObterHoraFim < reserva.ObterHoraFim)
-                 ||
-                 (reserva.ObterHoraInicio > ObterHoraInicio && reserva.ObterHoraFim < ObterHoraFim)
-                 )
-            {
-                return true;
-            }
-
-            return false;
-        }
+       
     }
 }

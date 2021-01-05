@@ -239,7 +239,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             var areaComum = new CadastrarAreaComumCommand
                 ("Area Comum", "Descricao da area comum", "Termo de Uso", Guid.NewGuid(),
                 "Nome do condominio", 10, "SATURDAY|SUNDAY", 0, 0, 0, 0, false, true, "",
-                true, "", 0, false, 0, -1, listaPeriodos);
+                true, "", 0, false, 0, 0, listaPeriodos);
 
             return areaComum;
         }
@@ -254,7 +254,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             var areaComum = new CadastrarAreaComumCommand
                 ("Area Comum", "Descricao da area comum", "Termo de Uso", Guid.NewGuid(),
                 "Nome do condominio", 10, "SATURDAY|SUNDAY", 0, 0, 0, 0, false, true, "",
-                true, "", 0, false, 0, -1, listaPeriodos);
+                true, "", 0, false, 0, 0, listaPeriodos);
 
             return areaComum;
         }
@@ -269,7 +269,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             var areaComum = new CadastrarAreaComumCommand
                 ("Area Comum", "Descricao da area comum", "Termo de Uso", Guid.NewGuid(),
                 "Nome do condominio", 10, "SATURDAY|SUNDAY", 0, 0, 0, 0, false, true, "",
-                true, "", 0, false, 0, -1, listaPeriodos);
+                true, "", 0, false, 0, 0, listaPeriodos);
 
             return areaComum;
         }
@@ -284,10 +284,103 @@ namespace CondominioApp.ReservaAreaComum.Tests
             var areaComum = new CadastrarAreaComumCommand
                 ("Area Comum", "Descricao da area comum", "Termo de Uso", Guid.NewGuid(),
                 "Nome do condominio", 10, "SATURDAY|SUNDAY", 0, 0, 0, 0, false, true, "",
-                true, "", 0, false, 0, -1, listaPeriodos);
+                true, "", 0, false, 0, 0, listaPeriodos);
 
             return areaComum;
         }
+
+        public static CadastrarAreaComumCommand CriarComandoCadastroDeAreaComum_PeriodosConflitantesInvalido()
+        {
+            var listaPeriodos = new List<Periodo>();
+
+            var periodo1 = new Periodo("07:00", "14:00", 150, true);
+            listaPeriodos.Add(periodo1);
+
+            var periodo2 = new Periodo("13:00", "18:00", 150, true);
+            listaPeriodos.Add(periodo2);
+
+            var areaComum = new CadastrarAreaComumCommand
+                ("Area Comum", "Descricao da area comum", "Termo de Uso", Guid.NewGuid(),
+                "Nome do condominio", 10, "SATURDAY|SUNDAY", 0, 0, 0, 0, false, true, "",
+                true, "", 0, false, 0, 0, listaPeriodos);
+
+            return areaComum;
+        }
+
+        public static CadastrarAreaComumCommand CriarComandoCadastroDeAreaComum_PeriodosInvertidosConflitantesInvalido()
+        {
+            var listaPeriodos = new List<Periodo>();
+
+            var periodo1 = new Periodo("13:00", "18:00", 150, true);
+            listaPeriodos.Add(periodo1);
+
+            var periodo2 = new Periodo("07:00", "14:00", 150, true);
+            listaPeriodos.Add(periodo2);
+
+            var areaComum = new CadastrarAreaComumCommand
+                ("Area Comum", "Descricao da area comum", "Termo de Uso", Guid.NewGuid(),
+                "Nome do condominio", 10, "SATURDAY|SUNDAY", 0, 0, 0, 0, false, true, "",
+                true, "", 0, false, 0, 0, listaPeriodos);
+
+            return areaComum;
+        }
+
+        public static CadastrarAreaComumCommand CriarComandoCadastroDeAreaComum_PeriodosPernoiteConflitantesInvalido()
+        {
+            var listaPeriodos = new List<Periodo>();
+
+            var periodo1 = new Periodo("18:00", "02:00", 150, true);
+            listaPeriodos.Add(periodo1);
+
+            var periodo2 = new Periodo("15:00", "20:00", 150, true);
+            listaPeriodos.Add(periodo2);
+
+            var areaComum = new CadastrarAreaComumCommand
+                ("Area Comum", "Descricao da area comum", "Termo de Uso", Guid.NewGuid(),
+                "Nome do condominio", 10, "SATURDAY|SUNDAY", 0, 0, 0, 0, false, true, "",
+                true, "", 0, false, 0, 0, listaPeriodos);
+
+            return areaComum;
+        }
+
+        public static CadastrarAreaComumCommand CriarComandoCadastroDeAreaComum_PeriodosValido()
+        {
+            var listaPeriodos = new List<Periodo>();
+
+            var periodo1 = new Periodo("13:00", "18:00", 150, true);
+            listaPeriodos.Add(periodo1);
+
+            var periodo2 = new Periodo("07:00", "12:00", 150, true);
+            listaPeriodos.Add(periodo2);
+
+            var areaComum = new CadastrarAreaComumCommand
+                ("Area Comum", "Descricao da area comum", "Termo de Uso", Guid.NewGuid(),
+                "Nome do condominio", 10, "SATURDAY|SUNDAY", 0, 0, 0, 0, false, true, "",
+                true, "", 0, false, 0, 0, listaPeriodos);
+
+            return areaComum;
+        }
+
+        public static CadastrarAreaComumCommand CriarComandoCadastroDeAreaComum_PeriodosPernoiteValido()
+        {
+            var listaPeriodos = new List<Periodo>();
+
+            var periodo1 = new Periodo("20:00", "02:00", 150, true);
+            listaPeriodos.Add(periodo1);
+
+            var periodo2 = new Periodo("07:00", "18:00", 150, true);
+            listaPeriodos.Add(periodo2);
+
+            var areaComum = new CadastrarAreaComumCommand
+                ("Area Comum", "Descricao da area comum", "Termo de Uso", Guid.NewGuid(),
+                "Nome do condominio", 10, "SATURDAY|SUNDAY", 0, 0, 0, 0, false, true, "",
+                true, "", 0, false, 0, 0, listaPeriodos);
+
+            return areaComum;
+        }
+
+
+
 
 
 

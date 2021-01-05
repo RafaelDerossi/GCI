@@ -8,7 +8,7 @@ namespace CondominioApp.ReservaAreaComum.Domain.Interfaces
     {
         Task<Reserva> ObterReservaPorId(Guid id);
 
-        Task<Guid> ObterAreaComumIdPorReservaId(Guid reservaId);
+        Task<Guid> Obter_AreaComumId_Por_ReservaId(Guid reservaId);
 
         void AdicionarPeriodo(Periodo entity);
 

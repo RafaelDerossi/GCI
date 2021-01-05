@@ -111,8 +111,8 @@ namespace CondominioApp.ReservaAreaComum.Domain
 
         public void SetTempoDeDuracaoDeReserva(string tempo) => TempoDeDuracaoDeReserva = tempo;
 
-        public void AtivarAreaComun() => Ativa = true;
-        public void DesativarAreaComun() => Ativa = false;
+        public void AtivarAreaComum() => Ativa = true;
+        public void DesativarAreaComum() => Ativa = false;
 
         public void SetNumeroLimiteDeReservaPorUnidade(int numeroLimite) => 
             NumeroLimiteDeReservaPorUnidade = numeroLimite;
@@ -190,29 +190,25 @@ namespace CondominioApp.ReservaAreaComum.Domain
         }
 
         public ValidationResult AdicionarPeriodo(Periodo periodo)
-        {          
+        {
+            var verificadorDeHorarios = new VerificadorDeHorariosConflitantes();
 
-            if (_Periodos.Any(u => u.HoraInicio == periodo.HoraInicio || u.HoraFim == periodo.HoraFim))
-            {
-                AdicionarErrosDaEntidade("Período repetido!");
-                return ValidationResult;
-            }
+            foreach (Periodo per in _Periodos)
+            {               
+                if (verificadorDeHorarios.Verificar
+                    (per.ObterHoraInicio, per.ObterHoraFim,
+                    periodo.ObterHoraInicio, periodo.ObterHoraFim))
+                {
+                    AdicionarErrosDaEntidade("Período incompatível com outro período ja existente!");
+                    return ValidationResult;
+                }
+            }  
 
-            if (
-                _Periodos.Any(p => p.ObterHoraInicio < periodo.ObterHoraInicio && p.ObterHoraFim > periodo.ObterHoraInicio) ||
-                _Periodos.Any(p => p.ObterHoraInicio > periodo.ObterHoraInicio && p.ObterHoraInicio < periodo.ObterHoraFim) ||
-                _Periodos.Any(p => p.ObterHoraInicio > periodo.ObterHoraFim && p.ObterHoraFim > periodo.ObterHoraInicio)
-                )
-            {
-                AdicionarErrosDaEntidade("Período incompatível com outro período ja existente!");
-                return ValidationResult;
-            }
-          
             _Periodos.Add(periodo);
 
             return ValidationResult;
         }
-
+       
         public void RemoverTodosOsPeriodos()
         {
             _Periodos.Clear();
@@ -406,7 +402,10 @@ namespace CondominioApp.ReservaAreaComum.Domain
             if (_Periodos == null) return 0;
 
             return _Periodos.OrderByDescending(p => p.ObterHoraFim).FirstOrDefault().ObterHoraFim;
-        }      
+        }
+
+
         
+
     }
 }
