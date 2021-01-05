@@ -11,9 +11,9 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
     {
 
         public RetirarReservaDaFilaCommand
-            (Guid reservaId)
+            (Guid reservaCanceladaId)
         {            
-            Id = reservaId;           
+            Id = reservaCanceladaId;           
         }
 
 

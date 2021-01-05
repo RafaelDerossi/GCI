@@ -1,6 +1,5 @@
 ﻿using CondominioApp.Core.Data;
 using CondominioApp.Principal.Infra.DataQuery;
-using CondominioApp.ReservaAreaComum.Domain;
 using CondominioApp.ReservaAreaComum.Domain.FlatModel;
 using CondominioApp.ReservaAreaComum.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -23,23 +22,77 @@ namespace CondominioApp.ReservaAreaComum.Infra.Data.Repository
 
         public IUnitOfWorks UnitOfWork => _context;
 
-        public void Adicionar(ReservaFlat entity)
+
+      
+
+        public void Adicionar(AreaComumFlat entity)
+        {
+            _context.AreasComunsFlat.Add(entity);
+        }
+
+        public void Atualizar(AreaComumFlat entity)
+        {
+            _context.AreasComunsFlat.Update(entity);
+        }
+
+        public void Apagar(Func<AreaComumFlat, bool> predicate)
+        {
+            _context.AreasComunsFlat.Where(predicate).ToList().ForEach(del => del.EnviarParaLixeira());
+        }
+
+
+
+        public async Task<IEnumerable<AreaComumFlat>> Obter(Expression<Func<AreaComumFlat, bool>> expression, bool OrderByDesc = false, int take = 0)
+        {
+            if (OrderByDesc)
+            {
+                if (take > 0)
+                    return await _context.AreasComunsFlat.AsNoTracking().Where(expression)
+                                        .OrderByDescending(x => x.DataDeCadastro).Take(take).ToListAsync();
+
+                return await _context.AreasComunsFlat.AsNoTracking().Where(expression)
+                                        .OrderByDescending(x => x.DataDeCadastro).ToListAsync();
+            }
+
+            if (take > 0)
+                return await _context.AreasComunsFlat.AsNoTracking().Where(expression)
+                                        .OrderBy(x => x.DataDeCadastro).Take(take).ToListAsync();
+
+            return await _context.AreasComunsFlat.AsNoTracking().Where(expression)
+                                    .OrderBy(x => x.DataDeCadastro).ToListAsync();
+        }
+
+        public async Task<AreaComumFlat> ObterPorId(Guid Id)
+        {
+            return await _context.AreasComunsFlat
+                .FirstOrDefaultAsync(a => a.Id == Id);
+        }
+
+        public async Task<IEnumerable<AreaComumFlat>> ObterTodos()
+        {
+            return await _context.AreasComunsFlat.ToListAsync();
+        }
+
+     
+
+
+        public void AdicionarReserva(ReservaFlat entity)
         {
             _context.ReservasFlat.Add(entity);       
         }
 
-        public void Apagar(Func<ReservaFlat, bool> predicate)
+        public void ApagarReserva(Func<ReservaFlat, bool> predicate)
         {
             _context.ReservasFlat.Where(predicate).ToList().ForEach(del => del.EnviarParaLixeira());
         }
 
-        public void Atualizar(ReservaFlat entity)
+        public void AtualizarReserva(ReservaFlat entity)
         {
             _context.ReservasFlat.Update(entity);
         }
 
        
-        public async Task<IEnumerable<ReservaFlat>> Obter(Expression<Func<ReservaFlat, bool>> expression, bool OrderByDesc = false, int take = 0)
+        public async Task<IEnumerable<ReservaFlat>> ObterReserva(Expression<Func<ReservaFlat, bool>> expression, bool OrderByDesc = false, int take = 0)
         {
             if (OrderByDesc)
             {
@@ -58,11 +111,33 @@ namespace CondominioApp.ReservaAreaComum.Infra.Data.Repository
             return await _context.ReservasFlat.AsNoTracking().Where(expression)
                                     .OrderBy(x => x.DataDeCadastro).ToListAsync();
         }
-
-
-        public async Task<ReservaFlat> ObterPorId(Guid Id)
+        
+        public async Task<ReservaFlat> ObterReservaPorId(Guid Id)
         {
             return await _context.ReservasFlat                
+                .FirstOrDefaultAsync(a => a.Id == Id);
+        }
+
+
+
+        public void AdicionarPeriodo(PeriodoFlat entity)
+        {
+            _context.PeriodosFlat.Add(entity);
+        }
+
+        public void ApagarPeriodo(Func<PeriodoFlat, bool> predicate)
+        {
+            _context.PeriodosFlat.Where(predicate).ToList().ForEach(del => del.EnviarParaLixeira());
+        }
+
+        public void AtualizarPeriodo(PeriodoFlat entity)
+        {
+            _context.PeriodosFlat.Update(entity);
+        }
+
+        public async Task<PeriodoFlat> ObterPeriodoPorId(Guid Id)
+        {
+            return await _context.PeriodosFlat
                 .FirstOrDefaultAsync(a => a.Id == Id);
         }
 
@@ -71,10 +146,6 @@ namespace CondominioApp.ReservaAreaComum.Infra.Data.Repository
         {
             _context?.Dispose();
         }
-
-        public async Task<IEnumerable<ReservaFlat>> ObterTodos()
-        {
-            return await _context.ReservasFlat.ToListAsync();
-        }
+        
     }
 }

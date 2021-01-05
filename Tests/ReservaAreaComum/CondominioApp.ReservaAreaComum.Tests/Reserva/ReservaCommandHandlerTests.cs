@@ -34,7 +34,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
                 150, false, "Mobile", false);
 
             
-            _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.ObterPorId(command.AreaComumId))
+            _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.ObterReservaPorId(command.AreaComumId))
                .Returns(Task.FromResult(areaComum));
 
             _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.UnitOfWork.Commit())
@@ -89,7 +89,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.ObterAreaComumIdPorReservaId(reserva.Id))
               .Returns(Task.FromResult(areaComum.Id));
 
-            _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.ObterPorId(areaComum.Id))
+            _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.ObterReservaPorId(areaComum.Id))
                .Returns(Task.FromResult(areaComum));           
 
             _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.UnitOfWork.Commit())
@@ -122,7 +122,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.ObterAreaComumIdPorReservaId(reserva.Id))
               .Returns(Task.FromResult(areaComum.Id));
 
-            _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.ObterPorId(areaComum.Id))
+            _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.ObterReservaPorId(areaComum.Id))
                .Returns(Task.FromResult(areaComum));
 
             _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.UnitOfWork.Commit())
@@ -133,6 +133,43 @@ namespace CondominioApp.ReservaAreaComum.Tests
 
             //Assert
             Assert.True(result.IsValid);
+            _mocker.GetMock<IReservaAreaComumRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
+        }
+
+        [Fact(DisplayName = "Retirar Reserva da Fila Válido")]
+        [Trait("Categoria", "Reserva -ReservaCommandHandler")]
+        public async Task RetirarReservaDaFila_CommandoValido_DevePassarNaValidacao()
+        {
+            //Arrange
+            var areaComum = AreaComumFactory.CriarAreaComum_AprovacaoAutomatica();
+            var reserva1 = new Reserva
+                (areaComum.Id, "Obs", Guid.NewGuid(), "101", "1º", "Bloco 1", Guid.NewGuid(), "Usuario",
+                 DateTime.Now.AddDays(30).Date, "08:00", "17:00", 150, false, "Mobile", false);
+            reserva1.Cancelar("Justificativa");
+
+            var reserva2 = new Reserva
+               (areaComum.Id, "Obs", Guid.NewGuid(), "102", "1º", "Bloco 1", Guid.NewGuid(), "Usuario",
+                DateTime.Now.AddDays(30).Date, "08:00", "17:00", 150, true, "Mobile", false);
+
+            areaComum.AdicionarReserva(reserva1);
+            areaComum.AdicionarReserva(reserva2);
+
+            var command = new RetirarReservaDaFilaCommand(reserva1.Id);
+
+            _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.ObterAreaComumIdPorReservaId(reserva1.Id))
+              .Returns(Task.FromResult(areaComum.Id));
+
+            _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.ObterReservaPorId(areaComum.Id))
+               .Returns(Task.FromResult(areaComum));
+
+            _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.UnitOfWork.Commit())
+               .Returns(Task.FromResult(true));
+
+            //Act
+            var result = await _reservaCommandHandler.Handle(command, CancellationToken.None);
+
+            //Assert
+            Assert.True(result.IsValid && !reserva2.EstaNaFila);
             _mocker.GetMock<IReservaAreaComumRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
         }
 

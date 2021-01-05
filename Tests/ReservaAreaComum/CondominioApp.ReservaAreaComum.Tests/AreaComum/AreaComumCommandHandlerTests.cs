@@ -61,7 +61,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
                areaComum.NumeroLimiteDeReservaSobrepostaPorUnidade, areaComum.Periodos.ToList());
 
 
-            _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.ObterPorId(command.AreaComumId))
+            _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.ObterReservaPorId(command.AreaComumId))
                 .Returns(Task.FromResult(areaComum));
 
             _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.UnitOfWork.Commit())
@@ -89,7 +89,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
 
             var command = AreaComumCommandFactory.CriarComandoAtivacaoDeAreaComum();
 
-            _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.ObterPorId(command.AreaComumId))
+            _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.ObterReservaPorId(command.AreaComumId))
                 .Returns(Task.FromResult(areaComum));
 
             _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.UnitOfWork.Commit())
@@ -115,7 +115,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
 
             var command = AreaComumCommandFactory.CriarComandoDesativacaoDeAreaComum();
 
-            _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.ObterPorId(command.AreaComumId))
+            _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.ObterReservaPorId(command.AreaComumId))
                 .Returns(Task.FromResult(areaComum));
 
             _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.UnitOfWork.Commit())

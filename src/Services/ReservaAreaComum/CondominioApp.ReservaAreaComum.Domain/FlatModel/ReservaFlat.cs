@@ -1,12 +1,8 @@
-﻿using CondominioApp.Core.DomainObjects;
-using CondominioApp.Core.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
 
 namespace CondominioApp.ReservaAreaComum.Domain.FlatModel
 {
-   public class ReservaFlat : IAggregateRoot
+    public class ReservaFlat
     {
         public const int Max = 200;
 

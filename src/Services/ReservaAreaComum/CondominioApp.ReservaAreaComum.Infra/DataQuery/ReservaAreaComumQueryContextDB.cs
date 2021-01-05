@@ -16,6 +16,8 @@ namespace CondominioApp.Principal.Infra.DataQuery
     {
         private readonly IMediatorHandler _mediatorHandler;
 
+        public DbSet<AreaComumFlat> AreasComunsFlat { get; set; }
+        public DbSet<PeriodoFlat> PeriodosFlat { get; set; }
         public DbSet<ReservaFlat> ReservasFlat { get; set; }
       
         public ReservaAreaComumQueryContextDB(DbContextOptions<ReservaAreaComumQueryContextDB> options, IMediatorHandler mediatorHandler)

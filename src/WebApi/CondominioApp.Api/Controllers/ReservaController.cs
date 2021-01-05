@@ -4,6 +4,7 @@ using CondominioApp.ReservaAreaComum.Aplication.Commands;
 using CondominioApp.ReservaAreaComum.Aplication.ViewModels;
 using CondominioApp.ReservaAreaComum.App.Aplication.Query;
 using CondominioApp.ReservaAreaComum.Domain;
+using CondominioApp.ReservaAreaComum.Domain.FlatModel;
 using CondominioApp.WebApi.Core.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -17,35 +18,39 @@ namespace CondominioApp.Api.Controllers
     {
         private readonly IMediatorHandler _mediatorHandler;
         //private readonly IMapper _mapper;
-        //private readonly IAreaComumQuery _areaComumQuery;
+        private readonly IReservaAreaComumQuery _reservaAreaComumQuery;
 
-        public ReservaController(IMediatorHandler mediatorHandler) //, IMapper mapper, IAreaComumQuery areaComumQuery)
+        public ReservaController(IMediatorHandler mediatorHandler, IReservaAreaComumQuery reservaAreaComumQuery) //, IMapper mapper)
         {
             _mediatorHandler = mediatorHandler;
+            _reservaAreaComumQuery = reservaAreaComumQuery;
             //_mapper = mapper;
-            //_areaComumQuery = areaComumQuery;
         }
 
 
-        //[HttpGet("{id:Guid}")]
-        //public async Task<AreaComumViewModel> ObterPorId(Guid id)
-        //{
-        //    return _mapper.Map<AreaComumViewModel>(await _areaComumQuery.ObterPorId(id));
-        //}
+        [HttpGet("{id:Guid}")]
+        public async Task<ReservaFlat> ObterPorId(Guid id)
+        {
+            return await _reservaAreaComumQuery.ObterReservaPorId(id);
+        }
 
-        //[HttpGet("por-condominio/{condominioId:Guid}")]
-        //public async Task<IEnumerable<AreaComumViewModel>> ObterPorCondominio(Guid condominioId)
-        //{
-        //    var lista = await _areaComumQuery.ObterPorCondominio(condominioId);
+        [HttpGet("por-condominio/{condominioId:Guid}")]
+        public async Task<IEnumerable<ReservaFlat>> ObterPorCondominio(Guid condominioId)
+        {
+           return await _reservaAreaComumQuery.ObterReservasPorCondominio(condominioId);
+        }
 
-        //    var listaVM = new List<AreaComumViewModel>();
-        //    foreach (AreaComum areaComum in lista)
-        //    {
-        //        listaVM.Add(_mapper.Map<AreaComumViewModel>(areaComum));
-        //    }
+        [HttpGet("por-unidade/{unidadeId:Guid}")]
+        public async Task<IEnumerable<ReservaFlat>> ObterPorUnidade(Guid unidadeId)
+        {
+            return await _reservaAreaComumQuery.ObterReservasPorUnidade(unidadeId);
+        }
 
-        //    return listaVM;          
-        //}
+        [HttpGet("por-usuario/{usuarioId:Guid}")]
+        public async Task<IEnumerable<ReservaFlat>> ObterPorUsuario(Guid usuarioId)
+        {
+            return await _reservaAreaComumQuery.ObterReservasPorUsuario(usuarioId);
+        }
 
 
 

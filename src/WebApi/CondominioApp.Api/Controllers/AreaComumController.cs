@@ -4,6 +4,7 @@ using CondominioApp.ReservaAreaComum.Aplication.Commands;
 using CondominioApp.ReservaAreaComum.Aplication.ViewModels;
 using CondominioApp.ReservaAreaComum.App.Aplication.Query;
 using CondominioApp.ReservaAreaComum.Domain;
+using CondominioApp.ReservaAreaComum.Domain.FlatModel;
 using CondominioApp.WebApi.Core.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -28,23 +29,15 @@ namespace CondominioApp.Api.Controllers
 
 
         [HttpGet("{id:Guid}")]
-        public async Task<AreaComumViewModel> ObterPorId(Guid id)
+        public async Task<AreaComumFlat> ObterPorId(Guid id)
         {
-            return _mapper.Map<AreaComumViewModel>(await _areaComumQuery.ObterPorId(id));
+            return await _areaComumQuery.ObterPorId(id);
         }
 
         [HttpGet("por-condominio/{condominioId:Guid}")]
-        public async Task<IEnumerable<AreaComumViewModel>> ObterPorCondominio(Guid condominioId)
+        public async Task<IEnumerable<AreaComumFlat>> ObterPorCondominio(Guid condominioId)
         {
-            var lista = await _areaComumQuery.ObterPorCondominio(condominioId);
-
-            var listaVM = new List<AreaComumViewModel>();
-            foreach (AreaComum areaComum in lista)
-            {
-                listaVM.Add(_mapper.Map<AreaComumViewModel>(areaComum));
-            }
-
-            return listaVM;          
+            return await _areaComumQuery.ObterPorCondominio(condominioId);                  
         }
 
 

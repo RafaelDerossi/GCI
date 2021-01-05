@@ -114,9 +114,11 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<IRequestHandler<AprovarReservaCommand, ValidationResult>, ReservaCommandHandler>();
             services.AddScoped<IRequestHandler<CancelarReservaComoUsuarioCommand, ValidationResult>, ReservaCommandHandler>();
             services.AddScoped<IRequestHandler<CancelarReservaComoAdministradorCommand, ValidationResult>, ReservaCommandHandler>();
+            services.AddScoped<IRequestHandler<RetirarReservaDaFilaCommand, ValidationResult>, ReservaCommandHandler>();
             services.AddScoped<INotificationHandler<ReservaCadastradaEvent>, ReservaEventHandler>();
             services.AddScoped<INotificationHandler<ReservaAprovadaEvent>, ReservaEventHandler>();
             services.AddScoped<INotificationHandler<ReservaCanceladaEvent>, ReservaEventHandler>();
+            services.AddScoped<INotificationHandler<ReservaRetiradaDaFilaEvent>, ReservaEventHandler>();
 
             //Pre Cadastro
             services.AddScoped<IRequestHandler<InserirNovoLeadCommand, ValidationResult>, LeadCommandHandler>();

@@ -41,7 +41,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Events
                 notification.Preco, notification.EstaNaFila, notification.Origem,
                 notification.ReservadoPelaAdministracao);
 
-            _reservaAreaComumQueryRepository.Adicionar(reservaFlat);
+            _reservaAreaComumQueryRepository.AdicionarReserva(reservaFlat);
 
             await PersistirDados(_reservaAreaComumQueryRepository.UnitOfWork);
         }

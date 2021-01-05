@@ -1,57 +1,80 @@
-﻿using CondominioApp.Core.Enumeradores;
-using CondominioApp.ReservaAreaComum.Domain;
+﻿using CondominioApp.ReservaAreaComum.Domain.FlatModel;
 using CondominioApp.ReservaAreaComum.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace CondominioApp.ReservaAreaComum.App.Aplication.Query
 {
     public class ReservaAreaComumQuery : IReservaAreaComumQuery
-    {
-        private IReservaAreaComumRepository _areaComumRepository;
+    {        
+        private IReservaAreaComumQueryRepository _reservaAreaComumQueryRepository;
 
-        public ReservaAreaComumQuery(IReservaAreaComumRepository comunicadoRepository)
+        public ReservaAreaComumQuery(IReservaAreaComumQueryRepository reservaAreaComumQueryRepository)
         {
-            _areaComumRepository = comunicadoRepository;
+            _reservaAreaComumQueryRepository = reservaAreaComumQueryRepository;
         }
 
 
-        public async Task<AreaComum> ObterPorId(Guid id)
+        public async Task<AreaComumFlat> ObterPorId(Guid id)
         {
-            return await _areaComumRepository.ObterPorId(id);
-        }
+            return await _reservaAreaComumQueryRepository.ObterPorId(id);
+        }       
 
-        public async Task<IEnumerable<AreaComum>> ObterPorCondominio
+        public async Task<IEnumerable<AreaComumFlat>> ObterPorCondominio
            (Guid condominioId)
         {
-            return await _areaComumRepository.Obter(
+            return await _reservaAreaComumQueryRepository.Obter(
                               c => c.CondominioId == condominioId &&
                               !c.Lixeira);           
         }
 
-        public async Task<IEnumerable<AreaComum>> ObterPorCondominioEAtiva
+        public async Task<IEnumerable<AreaComumFlat>> ObterPorCondominioEAtiva
             (Guid condominioId, bool ativa)
         {           
             if (ativa)
             {
-                return await _areaComumRepository.Obter(
+                return await _reservaAreaComumQueryRepository.Obter(
                                 c => c.CondominioId == condominioId &&
                                 c.Ativa && !c.Lixeira);
             }
             else
             {
-                return await _areaComumRepository.Obter(
+                return await _reservaAreaComumQueryRepository.Obter(
                                 c => c.CondominioId == condominioId &&
                                 !c.Ativa && !c.Lixeira);
             }            
         }
-       
+
+
+        public async Task<ReservaFlat> ObterReservaPorId(Guid id)
+        {
+            return await _reservaAreaComumQueryRepository.ObterReservaPorId(id);
+        }               
+
+        public async Task<IEnumerable<ReservaFlat>> ObterReservasPorCondominio(Guid condominioId)
+        {
+            return await _reservaAreaComumQueryRepository.ObterReserva(r=>r.CondominioId == condominioId);
+        }
+
+        public async Task<IEnumerable<ReservaFlat>> ObterReservasPorUnidade(Guid unidadeId)
+        {
+            return await _reservaAreaComumQueryRepository.ObterReserva(r => r.UnidadeId == unidadeId);
+        }
+
+        public async Task<IEnumerable<ReservaFlat>> ObterReservasPorUsuario(Guid usuarioId)
+        {
+            return await _reservaAreaComumQueryRepository.ObterReserva(r => r.UsuarioId == usuarioId);
+        }
+
 
         public void Dispose()
-        {
-            _areaComumRepository?.Dispose();
+        {           
+            _reservaAreaComumQueryRepository?.Dispose();
         }
+
+       
     }
 }
