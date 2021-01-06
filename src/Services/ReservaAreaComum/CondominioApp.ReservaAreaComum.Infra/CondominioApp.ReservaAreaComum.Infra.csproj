@@ -5,6 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20210106134546_ChaveEstrangeiraNoPeriodoFlat.cs" />
+    <Compile Remove="Migrations\20210106134546_ChaveEstrangeiraNoPeriodoFlat.Designer.cs" />
     <Compile Remove="Migrations\ReservaAreaComumQueryContextDBMigrations\20210104161745_CriaReservaFlat.cs" />
     <Compile Remove="Migrations\ReservaAreaComumQueryContextDBMigrations\20210104161745_CriaReservaFlat.Designer.cs" />
   </ItemGroup>

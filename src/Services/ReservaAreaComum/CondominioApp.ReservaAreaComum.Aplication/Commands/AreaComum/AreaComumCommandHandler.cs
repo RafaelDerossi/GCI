@@ -68,50 +68,47 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
             if (!request.EstaValido())
                 return request.ValidationResult;
 
-            var areacomum = await _areaComumRepository.ObterPorId(request.Id);
-            if (areacomum == null)
+            var areaComum = await _areaComumRepository.ObterPorId(request.Id);
+            if (areaComum == null)
             {
                 AdicionarErro("Area Comum não encontrada!");
                 return ValidationResult;
             }
 
-            areacomum.SetNome(request.Nome);
-            areacomum.SetDescricao(request.Descricao);
-            areacomum.SetTermoDeUso(request.TermoDeUso);
-            areacomum.SetCapacidade(request.Capacidade);
-            areacomum.SetDiasPermitidos(request.DiasPermitidos);
-            areacomum.SetAntecedenciaMaximaEmMeses(request.AntecedenciaMaximaEmMeses);
-            areacomum.SetAntecedenciaMaximaEmDias(request.AntecedenciaMaximaEmDias);
-            areacomum.SetAntecedenciaMinimaEmDias(request.AntecedenciaMinimaEmDias);
-            areacomum.SetAntecedenciaMinimaParaCancelamentoEmDias(request.AntecedenciaMinimaParaCancelamentoEmDias);
-            areacomum.SetTempoDeIntervaloEntreReservas(request.TempoDeIntervaloEntreReservas);
-            areacomum.SetTempoDeDuracaoDeReserva(request.TempoDeDuracaoDeReserva);
-            areacomum.SetNumeroLimiteDeReservaPorUnidade(request.NumeroLimiteDeReservaPorUnidade);
-            areacomum.SetNumeroLimiteDeReservaSobreposta(request.NumeroLimiteDeReservaSobreposta);
-            areacomum.SetNumeroLimiteDeReservaSobrepostaPorUnidade(request.NumeroLimiteDeReservaSobrepostaPorUnidade);
+            areaComum.SetNome(request.Nome);
+            areaComum.SetDescricao(request.Descricao);
+            areaComum.SetTermoDeUso(request.TermoDeUso);
+            areaComum.SetCapacidade(request.Capacidade);
+            areaComum.SetDiasPermitidos(request.DiasPermitidos);
+            areaComum.SetAntecedenciaMaximaEmMeses(request.AntecedenciaMaximaEmMeses);
+            areaComum.SetAntecedenciaMaximaEmDias(request.AntecedenciaMaximaEmDias);
+            areaComum.SetAntecedenciaMinimaEmDias(request.AntecedenciaMinimaEmDias);
+            areaComum.SetAntecedenciaMinimaParaCancelamentoEmDias(request.AntecedenciaMinimaParaCancelamentoEmDias);
+            areaComum.SetTempoDeIntervaloEntreReservas(request.TempoDeIntervaloEntreReservas);
+            areaComum.SetTempoDeDuracaoDeReserva(request.TempoDeDuracaoDeReserva);
+            areaComum.SetNumeroLimiteDeReservaPorUnidade(request.NumeroLimiteDeReservaPorUnidade);
+            areaComum.SetNumeroLimiteDeReservaSobreposta(request.NumeroLimiteDeReservaSobreposta);
+            areaComum.SetNumeroLimiteDeReservaSobrepostaPorUnidade(request.NumeroLimiteDeReservaSobrepostaPorUnidade);
 
-            areacomum.DesabilitarAprovacaoDeReserva();
-            if (request.RequerAprovacaoDeReserva) areacomum.HabilitarAprovacaoDeReserva();
+            areaComum.DesabilitarAprovacaoDeReserva();
+            if (request.RequerAprovacaoDeReserva) areaComum.HabilitarAprovacaoDeReserva();
 
-            areacomum.DesabilitarHorariosEspecifcos();
-            if (request.TemHorariosEspecificos) areacomum.HabilitarHorariosEspecifcos();
+            areaComum.DesabilitarHorariosEspecifcos();
+            if (request.TemHorariosEspecificos) areaComum.HabilitarHorariosEspecifcos();           
 
-            areacomum.DesativarAreaComum();
-            if (request.Ativa) areacomum.AtivarAreaComum();
-
-            areacomum.DesabilitarReservaSobreposta();
-            if (request.PermiteReservaSobreposta) areacomum.HabilitarReservaSobreposta();           
+            areaComum.DesabilitarReservaSobreposta();
+            if (request.PermiteReservaSobreposta) areaComum.HabilitarReservaSobreposta();           
            
 
 
-            if (areacomum.Periodos != null)
+            if (areaComum.Periodos != null)
             {
-                foreach (Periodo periodo in areacomum.Periodos)
+                foreach (Periodo periodo in areaComum.Periodos)
                 {
                     _areaComumRepository.RemoverPeriodo(periodo);
                 }
             }
-            areacomum.RemoverTodosOsPeriodos();
+            areaComum.RemoverTodosOsPeriodos();
 
             if (request.Periodos == null || request.Periodos.Count() == 0)
             {
@@ -121,13 +118,23 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
 
             foreach (Periodo periodo in request.Periodos)
             {
-                var resultado = areacomum.AdicionarPeriodo(periodo);
+                var resultado = areaComum.AdicionarPeriodo(periodo);
                 if (!resultado.IsValid) return resultado;
                 _areaComumRepository.AdicionarPeriodo(periodo);
             }          
 
 
-            _areaComumRepository.Atualizar(areacomum);
+            _areaComumRepository.Atualizar(areaComum);
+
+            //Evento
+            areaComum.AdicionarEvento(new AreaComumEditadaEvent
+                (areaComum.Id, areaComum.Nome, areaComum.Descricao, areaComum.TermoDeUso, areaComum.Capacidade,
+                areaComum.DiasPermitidos, areaComum.AntecedenciaMaximaEmMeses, areaComum.AntecedenciaMaximaEmDias,
+                areaComum.AntecedenciaMinimaEmDias, areaComum.AntecedenciaMinimaParaCancelamentoEmDias,
+                areaComum.RequerAprovacaoDeReserva, areaComum.TemHorariosEspecificos, areaComum.TempoDeIntervaloEntreReservas,
+                areaComum.TempoDeDuracaoDeReserva, areaComum.NumeroLimiteDeReservaPorUnidade, areaComum.PermiteReservaSobreposta,
+                areaComum.NumeroLimiteDeReservaSobreposta, areaComum.NumeroLimiteDeReservaSobrepostaPorUnidade,
+                areaComum.Periodos.ToList()));
 
             return await PersistirDados(_areaComumRepository.UnitOfWork);
         }
@@ -149,6 +156,9 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
 
             _areaComumRepository.Atualizar(areaComumBd);
 
+            //Evento
+            areaComumBd.AdicionarEvento(new AreaComumRemovidaEvent(areaComumBd.Id));
+
             return await PersistirDados(_areaComumRepository.UnitOfWork);
         }
 
@@ -169,6 +179,8 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
 
             _areaComumRepository.Atualizar(areaComumBd);
 
+            areaComumBd.AdicionarEvento(new AreaComumAtivadaEvent(areaComumBd.Id));
+
             return await PersistirDados(_areaComumRepository.UnitOfWork);
         }
 
@@ -188,6 +200,8 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
             areaComumBd.DesativarAreaComum();
 
             _areaComumRepository.Atualizar(areaComumBd);
+
+            areaComumBd.AdicionarEvento(new AreaComumDesativadaEvent(areaComumBd.Id));
 
             return await PersistirDados(_areaComumRepository.UnitOfWork);
         }

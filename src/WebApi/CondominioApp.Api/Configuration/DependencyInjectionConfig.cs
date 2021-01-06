@@ -109,6 +109,10 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<IRequestHandler<AtivarAreaComumCommand, ValidationResult>, AreaComumCommandHandler>();
             services.AddScoped<IRequestHandler<DesativarAreaComumCommand, ValidationResult>, AreaComumCommandHandler>();
             services.AddScoped<INotificationHandler<AreaComumCadastradaEvent>, AreaComumEventHandler>();
+            services.AddScoped<INotificationHandler<AreaComumEditadaEvent>, AreaComumEventHandler>();
+            services.AddScoped<INotificationHandler<AreaComumAtivadaEvent>, AreaComumEventHandler>();
+            services.AddScoped<INotificationHandler<AreaComumDesativadaEvent>, AreaComumEventHandler>();
+            services.AddScoped<INotificationHandler<AreaComumRemovidaEvent>, AreaComumEventHandler>();
 
             //Reserva
             services.AddScoped<IRequestHandler<CadastrarReservaCommand, ValidationResult>, ReservaCommandHandler>();

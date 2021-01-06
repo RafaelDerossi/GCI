@@ -47,30 +47,31 @@ namespace CondominioApp.ReservaAreaComum.Infra.Data.Repository
             if (OrderByDesc)
             {
                 if (take > 0)
-                    return await _context.AreasComunsFlat.AsNoTracking().Where(expression)
+                    return await _context.AreasComunsFlat.AsNoTracking().Where(expression).Include(a=>a.Periodos)
                                         .OrderByDescending(x => x.DataDeCadastro).Take(take).ToListAsync();
 
-                return await _context.AreasComunsFlat.AsNoTracking().Where(expression)
+                return await _context.AreasComunsFlat.AsNoTracking().Where(expression).Include(a => a.Periodos)
                                         .OrderByDescending(x => x.DataDeCadastro).ToListAsync();
             }
 
             if (take > 0)
-                return await _context.AreasComunsFlat.AsNoTracking().Where(expression)
+                return await _context.AreasComunsFlat.AsNoTracking().Where(expression).Include(a => a.Periodos)
                                         .OrderBy(x => x.DataDeCadastro).Take(take).ToListAsync();
 
-            return await _context.AreasComunsFlat.AsNoTracking().Where(expression)
+            return await _context.AreasComunsFlat.AsNoTracking().Where(expression).Include(a => a.Periodos)
                                     .OrderBy(x => x.DataDeCadastro).ToListAsync();
         }
 
         public async Task<AreaComumFlat> ObterPorId(Guid Id)
         {
             return await _context.AreasComunsFlat
+                .Include(a => a.Periodos)
                 .FirstOrDefaultAsync(a => a.Id == Id);
         }
 
         public async Task<IEnumerable<AreaComumFlat>> ObterTodos()
         {
-            return await _context.AreasComunsFlat.ToListAsync();
+            return await _context.AreasComunsFlat.Include(a => a.Periodos).ToListAsync();
         }
 
      
@@ -125,9 +126,9 @@ namespace CondominioApp.ReservaAreaComum.Infra.Data.Repository
             _context.PeriodosFlat.Add(entity);
         }
 
-        public void ApagarPeriodo(Func<PeriodoFlat, bool> predicate)
+        public void RemoverPeriodo(PeriodoFlat entity)
         {
-            _context.PeriodosFlat.Where(predicate).ToList().ForEach(del => del.EnviarParaLixeira());
+            _context.PeriodosFlat.Remove(entity);
         }
 
         public void AtualizarPeriodo(PeriodoFlat entity)

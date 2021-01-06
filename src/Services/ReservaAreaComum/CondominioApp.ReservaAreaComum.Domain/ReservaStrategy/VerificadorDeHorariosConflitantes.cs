@@ -12,12 +12,12 @@ namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy
         private int _horaFimB;
        
 
-        public bool Verificar(int horaInicioA, int horaFimA, int horaInicioB, int horaFimB)
+        public bool Verificar(IHorario horarioA, IHorario horarioB)
         {
-            _horaInicioA = horaInicioA;
-            _horaFimA = horaFimA;
-            _horaInicioB = horaInicioB;
-            _horaFimB = horaFimB;
+            _horaInicioA = horarioA.ObterHoraInicio;
+            _horaFimA = horarioA.ObterHoraFim; ;
+            _horaInicioB = horarioB.ObterHoraInicio;
+            _horaFimB = horarioB.ObterHoraFim;
 
             if ( _horaInicioA < _horaFimA && _horaInicioB < _horaFimB)
             {

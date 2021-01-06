@@ -1,11 +1,12 @@
 ﻿using CondominioApp.Core.DomainObjects;
+using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace CondominioApp.ReservaAreaComum.Domain
 {
-   public class Periodo : Entity
+   public class Periodo : Entity, IHorario
     {
         public string HoraInicio { get; private set; }
         public string HoraFim { get; private set; }     

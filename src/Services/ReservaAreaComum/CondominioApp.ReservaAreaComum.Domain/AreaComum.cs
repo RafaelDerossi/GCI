@@ -189,22 +189,20 @@ namespace CondominioApp.ReservaAreaComum.Domain
             }
         }
 
-        public ValidationResult AdicionarPeriodo(Periodo periodo)
+        public ValidationResult AdicionarPeriodo(Periodo periodoNovo)
         {
-            var verificadorDeHorarios = new VerificadorDeHorariosConflitantes();
+            var verificadorDeHorariosConflitantes = new VerificadorDeHorariosConflitantes();
 
-            foreach (Periodo per in _Periodos)
+            foreach (Periodo periodo in _Periodos)
             {               
-                if (verificadorDeHorarios.Verificar
-                    (per.ObterHoraInicio, per.ObterHoraFim,
-                    periodo.ObterHoraInicio, periodo.ObterHoraFim))
+                if (verificadorDeHorariosConflitantes.Verificar(periodo, periodoNovo))
                 {
                     AdicionarErrosDaEntidade("Período incompatível com outro período ja existente!");
                     return ValidationResult;
                 }
             }  
 
-            _Periodos.Add(periodo);
+            _Periodos.Add(periodoNovo);
 
             return ValidationResult;
         }

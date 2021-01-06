@@ -23,7 +23,7 @@ namespace CondominioApp.ReservaAreaComum.Domain.Interfaces
 
         void AdicionarPeriodo(PeriodoFlat entity);
 
-        void ApagarPeriodo(Func<PeriodoFlat, bool> predicate);
+        void RemoverPeriodo(PeriodoFlat entity);
 
         void AtualizarPeriodo(PeriodoFlat entity);
 

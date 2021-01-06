@@ -134,6 +134,19 @@ namespace CondominioApp.ReservaAreaComum.Domain.FlatModel
 
         public void SetTemIntervaloFixoEntreReservas(bool temIntervaloFixoEntreReservas) =>
           TemIntervaloFixoEntreReservas = temIntervaloFixoEntreReservas;
-        
+
+
+
+        ///Outros Metodos
+        ///
+        public void AdicionarPeriodo(PeriodoFlat periodoNovo)
+        {            
+            _Periodos.Add(periodoNovo);
+        }
+
+        public void RemoverTodosOsPeriodos()
+        {
+            _Periodos.Clear();
+        }
     }
 }

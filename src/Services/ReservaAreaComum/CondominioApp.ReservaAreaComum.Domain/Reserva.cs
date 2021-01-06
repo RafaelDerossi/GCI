@@ -1,12 +1,13 @@
 ﻿using CondominioApp.Core.DomainObjects;
 using CondominioApp.Core.Helpers;
+using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace CondominioApp.ReservaAreaComum.Domain
 {
-   public class Reserva : Entity
+   public class Reserva : Entity, IHorario
     {
         public Guid AreaComumId { get; private set; }
         public string Observacao { get; private set; }

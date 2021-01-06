@@ -10,7 +10,7 @@ namespace CondominioApp.ReservaAreaComum.Domain.FlatModel
         public bool Lixeira { get; private set; }
         public string HoraInicio { get; private set; }
         public string HoraFim { get; private set; }     
-        public Guid AreaComumId { get; private set; }        
+        public Guid AreaComumFlatId { get; private set; }        
         public decimal Valor { get; private set; }
         public bool Ativo { get; private set; }
 
@@ -19,7 +19,7 @@ namespace CondominioApp.ReservaAreaComum.Domain.FlatModel
         public PeriodoFlat(Guid id, Guid areaComumId, string horaInicio, string horaFim, decimal valor, bool ativo)
         {
             Id = id;
-            AreaComumId = areaComumId;
+            AreaComumFlatId = areaComumId;
             HoraInicio = horaInicio;
             HoraFim = horaFim;
             Valor = valor;
