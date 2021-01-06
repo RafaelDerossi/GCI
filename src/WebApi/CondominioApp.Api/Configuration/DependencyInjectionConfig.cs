@@ -32,6 +32,11 @@ using CondominioApp.Comunicados.App.Aplication.Commands;
 using CondominioApp.Comunicados.App.Models;
 using CondominioApp.Comunicados.App.Data.Repository;
 using CondominioApp.Comunicados.App.Aplication.Query;
+using CondominioApp.ReservaAreaComum.Aplication.Commands;
+using CondominioApp.ReservaAreaComum.App.Aplication.Query;
+using CondominioApp.ReservaAreaComum.Domain.Interfaces;
+using CondominioApp.ReservaAreaComum.Aplication.Events;
+using CondominioApp.ReservaAreaComum.Infra.Data.Repository;
 
 namespace CondominioApp.Api.Configuration
 {
@@ -97,6 +102,29 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<IRequestHandler<EditarComunicadoCommand, ValidationResult>, ComunicadoCommandHandler>();
             services.AddScoped<IRequestHandler<RemoverComunicadoCommand, ValidationResult>, ComunicadoCommandHandler>();
 
+            //Area Comum
+            services.AddScoped<IRequestHandler<CadastrarAreaComumCommand, ValidationResult>, AreaComumCommandHandler>();
+            services.AddScoped<IRequestHandler<EditarAreaComumCommand, ValidationResult>, AreaComumCommandHandler>();
+            services.AddScoped<IRequestHandler<RemoverAreaComumCommand, ValidationResult>, AreaComumCommandHandler>();
+            services.AddScoped<IRequestHandler<AtivarAreaComumCommand, ValidationResult>, AreaComumCommandHandler>();
+            services.AddScoped<IRequestHandler<DesativarAreaComumCommand, ValidationResult>, AreaComumCommandHandler>();
+            services.AddScoped<INotificationHandler<AreaComumCadastradaEvent>, AreaComumEventHandler>();
+            services.AddScoped<INotificationHandler<AreaComumEditadaEvent>, AreaComumEventHandler>();
+            services.AddScoped<INotificationHandler<AreaComumAtivadaEvent>, AreaComumEventHandler>();
+            services.AddScoped<INotificationHandler<AreaComumDesativadaEvent>, AreaComumEventHandler>();
+            services.AddScoped<INotificationHandler<AreaComumRemovidaEvent>, AreaComumEventHandler>();
+
+            //Reserva
+            services.AddScoped<IRequestHandler<CadastrarReservaCommand, ValidationResult>, ReservaCommandHandler>();
+            services.AddScoped<IRequestHandler<AprovarReservaCommand, ValidationResult>, ReservaCommandHandler>();
+            services.AddScoped<IRequestHandler<CancelarReservaComoUsuarioCommand, ValidationResult>, ReservaCommandHandler>();
+            services.AddScoped<IRequestHandler<CancelarReservaComoAdministradorCommand, ValidationResult>, ReservaCommandHandler>();
+            services.AddScoped<IRequestHandler<RetirarReservaDaFilaCommand, ValidationResult>, ReservaCommandHandler>();
+            services.AddScoped<INotificationHandler<ReservaCadastradaEvent>, ReservaEventHandler>();
+            services.AddScoped<INotificationHandler<ReservaAprovadaEvent>, ReservaEventHandler>();
+            services.AddScoped<INotificationHandler<ReservaCanceladaEvent>, ReservaEventHandler>();
+            services.AddScoped<INotificationHandler<ReservaRetiradaDaFilaEvent>, ReservaEventHandler>();
+
             //Pre Cadastro
             services.AddScoped<IRequestHandler<InserirNovoLeadCommand, ValidationResult>, LeadCommandHandler>();
             services.AddScoped<IRequestHandler<TransferirCondominioCommand, ValidationResult>, LeadCommandHandler>();
@@ -109,6 +137,9 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<IEnqueteQuery, EnqueteQuery>();
             services.AddScoped<ICorrespondenciaQuery, CorrespondenciaQuery>();
             services.AddScoped<IComunicadoQuery, ComunicadoQuery>();
+            services.AddScoped<IReservaAreaComumQuery, ReservaAreaComumQuery>();
+          
+
 
             //Repositórios
             services.AddScoped<ICondominioRepository, CondominioRepository>();
@@ -117,6 +148,8 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<IEnqueteRepository, EnqueteRepository>();
             services.AddScoped<ICorrespondenciaRepository, CorrespondenciaRepository>();
             services.AddScoped<IComunidadoRepository, ComunicadoRepository>();
+            services.AddScoped<IReservaAreaComumRepository, ReservaAreaComumRepository>();
+            services.AddScoped<IReservaAreaComumQueryRepository, ReservaAreaComumQueryRepository>();
 
             //Base software
             services.AddScoped<IBoletoService, BoletoService>();

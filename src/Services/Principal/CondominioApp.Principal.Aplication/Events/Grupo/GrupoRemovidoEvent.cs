@@ -5,10 +5,9 @@ namespace CondominioApp.Principal.Aplication.Events
 {
     public class GrupoRemovidoEvent : GrupoEvent
     {
-        public GrupoRemovidoEvent(Guid grupoId, DateTime dataDeAlteracao)
+        public GrupoRemovidoEvent(Guid grupoId)
         {  
             GrupoId = grupoId;
-            DataDeAlteracao = dataDeAlteracao;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using CondominioApp.Core.Data;
+using CondominioApp.Core.Helpers;
 using CondominioApp.Core.Mediator;
 using CondominioApp.Core.Messages;
 using CondominioApp.Principal.Domain;
@@ -6,6 +7,8 @@ using CondominioApp.Principal.Domain.FlatModel;
 using CondominioApp.Principal.Domain.ValueObjects;
 using FluentValidation.Results;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CondominioApp.Principal.Infra.DataQuery
@@ -44,8 +47,28 @@ namespace CondominioApp.Principal.Infra.DataQuery
 
         public async Task<bool> Commit()
         {
-            return await SaveChangesAsync() > 0; 
+            var cetZone = ZonaDeTempo.ObterZonaDeTempo();
 
+            foreach (var entry in ChangeTracker.Entries()
+                .Where(entry => entry.Entity.GetType().GetProperty("DataDeCadastro") != null))
+            {
+                if (entry.State == EntityState.Added)
+                {
+                    entry.Property("DataDeCadastro").CurrentValue =
+                        TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, cetZone);
+                    entry.Property("DataDeAlteracao").CurrentValue =
+                        entry.Property("DataDeCadastro").CurrentValue;
+                }
+
+                if (entry.State == EntityState.Modified)
+                {
+                    entry.Property("DataDeCadastro").IsModified = false;
+                    entry.Property("DataDeAlteracao").CurrentValue =
+                        TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, cetZone);
+                }
+            }
+
+            return await SaveChangesAsync() > 0;
         }
     }
 }

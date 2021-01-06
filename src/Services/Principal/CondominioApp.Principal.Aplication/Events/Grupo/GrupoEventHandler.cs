@@ -25,7 +25,7 @@ namespace CondominioApp.Principal.Aplication.Events
         public async Task Handle(GrupoCadastradoEvent notification, CancellationToken cancellationToken)
         {
             var grupoFlat = new GrupoFlat
-                (notification.GrupoId, notification.DataDeCadastro, notification.DataDeAlteracao, 
+                (notification.GrupoId, 
                 false, notification.Descricao, notification.CondominioId, 
                 notification.CondominioCnpj, notification.CondominioNome, notification.CondominioLogoMarca);
 
@@ -39,9 +39,7 @@ namespace CondominioApp.Principal.Aplication.Events
 
             //Atualizar no GrupoFlat
             var grupoFlat = await _condominioQueryRepository.ObterGrupoPorId(notification.GrupoId);
-
-            grupoFlat.SetDataDeAlteracao(notification.DataDeAlteracao);
-
+           
             grupoFlat.SetDescricao(notification.Descricao);
 
             _condominioQueryRepository.AtualizarGrupo(grupoFlat);
@@ -63,8 +61,6 @@ namespace CondominioApp.Principal.Aplication.Events
         {
             //Atualizar no GrupoFlat
             var grupoFlat = await _condominioQueryRepository.ObterGrupoPorId(notification.GrupoId);
-
-            grupoFlat.SetDataDeAlteracao(notification.DataDeAlteracao);
 
             grupoFlat.EnviarParaLixeira();
 

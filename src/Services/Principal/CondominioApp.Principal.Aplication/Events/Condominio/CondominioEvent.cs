@@ -7,11 +7,7 @@ namespace CondominioApp.Principal.Aplication.Events
 {
     public class CondominioEvent : Event
     {
-        public Guid CondominioId { get; protected set; }
-
-        public DateTime DataDeCadastro { get; protected set; }
-
-        public DateTime DataDeAlteracao { get; protected set; }       
+        public Guid CondominioId { get; protected set; }  
 
         public Cnpj Cnpj { get; protected set; }
 

@@ -41,7 +41,7 @@ namespace CondominioApp.Principal.Aplication.Commands
             _condominioRepository.Adicionar(condominio);
 
             condominio.AdicionarEvento(
-                new CondominioCadastradoEvent(condominio.Id,condominio.DataDeCadastro, condominio.DataDeAlteracao,
+                new CondominioCadastradoEvent(condominio.Id,
                 condominio.Cnpj, condominio.Nome, condominio.Descricao, condominio.LogoMarca,
                 condominio.Telefone, condominio.Endereco, condominio.RefereciaId, condominio.LinkGeraBoleto, 
                 condominio.BoletoFolder, condominio.UrlWebServer, condominio.Portaria, condominio.PortariaMorador,
@@ -80,7 +80,7 @@ namespace CondominioApp.Principal.Aplication.Commands
             _condominioRepository.Atualizar(condominioBd);
 
             condominioBd.AdicionarEvento(
-               new CondominioEditadoEvent(condominioBd.Id, condominioBd.DataDeCadastro, condominioBd.DataDeAlteracao,
+               new CondominioEditadoEvent(condominioBd.Id,
                condominioBd.Cnpj, condominioBd.Nome, condominioBd.Descricao, condominioBd.LogoMarca,
                condominioBd.Telefone, condominioBd.Endereco));
 
@@ -191,7 +191,7 @@ namespace CondominioApp.Principal.Aplication.Commands
             _condominioRepository.Atualizar(condominioBd);
 
             condominioBd.AdicionarEvento(
-              new CondominioConfiguracaoEditadoEvent(condominioBd.Id, condominioBd.DataDeAlteracao,
+              new CondominioConfiguracaoEditadoEvent(condominioBd.Id,
               condominioBd.Portaria, condominioBd.PortariaMorador, condominioBd.Classificado, 
               condominioBd.ClassificadoMorador, condominioBd.Mural, condominioBd.MuralMorador, 
               condominioBd.Chat, condominioBd.ChatMorador, condominioBd.Reserva,
@@ -216,7 +216,7 @@ namespace CondominioApp.Principal.Aplication.Commands
 
             _condominioRepository.Atualizar(condominioBd);
 
-            condominioBd.AdicionarEvento(new CondominioRemovidoEvent(condominioBd.Id, condominioBd.DataDeAlteracao));
+            condominioBd.AdicionarEvento(new CondominioRemovidoEvent(condominioBd.Id));
 
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }

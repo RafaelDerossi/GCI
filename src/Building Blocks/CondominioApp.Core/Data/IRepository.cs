@@ -10,7 +10,7 @@ namespace CondominioApp.Core.Data
     {
         IUnitOfWorks UnitOfWork { get; }
 
-        Task<TEntity> ObterPorId(Guid Id);
+        Task<TEntity> ObterPorId(Guid Id);       
 
         Task<IEnumerable<TEntity>> ObterTodos();
 

@@ -55,7 +55,7 @@ namespace CondominioApp.Principal.Aplication.Commands
             _condominioRepository.AdicionarUnidade(unidade);
 
             unidade.AdicionarEvento(
-                new UnidadeCadastradaEvent(unidade.Id, unidade.DataDeCadastro, unidade.DataDeAlteracao,
+                new UnidadeCadastradaEvent(unidade.Id,
                 unidade.Codigo, unidade.Numero, unidade.Andar, unidade.Vagas,
                 unidade.Telefone.Numero, unidade.Ramal, unidade.Complemento, unidade.GrupoId,
                 grupo.Descricao, unidade.CondominioId, condominio.Cnpj.NumeroFormatado,
@@ -92,7 +92,7 @@ namespace CondominioApp.Principal.Aplication.Commands
             grupo.AlterarUnidade(unidadeBD);
 
             unidadeBD.AdicionarEvento(
-               new UnidadeEditadaEvent(unidadeBD.Id, unidadeBD.DataDeAlteracao,
+               new UnidadeEditadaEvent(unidadeBD.Id,
                unidadeBD.Numero, unidadeBD.Andar, unidadeBD.Vagas, unidadeBD.Telefone.Numero,
                unidadeBD.Ramal, unidadeBD.Complemento));
 
@@ -117,7 +117,7 @@ namespace CondominioApp.Principal.Aplication.Commands
             VerificaSeCodigoJaEstaCadastrado(unidadeBD);
 
             unidadeBD.AdicionarEvento(
-              new CodigoUnidadeResetadoEvent(unidadeBD.Id, unidadeBD.DataDeAlteracao, unidadeBD.Codigo));
+              new CodigoUnidadeResetadoEvent(unidadeBD.Id, unidadeBD.Codigo));
 
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }
@@ -136,7 +136,7 @@ namespace CondominioApp.Principal.Aplication.Commands
 
             unidadeBD.EnviarParaLixeira();
 
-            unidadeBD.AdicionarEvento(new UnidadeRemovidaEvent(unidadeBD.Id, unidadeBD.DataDeAlteracao));
+            unidadeBD.AdicionarEvento(new UnidadeRemovidaEvent(unidadeBD.Id));
 
             return await PersistirDados(_condominioRepository.UnitOfWork);
 

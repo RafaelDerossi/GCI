@@ -27,13 +27,11 @@ namespace CondominioApp.Principal.Domain.FlatModel
 
         protected GrupoFlat() { }
 
-        public GrupoFlat(Guid id, DateTime dataDeCadastro, DateTime dataDeAlteracao,
+        public GrupoFlat(Guid id,
             bool lixeira, string grupoDescricao, Guid condominioId, string condominioCnpj,
             string condominioNome, string condominioLogoMarca)
         {
             Id = id;
-            DataDeCadastro = dataDeCadastro;
-            DataDeAlteracao = dataDeAlteracao;
             Lixeira = lixeira;
             Descricao = grupoDescricao;
             CondominioId = condominioId;
@@ -44,9 +42,7 @@ namespace CondominioApp.Principal.Domain.FlatModel
 
         public void EnviarParaLixeira() => Lixeira = true;
 
-        public void RestaurarDaLixeira() => Lixeira = false;
-
-        public void SetDataDeAlteracao(DateTime dataDeAlteracao) => DataDeAlteracao = dataDeAlteracao;
+        public void RestaurarDaLixeira() => Lixeira = false;      
 
         public void SetDescricao(string descricao) => Descricao = descricao;
 

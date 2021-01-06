@@ -25,7 +25,7 @@ namespace CondominioApp.Principal.Aplication.Events
         public async Task Handle(CondominioCadastradoEvent notification, CancellationToken cancellationToken)
         {
             var condominioFlat = new CondominioFlat
-                (notification.CondominioId, notification.DataDeCadastro, notification.DataDeAlteracao,
+                (notification.CondominioId,
                 false, notification.Cnpj.NumeroFormatado, notification.Nome, notification.Descricao, 
                 notification.LogoMarca.NomeDoArquivo, notification.Telefone.ObterNumeroFormatado,
                 notification.Endereco.logradouro, notification.Endereco.complemento, 
@@ -48,7 +48,6 @@ namespace CondominioApp.Principal.Aplication.Events
             //Atualizar no CondominioFlat
             var condominioFlat = await _condominioQueryRepository.ObterPorId(notification.CondominioId);
 
-            condominioFlat.SetDataDeAlteracao(notification.DataDeAlteracao);
             condominioFlat.SetCNPJ(notification.Cnpj.NumeroFormatado);
             condominioFlat.SetNome(notification.Nome);
             condominioFlat.SetDescricao(notification.Descricao);
@@ -91,8 +90,7 @@ namespace CondominioApp.Principal.Aplication.Events
             //Atualizar no CondominioFlat
             var condominioFlat = await _condominioQueryRepository.ObterPorId(notification.CondominioId);
 
-            condominioFlat.SetDataDeAlteracao(notification.DataDeAlteracao);
-
+          
             if (notification.Portaria)
                 condominioFlat.AtivarPortaria();
             else
@@ -193,8 +191,7 @@ namespace CondominioApp.Principal.Aplication.Events
             //Atualizar no CondominioFlat
             var condominioFlat = await _condominioQueryRepository.ObterPorId(notification.CondominioId);
 
-            condominioFlat.SetDataDeAlteracao(notification.DataDeAlteracao);
-
+           
             condominioFlat.EnviarParaLixeira();
 
             _condominioQueryRepository.Atualizar(condominioFlat);

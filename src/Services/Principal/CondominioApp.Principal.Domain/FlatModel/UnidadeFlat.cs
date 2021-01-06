@@ -44,15 +44,13 @@ namespace CondominioApp.Principal.Domain.FlatModel
 
         protected UnidadeFlat() { }
 
-        public UnidadeFlat(Guid id, DateTime dataDeCadastro, DateTime dataDeAlteracao, bool lixeira, 
+        public UnidadeFlat(Guid id, bool lixeira, 
             string unidadeCodigo, string unidadeNumero, string unidadeAndar,
             int unidadeVagas, string unidadeTelefone, string unidadeRamal, string unidadeComplemento,
             Guid grupoId, string grupoDescricao, Guid condominioId, string condominioCnpj, string condominioNome,
             string condominioLogoMarca)
         {
             Id = id;
-            DataDeCadastro = dataDeCadastro;
-            DataDeAlteracao = dataDeAlteracao;
             Lixeira = lixeira;
             Codigo = unidadeCodigo;
             Numero = unidadeNumero;
@@ -74,8 +72,6 @@ namespace CondominioApp.Principal.Domain.FlatModel
 
         public void RestaurarDaLixeira() => Lixeira = false;
 
-
-        public void SetDataDeAlteracao(DateTime dataDeAlteracao) => DataDeAlteracao = dataDeAlteracao;
 
         public void SetCodigo(string codigo) => this.Codigo = codigo;
 

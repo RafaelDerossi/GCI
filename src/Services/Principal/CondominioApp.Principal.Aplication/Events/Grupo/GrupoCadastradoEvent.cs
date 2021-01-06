@@ -5,13 +5,11 @@ namespace CondominioApp.Principal.Aplication.Events
     public class GrupoCadastradoEvent : GrupoEvent
     {
 
-        public GrupoCadastradoEvent(Guid grupoId, DateTime dataDeCadastro, DateTime dataDeAlteracao,
+        public GrupoCadastradoEvent(Guid grupoId,
             string descricao, Guid condominioId, string condominioCnpj, string condominioNome,
             string condominioLogoMarca)
         {
-            GrupoId = grupoId;
-            DataDeCadastro = dataDeCadastro;
-            DataDeAlteracao = dataDeAlteracao;           
+            GrupoId = grupoId;      
             Descricao = descricao;
             CondominioId = condominioId;
             CondominioCnpj = condominioCnpj;

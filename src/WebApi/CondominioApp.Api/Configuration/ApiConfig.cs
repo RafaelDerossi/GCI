@@ -3,6 +3,7 @@ using CondominioApp.Correspondencias.App.Data;
 using CondominioApp.Enquetes.App.Data;
 using CondominioApp.Principal.Infra.Data;
 using CondominioApp.Principal.Infra.DataQuery;
+using CondominioApp.ReservaAreaComum.Infra.Data;
 using CondominioApp.Usuarios.App.Data;
 using CondominioApp.WebApi.Core.Identidade;
 using CondominioAppMarketplace.Infra.Data;
@@ -48,6 +49,13 @@ namespace CondominioApp.Api.Configuration
 
             services.AddDbContext<ComunicadoContextDB>(options =>
               options.UseSqlServer(configuration.GetConnectionString("ComunicadoConnection")));
+
+            services.AddDbContext<ReservaAreaComumContextDB>(options =>
+              options.UseSqlServer(configuration.GetConnectionString("ReservaAreaComumConnection")));
+
+            services.AddDbContext<ReservaAreaComumQueryContextDB>(options =>
+             options.UseSqlServer(configuration.GetConnectionString("QueryConnection")));
+
 
             services.Configure<ApiBehaviorOptions>(options =>
             {
