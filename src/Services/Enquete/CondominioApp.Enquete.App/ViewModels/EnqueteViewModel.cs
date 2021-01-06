@@ -32,6 +32,8 @@ namespace CondominioApp.Enquetes.App.ViewModels
 
         public bool EnqueteAtiva { get; set; }
 
+        public bool EnqueteVotada { get; set; }
+
         public IEnumerable<AlternativaEnqueteViewModel> Alternativas { get; set; }
     }
 }
