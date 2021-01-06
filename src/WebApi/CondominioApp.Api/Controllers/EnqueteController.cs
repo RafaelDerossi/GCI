@@ -49,21 +49,38 @@ namespace CondominioApp.Api.Controllers
             }
             return enquetesVM;
         }
-
-        [HttpGet("ativas-por-condominio/{condominioId:Guid}")]
-        public async Task<IEnumerable<EnqueteViewModel>> ObterEnquetesAtivasPorCondominio(Guid condominioId)
+               
+        [HttpGet("ativas-nao-votadas")]
+        public async Task<IEnumerable<EnqueteViewModel>> ObterEnquetesAtivasNaoVotadas(Guid condominioId, Guid usuarioId)
         {
             var enquetes = await _enqueteQuery.ObterAtivasPorCondominio(condominioId);
 
             var enquetesVM = new List<EnqueteViewModel>();
-            foreach (Enquete item in enquetes)
+            foreach (Enquete enquete in enquetes)
             {
-                var enqueteVM = _mapper.Map<EnqueteViewModel>(item);
-                enquetesVM.Add(enqueteVM);
+                if (!enquete.UsuarioJaVotou(usuarioId))
+                {
+                    var enqueteVM = _mapper.Map<EnqueteViewModel>(enquete);
+                    enquetesVM.Add(enqueteVM);
+                }               
             }
             return enquetesVM;
         }
 
+        [HttpGet("ativas-por-condominio-e-usuario")]
+        public async Task<IEnumerable<EnqueteViewModel>> ObterEnquetesAtivasPorCondominioEUsuario(Guid condominioId, Guid usuarioId)
+        {
+            var enquetes = await _enqueteQuery.ObterAtivasPorCondominio(condominioId);
+
+            var enquetesVM = new List<EnqueteViewModel>();
+            foreach (Enquete enquete in enquetes)
+            {
+                var enqueteVM = _mapper.Map<EnqueteViewModel>(enquete);
+                enqueteVM.EnqueteVotada = enquete.UsuarioJaVotou(usuarioId);
+                enquetesVM.Add(enqueteVM);
+            }
+            return enquetesVM;
+        }
 
 
         [HttpPost]

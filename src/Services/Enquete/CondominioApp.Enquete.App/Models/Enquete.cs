@@ -125,5 +125,15 @@ namespace CondominioApp.Enquetes.App.Models
                 }
             }            
         }
+
+        public bool UsuarioJaVotou(Guid usuarioId)
+        {
+            foreach (AlternativaEnquete alternativa in _Alternativas)
+            {
+                if (alternativa.Respostas.Any(r => r.UsuarioId == usuarioId))
+                    return true;
+            }
+            return false;
+        }
     }
 }
