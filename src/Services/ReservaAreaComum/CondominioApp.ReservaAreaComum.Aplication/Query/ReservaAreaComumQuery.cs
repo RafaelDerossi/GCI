@@ -69,6 +69,12 @@ namespace CondominioApp.ReservaAreaComum.App.Aplication.Query
             return await _reservaAreaComumQueryRepository.ObterReserva(r => r.UsuarioId == usuarioId);
         }
 
+        public async Task<IEnumerable<ReservaFlat>> ObterReservasPorAreaComum(Guid areaComumId)
+        {
+            return await _reservaAreaComumQueryRepository.ObterReserva(r => r.AreaComumId == areaComumId);
+        }
+
+
 
         public void Dispose()
         {           

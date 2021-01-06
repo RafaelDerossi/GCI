@@ -23,5 +23,7 @@ namespace CondominioApp.ReservaAreaComum.App.Aplication.Query
 
         Task<IEnumerable<ReservaFlat>> ObterReservasPorUsuario(Guid usuarioId);
 
+        Task<IEnumerable<ReservaFlat>> ObterReservasPorAreaComum(Guid areaComumId);
+
     }
 }

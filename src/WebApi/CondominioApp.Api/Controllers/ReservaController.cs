@@ -52,6 +52,11 @@ namespace CondominioApp.Api.Controllers
             return await _reservaAreaComumQuery.ObterReservasPorUsuario(usuarioId);
         }
 
+        [HttpGet("por-areacomum/{areaComumId:Guid}")]
+        public async Task<IEnumerable<ReservaFlat>> ObterPorAreaComum(Guid areaComumId)
+        {
+            return await _reservaAreaComumQuery.ObterReservasPorAreaComum(areaComumId);
+        }
 
 
         [HttpPost]
