@@ -91,7 +91,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioApp.ReservaAreaCo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioApp.ReservaAreaComum.Aplication", "src\Services\ReservaAreaComum\CondominioApp.ReservaAreaComum.Aplication\CondominioApp.ReservaAreaComum.Aplication.csproj", "{A75D81F4-5425-4C33-97FA-C4929B042C34}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CondominioApp.ReservaAreaComum.Tests", "Tests\ReservaAreaComum\CondominioApp.ReservaAreaComum.Tests\CondominioApp.ReservaAreaComum.Tests.csproj", "{C8363D78-A027-42D4-A02D-EBC3827D0249}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioApp.ReservaAreaComum.Tests", "Tests\ReservaAreaComum\CondominioApp.ReservaAreaComum.Tests\CondominioApp.ReservaAreaComum.Tests.csproj", "{C8363D78-A027-42D4-A02D-EBC3827D0249}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Portaria", "Portaria", "{A5E4D127-04B5-4F9F-A0D9-FF14096D9228}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CondominioApp.Portaria.Domain", "src\Services\Portaria\CondominioApp.Portaria.Domain\CondominioApp.Portaria.Domain.csproj", "{C650F29F-F338-4EB8-A321-EB3482546071}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -211,6 +215,10 @@ Global
 		{C8363D78-A027-42D4-A02D-EBC3827D0249}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C8363D78-A027-42D4-A02D-EBC3827D0249}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C8363D78-A027-42D4-A02D-EBC3827D0249}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C650F29F-F338-4EB8-A321-EB3482546071}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C650F29F-F338-4EB8-A321-EB3482546071}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C650F29F-F338-4EB8-A321-EB3482546071}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C650F29F-F338-4EB8-A321-EB3482546071}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -260,6 +268,8 @@ Global
 		{0D650EA7-3587-4924-8DC7-63B6ABDEAF44} = {796E764A-11CE-4E0D-8A38-346A53E43821}
 		{A75D81F4-5425-4C33-97FA-C4929B042C34} = {796E764A-11CE-4E0D-8A38-346A53E43821}
 		{C8363D78-A027-42D4-A02D-EBC3827D0249} = {796E764A-11CE-4E0D-8A38-346A53E43821}
+		{A5E4D127-04B5-4F9F-A0D9-FF14096D9228} = {27DA6887-B451-4D5D-A232-00FBE20152FB}
+		{C650F29F-F338-4EB8-A321-EB3482546071} = {A5E4D127-04B5-4F9F-A0D9-FF14096D9228}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DA60CBD7-8A6E-436D-B07E-D654D162CE4B}

@@ -86,4 +86,10 @@
         UNIDADES = 2,
         PROPRIETARIOS_UNIDADES = 3      
     }
+
+    public enum TipoDeVisitante
+    {
+        PARTICULAR = 0,
+        SERVICO = 1
+    }
 }
