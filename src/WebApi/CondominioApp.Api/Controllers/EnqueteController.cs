@@ -30,6 +30,7 @@ namespace CondominioApp.Api.Controllers
         }
 
 
+
         [HttpGet("{id:Guid}")]
         public async Task<EnqueteViewModel> ObterPorId(Guid id)
         {
