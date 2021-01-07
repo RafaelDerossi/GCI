@@ -1,23 +1,14 @@
 ﻿
 namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy
 {
-    public class VerificadorDeHorariosConflitantes
+    public static class VerificadorDeHorariosConflitantes
     {
-        private int _horaInicioA;
-
-        private int _horaFimA;
-
-        private int _horaInicioB;
-
-        private int _horaFimB;
-       
-
-        public bool Verificar(IHorario horarioA, IHorario horarioB)
+        public static bool Verificar(IHorario horarioA, IHorario horarioB)
         {
-            _horaInicioA = horarioA.ObterHoraInicio;
-            _horaFimA = horarioA.ObterHoraFim; ;
-            _horaInicioB = horarioB.ObterHoraInicio;
-            _horaFimB = horarioB.ObterHoraFim;
+           int _horaInicioA = horarioA.ObterHoraInicio;
+           int _horaFimA = horarioA.ObterHoraFim; ;
+           int _horaInicioB = horarioB.ObterHoraInicio;
+           int _horaFimB = horarioB.ObterHoraFim;
 
             if ( _horaInicioA < _horaFimA && _horaInicioB < _horaFimB)
             {

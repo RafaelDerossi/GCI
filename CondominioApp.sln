@@ -95,7 +95,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioApp.ReservaAreaCo
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Portaria", "Portaria", "{A5E4D127-04B5-4F9F-A0D9-FF14096D9228}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CondominioApp.Portaria.Domain", "src\Services\Portaria\CondominioApp.Portaria.Domain\CondominioApp.Portaria.Domain.csproj", "{C650F29F-F338-4EB8-A321-EB3482546071}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioApp.Portaria.Domain", "src\Services\Portaria\CondominioApp.Portaria.Domain\CondominioApp.Portaria.Domain.csproj", "{C650F29F-F338-4EB8-A321-EB3482546071}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioApp.Portaria.Infra", "src\Services\Portaria\CondominioApp.Portaria.Infra\CondominioApp.Portaria.Infra.csproj", "{10C0C30B-098A-48AA-84D8-78506C1A7539}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CondominioApp.Portaria.Aplication", "src\Services\Portaria\CondominioApp.Portaria.Aplication\CondominioApp.Portaria.Aplication.csproj", "{4B410E21-85B1-42D1-AD1E-14DD49A0DFCE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -219,6 +223,14 @@ Global
 		{C650F29F-F338-4EB8-A321-EB3482546071}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C650F29F-F338-4EB8-A321-EB3482546071}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C650F29F-F338-4EB8-A321-EB3482546071}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10C0C30B-098A-48AA-84D8-78506C1A7539}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10C0C30B-098A-48AA-84D8-78506C1A7539}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10C0C30B-098A-48AA-84D8-78506C1A7539}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10C0C30B-098A-48AA-84D8-78506C1A7539}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B410E21-85B1-42D1-AD1E-14DD49A0DFCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B410E21-85B1-42D1-AD1E-14DD49A0DFCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B410E21-85B1-42D1-AD1E-14DD49A0DFCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B410E21-85B1-42D1-AD1E-14DD49A0DFCE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -270,6 +282,8 @@ Global
 		{C8363D78-A027-42D4-A02D-EBC3827D0249} = {796E764A-11CE-4E0D-8A38-346A53E43821}
 		{A5E4D127-04B5-4F9F-A0D9-FF14096D9228} = {27DA6887-B451-4D5D-A232-00FBE20152FB}
 		{C650F29F-F338-4EB8-A321-EB3482546071} = {A5E4D127-04B5-4F9F-A0D9-FF14096D9228}
+		{10C0C30B-098A-48AA-84D8-78506C1A7539} = {A5E4D127-04B5-4F9F-A0D9-FF14096D9228}
+		{4B410E21-85B1-42D1-AD1E-14DD49A0DFCE} = {A5E4D127-04B5-4F9F-A0D9-FF14096D9228}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DA60CBD7-8A6E-436D-B07E-D654D162CE4B}

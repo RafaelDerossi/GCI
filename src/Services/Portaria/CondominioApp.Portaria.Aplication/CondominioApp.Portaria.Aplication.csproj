@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Building Blocks\CondominioApp.Core\CondominioApp.Core.csproj" />
+    <ProjectReference Include="..\CondominioApp.Portaria.Domain\CondominioApp.Portaria.Domain.csproj" />
+    <ProjectReference Include="..\CondominioApp.Portaria.Infra\CondominioApp.Portaria.Infra.csproj" />
+  </ItemGroup>
+
+</Project>

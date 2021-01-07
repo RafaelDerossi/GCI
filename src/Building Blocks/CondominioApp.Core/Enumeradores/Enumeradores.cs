@@ -92,4 +92,14 @@
         PARTICULAR = 0,
         SERVICO = 1
     }
+
+    public enum StatusVisita
+    {
+        PENDENTE = 1,    //Quando visita é criada pela portaria        
+        APROVADA = 2, //Quando visita é criada pelo condômino        
+        REPROVADA = 3,   //Visita foi reprovada e não aconteceu
+        INICIADA = 4,    //Visita esta em andamento
+        TERMINADA = 5,   //Visita ja terminou
+        EXPIRADA = 6     //Visita nao aconteceu
+    }
 }

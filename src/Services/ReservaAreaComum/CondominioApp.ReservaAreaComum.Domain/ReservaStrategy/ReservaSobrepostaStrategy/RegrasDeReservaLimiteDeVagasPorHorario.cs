@@ -38,11 +38,9 @@ namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.ReservaSobrepost
         /// <returns></returns>
         private ValidationResult OverLap(List<Reserva> reservasAprovadas, Reserva reservaNova)
         {
-            var verificadorDeHorariosConflitantes = new VerificadorDeHorariosConflitantes();
-
             foreach (var reserva in reservasAprovadas)
             {
-                bool overlap = verificadorDeHorariosConflitantes.Verificar(reserva, reservaNova);
+                bool overlap = VerificadorDeHorariosConflitantes.Verificar(reserva, reservaNova);
 
                 if (overlap && reserva.ReservadoPelaAdministracao)
                 {

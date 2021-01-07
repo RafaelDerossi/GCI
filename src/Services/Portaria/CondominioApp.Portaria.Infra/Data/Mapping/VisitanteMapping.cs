@@ -1,0 +1,97 @@
+﻿using CondominioApp.Portaria.Domain;
+using CondominioApp.Portaria.ValueObjects;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+namespace CondominioApp.Principal.Infra.Data.Mapping
+{
+   public class VisitanteMapping : IEntityTypeConfiguration<Visitante>
+    {
+        public void Configure(EntityTypeBuilder<Visitante> builder)
+        {
+            builder.HasKey(u => u.Id);
+
+            builder.ToTable("Visitantes");
+
+            builder.Property(u => u.Nome).IsRequired().HasColumnType($"varchar({Visitante.Max})");
+
+            builder.Property(u => u.TipoDeDocumento).HasColumnType($"varchar({Visitante.Max})");
+
+            builder.OwnsOne(u => u.Rg, rg =>
+            {
+                rg.Property(u => u.Numero)                    
+                    .HasMaxLength(Rg.Maxlength)
+                    .HasColumnName("Rg")
+                    .HasColumnType($"varchar({Rg.Maxlength})");
+            });
+
+            builder.OwnsOne(u => u.Cpf, cpf =>
+            {
+                cpf.Property(u => u.Numero)                    
+                    .HasMaxLength(Cpf.Maxlength)
+                    .HasColumnName("Cpf")
+                    .HasColumnType($"varchar({Cpf.Maxlength})");
+            });
+
+            builder.OwnsOne(u => u.Email, email =>
+            {
+                email.Property(u => u.Endereco).IsRequired()
+                    .HasMaxLength(Email.EmailMaximo)
+                    .HasColumnName("Email")
+                    .HasColumnType($"varchar({Email.EmailMaximo})");
+            });
+
+            builder.OwnsOne(u => u.Foto, ft =>
+            {
+                ft.Property(u => u.NomeDoArquivo)
+                    .HasMaxLength(Foto.NomeFotoMaximo)
+                    .HasColumnName("NomeDoArquivo")
+                    .HasColumnType($"varchar({Foto.NomeFotoMaximo})");
+
+                ft.Property(u => u.NomeOriginal)
+                    .HasMaxLength(Foto.NomeFotoMaximo)
+                    .HasColumnName("NomeOriginal")
+                    .HasColumnType($"varchar({Foto.NomeFotoMaximo})");
+            });
+
+            builder.Property(u => u.CondominioId).IsRequired();
+
+            builder.Property(u => u.NomeCondominio).IsRequired().HasColumnType($"varchar({Visitante.Max})");
+
+            builder.Property(u => u.UnidadeId).IsRequired();
+
+            builder.Property(u => u.NumeroUnidade).IsRequired().HasColumnType($"varchar({Visitante.Max})");
+
+            builder.Property(u => u.AndarUnidade).IsRequired().HasColumnType($"varchar({Visitante.Max})");
+
+            builder.Property(u => u.DescricaoGrupoUnidade).IsRequired().HasColumnType($"varchar({Visitante.Max})");
+
+            builder.Property(u => u.VisitantePermanente).IsRequired();
+
+            builder.Property(u => u.QrCode).HasColumnType($"varchar({Visitante.Max})");
+
+            builder.Property(u => u.TipoDeVisitante).IsRequired();
+
+            builder.Property(u => u.NomeEmpresa).HasColumnType($"varchar({Visitante.Max})");
+
+            builder.OwnsOne(u => u.Veiculo, ft =>
+            {
+                ft.Property(u => u.Placa)
+                    .HasMaxLength(Veiculo.PlacaMaxlength)
+                    .HasColumnName("Placa")
+                    .HasColumnType($"varchar({Veiculo.PlacaMaxlength})");
+
+                ft.Property(u => u.Modelo)
+                    .HasMaxLength(Veiculo.ModeloMaxlength)
+                    .HasColumnName("Modelo")
+                    .HasColumnType($"varchar({Veiculo.ModeloMaxlength})");
+
+                ft.Property(u => u.Cor)
+                    .HasMaxLength(Veiculo.CorMaxlength)
+                    .HasColumnName("Cor")
+                    .HasColumnType($"varchar({Veiculo.CorMaxlength})");
+            });
+
+        }
+    }
+}
