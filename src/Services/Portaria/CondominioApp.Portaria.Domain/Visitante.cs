@@ -24,7 +24,7 @@ namespace CondominioApp.Portaria.Domain
         public Guid UnidadeId { get; private set; }
         public string NumeroUnidade { get; private set; }
         public string AndarUnidade { get; private set; }
-        public string DescricaoGrupoUnidade { get; private set; }
+        public string GrupoUnidade { get; private set; }
 
         public bool VisitantePermanente { get; private set; }
         public string QrCode { get; private set; }
@@ -32,7 +32,7 @@ namespace CondominioApp.Portaria.Domain
         public string NomeEmpresa { get; private set; }
 
 
-        public Veiculo Veiculo { get; set; }
+        public Veiculo Veiculo { get; private set; }
 
 
 
@@ -51,7 +51,7 @@ namespace CondominioApp.Portaria.Domain
 
         public Visitante(string nome, TipoDeDocumento tipoDeDocumento, Rg rg, Cpf cpf,
             Email email, Foto foto, Guid condominioId, string nomeCondominio, Guid unidadeId, string numeroUnidade,
-            string andarUnidade, string descricaoGrupoUnidade, bool visitantePermanente, string qrCode,
+            string andarUnidade, string grupoUnidade, bool visitantePermanente, string qrCode,
             TipoDeVisitante tipoDeVisitante, string nomeEmpresa, Veiculo veiculo)
         {
             _Visitas = new List<Visita>();
@@ -66,7 +66,7 @@ namespace CondominioApp.Portaria.Domain
             UnidadeId = unidadeId;
             NumeroUnidade = numeroUnidade;
             AndarUnidade = andarUnidade;
-            DescricaoGrupoUnidade = descricaoGrupoUnidade;
+            GrupoUnidade = grupoUnidade;
             VisitantePermanente = visitantePermanente;
             QrCode = qrCode;
             TipoDeVisitante = tipoDeVisitante;
@@ -81,6 +81,7 @@ namespace CondominioApp.Portaria.Domain
 
         /// Metodos Set
         public void SetNome(string nome) => Nome = nome;
+        public void SetTipoDeDocumento(TipoDeDocumento tipoDeDocumento) => TipoDeDocumento = tipoDeDocumento;
         public void SetRg(Rg rg) => Rg = rg;
         public void SetCpf(Cpf cpf) => Cpf = cpf;       
         public void SetEmail(Email email) => Email = email;

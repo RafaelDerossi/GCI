@@ -99,7 +99,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioApp.Portaria.Doma
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioApp.Portaria.Infra", "src\Services\Portaria\CondominioApp.Portaria.Infra\CondominioApp.Portaria.Infra.csproj", "{10C0C30B-098A-48AA-84D8-78506C1A7539}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CondominioApp.Portaria.Aplication", "src\Services\Portaria\CondominioApp.Portaria.Aplication\CondominioApp.Portaria.Aplication.csproj", "{4B410E21-85B1-42D1-AD1E-14DD49A0DFCE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioApp.Portaria.Aplication", "src\Services\Portaria\CondominioApp.Portaria.Aplication\CondominioApp.Portaria.Aplication.csproj", "{4B410E21-85B1-42D1-AD1E-14DD49A0DFCE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CondominioApp.Portaria.Tests", "Tests\Portaria\CondominioApp.Portaria.Tests\CondominioApp.Portaria.Tests.csproj", "{713301B2-B45D-49FF-90CA-33192ACF2A2E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -231,6 +233,10 @@ Global
 		{4B410E21-85B1-42D1-AD1E-14DD49A0DFCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4B410E21-85B1-42D1-AD1E-14DD49A0DFCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4B410E21-85B1-42D1-AD1E-14DD49A0DFCE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{713301B2-B45D-49FF-90CA-33192ACF2A2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{713301B2-B45D-49FF-90CA-33192ACF2A2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{713301B2-B45D-49FF-90CA-33192ACF2A2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{713301B2-B45D-49FF-90CA-33192ACF2A2E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -284,6 +290,7 @@ Global
 		{C650F29F-F338-4EB8-A321-EB3482546071} = {A5E4D127-04B5-4F9F-A0D9-FF14096D9228}
 		{10C0C30B-098A-48AA-84D8-78506C1A7539} = {A5E4D127-04B5-4F9F-A0D9-FF14096D9228}
 		{4B410E21-85B1-42D1-AD1E-14DD49A0DFCE} = {A5E4D127-04B5-4F9F-A0D9-FF14096D9228}
+		{713301B2-B45D-49FF-90CA-33192ACF2A2E} = {A5E4D127-04B5-4F9F-A0D9-FF14096D9228}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DA60CBD7-8A6E-436D-B07E-D654D162CE4B}

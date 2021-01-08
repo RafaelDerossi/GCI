@@ -76,7 +76,7 @@ namespace CondominioApp.Principal.Infra.Data.Mapping
 
             builder.Property(u => u.AndarUnidade).IsRequired().HasColumnType($"varchar({Visita.Max})");
 
-            builder.Property(u => u.DescricaoGrupoUnidade).IsRequired().HasColumnType($"varchar({Visita.Max})");
+            builder.Property(u => u.GrupoUnidade).IsRequired().HasColumnType($"varchar({Visita.Max})");
 
                      
 

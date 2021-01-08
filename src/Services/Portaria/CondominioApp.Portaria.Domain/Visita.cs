@@ -50,7 +50,7 @@ namespace CondominioApp.Portaria.Domain
         public Guid UnidadeId { get; private set; }
         public string NumeroUnidade { get; private set; }
         public string AndarUnidade { get; private set; }
-        public string DescricaoGrupoUnidade { get; private set; }
+        public string GrupoUnidade { get; private set; }
 
         public Veiculo Veiculo { get; private set; }
 
@@ -89,7 +89,7 @@ namespace CondominioApp.Portaria.Domain
             UnidadeId = unidadeId;
             NumeroUnidade = numeroUnidade;
             AndarUnidade = andarUnidade;
-            DescricaoGrupoUnidade = descricaoGrupoUnidade;
+            GrupoUnidade = descricaoGrupoUnidade;
             Veiculo = veiculo;
         }
 
