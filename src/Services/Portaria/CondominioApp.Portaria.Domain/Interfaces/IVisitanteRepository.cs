@@ -11,5 +11,10 @@ namespace CondominioApp.Portaria.Domain.Interfaces
         Task<bool> VisitanteJaCadastradoPorCpf(Cpf cpf, Guid visitanteId);
 
         Task<bool> VisitanteJaCadastradoPorRg(Rg rg, Guid visitanteId);
+
+        void AdicionarVisita(Visita entity);
+
+        void AtualizarVisita(Visita entity);
+
     }
 }

@@ -9,26 +9,29 @@ namespace CondominioApp.Portaria.Aplication.Commands
 
         public CadastrarVisitaCommand
             (DateTime dataDeEntrada, string nomeCondomino, string observacao, StatusVisita status,
-            Guid visitanteId, string nomeVisitante, TipoDeDocumento tipoDeDocumentoVisitante,
-            string documentoVisitante, string emailVisitante, string fotoVisitante,
-            string nomeOriginalFotoVisitante, string nomeEmpresaVisitante, Guid condominioId,
-            string nomeCondominio, Guid unidadeId, string numeroUnidade, string andarUnidade,
-            string grupoUnidade, bool temVeiculo, string placaVeiculo, string modeloVeiculo, string corVeiculo)
-        {            
-            DataDeEntrada = dataDeEntrada;            
+            Guid visitanteId, string nomeVisitante, string documentoVisitante, string emailVisitante,
+            string fotoVisitante, string nomeOriginalFotoVisitante,TipoDeVisitante tipoDeVisitante,
+            string nomeEmpresaVisitante, Guid condominioId, string nomeCondominio, Guid unidadeId,
+            string numeroUnidade, string andarUnidade, string grupoUnidade, bool temVeiculo,
+            string placaVeiculo, string modeloVeiculo, string corVeiculo)
+        {
+            SetDataDeEntrada(dataDeEntrada);
             NomeCondomino = nomeCondomino;
             Observacao = observacao;
             Status = status;
-            VisitanteId = visitanteId;
+            SetVisitanteId(visitanteId);
             NomeVisitante = nomeVisitante;
-            TipoDeDocumentoVisitante = tipoDeDocumentoVisitante;
-            NomeEmpresaVisitante = nomeEmpresaVisitante;
-            CondominioId = condominioId;
-            NomeCondominio = nomeCondominio;
-            UnidadeId = unidadeId;
-            NumeroUnidade = numeroUnidade;
-            AndarUnidade = andarUnidade;
-            GrupoUnidade = grupoUnidade;
+            SetTipoDeVisitante(tipoDeVisitante);
+            SetNomeEmpresaVisitante(nomeEmpresaVisitante);
+            SetCondominioId(condominioId);
+            SetNomeDoCondominio(nomeCondominio);
+            SetUnidadeId(unidadeId);
+            SetNumeroUnidade(numeroUnidade);
+            SetAndarUnidade(andarUnidade);
+            SetGrupoUnidade(grupoUnidade);
+            TemVeiculo = temVeiculo;
+
+            
 
             SetDocumentoVisitante(documentoVisitante);
             SetEmailVisitante(emailVisitante);
@@ -53,8 +56,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
             {
                 ValidateNomeCondomino();
                 ValidateObservacao();
-                ValidateStatus();
-                ValidateVisitanteId();
+                ValidateStatus();              
                 ValidateNomeVisitante();
                 ValidateTipoDeDocumentoVisitante();
                 ValidateCondominioId();

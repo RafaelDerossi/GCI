@@ -2,8 +2,6 @@
 using CondominioApp.Core.Messages;
 using CondominioApp.Portaria.ValueObjects;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CondominioApp.Portaria.Aplication.Commands
 {
@@ -36,7 +34,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
 
 
 
-        protected void SetDocumento(string documento)
+        public void SetDocumento(string documento)
         {
             if (!string.IsNullOrEmpty(documento))
             {
@@ -81,7 +79,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
             }
         }
 
-        protected void SetEmail(string email)
+        public void SetEmail(string email)
         {
             try
             {
@@ -93,7 +91,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
             }
         }
 
-        protected void SetFoto(string nomeOriginal, string nome)
+        public void SetFoto(string nomeOriginal, string nome)
         {
             try
             {
@@ -105,17 +103,32 @@ namespace CondominioApp.Portaria.Aplication.Commands
             }
         }
 
-        protected void SetVeiculo(string placa, string modelo, string cor)
+        public void SetVeiculo(string placa, string modelo, string cor)
         {
-            try
+            if (TemVeiculo)
             {
-                Veiculo = new Veiculo(placa,modelo,cor);
-            }
-            catch (Exception e)
-            {
-                AdicionarErrosDeProcessamentoDoComando(e.Message);
-            }
+                try
+                {
+                    Veiculo = new Veiculo(placa, modelo, cor);
+                }
+                catch (Exception e)
+                {
+                    AdicionarErrosDeProcessamentoDoComando(e.Message);
+                }
+            }            
         }
-        
+
+        public void SetNome(string nome) => Nome = nome;
+
+        public void SetCondominioId(Guid condominioId) => CondominioId = condominioId;
+        public void SetNomeCondominio(string nomeCondominio) => NomeCondominio = nomeCondominio;
+
+        public void SetUnidadeId(Guid unidadeId) => UnidadeId = unidadeId;
+        public void SetNumeroUnidade(string numero) => NumeroUnidade = numero;
+        public void SetAndarDaUnidade(string andar) => AndarUnidade = andar;
+        public void SetGrupoDaUnidade(string grupo) => GrupoUnidade = grupo;
+
+        public void MarcarQueTemVeiculo() => TemVeiculo = true;
+        public void MarcarQueNaoTemVeiculo() => TemVeiculo = false;
     }
 }

@@ -26,6 +26,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
         public Cpf CpfVisitante { get; protected set; }
         public Email EmailVisitante { get; protected set; }
         public Foto FotoVisitante { get; protected set; }
+        public TipoDeVisitante TipoDeVisitante { get; protected set; }       
         public string NomeEmpresaVisitante { get; protected set; }
 
 
@@ -37,12 +38,13 @@ namespace CondominioApp.Portaria.Aplication.Commands
         public string AndarUnidade { get; protected set; }
         public string GrupoUnidade { get; protected set; }
 
+        public bool TemVeiculo { get; protected set; }
         public Veiculo Veiculo { get; protected set; }
 
 
 
 
-        protected void SetDocumentoVisitante(string documento)
+        public void SetDocumentoVisitante(string documento)
         {
             if (!string.IsNullOrEmpty(documento))
             {
@@ -87,7 +89,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
             }
         }
 
-        protected void SetEmailVisitante(string email)
+        public void SetEmailVisitante(string email)
         {
             try
             {
@@ -99,7 +101,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
             }
         }
 
-        protected void SetFotoVisitante(string nomeOriginal, string nome)
+        public void SetFotoVisitante(string nomeOriginal, string nome)
         {
             try
             {
@@ -111,17 +113,46 @@ namespace CondominioApp.Portaria.Aplication.Commands
             }
         }
 
-        protected void SetVeiculo(string placa, string modelo, string cor)
+        public void MarcarQueTemVeiculo() => TemVeiculo = true;
+        public void MarcarQueNaoTemVeiculo() => TemVeiculo = false;
+        public void SetVeiculo(string placa, string modelo, string cor)
         {
-            try
+            if (TemVeiculo)
             {
-                Veiculo = new Veiculo(placa,modelo,cor);
+                try
+                {
+                    Veiculo = new Veiculo(placa, modelo, cor);
+                }
+                catch (Exception e)
+                {
+                    AdicionarErrosDeProcessamentoDoComando(e.Message);
+                }
             }
-            catch (Exception e)
-            {
-                AdicionarErrosDeProcessamentoDoComando(e.Message);
-            }
+            else
+                Veiculo = null;
         }
+
+        public void SetDataDeEntrada(DateTime dataDeEntrada) => DataDeEntrada = dataDeEntrada;
+
+        public void AprovarVisita() => Status = StatusVisita.APROVADA;
+
+        public void SetVisitanteId(Guid visitanteId) => VisitanteId = visitanteId;
+
+        public void SetTipoDeVisitante(TipoDeVisitante tipoDeVisiante) => TipoDeVisitante = tipoDeVisiante;
+
+        public void SetNomeEmpresaVisitante(string  nomeEmpresaVisitante) => NomeEmpresaVisitante = nomeEmpresaVisitante;
+
+        public void SetCondominioId(Guid condominioId) => CondominioId = condominioId;
+
+        public void SetNomeDoCondominio(string nomeDoCondominio) => NomeCondominio = nomeDoCondominio;
+
+        public void SetUnidadeId(Guid unidadeId) => UnidadeId = unidadeId;
+
+        public void SetNumeroUnidade(string numeroUnidade) => NumeroUnidade = numeroUnidade;
+
+        public void SetAndarUnidade(string andarUnidade) => AndarUnidade = andarUnidade;
+
+        public void SetGrupoUnidade(string grupoUnidade) => GrupoUnidade = grupoUnidade;
 
         
     }

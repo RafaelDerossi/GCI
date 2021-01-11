@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Xunit;
 using System;
 using CondominioApp.Portaria.Aplication.Commands;
+using CondominioApp.Portaria.Domain.Interfaces;
+using CondominioApp.Portaria.Domain;
 
 namespace CondominioApp.Portaria.Tests
 {
@@ -23,19 +25,16 @@ namespace CondominioApp.Portaria.Tests
         [Trait("Categoria", "Visitante -VisitanteCommandHandler")]
         public async Task AdicionarVisitante_CommandoValido_DevePassarNaValidacao()
         {
-            //Arrange
-            var areaComum = AreaComumFactory.CriarAreaComum_AprovacaoAutomatica();           
-         
-            var command =   new CadastrarReservaCommand
-                (areaComum.Id, "Observacao", Guid.NewGuid(), "101", "1º",
-                "Bloco 1", Guid.NewGuid(), "Usuario", DateTime.Now.Date, "08:00", "09:00",
-                150, false, "Mobile", false);
-
+            //Arrange        
+            var command = VisitanteCommandFactory.CriarComandoCadastroDeVisitante_ComCPF();
+                        
+            _mocker.GetMock<IVisitanteRepository>().Setup(r => r.VisitanteJaCadastradoPorCpf(command.Cpf, command.Id))
+               .Returns(Task.FromResult(false));
             
-            _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.ObterPorId(command.AreaComumId))
-               .Returns(Task.FromResult(areaComum));
+            _mocker.GetMock<IVisitanteRepository>().Setup(r => r.VisitanteJaCadastradoPorRg(command.Rg, command.Id))
+               .Returns(Task.FromResult(false));
 
-            _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.UnitOfWork.Commit())
+            _mocker.GetMock<IVisitanteRepository>().Setup(r => r.UnitOfWork.Commit())
                .Returns(Task.FromResult(true));
 
             //Act
@@ -43,8 +42,8 @@ namespace CondominioApp.Portaria.Tests
 
             //Assert
             Assert.True(result.IsValid);
-            _mocker.GetMock<IReservaAreaComumRepository>().Verify(r => r.AdicionarReserva(It.IsAny<Reserva>()), Times.Once);
-            _mocker.GetMock<IReservaAreaComumRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
+            _mocker.GetMock<IVisitanteRepository>().Verify(r => r.Adicionar(It.IsAny<Visitante>()), Times.Once);
+            _mocker.GetMock<IVisitanteRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
         }
 
        

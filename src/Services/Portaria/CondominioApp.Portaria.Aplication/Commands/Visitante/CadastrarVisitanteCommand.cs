@@ -13,13 +13,13 @@ namespace CondominioApp.Portaria.Aplication.Commands
             bool visitantePermanente, string qrCode, TipoDeVisitante tipoDeVisitante, string nomeEmpresa,
             bool temVeiculo, string placaVeiculo, string modeloVeiculo, string corVeiculo)
         {
-            Nome = nome;            
-            CondominioId = condominioId;
-            NomeCondominio = nomeCondominio;
-            UnidadeId = unidadeId;
-            NumeroUnidade = numeroUnidade;
-            AndarUnidade = andarUnidade;
-            GrupoUnidade = grupoUnidade;
+            SetNome(nome);            
+            SetCondominioId(condominioId);
+            SetNomeCondominio(nomeCondominio);
+            SetUnidadeId(unidadeId);
+            SetNumeroUnidade(numeroUnidade);
+            SetAndarDaUnidade(andarUnidade);
+            SetGrupoDaUnidade(grupoUnidade);
             VisitantePermanente = visitantePermanente;
             QrCode = qrCode;
             TipoDeVisitante = tipoDeVisitante;

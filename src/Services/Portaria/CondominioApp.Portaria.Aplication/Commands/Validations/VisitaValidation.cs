@@ -26,13 +26,7 @@ namespace CondominioApp.Portaria.Aplication.Commands.Validations
             RuleFor(c => c.Status)
                 .NotNull().WithMessage("Status não pode estar vazio!");
         }
-
-
-        protected void ValidateVisitanteId()
-        {
-            RuleFor(c => c.VisitanteId)
-                .NotEqual(Guid.Empty);
-        }
+       
         protected void ValidateNomeVisitante()
         {
             RuleFor(c => c.NomeVisitante)
@@ -67,14 +61,14 @@ namespace CondominioApp.Portaria.Aplication.Commands.Validations
         protected void ValidateNumeroUnidade()
         {
             RuleFor(c => c.NumeroUnidade)
-                .NotEmpty().WithMessage("Numero da Unidade não pode estar vazio!")
-                .Length(2, 200).WithMessage("Numero da Unidade deve ter mais de 2 caracteres!");
+               .NotNull().WithMessage("Número da Unidade não pode estar vazio!")
+                .NotEmpty().WithMessage("Número da Unidade não pode estar vazio!");
         }
         protected void ValidateAndarUnidade()
         {
             RuleFor(c => c.AndarUnidade)
-                .NotEmpty().WithMessage("Andar da Unidade não pode estar vazio!")
-                .Length(2, 200).WithMessage("Andar da Unidade deve ter mais de 2 caracteres!");
+               .NotNull().WithMessage("Andar da Unidade não pode estar vazio!")
+                .NotEmpty().WithMessage("Andar da Unidade não pode estar vazio!");
         }
         protected void ValidateGrupoUnidade()
         {

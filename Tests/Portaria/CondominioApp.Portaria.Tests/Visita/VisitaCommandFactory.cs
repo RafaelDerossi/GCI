@@ -1,0 +1,145 @@
+﻿using CondominioApp.Core.Enumeradores;
+using CondominioApp.Portaria.Aplication.Commands;
+using System;
+using System.Collections.Generic;
+
+namespace CondominioApp.Portaria.Tests
+{
+    public class VisitaCommandFactory 
+    {
+        public static CadastrarVisitaCommand CadastrarVisitaCommandFactory()
+        {
+            return new CadastrarVisitaCommand
+                (DateTime.Today, "Nome Condômino", "OBS", StatusVisita.PENDENTE, Guid.NewGuid(),
+                "Nome do Visitante", "143.026.417-97", "rafael@condominioapp.com",
+                "foto.jpg", "nomeOriginal.jpg", TipoDeVisitante.PARTICULAR, "", Guid.NewGuid(),
+                "Nome Condominio", Guid.NewGuid(), "101", "1º", "Bloco 1", 
+                true, "LMG8888", "Modelo", "Prata");
+        }
+
+        public static CadastrarVisitaCommand CriarComandoCadastroDeVisita_NaPortaria_ComCPF()
+        {
+            return CadastrarVisitaCommandFactory();
+        }
+
+        public static CadastrarVisitaCommand CriarComandoCadastroDeVisita_ComCPFInvalido()
+        {
+            var comando = CadastrarVisitaCommandFactory();
+            comando.SetDocumentoVisitante("143.026.417-98");           
+            return comando;
+        }
+
+        public static CadastrarVisitaCommand CriarComandoCadastroDeVisita_Morador_ComCPF()
+        {
+            var comando = CadastrarVisitaCommandFactory();
+            comando.SetDataDeEntrada(DateTime.Today.AddDays(1).Date);
+            comando.AprovarVisita();
+            return comando;
+        }
+
+        public static CadastrarVisitaCommand CriarComandoCadastroDeVisita_NaPortaria_ComRG()
+        {
+            var comando = CadastrarVisitaCommandFactory();
+            comando.SetDocumentoVisitante("123456789");
+            return comando;
+        }
+
+        public static CadastrarVisitaCommand CriarComandoCadastroDeVisita_NaPortaria_SemDocumento()
+        {
+            var comando = CadastrarVisitaCommandFactory();
+            comando.SetDocumentoVisitante("");
+            return comando;
+        }
+
+        public static CadastrarVisitaCommand CriarComandoCadastroDeVisita_NaPortaria_VisitanteNovo()
+        {
+            var comando = CadastrarVisitaCommandFactory();
+            comando.SetVisitanteId(Guid.Empty);
+            return comando;
+        }
+
+        public static CadastrarVisitaCommand CriarComandoCadastroDeVisita_NaPortaria_VisitaDeServico()
+        {
+            var comando = CadastrarVisitaCommandFactory();
+            comando.SetTipoDeVisitante(TipoDeVisitante.SERVICO);
+            comando.SetNomeEmpresaVisitante("Empresa Visitante");
+            return comando;
+        }
+
+        public static CadastrarVisitaCommand CriarComandoCadastroDeVisita_SemCondominioId()
+        {
+            var comando = CadastrarVisitaCommandFactory();
+            comando.SetCondominioId(Guid.Empty);
+            return comando;
+        }
+
+        public static CadastrarVisitaCommand CriarComandoCadastroDeVisita_SemNomeDoCondominio()
+        {
+            var comando = CadastrarVisitaCommandFactory();          
+            comando.SetNomeDoCondominio("");
+            return comando;
+        }
+
+        public static CadastrarVisitaCommand CriarComandoCadastroDeVisita_SemUnidadeId()
+        {
+            var comando = CadastrarVisitaCommandFactory();
+            comando.SetUnidadeId(Guid.Empty);
+            return comando;
+        }
+
+        public static CadastrarVisitaCommand CriarComandoCadastroDeVisita_SemNumeroUnidade()
+        {
+            var comando = CadastrarVisitaCommandFactory();
+            comando.SetNumeroUnidade("");
+            return comando;
+        }
+
+        public static CadastrarVisitaCommand CriarComandoCadastroDeVisita_SemAndarUnidade()
+        {
+            var comando = CadastrarVisitaCommandFactory();
+            comando.SetAndarUnidade("");
+            return comando;
+        }
+
+        public static CadastrarVisitaCommand CriarComandoCadastroDeVisita_SemGrupoUnidade()
+        {
+            var comando = CadastrarVisitaCommandFactory();
+            comando.SetGrupoUnidade("");
+            return comando;
+        }
+
+        public static CadastrarVisitaCommand CriarComandoCadastroDeVisita_SemVeiculo()
+        {
+            var comando = CadastrarVisitaCommandFactory();
+            comando.MarcarQueNaoTemVeiculo();
+            comando.SetVeiculo("","","");
+            return comando;
+        }
+
+        public static CadastrarVisitaCommand CriarComandoCadastroDeVisita_ComVeiculoSemPlaca()
+        {
+            var comando = CadastrarVisitaCommandFactory();
+            comando.MarcarQueTemVeiculo();
+            comando.SetVeiculo("", "Modelo", "Prata");
+            return comando;
+        }
+
+        public static CadastrarVisitaCommand CriarComandoCadastroDeVisita_ComVeiculoSemModelo()
+        {
+            var comando = CadastrarVisitaCommandFactory();
+            comando.MarcarQueTemVeiculo();
+            comando.SetVeiculo("", "", "Prata");
+            return comando;
+        }
+
+        public static CadastrarVisitaCommand CriarComandoCadastroDeVisita_ComVeiculoSemCor()
+        {
+            var comando = CadastrarVisitaCommandFactory();
+            comando.MarcarQueTemVeiculo();
+            comando.SetVeiculo("", "Modelo", "");
+            return comando;
+        }
+
+    }
+
+}

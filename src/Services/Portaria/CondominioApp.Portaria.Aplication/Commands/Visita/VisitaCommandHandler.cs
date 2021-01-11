@@ -1,4 +1,5 @@
-﻿using CondominioApp.Core.Messages;
+﻿using CondominioApp.Core.Enumeradores;
+using CondominioApp.Core.Messages;
 using CondominioApp.Portaria.Domain;
 using CondominioApp.Portaria.Domain.Interfaces;
 using FluentValidation.Results;
@@ -26,31 +27,67 @@ namespace CondominioApp.Portaria.Aplication.Commands
             if (!request.EstaValido())
                 return request.ValidationResult;
 
+
+            Visitante visitante;
+
+            if (request.VisitanteId == Guid.Empty)
+            {
+                if (request.CpfVisitante != null)
+                {
+                    if (_visitanteRepository.VisitanteJaCadastradoPorCpf(request.CpfVisitante, request.VisitanteId).Result)
+                    {
+                        AdicionarErro("CPF informado ja consta no sistema.");
+                        return ValidationResult;
+                    }
+                }
+
+                if (request.RgVisitante != null)
+                {
+                    if (_visitanteRepository.VisitanteJaCadastradoPorRg(request.RgVisitante, request.VisitanteId).Result)
+                    {
+                        AdicionarErro("RG informado ja consta no sistema.");
+                        return ValidationResult;
+                    }
+                }
+
+                visitante = VisitanteFactory(request);
+            }
+            else
+            {
+                visitante = await _visitanteRepository.ObterPorId(request.VisitanteId);
+                if (visitante == null)
+                {
+                    AdicionarErro("Visitante não encontrado.");
+                    return ValidationResult;
+                }
+                visitante.SetNome(request.NomeVisitante);
+                visitante.SetTipoDeDocumento(request.TipoDeDocumentoVisitante);
+                visitante.SetCpf(request.CpfVisitante);
+                visitante.SetRg(request.RgVisitante);
+                visitante.SetEmail(request.EmailVisitante);
+                visitante.SetFoto(request.FotoVisitante);
+                visitante.SetTipoDeVisitante(request.TipoDeVisitante);
+                visitante.SetNomeEmpresa(request.NomeEmpresaVisitante);
+                visitante.SetVeiculo(request.Veiculo);
+            }
+            
+            
             var visita = VisitaFactory(request);
 
-            //Verificar se visitante esta cadastrado
-            //Se estiver busca no bd
-            //Se nao estiver cria um novo
+            visitante.AdicionarVisita(visita);
 
-            if (visita.CpfVisitante != null)
+            
+            if (request.VisitanteId == Guid.Empty)
             {
-                if (_visitanteRepository.VisitanteJaCadastradoPorCpf(visita.CpfVisitante, visita.Id).Result)
-                {
-                    AdicionarErro("CPF informado ja consta no sistema.");
-                    return ValidationResult;
-                }
+                _visitanteRepository.Adicionar(visitante);
+            }
+            else
+            {
+                _visitanteRepository.AdicionarVisita(visita);
+                _visitanteRepository.Atualizar(visitante);
             }
 
-            if (visita.RgVisitante != null)
-            {
-                if (_visitanteRepository.VisitanteJaCadastradoPorRg(visita.RgVisitante, visita.Id).Result)
-                {
-                    AdicionarErro("RG informado ja consta no sistema.");
-                    return ValidationResult;
-                }
-            }
 
-            //_visitanteRepository.Adicionar(visita);
 
             //visitante.AdicionarEvento(
             //    new CondominioCadastradoEvent(visitante.Id,
@@ -240,10 +277,20 @@ namespace CondominioApp.Portaria.Aplication.Commands
                 (request.DataDeEntrada, request.NomeCondominio, request.Observacao, request.Status,
                  request.VisitanteId, request.NomeVisitante,request.TipoDeDocumentoVisitante,
                  request.RgVisitante,request.CpfVisitante, request.EmailVisitante,request.FotoVisitante,
-                 request.NomeEmpresaVisitante, request.CondominioId, request.NomeCondominio, request.UnidadeId,
-                 request.NumeroUnidade, request.AndarUnidade, request.GrupoUnidade, request.Veiculo);            
+                 request.TipoDeVisitante, request.NomeEmpresaVisitante, request.CondominioId,
+                 request.NomeCondominio, request.UnidadeId, request.NumeroUnidade, request.AndarUnidade,
+                 request.GrupoUnidade, request.Veiculo);            
         }
 
+
+        private Visitante VisitanteFactory(CadastrarVisitaCommand request)
+        {
+            return new Visitante
+                (request.NomeVisitante, request.TipoDeDocumentoVisitante, request.RgVisitante,
+                request.CpfVisitante, request.EmailVisitante, request.FotoVisitante, request.CondominioId,
+                request.NomeCondominio, request.UnidadeId, request.NumeroUnidade, request.AndarUnidade,
+                request.GrupoUnidade, false, "", request.TipoDeVisitante, request.NomeEmpresaVisitante, request.Veiculo);
+        }
 
         public void Dispose()
         {

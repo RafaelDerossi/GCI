@@ -21,9 +21,9 @@ namespace CondominioApp.Portaria.ValueObjects
 
         public Veiculo(string placa, string modelo, string cor)
         {
-            Placa = placa;
-            Modelo = modelo;
-            Cor = cor;
+            SetPlaca(placa);
+            SetModelo(modelo);
+            SetCor(cor);
         }
 
         public void SetPlaca(string placa)

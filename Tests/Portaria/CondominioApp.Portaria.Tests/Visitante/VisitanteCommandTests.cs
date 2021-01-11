@@ -26,6 +26,21 @@ namespace CondominioApp.Portaria.Tests
             Assert.True(result);
         }
 
+        [Fact(DisplayName = "Adicionar Visitante Inválido - Com CPF Inválido")]
+        [Trait("Categoria", "Visitante - CadastrarCommand")]
+        public void CadastroDeVisitante_ComCpfInvalido_CommandoInvalido_NaoDevePassarNaValidacao()
+        {
+
+            //Arrange
+            var Command = VisitanteCommandFactory.CriarComandoCadastroDeVisitante_ComCPFInvalido();
+
+            //Act
+            var result = Command.EstaValido();
+
+            //Assert
+            Assert.False(result);
+        }
+
         [Fact(DisplayName = "Adicionar Visitante Válido - Com RG")]
         [Trait("Categoria", "Visitante - CadastrarCommand")]
         public void CadastroDeVisitante_ComRg_CommandoValido_DevePassarNaValidacao()
@@ -175,21 +190,7 @@ namespace CondominioApp.Portaria.Tests
             //Assert
             Assert.False(result);
         }
-
-        [Fact(DisplayName = "Adicionar Visitante Inválido - Sem Tipo de Visitante")]
-        [Trait("Categoria", "Visitante - CadastrarCommand")]
-        public void CadastroDeVisitante_SemTipoDeVisitante_CommandoInvalido_NaoDevePassarNaValidacao()
-        {
-
-            //Arrange
-            var Command = VisitanteCommandFactory.CriarComandoCadastroDeVisitante_SemTipoDeVisitante();
-
-            //Act
-            var result = Command.EstaValido();
-
-            //Assert
-            Assert.False(result);
-        }
+        
 
         [Fact(DisplayName = "Adicionar Visitante Válido - Sem Placa do Veiculo")]
         [Trait("Categoria", "Visitante - CadastrarCommand")]
@@ -250,5 +251,6 @@ namespace CondominioApp.Portaria.Tests
             //Assert
             Assert.True(result);
         }
+
     }
 }

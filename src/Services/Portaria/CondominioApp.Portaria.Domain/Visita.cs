@@ -41,6 +41,7 @@ namespace CondominioApp.Portaria.Domain
         public Cpf CpfVisitante { get; private set; }
         public Email EmailVisitante { get; private set; }
         public Foto FotoVisitante { get; private set; }
+        public TipoDeVisitante TipoDeVisitante { get; private set; }
         public string NomeEmpresaVisitante { get; private set; }
 
 
@@ -68,7 +69,8 @@ namespace CondominioApp.Portaria.Domain
             DateTime dataDeEntrada, string nomeCondomino,
             string observacao, StatusVisita status, Guid visitanteId, string nomeVisitante,
             TipoDeDocumento tipoDeDocumentoVisitante, Rg rgVisitante, Cpf cpfVisitante,
-            Email emailVisitante, Foto fotoVisitante, string nomeEmpresaVisitante, Guid condominioId,
+            Email emailVisitante, Foto fotoVisitante,TipoDeVisitante tipoDeVisitante,
+            string nomeEmpresaVisitante, Guid condominioId,
             string nomeCondominio, Guid unidadeId, string numeroUnidade, string andarUnidade,
             string descricaoGrupoUnidade, Veiculo veiculo)
         {
@@ -83,6 +85,7 @@ namespace CondominioApp.Portaria.Domain
             CpfVisitante = cpfVisitante;
             EmailVisitante = emailVisitante;
             FotoVisitante = fotoVisitante;
+            TipoDeVisitante = tipoDeVisitante;
             NomeEmpresaVisitante = nomeEmpresaVisitante;
             CondominioId = condominioId;
             NomeCondominio = nomeCondominio;
@@ -103,6 +106,7 @@ namespace CondominioApp.Portaria.Domain
 
 
         /// Metodos Set      
+        public void AprovarVisita() => Status = StatusVisita.APROVADA;
         public void ReprovarVisita() => Status = StatusVisita.REPROVADA;
 
 
@@ -118,11 +122,14 @@ namespace CondominioApp.Portaria.Domain
         }
 
 
+        public void SetDataDeEntrada(DateTime dataDeEntrada) => DataDeEntrada = dataDeEntrada;
         public void SetNomeVisitante(string nome) => NomeVisitante = nome;
+        public void SetTipoDocumentoVisitante(TipoDeDocumento tipoDeDocumento) => TipoDeDocumentoVisitante = tipoDeDocumento;
         public void SetRgVisitante(Rg rg) => RgVisitante = rg;
         public void SetCpfVisitante(Cpf cpf) => CpfVisitante = cpf;
         public void SetEmailVisitante(Email email) => EmailVisitante = email;
-        public void SetFotoVisitante(Foto foto) => FotoVisitante = foto;        
+        public void SetFotoVisitante(Foto foto) => FotoVisitante = foto;
+        public void SetTipoDeVisitante(TipoDeVisitante tipoDeVisitante) => TipoDeVisitante = tipoDeVisitante;
         public void SetNomeEmpresaVisitante(string nomeEmpresa) => NomeEmpresaVisitante = nomeEmpresa;
         public void SetVeiculo(Veiculo veiculo) => Veiculo = veiculo;
 
