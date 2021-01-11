@@ -33,15 +33,15 @@ namespace CondominioApp.Principal.Aplication.Commands.Validations
         protected void ValidateNumeroUnidade()
         {
             RuleFor(c => c.NumeroUnidade)
-                .NotEmpty().WithMessage("Número da Unidade não pode estar vazio!")
-                .Length(2, 200).WithMessage("Número da Unidade deve ter mais de 2 caracteres!");
+                .NotNull().WithMessage("Número da Unidade não pode estar vazio!")
+                .NotEmpty().WithMessage("Número da Unidade não pode estar vazio!");
         }
 
         protected void ValidateAndarUnidade()
         {
             RuleFor(c => c.AndarUnidade)
-                .NotEmpty().WithMessage("Andar da Unidade não pode estar vazio!")
-                .Length(2, 200).WithMessage("Andar da Unidade deve ter mais de 2 caracteres!");
+                .NotNull().WithMessage("Andar da Unidade não pode estar vazio!")
+                .NotEmpty().WithMessage("Andar da Unidade não pode estar vazio!");
         }
 
         protected void ValidateDescricaoGrupoUnidade()

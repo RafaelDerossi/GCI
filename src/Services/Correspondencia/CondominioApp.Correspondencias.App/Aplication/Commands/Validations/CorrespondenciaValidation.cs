@@ -29,9 +29,8 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands.Validations
         protected void ValidateNumeroUnidade()
         {
             RuleFor(c => c.NumeroUnidade)
-                  .NotNull()
-                  .NotEmpty()
-                  .WithMessage("Numero da Unidade não pode estar vazio!");
+                .NotNull().WithMessage("Número da Unidade não pode estar vazio!")
+                .NotEmpty().WithMessage("Número da Unidade não pode estar vazio!");
         }
 
         protected void ValidateBloco()

@@ -21,10 +21,8 @@ namespace CondominioApp.Enquetes.App.Aplication.Commands.Validations
         protected void ValidateUnidade()
         {
             RuleFor(c => c.Unidade)
-                .NotEmpty()
-                .NotNull()
-                .Length(2, 200)
-                .WithMessage("Descrição da Unidade deve ter mais de 2 caracteres!");
+                .NotNull().WithMessage("Unidade não pode estar vazio!")
+                .NotEmpty().WithMessage("Unidade não pode estar vazio!");
         }
 
 
