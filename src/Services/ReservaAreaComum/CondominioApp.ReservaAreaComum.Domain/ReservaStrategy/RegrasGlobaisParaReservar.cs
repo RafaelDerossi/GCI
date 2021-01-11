@@ -63,24 +63,53 @@ namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy
 
         private ValidationResult ValidarIntervalosFixos()
         {
-           
-
             //Regra para Intervalos Fixos
+
             if (!_areaComum.TemIntervaloFixoEntreReservas) return ValidationResult;
 
             if (_areaComum.ObterTempoDeIntervaloEntreReservas == 0) return ValidationResult;
 
-            //Pegar o horario fim da ultima reserva realizada
-            if (_areaComum.Reservas.Any())
+            
+            if (_areaComum.Reservas.Any(x => !x.Cancelada && !x.Lixeira && x.DataDeRealizacao == _reserva.DataDeRealizacao))
             {
-                int HorarioFimDaUltimaReservaFeita = _areaComum.Reservas.OrderByDescending(r => r.DataDeCadastro)
-                    .ToList().FirstOrDefault(x => !x.Cancelada && !x.Lixeira).ObterHoraFim;
-
-                if ((HorarioFimDaUltimaReservaFeita + _areaComum.ObterTempoDeIntervaloEntreReservas) > _reserva.ObterHoraInicio)
+                var reservasDoDia = _areaComum.Reservas.Where(x => !x.Cancelada && !x.Lixeira && x.DataDeRealizacao == _reserva.DataDeRealizacao).ToList();
+                foreach (Reserva reserva in reservasDoDia)
                 {
-                    AdicionarErros("Esta área esta configurada para reservas com intervalos, não foi possível criar sua reserva, tente um outro horário");
-                    return ValidationResult;
+                    if (VerificadorDeHorariosConflitantes.Verificar(reserva, _reserva))
+                    {
+                        AdicionarErros("Horário escolhido esta comprometido, não foi possível criar sua reserva, tente um outro horário");
+                        return ValidationResult;
+                    }
+                    if (reserva.ObterHoraInicio < _reserva.ObterHoraInicio)
+                    {
+                        if ((reserva.ObterHoraFim + _areaComum.ObterTempoDeIntervaloEntreReservas) > _reserva.ObterHoraInicio)
+                        {
+                            AdicionarErros("Esta área esta configurada para reservas com intervalos, não foi possível criar sua reserva, tente um outro horário");
+                            return ValidationResult;
+                        }
+                    }
+                    else if (reserva.ObterHoraInicio >= _reserva.ObterHoraFim)
+                    {
+                        if ((_reserva.ObterHoraFim + _areaComum.ObterTempoDeIntervaloEntreReservas) > reserva.ObterHoraInicio)
+                        {
+                            AdicionarErros("Esta área esta configurada para reservas com intervalos, não foi possível criar sua reserva, tente um outro horário");
+                            return ValidationResult;
+                        }
+                    }
                 }
+                
+                
+                //int HorarioFimDaUltimaReservaFeita = _areaComum.Reservas
+                //    .OrderByDescending(r => r.ObterHoraInicio)
+                //    .ToList()
+                //    .FirstOrDefault(x => !x.Cancelada && !x.Lixeira && x.DataDeRealizacao == _reserva.DataDeRealizacao)
+                //    .ObterHoraFim;                
+
+                //if ((HorarioFimDaUltimaReservaFeita + _areaComum.ObterTempoDeIntervaloEntreReservas) > _reserva.ObterHoraInicio)
+                //{
+                //    AdicionarErros("Esta área esta configurada para reservas com intervalos, não foi possível criar sua reserva, tente um outro horário");
+                //    return ValidationResult;
+                //}
             }
 
             return ValidationResult;

@@ -18,27 +18,27 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
             string tempoDeDuracaoDeReserva, int numeroLimiteDeReservaPorUnidade, bool permiteReservaSobreposta,
             int numeroLimiteDeReservaSobreposta, int numeroLimiteDeReservaSobrepostaPorUnidade, ICollection<Periodo> periodos)
         {           
-            Nome = nome;
+            SetNome(nome);
             Descricao = descricao;
             TermoDeUso = termoDeUso;
-            CondominioId = condominioId;
-            NomeCondominio = nomeCondominio;
+            SetCondominioId(condominioId);
+            SetNomeCondominio(nomeCondominio);
             Capacidade = capacidade;
-            DiasPermitidos = diasPermitidos;
-            AntecedenciaMaximaEmMeses = antecedenciaMaximaEmMeses;
-            AntecedenciaMaximaEmDias = antecedenciaMaximaEmDias;
-            AntecedenciaMinimaEmDias = antecedenciaMinimaEmDias;
-            AntecedenciaMinimaParaCancelamentoEmDias = antecedenciaMinimaParaCancelamentoEmDias;
+            SetDiasPermitidos(diasPermitidos);
+            SetAntecedenciaMaximaEmMeses(antecedenciaMaximaEmMeses);
+            SetAntecedenciaMaximaEmDias(antecedenciaMaximaEmDias);
+            SetAntecedenciaMinimaEmDias(antecedenciaMinimaEmDias);
+            SetAntecedenciaMinimaParaCancelamentoEmDias(antecedenciaMinimaParaCancelamentoEmDias);
             RequerAprovacaoDeReserva = requerAprovacaoDeReserva;
             TemHorariosEspecificos = temHorariosEspecificos;
-            TempoDeIntervaloEntreReservas = tempoDeIntervaloEntreReservas;
+            SetTempoDeIntervaloEntreReservas(tempoDeIntervaloEntreReservas);
             Ativa = ativa;
-            TempoDeDuracaoDeReserva = tempoDeDuracaoDeReserva;
-            NumeroLimiteDeReservaPorUnidade = numeroLimiteDeReservaPorUnidade;
+            SetTempoDeDuracaoDeReserva(tempoDeDuracaoDeReserva);
+            SetNumeroLimiteDeReservaPorUnidade(numeroLimiteDeReservaPorUnidade);
             PermiteReservaSobreposta = permiteReservaSobreposta;
-            NumeroLimiteDeReservaSobreposta = numeroLimiteDeReservaSobreposta;
-            NumeroLimiteDeReservaSobrepostaPorUnidade = numeroLimiteDeReservaSobrepostaPorUnidade;
-            Periodos = periodos;
+            SetNumeroLimiteDeReservaSobreposta(numeroLimiteDeReservaSobreposta);
+            SetNumeroLimiteDeReservaSobrepostaPorUnidade(numeroLimiteDeReservaSobrepostaPorUnidade);
+            SetPeriodos(periodos);
         }
 
         public override bool EstaValido()
