@@ -26,7 +26,7 @@ namespace CondominioApp.ReservaAreaComum.Domain.FlatModel
         public int AntecedenciaMinimaParaCancelamentoEmDias { get; private set; }
         public bool RequerAprovacaoDeReserva { get; private set; }
         public bool TemHorariosEspecificos { get; private set; }
-        public string TempoDeIntervaloEntreReservas {  get; private set; }
+        public string TempoDeIntervaloEntreReservas { get; private set; }
         public bool Ativa { get; private set; }
         public string TempoDeDuracaoDeReserva { get; private set; }
         public int NumeroLimiteDeReservaPorUnidade { get; private set; }
@@ -37,17 +37,17 @@ namespace CondominioApp.ReservaAreaComum.Domain.FlatModel
         public int NumeroLimiteDeReservaSobrepostaPorUnidade { get; private set; }
 
         public bool TemIntervaloFixoEntreReservas { get; private set; }
-        
+
 
         private readonly List<PeriodoFlat> _Periodos;
-        public IReadOnlyCollection<PeriodoFlat> Periodos => _Periodos;       
-        
+        public IReadOnlyCollection<PeriodoFlat> Periodos => _Periodos;
 
-        
+
+
         /// Construtores       
         protected AreaComumFlat()
         {
-            _Periodos = new List<PeriodoFlat>();        
+            _Periodos = new List<PeriodoFlat>();
         }
 
         public AreaComumFlat
@@ -72,7 +72,7 @@ namespace CondominioApp.ReservaAreaComum.Domain.FlatModel
             AntecedenciaMinimaEmDias = antecedenciaMinimaEmDias;
             AntecedenciaMinimaParaCancelamentoEmDias = antecedenciaMinimaParaCancelamentoEmDias;
             RequerAprovacaoDeReserva = requerAprovacaoDeReserva;
-            TemHorariosEspecificos = horariosEspecificos;           
+            TemHorariosEspecificos = horariosEspecificos;
             TempoDeIntervaloEntreReservas = tempoDeIntervaloEntreReservas;
             Ativa = ativo;
             TempoDeDuracaoDeReserva = tempoDeDuracaoDaReserva;
@@ -93,7 +93,7 @@ namespace CondominioApp.ReservaAreaComum.Domain.FlatModel
         public void SetTermoDeUso(string termo) => TermoDeUso = termo;
         public void SetCapacidade(int capacidade) => Capacidade = capacidade;
         public void SetDiasPermitidos(string diasPermitidos) => DiasPermitidos = diasPermitidos;
-        public void SetAntecedenciaMaximaEmMeses(int antecedenciaMaximaEmMeses) => 
+        public void SetAntecedenciaMaximaEmMeses(int antecedenciaMaximaEmMeses) =>
             AntecedenciaMaximaEmMeses = antecedenciaMaximaEmMeses;
         public void SetAntecedenciaMaximaEmDias(int antecedenciaMaximaEmDias) =>
             AntecedenciaMaximaEmDias = antecedenciaMaximaEmDias;
@@ -107,7 +107,7 @@ namespace CondominioApp.ReservaAreaComum.Domain.FlatModel
 
         public void HabilitarHorariosEspecifcos() => TemHorariosEspecificos = true;
         public void DesabilitarHorariosEspecifcos() => TemHorariosEspecificos = false;
-       
+
         public void SetTempoDeIntervaloEntreReservas(string intervalo) => TempoDeIntervaloEntreReservas = intervalo;
 
         public void SetTempoDeDuracaoDeReserva(string tempo) => TempoDeDuracaoDeReserva = tempo;
@@ -115,7 +115,7 @@ namespace CondominioApp.ReservaAreaComum.Domain.FlatModel
         public void AtivarAreaComun() => Ativa = true;
         public void DesativarAreaComun() => Ativa = false;
 
-        public void SetNumeroLimiteDeReservaPorUnidade(int numeroLimite) => 
+        public void SetNumeroLimiteDeReservaPorUnidade(int numeroLimite) =>
             NumeroLimiteDeReservaPorUnidade = numeroLimite;
 
         public void SetDataInicioBloqueio(DateTime dataInicioBoqueio) => DataInicioBloqueio = dataInicioBoqueio;
@@ -140,7 +140,7 @@ namespace CondominioApp.ReservaAreaComum.Domain.FlatModel
         ///Outros Metodos
         ///
         public void AdicionarPeriodo(PeriodoFlat periodoNovo)
-        {            
+        {
             _Periodos.Add(periodoNovo);
         }
 
@@ -148,5 +148,21 @@ namespace CondominioApp.ReservaAreaComum.Domain.FlatModel
         {
             _Periodos.Clear();
         }
+
+        public IEnumerable<string> ListaDiasPermitidos
+        {
+            get
+            {
+                List<string> listaDias = new List<string>();
+                string[] dias = DiasPermitidos.Split("|");
+                for (int i = 0; i < dias.Length; i++)
+                {
+                    listaDias.Add(dias[i]);
+                }
+
+                return listaDias;
+            }
+        }
+
     }
 }
