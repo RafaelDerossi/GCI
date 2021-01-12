@@ -46,7 +46,7 @@ namespace CondominioApp.Principal.Aplication.Commands.Validations
 
         protected void ValidateDescricaoGrupoUnidade()
         {
-            RuleFor(c => c.DescricaoGrupoUnidade)
+            RuleFor(c => c.GrupoUnidade)
                 .NotNull().WithMessage("Descrição do Grupo da Unidade não pode estar vazio!")
                 .Length(2, 200).WithMessage("Descrição do Grupo da Unidade deve ter mais de 2 caracteres!");
         }

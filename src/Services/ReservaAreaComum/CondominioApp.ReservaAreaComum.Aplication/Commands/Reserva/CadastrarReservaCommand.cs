@@ -16,17 +16,17 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
             DateTime dataDeRealizacao, string horaInicio, string horaFim, decimal preco,
             bool estaNaFila, string origem, bool reservadoPelaAdministracao)
         {            
-            AreaComumId = areaComumId;
+            SetAreaComumId(areaComumId);
             Observacao = observacao;
             UnidadeId = unidadeId;
-            NumeroUnidade = numeroUnidade;
-            AndarUnidade = andarUnidade;
-            DescricaoGrupoUnidade = descricaoGrupoUnidade;
-            UsuarioId = usuarioId;
-            NomeUsuario = nomeUsuario;
+            SetNumeroUnidade(numeroUnidade);
+            SetAndarUnidade(andarUnidade);
+            SetGrupoUnidade(descricaoGrupoUnidade);
+            SetUsuarioId(usuarioId);
+            SetNomeUsuario(nomeUsuario);
             DataDeRealizacao = dataDeRealizacao;
-            HoraInicio = horaInicio;
-            HoraFim = horaFim;
+            SetHoraInicio(horaInicio);
+            SetHoraFim(horaFim);
             Preco = preco;
             EstaNaFila = estaNaFila;
             Origem = origem;

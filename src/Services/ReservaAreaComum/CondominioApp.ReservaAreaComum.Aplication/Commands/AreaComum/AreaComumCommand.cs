@@ -76,11 +76,11 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
         public void LimparPeriodos()
         {
             Periodos.Clear();
-        }
+        }     
 
-        public void SetPeriodos(ICollection<Periodo> periodos)
+        public void AdicionarPeriodo(Periodo periodo)
         {
-            Periodos = periodos;
+            Periodos.Add(periodo);
         }
 
     }

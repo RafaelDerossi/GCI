@@ -19,23 +19,23 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
             int numeroLimiteDeReservaSobrepostaPorUnidade, ICollection<Periodo> periodos)
         {
             Id = areaComumId;
-            Nome = nome;
+            SetNome(nome);
             Descricao = descricao;
             TermoDeUso = termoDeUso;
             Capacidade = capacidade;
-            DiasPermitidos = diasPermitidos;
-            AntecedenciaMaximaEmMeses = antecedenciaMaximaEmMeses;
-            AntecedenciaMaximaEmDias = antecedenciaMaximaEmDias;
-            AntecedenciaMinimaEmDias = antecedenciaMinimaEmDias;
-            AntecedenciaMinimaParaCancelamentoEmDias = antecedenciaMinimaParaCancelamentoEmDias;
+            SetDiasPermitidos(diasPermitidos);
+            SetAntecedenciaMaximaEmMeses(antecedenciaMaximaEmMeses);
+            SetAntecedenciaMaximaEmDias(antecedenciaMaximaEmDias);
+            SetAntecedenciaMinimaEmDias(antecedenciaMinimaEmDias);
+            SetAntecedenciaMinimaParaCancelamentoEmDias(antecedenciaMinimaParaCancelamentoEmDias);
             RequerAprovacaoDeReserva = requerAprovacaoDeReserva;
             TemHorariosEspecificos = temHorariosEspecificos;
-            TempoDeIntervaloEntreReservas = tempoDeIntervaloEntreReservas;
-            TempoDeDuracaoDeReserva = tempoDeDuracaoDeReserva;
-            NumeroLimiteDeReservaPorUnidade = numeroLimiteDeReservaPorUnidade;
+            SetTempoDeIntervaloEntreReservas(tempoDeIntervaloEntreReservas);
+            SetTempoDeDuracaoDeReserva(tempoDeDuracaoDeReserva);
+            SetNumeroLimiteDeReservaPorUnidade(numeroLimiteDeReservaPorUnidade);
             PermiteReservaSobreposta = permiteReservaSobreposta;
-            NumeroLimiteDeReservaSobreposta = numeroLimiteDeReservaSobreposta;
-            NumeroLimiteDeReservaSobrepostaPorUnidade = numeroLimiteDeReservaSobrepostaPorUnidade;
+            SetNumeroLimiteDeReservaSobreposta(numeroLimiteDeReservaSobreposta);
+            SetNumeroLimiteDeReservaSobrepostaPorUnidade(numeroLimiteDeReservaSobrepostaPorUnidade);
             Periodos = periodos;
         }
 

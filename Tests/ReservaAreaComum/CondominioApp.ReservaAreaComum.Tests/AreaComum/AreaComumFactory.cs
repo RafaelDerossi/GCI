@@ -44,6 +44,8 @@ namespace CondominioApp.ReservaAreaComum.Tests
 
             areaComum.DesabilitarAprovacaoDeReserva();
 
+            areaComum.HabilitarHorariosEspecifcos();
+
             areaComum.HabilitarReservaSobreposta();
 
             areaComum.SetNumeroLimiteDeReservaSobreposta(3);
@@ -51,7 +53,8 @@ namespace CondominioApp.ReservaAreaComum.Tests
             areaComum.SetNumeroLimiteDeReservaSobrepostaPorUnidade(2);
 
 
-            areaComum.AdicionarPeriodo(new Periodo("08:00", "17:00", 155, true));
+            areaComum.AdicionarPeriodo(new Periodo("07:00", "12:00", 155, true));
+            areaComum.AdicionarPeriodo(new Periodo("13:00", "18:00", 155, true));
 
             return areaComum;
         }
@@ -258,6 +261,21 @@ namespace CondominioApp.ReservaAreaComum.Tests
             areaComum.DesabilitarAprovacaoDeReserva();
 
             areaComum.SetTempoDeIntervaloEntreReservas("00:30");
+
+            areaComum.AdicionarPeriodo(new Periodo("08:00", "17:00", 155, true));
+
+            return areaComum;
+        }
+
+        public static AreaComum CriarAreaComum_AprovacaoAutomatica_IntervaloFixo_0030_Sobreposicao()
+        {
+            var areaComum = Factory();
+
+            areaComum.DesabilitarAprovacaoDeReserva();
+
+            areaComum.SetTempoDeIntervaloEntreReservas("00:30");
+
+            areaComum.HabilitarReservaSobreposta();            
 
             areaComum.AdicionarPeriodo(new Periodo("08:00", "17:00", 155, true));
 

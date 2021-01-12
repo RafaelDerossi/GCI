@@ -244,7 +244,7 @@ namespace CondominioApp.ReservaAreaComum.Domain
                 if (!resultado.IsValid) return resultado;
             }
 
-            if (PermiteReservaSobreposta)
+            if (PermiteReservaSobreposta && TemHorariosEspecificos)
                 Gerenciador = new GerenciadorDeReserva(
                     new RegrasGlobaisParaReservar(reserva, this, new RegraDeReservaSobreposta(this, reserva)));
             else

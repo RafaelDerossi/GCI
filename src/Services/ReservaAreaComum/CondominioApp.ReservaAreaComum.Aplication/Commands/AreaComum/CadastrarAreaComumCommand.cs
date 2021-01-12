@@ -38,7 +38,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
             PermiteReservaSobreposta = permiteReservaSobreposta;
             SetNumeroLimiteDeReservaSobreposta(numeroLimiteDeReservaSobreposta);
             SetNumeroLimiteDeReservaSobrepostaPorUnidade(numeroLimiteDeReservaSobrepostaPorUnidade);
-            SetPeriodos(periodos);
+            Periodos = periodos;
         }
 
         public override bool EstaValido()

@@ -26,12 +26,9 @@ namespace CondominioApp.ReservaAreaComum.Tests
         public async Task AdicionarReserva_CommandoValido_DevePassarNaValidacao()
         {
             //Arrange
-            var areaComum = AreaComumFactory.CriarAreaComum_AprovacaoAutomatica();           
-         
-            var command =   new CadastrarReservaCommand
-                (areaComum.Id, "Observacao", Guid.NewGuid(), "101", "1º",
-                "Bloco 1", Guid.NewGuid(), "Usuario", DateTime.Now.Date, "08:00", "09:00",
-                150, false, "Mobile", false);
+            var areaComum = AreaComumFactory.CriarAreaComum_AprovacaoAutomatica();
+            var command = ReservaCommandFactory.CriarComandoCadastroDeReserva();
+            command.SetAreaComumId(areaComum.Id);
 
             
             _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.ObterPorId(command.AreaComumId))
@@ -76,11 +73,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
         {
             //Arrange
             var areaComum = AreaComumFactory.CriarAreaComum_AprovacaoAutomatica();
-            var reserva = new Reserva
-                (areaComum.Id, "Obs", Guid.NewGuid(), "101", "1º", "Bloco 1", Guid.NewGuid(), "Usuario",
-                 DateTime.Now.AddDays(30).Date, "08:00", "17:00", 150, false, "Mobile", false);
-
-
+            var reserva = ReservaFactory.CriarReservaValidaMobile();
             areaComum.AdicionarReserva(reserva);
 
             var command = new CancelarReservaComoUsuarioCommand
@@ -109,11 +102,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
         {
             //Arrange
             var areaComum = AreaComumFactory.CriarAreaComum_AprovacaoAutomatica();
-            var reserva = new Reserva
-                (areaComum.Id, "Obs", Guid.NewGuid(), "101", "1º", "Bloco 1", Guid.NewGuid(), "Usuario",
-                 DateTime.Now.AddDays(30).Date, "08:00", "17:00", 150, false, "Mobile", false);
-
-
+            var reserva = ReservaFactory.CriarReservaValidaMobile();
             areaComum.AdicionarReserva(reserva);
 
             var command = new CancelarReservaComoAdministradorCommand
@@ -142,14 +131,11 @@ namespace CondominioApp.ReservaAreaComum.Tests
         {
             //Arrange
             var areaComum = AreaComumFactory.CriarAreaComum_AprovacaoAutomatica();
-            var reserva1 = new Reserva
-                (areaComum.Id, "Obs", Guid.NewGuid(), "101", "1º", "Bloco 1", Guid.NewGuid(), "Usuario",
-                 DateTime.Now.AddDays(30).Date, "08:00", "17:00", 150, false, "Mobile", false);
+            var reserva1 = ReservaFactory.CriarReservaValidaMobile();              
             reserva1.Cancelar("Justificativa");
 
-            var reserva2 = new Reserva
-               (areaComum.Id, "Obs", Guid.NewGuid(), "102", "1º", "Bloco 1", Guid.NewGuid(), "Usuario",
-                DateTime.Now.AddDays(30).Date, "08:00", "17:00", 150, true, "Mobile", false);
+            var reserva2 = ReservaFactory.CriarReservaValidaMobile();
+            reserva2.EnviarParaFila();
 
             areaComum.AdicionarReserva(reserva1);
             areaComum.AdicionarReserva(reserva2);

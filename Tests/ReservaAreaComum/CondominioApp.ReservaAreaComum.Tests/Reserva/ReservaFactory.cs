@@ -12,6 +12,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
                  DateTime.Now.AddDays(30).Date, "08:00", "17:00", 150, false, "Mobile", false);
         }
 
+
         public static Reserva CriarReservaValidaWeb()
         {
             var reserva = Factory();

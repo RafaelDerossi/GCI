@@ -17,14 +17,32 @@ namespace CondominioApp.ReservaAreaComum.Tests
             periodo = new Periodo("13:00", "17:00", 150, true);
             listaPeriodos.Add(periodo);
 
-            var areaComum = new CadastrarAreaComumCommand
+            var comando = new CadastrarAreaComumCommand
                 ("Area Comum", "Descricao da area comum", "Termo de Uso", Guid.NewGuid(),
                 "Nome do condominio", 10, "SATURDAY|SUNDAY", 0, 0, 0, 0, false, true, "",
                 true, "", 0, false, 0, 0, listaPeriodos);
 
-            return areaComum;
+            return comando;
+        }
+        public static EditarAreaComumCommand EditarAreaComumCommandFactory()
+        {
+            var listaPeriodos = new List<Periodo>();
+
+            var periodo = new Periodo("08:00", "12:00", 150, true);
+            listaPeriodos.Add(periodo);
+            periodo = new Periodo("13:00", "17:00", 150, true);
+            listaPeriodos.Add(periodo);
+
+            var comando = new EditarAreaComumCommand
+                (Guid.NewGuid(), "Area Comum", "Descricao da area comum", "Termo de Uso",
+                10, "SATURDAY|SUNDAY", 0, 0, 0, 0, false, true, "", "", 0, false, 0, 0, listaPeriodos);
+
+            return comando;
         }
 
+
+        
+        /// CadastrarAreaComumCommand        
         public static CadastrarAreaComumCommand CriarComandoCadastroDeAreaComum()
         {
             return CadastrarAreaComumCommandFactory();
@@ -133,429 +151,313 @@ namespace CondominioApp.ReservaAreaComum.Tests
 
         public static CadastrarAreaComumCommand CriarComandoCadastroDeAreaComum_PeriodoPernoite()
         {
-            var listaPeriodos = new List<Periodo>();
-
-            var periodo = new Periodo("17:00", "02:00", 150, true);
-            listaPeriodos.Add(periodo);          
+            var periodo = new Periodo("17:00", "02:00", 150, true);              
 
             var comando = CadastrarAreaComumCommandFactory();
 
             comando.LimparPeriodos();
 
-            comando.SetPeriodos(listaPeriodos);
+            comando.AdicionarPeriodo(periodo);
 
             return comando;
         }
 
         public static CadastrarAreaComumCommand CriarComandoCadastroDeAreaComum_PeriodoSemHoraInicio()
         {
-            var listaPeriodos = new List<Periodo>();
-
             var periodo = new Periodo("", "12:00", 150, true);
-            listaPeriodos.Add(periodo);
-           
-            var areaComum = new CadastrarAreaComumCommand
-                ("Area Comum", "Descricao da area comum", "Termo de Uso", Guid.NewGuid(),
-                "Nome do condominio", 10, "SATURDAY|SUNDAY", 0, 0, 0, 0, false, true, "",
-                true, "", 0, false, 0, 0, listaPeriodos);
 
-            return areaComum;
+            var comando = CadastrarAreaComumCommandFactory();
+
+            comando.LimparPeriodos();
+
+            comando.AdicionarPeriodo(periodo);
+
+            return comando;
         }
 
         public static CadastrarAreaComumCommand CriarComandoCadastroDeAreaComum_PeriodoComHoraInicioInvalido()
         {
-            var listaPeriodos = new List<Periodo>();
-
             var periodo = new Periodo("30:00", "12:00", 150, true);
-            listaPeriodos.Add(periodo);
 
-            var areaComum = new CadastrarAreaComumCommand
-                ("Area Comum", "Descricao da area comum", "Termo de Uso", Guid.NewGuid(),
-                "Nome do condominio", 10, "SATURDAY|SUNDAY", 0, 0, 0, 0, false, true, "",
-                true, "", 0, false, 0, 0, listaPeriodos);
+            var comando = CadastrarAreaComumCommandFactory();
 
-            return areaComum;
+            comando.LimparPeriodos();
+
+            comando.AdicionarPeriodo(periodo);
+
+            return comando;
         }
 
         public static CadastrarAreaComumCommand CriarComandoCadastroDeAreaComum_PeriodoSemHoraFim()
         {
-            var listaPeriodos = new List<Periodo>();
-
             var periodo = new Periodo("08:00", "", 150, true);
-            listaPeriodos.Add(periodo);
 
-            var areaComum = new CadastrarAreaComumCommand
-                ("Area Comum", "Descricao da area comum", "Termo de Uso", Guid.NewGuid(),
-                "Nome do condominio", 10, "SATURDAY|SUNDAY", 0, 0, 0, 0, false, true, "",
-                true, "", 0, false, 0, 0, listaPeriodos);
+            var comando = CadastrarAreaComumCommandFactory();
 
-            return areaComum;
+            comando.LimparPeriodos();
+
+            comando.AdicionarPeriodo(periodo);
+
+            return comando;
         }
 
         public static CadastrarAreaComumCommand CriarComandoCadastroDeAreaComum_PeriodoComHoraFimInvalido()
         {
-            var listaPeriodos = new List<Periodo>();
-
             var periodo = new Periodo("08:00", "30:00", 150, true);
-            listaPeriodos.Add(periodo);
 
-            var areaComum = new CadastrarAreaComumCommand
-                ("Area Comum", "Descricao da area comum", "Termo de Uso", Guid.NewGuid(),
-                "Nome do condominio", 10, "SATURDAY|SUNDAY", 0, 0, 0, 0, false, true, "",
-                true, "", 0, false, 0, 0, listaPeriodos);
+            var comando = CadastrarAreaComumCommandFactory();
 
-            return areaComum;
+            comando.LimparPeriodos();
+
+            comando.AdicionarPeriodo(periodo);
+
+            return comando;
         }
 
         public static CadastrarAreaComumCommand CriarComandoCadastroDeAreaComum_PeriodosConflitantesInvalido()
         {
-            var listaPeriodos = new List<Periodo>();
-
             var periodo1 = new Periodo("07:00", "14:00", 150, true);
-            listaPeriodos.Add(periodo1);
+            var periodo2 = new Periodo("13:00", "18:00", 150, true);           
 
-            var periodo2 = new Periodo("13:00", "18:00", 150, true);
-            listaPeriodos.Add(periodo2);
+            var comando = CadastrarAreaComumCommandFactory();
 
-            var areaComum = new CadastrarAreaComumCommand
-                ("Area Comum", "Descricao da area comum", "Termo de Uso", Guid.NewGuid(),
-                "Nome do condominio", 10, "SATURDAY|SUNDAY", 0, 0, 0, 0, false, true, "",
-                true, "", 0, false, 0, 0, listaPeriodos);
+            comando.LimparPeriodos();
 
-            return areaComum;
+            comando.AdicionarPeriodo(periodo1);
+            comando.AdicionarPeriodo(periodo2);
+
+            return comando;
+
         }
 
         public static CadastrarAreaComumCommand CriarComandoCadastroDeAreaComum_PeriodosInvertidosConflitantesInvalido()
         {
-            var listaPeriodos = new List<Periodo>();
-
             var periodo1 = new Periodo("13:00", "18:00", 150, true);
-            listaPeriodos.Add(periodo1);
-
             var periodo2 = new Periodo("07:00", "14:00", 150, true);
-            listaPeriodos.Add(periodo2);
 
-            var areaComum = new CadastrarAreaComumCommand
-                ("Area Comum", "Descricao da area comum", "Termo de Uso", Guid.NewGuid(),
-                "Nome do condominio", 10, "SATURDAY|SUNDAY", 0, 0, 0, 0, false, true, "",
-                true, "", 0, false, 0, 0, listaPeriodos);
+            var comando = CadastrarAreaComumCommandFactory();
 
-            return areaComum;
+            comando.LimparPeriodos();
+
+            comando.AdicionarPeriodo(periodo1);
+            comando.AdicionarPeriodo(periodo2);
+
+            return comando;
         }
 
         public static CadastrarAreaComumCommand CriarComandoCadastroDeAreaComum_PeriodosPernoiteConflitantesInvalido()
         {
-            var listaPeriodos = new List<Periodo>();
-
             var periodo1 = new Periodo("18:00", "02:00", 150, true);
-            listaPeriodos.Add(periodo1);
-
             var periodo2 = new Periodo("15:00", "20:00", 150, true);
-            listaPeriodos.Add(periodo2);
 
-            var areaComum = new CadastrarAreaComumCommand
-                ("Area Comum", "Descricao da area comum", "Termo de Uso", Guid.NewGuid(),
-                "Nome do condominio", 10, "SATURDAY|SUNDAY", 0, 0, 0, 0, false, true, "",
-                true, "", 0, false, 0, 0, listaPeriodos);
+            var comando = CadastrarAreaComumCommandFactory();
 
-            return areaComum;
+            comando.LimparPeriodos();
+
+            comando.AdicionarPeriodo(periodo1);
+            comando.AdicionarPeriodo(periodo2);
+
+            return comando;
         }
 
         public static CadastrarAreaComumCommand CriarComandoCadastroDeAreaComum_PeriodosValido()
         {
-            var listaPeriodos = new List<Periodo>();
-
             var periodo1 = new Periodo("13:00", "18:00", 150, true);
-            listaPeriodos.Add(periodo1);
-
             var periodo2 = new Periodo("07:00", "12:00", 150, true);
-            listaPeriodos.Add(periodo2);
 
-            var areaComum = new CadastrarAreaComumCommand
-                ("Area Comum", "Descricao da area comum", "Termo de Uso", Guid.NewGuid(),
-                "Nome do condominio", 10, "SATURDAY|SUNDAY", 0, 0, 0, 0, false, true, "",
-                true, "", 0, false, 0, 0, listaPeriodos);
+            var comando = CadastrarAreaComumCommandFactory();
 
-            return areaComum;
+            comando.LimparPeriodos();
+
+            comando.AdicionarPeriodo(periodo1);
+            comando.AdicionarPeriodo(periodo2);
+
+            return comando;
         }
 
         public static CadastrarAreaComumCommand CriarComandoCadastroDeAreaComum_PeriodosPernoiteValido()
         {
-            var listaPeriodos = new List<Periodo>();
-
             var periodo1 = new Periodo("20:00", "02:00", 150, true);
-            listaPeriodos.Add(periodo1);
-
             var periodo2 = new Periodo("07:00", "18:00", 150, true);
-            listaPeriodos.Add(periodo2);
 
-            var areaComum = new CadastrarAreaComumCommand
-                ("Area Comum", "Descricao da area comum", "Termo de Uso", Guid.NewGuid(),
-                "Nome do condominio", 10, "SATURDAY|SUNDAY", 0, 0, 0, 0, false, true, "",
-                true, "", 0, false, 0, 0, listaPeriodos);
+            var comando = CadastrarAreaComumCommandFactory();
 
-            return areaComum;
+            comando.LimparPeriodos();
+
+            comando.AdicionarPeriodo(periodo1);
+            comando.AdicionarPeriodo(periodo2);
+
+            return comando;
         }
 
 
 
 
 
-
+        
+        /// EditarAreaComumCommand        
         public static EditarAreaComumCommand CriarComandoEdicaoDeAreaComum()
         {
-            var listaPeriodos = new List<Periodo>();
-
-            var periodo = new Periodo("08:00", "12:00", 150, true);
-            listaPeriodos.Add(periodo);
-            periodo = new Periodo("13:00", "17:00", 150, true);
-            listaPeriodos.Add(periodo);
-
-            var areaComum = new EditarAreaComumCommand
-                (Guid.NewGuid(), "Area Comum", "Descricao da area comum", "Termo de Uso",
-                10, "SATURDAY|SUNDAY", 0, 0, 0, 0, false, true, "", "", 0, false, 0, 0, listaPeriodos);
-
-            return areaComum;
+            var comando = EditarAreaComumCommandFactory();
+            return comando;
         }
 
         public static EditarAreaComumCommand CriarComandoEdicaoDeAreaComum_SemNome()
         {
-            var listaPeriodos = new List<Periodo>();
+            var comando = EditarAreaComumCommandFactory();
 
-            var periodo = new Periodo("08:00", "12:00", 150, true);
-            listaPeriodos.Add(periodo);
-            periodo = new Periodo("13:00", "17:00", 150, true);
-            listaPeriodos.Add(periodo);
-
-            var areaComum = new EditarAreaComumCommand
-                (Guid.NewGuid(), "", "Descricao da area comum", "Termo de Uso",
-                10, "SATURDAY|SUNDAY", 0, 0, 0, 0, false, true, "", "", 0, false, 0, 0, listaPeriodos);
-
-            return areaComum;
+            comando.SetNome("");
+           
+            return comando;
         }
 
         public static EditarAreaComumCommand CriarComandoEdicaoDeAreaComum_SemDiasPermitidos()
         {
-            var listaPeriodos = new List<Periodo>();
+            var comando = EditarAreaComumCommandFactory();
 
-            var periodo = new Periodo("08:00", "12:00", 150, true);
-            listaPeriodos.Add(periodo);
-            periodo = new Periodo("13:00", "17:00", 150, true);
-            listaPeriodos.Add(periodo);
+            comando.SetDiasPermitidos("");
 
-            var areaComum = new EditarAreaComumCommand
-                (Guid.NewGuid(), "Area Comum", "Descricao da area comum", "Termo de Uso",
-                10, "", 0, 0, 0, 0, false, true, "", "", 0, false, 0, 0, listaPeriodos);
-
-            return areaComum;
+            return comando;
         }
 
         public static EditarAreaComumCommand CriarComandoEdicaoDeAreaComum_AntecedenciaMaximaEmMesesInvalida()
         {
-            var listaPeriodos = new List<Periodo>();
+            var comando = EditarAreaComumCommandFactory();
 
-            var periodo = new Periodo("08:00", "12:00", 150, true);
-            listaPeriodos.Add(periodo);
-            periodo = new Periodo("13:00", "17:00", 150, true);
-            listaPeriodos.Add(periodo);
+            comando.SetAntecedenciaMaximaEmMeses(-1);
 
-            var areaComum = new EditarAreaComumCommand
-                (Guid.NewGuid(), "Area Comum", "Descricao da area comum", "Termo de Uso",
-                10, "SATURDAY|SUNDAY", -1, 0, 0, 0, false, true, "", "", 0, false, 0, 0, listaPeriodos);
-
-            return areaComum;
+            return comando;
         }
 
         public static EditarAreaComumCommand CriarComandoEdicaoDeAreaComum_AntecedenciaMaximaEmDiasInvalida()
         {
-            var listaPeriodos = new List<Periodo>();
+            var comando = EditarAreaComumCommandFactory();
 
-            var periodo = new Periodo("08:00", "12:00", 150, true);
-            listaPeriodos.Add(periodo);
-            periodo = new Periodo("13:00", "17:00", 150, true);
-            listaPeriodos.Add(periodo);
+            comando.SetAntecedenciaMaximaEmDias(-1);
 
-            var areaComum = new EditarAreaComumCommand
-                (Guid.NewGuid(), "Area Comum", "Descricao da area comum", "Termo de Uso",
-                10, "SATURDAY|SUNDAY", 0, -1, 0, 0, false, true, "", "", 0, false, 0, 0, listaPeriodos);
-
-            return areaComum;
+            return comando;
         }
 
         public static EditarAreaComumCommand CriarComandoEdicaoDeAreaComum_AntecedenciaMinimaInvalida()
         {
-            var listaPeriodos = new List<Periodo>();
+            var comando = EditarAreaComumCommandFactory();
 
-            var periodo = new Periodo("08:00", "12:00", 150, true);
-            listaPeriodos.Add(periodo);
-            periodo = new Periodo("13:00", "17:00", 150, true);
-            listaPeriodos.Add(periodo);
+            comando.SetAntecedenciaMinimaEmDias(-1);
 
-            var areaComum = new EditarAreaComumCommand
-                (Guid.NewGuid(), "Area Comum", "Descricao da area comum", "Termo de Uso",
-                10, "SATURDAY|SUNDAY", 0, 0, -1, 0, false, true, "", "", 0, false, 0, 0, listaPeriodos);
-
-            return areaComum;
+            return comando;
         }
 
         public static EditarAreaComumCommand CriarComandoEdicaoDeAreaComum_AntecedenciaMinimaParaCancelamentoInvalida()
         {
-            var listaPeriodos = new List<Periodo>();
+            var comando = EditarAreaComumCommandFactory();
 
-            var periodo = new Periodo("08:00", "12:00", 150, true);
-            listaPeriodos.Add(periodo);
-            periodo = new Periodo("13:00", "17:00", 150, true);
-            listaPeriodos.Add(periodo);
+            comando.SetAntecedenciaMinimaParaCancelamentoEmDias(-1);
 
-            var areaComum = new EditarAreaComumCommand
-                (Guid.NewGuid(), "Area Comum", "Descricao da area comum", "Termo de Uso",
-                10, "SATURDAY|SUNDAY", 0, 0, 0, -1, false, true, "", "", 0, false, 0, 0, listaPeriodos);
-
-            return areaComum;
+            return comando;
         }
 
         public static EditarAreaComumCommand CriarComandoEdicaoDeAreaComum_NumeroLimiteDeReservaInvalida()
         {
-            var listaPeriodos = new List<Periodo>();
+            var comando = EditarAreaComumCommandFactory();
 
-            var periodo = new Periodo("08:00", "12:00", 150, true);
-            listaPeriodos.Add(periodo);
-            periodo = new Periodo("13:00", "17:00", 150, true);
-            listaPeriodos.Add(periodo);
+            comando.SetNumeroLimiteDeReservaPorUnidade(-1);
 
-            var areaComum = new EditarAreaComumCommand
-                (Guid.NewGuid(), "Area Comum", "Descricao da area comum", "Termo de Uso",
-                10, "SATURDAY|SUNDAY", 0, 0, 0, 0, false, true, "", "", -1, false, 0, 0, listaPeriodos);
-
-            return areaComum;
+            return comando;
         }
 
         public static EditarAreaComumCommand CriarComandoEdicaoDeAreaComum_NumeroLimiteDeReservaSobrepostaInvalida()
         {
-            var listaPeriodos = new List<Periodo>();
+            var comando = EditarAreaComumCommandFactory();
 
-            var periodo = new Periodo("08:00", "12:00", 150, true);
-            listaPeriodos.Add(periodo);
-            periodo = new Periodo("13:00", "17:00", 150, true);
-            listaPeriodos.Add(periodo);
+            comando.SetNumeroLimiteDeReservaSobreposta(-1);
 
-            var areaComum = new EditarAreaComumCommand
-                (Guid.NewGuid(), "Area Comum", "Descricao da area comum", "Termo de Uso",
-                10, "SATURDAY|SUNDAY", 0, 0, 0, 0, false, true, "", "", 0, false, -1, 0, listaPeriodos);
-
-            return areaComum;
+            return comando;
         }
 
         public static EditarAreaComumCommand CriarComandoEdicaoDeAreaComum_NumeroLimiteDeReservaSobrepostaPorUnidadeInvalida()
         {
-            var listaPeriodos = new List<Periodo>();
+            var comando = EditarAreaComumCommandFactory();
 
-            var periodo = new Periodo("08:00", "12:00", 150, true);
-            listaPeriodos.Add(periodo);
-            periodo = new Periodo("13:00", "17:00", 150, true);
-            listaPeriodos.Add(periodo);
+            comando.SetNumeroLimiteDeReservaSobrepostaPorUnidade(-1);
 
-            var areaComum = new EditarAreaComumCommand
-                (Guid.NewGuid(), "Area Comum", "Descricao da area comum", "Termo de Uso",
-                10, "SATURDAY|SUNDAY", 0, 0, 0, 0, false, true, "", "", 0, false, 0, -1, listaPeriodos);
-
-            return areaComum;
+            return comando;
         }
 
         public static EditarAreaComumCommand CriarComandoEdicaoDeAreaComum_PeriodoPernoite()
         {
-            var listaPeriodos = new List<Periodo>();
-
             var periodo = new Periodo("17:00", "02:00", 150, true);
-            listaPeriodos.Add(periodo);
+            
+            var comando = EditarAreaComumCommandFactory();
 
-            var areaComum = new EditarAreaComumCommand
-                (Guid.NewGuid(), "Area Comum", "Descricao da area comum", "Termo de Uso",
-                10, "SATURDAY|SUNDAY", 0, 0, 0, 0, false, true, "", "", 0, false, 0, 0, listaPeriodos);
+            comando.LimparPeriodos();
+            comando.AdicionarPeriodo(periodo);
 
-            return areaComum;
+            return comando;
         }
 
         public static EditarAreaComumCommand CriarComandoEdicaoDeAreaComum_PeriodoSemHoraInicio()
         {
-            var listaPeriodos = new List<Periodo>();
+            var periodo = new Periodo("", "17:00", 150, true);          
 
-            var periodo = new Periodo("", "17:00", 150, true);
-            listaPeriodos.Add(periodo);
+            var comando = EditarAreaComumCommandFactory();
 
-            var areaComum = new EditarAreaComumCommand
-                (Guid.NewGuid(), "Area Comum", "Descricao da area comum", "Termo de Uso",
-                10, "SATURDAY|SUNDAY", 0, 0, 0, 0, false, true, "", "", 0, false, 0, 0, listaPeriodos);
+            comando.LimparPeriodos();
+            comando.AdicionarPeriodo(periodo);
 
-            return areaComum;
+            return comando;
         }
 
         public static EditarAreaComumCommand CriarComandoEdicaoDeAreaComum_PeriodoComHoraInicioInvalida()
         {
-            var listaPeriodos = new List<Periodo>();
-
             var periodo = new Periodo("30:00", "17:00", 150, true);
-            listaPeriodos.Add(periodo);
 
-            var areaComum = new EditarAreaComumCommand
-                (Guid.NewGuid(), "Area Comum", "Descricao da area comum", "Termo de Uso",
-                10, "SATURDAY|SUNDAY", 0, 0, 0, 0, false, true, "", "", 0, false, 0, 0, listaPeriodos);
+            var comando = EditarAreaComumCommandFactory();
 
-            return areaComum;
+            comando.LimparPeriodos();
+            comando.AdicionarPeriodo(periodo);
+
+            return comando;
         }
 
         public static EditarAreaComumCommand CriarComandoEdicaoDeAreaComum_PeriodoSemHoraFim()
         {
-            var listaPeriodos = new List<Periodo>();
-
             var periodo = new Periodo("08:00", "", 150, true);
-            listaPeriodos.Add(periodo);
 
-            var areaComum = new EditarAreaComumCommand
-                (Guid.NewGuid(), "Area Comum", "Descricao da area comum", "Termo de Uso",
-                10, "SATURDAY|SUNDAY", 0, 0, 0, 0, false, true, "", "", 0, false, 0, 0, listaPeriodos);
+            var comando = EditarAreaComumCommandFactory();
 
-            return areaComum;
+            comando.LimparPeriodos();
+            comando.AdicionarPeriodo(periodo);
+
+            return comando;
         }
 
         public static EditarAreaComumCommand CriarComandoEdicaoDeAreaComum_PeriodoComHoraFimInvalida()
         {
-            var listaPeriodos = new List<Periodo>();
-
             var periodo = new Periodo("08:00", "30:00", 150, true);
-            listaPeriodos.Add(periodo);
 
-            var areaComum = new EditarAreaComumCommand
-                (Guid.NewGuid(), "Area Comum", "Descricao da area comum", "Termo de Uso",
-                10, "SATURDAY|SUNDAY", 0, 0, 0, 0, false, true, "", "", 0, false, 0, 0, listaPeriodos);
+            var comando = EditarAreaComumCommandFactory();
 
-            return areaComum;
+            comando.LimparPeriodos();
+            comando.AdicionarPeriodo(periodo);
+
+            return comando;
         }
 
+
+       
+        /// AtivarAreaComumCommand        
         public static AtivarAreaComumCommand CriarComandoAtivacaoDeAreaComum()
         {
-            var listaPeriodos = new List<Periodo>();
-
-            var periodo = new Periodo("08:00", "12:00", 150, true);
-            listaPeriodos.Add(periodo);
-            periodo = new Periodo("13:00", "17:00", 150, true);
-            listaPeriodos.Add(periodo);
-
             var areaComum = new AtivarAreaComumCommand
                 (Guid.NewGuid());
 
             return areaComum;
         }
 
+       
+        /// DesativarAreaComumCommand       
         public static DesativarAreaComumCommand CriarComandoDesativacaoDeAreaComum()
         {
-            var listaPeriodos = new List<Periodo>();
-
-            var periodo = new Periodo("08:00", "12:00", 150, true);
-            listaPeriodos.Add(periodo);
-            periodo = new Periodo("13:00", "17:00", 150, true);
-            listaPeriodos.Add(periodo);
-
             var areaComum = new DesativarAreaComumCommand
                 (Guid.NewGuid());
 

@@ -14,7 +14,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
         public Guid UnidadeId { get; protected set; }
         public string NumeroUnidade { get; protected set; }
         public string AndarUnidade { get; protected set; }
-        public string DescricaoGrupoUnidade { get; protected set; }
+        public string GrupoUnidade { get; protected set; }
         public Guid UsuarioId { get; protected set; }
         public string NomeUsuario { get; protected set; }
         public DateTime DataDeRealizacao { get; protected set; }
@@ -27,6 +27,25 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
         public string Origem { get; protected set; }
         public bool ReservadoPelaAdministracao { get; protected set; }
 
-       
+
+        public void SetAreaComumId(Guid id) => AreaComumId = id;
+
+        public void SetUnidadeId(Guid id) => UnidadeId = id;
+
+        public void SetNumeroUnidade(string numero) => NumeroUnidade = numero;
+
+        public void SetAndarUnidade(string andar) => AndarUnidade = andar;
+
+        public void SetGrupoUnidade(string grupo) => GrupoUnidade = grupo;
+
+        public void SetUsuarioId(Guid id) => UsuarioId = id;
+
+        public void SetNomeUsuario(string nome) => NomeUsuario = nome;
+
+        public void SetHoraInicio(string hora) => HoraInicio = hora;
+
+        public void SetHoraFim(string hora) => HoraFim = hora;
+
+
     }
 }
