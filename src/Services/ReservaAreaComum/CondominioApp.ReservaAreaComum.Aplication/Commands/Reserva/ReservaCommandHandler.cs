@@ -164,7 +164,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
         {
             return new Reserva
                 (request.AreaComumId, request.Observacao, request.UnidadeId, request.NumeroUnidade, request.AndarUnidade,
-                 request.DescricaoGrupoUnidade, request.UsuarioId, request.NomeUsuario, request.DataDeRealizacao.Date,
+                 request.GrupoUnidade, request.UsuarioId, request.NomeUsuario, request.DataDeRealizacao.Date,
                  request.HoraInicio, request.HoraFim, request.Preco, request.EstaNaFila, request.Origem,
                  request.ReservadoPelaAdministracao);
         }

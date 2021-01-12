@@ -191,11 +191,9 @@ namespace CondominioApp.ReservaAreaComum.Domain
 
         public ValidationResult AdicionarPeriodo(Periodo periodoNovo)
         {
-            var verificadorDeHorariosConflitantes = new VerificadorDeHorariosConflitantes();
-
             foreach (Periodo periodo in _Periodos)
             {               
-                if (verificadorDeHorariosConflitantes.Verificar(periodo, periodoNovo))
+                if (VerificadorDeHorariosConflitantes.Verificar(periodo, periodoNovo))
                 {
                     AdicionarErrosDaEntidade("Período incompatível com outro período ja existente!");
                     return ValidationResult;
@@ -246,7 +244,7 @@ namespace CondominioApp.ReservaAreaComum.Domain
                 if (!resultado.IsValid) return resultado;
             }
 
-            if (PermiteReservaSobreposta)
+            if (PermiteReservaSobreposta && TemHorariosEspecificos)
                 Gerenciador = new GerenciadorDeReserva(
                     new RegrasGlobaisParaReservar(reserva, this, new RegraDeReservaSobreposta(this, reserva)));
             else

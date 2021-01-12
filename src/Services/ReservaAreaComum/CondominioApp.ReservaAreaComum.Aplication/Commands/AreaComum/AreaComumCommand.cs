@@ -34,6 +34,54 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
 
         public ICollection<Periodo> Periodos;
 
-   
+
+        public void SetNome(string nome) => Nome = nome;
+
+        public void SetCondominioId(Guid condominioId) => CondominioId = condominioId;
+
+        public void SetNomeCondominio(string nome) => NomeCondominio = nome;
+
+        public void SetDiasPermitidos(string dias) => DiasPermitidos = dias;
+
+        public void SetAntecedenciaMaximaEmMeses(int meses) => AntecedenciaMaximaEmMeses = meses;
+
+        public void SetAntecedenciaMaximaEmDias(int dias) => AntecedenciaMaximaEmDias = dias;
+
+        public void SetAntecedenciaMinimaEmDias(int dias) => AntecedenciaMinimaEmDias = dias;
+
+        public void SetAntecedenciaMinimaParaCancelamentoEmDias(int dias) => AntecedenciaMinimaParaCancelamentoEmDias = dias;
+
+        public void RequerAprovacao() => RequerAprovacaoDeReserva = true;
+
+        public void NaoRequerAprovacao() => RequerAprovacaoDeReserva = false;
+
+        public void MarcarTemHorariosEspecificos() => TemHorariosEspecificos = true;
+
+        public void MarcarNaoTemHorariosEspecificos() => TemHorariosEspecificos = false;
+
+        public void SetTempoDeIntervaloEntreReservas(string dias) => TempoDeIntervaloEntreReservas = dias;
+
+        public void SetTempoDeDuracaoDeReserva(string tempo) => TempoDeDuracaoDeReserva = tempo;
+
+        public void SetNumeroLimiteDeReservaPorUnidade(int limite) => NumeroLimiteDeReservaPorUnidade = limite;
+
+        public void MarcarPermiteReservaSobreposta() => PermiteReservaSobreposta = true;
+
+        public void MarcarNaoPermiteReservaSobreposta() => PermiteReservaSobreposta = false;
+
+        public void SetNumeroLimiteDeReservaSobreposta(int limite) => NumeroLimiteDeReservaSobreposta = limite;
+
+        public void SetNumeroLimiteDeReservaSobrepostaPorUnidade(int limite) => NumeroLimiteDeReservaSobrepostaPorUnidade = limite;
+
+        public void LimparPeriodos()
+        {
+            Periodos.Clear();
+        }     
+
+        public void AdicionarPeriodo(Periodo periodo)
+        {
+            Periodos.Add(periodo);
+        }
+
     }
 }

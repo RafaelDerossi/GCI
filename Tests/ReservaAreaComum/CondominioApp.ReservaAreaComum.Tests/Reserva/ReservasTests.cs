@@ -230,8 +230,8 @@ namespace CondominioApp.ReservaAreaComum.Tests
         {
             //Arrange
             var areacomum = AreaComumFactory.CriarAreaComum_AprovacaoAutomatica_PermitirReservaSobreposta();
-            var reserva1 = ReservaFactory.CriarReservaValidaMobile();
-            var reserva2 = ReservaFactory.CriarReservaValidaMobile();          
+            var reserva1 = ReservaFactory.CriarReservaValidaMobile0800_1200();
+            var reserva2 = ReservaFactory.CriarReservaValidaMobile0800_1200();          
 
             areacomum.AdicionarReserva(reserva1);
 
@@ -514,6 +514,25 @@ namespace CondominioApp.ReservaAreaComum.Tests
             Assert.True(result.IsValid);
         }
 
+        [Fact(DisplayName = "Reserva - Criar Reserva Válida - Pra Intervalo Fixo Invertido")]
+        [Trait("Categoria", "Reservas - Intervalo Fixo")]
+        public void Reservar_para_o_Intervalo_Fixo_Invertido()
+        {
+            //Arrange
+            var areacomum = AreaComumFactory.CriarAreaComum_AprovacaoAutomatica_IntervaloFixo_0030();
+            var reserva1 = ReservaFactory.CriarReservaValidaMobile0930_1030();
+            var reserva2 = ReservaFactory.CriarReservaValidaMobile0800_0900();
+          
+
+            areacomum.AdicionarReserva(reserva1);
+
+            //act
+            var result = areacomum.AdicionarReserva(reserva2);
+
+            //assert
+            Assert.True(result.IsValid);
+        }
+
         [Fact(DisplayName = "Reserva - Criar Reserva Inválida - Pra Intervalo Fixo")]
         [Trait("Categoria", "Reservas - Intervalo Fixo")]
         public void Reservar_para_o_Intervalo_Fixo_Invalido()
@@ -531,6 +550,66 @@ namespace CondominioApp.ReservaAreaComum.Tests
             //assert
             Assert.False(result.IsValid);
         }
+
+        [Fact(DisplayName = "Reserva - Criar Reserva Inválida - Pra Intervalo Fixo Invertido")]
+        [Trait("Categoria", "Reservas - Intervalo Fixo")]
+        public void Reservar_para_o_Intervalo_Fixo_Invertido_Invalido()
+        {
+            //Arrange
+            var areacomum = AreaComumFactory.CriarAreaComum_AprovacaoAutomatica_IntervaloFixo_0030();
+            var reserva1 = ReservaFactory.CriarReservaValidaMobile1000_1400();
+            var reserva2 = ReservaFactory.CriarReservaValidaMobile0900_1000();           
+
+            areacomum.AdicionarReserva(reserva1);
+
+            //act
+            var result = areacomum.AdicionarReserva(reserva2);
+
+            //assert
+            Assert.False(result.IsValid);
+        }
+
+        [Fact(DisplayName = "Reserva - Criar Reserva Inválida - Pra Intervalo Fixo com Sobreposicao")]
+        [Trait("Categoria", "Reservas - Intervalo Fixo")]
+        public void Reservar_para_o_Intervalo_Fixo_Sobreposicao_Invalido()
+        {
+            //Arrange
+            var areacomum = AreaComumFactory.CriarAreaComum_AprovacaoAutomatica_IntervaloFixo_0030_Sobreposicao();
+            var reserva1 = ReservaFactory.CriarReservaValidaMobile0800_0900();
+            var reserva2 = ReservaFactory.CriarReservaValidaMobile0930_1030();
+            var reserva3 = ReservaFactory.CriarReservaValidaMobile0930_1030();           
+
+            areacomum.AdicionarReserva(reserva1);
+            areacomum.AdicionarReserva(reserva2);
+
+            //act
+            var result = areacomum.AdicionarReserva(reserva3);           
+
+            //assert
+            Assert.False(result.IsValid);
+        }
+
+        [Fact(DisplayName = "Reserva - Criar Reserva Inválida - Pra Intervalo Fixo com Sobreposicao Invertido")]
+        [Trait("Categoria", "Reservas - Intervalo Fixo")]
+        public void Reservar_para_o_Intervalo_Fixo_Sobreposicao_Invertido_Invalido()
+        {
+            //Arrange
+            var areacomum = AreaComumFactory.CriarAreaComum_AprovacaoAutomatica_IntervaloFixo_0030_Sobreposicao();
+            var reserva1 = ReservaFactory.CriarReservaValidaMobile0930_1030();
+            var reserva2 = ReservaFactory.CriarReservaValidaMobile0800_0900();            
+            var reserva3 = ReservaFactory.CriarReservaValidaMobile0800_0900();
+
+            areacomum.AdicionarReserva(reserva1);
+            areacomum.AdicionarReserva(reserva2);
+
+            //act
+            var result = areacomum.AdicionarReserva(reserva3);           
+
+            //assert
+            Assert.False(result.IsValid);
+        }
+
+
 
         [Fact(DisplayName = "Reserva - Criar Reserva Válida - Pra Duracao da Reserva")]
         [Trait("Categoria", "Reservas -Duracao da Rerserva")]

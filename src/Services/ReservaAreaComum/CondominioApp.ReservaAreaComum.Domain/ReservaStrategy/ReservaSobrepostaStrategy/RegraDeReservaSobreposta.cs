@@ -40,7 +40,6 @@ namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.ReservaSobrepost
 
             return ValidationResult;
         }
-
         private ValidationResult ValidarQuantidadeDeVagasPorUnidade()
         {
             int quantidadeReservaMesmoHorarioPorUnidade = _areaComum.Reservas.Count(x => x.Ativa && !x.EstaNaFila && !x.Cancelada && !x.Lixeira &&

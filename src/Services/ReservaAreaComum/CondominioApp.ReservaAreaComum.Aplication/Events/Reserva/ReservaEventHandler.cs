@@ -49,14 +49,15 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Events
         public async Task Handle(ReservaAprovadaEvent notification, CancellationToken cancellationToken)
         {
             var reservaFlat = await _reservaAreaComumQueryRepository.ObterReservaPorId(notification.Id);
-
-            if (reservaFlat !=null)
+            if (reservaFlat == null)
             {
-                reservaFlat.Aprovar();
-                _reservaAreaComumQueryRepository.AtualizarReserva(reservaFlat);
-
-                await PersistirDados(_reservaAreaComumQueryRepository.UnitOfWork);
-            }           
+                return;
+            }
+            
+            reservaFlat.Aprovar();
+            _reservaAreaComumQueryRepository.AtualizarReserva(reservaFlat);
+            await PersistirDados(_reservaAreaComumQueryRepository.UnitOfWork);
+                     
         }
 
         public async Task Handle(ReservaCanceladaEvent notification, CancellationToken cancellationToken)

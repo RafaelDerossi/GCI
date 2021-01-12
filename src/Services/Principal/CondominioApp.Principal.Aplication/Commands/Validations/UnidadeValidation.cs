@@ -19,9 +19,8 @@ namespace CondominioApp.Principal.Aplication.Commands.Validations
         protected void ValidateAndar()
         {
             RuleFor(c => c.Andar)
-                  .NotNull()
-                  .NotEmpty()
-                  .WithMessage("Andar não pode estar vazio!");
+                  .NotNull().WithMessage("Andar não pode estar vazio!")
+                  .NotEmpty().WithMessage("Andar não pode estar vazio!");
         }
         protected void ValidateVaga()
         {

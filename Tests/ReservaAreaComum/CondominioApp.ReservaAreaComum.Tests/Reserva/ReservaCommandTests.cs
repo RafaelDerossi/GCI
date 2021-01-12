@@ -87,7 +87,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
         public void CadastroDeReserva_SemDescricaoDoGrupo_CommandoInvalido_NaoDevePassarNaValidacao()
         {
             //Arrange
-            var Command = ReservaCommandFactory.CriarComandoCadastroDeReservaSemDescricaoDoGrupo();
+            var Command = ReservaCommandFactory.CriarComandoCadastroDeReservaSemGrupoDaUnidade();
 
             //Act
             var result = Command.EstaValido();
