@@ -123,6 +123,7 @@ namespace CondominioApp.Portaria.Domain
 
 
         public void SetDataDeEntrada(DateTime dataDeEntrada) => DataDeEntrada = dataDeEntrada;
+        public void SetNomeCondomino(string nome) => NomeCondomino = nome;
         public void SetNomeVisitante(string nome) => NomeVisitante = nome;
         public void SetTipoDocumentoVisitante(TipoDeDocumento tipoDeDocumento) => TipoDeDocumentoVisitante = tipoDeDocumento;
         public void SetRgVisitante(Rg rg) => RgVisitante = rg;
@@ -132,6 +133,11 @@ namespace CondominioApp.Portaria.Domain
         public void SetTipoDeVisitante(TipoDeVisitante tipoDeVisitante) => TipoDeVisitante = tipoDeVisitante;
         public void SetNomeEmpresaVisitante(string nomeEmpresa) => NomeEmpresaVisitante = nomeEmpresa;
         public void SetVeiculo(Veiculo veiculo) => Veiculo = veiculo;
+
+        public void SetUnidadeId(Guid id) => UnidadeId = id;
+        public void SetNumeroUnidade(string numero) => NumeroUnidade = numero;
+        public void SetAndarUnidade(string andar) => AndarUnidade = andar;
+        public void SetGrupoUnidade(string grupo) => GrupoUnidade = grupo;
 
 
         /// Outros Metodos 

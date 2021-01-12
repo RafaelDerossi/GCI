@@ -7,7 +7,6 @@ namespace CondominioApp.Portaria.Tests
 {
     public class VisitanteCommandFactory
     {
-
         public static CadastrarVisitanteCommand CadastrarVisitanteCommandFactory()
         {
             return new CadastrarVisitanteCommand
@@ -17,6 +16,17 @@ namespace CondominioApp.Portaria.Tests
               "LMG8888", "Modelo Veiculo", "Prata");
         }
 
+        public static EditarVisitanteCommand EditarVisitanteCommandFactory()
+        {
+            return new EditarVisitanteCommand
+              (Guid.NewGuid(), "Nome Visitante", "143.026.417-97", "rafael@condominioapp.com",
+              "foto.jpg", "nomeOriginal.jpg", false, TipoDeVisitante.PARTICULAR, "", true,
+              "LMG8888", "Modelo Veiculo", "Prata");
+        }
+
+
+        
+        /// CadastrarVisitanteCommand        
         public static CadastrarVisitanteCommand CriarComandoCadastroDeVisitante_ComCPF()
         {
             return CadastrarVisitanteCommandFactory();
@@ -129,6 +139,78 @@ namespace CondominioApp.Portaria.Tests
         }
 
 
+        ///EditarVisitanteCommand
+        public static EditarVisitanteCommand CriarComandoEdicaoDeVisitante_ComCPF()
+        {
+            return EditarVisitanteCommandFactory();
+        }
+
+        public static EditarVisitanteCommand CriarComandoEdicaoDeVisitante_ComCPFInvalido()
+        {
+            var comando = EditarVisitanteCommandFactory();
+
+            comando.SetDocumento("14302641798");
+
+            return comando;
+        }
+
+        public static EditarVisitanteCommand CriarComandoEdicaoDeVisitante_ComRG()
+        {
+            var comando = EditarVisitanteCommandFactory();
+
+            comando.SetDocumento("123456789");
+
+            return comando;
+        }
+
+        public static EditarVisitanteCommand CriarComandoEdicaoDeVisitante_SemDocumento()
+        {
+            var comando = EditarVisitanteCommandFactory();
+
+            comando.SetDocumento("");
+
+            return comando;
+        }
+
+        public static EditarVisitanteCommand CriarComandoEdicaoDeVisitante_SemPlaca()
+        {
+            var comando = EditarVisitanteCommandFactory();
+
+            comando.MarcarQueTemVeiculo();
+            comando.SetVeiculo("","Modelo","Prata");
+
+            return comando;
+        }
+
+        public static EditarVisitanteCommand CriarComandoEdicaoDeVisitante_SemModelo()
+        {
+            var comando = EditarVisitanteCommandFactory();
+
+            comando.MarcarQueTemVeiculo();
+            comando.SetVeiculo("", "", "Prata");
+
+            return comando;
+        }
+
+        public static EditarVisitanteCommand CriarComandoEdicaoDeVisitante_SemCor()
+        {
+            var comando = EditarVisitanteCommandFactory();
+
+            comando.MarcarQueTemVeiculo();
+            comando.SetVeiculo("", "Modelo", "");
+
+            return comando;
+        }
+
+        public static EditarVisitanteCommand CriarComandoEdicaoDeVisitante_SemVeiculo()
+        {
+            var comando = EditarVisitanteCommandFactory();
+
+            comando.MarcarQueNaoTemVeiculo();
+            comando.SetVeiculo("", "", "");
+
+            return comando;
+        }
 
     }
 
