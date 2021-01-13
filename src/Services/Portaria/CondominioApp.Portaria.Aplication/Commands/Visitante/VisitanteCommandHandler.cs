@@ -1,4 +1,5 @@
 ﻿using CondominioApp.Core.Messages;
+using CondominioApp.Portaria.Aplication.Events;
 using CondominioApp.Portaria.Domain;
 using CondominioApp.Portaria.Domain.Interfaces;
 using FluentValidation.Results;
@@ -50,15 +51,14 @@ namespace CondominioApp.Portaria.Aplication.Commands
 
             _visitanteRepository.Adicionar(visitante);
 
-            //visitante.AdicionarEvento(
-            //    new CondominioCadastradoEvent(visitante.Id,
-            //    visitante.Cnpj, visitante.Nome, visitante.Descricao, visitante.LogoMarca,
-            //    visitante.Telefone, visitante.Endereco, visitante.RefereciaId, visitante.LinkGeraBoleto, 
-            //    visitante.BoletoFolder, visitante.UrlWebServer, visitante.Portaria, visitante.PortariaMorador,
-            //    visitante.Classificado, visitante.ClassificadoMorador, visitante.Mural,
-            //    visitante.MuralMorador, visitante.Chat, visitante.ChatMorador, visitante.Reserva,
-            //    visitante.ReservaNaPortaria, visitante.Ocorrencia, visitante.OcorrenciaMorador,
-            //    visitante.Correspondencia, visitante.CorrespondenciaNaPortaria, visitante.LimiteTempoReserva));
+            
+            visitante.AdicionarEvento(
+                new VisitanteCadastradoEvent(
+                    visitante.Id, visitante.Nome, visitante.Cpf, visitante.Rg, visitante.Email, visitante.Foto,
+                    visitante.CondominioId, visitante.NomeCondominio, visitante.UnidadeId, visitante.NumeroUnidade,
+                    visitante.AndarUnidade, visitante.GrupoUnidade, visitante.VisitantePermanente, visitante.QrCode,
+                    visitante.TipoDeVisitante, visitante.NomeEmpresa, visitante.TemVeiculo, visitante.Veiculo));
+
 
             return await PersistirDados(_visitanteRepository.UnitOfWork);
         }
@@ -110,15 +110,13 @@ namespace CondominioApp.Portaria.Aplication.Commands
 
             _visitanteRepository.Atualizar(visitante);
 
-            //visitante.AdicionarEvento(
-            //    new CondominioCadastradoEvent(visitante.Id,
-            //    visitante.Cnpj, visitante.Nome, visitante.Descricao, visitante.LogoMarca,
-            //    visitante.Telefone, visitante.Endereco, visitante.RefereciaId, visitante.LinkGeraBoleto, 
-            //    visitante.BoletoFolder, visitante.UrlWebServer, visitante.Portaria, visitante.PortariaMorador,
-            //    visitante.Classificado, visitante.ClassificadoMorador, visitante.Mural,
-            //    visitante.MuralMorador, visitante.Chat, visitante.ChatMorador, visitante.Reserva,
-            //    visitante.ReservaNaPortaria, visitante.Ocorrencia, visitante.OcorrenciaMorador,
-            //    visitante.Correspondencia, visitante.CorrespondenciaNaPortaria, visitante.LimiteTempoReserva));
+
+            visitante.AdicionarEvento(
+                new VisitanteEditadoEvent(
+                    visitante.Id, visitante.Nome, visitante.Cpf, visitante.Rg, visitante.Email, visitante.Foto,
+                    visitante.VisitantePermanente, visitante.TipoDeVisitante, visitante.NomeEmpresa, 
+                    visitante.TemVeiculo, visitante.Veiculo));
+
 
             return await PersistirDados(_visitanteRepository.UnitOfWork);
         }
@@ -139,8 +137,10 @@ namespace CondominioApp.Portaria.Aplication.Commands
 
             _visitanteRepository.Atualizar(visitanteBd);
 
+            
             //Evento
-            //
+            visitanteBd.AdicionarEvento(new VisitanteRemovidoEvent(visitanteBd.Id));
+
 
             return await PersistirDados(_visitanteRepository.UnitOfWork);
         }

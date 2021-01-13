@@ -1,24 +1,25 @@
 ﻿using CondominioApp.Core.Data;
 using CondominioApp.Core.Helpers;
-using CondominioApp.Core.Mediator;
 using CondominioApp.Core.Messages;
-using CondominioApp.ReservaAreaComum.Domain;
-using CondominioApp.ReservaAreaComum.Domain.FlatModel;
+using CondominioApp.Portaria.Domain;
+using CondominioApp.Portaria.Domain.FlatModel;
+using CondominioApp.Portaria.ValueObjects;
 using FluentValidation.Results;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CondominioApp.Principal.Infra.DataQuery
+namespace CondominioApp.Portaria.Infra.DataQuery
 {
-    public class ReservaAreaComumQueryContextDB : DbContext, IUnitOfWorks
-    {
-        public DbSet<AreaComumFlat> AreasComunsFlat { get; set; }
-        public DbSet<PeriodoFlat> PeriodosFlat { get; set; }
-        public DbSet<ReservaFlat> ReservasFlat { get; set; }
-      
-        public ReservaAreaComumQueryContextDB(DbContextOptions<ReservaAreaComumQueryContextDB> options)
+    public class PortariaQueryContextDB : DbContext, IUnitOfWorks
+    {     
+
+        public DbSet<VisitanteFlat> VisitantesFlat { get; set; }
+
+        public DbSet<VisitaFlat> VisitasFlat { get; set; }      
+
+        public PortariaQueryContextDB(DbContextOptions<PortariaQueryContextDB> options)
             : base(options)
         {
         }
@@ -27,11 +28,15 @@ namespace CondominioApp.Principal.Infra.DataQuery
         {
             modelBuilder.Ignore<ValidationResult>();
             modelBuilder.Ignore<Event>();
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(ReservaAreaComumQueryContextDB).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(PortariaQueryContextDB).Assembly);
 
-            modelBuilder.Ignore<AreaComum>();
-            modelBuilder.Ignore<Periodo>();
-            modelBuilder.Ignore<Reserva>();           
+            modelBuilder.Ignore<Visitante>();
+            modelBuilder.Ignore<Visita>();
+            modelBuilder.Ignore<Cpf>();
+            modelBuilder.Ignore<Rg>();
+            modelBuilder.Ignore<Email>();
+            modelBuilder.Ignore<Foto>();
+            modelBuilder.Ignore<Veiculo>();
         }
 
         public async Task<bool> Commit()
@@ -47,7 +52,7 @@ namespace CondominioApp.Principal.Infra.DataQuery
                         TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, cetZone);
                     entry.Property("DataDeAlteracao").CurrentValue =
                         entry.Property("DataDeCadastro").CurrentValue;
-                }                   
+                }
 
                 if (entry.State == EntityState.Modified)
                 {
@@ -58,6 +63,7 @@ namespace CondominioApp.Principal.Infra.DataQuery
             }
 
             return await SaveChangesAsync() > 0;
+
         }
     }
 }

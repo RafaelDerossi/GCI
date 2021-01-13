@@ -95,6 +95,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Events
         public void Dispose()
         {
             _reservaAreaComumRepository?.Dispose();
+            _reservaAreaComumQueryRepository?.Dispose();
         }        
     }
 }

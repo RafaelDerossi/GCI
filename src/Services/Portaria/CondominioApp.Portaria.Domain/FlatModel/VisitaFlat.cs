@@ -6,9 +6,17 @@ using System;
 
 namespace CondominioApp.Portaria.Domain.FlatModel
 {
-    public class VisitaFlat : Entity
+    public class VisitaFlat
     {
-        public const int Max = 200;       
+        public const int Max = 200;
+
+        public Guid Id { get; private set; }
+
+        public DateTime DataDeCadastro { get; private set; }
+
+        public DateTime DataDeAlteracao { get; private set; }
+
+        public bool Lixeira { get; private set; }
 
         public DateTime DataDeEntrada { get; private set; }
         public bool Terminada { get; private set; }
@@ -68,7 +76,7 @@ namespace CondominioApp.Portaria.Domain.FlatModel
         }
 
         public VisitaFlat(
-            DateTime dataDeEntrada, string nomeCondomino,
+            Guid id, DateTime dataDeEntrada, string nomeCondomino,
             string observacao, StatusVisita status, Guid visitanteId, string nomeVisitante,
             TipoDeDocumento tipoDeDocumentoVisitante, string rgVisitante, string cpfVisitante,
             string emailVisitante, string fotoVisitante,TipoDeVisitante tipoDeVisitante,
@@ -77,6 +85,7 @@ namespace CondominioApp.Portaria.Domain.FlatModel
             string descricaoGrupoUnidade, bool temVeiculo,
             string placaVeiculo, string modeloVeiculo, string corVeiculo)
         {
+            Id = id;
             DataDeEntrada = dataDeEntrada;
             NomeCondomino = nomeCondomino;
             Observacao = observacao;
@@ -104,20 +113,25 @@ namespace CondominioApp.Portaria.Domain.FlatModel
 
 
 
-        /// Metodos Set      
+        /// Metodos Set    
+
+        public void EnviarParaLixeira() => Lixeira = true;
+        public void RestaurarDaLixeira() => Lixeira = false;
+
+
         public void AprovarVisita() => Status = StatusVisita.APROVADA;
         public void ReprovarVisita() => Status = StatusVisita.REPROVADA;
 
 
-        public void IniciarVisita()
+        public void IniciarVisita(DateTime dataDeEntrada)
         {
             Status = StatusVisita.INICIADA;
-            DataDeEntrada = DataHoraDeBrasilia.Get();
+            DataDeEntrada = dataDeEntrada;
         }
-        public void TerminarVisita()
+        public void TerminarVisita(DateTime dataDeSaida)
         { 
             Status = StatusVisita.TERMINADA;
-            DataDeSaida = DataHoraDeBrasilia.Get();
+            DataDeSaida = dataDeSaida;
         }
 
 

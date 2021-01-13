@@ -7,9 +7,17 @@ using System.Collections.Generic;
 
 namespace CondominioApp.Portaria.Domain.FlatModel
 {
-    public class VisitanteFlat : Entity, IAggregateRoot
+    public class VisitanteFlat : IAggregateRoot
     {
         public const int Max = 200;
+
+        public Guid Id { get; private set; }
+        
+        public DateTime DataDeCadastro { get; private set; }
+
+        public DateTime DataDeAlteracao { get; private set; }
+
+        public bool Lixeira { get; private set; }
 
         public string Nome { get; private set; }
         public TipoDeDocumento TipoDeDocumento { get; private set; }
@@ -44,12 +52,13 @@ namespace CondominioApp.Portaria.Domain.FlatModel
         {            
         }
 
-        public VisitanteFlat(string nome, TipoDeDocumento tipoDeDocumento, string rg, string cpf,
+        public VisitanteFlat(Guid id, string nome, TipoDeDocumento tipoDeDocumento, string rg, string cpf,
             string email, string foto, Guid condominioId, string nomeCondominio, Guid unidadeId,
             string numeroUnidade, string andarUnidade, string grupoUnidade, bool visitantePermanente,
             string qrCode, TipoDeVisitante tipoDeVisitante, string nomeEmpresa, bool temVeiculo,
             string placaVeiculo, string modeloVeiculo, string corVeiculo)
-        {            
+        {
+            Id = id;
             Nome = nome;
             TipoDeDocumento = tipoDeDocumento;
             Rg = rg;
@@ -75,6 +84,9 @@ namespace CondominioApp.Portaria.Domain.FlatModel
 
 
         /// Metodos Set
+
+        public void EnviarParaLixeira() => Lixeira = true;
+        public void RestaurarDaLixeira() => Lixeira = false;
         public void SetNome(string nome) => Nome = nome;
         public void SetTipoDeDocumento(TipoDeDocumento tipoDeDocumento) => TipoDeDocumento = tipoDeDocumento;
         public void SetRg(string rg) => Rg = rg;

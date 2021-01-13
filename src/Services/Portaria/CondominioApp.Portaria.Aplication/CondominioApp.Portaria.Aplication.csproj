@@ -10,8 +10,4 @@
     <ProjectReference Include="..\CondominioApp.Portaria.Infra\CondominioApp.Portaria.Infra.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Query\" />
-  </ItemGroup>
-
 </Project>
