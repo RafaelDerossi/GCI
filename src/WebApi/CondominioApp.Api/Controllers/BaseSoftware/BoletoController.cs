@@ -35,7 +35,7 @@ namespace CondominioApp.Api.Controllers.BaseSoftware
                 modelBoleto.BOLETO.Add(new BoletoModel(boleto.Id.ToString(),boleto.Vencimento, boleto.ValorDoc,
                     boleto.CodeBarra, boleto.Beneficiario,
                     boleto.BeneficiarioCnpj, boleto.Pagador, boleto.DataDoc, boleto.Mensagem, boleto.UrlBoleto));
-
+                                
                 return Ok(modelBoleto);
             }
             catch (Exception e)

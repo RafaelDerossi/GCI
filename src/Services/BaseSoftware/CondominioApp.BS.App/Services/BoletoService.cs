@@ -28,6 +28,8 @@ namespace CondominioApp.BS.App.Services
 
             if (ItemDeCpfEncontrado == null) return new Boleto();
 
+            if (ItemDeCpfEncontrado.listaDeBoletos.FirstOrDefault() == "") return new Boleto();
+
             return new Boleto(ItemDeCpfEncontrado.listaDeBoletos.FirstOrDefault());
         }
     }

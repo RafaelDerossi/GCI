@@ -16,5 +16,7 @@ namespace CondominioApp.Portaria.Domain.Interfaces
 
         void AtualizarVisita(Visita entity);
 
+        Task<Visita> ObterVisitaPorId(Guid id);
+
     }
 }

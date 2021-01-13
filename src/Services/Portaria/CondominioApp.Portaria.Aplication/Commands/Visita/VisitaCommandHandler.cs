@@ -12,6 +12,12 @@ namespace CondominioApp.Portaria.Aplication.Commands
 {
     public class VisitaCommandHandler : CommandHandler,
          IRequestHandler<CadastrarVisitaCommand, ValidationResult>,
+         IRequestHandler<EditarVisitaCommand, ValidationResult>,
+         IRequestHandler<RemoverVisitaCommand, ValidationResult>,
+         IRequestHandler<AprovarVisitaCommand, ValidationResult>,
+         IRequestHandler<ReprovarVisitaCommand, ValidationResult>,
+         IRequestHandler<IniciarVisitaCommand, ValidationResult>,
+         IRequestHandler<TerminarVisitaCommand, ValidationResult>,
          IDisposable
     {
         private IVisitanteRepository _visitanteRepository;
@@ -87,188 +93,159 @@ namespace CondominioApp.Portaria.Aplication.Commands
                 _visitanteRepository.Atualizar(visitante);
             }
 
-
-
-            //visitante.AdicionarEvento(
-            //    new CondominioCadastradoEvent(visitante.Id,
-            //    visitante.Cnpj, visitante.Nome, visitante.Descricao, visitante.LogoMarca,
-            //    visitante.Telefone, visitante.Endereco, visitante.RefereciaId, visitante.LinkGeraBoleto, 
-            //    visitante.BoletoFolder, visitante.UrlWebServer, visitante.Portaria, visitante.PortariaMorador,
-            //    visitante.Classificado, visitante.ClassificadoMorador, visitante.Mural,
-            //    visitante.MuralMorador, visitante.Chat, visitante.ChatMorador, visitante.Reserva,
-            //    visitante.ReservaNaPortaria, visitante.Ocorrencia, visitante.OcorrenciaMorador,
-            //    visitante.Correspondencia, visitante.CorrespondenciaNaPortaria, visitante.LimiteTempoReserva));
+            //Evento
+            //
 
             return await PersistirDados(_visitanteRepository.UnitOfWork);
         }
 
-        //public async Task<ValidationResult> Handle(EditarCondominioCommand request, CancellationToken cancellationToken)
-        //{
-        //    if (!request.EstaValido()) return request.ValidationResult;
-            
-        //    var condominioBd = await _visitanteRepository.ObterPorId(request.CondominioId);
-        //    if (condominioBd == null)
-        //    {
-        //        AdicionarErro("Condominio não encontrado.");
-        //        return ValidationResult;
-        //    }
+        public async Task<ValidationResult> Handle(EditarVisitaCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido()) return request.ValidationResult;
 
-        //    if (_visitanteRepository.CnpjCondominioJaCadastrado(request.Cnpj, request.CondominioId).Result)
-        //    {
-        //        AdicionarErro("CNPJ informado ja consta no sistema.");
-        //        return ValidationResult;
-        //    }
-
-        //    condominioBd.SetCNPJ(request.Cnpj);
-        //    condominioBd.SetNome(request.Nome);
-        //    condominioBd.SetDescricao(request.Descricao);
-        //    condominioBd.SetFoto(request.LogoMarca);
-        //    condominioBd.SetTelefone(request.Telefone);
-        //    condominioBd.SetEndereco(request.Endereco);            
-
-        //    _visitanteRepository.Atualizar(condominioBd);
-
-        //    condominioBd.AdicionarEvento(
-        //       new CondominioEditadoEvent(condominioBd.Id,
-        //       condominioBd.Cnpj, condominioBd.Nome, condominioBd.Descricao, condominioBd.LogoMarca,
-        //       condominioBd.Telefone, condominioBd.Endereco));
-
-        //    return await PersistirDados(_visitanteRepository.UnitOfWork);
-        //}
-
-        //public async Task<ValidationResult> Handle(EditarConfiguracaoCondominioCommand request, CancellationToken cancellationToken)
-        //{
-        //    if (!request.EstaValido())
-        //        return request.ValidationResult;
-
-        //    var condominioBd = _visitanteRepository.ObterPorId(request.CondominioId).Result;
-        //    if (condominioBd == null)
-        //    {
-        //        AdicionarErro("Condominio não encontrado.");
-        //        return ValidationResult;
-        //    }
-
-        //    if (request.Portaria)
-        //        condominioBd.AtivarPortaria();
-        //    else
-        //        condominioBd.DesativarPortaria();
+            var visitaBd = await _visitanteRepository.ObterVisitaPorId(request.Id);
+            if (visitaBd == null)
+            {
+                AdicionarErro("Visita não encontrada.");
+                return ValidationResult;
+            }
+            visitaBd.SetNomeCondomino(request.NomeCondomino);
+            visitaBd.SetNomeVisitante(request.NomeVisitante);
+            visitaBd.SetTipoDeVisitante(request.TipoDeVisitante);
+            visitaBd.SetNomeEmpresaVisitante(request.NomeEmpresaVisitante);
+            visitaBd.SetUnidadeId(request.UnidadeId);
+            visitaBd.SetNumeroUnidade(request.NumeroUnidade);
+            visitaBd.SetAndarUnidade(request.AndarUnidade);
+            visitaBd.SetGrupoUnidade(request.GrupoUnidade);
+            visitaBd.SetVeiculo(request.Veiculo);
 
 
-        //    if (request.PortariaMorador)
-        //        condominioBd.AtivarPortariaMorador();
-        //    else
-        //        condominioBd.DesativarPortariaMorador();
+            var visitanteBd = await _visitanteRepository.ObterPorId(visitaBd.VisitanteId);
+            if (visitanteBd == null)
+            {
+                AdicionarErro("Visitante não encontrada.");
+                return ValidationResult;
+            }
+            visitanteBd.SetNome(request.NomeVisitante);
+            visitanteBd.SetTipoDeVisitante(request.TipoDeVisitante);
+            visitanteBd.SetNomeEmpresa(request.NomeEmpresaVisitante);
+            visitanteBd.SetVeiculo(request.Veiculo);
 
+            visitanteBd.AdicionarVisita(visitaBd);
+           
+            _visitanteRepository.Atualizar(visitanteBd);
 
-        //    if (request.Classificado)
-        //        condominioBd.AtivarClassificado();
-        //    else
-        //        condominioBd.DesativarClassificado();
+            //Evento
+            //
 
+            return await PersistirDados(_visitanteRepository.UnitOfWork);
+        }
 
-        //    if (request.ClassificadoMorador)
-        //        condominioBd.AtivarClassificadoMorador();
-        //    else
-        //        condominioBd.DesativarClassificadoMorador();
+        public async Task<ValidationResult> Handle(RemoverVisitaCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido()) return request.ValidationResult;
 
+            var visitaBd = _visitanteRepository.ObterVisitaPorId(request.Id).Result;
+            if (visitaBd == null)
+            {
+                AdicionarErro("Visita não encontrada.");
+                return ValidationResult;
+            }
 
-        //    if (request.Mural)
-        //        condominioBd.AtivarMural();
-        //    else
-        //        condominioBd.DesativarMural();
+            visitaBd.EnviarParaLixeira();
 
+            _visitanteRepository.AtualizarVisita(visitaBd);
 
-        //    if (request.MuralMorador)
-        //        condominioBd.AtivarMuralMorador();
-        //    else
-        //        condominioBd.DesativarMuralMorador();
+            //Evento
+            //
 
+            return await PersistirDados(_visitanteRepository.UnitOfWork);
+        }
 
-        //    if (request.Chat)
-        //        condominioBd.AtivarChat();
-        //    else
-        //        condominioBd.DesativarChat();
+        public async Task<ValidationResult> Handle(AprovarVisitaCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido()) return request.ValidationResult;
 
+            var visitaBd = _visitanteRepository.ObterVisitaPorId(request.Id).Result;
+            if (visitaBd == null)
+            {
+                AdicionarErro("Visita não encontrada.");
+                return ValidationResult;
+            }
 
-        //    if (request.ChatMorador)
-        //        condominioBd.AtivarChatMorador();
-        //    else
-        //        condominioBd.DesativarChatMorador();
+            visitaBd.AprovarVisita();
 
-        //    if (request.Reserva)
-        //        condominioBd.AtivarReserva();
-        //    else
-        //        condominioBd.DesativarReserva();
+            _visitanteRepository.AtualizarVisita(visitaBd);
 
+            //Evento
+            //
 
-        //    if (request.ReservaNaPortaria)
-        //        condominioBd.AtivarReservaNaPortaria();
-        //    else
-        //        condominioBd.DesativarReservaNaPortaria();
+            return await PersistirDados(_visitanteRepository.UnitOfWork);
+        }
 
+        public async Task<ValidationResult> Handle(ReprovarVisitaCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido()) return request.ValidationResult;
 
-        //    if (request.Ocorrencia)
-        //        condominioBd.AtivarOcorrencia();
-        //    else
-        //        condominioBd.DesativarOcorrencia();
+            var visitaBd = _visitanteRepository.ObterVisitaPorId(request.Id).Result;
+            if (visitaBd == null)
+            {
+                AdicionarErro("Visita não encontrada.");
+                return ValidationResult;
+            }
 
+            visitaBd.ReprovarVisita();
 
-        //    if (request.OcorrenciaMorador)
-        //        condominioBd.AtivarOcorrenciaMorador();
-        //    else
-        //        condominioBd.DesativarOcorrenciaMorador();
+            _visitanteRepository.AtualizarVisita(visitaBd);
 
+            //Evento
+            //
 
-        //    if (request.Correspondencia)
-        //        condominioBd.AtivarCorrespondencia();
-        //    else
-        //        condominioBd.DesativarCorrespondencia();
+            return await PersistirDados(_visitanteRepository.UnitOfWork);
+        }
 
+        public async Task<ValidationResult> Handle(IniciarVisitaCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido()) return request.ValidationResult;
 
-        //    if (request.CorrespondenciaNaPortaria)
-        //        condominioBd.AtivarCorrespondenciaNaPortaria();
-        //    else
-        //        condominioBd.DesativarCorrespondenciaNaPortaria();
+            var visitaBd = _visitanteRepository.ObterVisitaPorId(request.Id).Result;
+            if (visitaBd == null)
+            {
+                AdicionarErro("Visita não encontrada.");
+                return ValidationResult;
+            }
 
+            visitaBd.IniciarVisita();
 
-        //    if (request.LimiteTempoReserva)
-        //        condominioBd.AtivarLimiteTempoReserva();
-        //    else
-        //        condominioBd.DesativarLimiteTempoReserva();
+            _visitanteRepository.AtualizarVisita(visitaBd);
 
+            //Evento
+            //
 
-        //    _visitanteRepository.Atualizar(condominioBd);
+            return await PersistirDados(_visitanteRepository.UnitOfWork);
+        }
 
-        //    condominioBd.AdicionarEvento(
-        //      new CondominioConfiguracaoEditadoEvent(condominioBd.Id,
-        //      condominioBd.Portaria, condominioBd.PortariaMorador, condominioBd.Classificado, 
-        //      condominioBd.ClassificadoMorador, condominioBd.Mural, condominioBd.MuralMorador, 
-        //      condominioBd.Chat, condominioBd.ChatMorador, condominioBd.Reserva,
-        //      condominioBd.ReservaNaPortaria, condominioBd.Ocorrencia, condominioBd.OcorrenciaMorador,
-        //      condominioBd.Correspondencia, condominioBd.CorrespondenciaNaPortaria, condominioBd.LimiteTempoReserva));
+        public async Task<ValidationResult> Handle(TerminarVisitaCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido()) return request.ValidationResult;
 
-        //    return await PersistirDados(_visitanteRepository.UnitOfWork);
-        //}
+            var visitaBd = _visitanteRepository.ObterVisitaPorId(request.Id).Result;
+            if (visitaBd == null)
+            {
+                AdicionarErro("Visita não encontrada.");
+                return ValidationResult;
+            }
 
-        //public async Task<ValidationResult> Handle(RemoverCondominioCommand request, CancellationToken cancellationToken)
-        //{
-        //    if (!request.EstaValido()) return request.ValidationResult;
+            visitaBd.TerminarVisita();
 
-        //    var condominioBd = _visitanteRepository.ObterPorId(request.CondominioId).Result;
-        //    if (condominioBd == null)
-        //    {
-        //        AdicionarErro("Condominio não encontrado.");
-        //        return ValidationResult;
-        //    }
+            _visitanteRepository.AtualizarVisita(visitaBd);
 
-        //    condominioBd.EnviarParaLixeira();
+            //Evento
+            //
 
-        //    _visitanteRepository.Atualizar(condominioBd);
+            return await PersistirDados(_visitanteRepository.UnitOfWork);
+        }
 
-        //    condominioBd.AdicionarEvento(new CondominioRemovidoEvent(condominioBd.Id));
-
-        //    return await PersistirDados(_visitanteRepository.UnitOfWork);
-        //}
 
 
         private Visita VisitaFactory(CadastrarVisitaCommand request)
@@ -281,7 +258,6 @@ namespace CondominioApp.Portaria.Aplication.Commands
                  request.NomeCondominio, request.UnidadeId, request.NumeroUnidade, request.AndarUnidade,
                  request.GrupoUnidade, request.Veiculo);            
         }
-
 
         private Visitante VisitanteFactory(CadastrarVisitaCommand request)
         {

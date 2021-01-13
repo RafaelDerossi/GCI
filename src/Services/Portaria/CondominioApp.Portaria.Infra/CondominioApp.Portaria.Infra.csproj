@@ -7,7 +7,6 @@
   <ItemGroup>
     <Folder Include="DataQuery\Mapping\" />
     <Folder Include="DataQuery\Repository\" />
-    <Folder Include="Data\Repository\" />
   </ItemGroup>
 
   <ItemGroup>

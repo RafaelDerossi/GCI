@@ -17,6 +17,17 @@ namespace CondominioApp.Portaria.Tests
                 true, "LMG8888", "Modelo", "Prata");
         }
 
+        public static EditarVisitaCommand EditarVisitaCommandFactory()
+        {
+            return new EditarVisitaCommand
+                (Guid.NewGuid(), "Nome Condômino", "Nome do Visitante", "143.026.417-97",
+                "rafael@condominioapp.com", "foto.jpg", "nomeOriginal.jpg", TipoDeVisitante.PARTICULAR,
+                "", Guid.NewGuid(), "101", "1", "Bloco 1", true, "LMG8888", "Modelo", "Prata");
+        }
+
+
+        
+        /// CadastrarVisitaCommand        
         public static CadastrarVisitaCommand CriarComandoCadastroDeVisita_NaPortaria_ComCPF()
         {
             return CadastrarVisitaCommandFactory();
@@ -137,6 +148,116 @@ namespace CondominioApp.Portaria.Tests
             var comando = CadastrarVisitaCommandFactory();
             comando.MarcarQueTemVeiculo();
             comando.SetVeiculo("", "Modelo", "");
+            return comando;
+        }
+
+
+        ///EditarVisitaCommand
+        public static EditarVisitaCommand CriarComandoEdicaoDeVisita_ComCPF()
+        {
+            return EditarVisitaCommandFactory();
+        }
+
+        public static EditarVisitaCommand CriarComandoEdicaoDeVisita_ComCPFInvalido()
+        {
+            var comando = EditarVisitaCommandFactory();
+
+            comando.SetDocumentoVisitante("143.026.417-98");
+
+            return comando;
+        }
+
+        public static EditarVisitaCommand CriarComandoEdicaoDeVisita_ComRG()
+        {
+            var comando = EditarVisitaCommandFactory();
+
+            comando.SetDocumentoVisitante("123456789");
+
+            return comando;
+        }
+
+        public static EditarVisitaCommand CriarComandoEdicaoDeVisita_SemDocumento()
+        {
+            var comando = EditarVisitaCommandFactory();
+
+            comando.SetDocumentoVisitante("");
+
+            return comando;
+        }
+
+        public static EditarVisitaCommand CriarComandoEdicaoDeVisita_SemUnidadeId()
+        {
+            var comando = EditarVisitaCommandFactory();
+
+            comando.SetUnidadeId(Guid.Empty);
+
+            return comando;
+        }
+
+        public static EditarVisitaCommand CriarComandoEdicaoDeVisita_SemNumeroUnidade()
+        {
+            var comando = EditarVisitaCommandFactory();
+
+            comando.SetNumeroUnidade("");
+
+            return comando;
+        }
+
+        public static EditarVisitaCommand CriarComandoEdicaoDeVisita_SemAndarUnidade()
+        {
+            var comando = EditarVisitaCommandFactory();
+
+            comando.SetAndarUnidade("");
+
+            return comando;
+        }
+
+        public static EditarVisitaCommand CriarComandoEdicaoDeVisita_SemGrupoUnidade()
+        {
+            var comando = EditarVisitaCommandFactory();
+
+            comando.SetGrupoUnidade("");
+
+            return comando;
+        }
+
+        public static EditarVisitaCommand CriarComandoEdicaoDeVisita_SemVeiculo()
+        {
+            var comando = EditarVisitaCommandFactory();
+
+            comando.MarcarQueNaoTemVeiculo();
+            comando.SetVeiculo("", "", "");
+
+            return comando;
+        }
+
+        public static EditarVisitaCommand CriarComandoEdicaoDeVisita_SemPlaca()
+        {
+            var comando = EditarVisitaCommandFactory();
+
+            comando.MarcarQueTemVeiculo();
+            comando.SetVeiculo("", "Modelo", "Prata");
+
+            return comando;
+        }
+
+        public static EditarVisitaCommand CriarComandoEdicaoDeVisita_SemModelo()
+        {
+            var comando = EditarVisitaCommandFactory();
+
+            comando.MarcarQueTemVeiculo();
+            comando.SetVeiculo("", "", "Prata");
+
+            return comando;
+        }
+
+        public static EditarVisitaCommand CriarComandoEdicaoDeVisita_SemCor()
+        {
+            var comando = EditarVisitaCommandFactory();
+
+            comando.MarcarQueTemVeiculo();
+            comando.SetVeiculo("", "Modelo", "");
+
             return comando;
         }
 
