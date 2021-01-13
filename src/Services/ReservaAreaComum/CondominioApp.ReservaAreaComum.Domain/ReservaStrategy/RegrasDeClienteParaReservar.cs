@@ -90,7 +90,7 @@ namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy
             }           
 
             //Regra verifica se o horário da reserva esta dentro dos limites permitidos
-            if (_areaComum.TemIntervaloFixoEntreReservas || !_areaComum.TemHorariosEspecificos)
+            if (!_areaComum.TemHorariosEspecificos)
                 return ValidaLimitesDeHorario();
 
             return ValidationResult;

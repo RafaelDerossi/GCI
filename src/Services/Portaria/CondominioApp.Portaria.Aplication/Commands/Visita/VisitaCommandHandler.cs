@@ -13,6 +13,11 @@ namespace CondominioApp.Portaria.Aplication.Commands
     public class VisitaCommandHandler : CommandHandler,
          IRequestHandler<CadastrarVisitaCommand, ValidationResult>,
          IRequestHandler<EditarVisitaCommand, ValidationResult>,
+         IRequestHandler<RemoverVisitaCommand, ValidationResult>,
+         IRequestHandler<AprovarVisitaCommand, ValidationResult>,
+         IRequestHandler<ReprovarVisitaCommand, ValidationResult>,
+         IRequestHandler<IniciarVisitaCommand, ValidationResult>,
+         IRequestHandler<TerminarVisitaCommand, ValidationResult>,
          IDisposable
     {
         private IVisitanteRepository _visitanteRepository;
@@ -148,6 +153,90 @@ namespace CondominioApp.Portaria.Aplication.Commands
             }
 
             visitaBd.EnviarParaLixeira();
+
+            _visitanteRepository.AtualizarVisita(visitaBd);
+
+            //Evento
+            //
+
+            return await PersistirDados(_visitanteRepository.UnitOfWork);
+        }
+
+        public async Task<ValidationResult> Handle(AprovarVisitaCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido()) return request.ValidationResult;
+
+            var visitaBd = _visitanteRepository.ObterVisitaPorId(request.Id).Result;
+            if (visitaBd == null)
+            {
+                AdicionarErro("Visita não encontrada.");
+                return ValidationResult;
+            }
+
+            visitaBd.AprovarVisita();
+
+            _visitanteRepository.AtualizarVisita(visitaBd);
+
+            //Evento
+            //
+
+            return await PersistirDados(_visitanteRepository.UnitOfWork);
+        }
+
+        public async Task<ValidationResult> Handle(ReprovarVisitaCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido()) return request.ValidationResult;
+
+            var visitaBd = _visitanteRepository.ObterVisitaPorId(request.Id).Result;
+            if (visitaBd == null)
+            {
+                AdicionarErro("Visita não encontrada.");
+                return ValidationResult;
+            }
+
+            visitaBd.ReprovarVisita();
+
+            _visitanteRepository.AtualizarVisita(visitaBd);
+
+            //Evento
+            //
+
+            return await PersistirDados(_visitanteRepository.UnitOfWork);
+        }
+
+        public async Task<ValidationResult> Handle(IniciarVisitaCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido()) return request.ValidationResult;
+
+            var visitaBd = _visitanteRepository.ObterVisitaPorId(request.Id).Result;
+            if (visitaBd == null)
+            {
+                AdicionarErro("Visita não encontrada.");
+                return ValidationResult;
+            }
+
+            visitaBd.IniciarVisita();
+
+            _visitanteRepository.AtualizarVisita(visitaBd);
+
+            //Evento
+            //
+
+            return await PersistirDados(_visitanteRepository.UnitOfWork);
+        }
+
+        public async Task<ValidationResult> Handle(TerminarVisitaCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido()) return request.ValidationResult;
+
+            var visitaBd = _visitanteRepository.ObterVisitaPorId(request.Id).Result;
+            if (visitaBd == null)
+            {
+                AdicionarErro("Visita não encontrada.");
+                return ValidationResult;
+            }
+
+            visitaBd.TerminarVisita();
 
             _visitanteRepository.AtualizarVisita(visitaBd);
 
