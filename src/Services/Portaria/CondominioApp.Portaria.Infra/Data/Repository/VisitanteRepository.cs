@@ -100,7 +100,7 @@ namespace CondominioApp.Portaria.Infra.Data.Repository
         public async Task<bool> VisitanteJaCadastradoPorCpf(Cpf cpf, Guid visitanteId)
         {
             return await _context.Visitantes
-                .CountAsync(u => !u.Lixeira && u.Cpf.Equals(cpf) && u.Id != visitanteId) > 0;
+                .CountAsync(u => !u.Lixeira && u.Cpf.Numero == cpf.Numero && u.Id != visitanteId) > 0;
         }
 
         public async Task<bool> VisitanteJaCadastradoPorRg(Rg rg, Guid visitanteId)

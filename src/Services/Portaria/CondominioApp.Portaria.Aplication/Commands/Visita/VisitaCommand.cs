@@ -119,6 +119,16 @@ namespace CondominioApp.Portaria.Aplication.Commands
         {
             if (TemVeiculo)
             {
+                if (modelo == "")
+                {
+                    AdicionarErrosDeProcessamentoDoComando("Informe o modelo do veículo.");
+                    return;
+                }
+                if (cor == "")
+                {
+                    AdicionarErrosDeProcessamentoDoComando("Informe a cor do veículo.");
+                    return;
+                }
                 try
                 {
                     Veiculo = new Veiculo(placa, modelo, cor);
@@ -128,8 +138,6 @@ namespace CondominioApp.Portaria.Aplication.Commands
                     AdicionarErrosDeProcessamentoDoComando(e.Message);
                 }
             }
-            else
-                Veiculo = null;
         }
 
         public void SetDataDeEntrada(DateTime dataDeEntrada) => DataDeEntrada = dataDeEntrada;

@@ -13,14 +13,16 @@ namespace CondominioApp.Portaria.ValueObjects
 
         public Email(string endereco)
         {
-            if (!string.IsNullOrEmpty(endereco))
-            {
-                setEndereco(endereco);
-            }
+            setEndereco(endereco);
         }
 
         private void setEndereco(string EnderecoDeEmail)
         {
+            if (string.IsNullOrEmpty(EnderecoDeEmail))
+            {
+                Endereco = EnderecoDeEmail;
+                return;
+            }
             Regex regex = new Regex(@"[\w\.-]+(\+[\w-]*)?@([\w-]+\.)+[\w-]+");
             Match match = regex.Match(EnderecoDeEmail);
 

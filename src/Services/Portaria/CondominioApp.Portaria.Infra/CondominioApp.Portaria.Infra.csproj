@@ -27,8 +27,4 @@
     <ProjectReference Include="..\CondominioApp.Portaria.Domain\CondominioApp.Portaria.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Migrations\" />
-  </ItemGroup>
-
 </Project>

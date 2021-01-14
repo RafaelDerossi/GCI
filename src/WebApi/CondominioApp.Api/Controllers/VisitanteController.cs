@@ -39,38 +39,38 @@ namespace CondominioApp.Api.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult> Post(CadastraVisitanteViewModel visitante)
+        public async Task<ActionResult> Post(CadastraVisitanteViewModel visitanteVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var comando = CadastrarVisitanteCommandFactory(visitante);
+            var comando = CadastrarVisitanteCommandFactory(visitanteVM);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
             return CustomResponse(Resultado);
         }
 
-        //[HttpPut]
-        //public async Task<ActionResult> Put(EditaAreaComumViewModel areaComumVM)
-        //{
-        //    if (!ModelState.IsValid) return CustomResponse(ModelState);
+        [HttpPut]
+        public async Task<ActionResult> Put(EditaVisitanteViewModel visitanteVM)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-        //    var comando = EditarAreaComumCommandFactory(areaComumVM);
+            var comando = EditarVisitanteCommandFactory(visitanteVM);
 
-        //    var Resultado = await _mediatorHandler.EnviarComando(comando);
+            var Resultado = await _mediatorHandler.EnviarComando(comando);
 
-        //    return CustomResponse(Resultado);
-        //}
+            return CustomResponse(Resultado);
+        }
 
-        //[HttpDelete("{Id:Guid}")]
-        //public async Task<ActionResult> Delete(Guid Id)
-        //{
-        //    var comando = new RemoverAreaComumCommand(Id);
+        [HttpDelete("{Id:Guid}")]
+        public async Task<ActionResult> Delete(Guid Id)
+        {
+            var comando = new RemoverVisitanteCommand(Id);
 
-        //    var Resultado = await _mediatorHandler.EnviarComando(comando);
+            var Resultado = await _mediatorHandler.EnviarComando(comando);
 
-        //    return CustomResponse(Resultado);
-        //}
+            return CustomResponse(Resultado);
+        }
 
 
         //[HttpPut("ativar/{Id:Guid}")]

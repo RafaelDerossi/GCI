@@ -51,13 +51,21 @@ namespace CondominioApp.Portaria.Aplication.Events
             visitanteFlat.SetTipoDeVisitante(notification.TipoDeVisitante);
             visitanteFlat.SetNomeEmpresa(notification.NomeEmpresa);
 
-            visitanteFlat.MarcarNaoTemVeiculo();
+           
             if (notification.TemVeiculo)
+            {
                 visitanteFlat.MarcarTemVeiculo();
-
-            visitanteFlat.SetPlacaVeiculo(notification.Veiculo.Placa);
-            visitanteFlat.SetModeloVeiculo(notification.Veiculo.Modelo);
-            visitanteFlat.SetCorVeiculo(notification.Veiculo.Cor);
+                visitanteFlat.SetPlacaVeiculo(notification.Veiculo.Placa);
+                visitanteFlat.SetModeloVeiculo(notification.Veiculo.Modelo);
+                visitanteFlat.SetCorVeiculo(notification.Veiculo.Cor);
+            }
+            else
+            {
+                visitanteFlat.MarcarNaoTemVeiculo();
+                visitanteFlat.SetPlacaVeiculo("");
+                visitanteFlat.SetModeloVeiculo("");
+                visitanteFlat.SetCorVeiculo("");
+            }               
 
 
             _visitanteQueryRepository.Atualizar(visitanteFlat);
@@ -87,9 +95,7 @@ namespace CondominioApp.Portaria.Aplication.Events
                notification.NumeroUnidade, notification.AndarUnidade, notification.GrupoUnidade,
                notification.VisitantePermanente, notification.QrCode, notification.TipoDeVisitante,
                notification.NomeEmpresa, notification.TemVeiculo, notification.Veiculo.Placa,
-               notification.Veiculo.Modelo, notification.Veiculo.Cor);
-
-           
+               notification.Veiculo.Modelo, notification.Veiculo.Cor);           
         }
 
         public void Dispose()

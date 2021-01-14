@@ -25,7 +25,7 @@ namespace CondominioApp.Principal.Infra.Data.Mapping
 
             builder.Property(u => u.NomeVisitante).IsRequired().HasColumnType($"varchar({Visita.Max})");
 
-            builder.Property(u => u.TipoDeDocumentoVisitante).HasColumnType($"varchar({Visita.Max})");
+            builder.Property(u => u.TipoDeDocumentoVisitante).IsRequired();
 
             builder.OwnsOne(u => u.RgVisitante, rg =>
             {

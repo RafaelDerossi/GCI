@@ -40,17 +40,20 @@ namespace CondominioApp.Portaria.Aplication.Commands
             {
                 if (documento.Length == 14)
                 {
-                    SetCPF(documento);                   
+                    SetCPF(documento);
+                    TipoDeDocumento = TipoDeDocumento.CPF;
                 }                    
                 else
                 {
-                    SetRg(documento);                   
+                    SetRg(documento);
+                    TipoDeDocumento = TipoDeDocumento.RG;
                 }                    
             }
             else
             {
                 Rg = new Rg("");
                 Cpf = new Cpf("");
+                TipoDeDocumento = TipoDeDocumento.OUTROS;
             }               
         }
         private void SetRg(string rg)
@@ -106,6 +109,16 @@ namespace CondominioApp.Portaria.Aplication.Commands
         {
             if (TemVeiculo)
             {
+                if (modelo == "")
+                {
+                    AdicionarErrosDeProcessamentoDoComando("Informe o modelo do veículo.");
+                    return;
+                }
+                if (cor == "")
+                {
+                    AdicionarErrosDeProcessamentoDoComando("Informe a cor do veículo.");
+                    return;
+                }
                 try
                 {
                     Veiculo = new Veiculo(placa, modelo, cor);
@@ -114,7 +127,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
                 {
                     AdicionarErrosDeProcessamentoDoComando(e.Message);
                 }
-            }            
+            }
         }
 
         public void SetNome(string nome) => Nome = nome;

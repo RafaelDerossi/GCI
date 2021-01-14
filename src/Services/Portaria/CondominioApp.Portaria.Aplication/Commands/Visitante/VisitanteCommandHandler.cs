@@ -74,7 +74,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
                 return ValidationResult;
             }
                 
-            if (request.Cpf != null)
+            if (request.Cpf.Numero != "")
             {
                 if (_visitanteRepository.VisitanteJaCadastradoPorCpf(request.Cpf, request.Id).Result)
                 {
@@ -83,7 +83,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
                 }
             }
 
-            if (visitante.Rg != null)
+            if (visitante.Rg.Numero != "")
             {
                 if (_visitanteRepository.VisitanteJaCadastradoPorRg(request.Rg, request.Id).Result)
                 {
@@ -113,7 +113,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
 
             visitante.AdicionarEvento(
                 new VisitanteEditadoEvent(
-                    visitante.Id, visitante.Nome, visitante.Cpf, visitante.Rg, visitante.Email, visitante.Foto,
+                    visitante.Id, visitante.Nome, visitante.TipoDeDocumento, visitante.Cpf, visitante.Rg, visitante.Email, visitante.Foto,
                     visitante.VisitantePermanente, visitante.TipoDeVisitante, visitante.NomeEmpresa, 
                     visitante.TemVeiculo, visitante.Veiculo));
 
