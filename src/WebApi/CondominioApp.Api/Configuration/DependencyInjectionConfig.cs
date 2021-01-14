@@ -37,6 +37,12 @@ using CondominioApp.ReservaAreaComum.App.Aplication.Query;
 using CondominioApp.ReservaAreaComum.Domain.Interfaces;
 using CondominioApp.ReservaAreaComum.Aplication.Events;
 using CondominioApp.ReservaAreaComum.Infra.Data.Repository;
+using CondominioApp.Portaria.Aplication.Commands;
+using CondominioApp.Portaria.Aplication.Events;
+using CondominioApp.Portaria.Domain.Interfaces;
+using CondominioApp.Portaria.Infra.Data.Repository;
+using CondominioApp.Portaria.Infra.DataQuery.Repository;
+using CondominioApp.Portaria.Aplication.Query;
 
 namespace CondominioApp.Api.Configuration
 {
@@ -45,6 +51,52 @@ namespace CondominioApp.Api.Configuration
         public static void RegisterServices(this IServiceCollection services)
         {
             services.AddScoped<IMediatorHandler, MediatorHandler>();
+
+
+            #region Pre-Cadastro -Contexto
+
+            //Pre Cadastro
+            services.AddScoped<IRequestHandler<InserirNovoLeadCommand, ValidationResult>, LeadCommandHandler>();
+            services.AddScoped<IRequestHandler<TransferirCondominioCommand, ValidationResult>, LeadCommandHandler>();
+            services.AddScoped<INotificationHandler<LeadCadastradoEvent>, LeadEventHandler>();
+
+            #endregion
+
+            #region Marketplace -Contexto
+
+            //Marketplace
+
+            //Parceiro
+            services.AddScoped<IAppServiceParceiro, AppServiceParceiro>();
+            services.AddScoped<IParceiroRepository, ParceiroRepository>();
+
+            //Item de venda
+            services.AddScoped<IAppServiceItemDeVenda, AppServiceItemDeVenda>();
+            services.AddScoped<IItemDeVendaRepository, ItemDeVendaRepository>();
+
+            //Produto
+            services.AddScoped<IAppServiceProduto, AppServiceProduto>();
+            services.AddScoped<IProdutoRepository, ProdutoRepository>();
+
+            //Campanha
+            services.AddScoped<IAppServiceCampanha, AppServiceCampanha>();
+            services.AddScoped<ICampanhaRepository, CampanhaRepository>();
+
+            //Lead
+            services.AddScoped<IAppServiceLead, AppServiceLead>();
+
+            #endregion
+
+            #region Base Software -Contexto
+
+            //Base software
+            services.AddScoped<IBoletoService, BoletoService>();
+
+            #endregion
+
+
+
+            #region Principal -Contexto
 
             //Condominio
             services.AddScoped<IRequestHandler<CadastrarCondominioCommand, ValidationResult>, CondominioCommandHandler>();
@@ -74,6 +126,10 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<INotificationHandler<CodigoUnidadeResetadoEvent>, UnidadeEventHandler>();
             services.AddScoped<INotificationHandler<UnidadeRemovidaEvent>, UnidadeEventHandler>();
 
+            #endregion
+
+            #region Enquete -Contexto
+
             //Enquete
             services.AddScoped<IRequestHandler<CadastrarEnqueteCommand, ValidationResult>, EnqueteCommandHandler>();
             services.AddScoped<IRequestHandler<EditarEnqueteCommand, ValidationResult>, EnqueteCommandHandler>();
@@ -87,20 +143,31 @@ namespace CondominioApp.Api.Configuration
             //RespostaEnquete
             services.AddScoped<IRequestHandler<CadastrarRespostaCommand, ValidationResult>, RespostaEnqueteCommandHandler>();
 
+            #endregion
+
+            #region Correspondencia -Contexto
 
             //Correspondencia
             services.AddScoped<IRequestHandler<CadastrarCorrespondenciaCommand, ValidationResult>, CorrespondenciaCommandHandler>();
             services.AddScoped<IRequestHandler<MarcarCorrespondenciaVistaCommand, ValidationResult>, CorrespondenciaCommandHandler>();
-            services.AddScoped<IRequestHandler<MarcarCorrespondenciaRetiradaCommand, ValidationResult>, CorrespondenciaCommandHandler>();            
+            services.AddScoped<IRequestHandler<MarcarCorrespondenciaRetiradaCommand, ValidationResult>, CorrespondenciaCommandHandler>();
             services.AddScoped<IRequestHandler<MarcarCorrespondenciaDevolvidaCommand, ValidationResult>, CorrespondenciaCommandHandler>();
             services.AddScoped<IRequestHandler<DispararAlertaDeCorrespondenciaCommand, ValidationResult>, CorrespondenciaCommandHandler>();
             services.AddScoped<IRequestHandler<RemoverCorrespondenciaCommand, ValidationResult>, CorrespondenciaCommandHandler>();
             services.AddScoped<IRequestHandler<GerarExcelCorrespondenciaCommand, ValidationResult>, CorrespondenciaCommandHandler>();
 
+            #endregion
+
+            #region Comunicado -Contexto
+
             //Comunicado
             services.AddScoped<IRequestHandler<CadastrarComunicadoCommand, ValidationResult>, ComunicadoCommandHandler>();
             services.AddScoped<IRequestHandler<EditarComunicadoCommand, ValidationResult>, ComunicadoCommandHandler>();
             services.AddScoped<IRequestHandler<RemoverComunicadoCommand, ValidationResult>, ComunicadoCommandHandler>();
+
+            #endregion
+
+            #region ReservaAreaComum -Contexto
 
             //Area Comum
             services.AddScoped<IRequestHandler<CadastrarAreaComumCommand, ValidationResult>, AreaComumCommandHandler>();
@@ -125,11 +192,38 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<INotificationHandler<ReservaCanceladaEvent>, ReservaEventHandler>();
             services.AddScoped<INotificationHandler<ReservaRetiradaDaFilaEvent>, ReservaEventHandler>();
 
-            //Pre Cadastro
-            services.AddScoped<IRequestHandler<InserirNovoLeadCommand, ValidationResult>, LeadCommandHandler>();
-            services.AddScoped<IRequestHandler<TransferirCondominioCommand, ValidationResult>, LeadCommandHandler>();
-            services.AddScoped<INotificationHandler<LeadCadastradoEvent>, LeadEventHandler>();
-           
+            #endregion
+
+            #region Portaria -Contexto
+            
+            //Visitante
+            services.AddScoped<IRequestHandler<CadastrarVisitanteCommand, ValidationResult>, VisitanteCommandHandler>();
+            services.AddScoped<IRequestHandler<EditarVisitanteCommand, ValidationResult>, VisitanteCommandHandler>();
+            services.AddScoped<IRequestHandler<RemoverVisitanteCommand, ValidationResult>, VisitanteCommandHandler>();
+            services.AddScoped<INotificationHandler<VisitanteCadastradoEvent>, VisitanteEventHandler>();
+            services.AddScoped<INotificationHandler<VisitanteEditadoEvent>, VisitanteEventHandler>();
+            services.AddScoped<INotificationHandler<VisitanteRemovidoEvent>, VisitanteEventHandler>();
+
+            //Visita
+            services.AddScoped<IRequestHandler<CadastrarVisitaCommand, ValidationResult>, VisitaCommandHandler>();
+            services.AddScoped<IRequestHandler<EditarVisitaCommand, ValidationResult>, VisitaCommandHandler>();
+            services.AddScoped<IRequestHandler<RemoverVisitaCommand, ValidationResult>, VisitaCommandHandler>();
+            services.AddScoped<IRequestHandler<AprovarVisitaCommand, ValidationResult>, VisitaCommandHandler>();
+            services.AddScoped<IRequestHandler<ReprovarVisitaCommand, ValidationResult>, VisitaCommandHandler>();
+            services.AddScoped<IRequestHandler<IniciarVisitaCommand, ValidationResult>, VisitaCommandHandler>();
+            services.AddScoped<IRequestHandler<TerminarVisitaCommand, ValidationResult>, VisitaCommandHandler>();
+            services.AddScoped<INotificationHandler<VisitaCadastradaEvent>, VisitaEventHandler>();
+            services.AddScoped<INotificationHandler<VisitaEditadaEvent>, VisitaEventHandler>();
+            services.AddScoped<INotificationHandler<VisitaRemovidaEvent>, VisitaEventHandler>();
+            services.AddScoped<INotificationHandler<VisitaAprovadaEvent>, VisitaEventHandler>();
+            services.AddScoped<INotificationHandler<VisitaReprovadaEvent>, VisitaEventHandler>();
+            services.AddScoped<INotificationHandler<VisitaIniciadaEvent>, VisitaEventHandler>();
+            services.AddScoped<INotificationHandler<VisitaTerminadaEvent>, VisitaEventHandler>();
+
+            #endregion
+
+
+            #region Querys
 
             //Query
             services.AddScoped<IQueryLead, QueryLead>();
@@ -138,8 +232,11 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<ICorrespondenciaQuery, CorrespondenciaQuery>();
             services.AddScoped<IComunicadoQuery, ComunicadoQuery>();
             services.AddScoped<IReservaAreaComumQuery, ReservaAreaComumQuery>();
-          
+            services.AddScoped<IPortariaQuery, PortariaQuery>();
 
+            #endregion
+
+            #region Repositórios
 
             //Repositórios
             services.AddScoped<ICondominioRepository, CondominioRepository>();
@@ -150,32 +247,10 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<IComunidadoRepository, ComunicadoRepository>();
             services.AddScoped<IReservaAreaComumRepository, ReservaAreaComumRepository>();
             services.AddScoped<IReservaAreaComumQueryRepository, ReservaAreaComumQueryRepository>();
+            services.AddScoped<IVisitanteRepository, VisitanteRepository>();
+            services.AddScoped<IVisitanteQueryRepository, VisitanteQueryRepository>();
 
-            //Base software
-            services.AddScoped<IBoletoService, BoletoService>();
-
-
-
-            //Marketplace
-
-            //Parceiro
-            services.AddScoped<IAppServiceParceiro, AppServiceParceiro>();
-            services.AddScoped<IParceiroRepository, ParceiroRepository>();
-
-            //Item de venda
-            services.AddScoped<IAppServiceItemDeVenda, AppServiceItemDeVenda>();
-            services.AddScoped<IItemDeVendaRepository, ItemDeVendaRepository>();
-
-            //Produto
-            services.AddScoped<IAppServiceProduto, AppServiceProduto>();
-            services.AddScoped<IProdutoRepository, ProdutoRepository>();
-
-            //Campanha
-            services.AddScoped<IAppServiceCampanha, AppServiceCampanha>();
-            services.AddScoped<ICampanhaRepository, CampanhaRepository>();
-
-            //Lead
-            services.AddScoped<IAppServiceLead, AppServiceLead>();
+            #endregion
 
         }
     }

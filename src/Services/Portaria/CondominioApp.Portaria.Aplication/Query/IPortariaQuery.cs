@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace CondominioApp.Portaria.App.Aplication.Query
+namespace CondominioApp.Portaria.Aplication.Query
 {
     public interface IPortariaQuery : IDisposable
     {

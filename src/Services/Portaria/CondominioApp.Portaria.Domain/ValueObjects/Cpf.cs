@@ -20,7 +20,13 @@ namespace CondominioApp.Portaria.ValueObjects
 
         private void setNumero(string cpfStr)
         {
-            if (string.IsNullOrEmpty(cpfStr)) return;
+            if (string.IsNullOrEmpty(cpfStr))
+            {
+                Numero = cpfStr;
+                return;
+            }
+
+            
 
             Guarda.ValidarTamanho(cpfStr, Maxlength);
 

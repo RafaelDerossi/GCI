@@ -127,6 +127,11 @@ namespace CondominioApp.Portaria.Aplication.Commands
                 return ValidationResult;
             }
             visitanteBd.SetNome(request.NomeVisitante);
+            visitanteBd.SetTipoDeDocumento(request.TipoDeDocumentoVisitante);
+            visitanteBd.SetCpf(request.CpfVisitante);
+            visitanteBd.SetRg(request.RgVisitante);
+            visitanteBd.SetEmail(request.EmailVisitante);
+            visitanteBd.SetFoto(request.FotoVisitante);
             visitanteBd.SetTipoDeVisitante(request.TipoDeVisitante);
             visitanteBd.SetNomeEmpresa(request.NomeEmpresaVisitante);
             visitanteBd.SetVeiculo(request.Veiculo);

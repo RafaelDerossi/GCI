@@ -6,7 +6,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace CondominioApp.Portaria.App.Aplication.Query
+namespace CondominioApp.Portaria.Aplication.Query
 {
     public class PortariaQuery : IPortariaQuery
     {        

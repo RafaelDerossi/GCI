@@ -31,7 +31,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
 
             var visitante = VisitanteFactory(request);
 
-            if (visitante.Cpf != null)
+            if (visitante.Cpf.Numero != "")
             {
                 if (_visitanteRepository.VisitanteJaCadastradoPorCpf(visitante.Cpf, visitante.Id).Result)
                 {
@@ -40,7 +40,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
                 }
             }
 
-            if (visitante.Rg != null)
+            if (visitante.Rg.Numero != "")
             {
                 if (_visitanteRepository.VisitanteJaCadastradoPorRg(visitante.Rg, visitante.Id).Result)
                 {
@@ -54,7 +54,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
             
             visitante.AdicionarEvento(
                 new VisitanteCadastradoEvent(
-                    visitante.Id, visitante.Nome, visitante.Cpf, visitante.Rg, visitante.Email, visitante.Foto,
+                    visitante.Id, visitante.Nome, visitante.TipoDeDocumento, visitante.Cpf, visitante.Rg, visitante.Email, visitante.Foto,
                     visitante.CondominioId, visitante.NomeCondominio, visitante.UnidadeId, visitante.NumeroUnidade,
                     visitante.AndarUnidade, visitante.GrupoUnidade, visitante.VisitantePermanente, visitante.QrCode,
                     visitante.TipoDeVisitante, visitante.NomeEmpresa, visitante.TemVeiculo, visitante.Veiculo));

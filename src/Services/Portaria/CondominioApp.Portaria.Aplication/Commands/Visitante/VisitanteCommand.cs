@@ -40,20 +40,17 @@ namespace CondominioApp.Portaria.Aplication.Commands
             {
                 if (documento.Length == 14)
                 {
-                    SetCPF(documento);
-                    Rg = null;
-                    
+                    SetCPF(documento);                   
                 }                    
                 else
                 {
-                    SetRg(documento);
-                    Cpf = null;
+                    SetRg(documento);                   
                 }                    
             }
             else
             {
-                Rg = null;
-                Cpf = null;
+                Rg = new Rg("");
+                Cpf = new Cpf("");
             }               
         }
         private void SetRg(string rg)
@@ -61,6 +58,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
             try
             {
                 Rg = new Rg(rg);
+                Cpf = new Cpf("");
             }
             catch (Exception e)
             {
@@ -72,6 +70,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
             try
             {
                 Cpf = new Cpf(cpf);
+                Rg = new Rg("");
             }
             catch (Exception e)
             {

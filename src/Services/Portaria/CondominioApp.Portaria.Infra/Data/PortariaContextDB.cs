@@ -4,6 +4,8 @@ using CondominioApp.Core.Helpers;
 using CondominioApp.Core.Mediator;
 using CondominioApp.Core.Messages;
 using CondominioApp.Portaria.Domain;
+using CondominioApp.Portaria.Domain.FlatModel;
+using CondominioApp.Portaria.ValueObjects;
 using FluentValidation.Results;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -31,6 +33,10 @@ namespace CondominioApp.Portaria.Infra.Data
             modelBuilder.Ignore<ValidationResult>();
             modelBuilder.Ignore<Event>();
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(PortariaContextDB).Assembly);
+
+            modelBuilder.Ignore<VisitanteFlat>();
+            modelBuilder.Ignore<VisitaFlat>();           
+           
         }
 
         public async Task<bool> Commit()
