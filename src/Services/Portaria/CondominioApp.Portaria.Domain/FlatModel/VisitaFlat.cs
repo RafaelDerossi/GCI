@@ -21,9 +21,7 @@ namespace CondominioApp.Portaria.Domain.FlatModel
         public DateTime DataDeEntrada { get; private set; }
         public bool Terminada { get; private set; }
         public DateTime DataDeSaida { get; private set; }
-
-
-        public string NomeCondomino { get; private set; }
+       
         public string Observacao { get; private set; }
         public StatusVisita Status
         {
@@ -67,6 +65,9 @@ namespace CondominioApp.Portaria.Domain.FlatModel
         public string CorVeiculo { get; private set; }
 
 
+        public Guid UsuarioId { get; private set; }
+
+        public string NomeUsuario { get; private set; }
 
 
 
@@ -76,18 +77,17 @@ namespace CondominioApp.Portaria.Domain.FlatModel
         }
 
         public VisitaFlat(
-            Guid id, DateTime dataDeEntrada, string nomeCondomino,
-            string observacao, StatusVisita status, Guid visitanteId, string nomeVisitante,
-            TipoDeDocumento tipoDeDocumentoVisitante, string rgVisitante, string cpfVisitante,
-            string emailVisitante, string fotoVisitante,TipoDeVisitante tipoDeVisitante,
-            string nomeEmpresaVisitante, Guid condominioId,
+            Guid id, DateTime dataDeEntrada, string observacao, StatusVisita status,
+            Guid visitanteId, string nomeVisitante, TipoDeDocumento tipoDeDocumentoVisitante,
+            string rgVisitante, string cpfVisitante, string emailVisitante, string fotoVisitante,
+            TipoDeVisitante tipoDeVisitante, string nomeEmpresaVisitante, Guid condominioId,
             string nomeCondominio, Guid unidadeId, string numeroUnidade, string andarUnidade,
             string descricaoGrupoUnidade, bool temVeiculo,
-            string placaVeiculo, string modeloVeiculo, string corVeiculo)
+            string placaVeiculo, string modeloVeiculo, string corVeiculo,
+            Guid usuarioId, string nomeUsuario)
         {
             Id = id;
-            DataDeEntrada = dataDeEntrada;
-            NomeCondomino = nomeCondomino;
+            DataDeEntrada = dataDeEntrada;            
             Observacao = observacao;
             Status = status;
             VisitanteId = visitanteId;
@@ -109,6 +109,8 @@ namespace CondominioApp.Portaria.Domain.FlatModel
             PlacaVeiculo = placaVeiculo;
             ModeloVeiculo = modeloVeiculo;
             CorVeiculo = corVeiculo;
+            UsuarioId = usuarioId;
+            NomeUsuario = nomeUsuario;
         }
 
 
@@ -135,8 +137,7 @@ namespace CondominioApp.Portaria.Domain.FlatModel
         }
 
 
-        public void SetDataDeEntrada(DateTime dataDeEntrada) => DataDeEntrada = dataDeEntrada;
-        public void SetNomeCondomino(string nome) => NomeCondomino = nome;
+        public void SetDataDeEntrada(DateTime dataDeEntrada) => DataDeEntrada = dataDeEntrada;       
         public void SetNomeVisitante(string nome) => NomeVisitante = nome;
         public void SetTipoDocumentoVisitante(TipoDeDocumento tipoDeDocumento) => TipoDeDocumentoVisitante = tipoDeDocumento;
         public void SetRgVisitante(string rg) => RgVisitante = rg;
@@ -157,6 +158,12 @@ namespace CondominioApp.Portaria.Domain.FlatModel
         public void SetNumeroUnidade(string numero) => NumeroUnidade = numero;
         public void SetAndarUnidade(string andar) => AndarUnidade = andar;
         public void SetGrupoUnidade(string grupo) => GrupoUnidade = grupo;
+
+        public void SetUsuario(Guid id, string nome)
+        {
+            UsuarioId = id;
+            NomeUsuario = nome;
+        }
 
     }
 }

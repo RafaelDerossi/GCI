@@ -27,7 +27,7 @@ namespace CondominioApp.Enquetes.App.Data.Repository
             return await _context.Enquetes
                 .Include(e => e.Alternativas)
                     .ThenInclude(it => it.Respostas)
-                .FirstOrDefaultAsync(u => u.Id == Id);
+                .FirstOrDefaultAsync(u => u.Id == Id && !u.Lixeira);
         }
 
         public async Task<IEnumerable<Enquete>> ObterTodos()
@@ -100,7 +100,7 @@ namespace CondominioApp.Enquetes.App.Data.Repository
         {
             return await _context.AlternativasEnquete
                 .Include(a=>a.Respostas)
-                .FirstOrDefaultAsync(u => u.Id == Id);
+                .FirstOrDefaultAsync(u => u.Id == Id && !u.Lixeira);
         }
 
 

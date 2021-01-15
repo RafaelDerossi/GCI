@@ -30,5 +30,6 @@ namespace CondominioApp.Portaria.Aplication.ViewModels
         public string Placa { get; set; }
         public string Modelo { get; set; }
         public string Cor { get; set; }
+
     }
 }

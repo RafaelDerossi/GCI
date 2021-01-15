@@ -1,5 +1,6 @@
 ﻿using CondominioApp.Core.Messages;
 using CondominioApp.Portaria.Aplication.Events;
+using CondominioApp.Portaria.Aplication.Factories;
 using CondominioApp.Portaria.Domain;
 using CondominioApp.Portaria.Domain.Interfaces;
 using FluentValidation.Results;
@@ -17,10 +18,12 @@ namespace CondominioApp.Portaria.Aplication.Commands
          IDisposable
     {
         private IVisitanteRepository _visitanteRepository;
+        private IVisitanteFactory _visitanteFactory;
 
-        public VisitanteCommandHandler(IVisitanteRepository visitanteRepository)
+        public VisitanteCommandHandler(IVisitanteRepository visitanteRepository, IVisitanteFactory visitanteFactory)
         {
             _visitanteRepository = visitanteRepository;
+            _visitanteFactory = visitanteFactory;
         }
 
 
@@ -29,7 +32,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
             if (!request.EstaValido())
                 return request.ValidationResult;
 
-            var visitante = VisitanteFactory(request);
+            var visitante = _visitanteFactory.Fabricar(request);
 
             if (visitante.Cpf.Numero != "")
             {
@@ -62,6 +65,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
 
             return await PersistirDados(_visitanteRepository.UnitOfWork);
         }
+
 
         public async Task<ValidationResult> Handle(EditarVisitanteCommand request, CancellationToken cancellationToken)
         {
@@ -113,9 +117,9 @@ namespace CondominioApp.Portaria.Aplication.Commands
 
             visitante.AdicionarEvento(
                 new VisitanteEditadoEvent(
-                    visitante.Id, visitante.Nome, visitante.TipoDeDocumento, visitante.Cpf, visitante.Rg, visitante.Email, visitante.Foto,
-                    visitante.VisitantePermanente, visitante.TipoDeVisitante, visitante.NomeEmpresa, 
-                    visitante.TemVeiculo, visitante.Veiculo));
+                    visitante.Id, visitante.Nome, visitante.TipoDeDocumento, visitante.Cpf, visitante.Rg,
+                    visitante.Email, visitante.Foto, visitante.VisitantePermanente, visitante.TipoDeVisitante,
+                    visitante.NomeEmpresa, visitante.TemVeiculo, visitante.Veiculo));
 
 
             return await PersistirDados(_visitanteRepository.UnitOfWork);
@@ -143,16 +147,6 @@ namespace CondominioApp.Portaria.Aplication.Commands
 
 
             return await PersistirDados(_visitanteRepository.UnitOfWork);
-        }
-
-
-        private Visitante VisitanteFactory(CadastrarVisitanteCommand request)
-        {
-            return new Visitante
-                (request.Nome, request.TipoDeDocumento, request.Rg, request.Cpf, request.Email,
-                 request.Foto, request.CondominioId, request.NomeCondominio, request.UnidadeId,
-                 request.NumeroUnidade, request.AndarUnidade, request.GrupoUnidade, request.VisitantePermanente,
-                 request.QrCode, request.TipoDeVisitante, request.NomeEmpresa, request.Veiculo);
         }
 
 

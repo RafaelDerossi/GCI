@@ -7,6 +7,7 @@ using System;
 using CondominioApp.Portaria.Aplication.Commands;
 using CondominioApp.Portaria.Domain.Interfaces;
 using CondominioApp.Portaria.Domain;
+using CondominioApp.Portaria.Aplication.Factories;
 
 namespace CondominioApp.Portaria.Tests
 {
@@ -28,7 +29,7 @@ namespace CondominioApp.Portaria.Tests
             //Arrange        
             var command = VisitaCommandFactory.CriarComandoCadastroDeVisita_NaPortaria_ComCPF();
 
-            var visitante = VisitanteFactory.CriarVisitanteValido_ComCPF();
+            var visitante = VisitanteFactoryTest.CriarVisitanteValido_ComCPF();
 
             _mocker.GetMock<IVisitanteRepository>().Setup(r => r.ObterPorId(command.VisitanteId))
                .Returns(Task.FromResult(visitante));           
@@ -53,6 +54,11 @@ namespace CondominioApp.Portaria.Tests
         {
             //Arrange        
             var command = VisitaCommandFactory.CriarComandoCadastroDeVisita_NaPortaria_VisitanteNovo();
+
+            var visitante = VisitanteFactoryTest.CriarVisitanteValido_ComCPF();
+
+            _mocker.GetMock<IVisitanteFactory>().Setup(r => r.Fabricar(command))
+               .Returns(visitante);
 
             _mocker.GetMock<IVisitanteRepository>().Setup(r => r.VisitanteJaCadastradoPorCpf(command.CpfVisitante, command.VisitanteId))
                .Returns(Task.FromResult(false));

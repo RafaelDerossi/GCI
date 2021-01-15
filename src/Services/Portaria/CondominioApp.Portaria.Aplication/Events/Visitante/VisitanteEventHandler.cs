@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using CondominioApp.Core.Enumeradores;
 using CondominioApp.Core.Messages;
+using CondominioApp.Portaria.Aplication.Factories;
 using CondominioApp.Portaria.Domain.FlatModel;
 using CondominioApp.Portaria.Domain.Interfaces;
 using MediatR;
@@ -16,17 +17,19 @@ namespace CondominioApp.Portaria.Aplication.Events
         System.IDisposable
     {        
         private IVisitanteQueryRepository _visitanteQueryRepository;
+        private IVisitanteFlatFactory _visitanteFlatFactory;
 
         public VisitanteEventHandler(
-            IVisitanteQueryRepository visitanteQueryRepository)
+            IVisitanteQueryRepository visitanteQueryRepository, IVisitanteFlatFactory visitanteFlatFactory)
         {
-            _visitanteQueryRepository = visitanteQueryRepository;          
+            _visitanteQueryRepository = visitanteQueryRepository;
+            _visitanteFlatFactory = visitanteFlatFactory;
         }
 
 
         public async Task Handle(VisitanteCadastradoEvent notification, CancellationToken cancellationToken)
         {
-            var visitanteFlat = VisitanteFlatFactory(notification);                
+            var visitanteFlat = _visitanteFlatFactory.Fabricar(notification);                
 
             _visitanteQueryRepository.Adicionar(visitanteFlat);
 
@@ -83,20 +86,7 @@ namespace CondominioApp.Portaria.Aplication.Events
 
             await PersistirDados(_visitanteQueryRepository.UnitOfWork);
         }
-
-
-
-        public VisitanteFlat VisitanteFlatFactory(VisitanteCadastradoEvent notification)
-        {           
-            return new VisitanteFlat
-               (notification.Id, notification.Nome, notification.TipoDeDocumento, notification.Rg.Numero,
-               notification.Cpf.Numero, notification.Email.Endereco, notification.Foto.NomeDoArquivo,
-               notification.CondominioId, notification.NomeCondominio, notification.UnidadeId,
-               notification.NumeroUnidade, notification.AndarUnidade, notification.GrupoUnidade,
-               notification.VisitantePermanente, notification.QrCode, notification.TipoDeVisitante,
-               notification.NomeEmpresa, notification.TemVeiculo, notification.Veiculo.Placa,
-               notification.Veiculo.Modelo, notification.Veiculo.Cor);           
-        }
+       
 
         public void Dispose()
         {

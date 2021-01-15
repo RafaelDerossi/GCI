@@ -9,13 +9,7 @@ namespace CondominioApp.Portaria.Aplication.Commands.Validations
         {
             RuleFor(c => c.Id)
                 .NotEqual(Guid.Empty);
-        }
-        protected void ValidateNomeCondomino()
-        {
-            RuleFor(c => c.NomeCondomino)
-                .NotEmpty().WithMessage("Nome do Condômino não pode estar vazio!")
-                .Length(2, 200).WithMessage("Nome do Condômino deve ter mais de 2 caracteres!");
-        }       
+        }        
         protected void ValidateObservacao()
         {
             RuleFor(c => c.NomeCondominio)                
@@ -26,7 +20,7 @@ namespace CondominioApp.Portaria.Aplication.Commands.Validations
             RuleFor(c => c.Status)
                 .NotNull().WithMessage("Status não pode estar vazio!");
         }
-       
+        
         protected void ValidateNomeVisitante()
         {
             RuleFor(c => c.NomeVisitante)
@@ -39,7 +33,6 @@ namespace CondominioApp.Portaria.Aplication.Commands.Validations
                 .NotNull().WithMessage("Tipo de Documento do Visitante não pode estar vazio!");
         }
 
-
         protected void ValidateCondominioId()
         {
             RuleFor(c => c.CondominioId)
@@ -51,7 +44,6 @@ namespace CondominioApp.Portaria.Aplication.Commands.Validations
                 .NotEmpty().WithMessage("Nome do condominio não pode estar vazio!")
                 .Length(2, 200).WithMessage("Nome do condominio deve ter mais de 2 caracteres!");
         }
-
 
         protected void ValidateUnidadeId()
         {
@@ -76,7 +68,19 @@ namespace CondominioApp.Portaria.Aplication.Commands.Validations
                 .NotEmpty().WithMessage("Grupo da Unidade não pode estar vazio!")
                 .Length(2, 200).WithMessage("Grupo da Unidade deve ter mais de 2 caracteres!");
         }
-             
+
+        protected void ValidateUsuarioId()
+        {
+            RuleFor(c => c.UsuarioId)
+                .NotEqual(Guid.Empty);
+        }
+        protected void ValidateNomeUsuario()
+        {
+            RuleFor(c => c.NomeUsuario)
+                .NotNull().WithMessage("Nome do usuário não pode estar vazio!")
+                .NotEmpty().WithMessage("Nome do usuário não pode estar vazio!")
+                .Length(2, 200).WithMessage("Nome do usuário deve ter mais de 2 caracteres!"); ;
+        }
 
     }
 }

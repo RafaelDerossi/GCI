@@ -10,19 +10,20 @@ namespace CondominioApp.Portaria.Tests
         public static CadastrarVisitaCommand CadastrarVisitaCommandFactory()
         {
             return new CadastrarVisitaCommand
-                (DateTime.Today, "Nome Condômino", "OBS", StatusVisita.PENDENTE, Guid.NewGuid(),
+                (DateTime.Today, "OBS", StatusVisita.PENDENTE, Guid.NewGuid(),
                 "Nome do Visitante", "143.026.417-97", "rafael@condominioapp.com",
                 "foto.jpg", "nomeOriginal.jpg", TipoDeVisitante.PARTICULAR, "", Guid.NewGuid(),
                 "Nome Condominio", Guid.NewGuid(), "101", "1º", "Bloco 1", 
-                true, "LMG8888", "Modelo", "Prata");
+                true, "LMG8888", "Modelo", "Prata", Guid.NewGuid(), "Nome Usuario");
         }
 
         public static EditarVisitaCommand EditarVisitaCommandFactory()
         {
             return new EditarVisitaCommand
-                (Guid.NewGuid(), "Nome Condômino", "Nome do Visitante", "143.026.417-97",
+                (Guid.NewGuid(), "Nome do Visitante", "143.026.417-97",
                 "rafael@condominioapp.com", "foto.jpg", "nomeOriginal.jpg", TipoDeVisitante.PARTICULAR,
-                "", Guid.NewGuid(), "101", "1", "Bloco 1", true, "LMG8888", "Modelo", "Prata");
+                "", Guid.NewGuid(), "101", "1", "Bloco 1", true, "LMG8888", "Modelo", "Prata",
+                 Guid.NewGuid(), "Nome do Usuario");
         }
 
 

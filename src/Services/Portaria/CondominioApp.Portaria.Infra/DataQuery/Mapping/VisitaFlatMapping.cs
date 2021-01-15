@@ -14,8 +14,7 @@ namespace CondominioApp.Principal.Infra.DataQuery.Mapping
             builder.ToTable("VisitasFlat");
 
             builder.Property(u => u.Terminada).IsRequired();
-
-            builder.Property(u => u.NomeCondomino).IsRequired().HasColumnType($"varchar({VisitaFlat.Max})");
+           
 
             builder.Property(u => u.Observacao).IsRequired().HasColumnType($"varchar(250)");
 
@@ -77,6 +76,10 @@ namespace CondominioApp.Principal.Infra.DataQuery.Mapping
                     .HasMaxLength(Veiculo.CorMaxlength)
                     .HasColumnName("Cor")
                     .HasColumnType($"varchar({Veiculo.CorMaxlength})");
+
+
+            builder.Property(u => u.UsuarioId).IsRequired();
+            builder.Property(u => u.NomeUsuario).IsRequired().HasColumnType($"varchar({VisitaFlat.Max})");
         }
     }
 }

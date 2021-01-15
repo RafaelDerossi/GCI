@@ -8,28 +8,29 @@ namespace CondominioApp.Portaria.Aplication.Commands
     {
 
         public EditarVisitaCommand
-            (Guid id, string nomeCondomino, string nomeVisitante, string documentoVisitante,
-            string emailVisitante, string fotoVisitante, string nomeOriginalFotoVisitante, 
-            TipoDeVisitante tipoDeVisitante, string nomeEmpresaVisitante, Guid unidadeId,
-            string numeroUnidade, string andarUnidade, string grupoUnidade, bool temVeiculo,
-            string placaVeiculo, string modeloVeiculo, string corVeiculo)
+            (Guid id, string nomeVisitante, string documentoVisitante, string emailVisitante,
+            string fotoVisitante, string nomeOriginalFotoVisitante, TipoDeVisitante tipoDeVisitante,
+            string nomeEmpresaVisitante, Guid unidadeId, string numeroUnidade, string andarUnidade,
+            string grupoUnidade, bool temVeiculo, string placaVeiculo, string modeloVeiculo, string corVeiculo,
+            Guid usuarioId, string nomeUsuario)
         {
-            Id = id;
-            NomeCondomino = nomeCondomino;            
+            Id = id;          
             NomeVisitante = nomeVisitante;
+            SetDocumentoVisitante(documentoVisitante);
             SetTipoDeVisitante(tipoDeVisitante);
+            SetEmailVisitante(emailVisitante);
+            SetFotoVisitante(nomeOriginalFotoVisitante, fotoVisitante);
             SetNomeEmpresaVisitante(nomeEmpresaVisitante);
+
             SetUnidadeId(unidadeId);
             SetNumeroUnidade(numeroUnidade);
             SetAndarUnidade(andarUnidade);
             SetGrupoUnidade(grupoUnidade);
-            TemVeiculo = temVeiculo;
-            
 
-            SetDocumentoVisitante(documentoVisitante);
-            SetEmailVisitante(emailVisitante);
-            SetFotoVisitante(nomeOriginalFotoVisitante, fotoVisitante);
+            TemVeiculo = temVeiculo;           
             SetVeiculo(placaVeiculo, modeloVeiculo, corVeiculo);
+
+            SetUsuario(usuarioId, nomeUsuario);
         }
 
 
@@ -46,15 +47,15 @@ namespace CondominioApp.Portaria.Aplication.Commands
         public class EditarVisitaCommandValidation : VisitaValidation<EditarVisitaCommand>
         {
             public EditarVisitaCommandValidation()
-            {
-                ValidateNomeCondomino();                   
+            {                              
                 ValidateNomeVisitante();
                 ValidateTipoDeDocumentoVisitante();                
                 ValidateUnidadeId();
                 ValidateNumeroUnidade();
                 ValidateAndarUnidade();
                 ValidateGrupoUnidade();
-                
+                ValidateUsuarioId();
+                ValidateNomeUsuario();
             }
         }
 

@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using CondominioApp.Core.Messages;
+using CondominioApp.Portaria.Aplication.Factories;
 using CondominioApp.Portaria.Domain.FlatModel;
 using CondominioApp.Portaria.Domain.Interfaces;
 using MediatR;
@@ -19,11 +20,13 @@ namespace CondominioApp.Portaria.Aplication.Events
     {        
 
         private IVisitanteQueryRepository _visitanteQueryRepository;
+        private IVisitanteFlatFactory _visitanteFlatFactory;
 
         public VisitaEventHandler(
-            IVisitanteQueryRepository visitanteQueryRepository)
+            IVisitanteQueryRepository visitanteQueryRepository, IVisitanteFlatFactory visitanteFlatFactory)
         {
-            _visitanteQueryRepository = visitanteQueryRepository;          
+            _visitanteQueryRepository = visitanteQueryRepository;
+            _visitanteFlatFactory = visitanteFlatFactory;
         }
 
 
@@ -32,14 +35,7 @@ namespace CondominioApp.Portaria.Aplication.Events
             var visitanteFlat = await _visitanteQueryRepository.ObterPorId(notification.VisitanteId);
             if (visitanteFlat ==null)
             {
-                visitanteFlat =  new VisitanteFlat
-                (notification.VisitanteId, notification.NomeVisitante, notification.TipoDeDocumentoVisitante,
-                notification.RgVisitante.Numero, notification.CpfVisitante.Numero, notification.EmailVisitante.Endereco,
-                notification.FotoVisitante.NomeDoArquivo, notification.CondominioId, notification.NomeCondominio,
-                notification.UnidadeId, notification.NumeroUnidade, notification.AndarUnidade, notification.GrupoUnidade,
-                false, "", notification.TipoDeVisitante, notification.NomeEmpresaVisitante, notification.TemVeiculo,
-                notification.Veiculo.Placa, notification.Veiculo.Modelo, notification.Veiculo.Cor);
-
+                visitanteFlat = _visitanteFlatFactory.Fabricar(notification);
                 _visitanteQueryRepository.Adicionar(visitanteFlat);
             }
             else
@@ -66,13 +62,14 @@ namespace CondominioApp.Portaria.Aplication.Events
 
             
             var visitaFlat = new VisitaFlat
-                (notification.Id, notification.DataDeEntrada, notification.NomeCondomino, notification.Observacao,
+                (notification.Id, notification.DataDeEntrada, notification.Observacao,
                 notification.Status, notification.VisitanteId, notification.NomeVisitante,
                 notification.TipoDeDocumentoVisitante, notification.RgVisitante.Numero, notification.CpfVisitante.Numero,
                 notification.EmailVisitante.Endereco, notification.FotoVisitante.NomeDoArquivo, notification.TipoDeVisitante,
                 notification.NomeEmpresaVisitante, notification.CondominioId, notification.NomeCondominio,
                 notification.UnidadeId, notification.NumeroUnidade, notification.AndarUnidade, notification.GrupoUnidade,
-                notification.TemVeiculo, notification.Veiculo.Placa, notification.Veiculo.Modelo, notification.Veiculo.Cor);
+                notification.TemVeiculo, notification.Veiculo.Placa, notification.Veiculo.Modelo,
+                notification.Veiculo.Cor, notification.UsuarioId, notification.NomeUsuario);
                                    
 
             _visitanteQueryRepository.AdicionarVisita(visitaFlat);
@@ -107,8 +104,7 @@ namespace CondominioApp.Portaria.Aplication.Events
 
             var visitaFlat = await _visitanteQueryRepository.ObterVisitaPorId(notification.Id);
             if (visitanteFlat != null)
-            {
-                visitaFlat.SetNomeCondomino(notification.NomeCondomino);
+            {                
                 visitaFlat.SetNomeVisitante(notification.NomeVisitante);
                 visitaFlat.SetTipoDocumentoVisitante(notification.TipoDeDocumentoVisitante);
                 visitaFlat.SetCpfVisitante(notification.CpfVisitante.Numero);
@@ -130,6 +126,7 @@ namespace CondominioApp.Portaria.Aplication.Events
                 visitaFlat.SetModeloVeiculo(notification.Veiculo.Modelo);
                 visitaFlat.SetCorVeiculo(notification.Veiculo.Cor);
 
+                visitaFlat.SetUsuario(notification.UsuarioId, notification.NomeUsuario);
 
                 _visitanteQueryRepository.AtualizarVisita(visitaFlat);
 

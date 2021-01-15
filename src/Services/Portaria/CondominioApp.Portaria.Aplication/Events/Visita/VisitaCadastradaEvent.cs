@@ -8,15 +8,14 @@ namespace CondominioApp.Portaria.Aplication.Events
     {
 
         public VisitaCadastradaEvent
-            (Guid id, DateTime dataDeEntrada, string nomeCondomino, string observacao, StatusVisita status,
+            (Guid id, DateTime dataDeEntrada, string observacao, StatusVisita status,
             Guid visitanteId, string nomeVisitante,TipoDeDocumento tipoDeDocumento, Cpf cpf, Rg rg, Email email,
             Foto foto,TipoDeVisitante tipoDeVisitante, string nomeEmpresa, Guid condominioId, string nomeCondominio,
             Guid unidadeId, string numeroUnidade, string andarUnidade, string grupoUnidade, bool temVeiculo,
-            Veiculo veiculo)
+            Veiculo veiculo, Guid usuarioId, string nomeUsuario)
         {
             Id = id;
             SetDataDeEntrada(dataDeEntrada);
-            NomeCondomino = nomeCondomino;
             Observacao = observacao;
             Status = status;
             SetVisitanteId(visitanteId);
@@ -36,6 +35,7 @@ namespace CondominioApp.Portaria.Aplication.Events
             SetGrupoUnidade(grupoUnidade);
             TemVeiculo = temVeiculo;
             SetVeiculo(veiculo);
+            SetUsuario(usuarioId, nomeUsuario);
         }
 
     }

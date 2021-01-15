@@ -9,13 +9,12 @@ namespace CondominioApp.Portaria.Aplication.Events
     {
 
         public VisitaEditadaEvent
-            (Guid id, string nomeCondomino, string nomeVisitante, TipoDeDocumento tipoDeDocumento,
+            (Guid id, string nomeVisitante, TipoDeDocumento tipoDeDocumento,
             Cpf cpf, Rg rg, Email email, Foto foto, TipoDeVisitante tipoDeVisitante, string nomeEmpresa,
             Guid unidadeId, string numeroUnidade, string andarUnidade, string grupoUnidade, bool temVeiculo,
-            Veiculo veiculo)
+            Veiculo veiculo, Guid usuarioId, string nomeUsuario)
         {
-            Id = id;
-            NomeCondomino = nomeCondomino;            
+            Id = id;            
             NomeVisitante = nomeVisitante;
             SetTipoDeDocumento(tipoDeDocumento);
             SetCPFVisitante(cpf);
@@ -30,6 +29,7 @@ namespace CondominioApp.Portaria.Aplication.Events
             SetGrupoUnidade(grupoUnidade);
             TemVeiculo = temVeiculo;
             SetVeiculo(veiculo);
+            SetUsuario(usuarioId, nomeUsuario);
         }
 
     }

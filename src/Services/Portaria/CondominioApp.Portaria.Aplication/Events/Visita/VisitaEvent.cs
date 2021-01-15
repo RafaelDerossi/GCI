@@ -12,9 +12,7 @@ namespace CondominioApp.Portaria.Aplication.Events
         public DateTime DataDeEntrada { get; protected set; }
         public bool Terminada { get; protected set; }
         public DateTime DataDeSaida { get; protected set; }
-
-
-        public string NomeCondomino { get; protected set; }
+        
         public string Observacao { get; protected set; }
         public StatusVisita Status { get; protected set; }
        
@@ -40,6 +38,10 @@ namespace CondominioApp.Portaria.Aplication.Events
 
         public bool TemVeiculo { get; protected set; }
         public Veiculo Veiculo { get; protected set; }
+
+
+        public Guid UsuarioId { get; protected set; }
+        public string NomeUsuario { get; protected set; }
 
 
         public void SetTipoDeDocumento(TipoDeDocumento tipoDeDocumento) => TipoDeDocumentoVisitante = tipoDeDocumento;
@@ -77,7 +79,12 @@ namespace CondominioApp.Portaria.Aplication.Events
         public void SetAndarUnidade(string andarUnidade) => AndarUnidade = andarUnidade;
 
         public void SetGrupoUnidade(string grupoUnidade) => GrupoUnidade = grupoUnidade;
+     
+        public void SetUsuario(Guid usuarioId, string nomeUsuario)
+        {
+            UsuarioId = usuarioId;
+            NomeUsuario = nomeUsuario;
+        }
 
-        
     }
 }
