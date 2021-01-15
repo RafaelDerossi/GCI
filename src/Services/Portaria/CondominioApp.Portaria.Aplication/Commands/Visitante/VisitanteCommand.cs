@@ -41,19 +41,19 @@ namespace CondominioApp.Portaria.Aplication.Commands
                 if (documento.Length == 14)
                 {
                     SetCPF(documento);
-                    Rg = null;
-                    
+                    TipoDeDocumento = TipoDeDocumento.CPF;
                 }                    
                 else
                 {
                     SetRg(documento);
-                    Cpf = null;
+                    TipoDeDocumento = TipoDeDocumento.RG;
                 }                    
             }
             else
             {
-                Rg = null;
-                Cpf = null;
+                Rg = new Rg("");
+                Cpf = new Cpf("");
+                TipoDeDocumento = TipoDeDocumento.OUTROS;
             }               
         }
         private void SetRg(string rg)
@@ -61,6 +61,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
             try
             {
                 Rg = new Rg(rg);
+                Cpf = new Cpf("");
             }
             catch (Exception e)
             {
@@ -72,6 +73,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
             try
             {
                 Cpf = new Cpf(cpf);
+                Rg = new Rg("");
             }
             catch (Exception e)
             {
@@ -107,6 +109,16 @@ namespace CondominioApp.Portaria.Aplication.Commands
         {
             if (TemVeiculo)
             {
+                if (modelo == "")
+                {
+                    AdicionarErrosDeProcessamentoDoComando("Informe o modelo do veículo.");
+                    return;
+                }
+                if (cor == "")
+                {
+                    AdicionarErrosDeProcessamentoDoComando("Informe a cor do veículo.");
+                    return;
+                }
                 try
                 {
                     Veiculo = new Veiculo(placa, modelo, cor);
@@ -115,7 +127,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
                 {
                     AdicionarErrosDeProcessamentoDoComando(e.Message);
                 }
-            }            
+            }
         }
 
         public void SetNome(string nome) => Nome = nome;

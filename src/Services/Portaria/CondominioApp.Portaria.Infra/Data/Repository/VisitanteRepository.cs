@@ -100,13 +100,13 @@ namespace CondominioApp.Portaria.Infra.Data.Repository
         public async Task<bool> VisitanteJaCadastradoPorCpf(Cpf cpf, Guid visitanteId)
         {
             return await _context.Visitantes
-                .Where(u => !u.Lixeira && u.Cpf.Numero == cpf.Numero && u.Id != visitanteId).CountAsync() > 0;
+                .CountAsync(u => !u.Lixeira && u.Cpf.Numero == cpf.Numero && u.Id != visitanteId) > 0;
         }
 
         public async Task<bool> VisitanteJaCadastradoPorRg(Rg rg, Guid visitanteId)
         {
             return await _context.Visitantes
-                .Where(u => !u.Lixeira && u.Rg.Numero == rg.Numero && u.Id != visitanteId).CountAsync() > 0;
+                .CountAsync(u => !u.Lixeira && u.Rg.Numero == rg.Numero && u.Id != visitanteId) > 0;
         }
 
 

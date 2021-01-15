@@ -2,6 +2,7 @@
 using CondominioApp.Correspondencias.App.Data;
 using CondominioApp.Enquetes.App.Data;
 using CondominioApp.Portaria.Infra.Data;
+using CondominioApp.Portaria.Infra.DataQuery;
 using CondominioApp.Principal.Infra.Data;
 using CondominioApp.Principal.Infra.DataQuery;
 using CondominioApp.ReservaAreaComum.Infra.Data;
@@ -59,6 +60,11 @@ namespace CondominioApp.Api.Configuration
 
             services.AddDbContext<PortariaContextDB>(options =>
             options.UseSqlServer(configuration.GetConnectionString("PortariaConnection")));
+
+            services.AddDbContext<PortariaQueryContextDB>(options =>
+             options.UseSqlServer(configuration.GetConnectionString("QueryConnection")));
+
+
 
             services.Configure<ApiBehaviorOptions>(options =>
             {

@@ -1,5 +1,6 @@
 ﻿using CondominioApp.Core.Enumeradores;
 using CondominioApp.Core.Messages;
+using CondominioApp.Portaria.Aplication.Factories;
 using CondominioApp.Portaria.Domain;
 using CondominioApp.Portaria.Domain.Interfaces;
 using FluentValidation.Results;
@@ -21,10 +22,12 @@ namespace CondominioApp.Portaria.Aplication.Commands
          IDisposable
     {
         private IVisitanteRepository _visitanteRepository;
+        private IVisitanteFactory _visitanteFactory;
 
-        public VisitaCommandHandler(IVisitanteRepository visitanteRepository)
+        public VisitaCommandHandler(IVisitanteRepository visitanteRepository, IVisitanteFactory visitanteFactory)
         {
             _visitanteRepository = visitanteRepository;
+            _visitanteFactory = visitanteFactory;
         }
 
 
@@ -56,7 +59,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
                     }
                 }
 
-                visitante = VisitanteFactory(request);
+                visitante = _visitanteFactory.Fabricar(request);
             }
             else
             {
@@ -109,7 +112,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
                 AdicionarErro("Visita não encontrada.");
                 return ValidationResult;
             }
-            visitaBd.SetNomeCondomino(request.NomeCondomino);
+            
             visitaBd.SetNomeVisitante(request.NomeVisitante);
             visitaBd.SetTipoDeVisitante(request.TipoDeVisitante);
             visitaBd.SetNomeEmpresaVisitante(request.NomeEmpresaVisitante);
@@ -119,6 +122,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
             visitaBd.SetGrupoUnidade(request.GrupoUnidade);
             visitaBd.SetVeiculo(request.Veiculo);
 
+            visitaBd.SetUsuario(request.UsuarioId, request.NomeUsuario);
 
             var visitanteBd = await _visitanteRepository.ObterPorId(visitaBd.VisitanteId);
             if (visitanteBd == null)
@@ -127,6 +131,11 @@ namespace CondominioApp.Portaria.Aplication.Commands
                 return ValidationResult;
             }
             visitanteBd.SetNome(request.NomeVisitante);
+            visitanteBd.SetTipoDeDocumento(request.TipoDeDocumentoVisitante);
+            visitanteBd.SetCpf(request.CpfVisitante);
+            visitanteBd.SetRg(request.RgVisitante);
+            visitanteBd.SetEmail(request.EmailVisitante);
+            visitanteBd.SetFoto(request.FotoVisitante);
             visitanteBd.SetTipoDeVisitante(request.TipoDeVisitante);
             visitanteBd.SetNomeEmpresa(request.NomeEmpresaVisitante);
             visitanteBd.SetVeiculo(request.Veiculo);
@@ -152,6 +161,13 @@ namespace CondominioApp.Portaria.Aplication.Commands
                 return ValidationResult;
             }
 
+            if (visitaBd.Status != StatusVisita.PENDENTE &&
+                visitaBd.Status != StatusVisita.APROVADA)
+            {
+                AdicionarErro("Visita não pode ser removida pois ja esta " + visitaBd.Status.ToString().ToLower());
+                return ValidationResult;
+            }            
+
             visitaBd.EnviarParaLixeira();
 
             _visitanteRepository.AtualizarVisita(visitaBd);
@@ -170,6 +186,12 @@ namespace CondominioApp.Portaria.Aplication.Commands
             if (visitaBd == null)
             {
                 AdicionarErro("Visita não encontrada.");
+                return ValidationResult;
+            }
+
+            if (visitaBd.Status != StatusVisita.PENDENTE)
+            {
+                AdicionarErro("Visita não pode ser aprovada pois ja esta " + visitaBd.Status.ToString().ToLower());
                 return ValidationResult;
             }
 
@@ -194,6 +216,12 @@ namespace CondominioApp.Portaria.Aplication.Commands
                 return ValidationResult;
             }
 
+            if (visitaBd.Status != StatusVisita.PENDENTE && visitaBd.Status != StatusVisita.APROVADA)
+            {
+                AdicionarErro("Visita não pode ser reprovada pois ja esta " + visitaBd.Status.ToString().ToLower());
+                return ValidationResult;
+            }
+
             visitaBd.ReprovarVisita();
 
             _visitanteRepository.AtualizarVisita(visitaBd);
@@ -215,6 +243,18 @@ namespace CondominioApp.Portaria.Aplication.Commands
                 return ValidationResult;
             }
 
+            if (visitaBd.Status == StatusVisita.PENDENTE)
+            {
+                AdicionarErro("Visita não pode ser iniciada pois ainda esta pendente de aprovação.");
+                return ValidationResult;
+            }
+
+            if (visitaBd.Status != StatusVisita.APROVADA)
+            {
+                AdicionarErro("Visita não pode ser iniciada pois ja esta " + visitaBd.Status.ToString().ToLower());
+                return ValidationResult;
+            }
+             
             visitaBd.IniciarVisita();
 
             _visitanteRepository.AtualizarVisita(visitaBd);
@@ -236,6 +276,12 @@ namespace CondominioApp.Portaria.Aplication.Commands
                 return ValidationResult;
             }
 
+            if (visitaBd.Status != StatusVisita.INICIADA)
+            {
+                AdicionarErro("Visita não pode ser terminada pois não esta iniciada.");
+                return ValidationResult;
+            }
+
             visitaBd.TerminarVisita();
 
             _visitanteRepository.AtualizarVisita(visitaBd);
@@ -251,22 +297,13 @@ namespace CondominioApp.Portaria.Aplication.Commands
         private Visita VisitaFactory(CadastrarVisitaCommand request)
         {
             return new Visita
-                (request.DataDeEntrada, request.NomeCondominio, request.Observacao, request.Status,
+                (request.DataDeEntrada, request.Observacao, request.Status,
                  request.VisitanteId, request.NomeVisitante,request.TipoDeDocumentoVisitante,
                  request.RgVisitante,request.CpfVisitante, request.EmailVisitante,request.FotoVisitante,
                  request.TipoDeVisitante, request.NomeEmpresaVisitante, request.CondominioId,
                  request.NomeCondominio, request.UnidadeId, request.NumeroUnidade, request.AndarUnidade,
-                 request.GrupoUnidade, request.Veiculo);            
-        }
-
-        private Visitante VisitanteFactory(CadastrarVisitaCommand request)
-        {
-            return new Visitante
-                (request.NomeVisitante, request.TipoDeDocumentoVisitante, request.RgVisitante,
-                request.CpfVisitante, request.EmailVisitante, request.FotoVisitante, request.CondominioId,
-                request.NomeCondominio, request.UnidadeId, request.NumeroUnidade, request.AndarUnidade,
-                request.GrupoUnidade, false, "", request.TipoDeVisitante, request.NomeEmpresaVisitante, request.Veiculo);
-        }
+                 request.GrupoUnidade, request.Veiculo, request.UsuarioId, request.NomeUsuario);            
+        }      
 
         public void Dispose()
         {

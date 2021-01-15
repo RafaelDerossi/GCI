@@ -40,9 +40,7 @@ namespace CondominioApp.Enquetes.App.Aplication.Query
         public async Task<IEnumerable<Enquete>> ObterAtivasPorCondominio(Guid condominioId)
         {
             return await _enqueteRepository.Obter(e=>e.CondominioId == condominioId && !e.Lixeira && e.DataInicio <= DataHoraDeBrasilia.Get() && e.DataFim >= DataHoraDeBrasilia.Get());
-        }
-
-      
+        }      
 
         #endregion
 

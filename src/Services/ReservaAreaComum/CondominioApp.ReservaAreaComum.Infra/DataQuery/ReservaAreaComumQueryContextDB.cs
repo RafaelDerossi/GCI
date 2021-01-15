@@ -14,16 +14,13 @@ namespace CondominioApp.Principal.Infra.DataQuery
 {
     public class ReservaAreaComumQueryContextDB : DbContext, IUnitOfWorks
     {
-        private readonly IMediatorHandler _mediatorHandler;
-
         public DbSet<AreaComumFlat> AreasComunsFlat { get; set; }
         public DbSet<PeriodoFlat> PeriodosFlat { get; set; }
         public DbSet<ReservaFlat> ReservasFlat { get; set; }
       
-        public ReservaAreaComumQueryContextDB(DbContextOptions<ReservaAreaComumQueryContextDB> options, IMediatorHandler mediatorHandler)
+        public ReservaAreaComumQueryContextDB(DbContextOptions<ReservaAreaComumQueryContextDB> options)
             : base(options)
         {
-            _mediatorHandler = mediatorHandler;
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -8,35 +8,38 @@ namespace CondominioApp.Portaria.Aplication.Commands
     {
 
         public CadastrarVisitaCommand
-            (DateTime dataDeEntrada, string nomeCondomino, string observacao, StatusVisita status,
+            (DateTime dataDeEntrada, string observacao, StatusVisita status,
             Guid visitanteId, string nomeVisitante, string documentoVisitante, string emailVisitante,
             string fotoVisitante, string nomeOriginalFotoVisitante,TipoDeVisitante tipoDeVisitante,
             string nomeEmpresaVisitante, Guid condominioId, string nomeCondominio, Guid unidadeId,
             string numeroUnidade, string andarUnidade, string grupoUnidade, bool temVeiculo,
-            string placaVeiculo, string modeloVeiculo, string corVeiculo)
+            string placaVeiculo, string modeloVeiculo, string corVeiculo, Guid usuarioId, string nomeUsuario)
         {
-            SetDataDeEntrada(dataDeEntrada);
-            NomeCondomino = nomeCondomino;
+            SetDataDeEntrada(dataDeEntrada);            
             Observacao = observacao;
             Status = status;
+
             SetVisitanteId(visitanteId);
             NomeVisitante = nomeVisitante;
+            SetDocumentoVisitante(documentoVisitante);
+            SetEmailVisitante(emailVisitante);
+            SetFotoVisitante(nomeOriginalFotoVisitante, fotoVisitante);          
             SetTipoDeVisitante(tipoDeVisitante);
             SetNomeEmpresaVisitante(nomeEmpresaVisitante);
+
             SetCondominioId(condominioId);
             SetNomeDoCondominio(nomeCondominio);
+
             SetUnidadeId(unidadeId);
             SetNumeroUnidade(numeroUnidade);
             SetAndarUnidade(andarUnidade);
             SetGrupoUnidade(grupoUnidade);
-            TemVeiculo = temVeiculo;
 
-            
-
-            SetDocumentoVisitante(documentoVisitante);
-            SetEmailVisitante(emailVisitante);
-            SetFotoVisitante(nomeOriginalFotoVisitante, fotoVisitante);
+            TemVeiculo = temVeiculo;           
             SetVeiculo(placaVeiculo, modeloVeiculo, corVeiculo);
+
+            SetUsuario(usuarioId, nomeUsuario);
+
         }
 
 
@@ -53,8 +56,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
         public class CadastrarVisitaCommandValidation : VisitaValidation<CadastrarVisitaCommand>
         {
             public CadastrarVisitaCommandValidation()
-            {
-                ValidateNomeCondomino();
+            {               
                 ValidateObservacao();
                 ValidateStatus();              
                 ValidateNomeVisitante();
@@ -65,7 +67,8 @@ namespace CondominioApp.Portaria.Aplication.Commands
                 ValidateNumeroUnidade();
                 ValidateAndarUnidade();
                 ValidateGrupoUnidade();
-                
+                ValidateUnidadeId();
+                ValidateNomeUsuario();
             }
         }
 

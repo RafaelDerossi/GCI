@@ -1,4 +1,6 @@
 ﻿using CondominioApp.Core.Messages;
+using CondominioApp.Portaria.Aplication.Events;
+using CondominioApp.Portaria.Aplication.Factories;
 using CondominioApp.Portaria.Domain;
 using CondominioApp.Portaria.Domain.Interfaces;
 using FluentValidation.Results;
@@ -16,10 +18,12 @@ namespace CondominioApp.Portaria.Aplication.Commands
          IDisposable
     {
         private IVisitanteRepository _visitanteRepository;
+        private IVisitanteFactory _visitanteFactory;
 
-        public VisitanteCommandHandler(IVisitanteRepository visitanteRepository)
+        public VisitanteCommandHandler(IVisitanteRepository visitanteRepository, IVisitanteFactory visitanteFactory)
         {
             _visitanteRepository = visitanteRepository;
+            _visitanteFactory = visitanteFactory;
         }
 
 
@@ -28,9 +32,9 @@ namespace CondominioApp.Portaria.Aplication.Commands
             if (!request.EstaValido())
                 return request.ValidationResult;
 
-            var visitante = VisitanteFactory(request);
+            var visitante = _visitanteFactory.Fabricar(request);
 
-            if (visitante.Cpf != null)
+            if (visitante.Cpf.Numero != "")
             {
                 if (_visitanteRepository.VisitanteJaCadastradoPorCpf(visitante.Cpf, visitante.Id).Result)
                 {
@@ -39,7 +43,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
                 }
             }
 
-            if (visitante.Rg != null)
+            if (visitante.Rg.Numero != "")
             {
                 if (_visitanteRepository.VisitanteJaCadastradoPorRg(visitante.Rg, visitante.Id).Result)
                 {
@@ -50,18 +54,18 @@ namespace CondominioApp.Portaria.Aplication.Commands
 
             _visitanteRepository.Adicionar(visitante);
 
-            //visitante.AdicionarEvento(
-            //    new CondominioCadastradoEvent(visitante.Id,
-            //    visitante.Cnpj, visitante.Nome, visitante.Descricao, visitante.LogoMarca,
-            //    visitante.Telefone, visitante.Endereco, visitante.RefereciaId, visitante.LinkGeraBoleto, 
-            //    visitante.BoletoFolder, visitante.UrlWebServer, visitante.Portaria, visitante.PortariaMorador,
-            //    visitante.Classificado, visitante.ClassificadoMorador, visitante.Mural,
-            //    visitante.MuralMorador, visitante.Chat, visitante.ChatMorador, visitante.Reserva,
-            //    visitante.ReservaNaPortaria, visitante.Ocorrencia, visitante.OcorrenciaMorador,
-            //    visitante.Correspondencia, visitante.CorrespondenciaNaPortaria, visitante.LimiteTempoReserva));
+            
+            visitante.AdicionarEvento(
+                new VisitanteCadastradoEvent(
+                    visitante.Id, visitante.Nome, visitante.TipoDeDocumento, visitante.Cpf, visitante.Rg, visitante.Email, visitante.Foto,
+                    visitante.CondominioId, visitante.NomeCondominio, visitante.UnidadeId, visitante.NumeroUnidade,
+                    visitante.AndarUnidade, visitante.GrupoUnidade, visitante.VisitantePermanente, visitante.QrCode,
+                    visitante.TipoDeVisitante, visitante.NomeEmpresa, visitante.TemVeiculo, visitante.Veiculo));
+
 
             return await PersistirDados(_visitanteRepository.UnitOfWork);
         }
+
 
         public async Task<ValidationResult> Handle(EditarVisitanteCommand request, CancellationToken cancellationToken)
         {
@@ -74,7 +78,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
                 return ValidationResult;
             }
                 
-            if (request.Cpf != null)
+            if (request.Cpf.Numero != "")
             {
                 if (_visitanteRepository.VisitanteJaCadastradoPorCpf(request.Cpf, request.Id).Result)
                 {
@@ -83,7 +87,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
                 }
             }
 
-            if (visitante.Rg != null)
+            if (visitante.Rg.Numero != "")
             {
                 if (_visitanteRepository.VisitanteJaCadastradoPorRg(request.Rg, request.Id).Result)
                 {
@@ -110,15 +114,13 @@ namespace CondominioApp.Portaria.Aplication.Commands
 
             _visitanteRepository.Atualizar(visitante);
 
-            //visitante.AdicionarEvento(
-            //    new CondominioCadastradoEvent(visitante.Id,
-            //    visitante.Cnpj, visitante.Nome, visitante.Descricao, visitante.LogoMarca,
-            //    visitante.Telefone, visitante.Endereco, visitante.RefereciaId, visitante.LinkGeraBoleto, 
-            //    visitante.BoletoFolder, visitante.UrlWebServer, visitante.Portaria, visitante.PortariaMorador,
-            //    visitante.Classificado, visitante.ClassificadoMorador, visitante.Mural,
-            //    visitante.MuralMorador, visitante.Chat, visitante.ChatMorador, visitante.Reserva,
-            //    visitante.ReservaNaPortaria, visitante.Ocorrencia, visitante.OcorrenciaMorador,
-            //    visitante.Correspondencia, visitante.CorrespondenciaNaPortaria, visitante.LimiteTempoReserva));
+
+            visitante.AdicionarEvento(
+                new VisitanteEditadoEvent(
+                    visitante.Id, visitante.Nome, visitante.TipoDeDocumento, visitante.Cpf, visitante.Rg,
+                    visitante.Email, visitante.Foto, visitante.VisitantePermanente, visitante.TipoDeVisitante,
+                    visitante.NomeEmpresa, visitante.TemVeiculo, visitante.Veiculo));
+
 
             return await PersistirDados(_visitanteRepository.UnitOfWork);
         }
@@ -139,20 +141,12 @@ namespace CondominioApp.Portaria.Aplication.Commands
 
             _visitanteRepository.Atualizar(visitanteBd);
 
+            
             //Evento
-            //
+            visitanteBd.AdicionarEvento(new VisitanteRemovidoEvent(visitanteBd.Id));
+
 
             return await PersistirDados(_visitanteRepository.UnitOfWork);
-        }
-
-
-        private Visitante VisitanteFactory(CadastrarVisitanteCommand request)
-        {
-            return new Visitante
-                (request.Nome, request.TipoDeDocumento, request.Rg, request.Cpf, request.Email,
-                 request.Foto, request.CondominioId, request.NomeCondominio, request.UnidadeId,
-                 request.NumeroUnidade, request.AndarUnidade, request.GrupoUnidade, request.VisitantePermanente,
-                 request.QrCode, request.TipoDeVisitante, request.NomeEmpresa, request.Veiculo);
         }
 
 

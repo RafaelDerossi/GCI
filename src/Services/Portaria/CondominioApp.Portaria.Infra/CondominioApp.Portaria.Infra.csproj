@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="DataQuery\Mapping\" />
-    <Folder Include="DataQuery\Repository\" />
+    <Compile Remove="Migrations\20210114142225_Portaria.cs" />
+    <Compile Remove="Migrations\20210114142225_Portaria.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

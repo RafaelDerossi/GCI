@@ -24,7 +24,7 @@ namespace CondominioApp.Correspondencias.App.Data.Repository
         public async Task<Correspondencia> ObterPorId(Guid Id)
         {
             return await _context.Correspondencias                    
-                .FirstOrDefaultAsync(u => u.Id == Id);
+                .FirstOrDefaultAsync(u => u.Id == Id && !u.Lixeira);
         }
 
         public async Task<IEnumerable<Correspondencia>> ObterTodos()

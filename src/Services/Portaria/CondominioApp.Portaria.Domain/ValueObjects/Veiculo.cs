@@ -36,32 +36,33 @@ namespace CondominioApp.Portaria.ValueObjects
                 if (!match.Success)                
                     throw new DomainException("Placa inválida!");
             }
+
             Placa = placa;
         }
                
 
         public void SetModelo(string modelo)
         {
-            if (string.IsNullOrEmpty(modelo))
-                throw new DomainException("Informe o modelo do veículo.");
+            if (!string.IsNullOrEmpty(modelo))
+            {
+                Guarda.ValidarTamanho(modelo, ModeloMaxlength);
 
-            Guarda.ValidarTamanho(modelo, ModeloMaxlength);
-
-            if (modelo.Length < 3)
-                throw new DomainException("Informe um modelo de veículo com no mínimo 3 caracteres.");
+                if (modelo.Length < 3)
+                    throw new DomainException("Informe um modelo de veículo com no mínimo 3 caracteres.");
+            }           
 
             Modelo = modelo;               
         }
 
         public void SetCor(string cor)
         {
-            if (string.IsNullOrEmpty(cor))
-                throw new DomainException("Informe a cor do veículo.");
+            if (!string.IsNullOrEmpty(cor))
+            {
+                Guarda.ValidarTamanho(cor, CorMaxlength);
 
-            Guarda.ValidarTamanho(cor, CorMaxlength);
-
-            if (cor.Length < 3)
-                throw new DomainException("Informe uma cor com no mínimo 3 caracteres.");
+                if (cor.Length < 3)
+                    throw new DomainException("Informe uma cor com no mínimo 3 caracteres.");
+            }
 
             Cor = cor;
         }

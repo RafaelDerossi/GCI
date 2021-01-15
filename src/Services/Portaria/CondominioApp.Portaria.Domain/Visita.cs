@@ -13,9 +13,7 @@ namespace CondominioApp.Portaria.Domain
         public DateTime DataDeEntrada { get; private set; }
         public bool Terminada { get; private set; }
         public DateTime DataDeSaida { get; private set; }
-
-
-        public string NomeCondomino { get; private set; }
+        
         public string Observacao { get; private set; }
         public StatusVisita Status
         {
@@ -32,7 +30,6 @@ namespace CondominioApp.Portaria.Domain
             private set
             { }
         }
-
 
         public Guid VisitanteId { get; private set; }
         public string NomeVisitante { get; private set; }
@@ -56,26 +53,24 @@ namespace CondominioApp.Portaria.Domain
         public Veiculo Veiculo { get; private set; }
 
 
-       
-        
+        public Guid UsuarioId { get; private set; }
+        public string NomeUsuario { get; private set; }
 
-        
+
         /// Construtores       
         protected Visita()
         {                  
         }
 
         public Visita(
-            DateTime dataDeEntrada, string nomeCondomino,
-            string observacao, StatusVisita status, Guid visitanteId, string nomeVisitante,
-            TipoDeDocumento tipoDeDocumentoVisitante, Rg rgVisitante, Cpf cpfVisitante,
-            Email emailVisitante, Foto fotoVisitante,TipoDeVisitante tipoDeVisitante,
-            string nomeEmpresaVisitante, Guid condominioId,
-            string nomeCondominio, Guid unidadeId, string numeroUnidade, string andarUnidade,
-            string descricaoGrupoUnidade, Veiculo veiculo)
+            DateTime dataDeEntrada, string observacao, StatusVisita status, Guid visitanteId,
+            string nomeVisitante, TipoDeDocumento tipoDeDocumentoVisitante, Rg rgVisitante,
+            Cpf cpfVisitante, Email emailVisitante, Foto fotoVisitante,TipoDeVisitante tipoDeVisitante,
+            string nomeEmpresaVisitante, Guid condominioId, string nomeCondominio, Guid unidadeId,
+            string numeroUnidade, string andarUnidade, string descricaoGrupoUnidade, Veiculo veiculo,
+            Guid usuarioId, string nomeUsuario)
         {
-            DataDeEntrada = dataDeEntrada;
-            NomeCondomino = nomeCondomino;
+            DataDeEntrada = dataDeEntrada;            
             Observacao = observacao;
             Status = status;
             VisitanteId = visitanteId;
@@ -94,13 +89,9 @@ namespace CondominioApp.Portaria.Domain
             AndarUnidade = andarUnidade;
             GrupoUnidade = descricaoGrupoUnidade;
             Veiculo = veiculo;
+            UsuarioId = usuarioId;
+            NomeUsuario = nomeUsuario;
         }
-
-
-
-
-
-
 
 
 
@@ -122,8 +113,7 @@ namespace CondominioApp.Portaria.Domain
         }
 
 
-        public void SetDataDeEntrada(DateTime dataDeEntrada) => DataDeEntrada = dataDeEntrada;
-        public void SetNomeCondomino(string nome) => NomeCondomino = nome;
+        public void SetDataDeEntrada(DateTime dataDeEntrada) => DataDeEntrada = dataDeEntrada;        
         public void SetNomeVisitante(string nome) => NomeVisitante = nome;
         public void SetTipoDocumentoVisitante(TipoDeDocumento tipoDeDocumento) => TipoDeDocumentoVisitante = tipoDeDocumento;
         public void SetRgVisitante(Rg rg) => RgVisitante = rg;
@@ -139,6 +129,11 @@ namespace CondominioApp.Portaria.Domain
         public void SetAndarUnidade(string andar) => AndarUnidade = andar;
         public void SetGrupoUnidade(string grupo) => GrupoUnidade = grupo;
 
+        public void SetUsuario(Guid usuarioId, string nome)
+        {
+            UsuarioId = usuarioId;
+            NomeUsuario = nome;
+        }
 
         /// Outros Metodos 
         public bool TemVeiculo

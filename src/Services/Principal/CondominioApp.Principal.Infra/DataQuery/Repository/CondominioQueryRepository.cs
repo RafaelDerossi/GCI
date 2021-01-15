@@ -66,7 +66,7 @@ namespace CondominioApp.Principal.Infra.Data.Repository
         {
             return await _context.CondominiosFlat
                  .AsNoTracking()
-                 .FirstOrDefaultAsync(u => u.Id == Id);
+                 .FirstOrDefaultAsync(u => u.Id == Id && !u.Lixeira);
         }
 
         public async Task<IEnumerable<CondominioFlat>> ObterTodos()
@@ -92,12 +92,12 @@ namespace CondominioApp.Principal.Infra.Data.Repository
         {
             return await _context.GruposFlat
                 .AsNoTracking()
-                .FirstOrDefaultAsync(u => u.Id == Id);
+                .FirstOrDefaultAsync(u => u.Id == Id && !u.Lixeira);
         }
 
         public async Task<IEnumerable<GrupoFlat>> ObterGruposPorCondominio(Guid condominioId)
         {
-            return await _context.GruposFlat.AsNoTracking().Where(u => u.CondominioId == condominioId).ToListAsync();
+            return await _context.GruposFlat.AsNoTracking().Where(u => u.CondominioId == condominioId && !u.Lixeira).ToListAsync();
         }
 
         #endregion
@@ -118,21 +118,21 @@ namespace CondominioApp.Principal.Infra.Data.Repository
         {
             return await _context.UnidadesFlat
                 .AsNoTracking()
-                .FirstOrDefaultAsync(u => u.Id == Id);
+                .FirstOrDefaultAsync(u => u.Id == Id && !u.Lixeira);
         }
 
         public async Task<IEnumerable<UnidadeFlat>> ObterUnidadesPorGrupo(Guid grupoId)
         {
             return await _context.UnidadesFlat
                 .AsNoTracking()
-                .Where(u => u.GrupoId == grupoId).ToListAsync();
+                .Where(u => u.GrupoId == grupoId && !u.Lixeira).ToListAsync();
         }
 
         public async Task<IEnumerable<UnidadeFlat>> ObterUnidadesPorCondominio(Guid condominioId)
         {
             return await _context.UnidadesFlat
                 .AsNoTracking()
-                .Where(u => u.CondominioId == condominioId).ToListAsync();
+                .Where(u => u.CondominioId == condominioId && !u.Lixeira).ToListAsync();
         }
 
         #endregion

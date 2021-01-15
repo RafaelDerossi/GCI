@@ -34,7 +34,7 @@ namespace CondominioApp.Portaria.Aplication.Events
 
 
 
-
+        public void SetTipoDeDocumento(TipoDeDocumento tipoDeDocumento) => TipoDeDocumento = tipoDeDocumento;
         public void SetRg(Rg rg) => Rg = rg;
         public void SetCPF(Cpf cpf) => Cpf = cpf;
         public void SetEmail(Email email) => Email = email;       

@@ -25,7 +25,7 @@ namespace CondominioApp.Comunicados.App.Data.Repository
         {
             return await _context.Comunicados 
                 .Include(c=>c.Unidades)
-                .FirstOrDefaultAsync(u => u.Id == Id);
+                .FirstOrDefaultAsync(u => u.Id == Id && !u.Lixeira);
         }
 
         public async Task<IEnumerable<Comunicado>> ObterTodos()

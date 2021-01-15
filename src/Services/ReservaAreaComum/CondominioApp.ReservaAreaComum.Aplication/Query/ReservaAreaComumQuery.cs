@@ -56,22 +56,22 @@ namespace CondominioApp.ReservaAreaComum.App.Aplication.Query
 
         public async Task<IEnumerable<ReservaFlat>> ObterReservasPorCondominio(Guid condominioId)
         {
-            return await _reservaAreaComumQueryRepository.ObterReserva(r=>r.CondominioId == condominioId);
+            return await _reservaAreaComumQueryRepository.ObterReserva(r=>r.CondominioId == condominioId && !r.Lixeira);
         }
 
         public async Task<IEnumerable<ReservaFlat>> ObterReservasPorUnidade(Guid unidadeId)
         {
-            return await _reservaAreaComumQueryRepository.ObterReserva(r => r.UnidadeId == unidadeId);
+            return await _reservaAreaComumQueryRepository.ObterReserva(r => r.UnidadeId == unidadeId && !r.Lixeira);
         }
 
         public async Task<IEnumerable<ReservaFlat>> ObterReservasPorUsuario(Guid usuarioId)
         {
-            return await _reservaAreaComumQueryRepository.ObterReserva(r => r.UsuarioId == usuarioId);
+            return await _reservaAreaComumQueryRepository.ObterReserva(r => r.UsuarioId == usuarioId && !r.Lixeira);
         }
 
         public async Task<IEnumerable<ReservaFlat>> ObterReservasPorAreaComum(Guid areaComumId)
         {
-            return await _reservaAreaComumQueryRepository.ObterReserva(r => r.AreaComumId == areaComumId);
+            return await _reservaAreaComumQueryRepository.ObterReserva(r => r.AreaComumId == areaComumId && !r.Lixeira);
         }
 
 

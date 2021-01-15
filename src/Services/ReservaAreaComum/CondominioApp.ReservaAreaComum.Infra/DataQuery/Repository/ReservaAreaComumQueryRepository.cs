@@ -66,12 +66,12 @@ namespace CondominioApp.ReservaAreaComum.Infra.Data.Repository
         {
             return await _context.AreasComunsFlat
                 .Include(a => a.Periodos)
-                .FirstOrDefaultAsync(a => a.Id == Id);
+                .FirstOrDefaultAsync(a => a.Id == Id && !a.Lixeira);
         }
 
         public async Task<IEnumerable<AreaComumFlat>> ObterTodos()
         {
-            return await _context.AreasComunsFlat.Include(a => a.Periodos).ToListAsync();
+            return await _context.AreasComunsFlat.Include(a => a.Periodos).Where(a => !a.Lixeira).ToListAsync();
         }
 
      
@@ -116,7 +116,7 @@ namespace CondominioApp.ReservaAreaComum.Infra.Data.Repository
         public async Task<ReservaFlat> ObterReservaPorId(Guid Id)
         {
             return await _context.ReservasFlat                
-                .FirstOrDefaultAsync(a => a.Id == Id);
+                .FirstOrDefaultAsync(a => a.Id == Id && !a.Lixeira);
         }
 
 
@@ -139,7 +139,7 @@ namespace CondominioApp.ReservaAreaComum.Infra.Data.Repository
         public async Task<PeriodoFlat> ObterPeriodoPorId(Guid Id)
         {
             return await _context.PeriodosFlat
-                .FirstOrDefaultAsync(a => a.Id == Id);
+                .FirstOrDefaultAsync(a => a.Id == Id && !a.Lixeira);
         }
 
 
