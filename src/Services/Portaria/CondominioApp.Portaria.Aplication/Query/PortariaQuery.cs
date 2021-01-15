@@ -26,9 +26,25 @@ namespace CondominioApp.Portaria.Aplication.Query
         public async Task<VisitaFlat> ObterVisitaPorId(Guid id)
         {
             return await _visitanteQueryRepository.ObterVisitaPorId(id);
-        }               
+        }
 
-       
+
+        public async Task<IEnumerable<VisitanteFlat>> ObterVisitantesPorCondominio(Guid condominioId)
+        {
+            return await _visitanteQueryRepository.Obter(
+                             c => c.CondominioId == condominioId &&
+                             !c.Lixeira);
+        }
+
+        public async Task<IEnumerable<VisitanteFlat>> ObterVisitantesPorUnidade(Guid unidadeId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<IEnumerable<VisitanteFlat>> ObterVisitantesPorDocumento(string documento)
+        {
+            throw new NotImplementedException();
+        }
 
 
         public void Dispose()

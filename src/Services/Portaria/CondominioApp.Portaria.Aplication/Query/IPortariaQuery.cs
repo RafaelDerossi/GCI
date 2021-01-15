@@ -9,12 +9,14 @@ namespace CondominioApp.Portaria.Aplication.Query
     public interface IPortariaQuery : IDisposable
     {
         Task<VisitanteFlat> ObterPorId(Guid id);
-      
-               
 
-        Task<VisitaFlat> ObterVisitaPorId(Guid id);
-      
-        
+        Task<IEnumerable<VisitanteFlat>> ObterVisitantesPorCondominio(Guid condominioId);
+
+        Task<IEnumerable<VisitanteFlat>> ObterVisitantesPorUnidade(Guid unidadeId);
+
+        Task<IEnumerable<VisitanteFlat>> ObterVisitantesPorDocumento(string documento);
+
+        Task<VisitaFlat> ObterVisitaPorId(Guid id);   
 
     }
 }
