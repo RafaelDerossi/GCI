@@ -4,14 +4,16 @@ using CondominioApp.Portaria.Infra.DataQuery;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CondominioApp.Portaria.Infra.Migrations.PortariaQueryContextDBMigrations
 {
     [DbContext(typeof(PortariaQueryContextDB))]
-    partial class PortariaQueryContextDBModelSnapshot : ModelSnapshot
+    [Migration("20210118171722_RemoveTerminadoQuery")]
+    partial class RemoveTerminadoQuery
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

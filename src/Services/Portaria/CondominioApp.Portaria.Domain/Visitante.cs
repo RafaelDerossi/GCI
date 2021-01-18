@@ -116,6 +116,8 @@ namespace CondominioApp.Portaria.Domain
 
         public ValidationResult AdicionarVisita(Visita visitaNova)
         {
+            visitaNova.SetVisitanteId(Id);
+
             _Visitas.Add(visitaNova);
 
             return ValidationResult;

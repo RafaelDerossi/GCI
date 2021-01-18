@@ -15,5 +15,7 @@ namespace CondominioApp.Portaria.Domain.Interfaces
 
         Task<VisitaFlat> ObterVisitaPorId(Guid id);
 
+        Task<bool> VisitanteCadastradoPorId(Guid Id);
+
     }
 }

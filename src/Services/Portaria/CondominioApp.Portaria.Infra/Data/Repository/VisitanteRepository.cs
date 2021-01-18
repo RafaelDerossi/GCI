@@ -27,7 +27,7 @@ namespace CondominioApp.Portaria.Infra.Data.Repository
 
         public void Adicionar(Visitante entity)
         {
-            _context.Visitantes.Add(entity);       
+          _context.Visitantes.Add(entity);         
         }
 
         public void Apagar(Func<Visitante, bool> predicate)

@@ -96,7 +96,11 @@ namespace CondominioApp.Portaria.Infra.DataQuery.Repository
             return await _context.VisitantesFlat.Where(u => !u.Lixeira).ToListAsync();
         }
 
-        
+        public async Task<bool> VisitanteCadastradoPorId(Guid Id)
+        {
+            return await _context.VisitantesFlat
+                .CountAsync(a => a.Id == Id) > 0;
+        }
 
         public void Dispose()
         {

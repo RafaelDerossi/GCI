@@ -6,7 +6,6 @@ namespace CondominioApp.Portaria.Aplication.Commands
 {
    public class CadastrarVisitaCommand : VisitaCommand
     {
-
         public CadastrarVisitaCommand
             (DateTime dataDeEntrada, string observacao, StatusVisita status,
             Guid visitanteId, string nomeVisitante, string documentoVisitante, string emailVisitante,
