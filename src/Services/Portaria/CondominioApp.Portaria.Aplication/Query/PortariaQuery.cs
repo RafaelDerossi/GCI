@@ -51,6 +51,27 @@ namespace CondominioApp.Portaria.Aplication.Query
             return await _visitanteQueryRepository.ObterVisitaPorId(id);
         }
 
+        public async Task<IEnumerable<VisitaFlat>> ObterVisitasPorCondominio(Guid condominioId)
+        {
+            return await _visitanteQueryRepository.ObterVisitas(
+                             c => c.CondominioId == condominioId &&
+                             !c.Lixeira);
+        }
+
+        public async Task<IEnumerable<VisitaFlat>> ObterVisitasPorUnidade(Guid unidadeId)
+        {
+            return await _visitanteQueryRepository.ObterVisitas(
+                             c => c.UnidadeId == unidadeId &&
+                             !c.Lixeira);
+        }
+
+        public async Task<IEnumerable<VisitaFlat>> ObterVisitasPorUsuario(Guid usuarioId)
+        {
+            return await _visitanteQueryRepository.ObterVisitas(
+                             c => c.UsuarioId == usuarioId &&
+                             !c.Lixeira);
+        }
+
 
         public void Dispose()
         {           

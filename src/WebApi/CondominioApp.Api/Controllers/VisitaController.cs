@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using CondominioApp.Portaria.Domain.FlatModel;
 
 namespace CondominioApp.Api.Controllers
 {
@@ -24,17 +25,29 @@ namespace CondominioApp.Api.Controllers
         }
 
 
-        //[HttpGet("{id:Guid}")]
-        //public async Task<AreaComumFlat> ObterPorId(Guid id)
-        //{
-        //    return await _portariaQuery.ObterPorId(id);
-        //}
+        [HttpGet("{id:Guid}")]
+        public async Task<VisitaFlat> ObterPorId(Guid id)
+        {
+            return await _portariaQuery.ObterVisitaPorId(id);
+        }
 
-        //[HttpGet("por-condominio/{condominioId:Guid}")]
-        //public async Task<IEnumerable<AreaComumFlat>> ObterPorCondominio(Guid condominioId)
-        //{
-        //    return await _portariaQuery.ObterPorCondominio(condominioId);                  
-        //}
+        [HttpGet("por-condominio/{condominioId:Guid}")]
+        public async Task<IEnumerable<VisitaFlat>> ObterPorCondominio(Guid condominioId)
+        {
+            return await _portariaQuery.ObterVisitasPorCondominio(condominioId);
+        }
+
+        [HttpGet("por-unidade/{unidadeId:Guid}")]
+        public async Task<IEnumerable<VisitaFlat>> ObterPorUnidade(Guid unidadeId)
+        {
+            return await _portariaQuery.ObterVisitasPorUnidade(unidadeId);
+        }
+
+        [HttpGet("por-usuario/{usuarioId:Guid}")]
+        public async Task<IEnumerable<VisitaFlat>> ObterPorUsuario(Guid usuarioId)
+        {
+            return await _portariaQuery.ObterVisitasPorUsuario(usuarioId);
+        }
 
 
 
@@ -62,18 +75,55 @@ namespace CondominioApp.Api.Controllers
             return CustomResponse(Resultado);
         }
 
-        //[HttpDelete("{Id:Guid}")]
-        //public async Task<ActionResult> Delete(Guid Id)
-        //{
-        //    var comando = new RemoverVisitanteCommand(Id);
+        [HttpDelete("{Id:Guid}")]
+        public async Task<ActionResult> Delete(Guid Id)
+        {
+            var comando = new RemoverVisitaCommand(Id);
 
-        //    var Resultado = await _mediatorHandler.EnviarComando(comando);
+            var Resultado = await _mediatorHandler.EnviarComando(comando);
 
-        //    return CustomResponse(Resultado);
-        //}
+            return CustomResponse(Resultado);
+        }
 
+        [HttpPut("aprovar/{Id:Guid}")]
+        public async Task<ActionResult> PutAprovarVisita(Guid Id)
+        {
+            var comando = new AprovarVisitaCommand(Id);
 
+            var Resultado = await _mediatorHandler.EnviarComando(comando);
 
+            return CustomResponse(Resultado);
+        }
+
+        [HttpPut("reprovar/{Id:Guid}")]
+        public async Task<ActionResult> PutReprovarVisita(Guid Id)
+        {
+            var comando = new ReprovarVisitaCommand(Id);
+
+            var Resultado = await _mediatorHandler.EnviarComando(comando);
+
+            return CustomResponse(Resultado);
+        }
+
+        [HttpPut("iniciar/{Id:Guid}")]
+        public async Task<ActionResult> PutIniciarVisita(Guid Id)
+        {
+            var comando = new IniciarVisitaCommand(Id);
+
+            var Resultado = await _mediatorHandler.EnviarComando(comando);
+
+            return CustomResponse(Resultado);
+        }
+
+        [HttpPut("terminar/{Id:Guid}")]
+        public async Task<ActionResult> PutTerminarVisita(Guid Id)
+        {
+            var comando = new TerminarVisitaCommand(Id);
+
+            var Resultado = await _mediatorHandler.EnviarComando(comando);
+
+            return CustomResponse(Resultado);
+        }
 
 
 
@@ -97,5 +147,6 @@ namespace CondominioApp.Api.Controllers
                    viewModel.TemVeiculo, viewModel.PlacaVeiculo, viewModel.ModeloVeiculo, viewModel.CorVeiculo,
                    viewModel.UsuarioId, viewModel.NomeUsuario);
         }
+
     }
 }

@@ -1,4 +1,5 @@
 ﻿using CondominioApp.Core.Enumeradores;
+using CondominioApp.Core.Helpers;
 using CondominioApp.Core.Messages;
 using CondominioApp.Portaria.ValueObjects;
 using System;
@@ -144,7 +145,16 @@ namespace CondominioApp.Portaria.Aplication.Commands
             Veiculo = new Veiculo("", "", "");
         }
 
-        public void SetDataDeEntrada(DateTime dataDeEntrada) => DataDeEntrada = dataDeEntrada;
+        public void SetDataDeEntrada(DateTime dataDeEntrada)
+        {
+            if (dataDeEntrada.Date < DataHoraDeBrasilia.Get().Date)
+            {
+                AdicionarErrosDeProcessamentoDoComando("Data de Entrada não pose ser anterior a data de hoje.");
+                return;
+            }
+            DataDeEntrada = dataDeEntrada;
+        }
+        
 
         public void AprovarVisita() => Status = StatusVisita.APROVADA;
 

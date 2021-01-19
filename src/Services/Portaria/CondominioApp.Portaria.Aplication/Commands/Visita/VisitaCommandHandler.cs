@@ -146,9 +146,14 @@ namespace CondominioApp.Portaria.Aplication.Commands
                 return ValidationResult;
             }
 
+            if (visitaBd.ObterStatus() == StatusVisita.APROVADA)
+            {
+                AdicionarErro("Visita já esta aprovada.");
+                return ValidationResult;
+            }
             if (visitaBd.ObterStatus() != StatusVisita.PENDENTE)
             {
-                AdicionarErro("Visita não pode ser aprovada pois ja esta " + visitaBd.ObterStatus().ToString().ToLower());
+                AdicionarErro("Visita não pode ser aprovada pois esta " + visitaBd.ObterStatus().ToString().ToLower());
                 return ValidationResult;
             }
 
@@ -172,10 +177,14 @@ namespace CondominioApp.Portaria.Aplication.Commands
                 AdicionarErro("Visita não encontrada.");
                 return ValidationResult;
             }
-
+            if (visitaBd.ObterStatus() == StatusVisita.REPROVADA)
+            {
+                AdicionarErro("Visita já esta reprovada.");
+                return ValidationResult;
+            }
             if (visitaBd.ObterStatus() != StatusVisita.PENDENTE && visitaBd.ObterStatus() != StatusVisita.APROVADA)
             {
-                AdicionarErro("Visita não pode ser reprovada pois ja esta " + visitaBd.ObterStatus().ToString().ToLower());
+                AdicionarErro("Visita não pode ser reprovada pois esta " + visitaBd.ObterStatus().ToString().ToLower());
                 return ValidationResult;
             }
 
@@ -205,10 +214,14 @@ namespace CondominioApp.Portaria.Aplication.Commands
                 AdicionarErro("Visita não pode ser iniciada pois ainda esta pendente de aprovação.");
                 return ValidationResult;
             }
-
+            if (visitaBd.ObterStatus() == StatusVisita.INICIADA)
+            {
+                AdicionarErro("Visita já esta iniciada.");
+                return ValidationResult;
+            }
             if (visitaBd.ObterStatus() != StatusVisita.APROVADA)
             {
-                AdicionarErro("Visita não pode ser iniciada pois ja esta " + visitaBd.ObterStatus().ToString().ToLower());
+                AdicionarErro("Visita não pode ser iniciada pois esta " + visitaBd.ObterStatus().ToString().ToLower());
                 return ValidationResult;
             }
              
@@ -233,6 +246,11 @@ namespace CondominioApp.Portaria.Aplication.Commands
                 return ValidationResult;
             }
 
+            if (visitaBd.ObterStatus() == StatusVisita.TERMINADA)
+            {
+                AdicionarErro("Visita já esta terminada.");
+                return ValidationResult;
+            }
             if (visitaBd.ObterStatus() != StatusVisita.INICIADA)
             {
                 AdicionarErro("Visita não pode ser terminada pois não esta iniciada.");

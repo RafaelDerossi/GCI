@@ -84,13 +84,7 @@ namespace CondominioApp.Portaria.Infra.DataQuery.Repository
             return await _context.VisitantesFlat
                 .FirstOrDefaultAsync(a => a.Id == Id);
         }
-
-        public async Task<VisitaFlat> ObterVisitaPorId(Guid Id)
-        {
-            return await _context.VisitasFlat
-                .FirstOrDefaultAsync(a => a.Id == Id);
-        }
-                
+       
         public async Task<IEnumerable<VisitanteFlat>> ObterTodos()
         {
             return await _context.VisitantesFlat.Where(u => !u.Lixeira).ToListAsync();
@@ -101,6 +95,35 @@ namespace CondominioApp.Portaria.Infra.DataQuery.Repository
             return await _context.VisitantesFlat
                 .CountAsync(a => a.Id == Id) > 0;
         }
+
+
+
+        public async Task<VisitaFlat> ObterVisitaPorId(Guid Id)
+        {
+            return await _context.VisitasFlat
+                .FirstOrDefaultAsync(a => a.Id == Id);
+        }
+
+        public async Task<IEnumerable<VisitaFlat>> ObterVisitas(Expression<Func<VisitaFlat, bool>> expression, bool OrderByDesc = false, int take = 0)
+        {
+            if (OrderByDesc)
+            {
+                if (take > 0)
+                    return await _context.VisitasFlat.AsNoTracking().Where(expression)
+                                        .OrderByDescending(x => x.DataDeCadastro).Take(take).ToListAsync();
+
+                return await _context.VisitasFlat.AsNoTracking().Where(expression)
+                                        .OrderByDescending(x => x.DataDeCadastro).ToListAsync();
+            }
+
+            if (take > 0)
+                return await _context.VisitasFlat.AsNoTracking().Where(expression)
+                                        .OrderBy(x => x.DataDeCadastro).Take(take).ToListAsync();
+
+            return await _context.VisitasFlat.AsNoTracking().Where(expression)
+                                    .OrderBy(x => x.DataDeCadastro).ToListAsync();
+        }
+
 
         public void Dispose()
         {

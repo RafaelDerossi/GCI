@@ -122,6 +122,7 @@ namespace CondominioApp.Portaria.Domain.FlatModel
         }
 
         public void SetVisitanteId(Guid id) => VisitanteId = id;
+        public void SetObservacao(string observacao) => Observacao = observacao;
         public void SetDataDeEntrada(DateTime dataDeEntrada) => DataDeEntrada = dataDeEntrada;       
         public void SetNomeVisitante(string nome) => NomeVisitante = nome;
         public void SetTipoDocumentoVisitante(TipoDeDocumento tipoDeDocumento) => TipoDeDocumentoVisitante = tipoDeDocumento;

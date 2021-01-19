@@ -46,31 +46,8 @@ namespace CondominioApp.Portaria.Aplication.Events
 
         public async Task Handle(VisitaEditadaEvent notification, CancellationToken cancellationToken)
         {
-            var visitanteFlat = await _visitanteQueryRepository.ObterPorId(notification.VisitanteId);
-            if (visitanteFlat != null)            
-            {
-                visitanteFlat.SetNome(notification.NomeVisitante);               
-                visitanteFlat.SetTipoDeDocumento(notification.TipoDeDocumentoVisitante);
-                visitanteFlat.SetCpf(notification.CpfVisitante.Numero);
-                visitanteFlat.SetRg(notification.RgVisitante.Numero);
-                visitanteFlat.SetEmail(notification.EmailVisitante.Endereco);
-                visitanteFlat.SetFoto(notification.FotoVisitante.NomeDoArquivo);
-                visitanteFlat.SetTipoDeVisitante(notification.TipoDeVisitante);
-                visitanteFlat.SetNomeEmpresa(notification.NomeEmpresaVisitante);
-
-                visitanteFlat.MarcarNaoTemVeiculo();
-                if (notification.TemVeiculo)
-                    visitanteFlat.MarcarTemVeiculo();
-
-                visitanteFlat.SetPlacaVeiculo(notification.Veiculo.Placa);
-                visitanteFlat.SetModeloVeiculo(notification.Veiculo.Modelo);
-                visitanteFlat.SetCorVeiculo(notification.Veiculo.Cor);
-
-                _visitanteQueryRepository.Atualizar(visitanteFlat);
-            }
-
             var visitaFlat = await _visitanteQueryRepository.ObterVisitaPorId(notification.Id);
-            if (visitanteFlat != null)
+            if (visitaFlat != null)
             {
                 visitaFlat.SetObservacao(notification.Observacao);
                 visitaFlat.SetNomeVisitante(notification.NomeVisitante);
@@ -97,11 +74,39 @@ namespace CondominioApp.Portaria.Aplication.Events
                 visitaFlat.SetUsuario(notification.UsuarioId, notification.NomeUsuario);
 
                 _visitanteQueryRepository.AtualizarVisita(visitaFlat);
+               
+            }
 
-                await PersistirDados(_visitanteQueryRepository.UnitOfWork);
-            }        
+            var visitanteFlat = await _visitanteQueryRepository.ObterPorId(visitaFlat.VisitanteId);
+            if (visitanteFlat != null)            
+            {
+                if (!visitanteFlat.VisitantePermanente)
+                {
+                    visitanteFlat.SetNome(notification.NomeVisitante);
+                    visitanteFlat.SetTipoDeDocumento(notification.TipoDeDocumentoVisitante);
+                    visitanteFlat.SetCpf(notification.CpfVisitante.Numero);
+                    visitanteFlat.SetRg(notification.RgVisitante.Numero);
+                    visitanteFlat.SetEmail(notification.EmailVisitante.Endereco);
+                    visitanteFlat.SetTipoDeVisitante(notification.TipoDeVisitante);
+                    visitanteFlat.SetNomeEmpresa(notification.NomeEmpresaVisitante);
+                }
+                
 
-           
+                visitanteFlat.SetFoto(notification.FotoVisitante.NomeDoArquivo);
+                visitanteFlat.MarcarNaoTemVeiculo();
+                if (notification.TemVeiculo)
+                    visitanteFlat.MarcarTemVeiculo();
+
+                visitanteFlat.SetPlacaVeiculo(notification.Veiculo.Placa);
+                visitanteFlat.SetModeloVeiculo(notification.Veiculo.Modelo);
+                visitanteFlat.SetCorVeiculo(notification.Veiculo.Cor);
+
+                _visitanteQueryRepository.Atualizar(visitanteFlat);
+            }
+
+
+            await PersistirDados(_visitanteQueryRepository.UnitOfWork);
+
         }
 
         public async Task Handle(VisitaRemovidaEvent notification, CancellationToken cancellationToken)
