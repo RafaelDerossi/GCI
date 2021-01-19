@@ -38,7 +38,7 @@ namespace CondominioApp.Portaria.Tests
 
             //Assert
             Assert.False(result);
-        }
+        }        
 
         [Fact(DisplayName = "Adicionar Visita Válida - Morador com CPF")]
         [Trait("Categoria", "Visita - CadastrarCommand")]

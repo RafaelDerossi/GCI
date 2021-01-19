@@ -20,7 +20,7 @@ namespace CondominioApp.Portaria.Tests
         public static EditarVisitaCommand EditarVisitaCommandFactory()
         {
             return new EditarVisitaCommand
-                (Guid.NewGuid(), "Nome do Visitante", "143.026.417-97",
+                (Guid.NewGuid(), "Obs", "Nome do Visitante", "143.026.417-97",
                 "rafael@condominioapp.com", "foto.jpg", "nomeOriginal.jpg", TipoDeVisitante.PARTICULAR,
                 "", Guid.NewGuid(), "101", "1", "Bloco 1", true, "LMG8888", "Modelo", "Prata",
                  Guid.NewGuid(), "Nome do Usuario");

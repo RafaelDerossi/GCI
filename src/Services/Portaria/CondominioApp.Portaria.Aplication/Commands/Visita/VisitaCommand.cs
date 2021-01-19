@@ -1,4 +1,5 @@
 ﻿using CondominioApp.Core.Enumeradores;
+using CondominioApp.Core.Helpers;
 using CondominioApp.Core.Messages;
 using CondominioApp.Portaria.ValueObjects;
 using System;
@@ -49,27 +50,26 @@ namespace CondominioApp.Portaria.Aplication.Commands
             {
                 if (documento.Length == 14)
                 {
-                    SetCPFVisitante(documento);
-                    RgVisitante = null;
-                    
-                }                    
-                else
-                {
-                    SetRgVisitante(documento);
-                    CpfVisitante = null;
-                }                    
+                    SetCPFVisitante(documento);                   
+                    return;
+                }
+                
+                SetRgVisitante(documento);                
+                return;
             }
-            else
-            {
-                RgVisitante = null;
-                CpfVisitante = null;
-            }               
+            
+            RgVisitante = new Rg("");
+            CpfVisitante = new Cpf("");
+            TipoDeDocumentoVisitante = TipoDeDocumento.OUTROS;
+            
         }
         private void SetRgVisitante(string rg)
         {
             try
             {
+                TipoDeDocumentoVisitante = TipoDeDocumento.RG;
                 RgVisitante = new Rg(rg);
+                CpfVisitante = new Cpf("");
             }
             catch (Exception e)
             {
@@ -80,7 +80,9 @@ namespace CondominioApp.Portaria.Aplication.Commands
         {
             try
             {
+                TipoDeDocumentoVisitante = TipoDeDocumento.CPF;
                 CpfVisitante = new Cpf(cpf);
+                RgVisitante = new Rg("");
             }
             catch (Exception e)
             {
@@ -88,6 +90,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
             }
         }
 
+        
         public void SetEmailVisitante(string email)
         {
             try
@@ -136,10 +139,22 @@ namespace CondominioApp.Portaria.Aplication.Commands
                 {
                     AdicionarErrosDeProcessamentoDoComando(e.Message);
                 }
+                return;
             }
+
+            Veiculo = new Veiculo("", "", "");
         }
 
-        public void SetDataDeEntrada(DateTime dataDeEntrada) => DataDeEntrada = dataDeEntrada;
+        public void SetDataDeEntrada(DateTime dataDeEntrada)
+        {
+            if (dataDeEntrada.Date < DataHoraDeBrasilia.Get().Date)
+            {
+                AdicionarErrosDeProcessamentoDoComando("Data de Entrada não pose ser anterior a data de hoje.");
+                return;
+            }
+            DataDeEntrada = dataDeEntrada;
+        }
+        
 
         public void AprovarVisita() => Status = StatusVisita.APROVADA;
 

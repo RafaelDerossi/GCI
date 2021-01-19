@@ -42,20 +42,19 @@ namespace CondominioApp.Portaria.Aplication.Commands
                 {
                     SetCPF(documento);
                     TipoDeDocumento = TipoDeDocumento.CPF;
+                    return;
                 }                    
-                else
-                {
-                    SetRg(documento);
-                    TipoDeDocumento = TipoDeDocumento.RG;
-                }                    
+                
+                SetRg(documento);
+                TipoDeDocumento = TipoDeDocumento.RG;
+                return;                                   
             }
-            else
-            {
-                Rg = new Rg("");
-                Cpf = new Cpf("");
-                TipoDeDocumento = TipoDeDocumento.OUTROS;
-            }               
+            
+            Rg = new Rg("");
+            Cpf = new Cpf("");
+            TipoDeDocumento = TipoDeDocumento.OUTROS;            
         }
+
         private void SetRg(string rg)
         {
             try
@@ -127,7 +126,10 @@ namespace CondominioApp.Portaria.Aplication.Commands
                 {
                     AdicionarErrosDeProcessamentoDoComando(e.Message);
                 }
+                return;
             }
+
+            Veiculo = new Veiculo("", "", "");
         }
 
         public void SetNome(string nome) => Nome = nome;

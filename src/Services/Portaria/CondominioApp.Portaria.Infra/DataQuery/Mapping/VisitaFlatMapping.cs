@@ -11,10 +11,7 @@ namespace CondominioApp.Principal.Infra.DataQuery.Mapping
         {
             builder.HasKey(u => u.Id);
 
-            builder.ToTable("VisitasFlat");
-
-            builder.Property(u => u.Terminada).IsRequired();
-           
+            builder.ToTable("VisitasFlat");          
 
             builder.Property(u => u.Observacao).IsRequired().HasColumnType($"varchar(250)");
 

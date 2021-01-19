@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using CondominioApp.Portaria.Domain.FlatModel;
 
 namespace CondominioApp.Api.Controllers
 {
@@ -24,17 +25,29 @@ namespace CondominioApp.Api.Controllers
         }
 
 
-        //[HttpGet("{id:Guid}")]
-        //public async Task<AreaComumFlat> ObterPorId(Guid id)
-        //{
-        //    return await _portariaQuery.ObterPorId(id);
-        //}
+        [HttpGet("{id:Guid}")]
+        public async Task<VisitanteFlat> ObterPorId(Guid id)
+        {
+            return await _portariaQuery.ObterPorId(id);
+        }
 
-        //[HttpGet("por-condominio/{condominioId:Guid}")]
-        //public async Task<IEnumerable<AreaComumFlat>> ObterPorCondominio(Guid condominioId)
-        //{
-        //    return await _portariaQuery.ObterPorCondominio(condominioId);                  
-        //}
+        [HttpGet("por-condominio/{condominioId:Guid}")]
+        public async Task<IEnumerable<VisitanteFlat>> ObterPorCondominio(Guid condominioId)
+        {
+            return await _portariaQuery.ObterVisitantesPorCondominio(condominioId);
+        }
+
+        [HttpGet("por-unidade/{unidadeId:Guid}")]
+        public async Task<IEnumerable<VisitanteFlat>> ObterPorUnidade(Guid unidadeId)
+        {
+            return await _portariaQuery.ObterVisitantesPorUnidade(unidadeId);
+        }
+
+        [HttpGet("por-documento/{documento}")]
+        public async Task<IEnumerable<VisitanteFlat>> ObterPorDocumento(string documento)
+        {
+            return await _portariaQuery.ObterVisitantesPorDocumento(documento);
+        }
 
 
 
@@ -71,28 +84,6 @@ namespace CondominioApp.Api.Controllers
 
             return CustomResponse(Resultado);
         }
-
-
-        //[HttpPut("ativar/{Id:Guid}")]
-        //public async Task<ActionResult> AtivarAreaComum(Guid Id)
-        //{
-        //    var comando = new AtivarAreaComumCommand(Id);
-
-        //    var Resultado = await _mediatorHandler.EnviarComando(comando);
-
-        //    return CustomResponse(Resultado);
-        //}
-
-        //[HttpPut("desativar/{Id:Guid}")]
-        //public async Task<ActionResult> DesativarAreaComum(Guid Id)
-        //{
-        //    var comando = new DesativarAreaComumCommand(Id);
-
-        //    var Resultado = await _mediatorHandler.EnviarComando(comando);
-
-        //    return CustomResponse(Resultado);
-        //}
-
 
 
 

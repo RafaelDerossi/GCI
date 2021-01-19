@@ -10,26 +10,11 @@ namespace CondominioApp.Portaria.Domain
     {
         public const int Max = 200;       
 
-        public DateTime DataDeEntrada { get; private set; }
-        public bool Terminada { get; private set; }
+        public DateTime DataDeEntrada { get; private set; }      
         public DateTime DataDeSaida { get; private set; }
-        
+        public StatusVisita Status { get; private set; }
         public string Observacao { get; private set; }
-        public StatusVisita Status
-        {
-            get
-            {
-                if (Status == StatusVisita.PENDENTE && DataDeEntrada.Date < DataHoraDeBrasilia.Get().Date)
-                    return StatusVisita.EXPIRADA;
-
-                if (Status == StatusVisita.APROVADA && DataDeEntrada.Date < DataHoraDeBrasilia.Get().Date)
-                    return StatusVisita.EXPIRADA;
-
-                return Status;
-            }
-            private set
-            { }
-        }
+      
 
         public Guid VisitanteId { get; private set; }
         public string NomeVisitante { get; private set; }
@@ -113,7 +98,9 @@ namespace CondominioApp.Portaria.Domain
         }
 
 
-        public void SetDataDeEntrada(DateTime dataDeEntrada) => DataDeEntrada = dataDeEntrada;        
+        public void SetObservacao(string observacao) => Observacao = observacao;
+        public void SetDataDeEntrada(DateTime dataDeEntrada) => DataDeEntrada = dataDeEntrada;
+        public void SetVisitanteId(Guid id) => VisitanteId = id;
         public void SetNomeVisitante(string nome) => NomeVisitante = nome;
         public void SetTipoDocumentoVisitante(TipoDeDocumento tipoDeDocumento) => TipoDeDocumentoVisitante = tipoDeDocumento;
         public void SetRgVisitante(Rg rg) => RgVisitante = rg;
@@ -147,8 +134,17 @@ namespace CondominioApp.Portaria.Domain
                 return false;
             }
         }
-           
 
 
+        public StatusVisita ObterStatus()
+        {
+            if (Status == StatusVisita.PENDENTE && DataDeEntrada.Date<DataHoraDeBrasilia.Get().Date)
+                    return StatusVisita.EXPIRADA;
+
+                if (Status == StatusVisita.APROVADA && DataDeEntrada.Date<DataHoraDeBrasilia.Get().Date)
+                    return StatusVisita.EXPIRADA;
+
+                return Status;
+        }
     }
 }
