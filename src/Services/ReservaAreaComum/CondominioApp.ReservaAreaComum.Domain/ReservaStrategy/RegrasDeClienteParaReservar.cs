@@ -22,6 +22,11 @@ namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy
 
         public override ValidationResult Validar()
         {
+            //Regra de Intervalo Entre Reservas para o mesmo usuario
+            var retorno = ValidaIntervaloEntreReservasDoUsuario();
+            if (!retorno.IsValid)
+                return retorno;
+
             //Regra para não permitir Reserva Retroativa
             if (_reserva.DataDeRealizacao.Date < DateTime.Today.Date)
             {
@@ -128,6 +133,33 @@ namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy
                 }
             }           
 
+            return ValidationResult;
+        }
+
+        /// <summary>
+        /// Verifica Intervalo entre reservas do usuario
+        /// </summary>
+        /// <returns></returns>
+        private ValidationResult ValidaIntervaloEntreReservasDoUsuario()
+        {
+            Reserva ultimaReserva = _areaComum.Reservas
+                .Where(r => r.UsuarioId == _reserva.UsuarioId)
+                .OrderByDescending(r => r.DataDeCadastro)
+                .FirstOrDefault();
+
+            if (ultimaReserva == null)
+                return ValidationResult;
+
+            DateTime dataUltimaReserva = ultimaReserva.DataDeCadastro;
+
+            dataUltimaReserva = dataUltimaReserva.AddHours(_areaComum.ObterHorasDeIntervaloDeReservaPorUsuario);
+            dataUltimaReserva = dataUltimaReserva.AddMinutes(_areaComum.ObterMinutosDeIntervaloDeReservaPorUsuario);
+
+            if (dataUltimaReserva > DataHoraDeBrasilia.Get())
+            {
+                AdicionarErros("Você não pode realizar outra reserva para esta área comum até " +
+                    dataUltimaReserva.ToLongDateString() + " as " + dataUltimaReserva.ToLongTimeString());                
+            }
             return ValidationResult;
         }
     }

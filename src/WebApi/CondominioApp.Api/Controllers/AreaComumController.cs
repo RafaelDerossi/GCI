@@ -120,7 +120,7 @@ namespace CondominioApp.Api.Controllers
                  areaComumVM.TempoDeIntervaloEntreReservas, areaComumVM.Ativa, areaComumVM.TempoDeDuracaoDeReserva,
                  areaComumVM.NumeroLimiteDeReservaPorUnidade, areaComumVM.PermiteReservaSobreposta,
                  areaComumVM.NumeroLimiteDeReservaSobreposta, areaComumVM.NumeroLimiteDeReservaSobrepostaPorUnidade,
-                 listaPeriodos);
+                 areaComumVM.TempoDeIntervaloEntreReservasPorUsuario, listaPeriodos);
         }
 
         private EditarAreaComumCommand EditarAreaComumCommandFactory(EditaAreaComumViewModel areaComumVM)
@@ -143,7 +143,7 @@ namespace CondominioApp.Api.Controllers
                   areaComumVM.TempoDeIntervaloEntreReservas, areaComumVM.TempoDeDuracaoDeReserva,
                   areaComumVM.NumeroLimiteDeReservaPorUnidade, areaComumVM.PermiteReservaSobreposta,
                   areaComumVM.NumeroLimiteDeReservaSobreposta, areaComumVM.NumeroLimiteDeReservaSobrepostaPorUnidade,
-                  listaPeriodos);
+                  areaComumVM.TempoDeIntervaloEntreReservasPorUsuario, listaPeriodos);
         }
     }
 }
