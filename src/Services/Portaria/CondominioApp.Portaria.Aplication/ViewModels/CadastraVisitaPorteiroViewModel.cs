@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CondominioApp.Portaria.Aplication.ViewModels
 {
-   public class CadastraVisitaViewModel
+   public class CadastraVisitaPorteiroViewModel
     {
         public DateTime DataDeEntrada { get; set; }       
         public string Observacao { get; set; }

@@ -43,7 +43,6 @@ using CondominioApp.Portaria.Domain.Interfaces;
 using CondominioApp.Portaria.Infra.Data.Repository;
 using CondominioApp.Portaria.Infra.DataQuery.Repository;
 using CondominioApp.Portaria.Aplication.Query;
-using CondominioApp.Portaria.Aplication.Factories;
 
 namespace CondominioApp.Api.Configuration
 {
@@ -197,11 +196,11 @@ namespace CondominioApp.Api.Configuration
 
             #region Portaria -Contexto
 
-            //Visitante
-            services.AddScoped<IVisitanteFactory, VisitanteFactory>();
-            services.AddScoped<IVisitanteFlatFactory, VisitanteFlatFactory>();
-            services.AddScoped<IRequestHandler<CadastrarVisitanteCommand, ValidationResult>, VisitanteCommandHandler>();
-            services.AddScoped<IRequestHandler<EditarVisitanteCommand, ValidationResult>, VisitanteCommandHandler>();
+            //Visitante                        
+            services.AddScoped<IRequestHandler<CadastrarVisitantePorMoradorCommand, ValidationResult>, VisitanteCommandHandler>();
+            services.AddScoped<IRequestHandler<CadastrarVisitantePorPorteiroCommand, ValidationResult>, VisitanteCommandHandler>();
+            services.AddScoped<IRequestHandler<EditarVisitantePorMoradorCommand, ValidationResult>, VisitanteCommandHandler>();
+            services.AddScoped<IRequestHandler<EditarVisitantePorPorteiroCommand, ValidationResult>, VisitanteCommandHandler>();
             services.AddScoped<IRequestHandler<RemoverVisitanteCommand, ValidationResult>, VisitanteCommandHandler>();
             services.AddScoped<INotificationHandler<VisitanteCadastradoEvent>, VisitanteEventHandler>();
             services.AddScoped<INotificationHandler<VisitanteEditadoEvent>, VisitanteEventHandler>();

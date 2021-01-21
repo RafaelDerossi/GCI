@@ -7,132 +7,153 @@ namespace CondominioApp.Portaria.Tests
 {
     public class VisitanteCommandFactory
     {
-        public static CadastrarVisitanteCommand CadastrarVisitanteCommandFactory()
+        public static CadastrarVisitantePorMoradorCommand CadastrarVisitantePorMoradorCommandFactory()
         {
-            return new CadastrarVisitanteCommand
+            return new CadastrarVisitantePorMoradorCommand
               ("Nome Visitante", "143.026.417-97", "rafael@condominioapp.com",
               "foto.jpg", "nomeOriginal.jpg", Guid.NewGuid(), "Nome Condominio", Guid.NewGuid(),
               "101", "1º", "Bloco", false, "qrCode", TipoDeVisitante.PARTICULAR, "", true,
               "LMG8888", "Modelo Veiculo", "Prata");
         }
 
-        public static EditarVisitanteCommand EditarVisitanteCommandFactory()
+        public static CadastrarVisitantePorPorteiroCommand CadastrarVisitantePorPorteiroCommandFactory()
         {
-            return new EditarVisitanteCommand
+            return new CadastrarVisitantePorPorteiroCommand
+              (Guid.NewGuid(), "Nome Visitante", "143.026.417-97", "rafael@condominioapp.com",
+              "foto.jpg", "nomeOriginal.jpg", Guid.NewGuid(), "Nome Condominio", Guid.NewGuid(),
+              "101", "1º", "Bloco", TipoDeVisitante.PARTICULAR, "", true,
+              "LMG8888", "Modelo Veiculo", "Prata");
+        }
+
+        public static EditarVisitantePorMoradorCommand EditarVisitantePorMoradorCommandFactory()
+        {
+            return new EditarVisitantePorMoradorCommand
               (Guid.NewGuid(), "Nome Visitante", "143.026.417-97", "rafael@condominioapp.com",
               "foto.jpg", "nomeOriginal.jpg", false, TipoDeVisitante.PARTICULAR, "", true,
               "LMG8888", "Modelo Veiculo", "Prata");
         }
 
-
-        
-        /// CadastrarVisitanteCommand        
-        public static CadastrarVisitanteCommand CriarComandoCadastroDeVisitante_ComCPF()
+        public static EditarVisitantePorPorteiroCommand EditarVisitantePorPorteiroCommandFactory()
         {
-            return CadastrarVisitanteCommandFactory();
+            return new EditarVisitantePorPorteiroCommand
+              (Guid.NewGuid(), "Nome Visitante", "143.026.417-97", "rafael@condominioapp.com",
+              "foto.jpg", "nomeOriginal.jpg", TipoDeVisitante.PARTICULAR, "", true,
+              "LMG8888", "Modelo Veiculo", "Prata");
         }
 
-        public static CadastrarVisitanteCommand CriarComandoCadastroDeVisitante_ComCPFInvalido()
+
+        /// CadastrarVisitanteCommand        
+        public static CadastrarVisitantePorMoradorCommand CriarComandoCadastroDeVisitantePorMorador_ComCPF()
         {
-            var comando = CadastrarVisitanteCommandFactory();
+            return CadastrarVisitantePorMoradorCommandFactory();
+        }
+
+        public static CadastrarVisitantePorPorteiroCommand CriarComandoCadastroDeVisitantePorPorteiro_ComCPF()
+        {
+            return CadastrarVisitantePorPorteiroCommandFactory();
+        }
+
+        public static CadastrarVisitantePorMoradorCommand CriarComandoCadastroDeVisitante_ComCPFInvalido()
+        {
+            var comando = CadastrarVisitantePorMoradorCommandFactory();
             comando.SetDocumento("143.026.417-98");
             return comando;
         }
 
-        public static CadastrarVisitanteCommand CriarComandoCadastroDeVisitante_ComRG()
+        public static CadastrarVisitantePorMoradorCommand CriarComandoCadastroDeVisitante_ComRG()
         {
-            var comando = CadastrarVisitanteCommandFactory();
+            var comando = CadastrarVisitantePorMoradorCommandFactory();
             comando.SetDocumento("123456789");
             return comando;
         }
 
-        public static CadastrarVisitanteCommand CriarComandoCadastroDeVisitante_SemDocumento()
+        public static CadastrarVisitantePorMoradorCommand CriarComandoCadastroDeVisitante_SemDocumento()
         {
-            var comando = CadastrarVisitanteCommandFactory();
+            var comando = CadastrarVisitantePorMoradorCommandFactory();
             comando.SetDocumento("");
             return comando;
         }
 
-        public static CadastrarVisitanteCommand CriarComandoCadastroDeVisitante_SemEmail()
+        public static CadastrarVisitantePorMoradorCommand CriarComandoCadastroDeVisitante_SemEmail()
         {
-            var comando = CadastrarVisitanteCommandFactory();
+            var comando = CadastrarVisitantePorMoradorCommandFactory();
             comando.SetEmail("");
             return comando;
         }
 
-        public static CadastrarVisitanteCommand CriarComandoCadastroDeVisitante_SemFoto()
+        public static CadastrarVisitantePorMoradorCommand CriarComandoCadastroDeVisitante_SemFoto()
         {
-            var comando = CadastrarVisitanteCommandFactory();
+            var comando = CadastrarVisitantePorMoradorCommandFactory();
             comando.SetFoto("","");
             return comando;
         }
 
-        public static CadastrarVisitanteCommand CriarComandoCadastroDeVisitante_SemCondominioId()
+        public static CadastrarVisitantePorMoradorCommand CriarComandoCadastroDeVisitante_SemCondominioId()
         {
-            var comando = CadastrarVisitanteCommandFactory();
+            var comando = CadastrarVisitantePorMoradorCommandFactory();
             comando.SetCondominioId(Guid.Empty);
             return comando;
         }
 
-        public static CadastrarVisitanteCommand CriarComandoCadastroDeVisitante_SemNomeDoCondominio()
+        public static CadastrarVisitantePorMoradorCommand CriarComandoCadastroDeVisitante_SemNomeDoCondominio()
         {
-            var comando = CadastrarVisitanteCommandFactory();
+            var comando = CadastrarVisitantePorMoradorCommandFactory();
             comando.SetNomeCondominio("");
             return comando;
         }
 
-        public static CadastrarVisitanteCommand CriarComandoCadastroDeVisitante_SemUnidadeId()
+        public static CadastrarVisitantePorMoradorCommand CriarComandoCadastroDeVisitante_SemUnidadeId()
         {
-            var comando = CadastrarVisitanteCommandFactory();
+            var comando = CadastrarVisitantePorMoradorCommandFactory();
             comando.SetUnidadeId(Guid.Empty);
             return comando;
         }
 
-        public static CadastrarVisitanteCommand CriarComandoCadastroDeVisitante_SemNumeroUnidade()
+        public static CadastrarVisitantePorMoradorCommand CriarComandoCadastroDeVisitante_SemNumeroUnidade()
         {
-            var comando = CadastrarVisitanteCommandFactory();
+            var comando = CadastrarVisitantePorMoradorCommandFactory();
             comando.SetNumeroUnidade("");
             return comando;
         }
 
-        public static CadastrarVisitanteCommand CriarComandoCadastroDeVisitante_SemAndarUnidade()
+        public static CadastrarVisitantePorMoradorCommand CriarComandoCadastroDeVisitante_SemAndarUnidade()
         {
-            var comando = CadastrarVisitanteCommandFactory();
+            var comando = CadastrarVisitantePorMoradorCommandFactory();
             comando.SetAndarDaUnidade("");
             return comando;
         }
 
-        public static CadastrarVisitanteCommand CriarComandoCadastroDeVisitante_SemGrupoUnidade()
+        public static CadastrarVisitantePorMoradorCommand CriarComandoCadastroDeVisitante_SemGrupoUnidade()
         {
-            var comando = CadastrarVisitanteCommandFactory();
+            var comando = CadastrarVisitantePorMoradorCommandFactory();
             comando.SetGrupoDaUnidade("");
             return comando;
         }      
 
-        public static CadastrarVisitanteCommand CriarComandoCadastroDeVisitante_SemPlacaVeiculo()
+        public static CadastrarVisitantePorMoradorCommand CriarComandoCadastroDeVisitante_SemPlacaVeiculo()
         {
-            var comando = CadastrarVisitanteCommandFactory();
+            var comando = CadastrarVisitantePorMoradorCommandFactory();
             comando.SetVeiculo("", "modelo", "Prata");
             return comando;
         }
 
-        public static CadastrarVisitanteCommand CriarComandoCadastroDeVisitante_SemModeloVeiculo()
+        public static CadastrarVisitantePorMoradorCommand CriarComandoCadastroDeVisitante_SemModeloVeiculo()
         {
-            var comando = CadastrarVisitanteCommandFactory();
+            var comando = CadastrarVisitantePorMoradorCommandFactory();
             comando.SetVeiculo("", "", "Prata");
             return comando;
         }
 
-        public static CadastrarVisitanteCommand CriarComandoCadastroDeVisitante_SemCorVeiculo()
+        public static CadastrarVisitantePorMoradorCommand CriarComandoCadastroDeVisitante_SemCorVeiculo()
         {
-            var comando = CadastrarVisitanteCommandFactory();
+            var comando = CadastrarVisitantePorMoradorCommandFactory();
             comando.SetVeiculo("", "modelo", "");
             return comando;
         }
 
-        public static CadastrarVisitanteCommand CriarComandoCadastroDeVisitante_SemVeiculo()
+        public static CadastrarVisitantePorMoradorCommand CriarComandoCadastroDeVisitante_SemVeiculo()
         {
-            var comando = CadastrarVisitanteCommandFactory();
+            var comando = CadastrarVisitantePorMoradorCommandFactory();
             comando.MarcarQueNaoTemVeiculo();
             comando.SetVeiculo("", "", "");
             return comando;
@@ -140,41 +161,46 @@ namespace CondominioApp.Portaria.Tests
 
 
         ///EditarVisitanteCommand
-        public static EditarVisitanteCommand CriarComandoEdicaoDeVisitante_ComCPF()
+        public static EditarVisitantePorMoradorCommand CriarComandoEdicaoDeVisitantePorMorador_ComCPF()
         {
-            return EditarVisitanteCommandFactory();
+            return EditarVisitantePorMoradorCommandFactory();
         }
 
-        public static EditarVisitanteCommand CriarComandoEdicaoDeVisitante_ComCPFInvalido()
+        public static EditarVisitantePorPorteiroCommand CriarComandoEdicaoDeVisitantePorPorteiro_ComCPF()
         {
-            var comando = EditarVisitanteCommandFactory();
+            return EditarVisitantePorPorteiroCommandFactory();
+        }
+
+        public static EditarVisitantePorMoradorCommand CriarComandoEdicaoDeVisitante_ComCPFInvalido()
+        {
+            var comando = EditarVisitantePorMoradorCommandFactory();
 
             comando.SetDocumento("14302641798");
 
             return comando;
         }
 
-        public static EditarVisitanteCommand CriarComandoEdicaoDeVisitante_ComRG()
+        public static EditarVisitantePorMoradorCommand CriarComandoEdicaoDeVisitante_ComRG()
         {
-            var comando = EditarVisitanteCommandFactory();
+            var comando = EditarVisitantePorMoradorCommandFactory();
 
             comando.SetDocumento("123456789");
 
             return comando;
         }
 
-        public static EditarVisitanteCommand CriarComandoEdicaoDeVisitante_SemDocumento()
+        public static EditarVisitantePorMoradorCommand CriarComandoEdicaoDeVisitante_SemDocumento()
         {
-            var comando = EditarVisitanteCommandFactory();
+            var comando = EditarVisitantePorMoradorCommandFactory();
 
             comando.SetDocumento("");
 
             return comando;
         }
 
-        public static EditarVisitanteCommand CriarComandoEdicaoDeVisitante_SemPlaca()
+        public static EditarVisitantePorMoradorCommand CriarComandoEdicaoDeVisitante_SemPlaca()
         {
-            var comando = EditarVisitanteCommandFactory();
+            var comando = EditarVisitantePorMoradorCommandFactory();
 
             comando.MarcarQueTemVeiculo();
             comando.SetVeiculo("","Modelo","Prata");
@@ -182,9 +208,9 @@ namespace CondominioApp.Portaria.Tests
             return comando;
         }
 
-        public static EditarVisitanteCommand CriarComandoEdicaoDeVisitante_SemModelo()
+        public static EditarVisitantePorMoradorCommand CriarComandoEdicaoDeVisitante_SemModelo()
         {
-            var comando = EditarVisitanteCommandFactory();
+            var comando = EditarVisitantePorMoradorCommandFactory();
 
             comando.MarcarQueTemVeiculo();
             comando.SetVeiculo("", "", "Prata");
@@ -192,9 +218,9 @@ namespace CondominioApp.Portaria.Tests
             return comando;
         }
 
-        public static EditarVisitanteCommand CriarComandoEdicaoDeVisitante_SemCor()
+        public static EditarVisitantePorMoradorCommand CriarComandoEdicaoDeVisitante_SemCor()
         {
-            var comando = EditarVisitanteCommandFactory();
+            var comando = EditarVisitantePorMoradorCommandFactory();
 
             comando.MarcarQueTemVeiculo();
             comando.SetVeiculo("", "Modelo", "");
@@ -202,9 +228,9 @@ namespace CondominioApp.Portaria.Tests
             return comando;
         }
 
-        public static EditarVisitanteCommand CriarComandoEdicaoDeVisitante_SemVeiculo()
+        public static EditarVisitantePorMoradorCommand CriarComandoEdicaoDeVisitante_SemVeiculo()
         {
-            var comando = EditarVisitanteCommandFactory();
+            var comando = EditarVisitantePorMoradorCommandFactory();
 
             comando.MarcarQueNaoTemVeiculo();
             comando.SetVeiculo("", "", "");

@@ -4,24 +4,24 @@ using System;
 
 namespace CondominioApp.Portaria.Aplication.Commands
 {
-   public class CadastrarVisitanteCommand : VisitanteCommand
+   public class CadastrarVisitantePorPorteiroCommand : VisitanteCommand
     {
 
-        public CadastrarVisitanteCommand
-            (string nome, string documento, string email, string foto, string nomeOriginalFoto, Guid condominioId,
+        public CadastrarVisitantePorPorteiroCommand
+            (Guid id, string nome, string documento, string email, string foto, string nomeOriginalFoto, Guid condominioId,
             string nomeCondominio, Guid unidadeId, string numeroUnidade, string andarUnidade, string grupoUnidade,
-            bool visitantePermanente, string qrCode, TipoDeVisitante tipoDeVisitante, string nomeEmpresa,
+            TipoDeVisitante tipoDeVisitante, string nomeEmpresa,
             bool temVeiculo, string placaVeiculo, string modeloVeiculo, string corVeiculo)
         {
+            Id = id;
             SetNome(nome);            
             SetCondominioId(condominioId);
             SetNomeCondominio(nomeCondominio);
             SetUnidadeId(unidadeId);
             SetNumeroUnidade(numeroUnidade);
             SetAndarDaUnidade(andarUnidade);
-            SetGrupoDaUnidade(grupoUnidade);
-            VisitantePermanente = visitantePermanente;
-            QrCode = qrCode;
+            SetGrupoDaUnidade(grupoUnidade);           
+            
             TipoDeVisitante = tipoDeVisitante;
             NomeEmpresa = nomeEmpresa;
             TemVeiculo = temVeiculo;
@@ -30,6 +30,9 @@ namespace CondominioApp.Portaria.Aplication.Commands
             SetEmail(email);
             SetFoto(nomeOriginalFoto, foto);
             SetVeiculo(placaVeiculo, modeloVeiculo, corVeiculo);
+
+            QrCode = "";
+            VisitantePermanente = false;
         }
 
 
@@ -38,14 +41,14 @@ namespace CondominioApp.Portaria.Aplication.Commands
             if (!ValidationResult.IsValid)
                 return ValidationResult.IsValid;
 
-            ValidationResult = new CadastrarVisitanteCommandValidation().Validate(this);
+            ValidationResult = new CadastrarVisitantePorPorteiroCommandValidation().Validate(this);
             return ValidationResult.IsValid;
         }
 
 
-        public class CadastrarVisitanteCommandValidation : VisitanteValidation<CadastrarVisitanteCommand>
+        public class CadastrarVisitantePorPorteiroCommandValidation : VisitanteValidation<CadastrarVisitantePorPorteiroCommand>
         {
-            public CadastrarVisitanteCommandValidation()
+            public CadastrarVisitantePorPorteiroCommandValidation()
             {
                 ValidateNome();
                 ValidateCondominioId();

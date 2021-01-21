@@ -1,7 +1,6 @@
 ﻿using CondominioApp.Core.Enumeradores;
 using CondominioApp.Core.Messages;
 using CondominioApp.Portaria.Aplication.Events;
-using CondominioApp.Portaria.Aplication.Factories;
 using CondominioApp.Portaria.Domain;
 using CondominioApp.Portaria.Domain.Interfaces;
 using FluentValidation.Results;
@@ -22,25 +21,31 @@ namespace CondominioApp.Portaria.Aplication.Commands
          IRequestHandler<TerminarVisitaCommand, ValidationResult>,
          IDisposable
     {
-        private IVisitanteRepository _visitanteRepository;
-        private IVisitanteFactory _visitanteFactory;
+        private IVisitanteRepository _visitanteRepository;       
 
-        public VisitaCommandHandler(IVisitanteRepository visitanteRepository, IVisitanteFactory visitanteFactory)
+        public VisitaCommandHandler(IVisitanteRepository visitanteRepository)
         {
             _visitanteRepository = visitanteRepository;
-            _visitanteFactory = visitanteFactory;
         }
 
 
         public async Task<ValidationResult> Handle(CadastrarVisitaCommand request, CancellationToken cancellationToken)
         {
-            if (!request.EstaValido())
-                return request.ValidationResult;
+            var visita = VisitaFactory(request);           
 
-            if (request.VisitanteId==Guid.Empty)
-               return await CadastrarVisitaComVisitanteNovo(request);
+            _visitanteRepository.AdicionarVisita(visita);
 
-            return await CadastrarVisitaComVisitanteExistente(request);
+            //Evento
+            visita.AdicionarEvento(
+              new VisitaCadastradaEvent(
+                  visita.Id, visita.DataDeEntrada, visita.Observacao, visita.Status, visita.VisitanteId,
+                  visita.NomeVisitante, visita.TipoDeDocumentoVisitante, visita.CpfVisitante,
+                  visita.RgVisitante, visita.EmailVisitante, visita.FotoVisitante, visita.TipoDeVisitante,
+                  visita.NomeEmpresaVisitante, visita.CondominioId, visita.NomeCondominio, visita.UnidadeId,
+                  visita.NumeroUnidade, visita.AndarUnidade, visita.GrupoUnidade, visita.TemVeiculo,
+                  visita.Veiculo, visita.UsuarioId, visita.NomeUsuario));
+
+            return await PersistirDados(_visitanteRepository.UnitOfWork);
         }
 
         public async Task<ValidationResult> Handle(EditarVisitaCommand request, CancellationToken cancellationToken)
@@ -71,29 +76,9 @@ namespace CondominioApp.Portaria.Aplication.Commands
             visitaBd.SetVeiculo(request.Veiculo);
             visitaBd.SetUsuario(request.UsuarioId, request.NomeUsuario);
             
-            var visitanteBd = await _visitanteRepository.ObterPorId(visitaBd.VisitanteId);
-            if (visitanteBd == null)
-            {
-                AdicionarErro("Visitante não encontrado.");
-                return ValidationResult;
-            }
+            
 
-            if (!visitanteBd.VisitantePermanente)
-            {
-                visitanteBd.SetNome(request.NomeVisitante);
-                visitanteBd.SetTipoDeDocumento(request.TipoDeDocumentoVisitante);
-                visitanteBd.SetCpf(request.CpfVisitante);
-                visitanteBd.SetRg(request.RgVisitante);
-                visitanteBd.SetEmail(request.EmailVisitante);
-                visitanteBd.SetTipoDeVisitante(request.TipoDeVisitante);
-                visitanteBd.SetNomeEmpresa(request.NomeEmpresaVisitante);
-            }
-            visitanteBd.SetFoto(request.FotoVisitante);
-            visitanteBd.SetVeiculo(request.Veiculo);
-
-            visitanteBd.AdicionarVisita(visitaBd);           
-
-            _visitanteRepository.Atualizar(visitanteBd);
+            _visitanteRepository.AtualizarVisita(visitaBd);
 
             //Evento
             visitaBd.AdicionarEvento(
@@ -266,83 +251,10 @@ namespace CondominioApp.Portaria.Aplication.Commands
 
             return await PersistirDados(_visitanteRepository.UnitOfWork);
         }
-
-
-
        
+            
 
-       
-        private async Task<ValidationResult> CadastrarVisitaComVisitanteNovo(CadastrarVisitaCommand request)
-        {
-            var visita = VisitaFactory(request);
-
-            if (request.CpfVisitante.Numero != "")
-            {
-                if (_visitanteRepository.VisitanteJaCadastradoPorCpf(request.CpfVisitante, request.VisitanteId).Result)
-                {
-                    AdicionarErro("CPF informado ja consta no sistema.");
-                    return ValidationResult;
-                }
-            }
-
-            if (request.RgVisitante.Numero != "")
-            {
-                if (_visitanteRepository.VisitanteJaCadastradoPorRg(request.RgVisitante, request.VisitanteId).Result)
-                {
-                    AdicionarErro("RG informado ja consta no sistema.");
-                    return ValidationResult;
-                }
-            }
-
-            var visitante = _visitanteFactory.Fabricar(request);           
-
-
-            visitante.AdicionarVisita(visita);
-
-            _visitanteRepository.Adicionar(visitante);
-
-            //Evento
-            AdicionarEventoDeVisitaCadastrada(visita);
-           
-            return await PersistirDados(_visitanteRepository.UnitOfWork);
-        }
-
-        private async Task<ValidationResult> CadastrarVisitaComVisitanteExistente(CadastrarVisitaCommand request)
-        {
-           var visita = VisitaFactory(request);
-
-           var visitante = _visitanteRepository.ObterPorId(request.VisitanteId).Result;
-            if (visitante == null)
-            {
-                AdicionarErro("Visitante não encontrado.");
-                return ValidationResult;
-            }
-
-            if (!visitante.VisitantePermanente)
-            {
-                visitante.SetNome(request.NomeVisitante);
-                visitante.SetTipoDeDocumento(request.TipoDeDocumentoVisitante);
-                visitante.SetCpf(request.CpfVisitante);
-                visitante.SetRg(request.RgVisitante);
-                visitante.SetEmail(request.EmailVisitante);
-                visitante.SetTipoDeVisitante(request.TipoDeVisitante);
-                visitante.SetNomeEmpresa(request.NomeEmpresaVisitante);
-            }
-            visitante.SetFoto(request.FotoVisitante);
-            visitante.SetVeiculo(request.Veiculo);
-
-
-            visitante.AdicionarVisita(visita);
-
-            _visitanteRepository.AdicionarVisita(visita);
-            _visitanteRepository.Atualizar(visitante);
-
-            //Evento
-            AdicionarEventoDeVisitaCadastrada(visita);
-
-            return await PersistirDados(_visitanteRepository.UnitOfWork);
-
-        }
+    
 
         private Visita VisitaFactory(CadastrarVisitaCommand request)
         {
@@ -354,18 +266,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
                  request.NomeCondominio, request.UnidadeId, request.NumeroUnidade, request.AndarUnidade,
                  request.GrupoUnidade, request.Veiculo, request.UsuarioId, request.NomeUsuario);
         }
-
-        private void AdicionarEventoDeVisitaCadastrada(Visita visita)
-        {
-            visita.AdicionarEvento(
-               new VisitaCadastradaEvent(
-                   visita.Id, visita.DataDeEntrada, visita.Observacao, visita.Status, visita.VisitanteId,
-                   visita.NomeVisitante, visita.TipoDeDocumentoVisitante, visita.CpfVisitante,
-                   visita.RgVisitante, visita.EmailVisitante, visita.FotoVisitante, visita.TipoDeVisitante,
-                   visita.NomeEmpresaVisitante, visita.CondominioId, visita.NomeCondominio, visita.UnidadeId,
-                   visita.NumeroUnidade, visita.AndarUnidade, visita.GrupoUnidade, visita.TemVeiculo,
-                   visita.Veiculo, visita.UsuarioId, visita.NomeUsuario));
-        }
+        
 
         public void Dispose()
         {
