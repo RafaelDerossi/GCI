@@ -1,4 +1,6 @@
-﻿using CondominioApp.Core.Messages;
+﻿using CondominioApp.Core.Enumeradores;
+using CondominioApp.Core.Messages;
+using CondominioApp.Principal.Domain;
 using CondominioApp.Principal.Domain.ValueObjects;
 using System;
 
@@ -114,6 +116,7 @@ namespace CondominioApp.Principal.Aplication.Commands
         public bool LimiteTempoReserva { get; protected set; }
 
 
+        public Contrato Contrato { get; protected set; }    
 
 
         public void SetCNPJ(string cnpj)
@@ -177,5 +180,12 @@ namespace CondominioApp.Principal.Aplication.Commands
             }
         }
 
+        public void SetContrato(DateTime dataAssinatura, TipoDePlano tipoPlano, string linkContrato)
+        {
+            if (tipoPlano != 0)
+            {
+                Contrato = new Contrato(CondominioId, dataAssinatura, tipoPlano, linkContrato, true);
+            }            
+        }
     }
 }

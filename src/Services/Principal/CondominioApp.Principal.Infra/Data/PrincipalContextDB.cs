@@ -22,6 +22,9 @@ namespace CondominioApp.Principal.Infra.Data
 
         public DbSet<Unidade> Unidades { get; set; }
 
+        public DbSet<Contrato> Contratos { get; set; }
+
+
         public PrincipalContextDB(DbContextOptions<PrincipalContextDB> options, IMediatorHandler mediatorHandler)
             : base(options)
         {

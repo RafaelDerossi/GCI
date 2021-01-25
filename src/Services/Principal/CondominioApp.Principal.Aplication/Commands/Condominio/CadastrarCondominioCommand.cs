@@ -1,26 +1,28 @@
-﻿using CondominioApp.Principal.Aplication.Commands.Validations;
-
+﻿using CondominioApp.Core.Enumeradores;
+using CondominioApp.Core.Helpers;
+using CondominioApp.Principal.Aplication.Commands.Validations;
+using System;
 
 namespace CondominioApp.Principal.Aplication.Commands
 {
    public class CadastrarCondominioCommand : CondominioCommand
-    {
+    {        
 
-        public CadastrarCondominioCommand(string cnpj, string nome, string descricao = null, string logoMarca = null,
-            string nomeOriginal = null, string telefone = null, string logradouro = null, string complemento = null, 
-            string numero = null, string cep = null, string bairro = null, string cidade = null, string estado = null,
-            int? refereciaId = 0, string linkGeraBoleto = null, string boletoFolder = null, string urlWebServer = null,
-            bool portaria = false, bool portariaMorador = false, bool classificado = false, bool classificadoMorador = false,
-            bool mural = false, bool muralMorador = false, bool chat = false, bool chatMorador = false, bool reserva = false,
-            bool reservaNaPortaria = false, bool ocorrencia = false, bool ocorrenciaMorador = false, bool correspondencia = false,
-            bool correspondenciaNaPortaria = false, bool limiteTempoReserva = false)
+        public CadastrarCondominioCommand(string cnpj, string nome, string descricao, string logoMarca,
+            string nomeOriginal, string telefone, string logradouro, string complemento, string numero,
+            string cep, string bairro, string cidade, string estado, int? refereciaId, string linkGeraBoleto,
+            string boletoFolder, string urlWebServer, bool portaria, bool portariaMorador, bool classificado,
+            bool classificadoMorador, bool mural, bool muralMorador, bool chat, bool chatMorador, bool reserva,
+            bool reservaNaPortaria, bool ocorrencia, bool ocorrenciaMorador, bool correspondencia,
+            bool correspondenciaNaPortaria, bool limiteTempoReserva,
+            DateTime DataAssinaturaContrato, TipoDePlano TipoDePlano, string LinkContrato)
         {                    
             Nome = nome;
             Descricao = descricao;          
             RefereciaId = refereciaId;
             LinkGeraBoleto = linkGeraBoleto;
-            BoletoFolder = boletoFolder;            
             Portaria = portaria;
+            BoletoFolder = boletoFolder;            
             PortariaMorador = portariaMorador;
             Classificado = classificado;
             ClassificadoMorador = classificadoMorador;
@@ -41,6 +43,9 @@ namespace CondominioApp.Principal.Aplication.Commands
             SetTelefone(telefone);
             SetEndereco(logradouro, complemento, numero, cep, bairro, cidade, estado);
             SetUrlWebServer(urlWebServer);
+
+            SetContrato(DataAssinaturaContrato, TipoDePlano, LinkContrato);
+            
         }
 
 

@@ -125,6 +125,10 @@ namespace CondominioApp.Principal.Domain
         public IReadOnlyCollection<Unidade> Unidades => _Unidades;
 
 
+        private readonly List<Contrato> _Contratos;
+        public IReadOnlyCollection<Contrato> Contratos => _Contratos;
+
+
 
         /// <summary>
         /// Construtores
@@ -133,6 +137,7 @@ namespace CondominioApp.Principal.Domain
         {
             _Grupos = new List<Grupo>();
             _Unidades = new List<Unidade>();
+            _Contratos = new List<Contrato>();
 
         }
 
@@ -146,6 +151,8 @@ namespace CondominioApp.Principal.Domain
         {
             _Grupos = new List<Grupo>();
             _Unidades = new List<Unidade>();
+            _Contratos = new List<Contrato>();
+
             Cnpj = cnpj;
             Nome = nome;
             Descricao = descricao;
@@ -294,6 +301,12 @@ namespace CondominioApp.Principal.Domain
             return ValidationResult;
         }
 
-       
+
+        public ValidationResult AdicionarContrato(Contrato contrato)
+        {
+            _Contratos.Add(contrato);
+            return ValidationResult;
+        }
+
     }
 }

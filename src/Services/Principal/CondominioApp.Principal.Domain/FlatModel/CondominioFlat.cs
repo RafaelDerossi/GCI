@@ -82,6 +82,14 @@ namespace CondominioApp.Principal.Domain.FlatModel
 
         public bool LimiteTempoReserva { get; private set; }
 
+        public DateTime DataAssinaturaContrato { get; private set; }
+
+        public string TipoPlano { get; private set; }
+
+        public string LinkContrato { get; private set; }
+
+        public bool ContratoAtivo { get; private set; }
+
 
         protected CondominioFlat() { }
 
@@ -92,7 +100,8 @@ namespace CondominioApp.Principal.Domain.FlatModel
             string boletoFolder, string urlWebServer, bool portaria, bool portariaMorador, bool classificado,
             bool classificadoMorador, bool mural, bool muralMorador, bool chat, bool chatMorador, bool reserva,
             bool reservaNaPortaria, bool ocorrencia, bool ocorrenciaMorador, bool correspondencia,
-            bool correspondenciaNaPortaria, bool limiteTempoReserva)
+            bool correspondenciaNaPortaria, bool limiteTempoReserva, DateTime dataAssinaturaContrato,
+            string tipoPlano, string linkContrato, bool contratoAtivo)
         {
             Id = id;
             Lixeira = lixeira; 
@@ -127,6 +136,11 @@ namespace CondominioApp.Principal.Domain.FlatModel
             Correspondencia = correspondencia;
             CorrespondenciaNaPortaria = correspondenciaNaPortaria;
             LimiteTempoReserva = limiteTempoReserva;
+            DataAssinaturaContrato = dataAssinaturaContrato;
+            TipoPlano = tipoPlano;
+            LinkContrato = linkContrato;
+            ContratoAtivo = contratoAtivo;
+
         }
 
 

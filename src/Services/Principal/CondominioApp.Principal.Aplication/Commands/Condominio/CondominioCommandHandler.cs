@@ -32,6 +32,9 @@ namespace CondominioApp.Principal.Aplication.Commands
 
             var condominio = CondominioFactory(request);
 
+            if (request.Contrato!=null)
+                condominio.AdicionarContrato(request.Contrato);
+
             if (_condominioRepository.CnpjCondominioJaCadastrado(request.Cnpj, request.CondominioId).Result)
             {
                 AdicionarErro("CNPJ informado ja consta no sistema.");
@@ -230,7 +233,7 @@ namespace CondominioApp.Principal.Aplication.Commands
                 request.ClassificadoMorador, request.Mural, request.MuralMorador, request.Chat, request.ChatMorador,
                 request.Reserva, request.ReservaNaPortaria, request.Ocorrencia, request.OcorrenciaMorador,
                 request.Correspondencia, request.CorrespondenciaNaPortaria, request.LimiteTempoReserva);
-
+            
             return condominio;
         }
 

@@ -60,7 +60,8 @@ namespace CondominioApp.Api.Controllers
                  condominioVM.Portaria, condominioVM.PortariaMorador, condominioVM.Classificado, condominioVM.ClassificadoMorador,
                  condominioVM.Mural, condominioVM.MuralMorador, condominioVM.Chat, condominioVM.ChatMorador, condominioVM.Reserva,
                  condominioVM.ReservaNaPortaria, condominioVM.Ocorrencia, condominioVM.OcorrenciaMorador, condominioVM.Correspondencia,
-                 condominioVM.CorrespondenciaNaPortaria, condominioVM.LimiteTempoReserva);
+                 condominioVM.CorrespondenciaNaPortaria, condominioVM.LimiteTempoReserva, condominioVM.DataAssinaturaContrato,
+                 condominioVM.TipoDePlano, condominioVM.LinkContrato);
                        
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
