@@ -51,25 +51,29 @@ namespace CondominioApp.Api.Controllers
 
 
 
-        [HttpPost("criar-por-morador")]
+        [HttpPost("por-morador")]
         public async Task<ActionResult> PostPorMorador(CadastraVisitaMoradorViewModel visitaVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
-           
-            foreach (DateTime dataDeEntrada in visitaVM.DatasDeEntrada)
+
+            var dias = (visitaVM.DataDeEntradaFim.Date - visitaVM.DataDeEntradaInicio.Date).Days + 1;
+
+            for (int i = 0; i < dias; i++)
             {
-                var cadastrarVisitaComando = CadastrarVisitaCommandFactory(visitaVM, dataDeEntrada);
+                var cadastrarVisitaComando = 
+                    CadastrarVisitaPorMoradorCommandFactory(visitaVM, visitaVM.DataDeEntradaInicio.AddDays(i).Date);
 
                 var resultado = await _mediatorHandler.EnviarComando(cadastrarVisitaComando);
 
                 if (!resultado.IsValid)
                     return CustomResponse(resultado);
-            }          
+
+            }            
 
             return CustomResponse();
         }
 
-        [HttpPost("criar-por-porteiro")]
+        [HttpPost("por-porteiro")]
         public async Task<ActionResult> PostPorPorteiro(CadastraVisitaPorteiroViewModel visitaVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
@@ -81,28 +85,27 @@ namespace CondominioApp.Api.Controllers
 
                 var cadastrarVisitanteComando = CadastrarVisitantePorPorteiroCommandFactory(visitaVM);
 
-                var resultado = await _mediatorHandler.EnviarComando(cadastrarVisitanteComando);
+                var retorno = await _mediatorHandler.EnviarComando(cadastrarVisitanteComando);
 
-                if (!resultado.IsValid)
-                    return CustomResponse(resultado);
+                if (!retorno.IsValid)
+                    return CustomResponse(retorno);
 
-                var comando = CadastrarVisitaCommandFactory(visitaVM);
+                var comando = CadastrarVisitaPorPorteiroCommandFactory(visitaVM);
 
-                resultado = await _mediatorHandler.EnviarComando(comando);
+                retorno = await _mediatorHandler.EnviarComando(comando);
 
-                return CustomResponse(resultado);
+                return CustomResponse(retorno);
             }
+           
 
-
-            var cadastrarVisitaComando = CadastrarVisitaCommandFactory(visitaVM);
-
-            var result = await _mediatorHandler.EnviarComando(cadastrarVisitaComando);
+            var editarVisitanteComando = EditarVisitantePorPorteiroCommandFactory(visitaVM);
+            var result = await _mediatorHandler.EnviarComando(editarVisitanteComando);
             if (!result.IsValid)
                 return CustomResponse(result);
 
-            var editarVisitanteComando = EditarVisitantePorPorteiroCommandFactory(visitaVM);
-
-            result = await _mediatorHandler.EnviarComando(editarVisitanteComando);            
+            var cadastrarVisitaComando = CadastrarVisitaPorPorteiroCommandFactory(visitaVM);
+            result = await _mediatorHandler.EnviarComando(cadastrarVisitaComando);
+          
 
             return CustomResponse(result);
         }
@@ -181,9 +184,9 @@ namespace CondominioApp.Api.Controllers
 
 
 
-        private CadastrarVisitaCommand CadastrarVisitaCommandFactory(CadastraVisitaPorteiroViewModel viewModel)
+        private CadastrarVisitaPorPorteiroCommand CadastrarVisitaPorPorteiroCommandFactory(CadastraVisitaPorteiroViewModel viewModel)
         {
-            return new CadastrarVisitaCommand(
+            return new CadastrarVisitaPorPorteiroCommand(
                   viewModel.DataDeEntrada,viewModel.Observacao, viewModel.Status,viewModel.VisitanteId,
                   viewModel.NomeVisitante, viewModel.Documento, viewModel.EmailVisitante, viewModel.FotoVisitante,
                   viewModel.NomeOriginalFotoVisitante, viewModel.TipoDeVisitante, viewModel.NomeEmpresaVisitante,
@@ -192,15 +195,12 @@ namespace CondominioApp.Api.Controllers
                   viewModel.ModeloVeiculo, viewModel.CorVeiculo, viewModel.UsuarioId, viewModel.NomeUsuario);
         }
 
-        private CadastrarVisitaCommand CadastrarVisitaCommandFactory(CadastraVisitaMoradorViewModel viewModel, DateTime dataDeEntrada)
+        private CadastrarVisitaPorMoradorCommand CadastrarVisitaPorMoradorCommandFactory(CadastraVisitaMoradorViewModel viewModel, DateTime dataDeEntrada)
         {
-            return new CadastrarVisitaCommand(
+            return new CadastrarVisitaPorMoradorCommand(
                   dataDeEntrada, viewModel.Observacao, viewModel.Status, viewModel.VisitanteId,
-                  viewModel.NomeVisitante, viewModel.Documento, viewModel.EmailVisitante, viewModel.FotoVisitante,
-                  viewModel.NomeOriginalFotoVisitante, viewModel.TipoDeVisitante, viewModel.NomeEmpresaVisitante,
                   viewModel.CondominioId, viewModel.NomeCondominio, viewModel.UnidadeId, viewModel.NumeroUnidade,
-                  viewModel.AndarUnidade, viewModel.GrupoUnidade, viewModel.TemVeiculo, viewModel.PlacaVeiculo,
-                  viewModel.ModeloVeiculo, viewModel.CorVeiculo, viewModel.UsuarioId, viewModel.NomeUsuario);
+                  viewModel.AndarUnidade, viewModel.GrupoUnidade, viewModel.UsuarioId, viewModel.NomeUsuario);
         }
 
         private EditarVisitaCommand EditarVisitaCommandFactory(EditaVisitaViewModel viewModel)

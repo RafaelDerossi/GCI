@@ -207,7 +207,8 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<INotificationHandler<VisitanteRemovidoEvent>, VisitanteEventHandler>();
 
             //Visita
-            services.AddScoped<IRequestHandler<CadastrarVisitaCommand, ValidationResult>, VisitaCommandHandler>();
+            services.AddScoped<IRequestHandler<CadastrarVisitaPorPorteiroCommand, ValidationResult>, VisitaCommandHandler>();
+            services.AddScoped<IRequestHandler<CadastrarVisitaPorMoradorCommand, ValidationResult>, VisitaCommandHandler>();
             services.AddScoped<IRequestHandler<EditarVisitaCommand, ValidationResult>, VisitaCommandHandler>();
             services.AddScoped<IRequestHandler<RemoverVisitaCommand, ValidationResult>, VisitaCommandHandler>();
             services.AddScoped<IRequestHandler<AprovarVisitaCommand, ValidationResult>, VisitaCommandHandler>();

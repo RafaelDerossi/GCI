@@ -12,7 +12,8 @@ using System.Threading.Tasks;
 namespace CondominioApp.Portaria.Aplication.Commands
 {
     public class VisitaCommandHandler : CommandHandler,
-         IRequestHandler<CadastrarVisitaCommand, ValidationResult>,
+         IRequestHandler<CadastrarVisitaPorPorteiroCommand, ValidationResult>,
+         IRequestHandler<CadastrarVisitaPorMoradorCommand, ValidationResult>,
          IRequestHandler<EditarVisitaCommand, ValidationResult>,
          IRequestHandler<RemoverVisitaCommand, ValidationResult>,
          IRequestHandler<AprovarVisitaCommand, ValidationResult>,
@@ -29,8 +30,10 @@ namespace CondominioApp.Portaria.Aplication.Commands
         }
 
 
-        public async Task<ValidationResult> Handle(CadastrarVisitaCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(CadastrarVisitaPorPorteiroCommand request, CancellationToken cancellationToken)
         {
+            if (!request.EstaValido()) return request.ValidationResult;
+
             var visita = VisitaFactory(request);           
 
             _visitanteRepository.AdicionarVisita(visita);
@@ -45,6 +48,35 @@ namespace CondominioApp.Portaria.Aplication.Commands
                   visita.NumeroUnidade, visita.AndarUnidade, visita.GrupoUnidade, visita.TemVeiculo,
                   visita.Veiculo, visita.UsuarioId, visita.NomeUsuario));
 
+            return await PersistirDados(_visitanteRepository.UnitOfWork);
+        }
+
+        public async Task<ValidationResult> Handle(CadastrarVisitaPorMoradorCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido()) return request.ValidationResult;
+
+            var visitante = await _visitanteRepository.ObterPorIdAsNoTracking(request.VisitanteId);
+            if (visitante == null)
+            {
+                AdicionarErro("Visitante não encontrado.");
+                return ValidationResult;
+            }
+
+            var visita = VisitaFactory(request, visitante);
+             
+            _visitanteRepository.AdicionarVisita(visita);
+
+            //Evento
+            visita.AdicionarEvento(
+              new VisitaCadastradaEvent(
+                  visita.Id, visita.DataDeEntrada, visita.Observacao, visita.Status, visita.VisitanteId,
+                  visita.NomeVisitante, visita.TipoDeDocumentoVisitante, visita.CpfVisitante,
+                  visita.RgVisitante, visita.EmailVisitante, visita.FotoVisitante, visita.TipoDeVisitante,
+                  visita.NomeEmpresaVisitante, visita.CondominioId, visita.NomeCondominio, visita.UnidadeId,
+                  visita.NumeroUnidade, visita.AndarUnidade, visita.GrupoUnidade, visita.TemVeiculo,
+                  visita.Veiculo, visita.UsuarioId, visita.NomeUsuario));
+
+            
             return await PersistirDados(_visitanteRepository.UnitOfWork);
         }
 
@@ -251,12 +283,12 @@ namespace CondominioApp.Portaria.Aplication.Commands
 
             return await PersistirDados(_visitanteRepository.UnitOfWork);
         }
-       
-            
 
-    
 
-        private Visita VisitaFactory(CadastrarVisitaCommand request)
+
+
+        
+        private Visita VisitaFactory(CadastrarVisitaPorPorteiroCommand request)
         {
             return new Visita
                 (request.DataDeEntrada, request.Observacao, request.Status,
@@ -266,7 +298,19 @@ namespace CondominioApp.Portaria.Aplication.Commands
                  request.NomeCondominio, request.UnidadeId, request.NumeroUnidade, request.AndarUnidade,
                  request.GrupoUnidade, request.Veiculo, request.UsuarioId, request.NomeUsuario);
         }
-        
+
+        private Visita VisitaFactory(CadastrarVisitaPorMoradorCommand request, Visitante visitante)
+        {
+            return new Visita
+                (request.DataDeEntrada, request.Observacao, request.Status,
+                 request.VisitanteId, visitante.Nome, visitante.TipoDeDocumento,
+                 visitante.Rg, visitante.Cpf, visitante.Email, visitante.Foto,
+                 visitante.TipoDeVisitante, visitante.NomeEmpresa, request.CondominioId,
+                 request.NomeCondominio, request.UnidadeId, request.NumeroUnidade, request.AndarUnidade,
+                 request.GrupoUnidade, visitante.Veiculo, request.UsuarioId, request.NomeUsuario);
+
+        }
+
 
         public void Dispose()
         {

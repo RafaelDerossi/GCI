@@ -4,9 +4,9 @@ using System;
 
 namespace CondominioApp.Portaria.Aplication.Commands
 {
-   public class CadastrarVisitaCommand : VisitaCommand
+   public class CadastrarVisitaPorPorteiroCommand : VisitaCommand
     {
-        public CadastrarVisitaCommand
+        public CadastrarVisitaPorPorteiroCommand
             (DateTime dataDeEntrada, string observacao, StatusVisita status,
             Guid visitanteId, string nomeVisitante, string documentoVisitante, string emailVisitante,
             string fotoVisitante, string nomeOriginalFotoVisitante,TipoDeVisitante tipoDeVisitante,
@@ -52,7 +52,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
         }
 
 
-        public class CadastrarVisitaCommandValidation : VisitaValidation<CadastrarVisitaCommand>
+        public class CadastrarVisitaCommandValidation : VisitaValidation<CadastrarVisitaPorPorteiroCommand>
         {
             public CadastrarVisitaCommandValidation()
             {               

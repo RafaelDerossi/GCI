@@ -7,20 +7,12 @@ namespace CondominioApp.Portaria.Aplication.ViewModels
 {
    public class CadastraVisitaMoradorViewModel
     {
-        public IEnumerable<DateTime> DatasDeEntrada { get; set; }       
+        public DateTime DataDeEntradaInicio { get; set; }
+        public DateTime DataDeEntradaFim { get; set; }
         public string Observacao { get; set; }
-        public StatusVisita Status { get; set; }
-        
+        public StatusVisita Status { get; set; }        
 
-        public Guid VisitanteId { get; set; }
-        public string NomeVisitante { get; set; }       
-        public string Documento { get; set; }       
-        public string EmailVisitante { get; set; }
-        public string FotoVisitante { get; set; }
-        public string NomeOriginalFotoVisitante { get; set; }
-        public TipoDeVisitante TipoDeVisitante { get; set; }
-        public string NomeEmpresaVisitante { get; set; }
-
+        public Guid VisitanteId { get; set; }        
 
         public Guid CondominioId { get; set; }
         public string NomeCondominio { get; set; }
@@ -29,12 +21,7 @@ namespace CondominioApp.Portaria.Aplication.ViewModels
         public string NumeroUnidade { get; set; }
         public string AndarUnidade { get; set; }
         public string GrupoUnidade { get; set; }
-
-        public bool TemVeiculo { get; set; }
-        public string PlacaVeiculo { get; set; }
-        public string ModeloVeiculo { get; set; }
-        public string CorVeiculo { get; set; }
-
+        
         public Guid UsuarioId { get; set; }
         public string NomeUsuario { get; set; }
 

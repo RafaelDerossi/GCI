@@ -66,6 +66,9 @@ namespace CondominioApp.Portaria.Aplication.Commands
 
             var visitante = VisitanteFactory(request);
 
+            if (request.Id != null)
+                visitante.SetEntidadeId(request.Id);
+
             if (visitante.Cpf.Numero != "")
             {
                 if (_visitanteRepository.VisitanteJaCadastradoPorCpf(visitante.Cpf, visitante.Id).Result)
