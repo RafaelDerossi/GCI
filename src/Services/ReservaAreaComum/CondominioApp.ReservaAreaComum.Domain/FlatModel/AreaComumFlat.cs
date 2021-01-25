@@ -38,6 +38,7 @@ namespace CondominioApp.ReservaAreaComum.Domain.FlatModel
 
         public bool TemIntervaloFixoEntreReservas { get; private set; }
 
+        public string TempoDeIntervaloEntreReservasPorUsuario { get; private set; }
 
         private readonly List<PeriodoFlat> _Periodos;
         public IReadOnlyCollection<PeriodoFlat> Periodos => _Periodos;
@@ -56,7 +57,8 @@ namespace CondominioApp.ReservaAreaComum.Domain.FlatModel
             int antecedenciaMinimaEmDias, int antecedenciaMinimaParaCancelamentoEmDias, bool requerAprovacaoDeReserva,
             bool horariosEspecificos, string tempoDeIntervaloEntreReservas, bool ativo, string tempoDeDuracaoDaReserva,
             int numeroLimiteDeReservaPorUnidade, bool permiteReservaSobreposta, int numeroLimiteDeReservaSobreposta,
-            int numeroLimiteDeReservaSobrepostaPorUnidade, bool temIntervaloFixoEntreReservas)
+            int numeroLimiteDeReservaSobrepostaPorUnidade, bool temIntervaloFixoEntreReservas,
+            string tempoDeIntervaloEntreReservasPorUsuario)
         {
             _Periodos = new List<PeriodoFlat>();
             Id = id;
@@ -81,6 +83,7 @@ namespace CondominioApp.ReservaAreaComum.Domain.FlatModel
             NumeroLimiteDeReservaSobreposta = numeroLimiteDeReservaSobreposta;
             NumeroLimiteDeReservaSobrepostaPorUnidade = numeroLimiteDeReservaSobrepostaPorUnidade;
             TemIntervaloFixoEntreReservas = temIntervaloFixoEntreReservas;
+            TempoDeIntervaloEntreReservasPorUsuario = tempoDeIntervaloEntreReservasPorUsuario;
         }
 
 
@@ -135,7 +138,7 @@ namespace CondominioApp.ReservaAreaComum.Domain.FlatModel
         public void SetTemIntervaloFixoEntreReservas(bool temIntervaloFixoEntreReservas) =>
           TemIntervaloFixoEntreReservas = temIntervaloFixoEntreReservas;
 
-
+        public void SetTempoDeIntervaloEntreReservasPorUsuario(string intervalo) => TempoDeIntervaloEntreReservasPorUsuario = intervalo;
 
         ///Outros Metodos
         ///
@@ -163,6 +166,7 @@ namespace CondominioApp.ReservaAreaComum.Domain.FlatModel
                 return listaDias;
             }
         }
+
 
     }
 }

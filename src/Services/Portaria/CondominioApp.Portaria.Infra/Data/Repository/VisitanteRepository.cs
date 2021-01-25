@@ -86,6 +86,13 @@ namespace CondominioApp.Portaria.Infra.Data.Repository
                 .FirstOrDefaultAsync(a => a.Id == Id);
         }
 
+        public async Task<Visitante> ObterPorIdAsNoTracking(Guid Id)
+        {
+            return await _context.Visitantes
+                .AsNoTracking()
+                .FirstOrDefaultAsync(a => a.Id == Id);
+        }
+
         public async Task<Visita> ObterVisitaPorId(Guid Id)
         {
             return await _context.Visitas

@@ -7,7 +7,6 @@ using System;
 using CondominioApp.Portaria.Aplication.Commands;
 using CondominioApp.Portaria.Domain.Interfaces;
 using CondominioApp.Portaria.Domain;
-using CondominioApp.Portaria.Aplication.Factories;
 
 namespace CondominioApp.Portaria.Tests
 {
@@ -27,12 +26,9 @@ namespace CondominioApp.Portaria.Tests
         public async Task AdicionarVisitante_Cpf_CommandoValido_DevePassarNaValidacao()
         {
             //Arrange        
-            var command = VisitanteCommandFactory.CriarComandoCadastroDeVisitante_ComCPF();
+            var command = VisitanteCommandFactory.CriarComandoCadastroDeVisitantePorMorador_ComCPF();
 
-            var visitante = VisitanteFactoryTest.CriarVisitanteValido_ComCPF();
-
-            _mocker.GetMock<IVisitanteFactory>().Setup(r => r.Fabricar(command))
-               .Returns(visitante);
+            var visitante = VisitanteFactoryTest.CriarVisitanteValido_ComCPF();            
 
             _mocker.GetMock<IVisitanteRepository>().Setup(r => r.VisitanteJaCadastradoPorCpf(command.Cpf, command.Id))
                .Returns(Task.FromResult(false));
@@ -60,10 +56,7 @@ namespace CondominioApp.Portaria.Tests
             var command = VisitanteCommandFactory.CriarComandoCadastroDeVisitante_ComRG();
 
             var visitante = VisitanteFactoryTest.CriarVisitanteValido_ComRG();
-
-            _mocker.GetMock<IVisitanteFactory>().Setup(r => r.Fabricar(command))
-               .Returns(visitante);
-
+            
             _mocker.GetMock<IVisitanteRepository>().Setup(r => r.VisitanteJaCadastradoPorCpf(command.Cpf, command.Id))
                .Returns(Task.FromResult(false));
 
@@ -91,9 +84,7 @@ namespace CondominioApp.Portaria.Tests
 
             var visitante = VisitanteFactoryTest.CriarVisitanteValido_SemDocumento();
 
-            _mocker.GetMock<IVisitanteFactory>().Setup(r => r.Fabricar(command))
-               .Returns(visitante);
-
+            
             _mocker.GetMock<IVisitanteRepository>().Setup(r => r.VisitanteJaCadastradoPorCpf(command.Cpf, command.Id))
                .Returns(Task.FromResult(false));
 
@@ -121,9 +112,7 @@ namespace CondominioApp.Portaria.Tests
 
             var visitante = VisitanteFactoryTest.CriarVisitanteValido_SemVeiculo();
 
-            _mocker.GetMock<IVisitanteFactory>().Setup(r => r.Fabricar(command))
-               .Returns(visitante);
-
+            
             _mocker.GetMock<IVisitanteRepository>().Setup(r => r.VisitanteJaCadastradoPorCpf(command.Cpf, command.Id))
                .Returns(Task.FromResult(false));
 
@@ -149,7 +138,7 @@ namespace CondominioApp.Portaria.Tests
         public async Task EditarVisitante_CommandoValido_DevePassarNaValidacao()
         {
             //Arrange        
-            var command = VisitanteCommandFactory.CriarComandoEdicaoDeVisitante_ComCPF();
+            var command = VisitanteCommandFactory.CriarComandoEdicaoDeVisitantePorMorador_ComCPF();
 
             var visitante = VisitanteFactoryTest.CriarVisitanteValido_ComCPF();
 

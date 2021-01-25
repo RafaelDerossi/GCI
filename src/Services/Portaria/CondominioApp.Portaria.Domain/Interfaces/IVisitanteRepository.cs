@@ -12,6 +12,8 @@ namespace CondominioApp.Portaria.Domain.Interfaces
 
         Task<bool> VisitanteJaCadastradoPorRg(Rg rg, Guid visitanteId);
 
+        Task<Visitante> ObterPorIdAsNoTracking(Guid Id);
+
         void AdicionarVisita(Visita entity);
 
         void AtualizarVisita(Visita entity);

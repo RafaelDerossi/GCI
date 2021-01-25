@@ -9,7 +9,8 @@ namespace CondominioApp.Portaria.Aplication.ViewModels
     {
         public Guid Id { get; set; }              
         public string Observacao { get; set; }
-        
+
+        public Guid VisitanteId { get; set; }
         public string NomeVisitante { get; set; }       
         public string Documento { get; set; }       
         public string EmailVisitante { get; set; }

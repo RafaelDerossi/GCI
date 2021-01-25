@@ -56,7 +56,7 @@ namespace CondominioApp.Api.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var comando = CadastrarVisitanteCommandFactory(visitanteVM);
+            var comando = CadastrarVisitantePorMoradorCommandFactory(visitanteVM);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
@@ -68,7 +68,7 @@ namespace CondominioApp.Api.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var comando = EditarVisitanteCommandFactory(visitanteVM);
+            var comando = EditarVisitantePorMoradorCommandFactory(visitanteVM);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
@@ -87,9 +87,9 @@ namespace CondominioApp.Api.Controllers
 
 
 
-        private CadastrarVisitanteCommand CadastrarVisitanteCommandFactory(CadastraVisitanteViewModel viewModel)
+        private CadastrarVisitantePorMoradorCommand CadastrarVisitantePorMoradorCommandFactory(CadastraVisitanteViewModel viewModel)
         {
-            return new CadastrarVisitanteCommand(
+            return new CadastrarVisitantePorMoradorCommand(
                   viewModel.Nome, viewModel.Documento, viewModel.Email, viewModel.Foto,
                   viewModel.NomeOriginalFoto, viewModel.CondominioId, viewModel.NomeCondominio,
                   viewModel.UnidadeId, viewModel.NumeroUnidade, viewModel.AndarUnidade,
@@ -98,9 +98,9 @@ namespace CondominioApp.Api.Controllers
                   viewModel.Placa, viewModel.Modelo, viewModel.Cor);
         }
 
-        private EditarVisitanteCommand EditarVisitanteCommandFactory(EditaVisitanteViewModel viewModel)
+        private EditarVisitantePorMoradorCommand EditarVisitantePorMoradorCommandFactory(EditaVisitanteViewModel viewModel)
         {
-            return new EditarVisitanteCommand(
+            return new EditarVisitantePorMoradorCommand(
                    viewModel.Id, viewModel.Nome, viewModel.Documento, viewModel.Email, viewModel.Foto,
                    viewModel.NomeOriginalFoto, viewModel.VisitantePermanente, viewModel.TipoDeVisitante,
                    viewModel.NomeEmpresa, viewModel.TemVeiculo, viewModel.Placa, viewModel.Modelo, viewModel.Cor);

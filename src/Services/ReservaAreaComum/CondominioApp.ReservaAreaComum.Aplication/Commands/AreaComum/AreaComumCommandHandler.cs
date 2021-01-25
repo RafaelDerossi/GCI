@@ -89,6 +89,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
             areaComum.SetNumeroLimiteDeReservaPorUnidade(request.NumeroLimiteDeReservaPorUnidade);
             areaComum.SetNumeroLimiteDeReservaSobreposta(request.NumeroLimiteDeReservaSobreposta);
             areaComum.SetNumeroLimiteDeReservaSobrepostaPorUnidade(request.NumeroLimiteDeReservaSobrepostaPorUnidade);
+            areaComum.SetTempoDeIntervaloEntreReservasPorUsuario(request.TempoDeIntervaloEntreReservasPorUsuario);
 
             areaComum.DesabilitarAprovacaoDeReserva();
             if (request.RequerAprovacaoDeReserva) areaComum.HabilitarAprovacaoDeReserva();
@@ -216,7 +217,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
                 request.AntecedenciaMinimaEmDias, request.AntecedenciaMinimaParaCancelamentoEmDias, request.RequerAprovacaoDeReserva,
                 request.TemHorariosEspecificos, request.TempoDeIntervaloEntreReservas, request.Ativa, request.TempoDeDuracaoDeReserva,
                 request.NumeroLimiteDeReservaPorUnidade, request.PermiteReservaSobreposta, request.NumeroLimiteDeReservaSobreposta,
-                request.NumeroLimiteDeReservaSobrepostaPorUnidade);
+                request.NumeroLimiteDeReservaSobrepostaPorUnidade, request.TempoDeIntervaloEntreReservasPorUsuario);
         }
         
         public void Dispose()
