@@ -58,22 +58,6 @@ namespace CondominioApp.Principal.Infra.DataQuery.Mapping
             builder.Property(u => u.NomeEmpresa).HasColumnType($"varchar({VisitanteFlat.Max})");
 
             builder.Property(u => u.TemVeiculo).IsRequired();
-
-            builder.Property(u => u.PlacaVeiculo)
-                   .HasMaxLength(Veiculo.PlacaMaxlength)
-                   .HasColumnName("Placa")
-                   .HasColumnType($"varchar({Veiculo.PlacaMaxlength})");          
-
-            builder.Property(u => u.ModeloVeiculo)
-                    .HasMaxLength(Veiculo.ModeloMaxlength)
-                    .HasColumnName("Modelo")
-                    .HasColumnType($"varchar({Veiculo.ModeloMaxlength})");
-
-            builder.Property(u => u.CorVeiculo)
-                    .HasMaxLength(Veiculo.CorMaxlength)
-                    .HasColumnName("Cor")
-                    .HasColumnType($"varchar({Veiculo.CorMaxlength})");
-
         }
     }
 }

@@ -9,8 +9,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
 
         public EditarVisitantePorMoradorCommand
             (Guid id, string nome, string documento, string email, string foto, string nomeOriginalFoto,
-            bool visitantePermanente, TipoDeVisitante tipoDeVisitante, string nomeEmpresa, bool temVeiculo,
-            string placaVeiculo, string modeloVeiculo, string corVeiculo)
+            bool visitantePermanente, TipoDeVisitante tipoDeVisitante, string nomeEmpresa, bool temVeiculo)
         {
             Id = id;
             SetNome(nome);
@@ -21,8 +20,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
 
             SetDocumento(documento);
             SetEmail(email);
-            SetFoto(nomeOriginalFoto, foto);
-            SetVeiculo(placaVeiculo, modeloVeiculo, corVeiculo);
+            SetFoto(nomeOriginalFoto, foto);           
         }
 
 

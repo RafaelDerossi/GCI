@@ -19,7 +19,7 @@ namespace CondominioApp.Usuarios.App.ValueObjects
 
         private void setNumero(string cnpjStr)
         {
-            Guarda.ValidarTamanho(cnpjStr, Maxlength);
+            Guarda.ValidarTamanhoMaximo(cnpjStr, Maxlength);
 
             if (!string.IsNullOrEmpty(cnpjStr))
             {

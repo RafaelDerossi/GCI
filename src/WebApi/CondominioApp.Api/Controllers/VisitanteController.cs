@@ -87,23 +87,26 @@ namespace CondominioApp.Api.Controllers
 
 
 
-        private CadastrarVisitantePorMoradorCommand CadastrarVisitantePorMoradorCommandFactory(CadastraVisitanteViewModel viewModel)
+        private CadastrarVisitantePorMoradorCommand CadastrarVisitantePorMoradorCommandFactory
+            (CadastraVisitanteViewModel viewModel)
         {
             return new CadastrarVisitantePorMoradorCommand(
                   viewModel.Nome, viewModel.Documento, viewModel.Email, viewModel.Foto,
                   viewModel.NomeOriginalFoto, viewModel.CondominioId, viewModel.NomeCondominio,
                   viewModel.UnidadeId, viewModel.NumeroUnidade, viewModel.AndarUnidade,
                   viewModel.GrupoUnidade, viewModel.VisitantePermanente, viewModel.QrCode,
-                  viewModel.TipoDeVisitante, viewModel.NomeEmpresa, viewModel.TemVeiculo, 
-                  viewModel.Placa, viewModel.Modelo, viewModel.Cor);
+                  viewModel.TipoDeVisitante, viewModel.NomeEmpresa, viewModel.TemVeiculo);
         }
 
-        private EditarVisitantePorMoradorCommand EditarVisitantePorMoradorCommandFactory(EditaVisitanteViewModel viewModel)
+        private EditarVisitantePorMoradorCommand EditarVisitantePorMoradorCommandFactory
+            (EditaVisitanteViewModel viewModel)
         {
             return new EditarVisitantePorMoradorCommand(
                    viewModel.Id, viewModel.Nome, viewModel.Documento, viewModel.Email, viewModel.Foto,
                    viewModel.NomeOriginalFoto, viewModel.VisitantePermanente, viewModel.TipoDeVisitante,
-                   viewModel.NomeEmpresa, viewModel.TemVeiculo, viewModel.Placa, viewModel.Modelo, viewModel.Cor);
+                   viewModel.NomeEmpresa, viewModel.TemVeiculo);
         }
+
+
     }
 }

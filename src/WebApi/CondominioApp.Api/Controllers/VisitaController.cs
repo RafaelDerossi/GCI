@@ -222,8 +222,7 @@ namespace CondominioApp.Api.Controllers
                   visitaVM.VisitanteId, visitaVM.NomeVisitante, visitaVM.Documento, visitaVM.EmailVisitante, visitaVM.FotoVisitante,
                   visitaVM.NomeOriginalFotoVisitante, visitaVM.CondominioId, visitaVM.NomeCondominio,
                   visitaVM.UnidadeId, visitaVM.NumeroUnidade, visitaVM.AndarUnidade, visitaVM.GrupoUnidade,
-                  visitaVM.TipoDeVisitante, visitaVM.NomeEmpresaVisitante, visitaVM.TemVeiculo, visitaVM.PlacaVeiculo,
-                  visitaVM.ModeloVeiculo, visitaVM.CorVeiculo);
+                  visitaVM.TipoDeVisitante, visitaVM.NomeEmpresaVisitante, visitaVM.TemVeiculo);
         }
        
         private EditarVisitantePorPorteiroCommand EditarVisitantePorPorteiroCommandFactory(CadastraVisitaPorteiroViewModel visitaVM)
@@ -231,7 +230,7 @@ namespace CondominioApp.Api.Controllers
            return new EditarVisitantePorPorteiroCommand(
                   visitaVM.VisitanteId, visitaVM.NomeVisitante, visitaVM.Documento, visitaVM.EmailVisitante, visitaVM.FotoVisitante,
                   visitaVM.NomeOriginalFotoVisitante, visitaVM.TipoDeVisitante, visitaVM.NomeEmpresaVisitante,
-                  visitaVM.TemVeiculo, visitaVM.PlacaVeiculo, visitaVM.ModeloVeiculo, visitaVM.CorVeiculo);
+                  visitaVM.TemVeiculo);
         }
 
         private EditarVisitantePorPorteiroCommand EditarVisitantePorPorteiroCommandFactory(EditaVisitaViewModel visitaVM)
@@ -239,7 +238,7 @@ namespace CondominioApp.Api.Controllers
             return new EditarVisitantePorPorteiroCommand(
                   visitaVM.VisitanteId, visitaVM.NomeVisitante, visitaVM.Documento, visitaVM.EmailVisitante, visitaVM.FotoVisitante,
                   visitaVM.NomeOriginalFotoVisitante, visitaVM.TipoDeVisitante, visitaVM.NomeEmpresaVisitante,
-                  visitaVM.TemVeiculo, visitaVM.PlacaVeiculo, visitaVM.ModeloVeiculo, visitaVM.CorVeiculo);
+                  visitaVM.TemVeiculo);
         }
 
     }

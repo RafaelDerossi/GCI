@@ -29,8 +29,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
         public TipoDeVisitante TipoDeVisitante { get; protected set; }
         public string NomeEmpresa { get; protected set; }
 
-        public bool TemVeiculo { get; protected set; }
-        public Veiculo Veiculo { get; protected set; }
+        public bool TemVeiculo { get; protected set; }       
 
 
 
@@ -103,34 +102,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
                 AdicionarErrosDeProcessamentoDoComando(e.Message);
             }
         }
-
-        public void SetVeiculo(string placa, string modelo, string cor)
-        {
-            if (TemVeiculo)
-            {
-                if (modelo == "")
-                {
-                    AdicionarErrosDeProcessamentoDoComando("Informe o modelo do veículo.");
-                    return;
-                }
-                if (cor == "")
-                {
-                    AdicionarErrosDeProcessamentoDoComando("Informe a cor do veículo.");
-                    return;
-                }
-                try
-                {
-                    Veiculo = new Veiculo(placa, modelo, cor);
-                }
-                catch (Exception e)
-                {
-                    AdicionarErrosDeProcessamentoDoComando(e.Message);
-                }
-                return;
-            }
-
-            Veiculo = new Veiculo("", "", "");
-        }
+      
 
         public void SetNome(string nome) => Nome = nome;
 

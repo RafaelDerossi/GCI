@@ -3,6 +3,7 @@ using CondominioApp.Core.Messages;
 using CondominioApp.Portaria.Aplication.Events;
 using CondominioApp.Portaria.Domain;
 using CondominioApp.Portaria.Domain.Interfaces;
+using CondominioApp.Portaria.ValueObjects;
 using FluentValidation.Results;
 using MediatR;
 using System;
@@ -301,13 +302,14 @@ namespace CondominioApp.Portaria.Aplication.Commands
 
         private Visita VisitaFactory(CadastrarVisitaPorMoradorCommand request, Visitante visitante)
         {
+            var veiculo = new Veiculo("","","");
             return new Visita
                 (request.DataDeEntrada, request.Observacao, request.Status,
                  request.VisitanteId, visitante.Nome, visitante.TipoDeDocumento,
                  visitante.Rg, visitante.Cpf, visitante.Email, visitante.Foto,
                  visitante.TipoDeVisitante, visitante.NomeEmpresa, request.CondominioId,
                  request.NomeCondominio, request.UnidadeId, request.NumeroUnidade, request.AndarUnidade,
-                 request.GrupoUnidade, visitante.Veiculo, request.UsuarioId, request.NomeUsuario);
+                 request.GrupoUnidade, veiculo, request.UsuarioId, request.NomeUsuario);
 
         }
 

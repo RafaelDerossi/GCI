@@ -131,8 +131,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
             visitante.SetCpf(request.Cpf);
             visitante.SetRg(request.Rg);
             visitante.SetEmail(request.Email);
-            visitante.SetFoto(request.Foto);
-            visitante.SetVeiculo(request.Veiculo);
+            visitante.SetFoto(request.Foto);           
             visitante.SetTipoDeVisitante(request.TipoDeVisitante);
             visitante.SetNomeEmpresa(request.NomeEmpresa);
             
@@ -141,6 +140,9 @@ namespace CondominioApp.Portaria.Aplication.Commands
             if (!request.VisitantePermanente)
                 visitante.MarcarVisitanteComoTemporario();
 
+            visitante.MarcarNaoTemVeiculo();
+            if (!request.TemVeiculo)
+                visitante.MarcarTemVeiculo();
 
             _visitanteRepository.Atualizar(visitante);
 
@@ -188,8 +190,10 @@ namespace CondominioApp.Portaria.Aplication.Commands
                 visitante.SetNomeEmpresa(request.NomeEmpresa);
             }
             visitante.SetFoto(request.Foto);
-            visitante.SetVeiculo(request.Veiculo);
 
+            visitante.MarcarNaoTemVeiculo();
+            if (!request.TemVeiculo)
+                visitante.MarcarTemVeiculo();
 
             _visitanteRepository.Atualizar(visitante);
 
@@ -229,7 +233,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
                 (request.Nome, request.TipoDeDocumento, request.Rg, request.Cpf, request.Email,
                  request.Foto, request.CondominioId, request.NomeCondominio, request.UnidadeId,
                  request.NumeroUnidade, request.AndarUnidade, request.GrupoUnidade, request.VisitantePermanente,
-                 request.QrCode, request.TipoDeVisitante, request.NomeEmpresa, request.Veiculo);
+                 request.QrCode, request.TipoDeVisitante, request.NomeEmpresa, request.TemVeiculo);
         }
 
         private void AdicionarEventoVisitanteCadastrado(Visitante visitante)
@@ -239,7 +243,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
                     visitante.Id, visitante.Nome, visitante.TipoDeDocumento, visitante.Cpf, visitante.Rg, visitante.Email, visitante.Foto,
                     visitante.CondominioId, visitante.NomeCondominio, visitante.UnidadeId, visitante.NumeroUnidade,
                     visitante.AndarUnidade, visitante.GrupoUnidade, visitante.VisitantePermanente, visitante.QrCode,
-                    visitante.TipoDeVisitante, visitante.NomeEmpresa, visitante.TemVeiculo, visitante.Veiculo));
+                    visitante.TipoDeVisitante, visitante.NomeEmpresa, visitante.TemVeiculo));
         }
 
         private void AdicionarEventoVisitanteEditado(Visitante visitante)
@@ -248,7 +252,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
                  new VisitanteEditadoEvent(
                      visitante.Id, visitante.Nome, visitante.TipoDeDocumento, visitante.Cpf, visitante.Rg,
                      visitante.Email, visitante.Foto, visitante.VisitantePermanente, visitante.TipoDeVisitante,
-                     visitante.NomeEmpresa, visitante.TemVeiculo, visitante.Veiculo));
+                     visitante.NomeEmpresa, visitante.TemVeiculo));
         }
 
         public void Dispose()

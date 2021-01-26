@@ -10,7 +10,7 @@ namespace CondominioApp.Portaria.Aplication.Events
 
         public VisitanteEditadoEvent
             (Guid id, string nome, TipoDeDocumento tipoDeDocumento, Cpf cpf, Rg rg, Email email, Foto foto, bool visitantePermanente,
-            TipoDeVisitante tipoDeVisitante, string nomeEmpresa, bool temVeiculo, Veiculo veiculo)
+            TipoDeVisitante tipoDeVisitante, string nomeEmpresa, bool temVeiculo)
         {
             Id = id;
             SetTipoDeDocumento(tipoDeDocumento);
@@ -22,8 +22,7 @@ namespace CondominioApp.Portaria.Aplication.Events
             VisitantePermanente = visitantePermanente;
             TipoDeVisitante = tipoDeVisitante;
             NomeEmpresa = nomeEmpresa;
-            TemVeiculo = temVeiculo;          
-            SetVeiculo(veiculo);
+            TemVeiculo = temVeiculo;           
         }
 
     }

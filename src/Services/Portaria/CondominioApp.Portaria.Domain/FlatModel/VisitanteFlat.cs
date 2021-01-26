@@ -39,11 +39,7 @@ namespace CondominioApp.Portaria.Domain.FlatModel
         public TipoDeVisitante TipoDeVisitante { get; private set; }
         public string NomeEmpresa { get; private set; }
 
-        public bool TemVeiculo { get; private set; }
-        public string PlacaVeiculo { get; private set; }
-        public string ModeloVeiculo { get; private set; }
-        public string CorVeiculo { get; private set; }
-              
+        public bool TemVeiculo { get; private set; }    
 
 
 
@@ -55,8 +51,7 @@ namespace CondominioApp.Portaria.Domain.FlatModel
         public VisitanteFlat(Guid id, string nome, TipoDeDocumento tipoDeDocumento, string rg, string cpf,
             string email, string foto, Guid condominioId, string nomeCondominio, Guid unidadeId,
             string numeroUnidade, string andarUnidade, string grupoUnidade, bool visitantePermanente,
-            string qrCode, TipoDeVisitante tipoDeVisitante, string nomeEmpresa, bool temVeiculo,
-            string placaVeiculo, string modeloVeiculo, string corVeiculo)
+            string qrCode, TipoDeVisitante tipoDeVisitante, string nomeEmpresa, bool temVeiculo)
         {
             Id = id;
             Nome = nome;
@@ -76,10 +71,6 @@ namespace CondominioApp.Portaria.Domain.FlatModel
             TipoDeVisitante = tipoDeVisitante;
             NomeEmpresa = nomeEmpresa;
             TemVeiculo = temVeiculo;
-            PlacaVeiculo = placaVeiculo;
-            ModeloVeiculo = modeloVeiculo;
-            CorVeiculo = corVeiculo;
-
         }
 
 
@@ -98,10 +89,7 @@ namespace CondominioApp.Portaria.Domain.FlatModel
         public void SetNomeEmpresa(string nomeEmpresa) => NomeEmpresa = nomeEmpresa;
 
         public void MarcarTemVeiculo() => TemVeiculo = true;
-        public void MarcarNaoTemVeiculo() => TemVeiculo = false;
-        public void SetPlacaVeiculo(string placa) => PlacaVeiculo = placa;
-        public void SetModeloVeiculo(string modelo) => ModeloVeiculo = modelo;
-        public void SetCorVeiculo(string cor) => CorVeiculo = cor;
+        public void MarcarNaoTemVeiculo() => TemVeiculo = false;      
 
         public void MarcarVisitanteComoPermanente() => VisitantePermanente = true;
         public void MarcarVisitanteComoTemporario() => VisitantePermanente = false;

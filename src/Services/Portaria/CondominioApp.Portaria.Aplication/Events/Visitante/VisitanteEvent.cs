@@ -29,8 +29,7 @@ namespace CondominioApp.Portaria.Aplication.Events
         public TipoDeVisitante TipoDeVisitante { get; protected set; }
         public string NomeEmpresa { get; protected set; }
 
-        public bool TemVeiculo { get; protected set; }
-        public Veiculo Veiculo { get; protected set; }
+        public bool TemVeiculo { get; protected set; }     
 
 
 
@@ -38,8 +37,7 @@ namespace CondominioApp.Portaria.Aplication.Events
         public void SetRg(Rg rg) => Rg = rg;
         public void SetCPF(Cpf cpf) => Cpf = cpf;
         public void SetEmail(Email email) => Email = email;       
-        public void SetFoto(Foto foto) => Foto = foto;
-        public void SetVeiculo(Veiculo veiculo) => Veiculo = veiculo;
+        public void SetFoto(Foto foto) => Foto = foto;        
         
         public void SetNome(string nome) => Nome = nome;
 

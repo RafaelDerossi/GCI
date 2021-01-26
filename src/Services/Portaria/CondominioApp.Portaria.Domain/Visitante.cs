@@ -32,7 +32,7 @@ namespace CondominioApp.Portaria.Domain
         public string NomeEmpresa { get; private set; }
 
 
-        public Veiculo Veiculo { get; private set; }
+        public bool TemVeiculo { get; private set; }
 
 
 
@@ -52,7 +52,7 @@ namespace CondominioApp.Portaria.Domain
         public Visitante(string nome, TipoDeDocumento tipoDeDocumento, Rg rg, Cpf cpf,
             Email email, Foto foto, Guid condominioId, string nomeCondominio, Guid unidadeId, string numeroUnidade,
             string andarUnidade, string grupoUnidade, bool visitantePermanente, string qrCode,
-            TipoDeVisitante tipoDeVisitante, string nomeEmpresa, Veiculo veiculo)
+            TipoDeVisitante tipoDeVisitante, string nomeEmpresa, bool temVeiculo)
         {
             _Visitas = new List<Visita>();
             Nome = nome;
@@ -71,7 +71,7 @@ namespace CondominioApp.Portaria.Domain
             QrCode = qrCode;
             TipoDeVisitante = tipoDeVisitante;
             NomeEmpresa = nomeEmpresa;
-            Veiculo = veiculo;            
+            TemVeiculo = temVeiculo;            
         }
 
 
@@ -89,8 +89,8 @@ namespace CondominioApp.Portaria.Domain
         public void SetQrCode(string qrCode) => QrCode = qrCode;
         public void SetTipoDeVisitante(TipoDeVisitante tipoDeVisitante) => TipoDeVisitante = tipoDeVisitante;
         public void SetNomeEmpresa(string nomeEmpresa) => NomeEmpresa = nomeEmpresa;
-        public void SetVeiculo(Veiculo veiculo) => Veiculo = veiculo;
-
+        public void MarcarTemVeiculo() => TemVeiculo = true;
+        public void MarcarNaoTemVeiculo() => TemVeiculo = false;
 
         public void MarcarVisitanteComoPermanente() => VisitantePermanente = true;
         public void MarcarVisitanteComoTemporario() => VisitantePermanente = false;
@@ -101,18 +101,7 @@ namespace CondominioApp.Portaria.Domain
 
 
         /// Outros Metodos 
-        public bool TemVeiculo
-        {
-            get
-            {
-                if (Veiculo != null)
-                {
-                    return true;
-                }
-                return false;
-            }
-        }
-
+    
 
     }
 }
