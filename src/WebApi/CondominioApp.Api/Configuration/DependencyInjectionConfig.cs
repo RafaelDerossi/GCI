@@ -43,7 +43,6 @@ using CondominioApp.Portaria.Domain.Interfaces;
 using CondominioApp.Portaria.Infra.Data.Repository;
 using CondominioApp.Portaria.Infra.DataQuery.Repository;
 using CondominioApp.Portaria.Aplication.Query;
-using CondominioApp.Portaria.Aplication.Factories;
 
 namespace CondominioApp.Api.Configuration
 {
@@ -127,6 +126,14 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<INotificationHandler<CodigoUnidadeResetadoEvent>, UnidadeEventHandler>();
             services.AddScoped<INotificationHandler<UnidadeRemovidaEvent>, UnidadeEventHandler>();
 
+            //Contratos
+            services.AddScoped<IRequestHandler<CadastrarContratoCommand, ValidationResult>, ContratoCommandHandler>();
+            services.AddScoped<IRequestHandler<EditarContratoCommand, ValidationResult>, ContratoCommandHandler>();
+            services.AddScoped<IRequestHandler<RemoverContratoCommand, ValidationResult>, ContratoCommandHandler>();
+            services.AddScoped<INotificationHandler<ContratoCadastradoEvent>, ContratoEventHandler>();
+            services.AddScoped<INotificationHandler<ContratoEditadoEvent>, ContratoEventHandler>();
+            services.AddScoped<INotificationHandler<ContratoRemovidoEvent>, ContratoEventHandler>();
+
             #endregion
 
             #region Enquete -Contexto
@@ -197,18 +204,19 @@ namespace CondominioApp.Api.Configuration
 
             #region Portaria -Contexto
 
-            //Visitante
-            services.AddScoped<IVisitanteFactory, VisitanteFactory>();
-            services.AddScoped<IVisitanteFlatFactory, VisitanteFlatFactory>();
-            services.AddScoped<IRequestHandler<CadastrarVisitanteCommand, ValidationResult>, VisitanteCommandHandler>();
-            services.AddScoped<IRequestHandler<EditarVisitanteCommand, ValidationResult>, VisitanteCommandHandler>();
+            //Visitante                        
+            services.AddScoped<IRequestHandler<CadastrarVisitantePorMoradorCommand, ValidationResult>, VisitanteCommandHandler>();
+            services.AddScoped<IRequestHandler<CadastrarVisitantePorPorteiroCommand, ValidationResult>, VisitanteCommandHandler>();
+            services.AddScoped<IRequestHandler<EditarVisitantePorMoradorCommand, ValidationResult>, VisitanteCommandHandler>();
+            services.AddScoped<IRequestHandler<EditarVisitantePorPorteiroCommand, ValidationResult>, VisitanteCommandHandler>();
             services.AddScoped<IRequestHandler<RemoverVisitanteCommand, ValidationResult>, VisitanteCommandHandler>();
             services.AddScoped<INotificationHandler<VisitanteCadastradoEvent>, VisitanteEventHandler>();
             services.AddScoped<INotificationHandler<VisitanteEditadoEvent>, VisitanteEventHandler>();
             services.AddScoped<INotificationHandler<VisitanteRemovidoEvent>, VisitanteEventHandler>();
 
             //Visita
-            services.AddScoped<IRequestHandler<CadastrarVisitaCommand, ValidationResult>, VisitaCommandHandler>();
+            services.AddScoped<IRequestHandler<CadastrarVisitaPorPorteiroCommand, ValidationResult>, VisitaCommandHandler>();
+            services.AddScoped<IRequestHandler<CadastrarVisitaPorMoradorCommand, ValidationResult>, VisitaCommandHandler>();
             services.AddScoped<IRequestHandler<EditarVisitaCommand, ValidationResult>, VisitaCommandHandler>();
             services.AddScoped<IRequestHandler<RemoverVisitaCommand, ValidationResult>, VisitaCommandHandler>();
             services.AddScoped<IRequestHandler<AprovarVisitaCommand, ValidationResult>, VisitaCommandHandler>();

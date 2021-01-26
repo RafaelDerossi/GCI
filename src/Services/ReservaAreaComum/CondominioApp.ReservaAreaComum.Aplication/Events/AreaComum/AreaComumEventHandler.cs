@@ -40,7 +40,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Events
                 notification.Ativa, notification.TempoDeDuracaoDeReserva,
                 notification.NumeroLimiteDeReservaPorUnidade, notification.PermiteReservaSobreposta,
                 notification.NumeroLimiteDeReservaSobreposta, notification.NumeroLimiteDeReservaSobrepostaPorUnidade,
-                notification.TemIntervaloFixoEntreReservas);
+                notification.TemIntervaloFixoEntreReservas, notification.TempoDeIntervaloEntreReservasPorUsuario);
             
 
             _reservaAreaComumQueryRepository.Adicionar(areaComumFlat);
@@ -80,6 +80,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Events
             areaComumFlat.SetNumeroLimiteDeReservaPorUnidade(notification.NumeroLimiteDeReservaPorUnidade);
             areaComumFlat.SetNumeroLimiteDeReservaSobreposta(notification.NumeroLimiteDeReservaSobreposta);
             areaComumFlat.SetNumeroLimiteDeReservaSobrepostaPorUnidade(notification.NumeroLimiteDeReservaSobrepostaPorUnidade);
+            areaComumFlat.SetTempoDeIntervaloEntreReservasPorUsuario(notification.TempoDeIntervaloEntreReservasPorUsuario);
 
             areaComumFlat.DesabilitarAprovacaoDeReserva();
             if (notification.RequerAprovacaoDeReserva) areaComumFlat.HabilitarAprovacaoDeReserva();

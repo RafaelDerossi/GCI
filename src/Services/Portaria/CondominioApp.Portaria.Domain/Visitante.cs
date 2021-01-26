@@ -114,22 +114,5 @@ namespace CondominioApp.Portaria.Domain
         }
 
 
-        public ValidationResult AdicionarVisita(Visita visitaNova)
-        {
-            visitaNova.SetVisitanteId(Id);
-
-            _Visitas.Add(visitaNova);
-
-            return ValidationResult;
-        }
-
-        public ValidationResult AlterarVisita(Visita visita)
-        {
-            _Visitas.RemoveAll(v => v.Id == visita.Id);
-            _Visitas.Add(visita);
-
-            return ValidationResult;
-        }
-
     }
 }

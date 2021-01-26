@@ -15,7 +15,6 @@ namespace CondominioApp.Principal.Tests
         [Trait("Categoria", "Condominio - CadastrarCommand")]
         public void CadastroDeCondominio_CommandoValido_DevePassarNaValidacao()
         {
-
             //Arrange
             var Command = CondominioCommandFactory.CriarComandoCadastroDeCondominio();
 
@@ -44,7 +43,6 @@ namespace CondominioApp.Principal.Tests
         [Trait("Categoria", "Condominio - CadastrarCommand - Sem Telefone")]
         public void CadastroDeCondominioSemTelefone_CommandoValido_DevePassarNaValidacao()
         {
-
             //Arrange
             var Command = CondominioCommandFactory.CriarComandoCadastroDeCondominioSemTelefone();
 
@@ -59,7 +57,6 @@ namespace CondominioApp.Principal.Tests
         [Trait("Categoria", "Condominio - CadastrarCommand - Sem Nome")]
         public void CadastroDeCondominioSemNome_CommandoInvalido_NaoDevePassarNaValidacao()
         {
-
             //Arrange
             var Command = CondominioCommandFactory.CriarComandoCadastroDeCondominioSemNome();
 
@@ -74,68 +71,57 @@ namespace CondominioApp.Principal.Tests
         [Trait("Categoria", "Condominio - CadastrarCommand - Sem CNPJ")]
         public void CadastroDeCondominioSemCNPJ_CommandoInvalido_NaoDevePassarNaValidacao()
         {
-            try
-            {
-                //Arrange
-                var Command = CondominioCommandFactory.CriarComandoCadastroDeCondominioSemCNPJ();
+            //Arrange
+            var Command = CondominioCommandFactory.CriarComandoCadastroDeCondominioSemCNPJ();
 
-                //Act
-                var result = Command.EstaValido();
+            //Act
+            var result = Command.EstaValido();
 
-                //Assert
-                Assert.False(result);
-            }
-            catch (Exception)
-            {
-                Assert.False(false);
-            }
-           
+            //Assert
+            Assert.False(result);            
         }
 
         [Fact(DisplayName = "Adicionar Condominio Invalido - Com CNPJ Invalido")]
         [Trait("Categoria", "Condominio - CadastrarCommand - Com CNPJ Invalido")]
         public void CadastroDeCondominioComCNPJInvalido_CommandoInvalido_NaoDevePassarNaValidacao()
         {
-            try
-            {
-                //Arrange
-                var Command = CondominioCommandFactory.CriarComandoCadastroDeCondominioComCNPJInvalido();
+            //Arrange
+            var Command = CondominioCommandFactory.CriarComandoCadastroDeCondominioComCNPJInvalido();
 
-                //Act
-                var result = Command.EstaValido();
+            //Act
+            var result = Command.EstaValido();
 
-                //Assert
-                Assert.False(result);
-            }
-            catch (Exception)
-            {
-                Assert.False(false);
-            }
-
+            //Assert
+            Assert.False(result);            
         }
 
         [Fact(DisplayName = "Adicionar Condominio Invalido - Com Telefone Invalido")]
         [Trait("Categoria", "Condominio - CadastrarCommand - Com Telefone Invalido")]
         public void CadastroDeCondominioComTelefoneInvalido_CommandoInvalido_NaoDevePassarNaValidacao()
         {
-            try
-            {
-                //Arrange
-                var Command = CondominioCommandFactory.CriarComandoCadastroDeCondominioComTelefoneInvalido();
+            //Arrange
+            var Command = CondominioCommandFactory.CriarComandoCadastroDeCondominioComTelefoneInvalido();
 
-                //Act
-                var result = Command.EstaValido();
+            //Act
+            var result = Command.EstaValido();
 
-                //Assert
-                Assert.False(result);
-            }
-            catch (Exception)
-            {
-                Assert.False(false);
-            }
-            
+            //Assert
+            Assert.False(result);
         }
 
+        [Fact(DisplayName = "Adicionar Condominio Válido - Sem Contrato")]
+        [Trait("Categoria", "Condominio - CadastrarCommand - Sem Contrato")]
+        public void CadastroDeCondominio_SemContrato_CommandoValido_DevePassarNaValidacao()
+        {
+            //Arrange
+            var Command = CondominioCommandFactory.CriarComandoCadastroDeCondominioSemContrato();
+
+            //Act
+            var result = Command.EstaValido();
+
+            //Assert
+            Assert.True(result);            
+        }
 
 
         /// <summary>

@@ -35,6 +35,8 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Events
 
         public bool TemIntervaloFixoEntreReservas { get; protected set; }
 
+        public string TempoDeIntervaloEntreReservasPorUsuario { get; protected set; }
+
         public ICollection<Periodo> Periodos;
         
     }

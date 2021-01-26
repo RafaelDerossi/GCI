@@ -1,10 +1,8 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using CondominioApp.Core.Messages;
-using CondominioApp.Portaria.Aplication.Factories;
 using CondominioApp.Portaria.Domain.FlatModel;
 using CondominioApp.Portaria.Domain.Interfaces;
-using FluentValidation.Results;
 using MediatR;
 
 namespace CondominioApp.Portaria.Aplication.Events
@@ -21,27 +19,20 @@ namespace CondominioApp.Portaria.Aplication.Events
     {        
 
         private IVisitanteQueryRepository _visitanteQueryRepository;
-        private IVisitanteFlatFactory _visitanteFlatFactory;
-
         public VisitaEventHandler(
-            IVisitanteQueryRepository visitanteQueryRepository, IVisitanteFlatFactory visitanteFlatFactory)
+            IVisitanteQueryRepository visitanteQueryRepository)
         {
             _visitanteQueryRepository = visitanteQueryRepository;
-            _visitanteFlatFactory = visitanteFlatFactory;
         }
 
 
         public async Task Handle(VisitaCadastradaEvent notification, CancellationToken cancellationToken)
         {
-            if (await _visitanteQueryRepository.VisitanteCadastradoPorId(notification.VisitanteId))
-            {
-               CadatrarVisitaComVisitanteExistente(notification);
-                await PersistirDados(_visitanteQueryRepository.UnitOfWork);
-                return;
-            }
+            var visitaFlat = VisitaFlatFactory(notification);
+            
+            _visitanteQueryRepository.AdicionarVisita(visitaFlat);
 
-           CadatrarVisitaComVisitanteNovo(notification);
-           await PersistirDados(_visitanteQueryRepository.UnitOfWork);
+            await PersistirDados(_visitanteQueryRepository.UnitOfWork);
         }
 
         public async Task Handle(VisitaEditadaEvent notification, CancellationToken cancellationToken)
@@ -76,34 +67,6 @@ namespace CondominioApp.Portaria.Aplication.Events
                 _visitanteQueryRepository.AtualizarVisita(visitaFlat);
                
             }
-
-            var visitanteFlat = await _visitanteQueryRepository.ObterPorId(visitaFlat.VisitanteId);
-            if (visitanteFlat != null)            
-            {
-                if (!visitanteFlat.VisitantePermanente)
-                {
-                    visitanteFlat.SetNome(notification.NomeVisitante);
-                    visitanteFlat.SetTipoDeDocumento(notification.TipoDeDocumentoVisitante);
-                    visitanteFlat.SetCpf(notification.CpfVisitante.Numero);
-                    visitanteFlat.SetRg(notification.RgVisitante.Numero);
-                    visitanteFlat.SetEmail(notification.EmailVisitante.Endereco);
-                    visitanteFlat.SetTipoDeVisitante(notification.TipoDeVisitante);
-                    visitanteFlat.SetNomeEmpresa(notification.NomeEmpresaVisitante);
-                }
-                
-
-                visitanteFlat.SetFoto(notification.FotoVisitante.NomeDoArquivo);
-                visitanteFlat.MarcarNaoTemVeiculo();
-                if (notification.TemVeiculo)
-                    visitanteFlat.MarcarTemVeiculo();
-
-                visitanteFlat.SetPlacaVeiculo(notification.Veiculo.Placa);
-                visitanteFlat.SetModeloVeiculo(notification.Veiculo.Modelo);
-                visitanteFlat.SetCorVeiculo(notification.Veiculo.Cor);
-
-                _visitanteQueryRepository.Atualizar(visitanteFlat);
-            }
-
 
             await PersistirDados(_visitanteQueryRepository.UnitOfWork);
 
@@ -174,48 +137,6 @@ namespace CondominioApp.Portaria.Aplication.Events
             }            
         }
 
-
-
-        private void CadatrarVisitaComVisitanteNovo(VisitaCadastradaEvent notification)
-        {
-           var visitanteFlat = _visitanteFlatFactory.Fabricar(notification);
-            _visitanteQueryRepository.Adicionar(visitanteFlat);
-
-            var visitaFlat = VisitaFlatFactory(notification);
-
-            visitaFlat.SetVisitanteId(visitanteFlat.Id);
-
-           _visitanteQueryRepository.AdicionarVisita(visitaFlat);           
-        }
-
-        private void CadatrarVisitaComVisitanteExistente(VisitaCadastradaEvent notification)
-        {
-            var visitanteFlat = _visitanteQueryRepository.ObterPorId(notification.VisitanteId).Result;
-            if (!visitanteFlat.VisitantePermanente)
-            {
-                visitanteFlat.SetNome(notification.NomeVisitante);
-                visitanteFlat.SetTipoDeDocumento(notification.TipoDeDocumentoVisitante);
-                visitanteFlat.SetCpf(notification.CpfVisitante.Numero);
-                visitanteFlat.SetRg(notification.RgVisitante.Numero);
-                visitanteFlat.SetEmail(notification.EmailVisitante.Endereco);
-                visitanteFlat.SetTipoDeVisitante(notification.TipoDeVisitante);
-                visitanteFlat.SetNomeEmpresa(notification.NomeEmpresaVisitante);
-            }
-            visitanteFlat.SetFoto(notification.FotoVisitante.NomeDoArquivo);
-            visitanteFlat.MarcarNaoTemVeiculo();
-            if (notification.TemVeiculo)
-                visitanteFlat.MarcarTemVeiculo();
-            visitanteFlat.SetPlacaVeiculo(notification.Veiculo.Placa);
-            visitanteFlat.SetModeloVeiculo(notification.Veiculo.Modelo);
-            visitanteFlat.SetCorVeiculo(notification.Veiculo.Cor);  
-
-           
-
-            var visitaFlat = VisitaFlatFactory(notification);
-
-            _visitanteQueryRepository.Atualizar(visitanteFlat);
-            _visitanteQueryRepository.AdicionarVisita(visitaFlat);           
-    }
 
         private VisitaFlat VisitaFlatFactory(VisitaEvent notification)
         {

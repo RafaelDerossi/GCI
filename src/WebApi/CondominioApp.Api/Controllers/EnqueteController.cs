@@ -15,11 +15,8 @@ namespace CondominioApp.Api.Controllers
     [Route("api/enquete")]
     public class EnqueteController : MainController
     {
-
         private readonly IMediatorHandler _mediatorHandler;
-
         private readonly IEnqueteQuery _enqueteQuery;
-
         public readonly IMapper _mapper;
 
         public EnqueteController(IMediatorHandler mediatorHandler, IEnqueteQuery enqueteQuery, IMapper mapper)

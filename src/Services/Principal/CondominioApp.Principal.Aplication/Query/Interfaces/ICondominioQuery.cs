@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using CondominioApp.Principal.Domain;
 using CondominioApp.Principal.Domain.FlatModel;
 
 namespace CondominioApp.Principal.Aplication.Query.Interfaces
@@ -26,5 +27,10 @@ namespace CondominioApp.Principal.Aplication.Query.Interfaces
         Task<IEnumerable<UnidadeFlat>> ObterUnidadesPorGrupo(Guid grupoId);
 
         Task<IEnumerable<UnidadeFlat>> ObterUnidadesPorCondominio(Guid condominioId);
+
+
+        Task<Contrato> ObterContratoPorId(Guid Id);
+
+        Task<IEnumerable<Contrato>> ObterContratosPorCondominio(Guid condominioId);
     }
 }

@@ -20,7 +20,12 @@ namespace CondominioApp.Portaria.Aplication.Commands.Validations
             RuleFor(c => c.Status)
                 .NotNull().WithMessage("Status não pode estar vazio!");
         }
-        
+
+        protected void ValidateVisitanteId()
+        {
+            RuleFor(c => c.VisitanteId)
+                .NotEqual(Guid.Empty);
+        }
         protected void ValidateNomeVisitante()
         {
             RuleFor(c => c.NomeVisitante)

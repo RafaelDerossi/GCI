@@ -130,6 +130,46 @@ namespace CondominioApp.Principal.Infra.Migrations
                     b.ToTable("Condominios");
                 });
 
+            modelBuilder.Entity("CondominioApp.Principal.Domain.Contrato", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Ativo")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("CondominioId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("DataAssinatura")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DataDeAlteracao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DataDeCadastro")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Descricao")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Link")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Lixeira")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Tipo")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CondominioId");
+
+                    b.ToTable("Contratos");
+                });
+
             modelBuilder.Entity("CondominioApp.Principal.Domain.Grupo", b =>
                 {
                     b.Property<Guid>("Id")
@@ -215,7 +255,7 @@ namespace CondominioApp.Principal.Infra.Migrations
 
             modelBuilder.Entity("CondominioApp.Principal.Domain.Condominio", b =>
                 {
-                    b.OwnsOne("CondominioApp.Core.ValueObjects.Cnpj", "Cnpj", b1 =>
+                    b.OwnsOne("CondominioApp.Principal.Domain.ValueObjects.Cnpj", "Cnpj", b1 =>
                         {
                             b1.Property<Guid>("CondominioId")
                                 .HasColumnType("uniqueidentifier");
@@ -234,7 +274,7 @@ namespace CondominioApp.Principal.Infra.Migrations
                                 .HasForeignKey("CondominioId");
                         });
 
-                    b.OwnsOne("CondominioApp.Core.ValueObjects.Endereco", "Endereco", b1 =>
+                    b.OwnsOne("CondominioApp.Principal.Domain.ValueObjects.Endereco", "Endereco", b1 =>
                         {
                             b1.Property<Guid>("CondominioId")
                                 .HasColumnType("uniqueidentifier");
@@ -282,7 +322,7 @@ namespace CondominioApp.Principal.Infra.Migrations
                                 .HasForeignKey("CondominioId");
                         });
 
-                    b.OwnsOne("CondominioApp.Core.ValueObjects.Foto", "LogoMarca", b1 =>
+                    b.OwnsOne("CondominioApp.Principal.Domain.ValueObjects.Foto", "LogoMarca", b1 =>
                         {
                             b1.Property<Guid>("CondominioId")
                                 .HasColumnType("uniqueidentifier");
@@ -305,7 +345,7 @@ namespace CondominioApp.Principal.Infra.Migrations
                                 .HasForeignKey("CondominioId");
                         });
 
-                    b.OwnsOne("CondominioApp.Core.ValueObjects.Telefone", "Telefone", b1 =>
+                    b.OwnsOne("CondominioApp.Principal.Domain.ValueObjects.Telefone", "Telefone", b1 =>
                         {
                             b1.Property<Guid>("CondominioId")
                                 .HasColumnType("uniqueidentifier");
@@ -323,7 +363,7 @@ namespace CondominioApp.Principal.Infra.Migrations
                                 .HasForeignKey("CondominioId");
                         });
 
-                    b.OwnsOne("CondominioApp.Core.ValueObjects.Url", "UrlWebServer", b1 =>
+                    b.OwnsOne("CondominioApp.Principal.Domain.ValueObjects.Url", "UrlWebServer", b1 =>
                         {
                             b1.Property<Guid>("CondominioId")
                                 .HasColumnType("uniqueidentifier");
@@ -340,6 +380,15 @@ namespace CondominioApp.Principal.Infra.Migrations
                             b1.WithOwner()
                                 .HasForeignKey("CondominioId");
                         });
+                });
+
+            modelBuilder.Entity("CondominioApp.Principal.Domain.Contrato", b =>
+                {
+                    b.HasOne("CondominioApp.Principal.Domain.Condominio", null)
+                        .WithMany("Contratos")
+                        .HasForeignKey("CondominioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("CondominioApp.Principal.Domain.Grupo", b =>
@@ -365,7 +414,7 @@ namespace CondominioApp.Principal.Infra.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.OwnsOne("CondominioApp.Core.ValueObjects.Telefone", "Telefone", b1 =>
+                    b.OwnsOne("CondominioApp.Principal.Domain.ValueObjects.Telefone", "Telefone", b1 =>
                         {
                             b1.Property<Guid>("UnidadeId")
                                 .HasColumnType("uniqueidentifier");

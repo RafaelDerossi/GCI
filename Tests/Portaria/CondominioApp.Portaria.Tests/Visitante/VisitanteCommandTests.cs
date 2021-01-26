@@ -8,13 +8,27 @@ namespace CondominioApp.Portaria.Tests
    public class VisitanteCommandTests
     {        
         /// CadastrarCommand
-        [Fact(DisplayName = "Adicionar Visitante Válido - Com CPF")]
+        [Fact(DisplayName = "Adicionar Visitante Válido - Por Morador Com CPF")]
         [Trait("Categoria", "Visitante - CadastrarCommand")]
-        public void CadastroDeVisitante_ComCpf_CommandoValido_DevePassarNaValidacao()
+        public void CadastroDeVisitante_PorMorador_ComCpf_CommandoValido_DevePassarNaValidacao()
         {
 
             //Arrange
-            var Command = VisitanteCommandFactory.CriarComandoCadastroDeVisitante_ComCPF();
+            var Command = VisitanteCommandFactory.CriarComandoCadastroDeVisitantePorMorador_ComCPF();
+
+            //Act
+            var result = Command.EstaValido();
+
+            //Assert
+            Assert.True(result);
+        }
+
+        [Fact(DisplayName = "Adicionar Visitante Válido - Por Porteiro Com CPF")]
+        [Trait("Categoria", "Visitante - CadastrarCommand")]
+        public void CadastroDeVisitante_PorPorteiro_ComCpf_CommandoValido_DevePassarNaValidacao()
+        {
+            //Arrange
+            var Command = VisitanteCommandFactory.CriarComandoCadastroDeVisitantePorPorteiro_ComCPF();
 
             //Act
             var result = Command.EstaValido();
@@ -252,12 +266,26 @@ namespace CondominioApp.Portaria.Tests
 
 
         ///EditarVisitanteCommand
-        [Fact(DisplayName = "Editar Visitante Válido - Com CPF")]
+        [Fact(DisplayName = "Editar Visitante Válido - Por Morador Com CPF")]
         [Trait("Categoria", "Visitante - EditarCommand")]
-        public void EdicaoDeVisitante_ComCpf_CommandoValido_DevePassarNaValidacao()
+        public void EdicaoDeVisitante_PorMoradorComCpf_CommandoValido_DevePassarNaValidacao()
         {
             //Arrange
-            var Command = VisitanteCommandFactory.CriarComandoEdicaoDeVisitante_ComCPF();
+            var Command = VisitanteCommandFactory.CriarComandoEdicaoDeVisitantePorMorador_ComCPF();
+
+            //Act
+            var result = Command.EstaValido();
+
+            //Assert
+            Assert.True(result);
+        }
+
+        [Fact(DisplayName = "Editar Visitante Válido - Por Porteiro Com CPF")]
+        [Trait("Categoria", "Visitante - EditarCommand")]
+        public void EdicaoDeVisitante_PorPorteiroComCpf_CommandoValido_DevePassarNaValidacao()
+        {
+            //Arrange
+            var Command = VisitanteCommandFactory.CriarComandoEdicaoDeVisitantePorPorteiro_ComCPF();
 
             //Act
             var result = Command.EstaValido();

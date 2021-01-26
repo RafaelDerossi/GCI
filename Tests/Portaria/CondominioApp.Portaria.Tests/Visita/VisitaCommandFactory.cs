@@ -7,9 +7,9 @@ namespace CondominioApp.Portaria.Tests
 {
     public class VisitaCommandFactory 
     {
-        public static CadastrarVisitaCommand CadastrarVisitaCommandFactory()
+        public static CadastrarVisitaPorPorteiroCommand CadastrarVisitaCommandFactory()
         {
-            return new CadastrarVisitaCommand
+            return new CadastrarVisitaPorPorteiroCommand
                 (DateTime.Today, "OBS", StatusVisita.PENDENTE, Guid.NewGuid(),
                 "Nome do Visitante", "143.026.417-97", "rafael@condominioapp.com",
                 "foto.jpg", "nomeOriginal.jpg", TipoDeVisitante.PARTICULAR, "", Guid.NewGuid(),
@@ -29,19 +29,19 @@ namespace CondominioApp.Portaria.Tests
 
         
         /// CadastrarVisitaCommand        
-        public static CadastrarVisitaCommand CriarComandoCadastroDeVisita_NaPortaria_ComCPF()
+        public static CadastrarVisitaPorPorteiroCommand CriarComandoCadastroDeVisita_NaPortaria_ComCPF()
         {
             return CadastrarVisitaCommandFactory();
         }
 
-        public static CadastrarVisitaCommand CriarComandoCadastroDeVisita_ComCPFInvalido()
+        public static CadastrarVisitaPorPorteiroCommand CriarComandoCadastroDeVisita_ComCPFInvalido()
         {
             var comando = CadastrarVisitaCommandFactory();
             comando.SetDocumentoVisitante("143.026.417-98");           
             return comando;
         }
 
-        public static CadastrarVisitaCommand CriarComandoCadastroDeVisita_Morador_ComCPF()
+        public static CadastrarVisitaPorPorteiroCommand CriarComandoCadastroDeVisita_Morador_ComCPF()
         {
             var comando = CadastrarVisitaCommandFactory();
             comando.SetDataDeEntrada(DateTime.Today.AddDays(1).Date);
@@ -49,28 +49,28 @@ namespace CondominioApp.Portaria.Tests
             return comando;
         }
 
-        public static CadastrarVisitaCommand CriarComandoCadastroDeVisita_NaPortaria_ComRG()
+        public static CadastrarVisitaPorPorteiroCommand CriarComandoCadastroDeVisita_NaPortaria_ComRG()
         {
             var comando = CadastrarVisitaCommandFactory();
             comando.SetDocumentoVisitante("123456789");
             return comando;
         }
 
-        public static CadastrarVisitaCommand CriarComandoCadastroDeVisita_NaPortaria_SemDocumento()
+        public static CadastrarVisitaPorPorteiroCommand CriarComandoCadastroDeVisita_NaPortaria_SemDocumento()
         {
             var comando = CadastrarVisitaCommandFactory();
             comando.SetDocumentoVisitante("");
             return comando;
         }
 
-        public static CadastrarVisitaCommand CriarComandoCadastroDeVisita_NaPortaria_VisitanteNovo()
+        public static CadastrarVisitaPorPorteiroCommand CriarComandoCadastroDeVisita_NaPortaria_VisitanteNovo()
         {
             var comando = CadastrarVisitaCommandFactory();
             comando.SetVisitanteId(Guid.Empty);
             return comando;
         }
 
-        public static CadastrarVisitaCommand CriarComandoCadastroDeVisita_NaPortaria_VisitaDeServico()
+        public static CadastrarVisitaPorPorteiroCommand CriarComandoCadastroDeVisita_NaPortaria_VisitaDeServico()
         {
             var comando = CadastrarVisitaCommandFactory();
             comando.SetTipoDeVisitante(TipoDeVisitante.SERVICO);
@@ -78,49 +78,49 @@ namespace CondominioApp.Portaria.Tests
             return comando;
         }
 
-        public static CadastrarVisitaCommand CriarComandoCadastroDeVisita_SemCondominioId()
+        public static CadastrarVisitaPorPorteiroCommand CriarComandoCadastroDeVisita_SemCondominioId()
         {
             var comando = CadastrarVisitaCommandFactory();
             comando.SetCondominioId(Guid.Empty);
             return comando;
         }
 
-        public static CadastrarVisitaCommand CriarComandoCadastroDeVisita_SemNomeDoCondominio()
+        public static CadastrarVisitaPorPorteiroCommand CriarComandoCadastroDeVisita_SemNomeDoCondominio()
         {
             var comando = CadastrarVisitaCommandFactory();          
             comando.SetNomeDoCondominio("");
             return comando;
         }
 
-        public static CadastrarVisitaCommand CriarComandoCadastroDeVisita_SemUnidadeId()
+        public static CadastrarVisitaPorPorteiroCommand CriarComandoCadastroDeVisita_SemUnidadeId()
         {
             var comando = CadastrarVisitaCommandFactory();
             comando.SetUnidadeId(Guid.Empty);
             return comando;
         }
 
-        public static CadastrarVisitaCommand CriarComandoCadastroDeVisita_SemNumeroUnidade()
+        public static CadastrarVisitaPorPorteiroCommand CriarComandoCadastroDeVisita_SemNumeroUnidade()
         {
             var comando = CadastrarVisitaCommandFactory();
             comando.SetNumeroUnidade("");
             return comando;
         }
 
-        public static CadastrarVisitaCommand CriarComandoCadastroDeVisita_SemAndarUnidade()
+        public static CadastrarVisitaPorPorteiroCommand CriarComandoCadastroDeVisita_SemAndarUnidade()
         {
             var comando = CadastrarVisitaCommandFactory();
             comando.SetAndarUnidade("");
             return comando;
         }
 
-        public static CadastrarVisitaCommand CriarComandoCadastroDeVisita_SemGrupoUnidade()
+        public static CadastrarVisitaPorPorteiroCommand CriarComandoCadastroDeVisita_SemGrupoUnidade()
         {
             var comando = CadastrarVisitaCommandFactory();
             comando.SetGrupoUnidade("");
             return comando;
         }
 
-        public static CadastrarVisitaCommand CriarComandoCadastroDeVisita_SemVeiculo()
+        public static CadastrarVisitaPorPorteiroCommand CriarComandoCadastroDeVisita_SemVeiculo()
         {
             var comando = CadastrarVisitaCommandFactory();
             comando.MarcarQueNaoTemVeiculo();
@@ -128,7 +128,7 @@ namespace CondominioApp.Portaria.Tests
             return comando;
         }
 
-        public static CadastrarVisitaCommand CriarComandoCadastroDeVisita_ComVeiculoSemPlaca()
+        public static CadastrarVisitaPorPorteiroCommand CriarComandoCadastroDeVisita_ComVeiculoSemPlaca()
         {
             var comando = CadastrarVisitaCommandFactory();
             comando.MarcarQueTemVeiculo();
@@ -136,7 +136,7 @@ namespace CondominioApp.Portaria.Tests
             return comando;
         }
 
-        public static CadastrarVisitaCommand CriarComandoCadastroDeVisita_ComVeiculoSemModelo()
+        public static CadastrarVisitaPorPorteiroCommand CriarComandoCadastroDeVisita_ComVeiculoSemModelo()
         {
             var comando = CadastrarVisitaCommandFactory();
             comando.MarcarQueTemVeiculo();
@@ -144,7 +144,7 @@ namespace CondominioApp.Portaria.Tests
             return comando;
         }
 
-        public static CadastrarVisitaCommand CriarComandoCadastroDeVisita_ComVeiculoSemCor()
+        public static CadastrarVisitaPorPorteiroCommand CriarComandoCadastroDeVisita_ComVeiculoSemCor()
         {
             var comando = CadastrarVisitaCommandFactory();
             comando.MarcarQueTemVeiculo();
