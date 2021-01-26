@@ -1,13 +1,10 @@
 ﻿using AutoMapper;
 using CondominioApp.Enquetes.App.Models;
 using CondominioApp.Enquetes.App.ViewModels;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace CondominioApp.Enquetes.App.AutoMapper
-{  
+{
     public class EntityToViewModelEnquete : Profile
     {
         public EntityToViewModelEnquete()

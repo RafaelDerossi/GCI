@@ -8,36 +8,37 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using CondominioApp.Principal.Infra.DataQuery;
 using CondominioApp.Principal.Domain.FlatModel;
+using CondominioApp.Principal.Domain;
 
 namespace CondominioApp.Principal.Infra.Data.Repository
 {
     public class CondominioQueryRepository : ICondominioQueryRepository
     {
-        private readonly PrincipalQueryContextDB _context;
+        private readonly PrincipalQueryContextDB _queryContext;      
 
-        public CondominioQueryRepository(PrincipalQueryContextDB context)
+        public CondominioQueryRepository(PrincipalQueryContextDB queryContext)
         {
-            _context = context;
+            _queryContext = queryContext;            
         }
 
-        public IUnitOfWorks UnitOfWork => _context;
+        public IUnitOfWorks UnitOfWork => _queryContext;
 
 
         #region Condominio
         
         public void Adicionar(CondominioFlat entity)
         {
-            _context.CondominiosFlat.Add(entity);
+            _queryContext.CondominiosFlat.Add(entity);
         }
 
         public void Apagar(Func<CondominioFlat, bool> predicate)
         {
-            _context.CondominiosFlat.Where(predicate).ToList().ForEach(del => del.EnviarParaLixeira());
+            _queryContext.CondominiosFlat.Where(predicate).ToList().ForEach(del => del.EnviarParaLixeira());
         }
 
         public void Atualizar(CondominioFlat entity)
         {
-            _context.CondominiosFlat.Update(entity);
+            _queryContext.CondominiosFlat.Update(entity);
         }
 
        
@@ -47,36 +48,36 @@ namespace CondominioApp.Principal.Infra.Data.Repository
             if (OrderByDesc)
             {
                 if (take > 0)
-                    return await _context.CondominiosFlat.AsNoTracking().Where(expression)
+                    return await _queryContext.CondominiosFlat.AsNoTracking().Where(expression)
                                         .OrderByDescending(x => x.DataDeCadastro).Take(take).ToListAsync();
 
-                return await _context.CondominiosFlat.AsNoTracking().Where(expression)
+                return await _queryContext.CondominiosFlat.AsNoTracking().Where(expression)
                                         .OrderByDescending(x => x.DataDeCadastro).ToListAsync();
             }
 
             if (take > 0)
-                return await _context.CondominiosFlat.AsNoTracking().Where(expression)
+                return await _queryContext.CondominiosFlat.AsNoTracking().Where(expression)
                                         .OrderBy(x => x.DataDeCadastro).Take(take).ToListAsync();
 
-            return await _context.CondominiosFlat.AsNoTracking().Where(expression)
+            return await _queryContext.CondominiosFlat.AsNoTracking().Where(expression)
                                     .OrderBy(x => x.DataDeCadastro).ToListAsync();
         }
 
         public async Task<CondominioFlat> ObterPorId(Guid Id)
         {
-            return await _context.CondominiosFlat
+            return await _queryContext.CondominiosFlat
                  .AsNoTracking()
                  .FirstOrDefaultAsync(u => u.Id == Id && !u.Lixeira);
         }
 
         public async Task<IEnumerable<CondominioFlat>> ObterTodos()
         {
-            return await _context.CondominiosFlat.AsNoTracking().Where(u => !u.Lixeira).ToListAsync();
+            return await _queryContext.CondominiosFlat.AsNoTracking().Where(u => !u.Lixeira).ToListAsync();
         }
 
         public async Task<CondominioFlat> ObterPorContratoId(Guid contratoId)
         {
-            return await _context.CondominiosFlat
+            return await _queryContext.CondominiosFlat
                  .AsNoTracking()
                  .FirstOrDefaultAsync(u => u.ContratoId == contratoId && !u.Lixeira);
         }
@@ -87,24 +88,24 @@ namespace CondominioApp.Principal.Infra.Data.Repository
         #region Grupo
         public void AdicionarGrupo(GrupoFlat entity)
         {
-            _context.GruposFlat.Add(entity);
+            _queryContext.GruposFlat.Add(entity);
         }
 
         public void AtualizarGrupo(GrupoFlat entity)
         {
-            _context.GruposFlat.Update(entity);
+            _queryContext.GruposFlat.Update(entity);
         }
 
         public async Task<GrupoFlat> ObterGrupoPorId(Guid Id)
         {
-            return await _context.GruposFlat
+            return await _queryContext.GruposFlat
                 .AsNoTracking()
                 .FirstOrDefaultAsync(u => u.Id == Id && !u.Lixeira);
         }
 
         public async Task<IEnumerable<GrupoFlat>> ObterGruposPorCondominio(Guid condominioId)
         {
-            return await _context.GruposFlat.AsNoTracking().Where(u => u.CondominioId == condominioId && !u.Lixeira).ToListAsync();
+            return await _queryContext.GruposFlat.AsNoTracking().Where(u => u.CondominioId == condominioId && !u.Lixeira).ToListAsync();
         }
 
         #endregion
@@ -113,43 +114,43 @@ namespace CondominioApp.Principal.Infra.Data.Repository
         #region Unidade
         public void AdicionarUnidade(UnidadeFlat entity)
         {
-            _context.UnidadesFlat.Add(entity);
+            _queryContext.UnidadesFlat.Add(entity);
         }
 
         public void AtualizarUnidade(UnidadeFlat entity)
         {
-            _context.UnidadesFlat.Update(entity);
+            _queryContext.UnidadesFlat.Update(entity);
         }
 
         public async Task<UnidadeFlat> ObterUnidadePorId(Guid Id)
         {
-            return await _context.UnidadesFlat
+            return await _queryContext.UnidadesFlat
                 .AsNoTracking()
                 .FirstOrDefaultAsync(u => u.Id == Id && !u.Lixeira);
         }
 
         public async Task<IEnumerable<UnidadeFlat>> ObterUnidadesPorGrupo(Guid grupoId)
         {
-            return await _context.UnidadesFlat
+            return await _queryContext.UnidadesFlat
                 .AsNoTracking()
                 .Where(u => u.GrupoId == grupoId && !u.Lixeira).ToListAsync();
         }
 
         public async Task<IEnumerable<UnidadeFlat>> ObterUnidadesPorCondominio(Guid condominioId)
         {
-            return await _context.UnidadesFlat
+            return await _queryContext.UnidadesFlat
                 .AsNoTracking()
                 .Where(u => u.CondominioId == condominioId && !u.Lixeira).ToListAsync();
         }
 
         #endregion
 
-
+       
 
 
         public void Dispose()
         {
-            _context?.Dispose();
+            _queryContext?.Dispose();
         }
     }
 }

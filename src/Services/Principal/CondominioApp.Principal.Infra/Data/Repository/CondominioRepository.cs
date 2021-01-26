@@ -84,7 +84,7 @@ namespace CondominioApp.Principal.Infra.Data.Repository
             return await _context.Condominios
                 .Include(g => g.Grupos)
                 .Include(g => g.Contratos)
-                .FirstOrDefaultAsync(u => u.Id == Id);
+                .FirstOrDefaultAsync(u => u.Id == Id && !u.Lixeira);
         }
 
         public async Task<IEnumerable<Condominio>> ObterTodos()
@@ -127,22 +127,24 @@ namespace CondominioApp.Principal.Infra.Data.Repository
         {
             return await _context.Grupos
                 .Include(c => c.Unidades)
-                .FirstOrDefaultAsync(u => u.Id == Id);
+                .FirstOrDefaultAsync(u => u.Id == Id && !u.Lixeira);
         }
 
         public async Task<Unidade> ObterUnidadePorId(Guid Id)
         {
-            return await _context.Unidades.FirstOrDefaultAsync(u => u.Id == Id);
+            return await _context.Unidades.FirstOrDefaultAsync(u => u.Id == Id && !u.Lixeira);
         }
+
+
 
         public async Task<Contrato> ObterContratoPorId(Guid Id)
         {
-            return await _context.Contratos.FirstOrDefaultAsync(u => u.Id == Id);
+            return await _context.Contratos.FirstOrDefaultAsync(u => u.Id == Id && !u.Lixeira);
         }
 
         public async Task<IEnumerable<Contrato>> ObterContratosPorCondominio(Guid CondominioId)
         {
-            return await _context.Contratos.Where(c => c.Id == CondominioId).ToListAsync();
+            return await _context.Contratos.Where(c => c.CondominioId == CondominioId && !c.Lixeira).ToListAsync();
         }
 
 

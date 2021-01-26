@@ -1,9 +1,9 @@
 ﻿using CondominioApp.Correspondencias.App.AutoMapper;
 using CondominioApp.Enquetes.App.AutoMapper;
+using CondominioApp.Principal.Aplication.AutoMapper;
 using CondominioApp.ReservaAreaComum.Aplication.AutoMapper;
 using CondominioAppMarketplace.App.AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
-using System.Collections.Generic;
 
 namespace CondominioApp.Api.Configuration
 {
@@ -23,7 +23,7 @@ namespace CondominioApp.Api.Configuration
                 cfg.AddProfile(new EntityToViewModelComunicado());
                 cfg.AddProfile(new ViewModelToEntityAreaComum());
                 cfg.AddProfile(new EntityToViewModelAreaComum());
-
+                cfg.AddProfile(new EntityToViewModelContrato());
                 //cfg.AddProfile(new EntityToViewModelEstatistica());
                 //cfg.AddProfile(new ViewModelToEntityEstatistica());
             });

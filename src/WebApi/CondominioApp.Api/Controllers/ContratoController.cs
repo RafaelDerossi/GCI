@@ -1,7 +1,10 @@
-﻿using CondominioApp.Core.Mediator;
+﻿using AutoMapper;
+using CondominioApp.Core.Mediator;
+using CondominioApp.Principal.Aplication;
 using CondominioApp.Principal.Aplication.Commands;
 using CondominioApp.Principal.Aplication.Query.Interfaces;
 using CondominioApp.Principal.Aplication.ViewModels;
+using CondominioApp.Principal.Domain;
 using CondominioApp.Principal.Domain.FlatModel;
 using CondominioApp.WebApi.Core.Controllers;
 using Microsoft.AspNetCore.Mvc;
@@ -14,35 +17,38 @@ namespace CondominioApp.Api.Controllers
     [Route("api/Contrato")]
     public class ContratoController : MainController
     {
-
         private readonly IMediatorHandler _mediatorHandler;
-        private readonly ICondominioQuery _condominioQuery; 
-        public ContratoController(IMediatorHandler mediatorHandler, ICondominioQuery condominioQuery)
+        private readonly ICondominioQuery _condominioQuery;
+        public readonly IMapper _mapper;
+        public ContratoController(IMediatorHandler mediatorHandler, ICondominioQuery condominioQuery, IMapper mapper)
         {
             _mediatorHandler = mediatorHandler;
             _condominioQuery = condominioQuery;
+            _mapper = mapper;
         }
 
 
 
-        //[HttpGet]
-        //public async Task<IEnumerable<CondominioFlat>> ObterTodos()
-        //{
-        //    return await _condominioQuery.ObterTodos();
-        //}
+        [HttpGet("{Id:Guid}")]
+        public async Task<ContratoViewModel> ObterPorId(Guid Id)
+        {
+            return _mapper.Map<ContratoViewModel>(await _condominioQuery.ObterContratoPorId(Id));
+        }
 
-        //[HttpGet("{Id:Guid}")]
-        //public async Task<CondominioFlat> ObterPorId(Guid Id)
-        //{
-        //    return await _condominioQuery.ObterPorId(Id);
-        //}
-          
-        //[HttpGet("Removidos")]
-        //public async Task<IEnumerable<CondominioFlat>> ObterRemovidos()
-        //{
-        //    return await _condominioQuery.ObterRemovidos();
-        //}
-                
+        [HttpGet("por-condominio/{condominioId:Guid}")]
+        public async Task<IEnumerable<ContratoViewModel>> ObterPorCondominio(Guid condominioId)
+        {
+            var contratos = await _condominioQuery.ObterContratosPorCondominio(condominioId);
+
+            var contratosVM = new List<ContratoViewModel>();
+            foreach (Contrato item in contratos)
+            {
+                var contratoVM = _mapper.Map<ContratoViewModel>(item);
+                contratosVM.Add(contratoVM);
+            }
+            return contratosVM;           
+        }
+
 
 
 
