@@ -14,6 +14,8 @@ namespace CondominioApp.Principal.Domain.Interfaces
 
         Task<GrupoFlat> ObterGrupoPorId(Guid Id);
 
+        Task<CondominioFlat> ObterPorContratoId(Guid contratoId);
+
         Task<IEnumerable<GrupoFlat>> ObterGruposPorCondominio(Guid condominioId);
 
 

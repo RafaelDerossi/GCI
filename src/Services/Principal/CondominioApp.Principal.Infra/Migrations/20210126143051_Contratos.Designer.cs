@@ -4,14 +4,16 @@ using CondominioApp.Principal.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CondominioApp.Principal.Infra.Migrations
 {
     [DbContext(typeof(PrincipalContextDB))]
-    partial class PrincipalContextDBModelSnapshot : ModelSnapshot
+    [Migration("20210126143051_Contratos")]
+    partial class Contratos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

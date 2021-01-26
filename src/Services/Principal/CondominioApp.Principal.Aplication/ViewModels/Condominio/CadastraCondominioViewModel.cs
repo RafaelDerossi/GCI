@@ -128,6 +128,10 @@ namespace CondominioApp.Principal.Aplication.ViewModels
 
         public TipoDePlano TipoDePlano { get; set; }
 
+        public string DescricaoContrato { get; set; }
+
+        public bool ContratoAtivo { get; set; }
+
         public string LinkContrato { get; set; }
        
     }

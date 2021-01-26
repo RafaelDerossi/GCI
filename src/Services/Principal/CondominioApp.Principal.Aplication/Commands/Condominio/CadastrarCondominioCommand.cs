@@ -15,7 +15,8 @@ namespace CondominioApp.Principal.Aplication.Commands
             bool classificadoMorador, bool mural, bool muralMorador, bool chat, bool chatMorador, bool reserva,
             bool reservaNaPortaria, bool ocorrencia, bool ocorrenciaMorador, bool correspondencia,
             bool correspondenciaNaPortaria, bool limiteTempoReserva,
-            DateTime DataAssinaturaContrato, TipoDePlano TipoDePlano, string LinkContrato)
+            DateTime DataAssinaturaContrato, TipoDePlano TipoDePlano, string descricaoContrato, 
+            bool contratoAtivo, string LinkContrato)
         {                    
             Nome = nome;
             Descricao = descricao;          
@@ -44,7 +45,7 @@ namespace CondominioApp.Principal.Aplication.Commands
             SetEndereco(logradouro, complemento, numero, cep, bairro, cidade, estado);
             SetUrlWebServer(urlWebServer);
 
-            SetContrato(DataAssinaturaContrato, TipoDePlano, LinkContrato);
+            SetContrato(DataAssinaturaContrato, TipoDePlano, descricaoContrato, contratoAtivo, LinkContrato);
             
         }
 

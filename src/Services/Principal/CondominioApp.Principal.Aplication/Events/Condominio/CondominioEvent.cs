@@ -1,4 +1,5 @@
 ﻿using System;
+using CondominioApp.Core.Enumeradores;
 using CondominioApp.Core.Messages;
 using CondominioApp.Principal.Domain.ValueObjects;
 using FluentValidation;
@@ -61,8 +62,20 @@ namespace CondominioApp.Principal.Aplication.Events
 
         public bool CorrespondenciaNaPortaria { get; protected set; }
 
-        public bool LimiteTempoReserva { get; protected set; }      
+        public bool LimiteTempoReserva { get; protected set; }
 
+
+        public Guid ContratoId { get; protected set; }
+
+        public DateTime DataAssinatura { get; set; }
+
+        public TipoDePlano TipoPlano { get; set; }       
+
+        public string DescricaoContrato { get; set; }
+
+        public bool ContratoAtivo { get; set; }
+
+        public string LinkContrato { get; set; }
 
     }
 }

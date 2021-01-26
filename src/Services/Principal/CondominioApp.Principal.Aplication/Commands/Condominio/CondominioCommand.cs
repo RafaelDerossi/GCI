@@ -180,12 +180,17 @@ namespace CondominioApp.Principal.Aplication.Commands
             }
         }
 
-        public void SetContrato(DateTime dataAssinatura, TipoDePlano tipoPlano, string linkContrato)
+        public void SetContrato(
+            DateTime dataAssinatura, TipoDePlano tipoPlano, 
+            string descricaoContrato, bool ativo, string linkContrato)
         {
             if (tipoPlano != 0)
             {
-                Contrato = new Contrato(CondominioId, dataAssinatura, tipoPlano, linkContrato, true);
+                Contrato = new Contrato(CondominioId, dataAssinatura, tipoPlano, descricaoContrato, ativo, linkContrato);
             }            
         }
+
+        public void SetNome(string nome) => Nome = nome;
+
     }
 }

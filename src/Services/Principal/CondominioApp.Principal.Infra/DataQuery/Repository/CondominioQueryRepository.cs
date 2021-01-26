@@ -74,6 +74,13 @@ namespace CondominioApp.Principal.Infra.Data.Repository
             return await _context.CondominiosFlat.AsNoTracking().Where(u => !u.Lixeira).ToListAsync();
         }
 
+        public async Task<CondominioFlat> ObterPorContratoId(Guid contratoId)
+        {
+            return await _context.CondominiosFlat
+                 .AsNoTracking()
+                 .FirstOrDefaultAsync(u => u.ContratoId == contratoId && !u.Lixeira);
+        }
+
         #endregion
 
 

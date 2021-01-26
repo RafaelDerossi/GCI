@@ -36,7 +36,9 @@ namespace CondominioApp.Principal.Aplication.Events
                 notification.ClassificadoMorador, notification.Mural, notification.MuralMorador, 
                 notification.Chat, notification.ChatMorador, notification.Reserva, notification.ReservaNaPortaria,
                 notification.Ocorrencia, notification.OcorrenciaMorador, notification.Correspondencia,
-                notification.CorrespondenciaNaPortaria, notification.LimiteTempoReserva);
+                notification.CorrespondenciaNaPortaria, notification.LimiteTempoReserva, notification.ContratoId, 
+                notification.DataAssinatura, notification.TipoPlano.ToString(), notification.DescricaoContrato,
+                notification.ContratoAtivo, notification.LinkContrato);
 
             _condominioQueryRepository.Adicionar(condominioFlat);
 

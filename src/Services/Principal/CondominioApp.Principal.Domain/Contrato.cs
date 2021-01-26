@@ -14,11 +14,14 @@ namespace CondominioApp.Principal.Domain
 
         public TipoDePlano Tipo { get; private set; }
 
-        public string Link { get; private set; }
+        public string Descricao { get; private set; }
 
         public bool Ativo { get; private set; }
 
-       
+        public string Link { get; private set; }       
+
+     
+
         /// <summary>
         /// Construtores
         /// </summary>
@@ -26,13 +29,14 @@ namespace CondominioApp.Principal.Domain
         {
         }
 
-        public Contrato(Guid condominioId, DateTime dataAssinatura, TipoDePlano tipo, string link, bool ativo)
+        public Contrato(Guid condominioId, DateTime dataAssinatura, TipoDePlano tipo,string descricao, bool ativo, string link)
         {
             CondominioId = condominioId;
             DataAssinatura = dataAssinatura;
             Tipo = tipo;
-            Link = link;
+            Descricao = descricao;
             Ativo = ativo;
+            Link = link;
         }
 
 
@@ -43,13 +47,15 @@ namespace CondominioApp.Principal.Domain
 
         public void SetDataAssinatura(DateTime data) => DataAssinatura = data;
 
-        public void SetDescricao(TipoDePlano tipo) => Tipo = tipo;
+        public void SetTipoDePlano(TipoDePlano tipo) => Tipo = tipo;
 
-        public void SetFoto(string link) => Link = link;
+        public void SetDescricao(string descricao) => Descricao = descricao;       
 
         public void Ativar() => Ativo = true;
 
         public void Desativar() => Ativo = false;
+
+        public void SetLink(string link) => Link = link;
 
     }
 }
