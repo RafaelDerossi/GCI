@@ -44,6 +44,11 @@ namespace CondominioApp.Portaria.Infra.Migrations
                     b.Property<DateTime>("DataDeSaida")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Documento")
+                        .HasColumnName("Documento")
+                        .HasColumnType("varchar(20)")
+                        .HasMaxLength(20);
+
                     b.Property<string>("GrupoUnidade")
                         .IsRequired()
                         .HasColumnType("varchar(200)");
@@ -118,6 +123,11 @@ namespace CondominioApp.Portaria.Infra.Migrations
                     b.Property<DateTime>("DataDeCadastro")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Documento")
+                        .HasColumnName("Documento")
+                        .HasColumnType("varchar(20)")
+                        .HasMaxLength(20);
+
                     b.Property<string>("GrupoUnidade")
                         .IsRequired()
                         .HasColumnType("varchar(200)");
@@ -143,6 +153,9 @@ namespace CondominioApp.Portaria.Infra.Migrations
                     b.Property<string>("QrCode")
                         .HasColumnType("varchar(200)");
 
+                    b.Property<bool>("TemVeiculo")
+                        .HasColumnType("bit");
+
                     b.Property<int>("TipoDeDocumento")
                         .HasColumnType("int");
 
@@ -167,24 +180,6 @@ namespace CondominioApp.Portaria.Infra.Migrations
                         .HasForeignKey("VisitanteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.OwnsOne("CondominioApp.Portaria.ValueObjects.Cpf", "CpfVisitante", b1 =>
-                        {
-                            b1.Property<Guid>("VisitaId")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<string>("Numero")
-                                .HasColumnName("Cpf")
-                                .HasColumnType("varchar(14)")
-                                .HasMaxLength(14);
-
-                            b1.HasKey("VisitaId");
-
-                            b1.ToTable("Visitas");
-
-                            b1.WithOwner()
-                                .HasForeignKey("VisitaId");
-                        });
 
                     b.OwnsOne("CondominioApp.Portaria.ValueObjects.Email", "EmailVisitante", b1 =>
                         {
@@ -228,24 +223,6 @@ namespace CondominioApp.Portaria.Infra.Migrations
                                 .HasForeignKey("VisitaId");
                         });
 
-                    b.OwnsOne("CondominioApp.Portaria.ValueObjects.Rg", "RgVisitante", b1 =>
-                        {
-                            b1.Property<Guid>("VisitaId")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<string>("Numero")
-                                .HasColumnName("Rg")
-                                .HasColumnType("varchar(10)")
-                                .HasMaxLength(10);
-
-                            b1.HasKey("VisitaId");
-
-                            b1.ToTable("Visitas");
-
-                            b1.WithOwner()
-                                .HasForeignKey("VisitaId");
-                        });
-
                     b.OwnsOne("CondominioApp.Portaria.ValueObjects.Veiculo", "Veiculo", b1 =>
                         {
                             b1.Property<Guid>("VisitaId")
@@ -277,24 +254,6 @@ namespace CondominioApp.Portaria.Infra.Migrations
 
             modelBuilder.Entity("CondominioApp.Portaria.Domain.Visitante", b =>
                 {
-                    b.OwnsOne("CondominioApp.Portaria.ValueObjects.Cpf", "Cpf", b1 =>
-                        {
-                            b1.Property<Guid>("VisitanteId")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<string>("Numero")
-                                .HasColumnName("Cpf")
-                                .HasColumnType("varchar(14)")
-                                .HasMaxLength(14);
-
-                            b1.HasKey("VisitanteId");
-
-                            b1.ToTable("Visitantes");
-
-                            b1.WithOwner()
-                                .HasForeignKey("VisitanteId");
-                        });
-
                     b.OwnsOne("CondominioApp.Portaria.ValueObjects.Email", "Email", b1 =>
                         {
                             b1.Property<Guid>("VisitanteId")
@@ -328,52 +287,6 @@ namespace CondominioApp.Portaria.Infra.Migrations
                                 .HasColumnName("NomeOriginal")
                                 .HasColumnType("varchar(200)")
                                 .HasMaxLength(200);
-
-                            b1.HasKey("VisitanteId");
-
-                            b1.ToTable("Visitantes");
-
-                            b1.WithOwner()
-                                .HasForeignKey("VisitanteId");
-                        });
-
-                    b.OwnsOne("CondominioApp.Portaria.ValueObjects.Rg", "Rg", b1 =>
-                        {
-                            b1.Property<Guid>("VisitanteId")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<string>("Numero")
-                                .HasColumnName("Rg")
-                                .HasColumnType("varchar(10)")
-                                .HasMaxLength(10);
-
-                            b1.HasKey("VisitanteId");
-
-                            b1.ToTable("Visitantes");
-
-                            b1.WithOwner()
-                                .HasForeignKey("VisitanteId");
-                        });
-
-                    b.OwnsOne("CondominioApp.Portaria.ValueObjects.Veiculo", "Veiculo", b1 =>
-                        {
-                            b1.Property<Guid>("VisitanteId")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<string>("Cor")
-                                .HasColumnName("Cor")
-                                .HasColumnType("varchar(30)")
-                                .HasMaxLength(30);
-
-                            b1.Property<string>("Modelo")
-                                .HasColumnName("Modelo")
-                                .HasColumnType("varchar(200)")
-                                .HasMaxLength(200);
-
-                            b1.Property<string>("Placa")
-                                .HasColumnName("Placa")
-                                .HasColumnType("varchar(7)")
-                                .HasMaxLength(7);
 
                             b1.HasKey("VisitanteId");
 

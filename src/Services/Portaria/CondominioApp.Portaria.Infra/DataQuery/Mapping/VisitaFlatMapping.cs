@@ -23,15 +23,10 @@ namespace CondominioApp.Principal.Infra.DataQuery.Mapping
 
             builder.Property(u => u.TipoDeDocumentoVisitante).IsRequired();
 
-            builder.Property(u => u.RgVisitante)
-                    .HasMaxLength(Rg.Maxlength)
-                    .HasColumnName("Rg")
-                    .HasColumnType($"varchar({Rg.Maxlength})");
-
-            builder.Property(u => u.CpfVisitante)
-                    .HasMaxLength(Cpf.Maxlength)
-                    .HasColumnName("Cpf")
-                    .HasColumnType($"varchar({Cpf.Maxlength})");
+            builder.Property(u => u.DocumentoVisitante)
+                    .HasMaxLength(20)
+                    .HasColumnName("Documento")
+                    .HasColumnType($"varchar(20)");           
 
             builder.Property(u => u.EmailVisitante).IsRequired()
                     .HasMaxLength(Email.EmailMaximo)

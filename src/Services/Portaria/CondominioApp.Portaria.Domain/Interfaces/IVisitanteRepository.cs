@@ -8,10 +8,8 @@ namespace CondominioApp.Portaria.Domain.Interfaces
 {
     public interface IVisitanteRepository : IRepository<Visitante>
     {
-        Task<bool> VisitanteJaCadastradoPorCpf(Cpf cpf, Guid visitanteId);
-
-        Task<bool> VisitanteJaCadastradoPorRg(Rg rg, Guid visitanteId);
-
+        Task<bool> VisitanteJaCadastradoPorDocumento(string documento, Guid visitanteId);
+        
         Task<Visitante> ObterPorIdAsNoTracking(Guid Id);
 
         void AdicionarVisita(Visita entity);

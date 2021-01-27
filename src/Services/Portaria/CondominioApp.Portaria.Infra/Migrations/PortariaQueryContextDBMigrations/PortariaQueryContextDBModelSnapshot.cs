@@ -37,11 +37,6 @@ namespace CondominioApp.Portaria.Infra.Migrations.PortariaQueryContextDBMigratio
                         .HasColumnType("varchar(30)")
                         .HasMaxLength(30);
 
-                    b.Property<string>("CpfVisitante")
-                        .HasColumnName("Cpf")
-                        .HasColumnType("varchar(14)")
-                        .HasMaxLength(14);
-
                     b.Property<DateTime>("DataDeAlteracao")
                         .HasColumnType("datetime2");
 
@@ -53,6 +48,11 @@ namespace CondominioApp.Portaria.Infra.Migrations.PortariaQueryContextDBMigratio
 
                     b.Property<DateTime>("DataDeSaida")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("DocumentoVisitante")
+                        .HasColumnName("Documento")
+                        .HasColumnType("varchar(20)")
+                        .HasMaxLength(20);
 
                     b.Property<string>("EmailVisitante")
                         .IsRequired()
@@ -105,11 +105,6 @@ namespace CondominioApp.Portaria.Infra.Migrations.PortariaQueryContextDBMigratio
                         .HasColumnType("varchar(7)")
                         .HasMaxLength(7);
 
-                    b.Property<string>("RgVisitante")
-                        .HasColumnName("Rg")
-                        .HasColumnType("varchar(10)")
-                        .HasMaxLength(10);
-
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
@@ -149,21 +144,16 @@ namespace CondominioApp.Portaria.Infra.Migrations.PortariaQueryContextDBMigratio
                     b.Property<Guid>("CondominioId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("CorVeiculo")
-                        .HasColumnName("Cor")
-                        .HasColumnType("varchar(30)")
-                        .HasMaxLength(30);
-
-                    b.Property<string>("Cpf")
-                        .HasColumnName("Cpf")
-                        .HasColumnType("varchar(14)")
-                        .HasMaxLength(14);
-
                     b.Property<DateTime>("DataDeAlteracao")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DataDeCadastro")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Documento")
+                        .HasColumnName("Documento")
+                        .HasColumnType("varchar(20)")
+                        .HasMaxLength(20);
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -183,11 +173,6 @@ namespace CondominioApp.Portaria.Infra.Migrations.PortariaQueryContextDBMigratio
                     b.Property<bool>("Lixeira")
                         .HasColumnType("bit");
 
-                    b.Property<string>("ModeloVeiculo")
-                        .HasColumnName("Modelo")
-                        .HasColumnType("varchar(200)")
-                        .HasMaxLength(200);
-
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("varchar(200)");
@@ -203,18 +188,8 @@ namespace CondominioApp.Portaria.Infra.Migrations.PortariaQueryContextDBMigratio
                         .IsRequired()
                         .HasColumnType("varchar(200)");
 
-                    b.Property<string>("PlacaVeiculo")
-                        .HasColumnName("Placa")
-                        .HasColumnType("varchar(7)")
-                        .HasMaxLength(7);
-
                     b.Property<string>("QrCode")
                         .HasColumnType("varchar(200)");
-
-                    b.Property<string>("Rg")
-                        .HasColumnName("Rg")
-                        .HasColumnType("varchar(10)")
-                        .HasMaxLength(10);
 
                     b.Property<bool>("TemVeiculo")
                         .HasColumnType("bit");

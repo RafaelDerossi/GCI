@@ -21,8 +21,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
         public Guid VisitanteId { get; protected set; }
         public string NomeVisitante { get; protected set; }
         public TipoDeDocumento TipoDeDocumentoVisitante { get; protected set; }
-        public Rg RgVisitante { get; protected set; }
-        public Cpf CpfVisitante { get; protected set; }
+        public string DocumentoVisitante { get; protected set; }        
         public Email EmailVisitante { get; protected set; }
         public Foto FotoVisitante { get; protected set; }
         public TipoDeVisitante TipoDeVisitante { get; protected set; }       
@@ -44,45 +43,50 @@ namespace CondominioApp.Portaria.Aplication.Commands
         public string NomeUsuario { get; protected set; }
 
 
-        public void SetDocumentoVisitante(string documento)
+        public void SetDocumentoVisitante(string documento, TipoDeDocumento tipoDeDocumento)
         {
-            if (!string.IsNullOrEmpty(documento))
+            if (string.IsNullOrEmpty(documento))
             {
-                if (documento.Length == 14)
-                {
-                    SetCPFVisitante(documento);                   
-                    return;
-                }
-                
-                SetRgVisitante(documento);                
+                TipoDeDocumentoVisitante = TipoDeDocumento.OUTROS;
+                DocumentoVisitante = "";
                 return;
             }
-            
-            RgVisitante = new Rg("");
-            CpfVisitante = new Cpf("");
-            TipoDeDocumentoVisitante = TipoDeDocumento.OUTROS;
-            
+
+            TipoDeDocumentoVisitante = tipoDeDocumento;
+
+            if (tipoDeDocumento == TipoDeDocumento.CPF)
+            {
+                SetCPF(documento);
+                return;
+            }
+
+            if (tipoDeDocumento == TipoDeDocumento.RG)
+            {
+                SetRg(documento);
+                return;
+            }
+
+            DocumentoVisitante = documento;
         }
-        private void SetRgVisitante(string rg)
+
+        private void SetRg(string rg)
         {
             try
             {
-                TipoDeDocumentoVisitante = TipoDeDocumento.RG;
-                RgVisitante = new Rg(rg);
-                CpfVisitante = new Cpf("");
+                var _rg = new Rg(rg);
+                DocumentoVisitante = _rg.Numero;
             }
             catch (Exception e)
             {
                 AdicionarErrosDeProcessamentoDoComando(e.Message);
             }
         }
-        private void SetCPFVisitante(string cpf)
+        private void SetCPF(string cpf)
         {
             try
             {
-                TipoDeDocumentoVisitante = TipoDeDocumento.CPF;
-                CpfVisitante = new Cpf(cpf);
-                RgVisitante = new Rg("");
+                var _cpf = new Cpf(cpf);
+                DocumentoVisitante = _cpf.Numero;
             }
             catch (Exception e)
             {
@@ -90,7 +94,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
             }
         }
 
-        
+
         public void SetEmailVisitante(string email)
         {
             try

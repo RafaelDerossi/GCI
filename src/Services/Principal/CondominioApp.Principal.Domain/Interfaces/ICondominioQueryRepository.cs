@@ -14,8 +14,9 @@ namespace CondominioApp.Principal.Domain.Interfaces
 
         Task<GrupoFlat> ObterGrupoPorId(Guid Id);
 
-        Task<IEnumerable<GrupoFlat>> ObterGruposPorCondominio(Guid condominioId);
+        Task<CondominioFlat> ObterPorContratoId(Guid contratoId);
 
+        Task<IEnumerable<GrupoFlat>> ObterGruposPorCondominio(Guid condominioId);       
 
         void AdicionarUnidade(UnidadeFlat entity);
 

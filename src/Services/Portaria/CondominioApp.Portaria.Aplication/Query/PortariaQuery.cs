@@ -41,8 +41,7 @@ namespace CondominioApp.Portaria.Aplication.Query
         public async Task<IEnumerable<VisitanteFlat>> ObterVisitantesPorDocumento(string documento)
         {
             return await _visitanteQueryRepository.Obter(
-                            c => (c.Cpf == documento || c.Rg == documento) &&
-                            !c.Lixeira);
+                            c => c.Documento == documento && !c.Lixeira);
         }
 
 

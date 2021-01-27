@@ -83,6 +83,21 @@ namespace CondominioApp.Principal.Domain.FlatModel
         public bool LimiteTempoReserva { get; private set; }
 
 
+        public Guid ContratoId { get; private set; }
+
+        public DateTime DataAssinaturaContrato { get; private set; }
+
+        public string TipoPlano { get; private set; }
+
+        public string DescricaoContrato { get; private set; }
+
+        public bool ContratoAtivo { get; private set; }
+
+        public string LinkContrato { get; private set; }
+
+        
+
+
         protected CondominioFlat() { }
 
         public CondominioFlat(Guid id, bool lixeira, 
@@ -92,7 +107,8 @@ namespace CondominioApp.Principal.Domain.FlatModel
             string boletoFolder, string urlWebServer, bool portaria, bool portariaMorador, bool classificado,
             bool classificadoMorador, bool mural, bool muralMorador, bool chat, bool chatMorador, bool reserva,
             bool reservaNaPortaria, bool ocorrencia, bool ocorrenciaMorador, bool correspondencia,
-            bool correspondenciaNaPortaria, bool limiteTempoReserva)
+            bool correspondenciaNaPortaria, bool limiteTempoReserva, Guid contratoId, DateTime dataAssinaturaContrato,
+            string tipoPlano, string descricaoContrato, bool contratoAtivo, string linkContrato)
         {
             Id = id;
             Lixeira = lixeira; 
@@ -127,6 +143,12 @@ namespace CondominioApp.Principal.Domain.FlatModel
             Correspondencia = correspondencia;
             CorrespondenciaNaPortaria = correspondenciaNaPortaria;
             LimiteTempoReserva = limiteTempoReserva;
+            ContratoId = contratoId;
+            DataAssinaturaContrato = dataAssinaturaContrato;
+            TipoPlano = tipoPlano;
+            DescricaoContrato = descricaoContrato;
+            ContratoAtivo = contratoAtivo;
+            LinkContrato = linkContrato;
         }
 
 
@@ -154,6 +176,17 @@ namespace CondominioApp.Principal.Domain.FlatModel
             Bairro = bairro;
             Cidade = cidade;
             Estado = estado;
+        }
+
+
+        public void SetContrato(Contrato contrato)
+        {
+            ContratoId = contrato.Id;
+            DataAssinaturaContrato = contrato.DataAssinatura;
+            TipoPlano = contrato.Tipo.ToString();
+            DescricaoContrato = contrato.Descricao;
+            ContratoAtivo = contrato.Ativo;
+            LinkContrato = contrato.Link;
         }
 
 
@@ -222,5 +255,8 @@ namespace CondominioApp.Principal.Domain.FlatModel
         /// </summary>
         public void AtivarLimiteTempoReserva() => LimiteTempoReserva = true;
         public void DesativarLimiteTempoReserva() => LimiteTempoReserva = false;
+
+
+
     }
 }

@@ -36,9 +36,7 @@ namespace CondominioApp.Portaria.Aplication.Events
             var visitanteFlat = await _visitanteQueryRepository.ObterPorId(notification.Id);
 
             visitanteFlat.SetNome(notification.Nome);
-            visitanteFlat.SetTipoDeDocumento(notification.TipoDeDocumento);
-            visitanteFlat.SetCpf(notification.Cpf.Numero);
-            visitanteFlat.SetRg(notification.Rg.Numero);
+            visitanteFlat.SetDocumento(notification.Documento, notification.TipoDeDocumento);            
             visitanteFlat.SetEmail(notification.Email.Endereco);
             visitanteFlat.SetFoto(notification.Foto.NomeDoArquivo);
             
@@ -49,22 +47,9 @@ namespace CondominioApp.Portaria.Aplication.Events
             visitanteFlat.SetTipoDeVisitante(notification.TipoDeVisitante);
             visitanteFlat.SetNomeEmpresa(notification.NomeEmpresa);
 
-           
+            visitanteFlat.MarcarNaoTemVeiculo();
             if (notification.TemVeiculo)
-            {
                 visitanteFlat.MarcarTemVeiculo();
-                visitanteFlat.SetPlacaVeiculo(notification.Veiculo.Placa);
-                visitanteFlat.SetModeloVeiculo(notification.Veiculo.Modelo);
-                visitanteFlat.SetCorVeiculo(notification.Veiculo.Cor);
-            }
-            else
-            {
-                visitanteFlat.MarcarNaoTemVeiculo();
-                visitanteFlat.SetPlacaVeiculo("");
-                visitanteFlat.SetModeloVeiculo("");
-                visitanteFlat.SetCorVeiculo("");
-            }               
-
 
             _visitanteQueryRepository.Atualizar(visitanteFlat);
 
@@ -86,13 +71,12 @@ namespace CondominioApp.Portaria.Aplication.Events
         private VisitanteFlat VisitanteFlatFactory(VisitanteEvent notification)
         {
             return new VisitanteFlat
-               (notification.Id, notification.Nome, notification.TipoDeDocumento, notification.Rg.Numero,
-               notification.Cpf.Numero, notification.Email.Endereco, notification.Foto.NomeDoArquivo,
+               (notification.Id, notification.Nome, notification.TipoDeDocumento, notification.Documento,
+               notification.Email.Endereco, notification.Foto.NomeDoArquivo,
                notification.CondominioId, notification.NomeCondominio, notification.UnidadeId,
                notification.NumeroUnidade, notification.AndarUnidade, notification.GrupoUnidade,
                notification.VisitantePermanente, notification.QrCode, notification.TipoDeVisitante,
-               notification.NomeEmpresa, notification.TemVeiculo, notification.Veiculo.Placa,
-               notification.Veiculo.Modelo, notification.Veiculo.Cor);
+               notification.NomeEmpresa, notification.TemVeiculo);
         }
 
 

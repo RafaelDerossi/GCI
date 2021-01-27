@@ -17,15 +17,10 @@ namespace CondominioApp.Principal.Infra.DataQuery.Mapping
 
             builder.Property(u => u.TipoDeDocumento).IsRequired();
 
-            builder.Property(u => u.Rg)
-                    .HasMaxLength(Rg.Maxlength)
-                    .HasColumnName("Rg")
-                    .HasColumnType($"varchar({Rg.Maxlength})");
-
-            builder.Property(u => u.Cpf)
-                    .HasMaxLength(Cpf.Maxlength)
-                    .HasColumnName("Cpf")
-                    .HasColumnType($"varchar({Cpf.Maxlength})");
+            builder.Property(u => u.Documento)
+                    .HasMaxLength(20)
+                    .HasColumnName("Documento")
+                    .HasColumnType($"varchar(20)");            
 
             builder.Property(u => u.Email).IsRequired()
                     .HasMaxLength(Email.EmailMaximo)
@@ -58,22 +53,6 @@ namespace CondominioApp.Principal.Infra.DataQuery.Mapping
             builder.Property(u => u.NomeEmpresa).HasColumnType($"varchar({VisitanteFlat.Max})");
 
             builder.Property(u => u.TemVeiculo).IsRequired();
-
-            builder.Property(u => u.PlacaVeiculo)
-                   .HasMaxLength(Veiculo.PlacaMaxlength)
-                   .HasColumnName("Placa")
-                   .HasColumnType($"varchar({Veiculo.PlacaMaxlength})");          
-
-            builder.Property(u => u.ModeloVeiculo)
-                    .HasMaxLength(Veiculo.ModeloMaxlength)
-                    .HasColumnName("Modelo")
-                    .HasColumnType($"varchar({Veiculo.ModeloMaxlength})");
-
-            builder.Property(u => u.CorVeiculo)
-                    .HasMaxLength(Veiculo.CorMaxlength)
-                    .HasColumnName("Cor")
-                    .HasColumnType($"varchar({Veiculo.CorMaxlength})");
-
         }
     }
 }

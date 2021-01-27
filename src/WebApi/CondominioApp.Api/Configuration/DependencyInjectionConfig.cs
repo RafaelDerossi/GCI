@@ -126,6 +126,14 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<INotificationHandler<CodigoUnidadeResetadoEvent>, UnidadeEventHandler>();
             services.AddScoped<INotificationHandler<UnidadeRemovidaEvent>, UnidadeEventHandler>();
 
+            //Contratos
+            services.AddScoped<IRequestHandler<CadastrarContratoCommand, ValidationResult>, ContratoCommandHandler>();
+            services.AddScoped<IRequestHandler<EditarContratoCommand, ValidationResult>, ContratoCommandHandler>();
+            services.AddScoped<IRequestHandler<RemoverContratoCommand, ValidationResult>, ContratoCommandHandler>();
+            services.AddScoped<INotificationHandler<ContratoCadastradoEvent>, ContratoEventHandler>();
+            services.AddScoped<INotificationHandler<ContratoEditadoEvent>, ContratoEventHandler>();
+            services.AddScoped<INotificationHandler<ContratoRemovidoEvent>, ContratoEventHandler>();
+
             #endregion
 
             #region Enquete -Contexto

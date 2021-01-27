@@ -10,10 +10,10 @@ namespace CondominioApp.Portaria.Tests
         public static Visitante Factory()
         {
             return new Visitante
-                ("Nome Visitante", TipoDeDocumento.CPF, new Rg(""), new Cpf("143.026.417-97"),
+                ("Nome Visitante", TipoDeDocumento.CPF, "143.026.417-97",
                  new Email("rafael@condominioapp.com"), new Foto("nomeOriginal.jpg", "foto.jpg"),
                  Guid.NewGuid(),"Nome Condominio", Guid.NewGuid(), "101", "1º", "Bloco 1",
-                 false, "",TipoDeVisitante.PARTICULAR,"", new Veiculo("LMG8888","Modelo","Prata"));
+                 false, "",TipoDeVisitante.PARTICULAR,"", true);
         }
 
         public static Visitante CriarVisitanteValido_ComCPF()
@@ -25,11 +25,7 @@ namespace CondominioApp.Portaria.Tests
         {
             var visitante = Factory();
 
-            visitante.SetTipoDeDocumento(TipoDeDocumento.RG);
-
-            visitante.SetRg(new Rg("123456789"));
-
-            visitante.SetCpf(new Cpf(""));
+            visitante.SetDocumento("123456789", TipoDeDocumento.RG);            
 
             return visitante;
         }
@@ -38,23 +34,18 @@ namespace CondominioApp.Portaria.Tests
         {
             var visitante = Factory();
 
-            visitante.SetTipoDeDocumento(TipoDeDocumento.OUTROS);
-
-            visitante.SetRg(new Rg(""));
-
-            visitante.SetCpf(new Cpf(""));
+            visitante.SetDocumento("", TipoDeDocumento.OUTROS);
 
             return visitante;
         }
 
-        public static Visitante CriarVisitanteValido_SemVeiculo()
+        public static Visitante CriarVisitanteInvalido_ComCPFInvalido()
         {
             var visitante = Factory();
 
-            visitante.SetVeiculo(null);          
+            visitante.SetDocumento("143.026.417-98", TipoDeDocumento.CPF);
 
             return visitante;
         }
-
     }
 }

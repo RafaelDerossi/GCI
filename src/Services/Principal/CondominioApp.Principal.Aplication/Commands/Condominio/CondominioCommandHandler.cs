@@ -7,6 +7,7 @@ using MediatR;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace CondominioApp.Principal.Aplication.Commands
 {
@@ -32,6 +33,9 @@ namespace CondominioApp.Principal.Aplication.Commands
 
             var condominio = CondominioFactory(request);
 
+            if (request.Contrato!=null)
+                condominio.AdicionarContrato(request.Contrato);
+
             if (_condominioRepository.CnpjCondominioJaCadastrado(request.Cnpj, request.CondominioId).Result)
             {
                 AdicionarErro("CNPJ informado ja consta no sistema.");
@@ -40,15 +44,7 @@ namespace CondominioApp.Principal.Aplication.Commands
 
             _condominioRepository.Adicionar(condominio);
 
-            condominio.AdicionarEvento(
-                new CondominioCadastradoEvent(condominio.Id,
-                condominio.Cnpj, condominio.Nome, condominio.Descricao, condominio.LogoMarca,
-                condominio.Telefone, condominio.Endereco, condominio.RefereciaId, condominio.LinkGeraBoleto, 
-                condominio.BoletoFolder, condominio.UrlWebServer, condominio.Portaria, condominio.PortariaMorador,
-                condominio.Classificado, condominio.ClassificadoMorador, condominio.Mural,
-                condominio.MuralMorador, condominio.Chat, condominio.ChatMorador, condominio.Reserva,
-                condominio.ReservaNaPortaria, condominio.Ocorrencia, condominio.OcorrenciaMorador,
-                condominio.Correspondencia, condominio.CorrespondenciaNaPortaria, condominio.LimiteTempoReserva));
+            AdicionarEventoDeCondominioCadastrado(condominio);
 
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }
@@ -230,16 +226,35 @@ namespace CondominioApp.Principal.Aplication.Commands
                 request.ClassificadoMorador, request.Mural, request.MuralMorador, request.Chat, request.ChatMorador,
                 request.Reserva, request.ReservaNaPortaria, request.Ocorrencia, request.OcorrenciaMorador,
                 request.Correspondencia, request.CorrespondenciaNaPortaria, request.LimiteTempoReserva);
-
+            
             return condominio;
         }
 
+        private void AdicionarEventoDeCondominioCadastrado(Condominio condominio)
+        {
+            var contrato = new Contrato(condominio.Id, DateTime.Today.Date, 0, "", false, "");
+            contrato.SetEntidadeId(Guid.Empty);
+            if (condominio.Contratos.Count>0)
+            {
+                contrato = condominio.Contratos.FirstOrDefault();
+            }
+
+            condominio.AdicionarEvento(
+               new CondominioCadastradoEvent(condominio.Id,
+               condominio.Cnpj, condominio.Nome, condominio.Descricao, condominio.LogoMarca,
+               condominio.Telefone, condominio.Endereco, condominio.RefereciaId, condominio.LinkGeraBoleto,
+               condominio.BoletoFolder, condominio.UrlWebServer, condominio.Portaria, condominio.PortariaMorador,
+               condominio.Classificado, condominio.ClassificadoMorador, condominio.Mural,
+               condominio.MuralMorador, condominio.Chat, condominio.ChatMorador, condominio.Reserva,
+               condominio.ReservaNaPortaria, condominio.Ocorrencia, condominio.OcorrenciaMorador,
+               condominio.Correspondencia, condominio.CorrespondenciaNaPortaria, condominio.LimiteTempoReserva,
+               contrato.Id, contrato.DataAssinatura, contrato.Tipo, contrato.Descricao, contrato.Ativo, contrato.Link));
+        }
 
         public void Dispose()
         {
             _condominioRepository?.Dispose();
         }
-
 
     }
 }

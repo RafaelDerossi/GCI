@@ -11,8 +11,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
 
         public string Nome { get; protected set; }
         public TipoDeDocumento TipoDeDocumento { get; protected set; }
-        public Rg Rg { get; protected set; }
-        public Cpf Cpf { get; protected set; }
+        public string Documento { get; protected set; }        
         public Email Email { get; protected set; }
         public Foto Foto { get; protected set; }
 
@@ -29,38 +28,42 @@ namespace CondominioApp.Portaria.Aplication.Commands
         public TipoDeVisitante TipoDeVisitante { get; protected set; }
         public string NomeEmpresa { get; protected set; }
 
-        public bool TemVeiculo { get; protected set; }
-        public Veiculo Veiculo { get; protected set; }
+        public bool TemVeiculo { get; protected set; }       
 
 
 
-        public void SetDocumento(string documento)
+        public void SetDocumento(string documento, TipoDeDocumento tipoDeDocumento)
         {
-            if (!string.IsNullOrEmpty(documento))
+            if (string.IsNullOrEmpty(documento))
             {
-                if (documento.Length == 14)
-                {
-                    SetCPF(documento);
-                    TipoDeDocumento = TipoDeDocumento.CPF;
-                    return;
-                }                    
-                
-                SetRg(documento);
-                TipoDeDocumento = TipoDeDocumento.RG;
-                return;                                   
+                TipoDeDocumento = TipoDeDocumento.OUTROS;
+                Documento = "";
+                return;
             }
-            
-            Rg = new Rg("");
-            Cpf = new Cpf("");
-            TipoDeDocumento = TipoDeDocumento.OUTROS;            
+
+            TipoDeDocumento = tipoDeDocumento;
+
+            if (tipoDeDocumento == TipoDeDocumento.CPF)
+            {
+                SetCPF(documento);                
+                return;
+            }
+
+            if (tipoDeDocumento == TipoDeDocumento.RG)
+            {
+                SetRg(documento);                
+                return;
+            }
+
+            Documento = documento;            
         }
 
         private void SetRg(string rg)
         {
             try
             {
-                Rg = new Rg(rg);
-                Cpf = new Cpf("");
+                var _rg = new Rg(rg);
+                Documento = _rg.Numero;
             }
             catch (Exception e)
             {
@@ -71,8 +74,8 @@ namespace CondominioApp.Portaria.Aplication.Commands
         {
             try
             {
-                Cpf = new Cpf(cpf);
-                Rg = new Rg("");
+                var _cpf = new Cpf(cpf);
+                Documento = _cpf.Numero;              
             }
             catch (Exception e)
             {
@@ -103,34 +106,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
                 AdicionarErrosDeProcessamentoDoComando(e.Message);
             }
         }
-
-        public void SetVeiculo(string placa, string modelo, string cor)
-        {
-            if (TemVeiculo)
-            {
-                if (modelo == "")
-                {
-                    AdicionarErrosDeProcessamentoDoComando("Informe o modelo do veículo.");
-                    return;
-                }
-                if (cor == "")
-                {
-                    AdicionarErrosDeProcessamentoDoComando("Informe a cor do veículo.");
-                    return;
-                }
-                try
-                {
-                    Veiculo = new Veiculo(placa, modelo, cor);
-                }
-                catch (Exception e)
-                {
-                    AdicionarErrosDeProcessamentoDoComando(e.Message);
-                }
-                return;
-            }
-
-            Veiculo = new Veiculo("", "", "");
-        }
+      
 
         public void SetNome(string nome) => Nome = nome;
 

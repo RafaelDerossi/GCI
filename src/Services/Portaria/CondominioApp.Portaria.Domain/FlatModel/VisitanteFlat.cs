@@ -21,8 +21,7 @@ namespace CondominioApp.Portaria.Domain.FlatModel
 
         public string Nome { get; private set; }
         public TipoDeDocumento TipoDeDocumento { get; private set; }
-        public string Rg { get; private set; }
-        public string Cpf { get; private set; }       
+        public string Documento { get; private set; }       
         public string Email { get; private set; }
         public string Foto { get; private set; }
 
@@ -39,11 +38,7 @@ namespace CondominioApp.Portaria.Domain.FlatModel
         public TipoDeVisitante TipoDeVisitante { get; private set; }
         public string NomeEmpresa { get; private set; }
 
-        public bool TemVeiculo { get; private set; }
-        public string PlacaVeiculo { get; private set; }
-        public string ModeloVeiculo { get; private set; }
-        public string CorVeiculo { get; private set; }
-              
+        public bool TemVeiculo { get; private set; }    
 
 
 
@@ -52,17 +47,13 @@ namespace CondominioApp.Portaria.Domain.FlatModel
         {            
         }
 
-        public VisitanteFlat(Guid id, string nome, TipoDeDocumento tipoDeDocumento, string rg, string cpf,
+        public VisitanteFlat(Guid id, string nome, TipoDeDocumento tipoDeDocumento, string documento,
             string email, string foto, Guid condominioId, string nomeCondominio, Guid unidadeId,
             string numeroUnidade, string andarUnidade, string grupoUnidade, bool visitantePermanente,
-            string qrCode, TipoDeVisitante tipoDeVisitante, string nomeEmpresa, bool temVeiculo,
-            string placaVeiculo, string modeloVeiculo, string corVeiculo)
+            string qrCode, TipoDeVisitante tipoDeVisitante, string nomeEmpresa, bool temVeiculo)
         {
             Id = id;
             Nome = nome;
-            TipoDeDocumento = tipoDeDocumento;
-            Rg = rg;
-            Cpf = cpf;
             Email = email;
             Foto = foto;
             CondominioId = condominioId;
@@ -76,10 +67,7 @@ namespace CondominioApp.Portaria.Domain.FlatModel
             TipoDeVisitante = tipoDeVisitante;
             NomeEmpresa = nomeEmpresa;
             TemVeiculo = temVeiculo;
-            PlacaVeiculo = placaVeiculo;
-            ModeloVeiculo = modeloVeiculo;
-            CorVeiculo = corVeiculo;
-
+            SetDocumento(documento, tipoDeDocumento);
         }
 
 
@@ -88,9 +76,11 @@ namespace CondominioApp.Portaria.Domain.FlatModel
         public void EnviarParaLixeira() => Lixeira = true;
         public void RestaurarDaLixeira() => Lixeira = false;
         public void SetNome(string nome) => Nome = nome;
-        public void SetTipoDeDocumento(TipoDeDocumento tipoDeDocumento) => TipoDeDocumento = tipoDeDocumento;
-        public void SetRg(string rg) => Rg = rg;
-        public void SetCpf(string cpf) => Cpf = cpf;       
+        public void SetDocumento(string documento, TipoDeDocumento tipoDeDocumento)
+        {
+            TipoDeDocumento = tipoDeDocumento;
+            Documento = documento;
+        }        
         public void SetEmail(string email) => Email = email;
         public void SetFoto(string foto) => Foto = foto;
         public void SetQrCode(string qrCode) => QrCode = qrCode;
@@ -98,10 +88,7 @@ namespace CondominioApp.Portaria.Domain.FlatModel
         public void SetNomeEmpresa(string nomeEmpresa) => NomeEmpresa = nomeEmpresa;
 
         public void MarcarTemVeiculo() => TemVeiculo = true;
-        public void MarcarNaoTemVeiculo() => TemVeiculo = false;
-        public void SetPlacaVeiculo(string placa) => PlacaVeiculo = placa;
-        public void SetModeloVeiculo(string modelo) => ModeloVeiculo = modelo;
-        public void SetCorVeiculo(string cor) => CorVeiculo = cor;
+        public void MarcarNaoTemVeiculo() => TemVeiculo = false;      
 
         public void MarcarVisitanteComoPermanente() => VisitantePermanente = true;
         public void MarcarVisitanteComoTemporario() => VisitantePermanente = false;

@@ -10,16 +10,14 @@ namespace CondominioApp.Portaria.Aplication.Events
 
         public VisitaEditadaEvent
             (Guid id,string observacao, string nomeVisitante, TipoDeDocumento tipoDeDocumento,
-            Cpf cpf, Rg rg, Email email, Foto foto, TipoDeVisitante tipoDeVisitante, string nomeEmpresa,
+            string documento, Email email, Foto foto, TipoDeVisitante tipoDeVisitante, string nomeEmpresa,
             Guid unidadeId, string numeroUnidade, string andarUnidade, string grupoUnidade, bool temVeiculo,
             Veiculo veiculo, Guid usuarioId, string nomeUsuario)
         {
             Id = id;
             Observacao = observacao;
             NomeVisitante = nomeVisitante;
-            SetTipoDeDocumento(tipoDeDocumento);
-            SetCPFVisitante(cpf);
-            SetRgVisitante(rg);
+            SetDocumentoVisitante(documento, tipoDeDocumento);
             SetEmailVisitante(email);
             SetFotoVisitante(foto);
             SetTipoDeVisitante(tipoDeVisitante);

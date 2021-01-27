@@ -8,8 +8,8 @@ namespace CondominioApp.Portaria.Aplication.Commands
     {
 
         public EditarVisitaCommand
-            (Guid id, string observacao, string nomeVisitante, string documentoVisitante, string emailVisitante,
-            string fotoVisitante, string nomeOriginalFotoVisitante, TipoDeVisitante tipoDeVisitante,
+            (Guid id, string observacao, string nomeVisitante,TipoDeDocumento tipoDeDocumento, string documentoVisitante,
+            string emailVisitante, string fotoVisitante, string nomeOriginalFotoVisitante, TipoDeVisitante tipoDeVisitante,
             string nomeEmpresaVisitante, Guid unidadeId, string numeroUnidade, string andarUnidade,
             string grupoUnidade, bool temVeiculo, string placaVeiculo, string modeloVeiculo, string corVeiculo,
             Guid usuarioId, string nomeUsuario)
@@ -17,7 +17,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
             Id = id;
             Observacao = observacao;
             NomeVisitante = nomeVisitante;
-            SetDocumentoVisitante(documentoVisitante);
+            SetDocumentoVisitante(documentoVisitante, tipoDeDocumento);
             SetTipoDeVisitante(tipoDeVisitante);
             SetEmailVisitante(emailVisitante);
             SetFotoVisitante(nomeOriginalFotoVisitante, fotoVisitante);

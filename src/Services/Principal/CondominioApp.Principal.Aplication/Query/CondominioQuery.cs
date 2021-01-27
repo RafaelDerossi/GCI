@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using CondominioApp.Principal.Aplication.Query.Interfaces;
+using CondominioApp.Principal.Domain;
 using CondominioApp.Principal.Domain.FlatModel;
 using CondominioApp.Principal.Domain.Interfaces;
 
@@ -10,10 +11,12 @@ namespace CondominioApp.Principal.Aplication.Query
     public class CondominioQuery : ICondominioQuery
     {
         private ICondominioQueryRepository _condominioQueryRepository;
+        private ICondominioRepository _condominioRepository;
 
-        public CondominioQuery(ICondominioQueryRepository condominioQueryRepository)
+        public CondominioQuery(ICondominioQueryRepository condominioQueryRepository, ICondominioRepository condominioRepository)
         {
             _condominioQueryRepository = condominioQueryRepository;
+            _condominioRepository = condominioRepository;
         }
 
 
@@ -66,6 +69,18 @@ namespace CondominioApp.Principal.Aplication.Query
 
         #endregion
 
+
+        #region Contrato  
+        public async Task<Contrato> ObterContratoPorId(Guid id)
+        {
+            return await _condominioRepository.ObterContratoPorId(id);
+        }
+        public async Task<IEnumerable<Contrato>> ObterContratosPorCondominio(Guid condominioId)
+        {
+            return await _condominioRepository.ObterContratosPorCondominio(condominioId);
+        }
+
+        #endregion
 
         public void Dispose()
         {

@@ -11,8 +11,7 @@ namespace CondominioApp.Portaria.Aplication.Events
 
         public string Nome { get; protected set; }
         public TipoDeDocumento TipoDeDocumento { get; protected set; }
-        public Rg Rg { get; protected set; }
-        public Cpf Cpf { get; protected set; }
+        public string Documento { get; protected set; }        
         public Email Email { get; protected set; }
         public Foto Foto { get; protected set; }
 
@@ -30,16 +29,17 @@ namespace CondominioApp.Portaria.Aplication.Events
         public string NomeEmpresa { get; protected set; }
 
         public bool TemVeiculo { get; protected set; }
-        public Veiculo Veiculo { get; protected set; }
 
 
 
-        public void SetTipoDeDocumento(TipoDeDocumento tipoDeDocumento) => TipoDeDocumento = tipoDeDocumento;
-        public void SetRg(Rg rg) => Rg = rg;
-        public void SetCPF(Cpf cpf) => Cpf = cpf;
+        public void SetDocumento(string documento, TipoDeDocumento tipoDeDocumento)
+        {
+            TipoDeDocumento = tipoDeDocumento;
+            Documento = documento;
+        }
+        
         public void SetEmail(Email email) => Email = email;       
-        public void SetFoto(Foto foto) => Foto = foto;
-        public void SetVeiculo(Veiculo veiculo) => Veiculo = veiculo;
+        public void SetFoto(Foto foto) => Foto = foto;        
         
         public void SetNome(string nome) => Nome = nome;
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using CondominioApp.Core.Enumeradores;
 using CondominioApp.Core.Messages;
 using CondominioApp.Principal.Domain.ValueObjects;
 using FluentValidation;
@@ -13,7 +14,9 @@ namespace CondominioApp.Principal.Aplication.Events
            int? refereciaId, string linkGeraBoleto, string boletoFolder, Url urlWebServer, bool portaria, 
            bool portariaMorador, bool classificado, bool classificadoMorador, bool mural, bool muralMorador,
            bool chat, bool chatMorador, bool reserva, bool reservaNaPortaria, bool ocorrencia, bool ocorrenciaMorador,
-           bool correspondencia, bool correspondenciaNaPortaria, bool limiteTempoReserva)            
+           bool correspondencia, bool correspondenciaNaPortaria, bool limiteTempoReserva,Guid contratoId,
+           DateTime dataAssinaturaContrato, TipoDePlano tipoPlano, string descricaoContrato, bool contratoAtivo, 
+           string linkDoContrato)            
         {
             CondominioId = id;       
             Cnpj = cnpj;
@@ -41,6 +44,12 @@ namespace CondominioApp.Principal.Aplication.Events
             Correspondencia = correspondencia;
             CorrespondenciaNaPortaria = correspondenciaNaPortaria;
             LimiteTempoReserva = limiteTempoReserva;
+            ContratoId = contratoId;
+            DataAssinatura = dataAssinaturaContrato;
+            TipoPlano = tipoPlano;
+            DescricaoContrato = descricaoContrato;
+            ContratoAtivo = contratoAtivo;
+            LinkContrato = linkDoContrato;
         }
 
 

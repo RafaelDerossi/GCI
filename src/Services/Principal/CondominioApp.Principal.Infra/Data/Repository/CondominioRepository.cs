@@ -39,6 +39,7 @@ namespace CondominioApp.Principal.Infra.Data.Repository
         }
 
 
+
         public void AdicionarGrupo(Grupo entity)
         {
             _context.Grupos.Add(entity);
@@ -48,7 +49,14 @@ namespace CondominioApp.Principal.Infra.Data.Repository
         {
             _context.Unidades.Add(entity);
         }
-       
+
+        public void AdicionarContrato(Contrato entity)
+        {
+            _context.Contratos.Add(entity);
+        }
+
+
+      
 
 
         public async Task<IEnumerable<Condominio>> Obter(Expression<Func<Condominio, bool>> expression, bool OrderByDesc = false, int take = 0)
@@ -74,16 +82,15 @@ namespace CondominioApp.Principal.Infra.Data.Repository
         public async Task<Condominio> ObterPorId(Guid Id)
         {
             return await _context.Condominios
-                .Include(g => g.Grupos)                  
-                .FirstOrDefaultAsync(u => u.Id == Id);
+                .Include(g => g.Grupos)
+                .Include(g => g.Contratos)
+                .FirstOrDefaultAsync(u => u.Id == Id && !u.Lixeira);
         }
-
 
         public async Task<IEnumerable<Condominio>> ObterTodos()
         {
             return await _context.Condominios.Where(u => !u.Lixeira).ToListAsync();
         }
-
 
         public async Task<bool> CnpjCondominioJaCadastrado(Cnpj cnpj, Guid condominioId)
         {
@@ -94,7 +101,6 @@ namespace CondominioApp.Principal.Infra.Data.Repository
                      u.Id != condominioId)
                 .CountAsync()>0;
         }
-
 
 
 
@@ -121,14 +127,25 @@ namespace CondominioApp.Principal.Infra.Data.Repository
         {
             return await _context.Grupos
                 .Include(c => c.Unidades)
-                .FirstOrDefaultAsync(u => u.Id == Id);
+                .FirstOrDefaultAsync(u => u.Id == Id && !u.Lixeira);
         }
 
         public async Task<Unidade> ObterUnidadePorId(Guid Id)
         {
-            return await _context.Unidades.FirstOrDefaultAsync(u => u.Id == Id);
+            return await _context.Unidades.FirstOrDefaultAsync(u => u.Id == Id && !u.Lixeira);
         }
 
+
+
+        public async Task<Contrato> ObterContratoPorId(Guid Id)
+        {
+            return await _context.Contratos.FirstOrDefaultAsync(u => u.Id == Id && !u.Lixeira);
+        }
+
+        public async Task<IEnumerable<Contrato>> ObterContratosPorCondominio(Guid CondominioId)
+        {
+            return await _context.Contratos.Where(c => c.CondominioId == CondominioId && !c.Lixeira).ToListAsync();
+        }
 
 
         public void Dispose()

@@ -33,29 +33,18 @@ namespace CondominioApp.Portaria.Aplication.Commands
 
             var visitante = VisitanteFactory(request);
 
-            if (visitante.Cpf.Numero != "")
+            if (visitante.Documento != "")
             {
-                if (_visitanteRepository.VisitanteJaCadastradoPorCpf(visitante.Cpf, visitante.Id).Result)
+                if (_visitanteRepository.VisitanteJaCadastradoPorDocumento(visitante.Documento, visitante.Id).Result)
                 {
-                    AdicionarErro("CPF informado ja consta no sistema.");
+                    AdicionarErro("Documento informado ja consta no sistema.");
                     return ValidationResult;
                 }
-            }
-
-            if (visitante.Rg.Numero != "")
-            {
-                if (_visitanteRepository.VisitanteJaCadastradoPorRg(visitante.Rg, visitante.Id).Result)
-                {
-                    AdicionarErro("RG informado ja consta no sistema.");
-                    return ValidationResult;
-                }
-            }
+            }           
 
             _visitanteRepository.Adicionar(visitante);
 
-
             AdicionarEventoVisitanteCadastrado(visitante);
-
 
             return await PersistirDados(_visitanteRepository.UnitOfWork);
         }
@@ -69,20 +58,11 @@ namespace CondominioApp.Portaria.Aplication.Commands
             if (request.Id != null)
                 visitante.SetEntidadeId(request.Id);
 
-            if (visitante.Cpf.Numero != "")
+            if (visitante.Documento != "")
             {
-                if (_visitanteRepository.VisitanteJaCadastradoPorCpf(visitante.Cpf, visitante.Id).Result)
+                if (_visitanteRepository.VisitanteJaCadastradoPorDocumento(visitante.Documento, visitante.Id).Result)
                 {
-                    AdicionarErro("CPF informado ja consta no sistema.");
-                    return ValidationResult;
-                }
-            }
-
-            if (visitante.Rg.Numero != "")
-            {
-                if (_visitanteRepository.VisitanteJaCadastradoPorRg(visitante.Rg, visitante.Id).Result)
-                {
-                    AdicionarErro("RG informado ja consta no sistema.");
+                    AdicionarErro("Documento informado ja consta no sistema.");
                     return ValidationResult;
                 }
             }
@@ -107,32 +87,20 @@ namespace CondominioApp.Portaria.Aplication.Commands
                 AdicionarErro("Visitante não encontrado.");
                 return ValidationResult;
             }
-                
-            if (request.Cpf.Numero != "")
-            {
-                if (_visitanteRepository.VisitanteJaCadastradoPorCpf(request.Cpf, request.Id).Result)
-                {
-                    AdicionarErro("CPF informado ja consta no sistema.");
-                    return ValidationResult;
-                }
-            }
 
-            if (visitante.Rg.Numero != "")
+            if (visitante.Documento != "")
             {
-                if (_visitanteRepository.VisitanteJaCadastradoPorRg(request.Rg, request.Id).Result)
+                if (_visitanteRepository.VisitanteJaCadastradoPorDocumento(visitante.Documento, visitante.Id).Result)
                 {
-                    AdicionarErro("RG informado ja consta no sistema.");
+                    AdicionarErro("Documento informado ja consta no sistema.");
                     return ValidationResult;
                 }
             }
 
             visitante.SetNome(request.Nome);
-            visitante.SetTipoDeDocumento(request.TipoDeDocumento);
-            visitante.SetCpf(request.Cpf);
-            visitante.SetRg(request.Rg);
+            visitante.SetDocumento(request.Documento, request.TipoDeDocumento);
             visitante.SetEmail(request.Email);
-            visitante.SetFoto(request.Foto);
-            visitante.SetVeiculo(request.Veiculo);
+            visitante.SetFoto(request.Foto);           
             visitante.SetTipoDeVisitante(request.TipoDeVisitante);
             visitante.SetNomeEmpresa(request.NomeEmpresa);
             
@@ -141,6 +109,9 @@ namespace CondominioApp.Portaria.Aplication.Commands
             if (!request.VisitantePermanente)
                 visitante.MarcarVisitanteComoTemporario();
 
+            visitante.MarcarNaoTemVeiculo();
+            if (!request.TemVeiculo)
+                visitante.MarcarTemVeiculo();
 
             _visitanteRepository.Atualizar(visitante);
 
@@ -159,20 +130,11 @@ namespace CondominioApp.Portaria.Aplication.Commands
                 return ValidationResult;
             }
 
-            if (request.Cpf.Numero != "")
+            if (visitante.Documento != "")
             {
-                if (_visitanteRepository.VisitanteJaCadastradoPorCpf(request.Cpf, request.Id).Result)
+                if (_visitanteRepository.VisitanteJaCadastradoPorDocumento(visitante.Documento, visitante.Id).Result)
                 {
-                    AdicionarErro("CPF informado ja consta no sistema.");
-                    return ValidationResult;
-                }
-            }
-
-            if (visitante.Rg.Numero != "")
-            {
-                if (_visitanteRepository.VisitanteJaCadastradoPorRg(request.Rg, request.Id).Result)
-                {
-                    AdicionarErro("RG informado ja consta no sistema.");
+                    AdicionarErro("Documento informado ja consta no sistema.");
                     return ValidationResult;
                 }
             }
@@ -180,16 +142,16 @@ namespace CondominioApp.Portaria.Aplication.Commands
             if (!visitante.VisitantePermanente)
             {
                 visitante.SetNome(request.Nome);
-                visitante.SetTipoDeDocumento(request.TipoDeDocumento);
-                visitante.SetCpf(request.Cpf);
-                visitante.SetRg(request.Rg);
+                visitante.SetDocumento(request.Documento, request.TipoDeDocumento);               
                 visitante.SetEmail(request.Email);
                 visitante.SetTipoDeVisitante(request.TipoDeVisitante);
                 visitante.SetNomeEmpresa(request.NomeEmpresa);
             }
             visitante.SetFoto(request.Foto);
-            visitante.SetVeiculo(request.Veiculo);
 
+            visitante.MarcarNaoTemVeiculo();
+            if (!request.TemVeiculo)
+                visitante.MarcarTemVeiculo();
 
             _visitanteRepository.Atualizar(visitante);
 
@@ -226,29 +188,29 @@ namespace CondominioApp.Portaria.Aplication.Commands
         private Visitante VisitanteFactory(VisitanteCommand request)
         {
             return new Visitante
-                (request.Nome, request.TipoDeDocumento, request.Rg, request.Cpf, request.Email,
+                (request.Nome, request.TipoDeDocumento, request.Documento, request.Email,
                  request.Foto, request.CondominioId, request.NomeCondominio, request.UnidadeId,
                  request.NumeroUnidade, request.AndarUnidade, request.GrupoUnidade, request.VisitantePermanente,
-                 request.QrCode, request.TipoDeVisitante, request.NomeEmpresa, request.Veiculo);
+                 request.QrCode, request.TipoDeVisitante, request.NomeEmpresa, request.TemVeiculo);
         }
 
         private void AdicionarEventoVisitanteCadastrado(Visitante visitante)
         {
             visitante.AdicionarEvento(
                 new VisitanteCadastradoEvent(
-                    visitante.Id, visitante.Nome, visitante.TipoDeDocumento, visitante.Cpf, visitante.Rg, visitante.Email, visitante.Foto,
+                    visitante.Id, visitante.Nome, visitante.TipoDeDocumento, visitante.Documento, visitante.Email, visitante.Foto,
                     visitante.CondominioId, visitante.NomeCondominio, visitante.UnidadeId, visitante.NumeroUnidade,
                     visitante.AndarUnidade, visitante.GrupoUnidade, visitante.VisitantePermanente, visitante.QrCode,
-                    visitante.TipoDeVisitante, visitante.NomeEmpresa, visitante.TemVeiculo, visitante.Veiculo));
+                    visitante.TipoDeVisitante, visitante.NomeEmpresa, visitante.TemVeiculo));
         }
 
         private void AdicionarEventoVisitanteEditado(Visitante visitante)
         {
             visitante.AdicionarEvento(
                  new VisitanteEditadoEvent(
-                     visitante.Id, visitante.Nome, visitante.TipoDeDocumento, visitante.Cpf, visitante.Rg,
+                     visitante.Id, visitante.Nome, visitante.TipoDeDocumento, visitante.Documento,
                      visitante.Email, visitante.Foto, visitante.VisitantePermanente, visitante.TipoDeVisitante,
-                     visitante.NomeEmpresa, visitante.TemVeiculo, visitante.Veiculo));
+                     visitante.NomeEmpresa, visitante.TemVeiculo));
         }
 
         public void Dispose()

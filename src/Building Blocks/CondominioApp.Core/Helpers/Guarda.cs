@@ -4,7 +4,7 @@ namespace CondominioApp.Core.Helpers
 {
     public static class Guarda
     {
-        public static void ValidarTamanho(string value, int maxLenght)
+        public static void ValidarTamanhoMaximo(string value, int maxLenght)
         {
             if (!string.IsNullOrEmpty(value))
             {
@@ -23,6 +23,15 @@ namespace CondominioApp.Core.Helpers
             else
             {
                 throw new DomainException("Valor não pode ser vazio!");
+            }
+        }
+
+        public static void ValidarTamanhoMinimo(string value, int minLenght)
+        {
+            if (!string.IsNullOrEmpty(value))
+            {
+                if (value.Length < minLenght)
+                    throw new DomainException("String deve ter " + minLenght + " caracteres ou mais!");
             }
         }
     }

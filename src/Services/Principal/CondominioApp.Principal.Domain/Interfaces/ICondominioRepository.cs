@@ -1,6 +1,7 @@
 ﻿using CondominioApp.Core.Data;
 using CondominioApp.Principal.Domain.ValueObjects;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace CondominioApp.Principal.Domain.Interfaces
@@ -11,11 +12,17 @@ namespace CondominioApp.Principal.Domain.Interfaces
 
         void AdicionarUnidade(Unidade entity);
 
+        void AdicionarContrato(Contrato entity);
+
         Task<bool> CnpjCondominioJaCadastrado(Cnpj cnpj, Guid condominioId);
 
         Task<Grupo> ObterGrupoPorId(Guid Id);
 
         Task<Unidade> ObterUnidadePorId(Guid Id);
+
+        Task<Contrato> ObterContratoPorId(Guid Id);
+
+        Task<IEnumerable<Contrato>> ObterContratosPorCondominio(Guid CondominioId);
 
         Task<bool> CodigoDaUnidadeJaExiste(string codigo, Guid unidadeId);
 

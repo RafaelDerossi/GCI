@@ -3,6 +3,7 @@ using CondominioApp.Core.Messages;
 using CondominioApp.Portaria.Aplication.Events;
 using CondominioApp.Portaria.Domain;
 using CondominioApp.Portaria.Domain.Interfaces;
+using CondominioApp.Portaria.ValueObjects;
 using FluentValidation.Results;
 using MediatR;
 using System;
@@ -42,8 +43,8 @@ namespace CondominioApp.Portaria.Aplication.Commands
             visita.AdicionarEvento(
               new VisitaCadastradaEvent(
                   visita.Id, visita.DataDeEntrada, visita.Observacao, visita.Status, visita.VisitanteId,
-                  visita.NomeVisitante, visita.TipoDeDocumentoVisitante, visita.CpfVisitante,
-                  visita.RgVisitante, visita.EmailVisitante, visita.FotoVisitante, visita.TipoDeVisitante,
+                  visita.NomeVisitante, visita.TipoDeDocumentoVisitante, visita.Documento,
+                  visita.EmailVisitante, visita.FotoVisitante, visita.TipoDeVisitante,
                   visita.NomeEmpresaVisitante, visita.CondominioId, visita.NomeCondominio, visita.UnidadeId,
                   visita.NumeroUnidade, visita.AndarUnidade, visita.GrupoUnidade, visita.TemVeiculo,
                   visita.Veiculo, visita.UsuarioId, visita.NomeUsuario));
@@ -70,8 +71,8 @@ namespace CondominioApp.Portaria.Aplication.Commands
             visita.AdicionarEvento(
               new VisitaCadastradaEvent(
                   visita.Id, visita.DataDeEntrada, visita.Observacao, visita.Status, visita.VisitanteId,
-                  visita.NomeVisitante, visita.TipoDeDocumentoVisitante, visita.CpfVisitante,
-                  visita.RgVisitante, visita.EmailVisitante, visita.FotoVisitante, visita.TipoDeVisitante,
+                  visita.NomeVisitante, visita.TipoDeDocumentoVisitante, visita.Documento,
+                  visita.EmailVisitante, visita.FotoVisitante, visita.TipoDeVisitante,
                   visita.NomeEmpresaVisitante, visita.CondominioId, visita.NomeCondominio, visita.UnidadeId,
                   visita.NumeroUnidade, visita.AndarUnidade, visita.GrupoUnidade, visita.TemVeiculo,
                   visita.Veiculo, visita.UsuarioId, visita.NomeUsuario));
@@ -116,7 +117,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
             visitaBd.AdicionarEvento(
                  new VisitaEditadaEvent(
                      request.Id, request.Observacao, request.NomeVisitante, request.TipoDeDocumentoVisitante,
-                     request.CpfVisitante, request.RgVisitante, request.EmailVisitante, request.FotoVisitante,
+                     request.DocumentoVisitante, request.EmailVisitante, request.FotoVisitante,
                      request.TipoDeVisitante, request.NomeEmpresaVisitante, request.UnidadeId,
                      request.NumeroUnidade, request.AndarUnidade, request.GrupoUnidade, request.TemVeiculo,
                      request.Veiculo, request.UsuarioId, request.NomeUsuario));
@@ -293,7 +294,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
             return new Visita
                 (request.DataDeEntrada, request.Observacao, request.Status,
                  request.VisitanteId, request.NomeVisitante, request.TipoDeDocumentoVisitante,
-                 request.RgVisitante, request.CpfVisitante, request.EmailVisitante, request.FotoVisitante,
+                 request.DocumentoVisitante, request.EmailVisitante, request.FotoVisitante,
                  request.TipoDeVisitante, request.NomeEmpresaVisitante, request.CondominioId,
                  request.NomeCondominio, request.UnidadeId, request.NumeroUnidade, request.AndarUnidade,
                  request.GrupoUnidade, request.Veiculo, request.UsuarioId, request.NomeUsuario);
@@ -301,13 +302,14 @@ namespace CondominioApp.Portaria.Aplication.Commands
 
         private Visita VisitaFactory(CadastrarVisitaPorMoradorCommand request, Visitante visitante)
         {
+            var veiculo = new Veiculo("","","");
             return new Visita
                 (request.DataDeEntrada, request.Observacao, request.Status,
                  request.VisitanteId, visitante.Nome, visitante.TipoDeDocumento,
-                 visitante.Rg, visitante.Cpf, visitante.Email, visitante.Foto,
+                 visitante.Documento, visitante.Email, visitante.Foto,
                  visitante.TipoDeVisitante, visitante.NomeEmpresa, request.CondominioId,
                  request.NomeCondominio, request.UnidadeId, request.NumeroUnidade, request.AndarUnidade,
-                 request.GrupoUnidade, visitante.Veiculo, request.UsuarioId, request.NomeUsuario);
+                 request.GrupoUnidade, veiculo, request.UsuarioId, request.NomeUsuario);
 
         }
 

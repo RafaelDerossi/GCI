@@ -71,6 +71,12 @@ namespace CondominioApp.Principal.Infra.Migrations.PrincipalQueryContextDBMigrat
                         .HasColumnType("nvarchar(200)")
                         .HasMaxLength(200);
 
+                    b.Property<bool>("ContratoAtivo")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("ContratoId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<bool>("Correspondencia")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
@@ -81,6 +87,9 @@ namespace CondominioApp.Principal.Infra.Migrations.PrincipalQueryContextDBMigrat
                         .HasColumnType("bit")
                         .HasDefaultValueSql("0");
 
+                    b.Property<DateTime>("DataAssinaturaContrato")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime>("DataDeAlteracao")
                         .HasColumnType("datetime2");
 
@@ -89,6 +98,9 @@ namespace CondominioApp.Principal.Infra.Migrations.PrincipalQueryContextDBMigrat
 
                     b.Property<string>("Descricao")
                         .HasColumnType("varchar(200)");
+
+                    b.Property<string>("DescricaoContrato")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Estado")
                         .HasColumnName("Estado")
@@ -99,6 +111,9 @@ namespace CondominioApp.Principal.Infra.Migrations.PrincipalQueryContextDBMigrat
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
                         .HasDefaultValueSql("0");
+
+                    b.Property<string>("LinkContrato")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LinkGeraBoleto")
                         .HasColumnType("varchar(200)");
@@ -168,6 +183,9 @@ namespace CondominioApp.Principal.Infra.Migrations.PrincipalQueryContextDBMigrat
 
                     b.Property<string>("Telefone")
                         .HasColumnType("varchar(15)");
+
+                    b.Property<string>("TipoPlano")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UrlWebServer")
                         .HasColumnType("varchar(255)");

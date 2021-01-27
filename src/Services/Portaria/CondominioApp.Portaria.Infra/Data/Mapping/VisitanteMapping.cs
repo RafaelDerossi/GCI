@@ -17,21 +17,11 @@ namespace CondominioApp.Principal.Infra.Data.Mapping
 
             builder.Property(u => u.TipoDeDocumento).IsRequired();
 
-            builder.OwnsOne(u => u.Rg, rg =>
-            {
-                rg.Property(u => u.Numero)                    
-                    .HasMaxLength(Rg.Maxlength)
-                    .HasColumnName("Rg")
-                    .HasColumnType($"varchar({Rg.Maxlength})");
-            });
-
-            builder.OwnsOne(u => u.Cpf, cpf =>
-            {
-                cpf.Property(u => u.Numero)                    
-                    .HasMaxLength(Cpf.Maxlength)
-                    .HasColumnName("Cpf")
-                    .HasColumnType($"varchar({Cpf.Maxlength})");
-            });
+            builder.Property(u => u.Documento)
+                    .HasMaxLength(20)
+                    .HasColumnName("Documento")
+                    .HasColumnType($"varchar(20)");            
+            
 
             builder.OwnsOne(u => u.Email, email =>
             {
@@ -73,25 +63,7 @@ namespace CondominioApp.Principal.Infra.Data.Mapping
             builder.Property(u => u.TipoDeVisitante).IsRequired();
 
             builder.Property(u => u.NomeEmpresa).HasColumnType($"varchar({Visitante.Max})");
-
-            builder.OwnsOne(u => u.Veiculo, ft =>
-            {
-                ft.Property(u => u.Placa)
-                    .HasMaxLength(Veiculo.PlacaMaxlength)
-                    .HasColumnName("Placa")
-                    .HasColumnType($"varchar({Veiculo.PlacaMaxlength})");
-
-                ft.Property(u => u.Modelo)
-                    .HasMaxLength(Veiculo.ModeloMaxlength)
-                    .HasColumnName("Modelo")
-                    .HasColumnType($"varchar({Veiculo.ModeloMaxlength})");
-
-                ft.Property(u => u.Cor)
-                    .HasMaxLength(Veiculo.CorMaxlength)
-                    .HasColumnName("Cor")
-                    .HasColumnType($"varchar({Veiculo.CorMaxlength})");
-            });
-
+           
         }
     }
 }

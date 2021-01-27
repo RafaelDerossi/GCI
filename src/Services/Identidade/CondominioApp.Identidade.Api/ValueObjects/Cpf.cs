@@ -22,7 +22,7 @@ namespace CondominioApp.Identidade.Api.ValueObjects
         {
             if (string.IsNullOrEmpty(cpfStr)) return;
 
-            Guarda.ValidarTamanho(cpfStr, Maxlength);
+            Guarda.ValidarTamanhoMaximo(cpfStr, Maxlength);
 
             Regex regex = new Regex(@"^((\d{3}).(\d{3}).(\d{3})-(\d{2}))*$");
             Match match = regex.Match(cpfStr);

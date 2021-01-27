@@ -203,65 +203,7 @@ namespace CondominioApp.Portaria.Tests
         }
         
 
-        [Fact(DisplayName = "Adicionar Visitante Válido - Sem Placa do Veiculo")]
-        [Trait("Categoria", "Visitante - CadastrarCommand")]
-        public void CadastroDeVisitante_SemPlacaVeiculo_CommandoValido_DevePassarNaValidacao()
-        {
-
-            //Arrange
-            var Command = VisitanteCommandFactory.CriarComandoCadastroDeVisitante_SemPlacaVeiculo();
-
-            //Act
-            var result = Command.EstaValido();
-
-            //Assert
-            Assert.True(result);
-        }
-
-        [Fact(DisplayName = "Adicionar Visitante Inválido - Sem Modelo Veiculo")]
-        [Trait("Categoria", "Visitante - CadastrarCommand")]
-        public void CadastroDeVisitante_SemModeloVeiculo_CommandoInvalido_NaoDevePassarNaValidacao()
-        {
-
-            //Arrange
-            var Command = VisitanteCommandFactory.CriarComandoCadastroDeVisitante_SemModeloVeiculo();
-
-            //Act
-            var result = Command.EstaValido();
-
-            //Assert
-            Assert.False(result);
-        }
-
-        [Fact(DisplayName = "Adicionar Visitante Inválido - Sem Cor do Veiculo")]
-        [Trait("Categoria", "Visitante - CadastrarCommand")]
-        public void CadastroDeVisitante_SemCorDoVeiculo_CommandoInvalido_NaoDevePassarNaValidacao()
-        {
-
-            //Arrange
-            var Command = VisitanteCommandFactory.CriarComandoCadastroDeVisitante_SemCorVeiculo();
-
-            //Act
-            var result = Command.EstaValido();
-
-            //Assert
-            Assert.False(result);
-        }
-
-        [Fact(DisplayName = "Adicionar Visitante Válido - Sem Veiculo")]
-        [Trait("Categoria", "Visitante - CadastrarCommand")]
-        public void CadastroDeVisitante_SemVeiculo_CommandoValido_DevePassarNaValidacao()
-        {
-
-            //Arrange
-            var Command = VisitanteCommandFactory.CriarComandoCadastroDeVisitante_SemVeiculo();
-
-            //Act
-            var result = Command.EstaValido();
-
-            //Assert
-            Assert.True(result);
-        }
+        
 
 
 
@@ -336,61 +278,7 @@ namespace CondominioApp.Portaria.Tests
             Assert.True(result);
         }
 
-        [Fact(DisplayName = "Editar Visitante Válido - Sem Placa")]
-        [Trait("Categoria", "Visitante - EditarCommand")]
-        public void EdicaoDeVisitante_SemPlaca_CommandoValido_DevePassarNaValidacao()
-        {
-            //Arrange
-            var Command = VisitanteCommandFactory.CriarComandoEdicaoDeVisitante_SemPlaca();
-
-            //Act
-            var result = Command.EstaValido();
-
-            //Assert
-            Assert.True(result);
-        }
-
-        [Fact(DisplayName = "Editar Visitante Inválido - Sem Modelo")]
-        [Trait("Categoria", "Visitante - EditarCommand")]
-        public void EdicaoDeVisitante_SemModelo_CommandoInvalido_NaoDevePassarNaValidacao()
-        {
-            //Arrange
-            var Command = VisitanteCommandFactory.CriarComandoEdicaoDeVisitante_SemModelo();
-
-            //Act
-            var result = Command.EstaValido();
-
-            //Assert
-            Assert.False(result);
-        }
-
-        [Fact(DisplayName = "Editar Visitante Inválido - Sem Cor")]
-        [Trait("Categoria", "Visitante - EditarCommand")]
-        public void EdicaoDeVisitante_SemCor_CommandoInvalido_NaoDevePassarNaValidacao()
-        {
-            //Arrange
-            var Command = VisitanteCommandFactory.CriarComandoEdicaoDeVisitante_SemCor();
-
-            //Act
-            var result = Command.EstaValido();
-
-            //Assert
-            Assert.False(result);
-        }
-
-        [Fact(DisplayName = "Editar Visitante Válido - Sem Veiculo")]
-        [Trait("Categoria", "Visitante - EditarCommand")]
-        public void EdicaoDeVisitante_SemVeiculo_CommandoValido_DevePassarNaValidacao()
-        {
-            //Arrange
-            var Command = VisitanteCommandFactory.CriarComandoEdicaoDeVisitante_SemVeiculo();
-
-            //Act
-            var result = Command.EstaValido();
-
-            //Assert
-            Assert.True(result);
-        }
+        
 
     }
 }

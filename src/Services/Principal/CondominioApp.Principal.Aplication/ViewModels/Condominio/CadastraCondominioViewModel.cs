@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CondominioApp.Core.Enumeradores;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -121,6 +122,17 @@ namespace CondominioApp.Principal.Aplication.ViewModels
         /// Habilita/Desabilita Limite de Tempo na Reserva
         /// </summary>
         public bool LimiteTempoReserva { get; set; }
+       
 
+        public DateTime DataAssinaturaContrato { get; set; }
+
+        public TipoDePlano TipoDePlano { get; set; }
+
+        public string DescricaoContrato { get; set; }
+
+        public bool ContratoAtivo { get; set; }
+
+        public string LinkContrato { get; set; }
+       
     }
 }

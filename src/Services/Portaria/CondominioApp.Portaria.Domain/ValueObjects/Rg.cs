@@ -9,6 +9,8 @@ namespace CondominioApp.Portaria.ValueObjects
     public class Rg
     {
         public const int Maxlength = 10;
+        public const int Minlength = 4;
+
         public string Numero { get; private set; }
 
         protected Rg() { }
@@ -26,7 +28,8 @@ namespace CondominioApp.Portaria.ValueObjects
                 return;
             }
 
-            Guarda.ValidarTamanho(rgStr, Maxlength);
+            Guarda.ValidarTamanhoMaximo(rgStr, Maxlength);
+            Guarda.ValidarTamanhoMinimo(rgStr, Minlength);
 
             Numero = rgStr;
         }
