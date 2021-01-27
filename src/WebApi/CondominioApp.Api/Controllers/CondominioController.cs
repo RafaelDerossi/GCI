@@ -7,6 +7,7 @@ using CondominioApp.WebApi.Core.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CondominioApp.Api.Controllers
@@ -26,21 +27,32 @@ namespace CondominioApp.Api.Controllers
 
 
         [HttpGet]
-        public async Task<IEnumerable<CondominioFlat>> ObterTodos()
+        public async Task<ActionResult<IEnumerable<CondominioFlat>>> ObterTodos()
         {
-            return await _condominioQuery.ObterTodos();
+            var condominios = await _condominioQuery.ObterTodos();
+            if (condominios.Count() == 0)
+                return NotFound();
+
+            return condominios.ToList();
         }
 
         [HttpGet("{Id:Guid}")]
-        public async Task<CondominioFlat> ObterPorId(Guid Id)
+        public async Task<ActionResult<CondominioFlat>> ObterPorId(Guid Id)
         {
-            return await _condominioQuery.ObterPorId(Id);
+            var condominio = await _condominioQuery.ObterPorId(Id);
+            if (condominio == null)
+                return NotFound();
+            return condominio;
         }
           
         [HttpGet("Removidos")]
-        public async Task<IEnumerable<CondominioFlat>> ObterRemovidos()
-        {
-            return await _condominioQuery.ObterRemovidos();
+        public async Task<ActionResult<IEnumerable<CondominioFlat>>> ObterRemovidos()
+        {            
+            var condominios = await _condominioQuery.ObterRemovidos();
+            if (condominios.Count() == 0)
+                return NotFound();
+
+            return condominios.ToList();
         }
 
                 
