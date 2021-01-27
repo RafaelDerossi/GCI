@@ -20,7 +20,12 @@ namespace CondominioApp.Portaria.Aplication.ViewModels
         public string NumeroUnidade { get; set; }
         public string AndarUnidade { get; set; }
         public string GrupoUnidade { get; set; }
-        
+
+        public bool TemVeiculo { get; set; }
+        public string PlacaVeiculo { get; set; }
+        public string ModeloVeiculo { get; set; }
+        public string CorVeiculo { get; set; }
+
         public Guid UsuarioId { get; set; }
         public string NomeUsuario { get; set; }
 

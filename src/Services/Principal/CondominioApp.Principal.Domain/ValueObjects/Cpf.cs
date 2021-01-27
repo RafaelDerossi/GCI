@@ -22,7 +22,7 @@ namespace CondominioApp.Principal.Domain.ValueObjects
         {
             if (string.IsNullOrEmpty(cpfStr)) return;
 
-            Guarda.ValidarTamanhoMaximo(cpfStr, Maxlength);
+            Guarda.ValidarTamanhoMaximo(cpfStr, Maxlength, "CPF");
 
             Regex regex = new Regex(@"^((\d{3}).(\d{3}).(\d{3})-(\d{2}))*$");
             Match match = regex.Match(cpfStr);

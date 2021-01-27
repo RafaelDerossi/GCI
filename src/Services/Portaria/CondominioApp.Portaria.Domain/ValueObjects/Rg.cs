@@ -28,8 +28,8 @@ namespace CondominioApp.Portaria.ValueObjects
                 return;
             }
 
-            Guarda.ValidarTamanhoMaximo(rgStr, Maxlength);
-            Guarda.ValidarTamanhoMinimo(rgStr, Minlength);
+            Guarda.ValidarTamanhoMaximo(rgStr, Maxlength, "RG");
+            Guarda.ValidarTamanhoMinimo(rgStr, Minlength, "RG");
 
             Numero = rgStr;
         }

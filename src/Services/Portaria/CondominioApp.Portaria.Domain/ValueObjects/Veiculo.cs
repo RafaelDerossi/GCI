@@ -30,7 +30,7 @@ namespace CondominioApp.Portaria.ValueObjects
         {
             if (!string.IsNullOrEmpty(placa))
             {
-                Guarda.ValidarTamanhoMaximo(placa, PlacaMaxlength);
+                Guarda.ValidarTamanhoMaximo(placa, PlacaMaxlength, "Placa");
                 Regex regex = new Regex(@"^([A-Z]{3}[0-9][0-9A-Z][0-9]{2})*$");
                 Match match = regex.Match(placa);
                 if (!match.Success)                
@@ -45,10 +45,10 @@ namespace CondominioApp.Portaria.ValueObjects
         {
             if (!string.IsNullOrEmpty(modelo))
             {
-                Guarda.ValidarTamanhoMaximo(modelo, ModeloMaxlength);
+                Guarda.ValidarTamanhoMaximo(modelo, ModeloMaxlength, "modelo do veículo");
 
-                if (modelo.Length < 3)
-                    throw new DomainException("Informe um modelo de veículo com no mínimo 3 caracteres.");
+                Guarda.ValidarTamanhoMinimo(modelo, 3, "Modelo do veículo");
+                
             }           
 
             Modelo = modelo;               
@@ -58,10 +58,10 @@ namespace CondominioApp.Portaria.ValueObjects
         {
             if (!string.IsNullOrEmpty(cor))
             {
-                Guarda.ValidarTamanhoMaximo(cor, CorMaxlength);
+                Guarda.ValidarTamanhoMaximo(cor, CorMaxlength, "cor do veículo");
 
-                if (cor.Length < 3)
-                    throw new DomainException("Informe uma cor com no mínimo 3 caracteres.");
+                Guarda.ValidarTamanhoMinimo(cor, 3, "Cor do veículo");
+                
             }
 
             Cor = cor;

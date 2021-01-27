@@ -34,6 +34,7 @@ namespace CondominioApp.Portaria.Domain
         public string AndarUnidade { get; private set; }
         public string GrupoUnidade { get; private set; }
 
+        public bool TemVeiculo { get; private set; }
         public Veiculo Veiculo { get; private set; }
 
 
@@ -51,8 +52,8 @@ namespace CondominioApp.Portaria.Domain
             string nomeVisitante, TipoDeDocumento tipoDeDocumentoVisitante, string documento,
             Email emailVisitante, Foto fotoVisitante,TipoDeVisitante tipoDeVisitante,
             string nomeEmpresaVisitante, Guid condominioId, string nomeCondominio, Guid unidadeId,
-            string numeroUnidade, string andarUnidade, string descricaoGrupoUnidade, Veiculo veiculo,
-            Guid usuarioId, string nomeUsuario)
+            string numeroUnidade, string andarUnidade, string descricaoGrupoUnidade,
+            bool temVeiculo, Veiculo veiculo, Guid usuarioId, string nomeUsuario)
         {
             DataDeEntrada = dataDeEntrada;            
             Observacao = observacao;
@@ -69,6 +70,7 @@ namespace CondominioApp.Portaria.Domain
             NumeroUnidade = numeroUnidade;
             AndarUnidade = andarUnidade;
             GrupoUnidade = descricaoGrupoUnidade;
+            TemVeiculo = temVeiculo;
             Veiculo = veiculo;
             UsuarioId = usuarioId;
             NomeUsuario = nomeUsuario;
@@ -108,6 +110,9 @@ namespace CondominioApp.Portaria.Domain
         public void SetFotoVisitante(Foto foto) => FotoVisitante = foto;
         public void SetTipoDeVisitante(TipoDeVisitante tipoDeVisitante) => TipoDeVisitante = tipoDeVisitante;
         public void SetNomeEmpresaVisitante(string nomeEmpresa) => NomeEmpresaVisitante = nomeEmpresa;
+
+        public void MarcarTemVeiculo() => TemVeiculo = true;
+        public void MarcarNaoTemVeiculo() => TemVeiculo = false;
         public void SetVeiculo(Veiculo veiculo) => Veiculo = veiculo;
 
         public void SetUnidadeId(Guid id) => UnidadeId = id;
@@ -122,17 +127,7 @@ namespace CondominioApp.Portaria.Domain
         }
 
         /// Outros Metodos 
-        public bool TemVeiculo
-        {
-            get
-            {
-                if (Veiculo != null)
-                {
-                    return true;
-                }
-                return false;
-            }
-        }
+       
 
 
         public StatusVisita ObterStatus()

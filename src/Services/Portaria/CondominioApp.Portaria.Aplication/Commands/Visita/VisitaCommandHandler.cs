@@ -106,7 +106,13 @@ namespace CondominioApp.Portaria.Aplication.Commands
             visitaBd.SetNumeroUnidade(request.NumeroUnidade);
             visitaBd.SetAndarUnidade(request.AndarUnidade);
             visitaBd.SetGrupoUnidade(request.GrupoUnidade);
+
+            visitaBd.MarcarNaoTemVeiculo();
+            if (request.TemVeiculo)
+                visitaBd.MarcarTemVeiculo();
+
             visitaBd.SetVeiculo(request.Veiculo);
+
             visitaBd.SetUsuario(request.UsuarioId, request.NomeUsuario);
             
             
@@ -297,20 +303,20 @@ namespace CondominioApp.Portaria.Aplication.Commands
                  request.DocumentoVisitante, request.EmailVisitante, request.FotoVisitante,
                  request.TipoDeVisitante, request.NomeEmpresaVisitante, request.CondominioId,
                  request.NomeCondominio, request.UnidadeId, request.NumeroUnidade, request.AndarUnidade,
-                 request.GrupoUnidade, request.Veiculo, request.UsuarioId, request.NomeUsuario);
+                 request.GrupoUnidade,request.TemVeiculo, request.Veiculo,
+                 request.UsuarioId, request.NomeUsuario);
         }
 
         private Visita VisitaFactory(CadastrarVisitaPorMoradorCommand request, Visitante visitante)
-        {
-            var veiculo = new Veiculo("","","");
+        {           
             return new Visita
                 (request.DataDeEntrada, request.Observacao, request.Status,
                  request.VisitanteId, visitante.Nome, visitante.TipoDeDocumento,
                  visitante.Documento, visitante.Email, visitante.Foto,
                  visitante.TipoDeVisitante, visitante.NomeEmpresa, request.CondominioId,
                  request.NomeCondominio, request.UnidadeId, request.NumeroUnidade, request.AndarUnidade,
-                 request.GrupoUnidade, veiculo, request.UsuarioId, request.NomeUsuario);
-
+                 request.GrupoUnidade, request.TemVeiculo, request.Veiculo,
+                 request.UsuarioId, request.NomeUsuario);
         }
 
 

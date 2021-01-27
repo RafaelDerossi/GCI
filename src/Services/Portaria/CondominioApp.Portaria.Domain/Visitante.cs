@@ -82,6 +82,7 @@ namespace CondominioApp.Portaria.Domain
         public void SetQrCode(string qrCode) => QrCode = qrCode;
         public void SetTipoDeVisitante(TipoDeVisitante tipoDeVisitante) => TipoDeVisitante = tipoDeVisitante;
         public void SetNomeEmpresa(string nomeEmpresa) => NomeEmpresa = nomeEmpresa;
+        
         public void MarcarTemVeiculo() => TemVeiculo = true;
         public void MarcarNaoTemVeiculo() => TemVeiculo = false;
 

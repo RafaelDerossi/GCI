@@ -19,7 +19,7 @@ namespace CondominioAppPreCadastro.App.ValueObjects
 
         private void setNumero(string cnpjStr)
         {
-            Guarda.ValidarTamanhoMaximo(cnpjStr, Maxlength);
+            Guarda.ValidarTamanhoMaximo(cnpjStr, Maxlength, "CNPJ");
 
             if (!string.IsNullOrEmpty(cnpjStr))
             {

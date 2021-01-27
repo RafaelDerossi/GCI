@@ -119,10 +119,11 @@ namespace CondominioApp.Portaria.Aplication.Commands
             }
         }
 
-        public void MarcarQueTemVeiculo() => TemVeiculo = true;
-        public void MarcarQueNaoTemVeiculo() => TemVeiculo = false;
-        public void SetVeiculo(string placa, string modelo, string cor)
+        
+        
+        public void SetVeiculoPeloPorteiro(bool temVeiculo, string placa, string modelo, string cor)
         {
+            TemVeiculo = temVeiculo;
             if (TemVeiculo)
             {
                 if (modelo == "")
@@ -135,6 +136,24 @@ namespace CondominioApp.Portaria.Aplication.Commands
                     AdicionarErrosDeProcessamentoDoComando("Informe a cor do veículo.");
                     return;
                 }
+                try
+                {
+                    Veiculo = new Veiculo(placa, modelo, cor);
+                }
+                catch (Exception e)
+                {
+                    AdicionarErrosDeProcessamentoDoComando(e.Message);
+                }
+                return;
+            }
+
+            Veiculo = new Veiculo("", "", "");
+        }
+        public void SetVeiculoPeloMorador(bool temVeiculo, string placa, string modelo, string cor)
+        {
+            TemVeiculo = temVeiculo;
+            if (TemVeiculo)
+            {               
                 try
                 {
                     Veiculo = new Veiculo(placa, modelo, cor);

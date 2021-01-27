@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using FluentValidation;
 using FluentValidation.Results;
+using System.Linq;
 
 namespace CondominioApp.Api.Controllers
 {
@@ -29,21 +30,30 @@ namespace CondominioApp.Api.Controllers
 
 
         [HttpGet("{id:Guid}")]
-        public async Task<UnidadeFlat> ObterUnidadePorId(Guid id)
+        public async Task<ActionResult<UnidadeFlat>> ObterUnidadePorId(Guid id)
         {
-            return await _condominioQuery.ObterUnidadePorId(id);
+            var unidade = await _condominioQuery.ObterUnidadePorId(id);
+            if (unidade == null)
+                return NotFound();
+            return unidade;
         }
 
         [HttpGet("por-grupo/{grupoId:Guid}")]
-        public async Task<IEnumerable<UnidadeFlat>> ObterUnidadesPorGrupo(Guid grupoId)
-        {
-            return await _condominioQuery.ObterUnidadesPorGrupo(grupoId);
+        public async Task<ActionResult<IEnumerable<UnidadeFlat>>> ObterUnidadesPorGrupo(Guid grupoId)
+        {            
+            var unidades = await _condominioQuery.ObterUnidadesPorGrupo(grupoId);
+            if (unidades.Count() == 0)
+                return NotFound();
+            return unidades.ToList();
         }
 
         [HttpGet("por-condominio/{condominioId:Guid}")]
-        public async Task<IEnumerable<UnidadeFlat>> ObterUnidadesPorCondominio(Guid condominioId)
-        {
-            return await _condominioQuery.ObterUnidadesPorCondominio(condominioId);
+        public async Task<ActionResult<IEnumerable<UnidadeFlat>>> ObterUnidadesPorCondominio(Guid condominioId)
+        {            
+            var unidades = await _condominioQuery.ObterUnidadesPorCondominio(condominioId);
+            if (unidades.Count() == 0)
+                return NotFound();
+            return unidades.ToList();
         }
 
 
