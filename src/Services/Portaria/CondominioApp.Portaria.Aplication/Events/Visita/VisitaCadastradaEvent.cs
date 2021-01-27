@@ -9,7 +9,7 @@ namespace CondominioApp.Portaria.Aplication.Events
 
         public VisitaCadastradaEvent
             (Guid id, DateTime dataDeEntrada, string observacao, StatusVisita status,
-            Guid visitanteId, string nomeVisitante,TipoDeDocumento tipoDeDocumento, Cpf cpf, Rg rg, Email email,
+            Guid visitanteId, string nomeVisitante,TipoDeDocumento tipoDeDocumento, string documento, Email email,
             Foto foto,TipoDeVisitante tipoDeVisitante, string nomeEmpresa, Guid condominioId, string nomeCondominio,
             Guid unidadeId, string numeroUnidade, string andarUnidade, string grupoUnidade, bool temVeiculo,
             Veiculo veiculo, Guid usuarioId, string nomeUsuario)
@@ -20,9 +20,7 @@ namespace CondominioApp.Portaria.Aplication.Events
             Status = status;
             SetVisitanteId(visitanteId);
             NomeVisitante = nomeVisitante;
-            SetTipoDeDocumento(tipoDeDocumento);
-            SetCPFVisitante(cpf);
-            SetRgVisitante(rg);
+            SetDocumentoVisitante(documento, tipoDeDocumento);            
             SetEmailVisitante(email);
             SetFotoVisitante(foto);
             SetTipoDeVisitante(tipoDeVisitante);

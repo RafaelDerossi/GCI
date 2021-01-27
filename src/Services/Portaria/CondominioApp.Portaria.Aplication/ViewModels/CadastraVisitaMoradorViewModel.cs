@@ -9,8 +9,7 @@ namespace CondominioApp.Portaria.Aplication.ViewModels
     {
         public DateTime DataDeEntradaInicio { get; set; }
         public DateTime DataDeEntradaFim { get; set; }
-        public string Observacao { get; set; }
-        public StatusVisita Status { get; set; }        
+        public string Observacao { get; set; }               
 
         public Guid VisitanteId { get; set; }        
 

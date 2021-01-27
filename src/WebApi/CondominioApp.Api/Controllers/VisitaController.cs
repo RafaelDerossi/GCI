@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using CondominioApp.Portaria.Domain.FlatModel;
+using CondominioApp.Core.Enumeradores;
 
 namespace CondominioApp.Api.Controllers
 {
@@ -187,8 +188,8 @@ namespace CondominioApp.Api.Controllers
         private CadastrarVisitaPorPorteiroCommand CadastrarVisitaPorPorteiroCommandFactory(CadastraVisitaPorteiroViewModel viewModel)
         {
             return new CadastrarVisitaPorPorteiroCommand(
-                  viewModel.DataDeEntrada,viewModel.Observacao, viewModel.Status,viewModel.VisitanteId,
-                  viewModel.NomeVisitante, viewModel.Documento, viewModel.EmailVisitante, viewModel.FotoVisitante,
+                  viewModel.DataDeEntrada,viewModel.Observacao, StatusVisita.PENDENTE, viewModel.VisitanteId,
+                  viewModel.NomeVisitante, viewModel.TipoDoDocumento, viewModel.Documento, viewModel.EmailVisitante, viewModel.FotoVisitante,
                   viewModel.NomeOriginalFotoVisitante, viewModel.TipoDeVisitante, viewModel.NomeEmpresaVisitante,
                   viewModel.CondominioId, viewModel.NomeCondominio, viewModel.UnidadeId, viewModel.NumeroUnidade,
                   viewModel.AndarUnidade, viewModel.GrupoUnidade, viewModel.TemVeiculo, viewModel.PlacaVeiculo, 
@@ -198,7 +199,7 @@ namespace CondominioApp.Api.Controllers
         private CadastrarVisitaPorMoradorCommand CadastrarVisitaPorMoradorCommandFactory(CadastraVisitaMoradorViewModel viewModel, DateTime dataDeEntrada)
         {
             return new CadastrarVisitaPorMoradorCommand(
-                  dataDeEntrada, viewModel.Observacao, viewModel.Status, viewModel.VisitanteId,
+                  dataDeEntrada, viewModel.Observacao, StatusVisita.APROVADA, viewModel.VisitanteId,
                   viewModel.CondominioId, viewModel.NomeCondominio, viewModel.UnidadeId, viewModel.NumeroUnidade,
                   viewModel.AndarUnidade, viewModel.GrupoUnidade, viewModel.UsuarioId, viewModel.NomeUsuario);
         }
@@ -206,11 +207,11 @@ namespace CondominioApp.Api.Controllers
         private EditarVisitaCommand EditarVisitaCommandFactory(EditaVisitaViewModel viewModel)
         {
             return new EditarVisitaCommand(
-                   viewModel.Id,viewModel.Observacao, viewModel.NomeVisitante, viewModel.Documento, viewModel.EmailVisitante, viewModel.FotoVisitante,
-                   viewModel.NomeOriginalFotoVisitante, viewModel.TipoDeVisitante, viewModel.NomeEmpresaVisitante,
-                   viewModel.UnidadeId, viewModel.NumeroUnidade, viewModel.AndarUnidade, viewModel.GrupoUnidade, 
-                   viewModel.TemVeiculo, viewModel.PlacaVeiculo, viewModel.ModeloVeiculo, viewModel.CorVeiculo,
-                   viewModel.UsuarioId, viewModel.NomeUsuario);
+                   viewModel.Id,viewModel.Observacao, viewModel.NomeVisitante,viewModel.TipoDoDocumento, viewModel.Documento,
+                   viewModel.EmailVisitante, viewModel.FotoVisitante, viewModel.NomeOriginalFotoVisitante,
+                   viewModel.TipoDeVisitante, viewModel.NomeEmpresaVisitante,viewModel.UnidadeId, viewModel.NumeroUnidade,
+                   viewModel.AndarUnidade, viewModel.GrupoUnidade, viewModel.TemVeiculo, viewModel.PlacaVeiculo,
+                   viewModel.ModeloVeiculo, viewModel.CorVeiculo, viewModel.UsuarioId, viewModel.NomeUsuario);
         }
 
 
@@ -219,26 +220,27 @@ namespace CondominioApp.Api.Controllers
         private CadastrarVisitantePorPorteiroCommand CadastrarVisitantePorPorteiroCommandFactory(CadastraVisitaPorteiroViewModel visitaVM)
         {
             return new CadastrarVisitantePorPorteiroCommand(
-                  visitaVM.VisitanteId, visitaVM.NomeVisitante, visitaVM.Documento, visitaVM.EmailVisitante, visitaVM.FotoVisitante,
-                  visitaVM.NomeOriginalFotoVisitante, visitaVM.CondominioId, visitaVM.NomeCondominio,
-                  visitaVM.UnidadeId, visitaVM.NumeroUnidade, visitaVM.AndarUnidade, visitaVM.GrupoUnidade,
-                  visitaVM.TipoDeVisitante, visitaVM.NomeEmpresaVisitante, visitaVM.TemVeiculo);
+                  visitaVM.VisitanteId, visitaVM.NomeVisitante, visitaVM.TipoDoDocumento, visitaVM.Documento,
+                  visitaVM.EmailVisitante, visitaVM.FotoVisitante, visitaVM.NomeOriginalFotoVisitante,
+                  visitaVM.CondominioId, visitaVM.NomeCondominio, visitaVM.UnidadeId, visitaVM.NumeroUnidade,
+                  visitaVM.AndarUnidade, visitaVM.GrupoUnidade, visitaVM.TipoDeVisitante, visitaVM.NomeEmpresaVisitante,
+                  visitaVM.TemVeiculo);
         }
        
         private EditarVisitantePorPorteiroCommand EditarVisitantePorPorteiroCommandFactory(CadastraVisitaPorteiroViewModel visitaVM)
         {
            return new EditarVisitantePorPorteiroCommand(
-                  visitaVM.VisitanteId, visitaVM.NomeVisitante, visitaVM.Documento, visitaVM.EmailVisitante, visitaVM.FotoVisitante,
-                  visitaVM.NomeOriginalFotoVisitante, visitaVM.TipoDeVisitante, visitaVM.NomeEmpresaVisitante,
-                  visitaVM.TemVeiculo);
+                  visitaVM.VisitanteId, visitaVM.NomeVisitante,visitaVM.TipoDoDocumento, visitaVM.Documento,
+                  visitaVM.EmailVisitante, visitaVM.FotoVisitante, visitaVM.NomeOriginalFotoVisitante,
+                  visitaVM.TipoDeVisitante, visitaVM.NomeEmpresaVisitante, visitaVM.TemVeiculo);
         }
 
         private EditarVisitantePorPorteiroCommand EditarVisitantePorPorteiroCommandFactory(EditaVisitaViewModel visitaVM)
         {
             return new EditarVisitantePorPorteiroCommand(
-                  visitaVM.VisitanteId, visitaVM.NomeVisitante, visitaVM.Documento, visitaVM.EmailVisitante, visitaVM.FotoVisitante,
-                  visitaVM.NomeOriginalFotoVisitante, visitaVM.TipoDeVisitante, visitaVM.NomeEmpresaVisitante,
-                  visitaVM.TemVeiculo);
+                  visitaVM.VisitanteId, visitaVM.NomeVisitante, visitaVM.TipoDoDocumento, visitaVM.Documento,
+                  visitaVM.EmailVisitante, visitaVM.FotoVisitante, visitaVM.NomeOriginalFotoVisitante,
+                  visitaVM.TipoDeVisitante, visitaVM.NomeEmpresaVisitante, visitaVM.TemVeiculo);
         }
 
     }

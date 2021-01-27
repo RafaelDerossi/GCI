@@ -20,7 +20,7 @@ namespace CondominioApp.Portaria.Aplication.Events
         public Guid VisitanteId { get; protected set; }
         public string NomeVisitante { get; protected set; }
         public TipoDeDocumento TipoDeDocumentoVisitante { get; protected set; }
-        public Rg RgVisitante { get; protected set; }
+        public string DocumentoVisitante { get; protected set; }
         public Cpf CpfVisitante { get; protected set; }
         public Email EmailVisitante { get; protected set; }
         public Foto FotoVisitante { get; protected set; }
@@ -44,9 +44,11 @@ namespace CondominioApp.Portaria.Aplication.Events
         public string NomeUsuario { get; protected set; }
 
 
-        public void SetTipoDeDocumento(TipoDeDocumento tipoDeDocumento) => TipoDeDocumentoVisitante = tipoDeDocumento;
-        public void SetRgVisitante(Rg rg) => RgVisitante = rg;
-        public void SetCPFVisitante(Cpf cpf) => CpfVisitante = cpf;
+        public void SetDocumentoVisitante(string documento, TipoDeDocumento tipoDeDocumento)
+        {
+            TipoDeDocumentoVisitante = tipoDeDocumento;
+            DocumentoVisitante = documento;
+        }       
 
         public void SetEmailVisitante(Email email) => EmailVisitante = email;
 

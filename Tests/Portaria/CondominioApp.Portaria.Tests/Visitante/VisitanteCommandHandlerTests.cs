@@ -30,12 +30,10 @@ namespace CondominioApp.Portaria.Tests
 
             var visitante = VisitanteFactoryTest.CriarVisitanteValido_ComCPF();            
 
-            _mocker.GetMock<IVisitanteRepository>().Setup(r => r.VisitanteJaCadastradoPorCpf(command.Cpf, command.Id))
+            _mocker.GetMock<IVisitanteRepository>().Setup(r => r.VisitanteJaCadastradoPorDocumento(command.Documento, command.Id))
                .Returns(Task.FromResult(false));
             
-            _mocker.GetMock<IVisitanteRepository>().Setup(r => r.VisitanteJaCadastradoPorRg(command.Rg, command.Id))
-               .Returns(Task.FromResult(false));
-
+            
             _mocker.GetMock<IVisitanteRepository>().Setup(r => r.UnitOfWork.Commit())
                .Returns(Task.FromResult(true));
 
@@ -57,11 +55,9 @@ namespace CondominioApp.Portaria.Tests
 
             var visitante = VisitanteFactoryTest.CriarVisitanteValido_ComRG();
             
-            _mocker.GetMock<IVisitanteRepository>().Setup(r => r.VisitanteJaCadastradoPorCpf(command.Cpf, command.Id))
+            _mocker.GetMock<IVisitanteRepository>().Setup(r => r.VisitanteJaCadastradoPorDocumento(command.Documento, command.Id))
                .Returns(Task.FromResult(false));
-
-            _mocker.GetMock<IVisitanteRepository>().Setup(r => r.VisitanteJaCadastradoPorRg(command.Rg, command.Id))
-               .Returns(Task.FromResult(false));
+                        
 
             _mocker.GetMock<IVisitanteRepository>().Setup(r => r.UnitOfWork.Commit())
                .Returns(Task.FromResult(true));
@@ -85,10 +81,7 @@ namespace CondominioApp.Portaria.Tests
             var visitante = VisitanteFactoryTest.CriarVisitanteValido_SemDocumento();
 
             
-            _mocker.GetMock<IVisitanteRepository>().Setup(r => r.VisitanteJaCadastradoPorCpf(command.Cpf, command.Id))
-               .Returns(Task.FromResult(false));
-
-            _mocker.GetMock<IVisitanteRepository>().Setup(r => r.VisitanteJaCadastradoPorRg(command.Rg, command.Id))
+            _mocker.GetMock<IVisitanteRepository>().Setup(r => r.VisitanteJaCadastradoPorDocumento(command.Documento, command.Id))
                .Returns(Task.FromResult(false));
 
             _mocker.GetMock<IVisitanteRepository>().Setup(r => r.UnitOfWork.Commit())
@@ -103,21 +96,18 @@ namespace CondominioApp.Portaria.Tests
             _mocker.GetMock<IVisitanteRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
         }
 
-        [Fact(DisplayName = "Adicionar Visitante Válido - Sem Veiculo")]
+        [Fact(DisplayName = "Adicionar Visitante Inválido - CPF Invalido")]
         [Trait("Categoria", "Visitante -VisitanteCommandHandler")]
-        public async Task AdicionarVisitante_SemVeiculo_CommandoValido_DevePassarNaValidacao()
+        public async Task AdicionarVisitante_CpfInvalido_CommandoInvalido_NaoDevePassarNaValidacao()
         {
             //Arrange        
-            var command = VisitanteCommandFactory.CriarComandoCadastroDeVisitante_SemVeiculo();
+            var command = VisitanteCommandFactory.CriarComandoCadastroDeVisitante_ComCPFInvalido();
 
-            var visitante = VisitanteFactoryTest.CriarVisitanteValido_SemVeiculo();
+            var visitante = VisitanteFactoryTest.CriarVisitanteInvalido_ComCPFInvalido();
 
-            
-            _mocker.GetMock<IVisitanteRepository>().Setup(r => r.VisitanteJaCadastradoPorCpf(command.Cpf, command.Id))
+            _mocker.GetMock<IVisitanteRepository>().Setup(r => r.VisitanteJaCadastradoPorDocumento(command.Documento, command.Id))
                .Returns(Task.FromResult(false));
 
-            _mocker.GetMock<IVisitanteRepository>().Setup(r => r.VisitanteJaCadastradoPorRg(command.Rg, command.Id))
-               .Returns(Task.FromResult(false));
 
             _mocker.GetMock<IVisitanteRepository>().Setup(r => r.UnitOfWork.Commit())
                .Returns(Task.FromResult(true));
@@ -126,9 +116,7 @@ namespace CondominioApp.Portaria.Tests
             var result = await _visitanteCommandHandler.Handle(command, CancellationToken.None);
 
             //Assert
-            Assert.True(result.IsValid);
-            _mocker.GetMock<IVisitanteRepository>().Verify(r => r.Adicionar(It.IsAny<Visitante>()), Times.Once);
-            _mocker.GetMock<IVisitanteRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
+            Assert.False(result.IsValid);            
         }
 
 
@@ -145,11 +133,8 @@ namespace CondominioApp.Portaria.Tests
             _mocker.GetMock<IVisitanteRepository>().Setup(r => r.ObterPorId(command.Id))
               .Returns(Task.FromResult(visitante));
 
-            _mocker.GetMock<IVisitanteRepository>().Setup(r => r.VisitanteJaCadastradoPorCpf(command.Cpf, command.Id))
-               .Returns(Task.FromResult(false));
-
-            _mocker.GetMock<IVisitanteRepository>().Setup(r => r.VisitanteJaCadastradoPorRg(command.Rg, command.Id))
-               .Returns(Task.FromResult(false));
+            _mocker.GetMock<IVisitanteRepository>().Setup(r => r.VisitanteJaCadastradoPorDocumento(command.Documento, command.Id))
+               .Returns(Task.FromResult(false));            
 
             _mocker.GetMock<IVisitanteRepository>().Setup(r => r.UnitOfWork.Commit())
                .Returns(Task.FromResult(true));

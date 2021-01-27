@@ -7,7 +7,8 @@ namespace CondominioApp.Portaria.Aplication.ViewModels
 {
    public class CadastraVisitanteViewModel
     {
-        public string Nome { get; set; }       
+        public string Nome { get; set; }
+        public TipoDeDocumento TipoDoDocumento { get; set; }
         public string Documento { get; set; }       
         public string Email { get; set; }
         public string Foto { get; set; }

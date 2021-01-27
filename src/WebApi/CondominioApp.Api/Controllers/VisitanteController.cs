@@ -91,7 +91,7 @@ namespace CondominioApp.Api.Controllers
             (CadastraVisitanteViewModel viewModel)
         {
             return new CadastrarVisitantePorMoradorCommand(
-                  viewModel.Nome, viewModel.Documento, viewModel.Email, viewModel.Foto,
+                  viewModel.Nome, viewModel.TipoDoDocumento, viewModel.Documento, viewModel.Email, viewModel.Foto,
                   viewModel.NomeOriginalFoto, viewModel.CondominioId, viewModel.NomeCondominio,
                   viewModel.UnidadeId, viewModel.NumeroUnidade, viewModel.AndarUnidade,
                   viewModel.GrupoUnidade, viewModel.VisitantePermanente, viewModel.QrCode,
@@ -102,8 +102,8 @@ namespace CondominioApp.Api.Controllers
             (EditaVisitanteViewModel viewModel)
         {
             return new EditarVisitantePorMoradorCommand(
-                   viewModel.Id, viewModel.Nome, viewModel.Documento, viewModel.Email, viewModel.Foto,
-                   viewModel.NomeOriginalFoto, viewModel.VisitantePermanente, viewModel.TipoDeVisitante,
+                   viewModel.Id, viewModel.Nome, viewModel.TipoDoDocumento, viewModel.Documento, viewModel.Email,
+                   viewModel.Foto, viewModel.NomeOriginalFoto, viewModel.VisitantePermanente, viewModel.TipoDeVisitante,
                    viewModel.NomeEmpresa, viewModel.TemVeiculo);
         }
 

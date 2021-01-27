@@ -23,21 +23,11 @@ namespace CondominioApp.Principal.Infra.Data.Mapping
 
             builder.Property(u => u.TipoDeDocumentoVisitante).IsRequired();
 
-            builder.OwnsOne(u => u.RgVisitante, rg =>
-            {
-                rg.Property(u => u.Numero)                    
-                    .HasMaxLength(Rg.Maxlength)
-                    .HasColumnName("Rg")
-                    .HasColumnType($"varchar({Rg.Maxlength})");
-            });
-
-            builder.OwnsOne(u => u.CpfVisitante, cpf =>
-            {
-                cpf.Property(u => u.Numero)                    
-                    .HasMaxLength(Cpf.Maxlength)
-                    .HasColumnName("Cpf")
-                    .HasColumnType($"varchar({Cpf.Maxlength})");
-            });
+            builder.Property(u => u.Documento)
+                    .HasMaxLength(20)
+                    .HasColumnName("Documento")
+                    .HasColumnType($"varchar(20)");
+                        
 
             builder.OwnsOne(u => u.EmailVisitante, email =>
             {

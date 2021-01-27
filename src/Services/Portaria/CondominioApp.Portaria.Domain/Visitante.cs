@@ -1,7 +1,6 @@
 ﻿using CondominioApp.Core.DomainObjects;
 using CondominioApp.Core.Enumeradores;
 using CondominioApp.Portaria.ValueObjects;
-using FluentValidation.Results;
 using System;
 using System.Collections.Generic;
 
@@ -13,8 +12,7 @@ namespace CondominioApp.Portaria.Domain
 
         public string Nome { get; private set; }
         public TipoDeDocumento TipoDeDocumento { get; private set; }
-        public Rg Rg { get; private set; }
-        public Cpf Cpf { get; private set; }       
+        public string Documento { get; private set; }       
         public Email Email { get; private set; }
         public Foto Foto { get; private set; }
 
@@ -49,16 +47,13 @@ namespace CondominioApp.Portaria.Domain
             _Visitas = new List<Visita>();
         }
 
-        public Visitante(string nome, TipoDeDocumento tipoDeDocumento, Rg rg, Cpf cpf,
+        public Visitante(string nome, TipoDeDocumento tipoDeDocumento, string documento,
             Email email, Foto foto, Guid condominioId, string nomeCondominio, Guid unidadeId, string numeroUnidade,
             string andarUnidade, string grupoUnidade, bool visitantePermanente, string qrCode,
             TipoDeVisitante tipoDeVisitante, string nomeEmpresa, bool temVeiculo)
         {
             _Visitas = new List<Visita>();
-            Nome = nome;
-            TipoDeDocumento = tipoDeDocumento;
-            Rg = rg;
-            Cpf = cpf;
+            Nome = nome;                      
             Email = email;
             Foto = foto;
             CondominioId = condominioId;
@@ -71,7 +66,8 @@ namespace CondominioApp.Portaria.Domain
             QrCode = qrCode;
             TipoDeVisitante = tipoDeVisitante;
             NomeEmpresa = nomeEmpresa;
-            TemVeiculo = temVeiculo;            
+            TemVeiculo = temVeiculo;
+            SetDocumento(documento, tipoDeDocumento);
         }
 
 
@@ -80,10 +76,7 @@ namespace CondominioApp.Portaria.Domain
 
 
         /// Metodos Set
-        public void SetNome(string nome) => Nome = nome;
-        public void SetTipoDeDocumento(TipoDeDocumento tipoDeDocumento) => TipoDeDocumento = tipoDeDocumento;
-        public void SetRg(Rg rg) => Rg = rg;
-        public void SetCpf(Cpf cpf) => Cpf = cpf;       
+        public void SetNome(string nome) => Nome = nome;                  
         public void SetEmail(Email email) => Email = email;
         public void SetFoto(Foto foto) => Foto = foto;
         public void SetQrCode(string qrCode) => QrCode = qrCode;
@@ -96,12 +89,14 @@ namespace CondominioApp.Portaria.Domain
         public void MarcarVisitanteComoTemporario() => VisitantePermanente = false;
 
 
-
-
-
+        public void SetDocumento(string documento, TipoDeDocumento tipoDeDocumento)
+        {
+            TipoDeDocumento = tipoDeDocumento;
+            Documento = documento;
+        }
 
         /// Outros Metodos 
-    
+
 
     }
 }

@@ -9,16 +9,14 @@ namespace CondominioApp.Portaria.Aplication.Events
     {
 
         public VisitanteCadastradoEvent
-            (Guid id, string nome,TipoDeDocumento tipoDeDocumento, Cpf cpf, Rg rg, Email email, Foto foto, Guid condominioId,
+            (Guid id, string nome,TipoDeDocumento tipoDeDocumento, string documento, Email email, Foto foto, Guid condominioId,
             string nomeCondominio, Guid unidadeId, string numeroUnidade, string andarUnidade, string grupoUnidade,
             bool visitantePermanente, string qrCode, TipoDeVisitante tipoDeVisitante, string nomeEmpresa,
             bool temVeiculo)
         {
             Id = id;
             SetNome(nome);
-            SetTipoDeDocumento(tipoDeDocumento);
-            SetCPF(cpf);
-            SetRg(rg);
+            SetDocumento(documento, tipoDeDocumento);
             SetEmail(email);
             SetFoto(foto);
             SetCondominioId(condominioId);

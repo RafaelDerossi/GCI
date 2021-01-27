@@ -19,8 +19,7 @@ namespace CondominioApp.Portaria.Domain
         public Guid VisitanteId { get; private set; }
         public string NomeVisitante { get; private set; }
         public TipoDeDocumento TipoDeDocumentoVisitante { get; private set; }
-        public Rg RgVisitante { get; private set; }
-        public Cpf CpfVisitante { get; private set; }
+        public string Documento { get; private set; }       
         public Email EmailVisitante { get; private set; }
         public Foto FotoVisitante { get; private set; }
         public TipoDeVisitante TipoDeVisitante { get; private set; }
@@ -49,8 +48,8 @@ namespace CondominioApp.Portaria.Domain
 
         public Visita(
             DateTime dataDeEntrada, string observacao, StatusVisita status, Guid visitanteId,
-            string nomeVisitante, TipoDeDocumento tipoDeDocumentoVisitante, Rg rgVisitante,
-            Cpf cpfVisitante, Email emailVisitante, Foto fotoVisitante,TipoDeVisitante tipoDeVisitante,
+            string nomeVisitante, TipoDeDocumento tipoDeDocumentoVisitante, string documento,
+            Email emailVisitante, Foto fotoVisitante,TipoDeVisitante tipoDeVisitante,
             string nomeEmpresaVisitante, Guid condominioId, string nomeCondominio, Guid unidadeId,
             string numeroUnidade, string andarUnidade, string descricaoGrupoUnidade, Veiculo veiculo,
             Guid usuarioId, string nomeUsuario)
@@ -60,9 +59,6 @@ namespace CondominioApp.Portaria.Domain
             Status = status;
             VisitanteId = visitanteId;
             NomeVisitante = nomeVisitante;
-            TipoDeDocumentoVisitante = tipoDeDocumentoVisitante;
-            RgVisitante = rgVisitante;
-            CpfVisitante = cpfVisitante;
             EmailVisitante = emailVisitante;
             FotoVisitante = fotoVisitante;
             TipoDeVisitante = tipoDeVisitante;
@@ -76,6 +72,7 @@ namespace CondominioApp.Portaria.Domain
             Veiculo = veiculo;
             UsuarioId = usuarioId;
             NomeUsuario = nomeUsuario;
+            SetDocumentoVisitante(documento, tipoDeDocumentoVisitante);
         }
 
 
@@ -102,9 +99,11 @@ namespace CondominioApp.Portaria.Domain
         public void SetDataDeEntrada(DateTime dataDeEntrada) => DataDeEntrada = dataDeEntrada;
         public void SetVisitanteId(Guid id) => VisitanteId = id;
         public void SetNomeVisitante(string nome) => NomeVisitante = nome;
-        public void SetTipoDocumentoVisitante(TipoDeDocumento tipoDeDocumento) => TipoDeDocumentoVisitante = tipoDeDocumento;
-        public void SetRgVisitante(Rg rg) => RgVisitante = rg;
-        public void SetCpfVisitante(Cpf cpf) => CpfVisitante = cpf;
+        public void SetDocumentoVisitante(string documento, TipoDeDocumento tipoDeDocumento)
+        {
+            TipoDeDocumentoVisitante = tipoDeDocumento;
+            Documento = documento;
+        }       
         public void SetEmailVisitante(Email email) => EmailVisitante = email;
         public void SetFotoVisitante(Foto foto) => FotoVisitante = foto;
         public void SetTipoDeVisitante(TipoDeVisitante tipoDeVisitante) => TipoDeVisitante = tipoDeVisitante;

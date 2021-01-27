@@ -8,7 +8,8 @@ namespace CondominioApp.Portaria.Aplication.Commands
     {
         public CadastrarVisitaPorPorteiroCommand
             (DateTime dataDeEntrada, string observacao, StatusVisita status,
-            Guid visitanteId, string nomeVisitante, string documentoVisitante, string emailVisitante,
+            Guid visitanteId, string nomeVisitante, TipoDeDocumento tipoDeDocumentoVisitante,
+            string documentoVisitante, string emailVisitante,
             string fotoVisitante, string nomeOriginalFotoVisitante,TipoDeVisitante tipoDeVisitante,
             string nomeEmpresaVisitante, Guid condominioId, string nomeCondominio, Guid unidadeId,
             string numeroUnidade, string andarUnidade, string grupoUnidade, bool temVeiculo,
@@ -20,7 +21,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
 
             SetVisitanteId(visitanteId);
             NomeVisitante = nomeVisitante;
-            SetDocumentoVisitante(documentoVisitante);
+            SetDocumentoVisitante(documentoVisitante, tipoDeDocumentoVisitante);
             SetEmailVisitante(emailVisitante);
             SetFotoVisitante(nomeOriginalFotoVisitante, fotoVisitante);          
             SetTipoDeVisitante(tipoDeVisitante);

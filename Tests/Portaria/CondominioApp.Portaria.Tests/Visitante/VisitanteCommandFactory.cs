@@ -10,35 +10,31 @@ namespace CondominioApp.Portaria.Tests
         public static CadastrarVisitantePorMoradorCommand CadastrarVisitantePorMoradorCommandFactory()
         {
             return new CadastrarVisitantePorMoradorCommand
-              ("Nome Visitante", "143.026.417-97", "rafael@condominioapp.com",
+              ("Nome Visitante",TipoDeDocumento.CPF, "143.026.417-97", "rafael@condominioapp.com",
               "foto.jpg", "nomeOriginal.jpg", Guid.NewGuid(), "Nome Condominio", Guid.NewGuid(),
-              "101", "1º", "Bloco", false, "qrCode", TipoDeVisitante.PARTICULAR, "", true,
-              "LMG8888", "Modelo Veiculo", "Prata");
+              "101", "1º", "Bloco", false, "qrCode", TipoDeVisitante.PARTICULAR, "", true);
         }
 
         public static CadastrarVisitantePorPorteiroCommand CadastrarVisitantePorPorteiroCommandFactory()
         {
             return new CadastrarVisitantePorPorteiroCommand
-              (Guid.NewGuid(), "Nome Visitante", "143.026.417-97", "rafael@condominioapp.com",
+              (Guid.NewGuid(), "Nome Visitante",TipoDeDocumento.CPF, "143.026.417-97", "rafael@condominioapp.com",
               "foto.jpg", "nomeOriginal.jpg", Guid.NewGuid(), "Nome Condominio", Guid.NewGuid(),
-              "101", "1º", "Bloco", TipoDeVisitante.PARTICULAR, "", true,
-              "LMG8888", "Modelo Veiculo", "Prata");
+              "101", "1º", "Bloco", TipoDeVisitante.PARTICULAR, "", true);
         }
 
         public static EditarVisitantePorMoradorCommand EditarVisitantePorMoradorCommandFactory()
         {
             return new EditarVisitantePorMoradorCommand
-              (Guid.NewGuid(), "Nome Visitante", "143.026.417-97", "rafael@condominioapp.com",
-              "foto.jpg", "nomeOriginal.jpg", false, TipoDeVisitante.PARTICULAR, "", true,
-              "LMG8888", "Modelo Veiculo", "Prata");
+              (Guid.NewGuid(), "Nome Visitante",TipoDeDocumento.CPF, "143.026.417-97", "rafael@condominioapp.com",
+              "foto.jpg", "nomeOriginal.jpg", false, TipoDeVisitante.PARTICULAR, "", true);
         }
 
         public static EditarVisitantePorPorteiroCommand EditarVisitantePorPorteiroCommandFactory()
         {
             return new EditarVisitantePorPorteiroCommand
-              (Guid.NewGuid(), "Nome Visitante", "143.026.417-97", "rafael@condominioapp.com",
-              "foto.jpg", "nomeOriginal.jpg", TipoDeVisitante.PARTICULAR, "", true,
-              "LMG8888", "Modelo Veiculo", "Prata");
+              (Guid.NewGuid(), "Nome Visitante",TipoDeDocumento.CPF, "143.026.417-97", "rafael@condominioapp.com",
+              "foto.jpg", "nomeOriginal.jpg", TipoDeVisitante.PARTICULAR, "", true);
         }
 
 
@@ -56,21 +52,21 @@ namespace CondominioApp.Portaria.Tests
         public static CadastrarVisitantePorMoradorCommand CriarComandoCadastroDeVisitante_ComCPFInvalido()
         {
             var comando = CadastrarVisitantePorMoradorCommandFactory();
-            comando.SetDocumento("143.026.417-98");
+            comando.SetDocumento("143.026.417-98", TipoDeDocumento.CPF);
             return comando;
         }
 
         public static CadastrarVisitantePorMoradorCommand CriarComandoCadastroDeVisitante_ComRG()
         {
             var comando = CadastrarVisitantePorMoradorCommandFactory();
-            comando.SetDocumento("123456789");
+            comando.SetDocumento("123456789", TipoDeDocumento.RG);
             return comando;
         }
 
         public static CadastrarVisitantePorMoradorCommand CriarComandoCadastroDeVisitante_SemDocumento()
         {
             var comando = CadastrarVisitantePorMoradorCommandFactory();
-            comando.SetDocumento("");
+            comando.SetDocumento("", TipoDeDocumento.OUTROS);
             return comando;
         }
 
@@ -129,35 +125,8 @@ namespace CondominioApp.Portaria.Tests
             comando.SetGrupoDaUnidade("");
             return comando;
         }      
-
-        public static CadastrarVisitantePorMoradorCommand CriarComandoCadastroDeVisitante_SemPlacaVeiculo()
-        {
-            var comando = CadastrarVisitantePorMoradorCommandFactory();
-            comando.SetVeiculo("", "modelo", "Prata");
-            return comando;
-        }
-
-        public static CadastrarVisitantePorMoradorCommand CriarComandoCadastroDeVisitante_SemModeloVeiculo()
-        {
-            var comando = CadastrarVisitantePorMoradorCommandFactory();
-            comando.SetVeiculo("", "", "Prata");
-            return comando;
-        }
-
-        public static CadastrarVisitantePorMoradorCommand CriarComandoCadastroDeVisitante_SemCorVeiculo()
-        {
-            var comando = CadastrarVisitantePorMoradorCommandFactory();
-            comando.SetVeiculo("", "modelo", "");
-            return comando;
-        }
-
-        public static CadastrarVisitantePorMoradorCommand CriarComandoCadastroDeVisitante_SemVeiculo()
-        {
-            var comando = CadastrarVisitantePorMoradorCommandFactory();
-            comando.MarcarQueNaoTemVeiculo();
-            comando.SetVeiculo("", "", "");
-            return comando;
-        }
+        
+        
 
 
         ///EditarVisitanteCommand
@@ -175,7 +144,7 @@ namespace CondominioApp.Portaria.Tests
         {
             var comando = EditarVisitantePorMoradorCommandFactory();
 
-            comando.SetDocumento("14302641798");
+            comando.SetDocumento("14302641798", TipoDeDocumento.CPF);
 
             return comando;
         }
@@ -184,7 +153,7 @@ namespace CondominioApp.Portaria.Tests
         {
             var comando = EditarVisitantePorMoradorCommandFactory();
 
-            comando.SetDocumento("123456789");
+            comando.SetDocumento("123456789", TipoDeDocumento.RG);
 
             return comando;
         }
@@ -193,50 +162,12 @@ namespace CondominioApp.Portaria.Tests
         {
             var comando = EditarVisitantePorMoradorCommandFactory();
 
-            comando.SetDocumento("");
+            comando.SetDocumento("", TipoDeDocumento.OUTROS);
 
             return comando;
         }
-
-        public static EditarVisitantePorMoradorCommand CriarComandoEdicaoDeVisitante_SemPlaca()
-        {
-            var comando = EditarVisitantePorMoradorCommandFactory();
-
-            comando.MarcarQueTemVeiculo();
-            comando.SetVeiculo("","Modelo","Prata");
-
-            return comando;
-        }
-
-        public static EditarVisitantePorMoradorCommand CriarComandoEdicaoDeVisitante_SemModelo()
-        {
-            var comando = EditarVisitantePorMoradorCommandFactory();
-
-            comando.MarcarQueTemVeiculo();
-            comando.SetVeiculo("", "", "Prata");
-
-            return comando;
-        }
-
-        public static EditarVisitantePorMoradorCommand CriarComandoEdicaoDeVisitante_SemCor()
-        {
-            var comando = EditarVisitantePorMoradorCommandFactory();
-
-            comando.MarcarQueTemVeiculo();
-            comando.SetVeiculo("", "Modelo", "");
-
-            return comando;
-        }
-
-        public static EditarVisitantePorMoradorCommand CriarComandoEdicaoDeVisitante_SemVeiculo()
-        {
-            var comando = EditarVisitantePorMoradorCommandFactory();
-
-            comando.MarcarQueNaoTemVeiculo();
-            comando.SetVeiculo("", "", "");
-
-            return comando;
-        }
+              
+        
 
     }
 
