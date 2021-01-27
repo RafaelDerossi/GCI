@@ -122,33 +122,29 @@ namespace CondominioApp.Portaria.Tests
 
         public static CadastrarVisitaPorPorteiroCommand CriarComandoCadastroDeVisita_SemVeiculo()
         {
-            var comando = CadastrarVisitaCommandFactory();
-            comando.MarcarQueNaoTemVeiculo();
-            comando.SetVeiculo("","","");
+            var comando = CadastrarVisitaCommandFactory();            
+            comando.SetVeiculoPeloPorteiro(false,"","","");
             return comando;
         }
 
         public static CadastrarVisitaPorPorteiroCommand CriarComandoCadastroDeVisita_ComVeiculoSemPlaca()
         {
-            var comando = CadastrarVisitaCommandFactory();
-            comando.MarcarQueTemVeiculo();
-            comando.SetVeiculo("", "Modelo", "Prata");
+            var comando = CadastrarVisitaCommandFactory();            
+            comando.SetVeiculoPeloPorteiro(true, "", "Modelo", "Prata");
             return comando;
         }
 
         public static CadastrarVisitaPorPorteiroCommand CriarComandoCadastroDeVisita_ComVeiculoSemModelo()
         {
-            var comando = CadastrarVisitaCommandFactory();
-            comando.MarcarQueTemVeiculo();
-            comando.SetVeiculo("", "", "Prata");
+            var comando = CadastrarVisitaCommandFactory();            
+            comando.SetVeiculoPeloPorteiro(true,"", "", "Prata");
             return comando;
         }
 
         public static CadastrarVisitaPorPorteiroCommand CriarComandoCadastroDeVisita_ComVeiculoSemCor()
         {
-            var comando = CadastrarVisitaCommandFactory();
-            comando.MarcarQueTemVeiculo();
-            comando.SetVeiculo("", "Modelo", "");
+            var comando = CadastrarVisitaCommandFactory();            
+            comando.SetVeiculoPeloPorteiro(true,"", "Modelo", "");
             return comando;
         }
 
@@ -225,9 +221,8 @@ namespace CondominioApp.Portaria.Tests
         public static EditarVisitaCommand CriarComandoEdicaoDeVisita_SemVeiculo()
         {
             var comando = EditarVisitaCommandFactory();
-
-            comando.MarcarQueNaoTemVeiculo();
-            comando.SetVeiculo("", "", "");
+            
+            comando.SetVeiculoPeloPorteiro(false, "", "", "");
 
             return comando;
         }
@@ -235,9 +230,8 @@ namespace CondominioApp.Portaria.Tests
         public static EditarVisitaCommand CriarComandoEdicaoDeVisita_SemPlaca()
         {
             var comando = EditarVisitaCommandFactory();
-
-            comando.MarcarQueTemVeiculo();
-            comando.SetVeiculo("", "Modelo", "Prata");
+                        
+            comando.SetVeiculoPeloPorteiro(true, "", "Modelo", "Prata");
 
             return comando;
         }
@@ -245,9 +239,8 @@ namespace CondominioApp.Portaria.Tests
         public static EditarVisitaCommand CriarComandoEdicaoDeVisita_SemModelo()
         {
             var comando = EditarVisitaCommandFactory();
-
-            comando.MarcarQueTemVeiculo();
-            comando.SetVeiculo("", "", "Prata");
+                        
+            comando.SetVeiculoPeloPorteiro(true,"", "", "Prata");
 
             return comando;
         }
@@ -255,9 +248,8 @@ namespace CondominioApp.Portaria.Tests
         public static EditarVisitaCommand CriarComandoEdicaoDeVisita_SemCor()
         {
             var comando = EditarVisitaCommandFactory();
-
-            comando.MarcarQueTemVeiculo();
-            comando.SetVeiculo("", "Modelo", "");
+                        
+            comando.SetVeiculoPeloPorteiro(true,"", "Modelo", "");
 
             return comando;
         }

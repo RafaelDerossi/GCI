@@ -27,9 +27,8 @@ namespace CondominioApp.Portaria.Aplication.Commands
             SetNumeroUnidade(numeroUnidade);
             SetAndarUnidade(andarUnidade);
             SetGrupoUnidade(grupoUnidade);
-
-            TemVeiculo = temVeiculo;           
-            SetVeiculo(placaVeiculo, modeloVeiculo, corVeiculo);
+                           
+            SetVeiculoPeloPorteiro(temVeiculo, placaVeiculo, modeloVeiculo, corVeiculo);
 
             SetUsuario(usuarioId, nomeUsuario);
         }

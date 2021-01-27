@@ -4,12 +4,21 @@ namespace CondominioApp.Core.Helpers
 {
     public static class Guarda
     {
-        public static void ValidarTamanhoMaximo(string value, int maxLenght)
+        public static void ValidarTamanhoMaximo(string value, int maxLenght, string name)
         {
             if (!string.IsNullOrEmpty(value))
             {
                 if (value.Length > maxLenght)
-                    throw new DomainException("Tamanho da string excedido!");
+                    throw new DomainException($"Tamanho do(a) {name} excedido!");
+            }
+        }
+
+        public static void ValidarTamanhoMinimo(string value, int minLenght, string name)
+        {
+            if (!string.IsNullOrEmpty(value))
+            {
+                if (value.Length < minLenght)
+                    throw new DomainException($"{name} deve ter {minLenght} caracteres ou mais!");
             }
         }
 
@@ -26,13 +35,6 @@ namespace CondominioApp.Core.Helpers
             }
         }
 
-        public static void ValidarTamanhoMinimo(string value, int minLenght)
-        {
-            if (!string.IsNullOrEmpty(value))
-            {
-                if (value.Length < minLenght)
-                    throw new DomainException("String deve ter " + minLenght + " caracteres ou mais!");
-            }
-        }
+      
     }
 }

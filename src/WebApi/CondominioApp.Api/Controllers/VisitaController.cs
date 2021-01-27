@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using CondominioApp.Portaria.Domain.FlatModel;
 using CondominioApp.Core.Enumeradores;
+using System.Linq;
 
 namespace CondominioApp.Api.Controllers
 {
@@ -27,27 +28,39 @@ namespace CondominioApp.Api.Controllers
 
 
         [HttpGet("{id:Guid}")]
-        public async Task<VisitaFlat> ObterPorId(Guid id)
+        public async Task<ActionResult<VisitaFlat>> ObterPorId(Guid id)
         {
-            return await _portariaQuery.ObterVisitaPorId(id);
+            var visita = await _portariaQuery.ObterVisitaPorId(id);
+            if (visita == null)
+                return NotFound();
+            return visita;
         }
 
         [HttpGet("por-condominio/{condominioId:Guid}")]
-        public async Task<IEnumerable<VisitaFlat>> ObterPorCondominio(Guid condominioId)
+        public async Task<ActionResult<IEnumerable<VisitaFlat>>> ObterPorCondominio(Guid condominioId)
         {
-            return await _portariaQuery.ObterVisitasPorCondominio(condominioId);
+            var visitas = await _portariaQuery.ObterVisitasPorCondominio(condominioId);
+            if (visitas.Count() == 0)
+                return NotFound();
+            return visitas.ToList();
         }
 
         [HttpGet("por-unidade/{unidadeId:Guid}")]
-        public async Task<IEnumerable<VisitaFlat>> ObterPorUnidade(Guid unidadeId)
-        {
-            return await _portariaQuery.ObterVisitasPorUnidade(unidadeId);
+        public async Task<ActionResult<IEnumerable<VisitaFlat>>> ObterPorUnidade(Guid unidadeId)
+        {            
+            var visitas = await _portariaQuery.ObterVisitasPorUnidade(unidadeId);
+            if (visitas.Count() == 0)
+                return NotFound();
+            return visitas.ToList();
         }
 
         [HttpGet("por-usuario/{usuarioId:Guid}")]
-        public async Task<IEnumerable<VisitaFlat>> ObterPorUsuario(Guid usuarioId)
-        {
-            return await _portariaQuery.ObterVisitasPorUsuario(usuarioId);
+        public async Task<ActionResult<IEnumerable<VisitaFlat>>> ObterPorUsuario(Guid usuarioId)
+        {            
+            var visitas = await _portariaQuery.ObterVisitasPorUsuario(usuarioId);
+            if (visitas.Count() == 0)
+                return NotFound();
+            return visitas.ToList();
         }
 
 
@@ -201,7 +214,8 @@ namespace CondominioApp.Api.Controllers
             return new CadastrarVisitaPorMoradorCommand(
                   dataDeEntrada, viewModel.Observacao, StatusVisita.APROVADA, viewModel.VisitanteId,
                   viewModel.CondominioId, viewModel.NomeCondominio, viewModel.UnidadeId, viewModel.NumeroUnidade,
-                  viewModel.AndarUnidade, viewModel.GrupoUnidade, viewModel.UsuarioId, viewModel.NomeUsuario);
+                  viewModel.AndarUnidade, viewModel.GrupoUnidade, viewModel.TemVeiculo,viewModel.PlacaVeiculo,
+                  viewModel.ModeloVeiculo,viewModel.CorVeiculo, viewModel.UsuarioId, viewModel.NomeUsuario);
         }
 
         private EditarVisitaCommand EditarVisitaCommandFactory(EditaVisitaViewModel viewModel)

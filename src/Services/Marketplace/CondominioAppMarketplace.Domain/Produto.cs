@@ -82,7 +82,7 @@ namespace CondominioAppMarketplace.Domain
             if (string.IsNullOrEmpty(nomeDoProduto))
                 return;
 
-            Guarda.ValidarTamanhoMaximo(nomeDoProduto, NomeMaximo);
+            Guarda.ValidarTamanhoMaximo(nomeDoProduto, NomeMaximo, "nome do produto");
             Nome = nomeDoProduto;
         }
 
