@@ -43,6 +43,10 @@ using CondominioApp.Portaria.Domain.Interfaces;
 using CondominioApp.Portaria.Infra.Data.Repository;
 using CondominioApp.Portaria.Infra.DataQuery.Repository;
 using CondominioApp.Portaria.Aplication.Query;
+using CondominioApp.Usuarios.App.Aplication.Commands;
+using CondominioApp.Usuarios.App.Models;
+using CondominioApp.Usuarios.App.Data.Repository;
+using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents;
 
 namespace CondominioApp.Api.Configuration
 {
@@ -125,6 +129,7 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<INotificationHandler<UnidadeEditadaEvent>, UnidadeEventHandler>();
             services.AddScoped<INotificationHandler<CodigoUnidadeResetadoEvent>, UnidadeEventHandler>();
             services.AddScoped<INotificationHandler<UnidadeRemovidaEvent>, UnidadeEventHandler>();
+            services.AddScoped<INotificationHandler<VeiculoCadastradoIntegrationEvent>, UnidadeEventHandler>();
 
             //Contratos
             services.AddScoped<IRequestHandler<CadastrarContratoCommand, ValidationResult>, ContratoCommandHandler>();
@@ -233,6 +238,11 @@ namespace CondominioApp.Api.Configuration
 
             #endregion
 
+            #region Usuario
+            
+            services.AddScoped<IRequestHandler<CadastrarVeiculoCommand, ValidationResult>, VeiculoCommandHandler>();
+
+            #endregion
 
             #region Querys
 
@@ -260,7 +270,7 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<IReservaAreaComumQueryRepository, ReservaAreaComumQueryRepository>();
             services.AddScoped<IVisitanteRepository, VisitanteRepository>();
             services.AddScoped<IVisitanteQueryRepository, VisitanteQueryRepository>();
-
+            services.AddScoped<IUsuarioRepository, UsuarioRepository>();
             #endregion
 
         }

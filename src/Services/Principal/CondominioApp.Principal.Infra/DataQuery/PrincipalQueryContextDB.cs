@@ -23,6 +23,8 @@ namespace CondominioApp.Principal.Infra.DataQuery
 
         public DbSet<UnidadeFlat> UnidadesFlat { get; set; }
 
+        public DbSet<VeiculoFlat> VeiculosFlat { get; set; }
+
         public PrincipalQueryContextDB(DbContextOptions<PrincipalQueryContextDB> options, IMediatorHandler mediatorHandler)
             : base(options)
         {

@@ -78,6 +78,39 @@ namespace CondominioApp.Usuarios.App.Data.Repository
                                               !u.Lixeira);
         }
 
+
+
+        public void AdicionarVeiculo(Veiculo veiculo)
+        {
+            _context.Veiculos.Add(veiculo);
+        }
+
+
+        public async Task<IEnumerable<Veiculo>> ObterVeiculo(Expression<Func<Veiculo, bool>> expression, bool OrderByDesc = false, int take = 0)
+        {
+            if (OrderByDesc)
+            {
+                if (take > 0)
+                    return await _context.Veiculos.AsNoTracking().Where(expression)
+                                        .OrderByDescending(x => x.DataDeCadastro).Take(take).ToListAsync();
+
+                return await _context.Veiculos.AsNoTracking().Where(expression)
+                                        .OrderByDescending(x => x.DataDeCadastro).ToListAsync();
+            }
+
+            if (take > 0)
+                return await _context.Veiculos.AsNoTracking().Where(expression)
+                                        .OrderBy(x => x.DataDeCadastro).Take(take).ToListAsync();
+
+            return await _context.Veiculos.AsNoTracking().Where(expression)
+                                    .OrderBy(x => x.DataDeCadastro).ToListAsync();
+        }
+
+        public async Task<Veiculo> ObterVeiculoPorPlaca(string placa)
+        {
+            return await _context.Veiculos.FirstOrDefaultAsync(v => v.Placa == placa);
+        }
+
         public void Dispose()
         {
             _context?.Dispose();

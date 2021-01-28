@@ -18,6 +18,8 @@ namespace CondominioApp.Usuarios.App.Data
 
         public DbSet<Usuario> Usuarios { get; set; }
 
+        public DbSet<Veiculo> Veiculos { get; set; }
+
         public UsuarioContextDB(DbContextOptions<UsuarioContextDB> options, IMediatorHandler mediatorHandler)
             : base(options)
         {
@@ -29,6 +31,8 @@ namespace CondominioApp.Usuarios.App.Data
             modelBuilder.Ignore<ValidationResult>();
             modelBuilder.Ignore<Event>();
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(UsuarioContextDB).Assembly);
+            
+            modelBuilder.Ignore<VeiculoFlat>();
         }
 
         public async Task<bool> Commit()
