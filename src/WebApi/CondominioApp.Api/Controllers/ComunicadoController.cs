@@ -34,10 +34,13 @@ namespace CondominioApp.Api.Controllers
         {
             var comunicado = await _comunicadoQuery.ObterPorId(id);
             if (comunicado == null)
-                return NotFound();
+            {
+                AdicionarErroProcessamento("Comunicado não encontrado.");
+                return CustomResponse();
+            }
 
             //Obtem Anexos
-            if(comunicado.TemAnexos)
+            if (comunicado.TemAnexos)
             {
 
             }
@@ -52,7 +55,10 @@ namespace CondominioApp.Api.Controllers
             var comunicados = await _comunicadoQuery.ObterPorCondominioUnidadeEProprietario(
                 condominioId, unidadeId, IsProprietario);
             if (comunicados.Count() == 0)
-                return NotFound();
+            {
+                AdicionarErroProcessamento("Nenhum registro encontrado.");
+                return CustomResponse();
+            }
 
             var comunicadosVM = new List<ComunicadoViewModel>();
             foreach (Comunicado comunicado in comunicados)
@@ -75,7 +81,10 @@ namespace CondominioApp.Api.Controllers
         {
             var comunicados = await _comunicadoQuery.ObterPorCondominioEUsuario(condominioId, usuarioId);
             if (comunicados.Count() == 0)
-                return NotFound();
+            {
+                AdicionarErroProcessamento("Nenhum registro encontrado.");
+                return CustomResponse();
+            }
 
             var comunicadosVM = new List<ComunicadoViewModel>();
             foreach (Comunicado comunicado in comunicados)

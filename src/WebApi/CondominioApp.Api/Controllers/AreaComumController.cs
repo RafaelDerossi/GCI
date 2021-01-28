@@ -34,7 +34,10 @@ namespace CondominioApp.Api.Controllers
         {
             var areaComum = await _areaComumQuery.ObterPorId(id);
             if (areaComum == null)
-                return NotFound();
+            {
+                AdicionarErroProcessamento("Área Comum não encontrada.");
+                return CustomResponse();
+            }
             return areaComum;
         }
 
@@ -43,7 +46,10 @@ namespace CondominioApp.Api.Controllers
         {
             var areasComuns = await _areaComumQuery.ObterPorCondominio(condominioId);
             if (areasComuns.Count() == 0)
-                return NotFound();
+            {
+                AdicionarErroProcessamento("Nenhum registro encontrado.");
+                return CustomResponse();
+            }
             return areasComuns.ToList();
         }
 

@@ -9,6 +9,7 @@ using CondominioApp.WebApi.Core.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CondominioApp.Api.Controllers
@@ -29,33 +30,63 @@ namespace CondominioApp.Api.Controllers
 
 
         [HttpGet("{id:Guid}")]
-        public async Task<ReservaFlat> ObterPorId(Guid id)
+        public async Task<ActionResult<ReservaFlat>> ObterPorId(Guid id)
         {
-            return await _reservaAreaComumQuery.ObterReservaPorId(id);
+            var reserva = await _reservaAreaComumQuery.ObterReservaPorId(id);
+            if (reserva == null)
+            {
+                AdicionarErroProcessamento("Reserva não encontrada.");
+                return CustomResponse();
+            }
+            return reserva;
         }
 
         [HttpGet("por-condominio/{condominioId:Guid}")]
-        public async Task<IEnumerable<ReservaFlat>> ObterPorCondominio(Guid condominioId)
+        public async Task<ActionResult<IEnumerable<ReservaFlat>>> ObterPorCondominio(Guid condominioId)
         {
-           return await _reservaAreaComumQuery.ObterReservasPorCondominio(condominioId);
+            var reservas = await _reservaAreaComumQuery.ObterReservasPorCondominio(condominioId);
+            if (reservas.Count() == 0)
+            {
+                AdicionarErroProcessamento("Nenhum registro encontrado.");
+                return CustomResponse();
+            }
+            return reservas.ToList();
         }
 
         [HttpGet("por-unidade/{unidadeId:Guid}")]
-        public async Task<IEnumerable<ReservaFlat>> ObterPorUnidade(Guid unidadeId)
+        public async Task<ActionResult<IEnumerable<ReservaFlat>>> ObterPorUnidade(Guid unidadeId)
         {
-            return await _reservaAreaComumQuery.ObterReservasPorUnidade(unidadeId);
+            var reservas = await _reservaAreaComumQuery.ObterReservasPorUnidade(unidadeId);
+            if (reservas.Count() == 0)
+            {
+                AdicionarErroProcessamento("Nenhum registro encontrado.");
+                return CustomResponse();
+            }
+            return reservas.ToList();
         }
 
         [HttpGet("por-usuario/{usuarioId:Guid}")]
-        public async Task<IEnumerable<ReservaFlat>> ObterPorUsuario(Guid usuarioId)
+        public async Task<ActionResult<IEnumerable<ReservaFlat>>> ObterPorUsuario(Guid usuarioId)
         {
-            return await _reservaAreaComumQuery.ObterReservasPorUsuario(usuarioId);
+            var reservas = await _reservaAreaComumQuery.ObterReservasPorUsuario(usuarioId);
+            if (reservas.Count() == 0)
+            {
+                AdicionarErroProcessamento("Nenhum registro encontrado.");
+                return CustomResponse();
+            }
+            return reservas.ToList();
         }
 
         [HttpGet("por-areacomum/{areaComumId:Guid}")]
-        public async Task<IEnumerable<ReservaFlat>> ObterPorAreaComum(Guid areaComumId)
+        public async Task<ActionResult<IEnumerable<ReservaFlat>>> ObterPorAreaComum(Guid areaComumId)
         {
-            return await _reservaAreaComumQuery.ObterReservasPorAreaComum(areaComumId);
+            var reservas = await _reservaAreaComumQuery.ObterReservasPorAreaComum(areaComumId);
+            if (reservas.Count() == 0)
+            {
+                AdicionarErroProcessamento("Nenhum registro encontrado.");
+                return CustomResponse();
+            }
+            return reservas.ToList();
         }
 
 

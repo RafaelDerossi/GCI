@@ -31,7 +31,10 @@ namespace CondominioApp.Api.Controllers
         {
             var condominios = await _condominioQuery.ObterTodos();
             if (condominios.Count() == 0)
-                return NotFound();
+            {
+                AdicionarErroProcessamento("Nenhum registro encontrado.");
+                return CustomResponse();
+            }
 
             return condominios.ToList();
         }
@@ -41,7 +44,10 @@ namespace CondominioApp.Api.Controllers
         {
             var condominio = await _condominioQuery.ObterPorId(Id);
             if (condominio == null)
-                return NotFound();
+            {
+                AdicionarErroProcessamento("Condomínio não encontrado.");
+                return CustomResponse();
+            }
             return condominio;
         }
           
@@ -50,7 +56,10 @@ namespace CondominioApp.Api.Controllers
         {            
             var condominios = await _condominioQuery.ObterRemovidos();
             if (condominios.Count() == 0)
-                return NotFound();
+            {
+                AdicionarErroProcessamento("Nenhum registro encontrado.");
+                return CustomResponse();
+            }
 
             return condominios.ToList();
         }

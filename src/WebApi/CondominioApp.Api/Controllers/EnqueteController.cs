@@ -8,6 +8,7 @@ using CondominioApp.WebApi.Core.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CondominioApp.Api.Controllers
@@ -29,15 +30,26 @@ namespace CondominioApp.Api.Controllers
 
 
         [HttpGet("{id:Guid}")]
-        public async Task<EnqueteViewModel> ObterPorId(Guid id)
+        public async Task<ActionResult<EnqueteViewModel>> ObterPorId(Guid id)
         {
-            return _mapper.Map<EnqueteViewModel>(await _enqueteQuery.ObterPorId(id));
+            var enquete = await _enqueteQuery.ObterPorId(id);
+            if (enquete == null)
+            {
+                AdicionarErroProcessamento("Enquete não encontrada.");
+                return CustomResponse();
+            }
+            return _mapper.Map<EnqueteViewModel>(enquete);
         }
 
         [HttpGet("por-condominio/{condominioId:Guid}")]
-        public async Task<IEnumerable<EnqueteViewModel>> ObterEnquetesPorCondominio(Guid condominioId)
+        public async Task<ActionResult<IEnumerable<EnqueteViewModel>>> ObterEnquetesPorCondominio(Guid condominioId)
         {
             var enquetes = await _enqueteQuery.ObterPorCondominio(condominioId);
+            if (enquetes.Count() == 0)
+            {
+                AdicionarErroProcessamento("Nenhum registro encontrado.");
+                return CustomResponse();
+            }
 
             var enquetesVM = new List<EnqueteViewModel>();
             foreach (Enquete item in enquetes)
@@ -49,9 +61,14 @@ namespace CondominioApp.Api.Controllers
         }
                
         [HttpGet("ativas-nao-votadas")]
-        public async Task<IEnumerable<EnqueteViewModel>> ObterEnquetesAtivasNaoVotadas(Guid condominioId, Guid usuarioId)
+        public async Task<ActionResult<IEnumerable<EnqueteViewModel>>> ObterEnquetesAtivasNaoVotadas(Guid condominioId, Guid usuarioId)
         {
             var enquetes = await _enqueteQuery.ObterAtivasPorCondominio(condominioId);
+            if (enquetes.Count() == 0)
+            {
+                AdicionarErroProcessamento("Nenhum registro encontrado.");
+                return CustomResponse();
+            }
 
             var enquetesVM = new List<EnqueteViewModel>();
             foreach (Enquete enquete in enquetes)
@@ -66,9 +83,15 @@ namespace CondominioApp.Api.Controllers
         }
 
         [HttpGet("ativas-por-condominio-e-usuario")]
-        public async Task<IEnumerable<EnqueteViewModel>> ObterEnquetesAtivasPorCondominioEUsuario(Guid condominioId, Guid usuarioId)
+        public async Task<ActionResult<IEnumerable<EnqueteViewModel>>> ObterEnquetesAtivasPorCondominioEUsuario(Guid condominioId, Guid usuarioId)
         {
             var enquetes = await _enqueteQuery.ObterAtivasPorCondominio(condominioId);
+            if (enquetes.Count() == 0)
+            {
+                AdicionarErroProcessamento("Nenhum registro encontrado.");
+                return CustomResponse();
+            }
+
 
             var enquetesVM = new List<EnqueteViewModel>();
             foreach (Enquete enquete in enquetes)

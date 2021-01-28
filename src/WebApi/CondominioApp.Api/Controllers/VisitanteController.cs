@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using CondominioApp.Portaria.Domain.FlatModel;
+using System.Linq;
 
 namespace CondominioApp.Api.Controllers
 {
@@ -26,27 +27,51 @@ namespace CondominioApp.Api.Controllers
 
 
         [HttpGet("{id:Guid}")]
-        public async Task<VisitanteFlat> ObterPorId(Guid id)
+        public async Task<ActionResult<VisitanteFlat>> ObterPorId(Guid id)
         {
-            return await _portariaQuery.ObterPorId(id);
+            var visitante = await _portariaQuery.ObterPorId(id);
+            if (visitante == null)
+            {
+                AdicionarErroProcessamento("Contrato não encontrado.");
+                return CustomResponse();
+            }
+            return visitante;
         }
 
         [HttpGet("por-condominio/{condominioId:Guid}")]
-        public async Task<IEnumerable<VisitanteFlat>> ObterPorCondominio(Guid condominioId)
+        public async Task<ActionResult<IEnumerable<VisitanteFlat>>> ObterPorCondominio(Guid condominioId)
         {
-            return await _portariaQuery.ObterVisitantesPorCondominio(condominioId);
+            var visitantes = await _portariaQuery.ObterVisitantesPorCondominio(condominioId);
+            if (visitantes.Count() == 0)
+            {
+                AdicionarErroProcessamento("Nenhum registro encontrado.");
+                return CustomResponse();
+            }
+            return visitantes.ToList();
         }
 
         [HttpGet("por-unidade/{unidadeId:Guid}")]
-        public async Task<IEnumerable<VisitanteFlat>> ObterPorUnidade(Guid unidadeId)
+        public async Task<ActionResult<IEnumerable<VisitanteFlat>>> ObterPorUnidade(Guid unidadeId)
         {
-            return await _portariaQuery.ObterVisitantesPorUnidade(unidadeId);
+            var visitantes = await _portariaQuery.ObterVisitantesPorUnidade(unidadeId);
+            if (visitantes.Count() == 0)
+            {
+                AdicionarErroProcessamento("Nenhum registro encontrado.");
+                return CustomResponse();
+            }
+            return visitantes.ToList();
         }
 
         [HttpGet("por-documento/{documento}")]
-        public async Task<IEnumerable<VisitanteFlat>> ObterPorDocumento(string documento)
+        public async Task<ActionResult<IEnumerable<VisitanteFlat>>> ObterPorDocumento(string documento)
         {
-            return await _portariaQuery.ObterVisitantesPorDocumento(documento);
+            var visitantes = await _portariaQuery.ObterVisitantesPorDocumento(documento);
+            if (visitantes.Count() == 0)
+            {
+                AdicionarErroProcessamento("Nenhum registro encontrado.");
+                return CustomResponse();
+            }
+            return visitantes.ToList();
         }
 
 

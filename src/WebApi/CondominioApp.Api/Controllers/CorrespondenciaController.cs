@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CondominioApp.Api.Controllers
@@ -33,17 +34,28 @@ namespace CondominioApp.Api.Controllers
 
 
         [HttpGet("{id:Guid}")]
-        public async Task<CorrespondenciaViewModel> ObterPorId(Guid id)
+        public async Task<ActionResult<CorrespondenciaViewModel>> ObterPorId(Guid id)
         {
-            return _mapper.Map<CorrespondenciaViewModel>(await _correspondenciaQuery.ObterPorId(id));
+            var correspondencia = await _correspondenciaQuery.ObterPorId(id);
+            if (correspondencia == null)
+            {
+                AdicionarErroProcessamento("Correspondência não encontrada.");
+                return CustomResponse();
+            }
+            return _mapper.Map<CorrespondenciaViewModel>(correspondencia);
         }
 
         [HttpGet("por-unidade-e-periodo")]
-        public async Task<IEnumerable<CorrespondenciaViewModel>> ObterPorUnidadeEPeriodo(
+        public async Task<ActionResult<IEnumerable<CorrespondenciaViewModel>>> ObterPorUnidadeEPeriodo(
             Guid unidadeId, DateTime dataInicio, DateTime dataFim)
         {
             var correspondencias = await _correspondenciaQuery.ObterPorUnidadeEPeriodo(
                 unidadeId, dataInicio, dataFim);
+            if (correspondencias.Count() == 0)
+            {
+                AdicionarErroProcessamento("Nenhum registro encontrado.");
+                return CustomResponse();
+            }
 
             var correspondenciasVM = new List<CorrespondenciaViewModel>();
             foreach (Correspondencia item in correspondencias)
@@ -55,11 +67,16 @@ namespace CondominioApp.Api.Controllers
         }
 
         [HttpGet("por-condominio-periodo-e-status")]
-        public async Task<IEnumerable<CorrespondenciaViewModel>> ObterEnquetesAtivasPorCondominio(
+        public async Task<ActionResult<IEnumerable<CorrespondenciaViewModel>>> ObterEnquetesAtivasPorCondominio(
             Guid condominioId, DateTime dataInicio, DateTime dataFim, StatusCorrespondencia status)
         {
             var correspondencias = await _correspondenciaQuery.ObterPorCondominioPeriodoEStatus(
                 condominioId, dataInicio, dataFim, status);
+            if (correspondencias.Count() == 0)
+            {
+                AdicionarErroProcessamento("Nenhum registro encontrado.");
+                return CustomResponse();
+            }
 
             var correspondenciasVM = new List<CorrespondenciaViewModel>();
             foreach (Correspondencia item in correspondencias)
