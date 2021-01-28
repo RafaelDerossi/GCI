@@ -32,7 +32,10 @@ namespace CondominioApp.Api.Controllers
         {
             var visita = await _portariaQuery.ObterVisitaPorId(id);
             if (visita == null)
-                return NotFound();
+            {
+                AdicionarErroProcessamento("Visita não encontrada.");
+                return CustomResponse();
+            }
             return visita;
         }
 
@@ -41,7 +44,10 @@ namespace CondominioApp.Api.Controllers
         {
             var visitas = await _portariaQuery.ObterVisitasPorCondominio(condominioId);
             if (visitas.Count() == 0)
-                return NotFound();
+            {
+                AdicionarErroProcessamento("Nenhum registro encontrado.");
+                return CustomResponse();
+            }
             return visitas.ToList();
         }
 
@@ -50,7 +56,10 @@ namespace CondominioApp.Api.Controllers
         {            
             var visitas = await _portariaQuery.ObterVisitasPorUnidade(unidadeId);
             if (visitas.Count() == 0)
-                return NotFound();
+            {
+                AdicionarErroProcessamento("Nenhum registro encontrado.");
+                return CustomResponse();
+            }
             return visitas.ToList();
         }
 
@@ -59,7 +68,10 @@ namespace CondominioApp.Api.Controllers
         {            
             var visitas = await _portariaQuery.ObterVisitasPorUsuario(usuarioId);
             if (visitas.Count() == 0)
-                return NotFound();
+            {
+                AdicionarErroProcessamento("Nenhum registro encontrado.");
+                return CustomResponse();
+            }
             return visitas.ToList();
         }
 

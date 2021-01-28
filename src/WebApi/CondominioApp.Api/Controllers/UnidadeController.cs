@@ -34,7 +34,10 @@ namespace CondominioApp.Api.Controllers
         {
             var unidade = await _condominioQuery.ObterUnidadePorId(id);
             if (unidade == null)
-                return NotFound();
+            {
+                AdicionarErroProcessamento("Unidade não encontrada.");
+                return CustomResponse();
+            }
             return unidade;
         }
 
@@ -43,7 +46,10 @@ namespace CondominioApp.Api.Controllers
         {            
             var unidades = await _condominioQuery.ObterUnidadesPorGrupo(grupoId);
             if (unidades.Count() == 0)
-                return NotFound();
+            {
+                AdicionarErroProcessamento("Nenhum registro encontrado.");
+                return CustomResponse();
+            }
             return unidades.ToList();
         }
 
@@ -52,7 +58,10 @@ namespace CondominioApp.Api.Controllers
         {            
             var unidades = await _condominioQuery.ObterUnidadesPorCondominio(condominioId);
             if (unidades.Count() == 0)
-                return NotFound();
+            {
+                AdicionarErroProcessamento("Nenhum registro encontrado.");
+                return CustomResponse();
+            }
             return unidades.ToList();
         }
 

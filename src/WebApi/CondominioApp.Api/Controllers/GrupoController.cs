@@ -7,6 +7,7 @@ using CondominioApp.WebApi.Core.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CondominioApp.Api.Controllers
@@ -26,15 +27,27 @@ namespace CondominioApp.Api.Controllers
 
 
         [HttpGet("{id:Guid}")]
-        public async Task<GrupoFlat> ObterGrupoPorId(Guid id)
+        public async Task<ActionResult<GrupoFlat>> ObterGrupoPorId(Guid id)
         {
-            return await _condominioQuery.ObterGrupoPorId(id);
+            var grupo = await _condominioQuery.ObterGrupoPorId(id);
+            if (grupo == null)
+            {
+                AdicionarErroProcessamento("Grupo não encontrado.");
+                return CustomResponse();
+            }
+            return grupo;
         }
 
         [HttpGet("por-condominio/{condominioId:Guid}")]
-        public async Task<IEnumerable<GrupoFlat>> ObterGruposPorCondominio(Guid condominioId)
+        public async Task<ActionResult<IEnumerable<GrupoFlat>>> ObterGruposPorCondominio(Guid condominioId)
         {
-            return await _condominioQuery.ObterGruposPorCondominio(condominioId);
+            var grupos = await _condominioQuery.ObterGruposPorCondominio(condominioId);
+            if (grupos.Count() == 0)
+            {
+                AdicionarErroProcessamento("Nenhum registro encontrado.");
+                return CustomResponse();
+            }
+            return grupos.ToList();
         }
 
 

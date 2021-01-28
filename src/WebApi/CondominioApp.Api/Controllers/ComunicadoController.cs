@@ -30,12 +30,17 @@ namespace CondominioApp.Api.Controllers
 
 
         [HttpGet("{id:Guid}")]
-        public async Task<ComunicadoViewModel> ObterPorId(Guid id)
+        public async Task<ActionResult<ComunicadoViewModel>> ObterPorId(Guid id)
         {
-            var comunicado = await _comunicadoQuery.ObterPorId(id);            
+            var comunicado = await _comunicadoQuery.ObterPorId(id);
+            if (comunicado == null)
+            {
+                AdicionarErroProcessamento("Comunicado não encontrado.");
+                return CustomResponse();
+            }
 
             //Obtem Anexos
-            if(comunicado.TemAnexos)
+            if (comunicado.TemAnexos)
             {
 
             }
@@ -44,11 +49,16 @@ namespace CondominioApp.Api.Controllers
         }
 
         [HttpGet("por-condominio-unidade-e-proprietario")]
-        public async Task<IEnumerable<ComunicadoViewModel>> ObterPorCondominioUnidadeEProprietario(
-            Guid condominioId, Guid unidadeId, bool IsProprietario)
+        public async Task<ActionResult<IEnumerable<ComunicadoViewModel>>> ObterPorCondominioUnidadeEProprietario
+            (Guid condominioId, Guid unidadeId, bool IsProprietario)
         {
             var comunicados = await _comunicadoQuery.ObterPorCondominioUnidadeEProprietario(
                 condominioId, unidadeId, IsProprietario);
+            if (comunicados.Count() == 0)
+            {
+                AdicionarErroProcessamento("Nenhum registro encontrado.");
+                return CustomResponse();
+            }
 
             var comunicadosVM = new List<ComunicadoViewModel>();
             foreach (Comunicado comunicado in comunicados)
@@ -64,12 +74,17 @@ namespace CondominioApp.Api.Controllers
             return comunicadosVM;
         }
 
+
         [HttpGet("por-condominio-e-usuario")]
-        public async Task<IEnumerable<ComunicadoViewModel>> ObterPorCondominioEUsuario(
+        public async Task<ActionResult<IEnumerable<ComunicadoViewModel>>> ObterPorCondominioEUsuario(
             Guid condominioId, Guid usuarioId)
         {
-            var comunicados = await _comunicadoQuery.ObterPorCondominioEUsuario(
-                condominioId, usuarioId);
+            var comunicados = await _comunicadoQuery.ObterPorCondominioEUsuario(condominioId, usuarioId);
+            if (comunicados.Count() == 0)
+            {
+                AdicionarErroProcessamento("Nenhum registro encontrado.");
+                return CustomResponse();
+            }
 
             var comunicadosVM = new List<ComunicadoViewModel>();
             foreach (Comunicado comunicado in comunicados)

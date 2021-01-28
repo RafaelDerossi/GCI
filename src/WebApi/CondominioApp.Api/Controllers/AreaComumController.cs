@@ -9,6 +9,7 @@ using CondominioApp.WebApi.Core.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CondominioApp.Api.Controllers
@@ -29,15 +30,27 @@ namespace CondominioApp.Api.Controllers
 
 
         [HttpGet("{id:Guid}")]
-        public async Task<AreaComumFlat> ObterPorId(Guid id)
+        public async Task<ActionResult<AreaComumFlat>> ObterPorId(Guid id)
         {
-            return await _areaComumQuery.ObterPorId(id);
+            var areaComum = await _areaComumQuery.ObterPorId(id);
+            if (areaComum == null)
+            {
+                AdicionarErroProcessamento("Área Comum não encontrada.");
+                return CustomResponse();
+            }
+            return areaComum;
         }
 
         [HttpGet("por-condominio/{condominioId:Guid}")]
-        public async Task<IEnumerable<AreaComumFlat>> ObterPorCondominio(Guid condominioId)
+        public async Task<ActionResult<IEnumerable<AreaComumFlat>>> ObterPorCondominio(Guid condominioId)
         {
-            return await _areaComumQuery.ObterPorCondominio(condominioId);                  
+            var areasComuns = await _areaComumQuery.ObterPorCondominio(condominioId);
+            if (areasComuns.Count() == 0)
+            {
+                AdicionarErroProcessamento("Nenhum registro encontrado.");
+                return CustomResponse();
+            }
+            return areasComuns.ToList();
         }
 
 

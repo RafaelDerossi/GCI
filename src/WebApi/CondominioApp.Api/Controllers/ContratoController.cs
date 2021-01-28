@@ -10,6 +10,7 @@ using CondominioApp.WebApi.Core.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CondominioApp.Api.Controllers
@@ -30,16 +31,26 @@ namespace CondominioApp.Api.Controllers
 
 
         [HttpGet("{Id:Guid}")]
-        public async Task<ContratoViewModel> ObterPorId(Guid Id)
+        public async Task<ActionResult<ContratoViewModel>> ObterPorId(Guid Id)
         {
-            return _mapper.Map<ContratoViewModel>(await _condominioQuery.ObterContratoPorId(Id));
+            var contrato = await _condominioQuery.ObterContratoPorId(Id);
+            if (contrato == null)
+            {
+                AdicionarErroProcessamento("Contrato não encontrado.");
+                return CustomResponse();
+            }
+            return _mapper.Map<ContratoViewModel>(contrato);
         }
 
         [HttpGet("por-condominio/{condominioId:Guid}")]
-        public async Task<IEnumerable<ContratoViewModel>> ObterPorCondominio(Guid condominioId)
+        public async Task<ActionResult<IEnumerable<ContratoViewModel>>> ObterPorCondominio(Guid condominioId)
         {
             var contratos = await _condominioQuery.ObterContratosPorCondominio(condominioId);
-
+            if (contratos.Count() == 0)
+            {
+                AdicionarErroProcessamento("Nenhum registro encontrado.");
+                return CustomResponse();
+            }
             var contratosVM = new List<ContratoViewModel>();
             foreach (Contrato item in contratos)
             {
