@@ -23,6 +23,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
 
         public Guid UnidadeId { get; protected set; }
 
+        public Guid CondominioId { get; protected set; }
 
 
         public void SetPlaca(string placa)
@@ -47,6 +48,12 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
         {
             Cor = cor;
         }
+
+        public void SetUsuarioId(Guid id) => UsuarioId = id;
+
+        public void SetUnidadeId(Guid id) => UnidadeId = id;
+
+        public void SetCondominioId(Guid id) => CondominioId = id;
 
     }
 }

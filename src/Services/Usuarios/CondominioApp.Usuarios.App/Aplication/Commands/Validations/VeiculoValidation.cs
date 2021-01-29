@@ -40,5 +40,17 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands.Validations
             RuleFor(c => c.UsuarioId)
                 .NotEqual(Guid.Empty);
         }
+
+        protected void ValidateUnidadeId()
+        {
+            RuleFor(c => c.UnidadeId)
+                .NotEqual(Guid.Empty);
+        }
+
+        protected void ValidateCondominioId()
+        {
+            RuleFor(c => c.CondominioId)
+                .NotEqual(Guid.Empty);
+        }
     }
 }

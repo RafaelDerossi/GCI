@@ -129,7 +129,8 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<INotificationHandler<UnidadeEditadaEvent>, UnidadeEventHandler>();
             services.AddScoped<INotificationHandler<CodigoUnidadeResetadoEvent>, UnidadeEventHandler>();
             services.AddScoped<INotificationHandler<UnidadeRemovidaEvent>, UnidadeEventHandler>();
-            services.AddScoped<INotificationHandler<VeiculoCadastradoIntegrationEvent>, UnidadeEventHandler>();
+            services.AddScoped<INotificationHandler<UnidadeVeiculoCadastradaIntegrationEvent>, VeiculoEventHandler>();
+            services.AddScoped<INotificationHandler<VeiculoEditadoComTrocaDeUsuarioIntegrationEvent>, VeiculoEventHandler>();
 
             //Contratos
             services.AddScoped<IRequestHandler<CadastrarContratoCommand, ValidationResult>, ContratoCommandHandler>();

@@ -15,6 +15,8 @@ namespace CondominioApp.Principal.Domain.FlatModel
 
         public bool Lixeira { get; private set; }
 
+        public Guid VeiculoId { get; private set; }
+
         public string Placa { get; private set; }
         
         public string Modelo { get; private set; }
@@ -23,34 +25,66 @@ namespace CondominioApp.Principal.Domain.FlatModel
 
         public Guid UsuarioId { get; private set; }
 
-        //EF
-        public Usuario Usuario { get; set; }
+        public string NomeUsuario { get; private set; }
+
+        public Guid UnidadeId { get; private set; }
+
+        public string NumeroUnidade { get; private set; }
+
+        public string AndarUnidade { get; private set; }
+
+        public string GrupoUnidade { get; private set; }
+
+        public Guid CondominioId { get; private set; }
+
+
 
         protected VeiculoFlat() { }
 
-        public VeiculoFlat(Guid id, string placa, string modelo, string cor, Guid usuarioId)
+        public VeiculoFlat
+            (Guid id, Guid veiculoId, string placa, string modelo, string cor, Guid usuarioId,
+             string nomeUsuario, Guid unidadeId, string numeroUnidade, string andarUnidade,
+             string grupoUnidade, Guid codominioId)
         {
-            Id = id;
+            Id = id;           
+            VeiculoId = veiculoId;
             Placa = placa;
             Modelo = modelo;
             Cor = cor;
-            UsuarioId = usuarioId;            
+            UsuarioId = usuarioId;
+            NomeUsuario = nomeUsuario;
+            UnidadeId = unidadeId;
+            NumeroUnidade = numeroUnidade;
+            AndarUnidade = andarUnidade;
+            GrupoUnidade = grupoUnidade;
+            CondominioId = codominioId;
         }
-
 
         public void EnviarParaLixeira() => Lixeira = true;
 
         public void RestaurarDaLixeira() => Lixeira = false;
 
-        public void SetVeiculo(string placa, string modelo, string cor)
+        public void SetVeiculo(Guid veiculoId, string placa, string modelo, string cor)
         {
+            VeiculoId = veiculoId;
             Placa = placa;
             Modelo = modelo;
             Cor = cor;
         }
 
-        public void SetUsuarioId(Guid usuarioId) => UsuarioId = usuarioId;
+        public void SetUsuario(Guid usuarioId, string nomeUsuario)
+        {
+            UsuarioId = usuarioId;
+            NomeUsuario = nomeUsuario;
+        }
 
-
+        public void SetUnidade(Guid unidadeId, string numero, string andar, string grupo, Guid condominioId)
+        {
+            UnidadeId = unidadeId;
+            NumeroUnidade = numero;
+            AndarUnidade = andar;
+            GrupoUnidade = grupo;
+            CondominioId = condominioId;
+        }
     }
 }

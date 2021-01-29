@@ -10,8 +10,14 @@ namespace CondominioApp.Usuarios.App.Models
     {
         void AdicionarVeiculo(Veiculo veiculo);
 
+        void AtualizarVeiculo(Veiculo entity);
+
         Task<IEnumerable<Veiculo>> ObterVeiculo(Expression<Func<Veiculo, bool>> expression, bool OrderByDesc = false, int take = 0);
 
         Task<Veiculo> ObterVeiculoPorPlaca(string placa);
+
+
+        void AdicionarUnidadeVeiculo(UnidadeVeiculo veiculo);
+        void RemoverUnidadeVeiculo(UnidadeVeiculo unidade);
     }
 }

@@ -1,10 +1,8 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using CondominioApp.Core.Messages;
-using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents;
 using CondominioApp.Principal.Domain.FlatModel;
 using CondominioApp.Principal.Domain.Interfaces;
-using FluentValidation.Results;
 using MediatR;
 
 namespace CondominioApp.Principal.Aplication.Events
@@ -13,8 +11,7 @@ namespace CondominioApp.Principal.Aplication.Events
         INotificationHandler<UnidadeCadastradaEvent>,
         INotificationHandler<UnidadeEditadaEvent>,
         INotificationHandler<CodigoUnidadeResetadoEvent>,
-        INotificationHandler<UnidadeRemovidaEvent>,
-        INotificationHandler<VeiculoCadastradoIntegrationEvent>,
+        INotificationHandler<UnidadeRemovidaEvent>,        
         System.IDisposable
     {
         private ICondominioQueryRepository _condominioQueryRepository;
@@ -76,20 +73,6 @@ namespace CondominioApp.Principal.Aplication.Events
             await PersistirDados(_condominioQueryRepository.UnitOfWork);
         }
 
-
-        public async Task Handle(VeiculoCadastradoIntegrationEvent notification, CancellationToken cancellationToken)
-        {
-            var unidadeFlat = new UnidadeFlat
-                (notification.UnidadeId,
-                 false, notification.Codigo, notification.Numero, notification.Andar,
-                 notification.Vaga, notification.Telefone, notification.Ramal, notification.Complemento,
-                 notification.GrupoId, notification.GrupoDescricao, notification.CondominioId,
-                 notification.CondominioCnpj, notification.CondominioNome, notification.CondominioLogoMarca);
-
-            _condominioQueryRepository.AdicionarUnidade(unidadeFlat);
-
-            await PersistirDados(_condominioQueryRepository.UnitOfWork);
-        }
 
         public void Dispose()
         {

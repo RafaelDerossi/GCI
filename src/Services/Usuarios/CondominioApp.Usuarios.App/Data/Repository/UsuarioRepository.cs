@@ -85,6 +85,10 @@ namespace CondominioApp.Usuarios.App.Data.Repository
             _context.Veiculos.Add(veiculo);
         }
 
+        public void AtualizarVeiculo(Veiculo entity)
+        {
+            _context.Veiculos.Update(entity);
+        }
 
         public async Task<IEnumerable<Veiculo>> ObterVeiculo(Expression<Func<Veiculo, bool>> expression, bool OrderByDesc = false, int take = 0)
         {
@@ -110,6 +114,19 @@ namespace CondominioApp.Usuarios.App.Data.Repository
         {
             return await _context.Veiculos.FirstOrDefaultAsync(v => v.Placa == placa);
         }
+
+
+
+        public void AdicionarUnidadeVeiculo(UnidadeVeiculo veiculo)
+        {
+            _context.UnidadesVeiculo.Add(veiculo);
+        }
+
+        public void RemoverUnidadeVeiculo(UnidadeVeiculo unidade)
+        {
+            _context.UnidadesVeiculo.Remove(unidade);
+        }
+
 
         public void Dispose()
         {

@@ -27,5 +27,18 @@ namespace CondominioApp.Principal.Domain.Interfaces
         Task<IEnumerable<UnidadeFlat>> ObterUnidadesPorGrupo(Guid grupoId);
 
         Task<IEnumerable<UnidadeFlat>> ObterUnidadesPorCondominio(Guid condominioId);
+
+        void AdicionarVeiculoFlat(VeiculoFlat entity);
+
+        void RemoverVeiculoFlat(VeiculoFlat entity);
+
+        Task<VeiculoFlat> ObterVeiculoPorId(Guid Id);
+
+        Task<IEnumerable<VeiculoFlat>> ObterVeiculos(Guid veiculoId);
+
+        Task<IEnumerable<VeiculoFlat>> ObterVeiculosPorCondominio(Guid condominioId);
+
+        Task<IEnumerable<VeiculoFlat>> ObterVeiculosPorUnidade(Guid unidadeId);
+
     }
 }

@@ -9,13 +9,14 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
 {
     public class CadastrarVeiculoCommand : VeiculoCommand
     {
-        public CadastrarVeiculoCommand(Guid usuarioId, string placa, string modelo, string cor, Guid unidadeId)
+        public CadastrarVeiculoCommand(Guid usuarioId, string placa, string modelo, string cor, Guid unidadeId, Guid condominioId)
         {
-            UsuarioId = usuarioId;            
+            SetUsuarioId(usuarioId);
             SetPlaca(placa);
             SetModelo(modelo);
             SetCor(cor);
-            UnidadeId = unidadeId;
+            SetUnidadeId(unidadeId);
+            SetCondominioId(condominioId);
         }
 
         public override bool EstaValido()
@@ -33,6 +34,8 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
                 ValidateModelo();
                 ValidateCor();
                 ValidateUsuarioId();
+                ValidateUnidadeId();
+                ValidateCondominioId();
             }
         }
 

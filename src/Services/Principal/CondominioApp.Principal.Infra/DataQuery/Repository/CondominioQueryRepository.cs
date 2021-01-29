@@ -145,12 +145,44 @@ namespace CondominioApp.Principal.Infra.Data.Repository
 
         #endregion
 
-       
 
+        #region Veiculo
+        
+        public void AdicionarVeiculoFlat(VeiculoFlat entity)
+        {
+            _queryContext.VeiculosFlat.Add(entity);
+        }
+
+        public void RemoverVeiculoFlat(VeiculoFlat entity)
+        {
+            _queryContext.VeiculosFlat.Remove(entity);
+        }
+
+        public async Task<VeiculoFlat> ObterVeiculoPorId(Guid id)
+        {
+            return await _queryContext.VeiculosFlat.FindAsync(id);
+        }
+
+        public async Task<IEnumerable<VeiculoFlat>> ObterVeiculos(Guid veiculoId)
+        {
+            return await _queryContext.VeiculosFlat.Where(v => v.VeiculoId == veiculoId).ToListAsync();
+        }
+
+        public async Task<IEnumerable<VeiculoFlat>> ObterVeiculosPorCondominio(Guid condominioId)
+        {
+            return await _queryContext.VeiculosFlat.Where(v => v.CondominioId == condominioId).ToListAsync();
+        }
+
+        public async Task<IEnumerable<VeiculoFlat>> ObterVeiculosPorUnidade(Guid unidadeId)
+        {
+            return await _queryContext.VeiculosFlat.Where(v => v.UnidadeId == unidadeId).ToListAsync();
+        }
+
+        #endregion
 
         public void Dispose()
         {
             _queryContext?.Dispose();
-        }
+        }       
     }
 }

@@ -29,63 +29,123 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
             {
                 AdicionarErro("Usuário não encontrado.");
                 return ValidationResult;
-            }
+            }            
 
-            //Busca o veiculo no BD pela placa
             var veiculo = await _usuarioRepository.ObterVeiculoPorPlaca(request.Placa);
 
-            //Se nao encontrar, Cadastra
-            if (veiculo == null) 
-            {
-                veiculo = VeiculoFactory(request);
 
-                _usuarioRepository.AdicionarVeiculo(veiculo);
+            if (veiculo == null)
+                return await CadastrarVeiculo(request, usuario.NomeCompleto);
 
-                veiculo.AdicionarEvento(new VeiculoCadastradoIntegrationEvent(
-                    veiculo.Id, veiculo.Placa, veiculo.Modelo, veiculo.Cor, veiculo.UsuarioId, usuario.NomeCompleto, request.UnidadeId));
-
-                return await PersistirDados(_usuarioRepository.UnitOfWork);
-            }
-
-           //
             
+            if (veiculo.EstaCadastradoNaUnidade(request.UsuarioId, request.UnidadeId))
+            {
+                AdicionarErro("Veículo ja esta cadastrado nesta unidade.");
+                return ValidationResult;
+            }
+            
+            if (veiculo.EstaCadastradoNoCondominio(request.UsuarioId, request.CondominioId))
+            {
+                AdicionarErro("Veículo ja esta cadastrado neste condomínio.");
+                return ValidationResult;
+            }    
+            
+            if (veiculo.PertenceAoMesmoUsuario(request.UsuarioId))
+                return await AdicionarUnidadeVeiculo(veiculo, request, usuario.NomeCompleto);
 
-            veiculo.AdicionarEvento(new VeiculoCadastradoIntegrationEvent(veiculo.Id,veiculo.Placa,veiculo.Modelo,veiculo.Cor,veiculo.UsuarioId,, request.UnidadeId));
+            return await EditarVeiculoComTrocaDeUsuario(veiculo, request, usuario);
+        }
+
+
+
+        
+
+        private async Task<ValidationResult> CadastrarVeiculo(VeiculoCommand request, string nomeUsuario)
+        {
+            var veiculo = VeiculoFactory(request);
+
+            var unidadeVeiculo = new UnidadeVeiculo(veiculo.Id, request.UnidadeId, request.CondominioId);
+            var result = veiculo.AdicionarUnidade(unidadeVeiculo);
+            if (!result.IsValid)
+                return result;
+
+            _usuarioRepository.AdicionarVeiculo(veiculo);
+
+            AdicionarEventoUnidadeVeiculoCadastrada(
+                veiculo, nomeUsuario, request.UnidadeId, request.CondominioId, unidadeVeiculo);
 
             return await PersistirDados(_usuarioRepository.UnitOfWork);
-        }  
-        
+        }
 
-        //public async Task<ValidationResult> Handle(EditarMoradorCommand request, CancellationToken cancellationToken)
+        private async Task<ValidationResult> AdicionarUnidadeVeiculo(Veiculo veiculo, VeiculoCommand request, string nomeUsuario)
+        {
+            var unidadeVeiculo = new UnidadeVeiculo(veiculo.Id, request.UnidadeId, request.CondominioId);
+            var result = veiculo.AdicionarUnidade(unidadeVeiculo);
+            if (!result.IsValid)
+                return result;
 
-        //{
-        //    if (!request.EstaValido()) return request.ValidationResult;
+            _usuarioRepository.AdicionarUnidadeVeiculo(unidadeVeiculo);
 
-        //    var Morador = _usuarioRepository.ObterPorId(request.UsuarioId).Result;
+            AdicionarEventoUnidadeVeiculoCadastrada(
+                veiculo, nomeUsuario, request.UnidadeId, request.CondominioId, unidadeVeiculo);
 
-        //    Morador.SetNome(request.Nome);
-        //    Morador.SetSobrenome(request.Sobrenome);
-        //    Morador.SetRg(request.Rg);
-        //    Morador.SetCpf(request.Cpf);
-        //    Morador.SetCelular(request.Cel);
-        //    Morador.SetEmail(request.Email);
-        //    Morador.SetFoto(request.Foto);
-        //    Morador.SetTipoDeUsuario(request.TpUsuario);
-        //    Morador.SetPermissao(request.Permissao);
-        //    Morador.SetDataNascimento(request.DataNascimento);
+            return await PersistirDados(_usuarioRepository.UnitOfWork);
+        }
 
-        //    _usuarioRepository.Atualizar(Morador);
+        private async Task<ValidationResult> EditarVeiculoComTrocaDeUsuario(Veiculo veiculo, VeiculoCommand request, Usuario usuario)
+        {
+            veiculo.SetUsuarioId(request.UsuarioId);
+            veiculo.SetVeiculo(request.Placa, request.Modelo, request.Cor);
 
-        //    return await PersistirDados(_usuarioRepository.UnitOfWork);
-        //}
+            //Retirar da lixeira
+            veiculo.RestaurarDaLixeira();
 
-        
+            //Exclui todas as UnidadesVeiculo
+            foreach (UnidadeVeiculo unidade in veiculo.Unidades)
+            {
+                _usuarioRepository.RemoverUnidadeVeiculo(unidade);
+            }
+            veiculo.RemoverTodasAsUnidade();
+
+            //Adiciona uma nova UnidadeVeiculo
+            var unidadeVeiculo = new UnidadeVeiculo(veiculo.Id, request.UnidadeId, request.CondominioId);
+            var result = veiculo.AdicionarUnidade(unidadeVeiculo);
+            if (!result.IsValid)
+                return result;
+
+            _usuarioRepository.AdicionarUnidadeVeiculo(unidadeVeiculo);
+            _usuarioRepository.AtualizarVeiculo(veiculo);
+
+            AdicionarEventoVeiculoEditadoComTrocaDeUsuario(
+                veiculo, usuario.NomeCompleto, request.UnidadeId, request.CondominioId, unidadeVeiculo);
+
+            return await PersistirDados(_usuarioRepository.UnitOfWork);
+        }
+
+
 
         private Veiculo VeiculoFactory(VeiculoCommand request)
         {
             return new Veiculo(request.Placa, request.Modelo, request.Cor, request.UsuarioId);
         }
+
+        private void AdicionarEventoUnidadeVeiculoCadastrada
+            (Veiculo veiculo, string nomeUsuario, Guid unidadeId, Guid condominioId, UnidadeVeiculo unidade)
+        {
+            veiculo.AdicionarEvento(new UnidadeVeiculoCadastradaIntegrationEvent
+                (unidade.Id, veiculo.Id, veiculo.Placa, veiculo.Modelo, veiculo.Cor, veiculo.UsuarioId,
+                 nomeUsuario, unidadeId, condominioId));
+        }
         
+        private void AdicionarEventoVeiculoEditadoComTrocaDeUsuario
+            (Veiculo veiculo, string nomeUsuario, Guid unidadeId, Guid condominioId, UnidadeVeiculo unidade)
+        {
+            veiculo.AdicionarEvento(new VeiculoEditadoComTrocaDeUsuarioIntegrationEvent
+                (unidade.Id, veiculo.Id, veiculo.Placa, veiculo.Modelo, veiculo.Cor, veiculo.UsuarioId,
+                nomeUsuario, unidadeId, condominioId));
+        }
+
+
         public void Dispose()
         {
             _usuarioRepository?.Dispose();

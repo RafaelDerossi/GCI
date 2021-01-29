@@ -27,7 +27,8 @@ namespace CondominioApp.Api.Controllers
             if (!ModelState.IsValid) return CustomResponse(ModelState);                        
             
              var comando = new CadastrarVeiculoCommand(
-                 veiculoVM.UsuarioId, veiculoVM.Placa, veiculoVM.Modelo, veiculoVM.Cor, veiculoVM.UnidadeId);
+                 veiculoVM.UsuarioId, veiculoVM.Placa, veiculoVM.Modelo, veiculoVM.Cor,
+                 veiculoVM.UnidadeId, veiculoVM.CondominioId);
 
              var resultado = await _mediatorHandler.EnviarComando(comando);
 
