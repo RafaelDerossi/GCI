@@ -74,12 +74,31 @@ namespace CondominioApp.Principal.Infra.Data.Repository
                                     .OrderBy(x => x.DataDeCadastro).ToListAsync();
         }
 
-        public async Task<AreaComum> ObterPorId(Guid Id)
+        public async Task<AreaComum> ObterPorId(Guid id)
         {
-            return await _context.AreasComuns
+            var reservas = _context.Reservas.Where(r => r.AreaComumId == id &&
+                                                   r.DataDeCadastro > DateTime.Today.AddMonths(-6) && 
+                                                   !r.Cancelada &&
+                                                   !r.Lixeira).ToList();
+            if (reservas == null)
+                reservas = new List<Reserva>();
+
+            var aC = await _context.AreasComuns
+                .AsNoTracking()
                 .Include(a => a.Periodos)
-                .Include(a => a.Reservas)
-                .FirstOrDefaultAsync(a => a.Id == Id && !a.Lixeira);
+                .FirstOrDefaultAsync(a => a.Id == id && !a.Lixeira);
+            
+            var areaComum = new AreaComum(aC.Nome, aC.Descricao, aC.TermoDeUso, aC.CondominioId,
+            aC.NomeCondominio, aC.Capacidade, aC.DiasPermitidos, aC.AntecedenciaMaximaEmMeses,
+            aC.AntecedenciaMaximaEmDias,aC.AntecedenciaMinimaEmDias, aC.AntecedenciaMinimaParaCancelamentoEmDias,
+            aC.RequerAprovacaoDeReserva, aC.TemHorariosEspecificos, aC.TempoDeIntervaloEntreReservas, aC.Ativa,
+            aC.TempoDeDuracaoDeReserva, aC.NumeroLimiteDeReservaPorUnidade, aC.PermiteReservaSobreposta,
+            aC.NumeroLimiteDeReservaSobreposta, aC.NumeroLimiteDeReservaSobrepostaPorUnidade,
+            aC.TempoDeIntervaloEntreReservasPorUnidade, aC.Periodos.ToList(), reservas.ToList());
+
+            areaComum.SetEntidadeId(aC.Id);
+
+            return areaComum;
         }
 
         public async Task<Reserva> ObterReservaPorId(Guid Id)

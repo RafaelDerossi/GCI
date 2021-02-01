@@ -159,7 +159,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
                areaComum.AntecedenciaMinimaParaCancelamentoEmDias , areaComum.RequerAprovacaoDeReserva,
                areaComum.TemHorariosEspecificos, areaComum.TempoDeIntervaloEntreReservas, areaComum.TempoDeDuracaoDeReserva,
                areaComum.NumeroLimiteDeReservaPorUnidade, areaComum.PermiteReservaSobreposta, areaComum.NumeroLimiteDeReservaSobreposta,
-               areaComum.NumeroLimiteDeReservaSobrepostaPorUnidade,areaComum.TempoDeIntervaloEntreReservasPorUsuario,
+               areaComum.NumeroLimiteDeReservaSobrepostaPorUnidade,areaComum.TempoDeIntervaloEntreReservasPorUnidade,
                areaComum.Periodos.ToList());
 
 

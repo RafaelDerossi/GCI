@@ -36,7 +36,7 @@ namespace CondominioApp.ReservaAreaComum.Domain
         public int NumeroLimiteDeReservaSobreposta { get; private set; }
         public int NumeroLimiteDeReservaSobrepostaPorUnidade { get; private set; }
 
-        public string TempoDeIntervaloEntreReservasPorUsuario { get; private set; }
+        public string TempoDeIntervaloEntreReservasPorUnidade { get; private set; }
 
 
         private readonly List<Periodo> _Periodos;
@@ -61,10 +61,11 @@ namespace CondominioApp.ReservaAreaComum.Domain
             int antecedenciaMinimaEmDias, int antecedenciaMinimaParaCancelamentoEmDias, bool requerAprovacaoDeReserva,
             bool horariosEspecificos, string tempoDeIntervaloEntreReservas, bool ativo, string tempoDeDuracaoDaReserva,
             int numeroLimiteDeReservaPorUnidade, bool permiteReservaSobreposta, int numeroLimiteDeReservaSobreposta,
-            int numeroLimiteDeReservaSobrepostaPorUnidade, string tempoDeIntervaloEntreReservasPorUsuario)
+            int numeroLimiteDeReservaSobrepostaPorUnidade, string tempoDeIntervaloEntreReservasPorUnidade,
+            List<Periodo> periodos , List<Reserva> reservas)
         {
-            _Periodos = new List<Periodo>();
-            _Reservas = new List<Reserva>();
+            _Periodos = periodos;
+            _Reservas = reservas;
             Nome = nome;
             Descricao = descricao;
             TermoDeUso = termoDeUso;
@@ -85,7 +86,7 @@ namespace CondominioApp.ReservaAreaComum.Domain
             PermiteReservaSobreposta = permiteReservaSobreposta;
             NumeroLimiteDeReservaSobreposta = numeroLimiteDeReservaSobreposta;
             NumeroLimiteDeReservaSobrepostaPorUnidade = numeroLimiteDeReservaSobrepostaPorUnidade;
-            TempoDeIntervaloEntreReservasPorUsuario = tempoDeIntervaloEntreReservasPorUsuario;
+            TempoDeIntervaloEntreReservasPorUnidade = tempoDeIntervaloEntreReservasPorUnidade;
         }
 
 
@@ -134,8 +135,8 @@ namespace CondominioApp.ReservaAreaComum.Domain
         public void SetNumeroLimiteDeReservaSobrepostaPorUnidade(int numero) =>
             NumeroLimiteDeReservaSobrepostaPorUnidade = numero;
 
-        public void SetTempoDeIntervaloEntreReservasPorUsuario(string intervalo) => 
-            TempoDeIntervaloEntreReservasPorUsuario = intervalo;
+        public void SetTempoDeIntervaloEntreReservasPorUnidade(string intervalo) => 
+            TempoDeIntervaloEntreReservasPorUnidade = intervalo;
 
 
         /// Outros Metodos 
@@ -405,34 +406,34 @@ namespace CondominioApp.ReservaAreaComum.Domain
         }
 
 
-        public int ObterMinutosDeIntervaloDeReservaPorUsuario
+        public int ObterMinutosDeIntervaloDeReservaPorUnidade
         {
             get
             {
-                if (string.IsNullOrEmpty(TempoDeIntervaloEntreReservasPorUsuario))
+                if (string.IsNullOrEmpty(TempoDeIntervaloEntreReservasPorUnidade))
                     return 0;
 
-                string[] array = TempoDeIntervaloEntreReservasPorUsuario.Split(':');
+                string[] array = TempoDeIntervaloEntreReservasPorUnidade.Split(':');
                 if (array.Count() > 1)
                     return int.Parse(array[1]);
 
                 return 0;
             }
         }
-        public int ObterHorasDeIntervaloDeReservaPorUsuario
+        public int ObterHorasDeIntervaloDeReservaPorUnidade
         {
             get
             {
-                if (string.IsNullOrEmpty(TempoDeIntervaloEntreReservasPorUsuario))
+                if (string.IsNullOrEmpty(TempoDeIntervaloEntreReservasPorUnidade))
                     return 0;
 
-                string[] array = TempoDeIntervaloEntreReservasPorUsuario.Split(':');
+                string[] array = TempoDeIntervaloEntreReservasPorUnidade.Split(':');
                 if (array.Count() > 1)
                     return int.Parse(array[0]);
 
                 return 0;
             }
         }
-
+                
     }
 }
