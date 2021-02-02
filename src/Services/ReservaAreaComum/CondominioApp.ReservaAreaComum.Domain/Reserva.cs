@@ -116,7 +116,12 @@ namespace CondominioApp.ReservaAreaComum.Domain
             AndarUnidade = andarUnidade;
             DescricaoGrupoUnidade = descricaoGrupoUnidade;
         }
-              
+
+        public void SetUsuario(Guid usuarioId, string nomeUsuario)
+        {
+            UsuarioId = usuarioId;
+            NomeUsuario = nomeUsuario;            
+        }
 
 
         public int ObterHoraInicio
@@ -141,6 +146,7 @@ namespace CondominioApp.ReservaAreaComum.Domain
             }
         }
 
+                
 
         public DateTime ObterDataHoraInicioDaRealizacao()
         {

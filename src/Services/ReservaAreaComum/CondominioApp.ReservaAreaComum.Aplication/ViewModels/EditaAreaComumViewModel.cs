@@ -26,7 +26,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.ViewModels
         public bool PermiteReservaSobreposta { get; set; }
         public int NumeroLimiteDeReservaSobreposta { get; set; }
         public int NumeroLimiteDeReservaSobrepostaPorUnidade { get; set; }
-        public string TempoDeIntervaloEntreReservasPorUsuario { get; set; }
+        public string TempoDeIntervaloEntreReservasPorUnidade { get; set; }
 
         public ICollection<PeriodoViewModel> Periodos { get; set; }
     }

@@ -295,5 +295,18 @@ namespace CondominioApp.ReservaAreaComum.Tests
 
             return areaComum;
         }
+
+        public static AreaComum CriarAreaComum_AprovacaoAutomatica_TempoDeIntervaloEntreReservasPorUnidade_2400()
+        {
+            var areaComum = Factory();
+
+            areaComum.DesabilitarAprovacaoDeReserva();
+
+            areaComum.SetTempoDeIntervaloEntreReservasPorUnidade("24:00");
+
+            areaComum.AdicionarPeriodo(new Periodo("08:00", "17:00", 155, true));
+
+            return areaComum;
+        }
     }
 }

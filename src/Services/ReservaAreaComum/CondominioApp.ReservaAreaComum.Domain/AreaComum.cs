@@ -311,7 +311,7 @@ namespace CondominioApp.ReservaAreaComum.Domain
         public ValidationResult CancelarReservaComoUsuario(Reserva reservaACancelar, string justificativa)
         {
             if (reservaACancelar.EstaNaFila)
-                reservaACancelar.Cancelar(justificativa);
+                reservaACancelar.Cancelar(justificativa + " (Cancelada pelo usuário)");
             else
             {
                 var result = ValidarRemocaoDeReserva(reservaACancelar);
