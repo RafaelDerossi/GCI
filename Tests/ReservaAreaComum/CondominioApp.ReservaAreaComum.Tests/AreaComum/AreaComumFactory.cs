@@ -2,6 +2,7 @@
 
 using CondominioApp.ReservaAreaComum.Domain;
 using System;
+using System.Collections.Generic;
 
 namespace CondominioApp.ReservaAreaComum.Tests
 {
@@ -11,7 +12,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
         {
            return new AreaComum("Area comum Teste", "Descrição", "", Guid.NewGuid(), "Nome do Condominio",
                            150, "|SUNDAY|MONDAY|TUESDAY|WEDNESDAY|THURSDAY|FRIDAY|SATURDAY", 0, 0, 0, 0, false,
-                           false, "", true, "", 0, false, 0, 0, "");
+                           false, "", true, "", 0, false, 0, 0, "", new List<Periodo>(), new List<Reserva>());
         }
 
         public static AreaComum CriarAreaComum_AprovacaoDeAdministracao()
@@ -289,6 +290,19 @@ namespace CondominioApp.ReservaAreaComum.Tests
             areaComum.DesabilitarAprovacaoDeReserva();
 
             areaComum.SetTempoDeDuracaoDeReserva("01:00");
+
+            areaComum.AdicionarPeriodo(new Periodo("08:00", "17:00", 155, true));
+
+            return areaComum;
+        }
+
+        public static AreaComum CriarAreaComum_AprovacaoAutomatica_TempoDeIntervaloEntreReservasPorUnidade_2400()
+        {
+            var areaComum = Factory();
+
+            areaComum.DesabilitarAprovacaoDeReserva();
+
+            areaComum.SetTempoDeIntervaloEntreReservasPorUnidade("24:00");
 
             areaComum.AdicionarPeriodo(new Periodo("08:00", "17:00", 155, true));
 

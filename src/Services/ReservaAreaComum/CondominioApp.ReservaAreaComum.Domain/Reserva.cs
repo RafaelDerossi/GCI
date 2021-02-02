@@ -3,6 +3,7 @@ using CondominioApp.Core.Helpers;
 using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace CondominioApp.ReservaAreaComum.Domain
@@ -115,7 +116,12 @@ namespace CondominioApp.ReservaAreaComum.Domain
             AndarUnidade = andarUnidade;
             DescricaoGrupoUnidade = descricaoGrupoUnidade;
         }
-              
+
+        public void SetUsuario(Guid usuarioId, string nomeUsuario)
+        {
+            UsuarioId = usuarioId;
+            NomeUsuario = nomeUsuario;            
+        }
 
 
         public int ObterHoraInicio
@@ -139,6 +145,78 @@ namespace CondominioApp.ReservaAreaComum.Domain
                 return 0;
             }
         }
-       
+
+                
+
+        public DateTime ObterDataHoraInicioDaRealizacao()
+        {
+            return DataDeRealizacao
+                   .AddHours(ObterAHoraDeInicioDaReserva)
+                   .AddMinutes(ObterOMinutoDeInicioDaReserva);
+        }
+
+        public DateTime ObterDataHoraFimDaRealizacao()
+        {
+            return DataDeRealizacao
+                   .AddHours(ObterAHoraDeFimDaReserva)
+                   .AddMinutes(ObterOMinutoDeFimDaReserva);
+        }
+
+        private int ObterAHoraDeInicioDaReserva
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(HoraInicio))
+                    return 0;
+
+                string[] array = HoraInicio.Split(':');
+                if (array.Count() > 1)
+                    return int.Parse(array[0]);
+
+                return 0;
+            }
+        }
+        private int ObterOMinutoDeInicioDaReserva
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(HoraInicio))
+                    return 0;
+
+                string[] array = HoraInicio.Split(':');
+                if (array.Count() > 1)
+                    return int.Parse(array[1]);
+
+                return 0;
+            }
+        }
+        private int ObterAHoraDeFimDaReserva
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(HoraFim))
+                    return 0;
+
+                string[] array = HoraFim.Split(':');
+                if (array.Count() > 1)
+                    return int.Parse(array[0]);
+
+                return 0;
+            }
+        }
+        private int ObterOMinutoDeFimDaReserva
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(HoraFim))
+                    return 0;
+
+                string[] array = HoraFim.Split(':');
+                if (array.Count() > 1)
+                    return int.Parse(array[1]);
+
+                return 0;
+            }
+        }
     }
 }

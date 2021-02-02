@@ -41,7 +41,9 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
                 return ValidationResult;
             }
 
-           var Result = areacomum.AdicionarReserva(reserva);
+            
+
+            var Result = areacomum.AdicionarReserva(reserva);
 
             if (!Result.IsValid) return Result;
             

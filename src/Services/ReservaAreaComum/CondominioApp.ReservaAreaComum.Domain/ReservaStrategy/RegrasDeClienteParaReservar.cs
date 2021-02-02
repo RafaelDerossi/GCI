@@ -22,8 +22,8 @@ namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy
 
         public override ValidationResult Validar()
         {
-            //Regra de Intervalo Entre Reservas para o mesmo usuario
-            var retorno = ValidaIntervaloEntreReservasDoUsuario();
+            //Regra de Intervalo Entre Reservas para a mesma unidade
+            var retorno = ValidaIntervaloEntreReservasDaUnidade();
             if (!retorno.IsValid)
                 return retorno;
 
@@ -137,28 +137,33 @@ namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy
         }
 
         /// <summary>
-        /// Verifica Intervalo entre reservas do usuario
+        /// Verifica Intervalo entre reservas da unidade
         /// </summary>
         /// <returns></returns>
-        private ValidationResult ValidaIntervaloEntreReservasDoUsuario()
+        private ValidationResult ValidaIntervaloEntreReservasDaUnidade()
         {
+            if (_areaComum.ObterHorasDeIntervaloDeReservaPorUnidade == 0 && _areaComum.ObterMinutosDeIntervaloDeReservaPorUnidade == 0)
+                return ValidationResult;
+
             Reserva ultimaReserva = _areaComum.Reservas
-                .Where(r => r.UsuarioId == _reserva.UsuarioId)
-                .OrderByDescending(r => r.DataDeCadastro)
+                .Where(r => r.UnidadeId == _reserva.UnidadeId && !r.Lixeira && !r.Cancelada)
+                .OrderByDescending(r => r.DataDeRealizacao)
                 .FirstOrDefault();
 
             if (ultimaReserva == null)
                 return ValidationResult;
 
-            DateTime dataUltimaReserva = ultimaReserva.DataDeCadastro;
+            DateTime dataPermitidaParaAProximaReserva = ultimaReserva
+                                                        .ObterDataHoraFimDaRealizacao()
+                                                        .AddHours(_areaComum.ObterHorasDeIntervaloDeReservaPorUnidade)
+                                                        .AddMinutes(_areaComum.ObterMinutosDeIntervaloDeReservaPorUnidade); ;
 
-            dataUltimaReserva = dataUltimaReserva.AddHours(_areaComum.ObterHorasDeIntervaloDeReservaPorUsuario);
-            dataUltimaReserva = dataUltimaReserva.AddMinutes(_areaComum.ObterMinutosDeIntervaloDeReservaPorUsuario);
+            DateTime dataDaRealizacao = _reserva.ObterDataHoraInicioDaRealizacao();
 
-            if (dataUltimaReserva > DataHoraDeBrasilia.Get())
+            if (dataPermitidaParaAProximaReserva > dataDaRealizacao)
             {
-                AdicionarErros("Você não pode realizar outra reserva para esta área comum até " +
-                    dataUltimaReserva.ToLongDateString() + " as " + dataUltimaReserva.ToLongTimeString());                
+                AdicionarErros("A sua unidade só poderá realizar uma nova reserva nesta área comum para " +
+                    dataPermitidaParaAProximaReserva.ToLongDateString() + " as " + dataPermitidaParaAProximaReserva.ToLongTimeString());                
             }
             return ValidationResult;
         }

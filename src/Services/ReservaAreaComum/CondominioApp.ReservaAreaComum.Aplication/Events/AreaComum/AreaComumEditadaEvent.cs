@@ -16,7 +16,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Events
             int antecedenciaMinimaParaCancelamentoEmDias, bool requerAprovacaoDeReserva, bool temHorariosEspecificos,
             string tempoDeIntervaloEntreReservas, string tempoDeDuracaoDeReserva, int numeroLimiteDeReservaPorUnidade,
             bool permiteReservaSobreposta, int numeroLimiteDeReservaSobreposta, int numeroLimiteDeReservaSobrepostaPorUnidade,
-            ICollection<Periodo> periodos)
+            string tempoDeIntervaloEntreReservasPorUnidade, ICollection<Periodo> periodos)
         {
             Id = id;
             Nome = nome;
@@ -36,6 +36,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Events
             PermiteReservaSobreposta = permiteReservaSobreposta;
             NumeroLimiteDeReservaSobreposta = numeroLimiteDeReservaSobreposta;
             NumeroLimiteDeReservaSobrepostaPorUnidade = numeroLimiteDeReservaSobrepostaPorUnidade;
+            TempoDeIntervaloEntreReservasPorUnidade = tempoDeIntervaloEntreReservasPorUnidade;
             Periodos = periodos;
         }
 

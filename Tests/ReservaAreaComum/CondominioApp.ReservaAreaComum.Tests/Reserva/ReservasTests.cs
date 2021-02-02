@@ -838,5 +838,46 @@ namespace CondominioApp.ReservaAreaComum.Tests
             Assert.True(reservaRetiradaDaFila.Id == reserva4.Id);
 
         }
+
+        [Fact(DisplayName = "Reserva - Com intervalo entre reservas por unidade")]
+        [Trait("Categoria", "Reserva - CadastrarReserva")]
+        public void Cadastrar_Com_Intervalo_Entre_Reservas_Por_Unidade()
+        {
+            var areacomum = AreaComumFactory.CriarAreaComum_AprovacaoAutomatica_TempoDeIntervaloEntreReservasPorUnidade_2400();
+            var reserva1 = ReservaFactory.CriarReservaValidaMobile0800_1200();
+            reserva1.SetDataDeRealizacao(DateTime.Today.AddDays(1).Date);
+            var reserva2 = ReservaFactory.CriarReservaValidaMobile1300_1700();
+            reserva2.SetUnidade(reserva1.UnidadeId, reserva1.NumeroUnidade, reserva1.AndarUnidade, reserva1.DescricaoGrupoUnidade);
+            reserva2.SetDataDeRealizacao(DateTime.Today.AddDays(2).Date);
+
+            areacomum.AdicionarReserva(reserva1);
+
+            //act            
+            var retorno = areacomum.AdicionarReserva(reserva2);
+
+            //assert
+            Assert.True(retorno.IsValid);
+
+        }
+
+        [Fact(DisplayName = "Reserva - Com intervalo entre reservas por unidade invalido")]
+        [Trait("Categoria", "Reserva - CadastrarReserva")]
+        public void Cadastrar_Com_Intervalo_Entre_Reservas_Por_Unidade_Invalido()
+        {
+            var areacomum = AreaComumFactory.CriarAreaComum_AprovacaoAutomatica_TempoDeIntervaloEntreReservasPorUnidade_2400();
+            var reserva1 = ReservaFactory.CriarReservaValidaMobile0800_1200();            
+            var reserva2 = ReservaFactory.CriarReservaValidaMobile1300_1700();
+            reserva2.SetUnidade(reserva1.UnidadeId, reserva1.NumeroUnidade, reserva1.AndarUnidade, reserva1.DescricaoGrupoUnidade);
+            
+
+            areacomum.AdicionarReserva(reserva1);            
+            
+            //act            
+            var retorno = areacomum.AdicionarReserva(reserva2);
+
+            //assert
+            Assert.False(retorno.IsValid);
+
+        }
     }
 }

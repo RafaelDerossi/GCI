@@ -103,6 +103,9 @@ namespace CondominioApp.ReservaAreaComum.Infra.Migrations.ReservaAreaComumQueryC
                     b.Property<string>("TempoDeIntervaloEntreReservas")
                         .HasColumnType("varchar(200)");
 
+                    b.Property<string>("TempoDeIntervaloEntreReservasPorUnidade")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("TermoDeUso")
                         .HasColumnType("varchar(500)");
 

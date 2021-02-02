@@ -47,19 +47,37 @@ namespace CondominioApp.ReservaAreaComum.Infra.Data.Repository
             if (OrderByDesc)
             {
                 if (take > 0)
-                    return await _context.AreasComunsFlat.AsNoTracking().Where(expression).Include(a=>a.Periodos)
-                                        .OrderByDescending(x => x.DataDeCadastro).Take(take).ToListAsync();
+                    return await _context.AreasComunsFlat
+                                         .AsNoTracking()
+                                         .Where(expression)
+                                         .Include(a=>a.Periodos)
+                                         .OrderByDescending(x => x.Nome)
+                                         .Take(take)
+                                         .ToListAsync();
 
-                return await _context.AreasComunsFlat.AsNoTracking().Where(expression).Include(a => a.Periodos)
-                                        .OrderByDescending(x => x.DataDeCadastro).ToListAsync();
+                return await _context.AreasComunsFlat
+                                     .AsNoTracking()
+                                     .Where(expression)
+                                     .Include(a => a.Periodos)
+                                     .OrderByDescending(x => x.Nome)
+                                     .ToListAsync();
             }
 
             if (take > 0)
-                return await _context.AreasComunsFlat.AsNoTracking().Where(expression).Include(a => a.Periodos)
-                                        .OrderBy(x => x.DataDeCadastro).Take(take).ToListAsync();
+                return await _context.AreasComunsFlat
+                                     .AsNoTracking()
+                                     .Where(expression)
+                                     .Include(a => a.Periodos)
+                                     .OrderBy(x => x.Nome)
+                                     .Take(take)
+                                     .ToListAsync();
 
-            return await _context.AreasComunsFlat.AsNoTracking().Where(expression).Include(a => a.Periodos)
-                                    .OrderBy(x => x.DataDeCadastro).ToListAsync();
+            return await _context.AreasComunsFlat
+                                 .AsNoTracking()
+                                 .Where(expression)
+                                 .Include(a => a.Periodos)
+                                 .OrderBy(x => x.Nome)
+                                 .ToListAsync();
         }
 
         public async Task<AreaComumFlat> ObterPorId(Guid Id)
@@ -71,7 +89,11 @@ namespace CondominioApp.ReservaAreaComum.Infra.Data.Repository
 
         public async Task<IEnumerable<AreaComumFlat>> ObterTodos()
         {
-            return await _context.AreasComunsFlat.Include(a => a.Periodos).Where(a => !a.Lixeira).ToListAsync();
+            return await _context.AreasComunsFlat
+                                 .Include(a => a.Periodos)
+                                 .Where(a => !a.Lixeira)
+                                 .OrderBy(x => x.Nome)
+                                 .ToListAsync();
         }
 
      
@@ -95,22 +117,40 @@ namespace CondominioApp.ReservaAreaComum.Infra.Data.Repository
        
         public async Task<IEnumerable<ReservaFlat>> ObterReserva(Expression<Func<ReservaFlat, bool>> expression, bool OrderByDesc = false, int take = 0)
         {
-            if (OrderByDesc)
-            {
-                if (take > 0)
-                    return await _context.ReservasFlat.AsNoTracking().Where(expression)
-                                        .OrderByDescending(x => x.DataDeCadastro).Take(take).ToListAsync();
-
-                return await _context.ReservasFlat.AsNoTracking().Where(expression)
-                                        .OrderByDescending(x => x.DataDeCadastro).ToListAsync();
-            }
+            IEnumerable<ReservaFlat> reservas = new List<ReservaFlat>();
 
             if (take > 0)
-                return await _context.ReservasFlat.AsNoTracking().Where(expression)
-                                        .OrderBy(x => x.DataDeCadastro).Take(take).ToListAsync();
+                reservas = await _context.ReservasFlat
+                                        .AsNoTracking()
+                                        .Where(expression)                                        
+                                        .Take(take)
+                                        .ToListAsync();
+            else
+                reservas = await _context.ReservasFlat
+                                        .AsNoTracking()
+                                        .Where(expression)                
+                                        .ToListAsync();
 
-            return await _context.ReservasFlat.AsNoTracking().Where(expression)
-                                    .OrderBy(x => x.DataDeCadastro).ToListAsync();
+
+            if (OrderByDesc)
+            {
+                reservas = reservas
+                 .OrderByDescending(r => r.DataDeRealizacao)
+                 .ThenByDescending(r => r.ObterHoraInicio)
+                 .ThenByDescending(r => r.DataDeCadastro)
+                 .ToList();
+
+                return reservas;
+            }
+
+
+            reservas = reservas
+                    .OrderBy(r => r.DataDeRealizacao)
+                    .ThenBy(r => r.ObterHoraInicio)
+                    .ThenBy(r => r.DataDeCadastro)
+                    .ToList();
+
+            return reservas;
         }
         
         public async Task<ReservaFlat> ObterReservaPorId(Guid Id)
