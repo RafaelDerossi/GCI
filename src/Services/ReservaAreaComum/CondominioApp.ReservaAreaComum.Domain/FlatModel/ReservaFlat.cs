@@ -109,5 +109,27 @@ namespace CondominioApp.ReservaAreaComum.Domain.FlatModel
 
         public void RestaurarDaLixeira() => Lixeira = false;
 
+        public int ObterHoraInicio
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(HoraInicio))
+                    return Convert.ToInt32(HoraInicio.Replace(":", ""));
+
+                return 0;
+            }
+        }
+
+        public int ObterHoraFim
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(HoraFim))
+                    return Convert.ToInt32(HoraFim.Replace(":", ""));
+
+                return 0;
+            }
+        }
+
     }
 }
