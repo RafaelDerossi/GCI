@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="EweLinkAPI\**" />
+    <EmbeddedResource Remove="EweLinkAPI\**" />
+    <None Remove="EweLinkAPI\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="8.6.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CondominioApp.EwelinkNET\EwelinkNet\CondominioApp.EwelinkNet.csproj" />
+  </ItemGroup>
+
+</Project>

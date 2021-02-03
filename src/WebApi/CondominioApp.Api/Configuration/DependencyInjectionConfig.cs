@@ -43,6 +43,8 @@ using CondominioApp.Portaria.Domain.Interfaces;
 using CondominioApp.Portaria.Infra.Data.Repository;
 using CondominioApp.Portaria.Infra.DataQuery.Repository;
 using CondominioApp.Portaria.Aplication.Query;
+using CondominioApp.Automacao.Services.Interfaces;
+using CondominioApp.Automacao.Services;
 
 namespace CondominioApp.Api.Configuration
 {
@@ -232,6 +234,11 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<INotificationHandler<VisitaTerminadaEvent>, VisitaEventHandler>();
 
             #endregion
+
+            #region Automacao -Contexto
+            services.AddScoped<IAutomacaoService, AutomacaoService>();
+            #endregion
+
 
 
             #region Querys
