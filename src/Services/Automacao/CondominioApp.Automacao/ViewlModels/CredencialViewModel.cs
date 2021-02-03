@@ -1,8 +1,8 @@
 ﻿using System.Text;
 
-namespace CondominioApp.Automacao.Models.Credencial
+namespace CondominioApp.Automacao.ViewModel
 {
-    public class Credencial
+    public class CredencialViewModel
     {
         public string Token { get; set; }             
         public string Email { get; set; }

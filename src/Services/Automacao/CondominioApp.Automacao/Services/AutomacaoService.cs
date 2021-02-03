@@ -1,11 +1,10 @@
-﻿using CondominioApp.Automacao.Models.Credencial;
-using CondominioApp.Automacao.Models.Dispositivo;
-using CondominioApp.Automacao.Services.Interfaces;
+﻿using CondominioApp.Automacao.Services.Interfaces;
 using EwelinkNet;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using FluentValidation.Results;
 using System.Linq;
+using CondominioApp.Automacao.ViewModel;
 
 namespace CondominioApp.Automacao.Services
 {
@@ -13,7 +12,7 @@ namespace CondominioApp.Automacao.Services
     {
         private string Regiao = "us";
 
-        public async Task<Credencial> ObterCredencial(string email, string senha)
+        public async Task<CredencialViewModel> ObterCredencial(string email, string senha)
         {            
             var ewelink = new Ewelink(email, senha, Regiao);
             await ewelink.GetCredentials();
@@ -21,7 +20,7 @@ namespace CondominioApp.Automacao.Services
             if (ewelink.at == null)
                 return null;
 
-            var credencial = new Credencial()
+            var credencial = new CredencialViewModel()
             {
                 Token = ewelink.at,
                 Regiao = ewelink.region,
@@ -32,18 +31,18 @@ namespace CondominioApp.Automacao.Services
             return credencial;
         }
 
-        public async Task<IEnumerable<Dispositivo>> ObterDispositivos(string email, string senha)
+        public async Task<IEnumerable<DispositivoViewModel>> ObterDispositivos(string email, string senha)
         {
             var ewelink = new Ewelink(email, senha, Regiao);
             await ewelink.GetCredentials();
             await ewelink.GetDevices();
 
-            var dispositivos = new List<Dispositivo>();
+            var dispositivos = new List<DispositivoViewModel>();
             if (ewelink.Devices.Length > 0)
             {
                 for (int i = 0; i < ewelink.Devices.Length; i++)
                 {
-                    var dispositivo = new Dispositivo()
+                    var dispositivo = new DispositivoViewModel()
                     {
                         DispositivoId = ewelink.Devices[i].deviceid,                        
                         Nome = ewelink.Devices[i].name,
@@ -57,12 +56,12 @@ namespace CondominioApp.Automacao.Services
                         DataDeCriacao = ewelink.Devices[i].createdAt,
                         Ip = ewelink.Devices[i].ip,
                         OfflineHora = ewelink.Devices[i].offlineTime,
-                        StatusDoDispositivo = ewelink.Devices[i].deviceStatus,
+                        State = ewelink.Devices[i].GetParameter("switch"),
                         UrlDoDispositivo = ewelink.Devices[i].deviceUrl,
                         NomeDaMarca = ewelink.Devices[i].brandName,
                         MostraMarca = ewelink.Devices[i].showBrand,
                         UrlDaLogoDaMarca = ewelink.Devices[i].brandLogoUrl,
-                        ModeloDoProduto = ewelink.Devices[i].productModel
+                        ModeloDoProduto = ewelink.Devices[i].productModel                        
                     };
 
                     dispositivos.Add(dispositivo);

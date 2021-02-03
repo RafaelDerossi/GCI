@@ -1,5 +1,4 @@
-﻿using CondominioApp.Automacao.Models.Credencial;
-using CondominioApp.Automacao.Models.Dispositivo;
+﻿using CondominioApp.Automacao.ViewModel;
 using CondominioApp.Automacao.Services.Interfaces;
 using CondominioApp.WebApi.Core.Controllers;
 using Microsoft.AspNetCore.Hosting;
@@ -22,7 +21,7 @@ namespace CondominioApp.Api.Controllers
         }
 
         [HttpGet("obter-credencial")]
-        public async Task<ActionResult<Credencial>> ObterCredencial(string email, string senha)
+        public async Task<ActionResult<CredencialViewModel>> ObterCredencial(string email, string senha)
         {
             try
             {
@@ -38,7 +37,7 @@ namespace CondominioApp.Api.Controllers
         }
 
         [HttpGet("obter-dispositivos")]
-        public async Task<ActionResult<IEnumerable<Dispositivo>>> ObterDispositivos(string email, string senha)
+        public async Task<ActionResult<IEnumerable<DispositivoViewModel>>> ObterDispositivos(string email, string senha)
         {
             try
             {

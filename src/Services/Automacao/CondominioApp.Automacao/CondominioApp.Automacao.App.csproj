@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Building Blocks\CondominioApp.Core\CondominioApp.Core.csproj" />
+    <ProjectReference Include="..\CondominioApp.EwelinkNET\EwelinkNet\CondominioApp.EwelinkNet.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Data\Mapping\" />
+    <Folder Include="Data\Repository\" />
+  </ItemGroup>
+
+</Project>

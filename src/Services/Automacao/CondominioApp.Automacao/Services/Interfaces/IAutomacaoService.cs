@@ -1,5 +1,4 @@
-﻿using CondominioApp.Automacao.Models.Credencial;
-using CondominioApp.Automacao.Models.Dispositivo;
+﻿using CondominioApp.Automacao.ViewModel;
 using FluentValidation.Results;
 using System;
 using System.Collections.Generic;
@@ -10,9 +9,9 @@ namespace CondominioApp.Automacao.Services.Interfaces
 {
    public interface IAutomacaoService
     {
-        Task<Credencial> ObterCredencial(string email, string senha);
+        Task<CredencialViewModel> ObterCredencial(string email, string senha);
 
-        Task<IEnumerable<Dispositivo>> ObterDispositivos(string email, string senha);
+        Task<IEnumerable<DispositivoViewModel>> ObterDispositivos(string email, string senha);
 
         Task<ValidationResult> LigarDesligarDispositivo(string email, string senha, string dispositivoId);
     }

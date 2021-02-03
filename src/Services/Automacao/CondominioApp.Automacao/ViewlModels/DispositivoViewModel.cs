@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CondominioApp.Automacao.Models.Dispositivo
+namespace CondominioApp.Automacao.ViewModel
 {
-   public class Dispositivo
+   public class DispositivoViewModel
     {
         public string DispositivoId { get; set; }        
         public string Nome { get; set; }
@@ -18,7 +18,7 @@ namespace CondominioApp.Automacao.Models.Dispositivo
         public string DataDeCriacao { get; set; }
         public string Ip { get; set; }
         public string OfflineHora { get; set; }
-        public string StatusDoDispositivo { get; set; }
+        public string State { get; set; }
         public string UrlDoDispositivo { get; set; }
         public string NomeDaMarca { get; set; }
         public bool MostraMarca { get; set; }
