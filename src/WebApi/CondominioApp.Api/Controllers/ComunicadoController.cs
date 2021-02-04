@@ -27,12 +27,13 @@ namespace CondominioApp.Api.Controllers
         private readonly ICondominioQuery _condominioQuery;
         private readonly IUsuarioQuery _usuarioQuery;
 
-        public ComunicadoController(IMediatorHandler mediatorHandler, IMapper mapper, IComunicadoQuery comunicadoQuery, ICondominioQuery condominioQuery)
+        public ComunicadoController(IMediatorHandler mediatorHandler, IMapper mapper, IComunicadoQuery comunicadoQuery, ICondominioQuery condominioQuery, IUsuarioQuery usuarioQuery)
         {
             _mediatorHandler = mediatorHandler;
             _mapper = mapper;
             _comunicadoQuery = comunicadoQuery;
             _condominioQuery = condominioQuery;
+            _usuarioQuery = usuarioQuery;
         }
 
 
