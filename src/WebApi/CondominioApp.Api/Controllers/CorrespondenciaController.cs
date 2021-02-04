@@ -5,6 +5,8 @@ using CondominioApp.Correspondencias.App.Aplication.Commands;
 using CondominioApp.Correspondencias.App.Aplication.Query;
 using CondominioApp.Correspondencias.App.Models;
 using CondominioApp.Correspondencias.App.ViewModels;
+using CondominioApp.Principal.Aplication.Query.Interfaces;
+using CondominioApp.Usuarios.App.Aplication.Query;
 using CondominioApp.WebApi.Core.Controllers;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -23,13 +25,19 @@ namespace CondominioApp.Api.Controllers
         private readonly IMapper _mapper;
         private readonly ICorrespondenciaQuery _correspondenciaQuery;
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly ICondominioQuery _condominioQuery;
+        private readonly IUsuarioQuery _usuarioQuery;
 
-        public CorrespondenciaController(IMediatorHandler mediatorHandler, IMapper mapper, ICorrespondenciaQuery correspondenciaQuery, IWebHostEnvironment webHostEnvironment)
+        public CorrespondenciaController(
+            IMediatorHandler mediatorHandler, IMapper mapper, ICorrespondenciaQuery correspondenciaQuery,
+            IWebHostEnvironment webHostEnvironment, ICondominioQuery condominioQuery, IUsuarioQuery usuarioQuery)
         {
             _mediatorHandler = mediatorHandler;
             _mapper = mapper;
             _correspondenciaQuery = correspondenciaQuery;
             _webHostEnvironment = webHostEnvironment;
+            _condominioQuery = condominioQuery;
+            _usuarioQuery = usuarioQuery;
         }
 
 
@@ -94,9 +102,23 @@ namespace CondominioApp.Api.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
+            var unidade =await _condominioQuery.ObterUnidadePorId(correspondenciaVM.UnidadeId);
+            if (unidade == null)
+            {
+                AdicionarErroProcessamento("Unidade não encontrada!");
+                return CustomResponse();
+            }
+
+            var usuario = await _usuarioQuery.ObterPorId(correspondenciaVM.UsuarioId);
+            if (usuario == null)
+            {
+                AdicionarErroProcessamento("Usuário não encontrado!");
+                return CustomResponse();
+            }
+
             var comando = new CadastrarCorrespondenciaCommand(
-                 correspondenciaVM.CondominioId, correspondenciaVM.UnidadeId, correspondenciaVM.NumeroUnidade, correspondenciaVM.Bloco,
-                 correspondenciaVM.Observacao, correspondenciaVM.UsuarioId, correspondenciaVM.NomeUsuario,
+                 correspondenciaVM.CondominioId, unidade.Id, unidade.Numero, unidade.GrupoDescricao,
+                 correspondenciaVM.Observacao, usuario.Id, usuario.NomeCompleto,
                  correspondenciaVM.Foto, correspondenciaVM.NomeOriginal, correspondenciaVM.NumeroRastreamentoCorreio,
                  correspondenciaVM.DataDeChegada, correspondenciaVM.TipoDeCorrespondencia, correspondenciaVM.Status);           
 
