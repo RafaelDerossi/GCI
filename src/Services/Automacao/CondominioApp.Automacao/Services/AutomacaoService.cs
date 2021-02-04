@@ -5,35 +5,28 @@ using System.Threading.Tasks;
 using FluentValidation.Results;
 using System.Linq;
 using CondominioApp.Automacao.ViewModel;
+using System;
+using CondominioApp.Core.Enumeradores;
+using CondominioApp.Automacao.App.Aplication.Query;
 
 namespace CondominioApp.Automacao.Services
 {
    public class AutomacaoService : ServiceBase, IAutomacaoService
     {
         private string Regiao = "us";
+        private readonly ICondominioCredencialQuery _condominioCredencialQuery;
 
-        public async Task<CredencialViewModel> ObterCredencial(string email, string senha)
-        {            
-            var ewelink = new Ewelink(email, senha, Regiao);
-            await ewelink.GetCredentials();
-
-            if (ewelink.at == null)
-                return null;
-
-            var credencial = new CredencialViewModel()
-            {
-                Token = ewelink.at,
-                Regiao = ewelink.region,
-                Email = email,
-                Senha = senha
-            };           
-
-            return credencial;
-        }
-
-        public async Task<IEnumerable<DispositivoViewModel>> ObterDispositivos(string email, string senha)
+        public AutomacaoService(ICondominioCredencialQuery condominioCredencialQuery)
         {
-            var ewelink = new Ewelink(email, senha, Regiao);
+            _condominioCredencialQuery = condominioCredencialQuery;            
+        }
+       
+
+        public async Task<IEnumerable<DispositivoViewModel>> ObterDispositivos(Guid condominioId, TipoApiAutomacao tipoApiAutomacao)
+        {
+            var credencial =await _condominioCredencialQuery.ObterPorCondominioETipoApi(condominioId, tipoApiAutomacao);
+
+            var ewelink = new Ewelink(credencial.Email.Endereco, credencial.Senha, Regiao);
             await ewelink.GetCredentials();
             await ewelink.GetDevices();
 
@@ -71,9 +64,11 @@ namespace CondominioApp.Automacao.Services
             return dispositivos;
         }
         
-        public async Task<ValidationResult> LigarDesligarDispositivo(string email, string senha, string dispositivoId)
+        public async Task<ValidationResult> LigarDesligarDispositivo(Guid condominioId, string dispositivoId)
         {
-            var ewelink = new Ewelink(email, senha, Regiao);            
+            var credencial = await _condominioCredencialQuery.ObterPorCondominioETipoApi(condominioId, TipoApiAutomacao.EWELINK);
+
+            var ewelink = new Ewelink(credencial.Email.Endereco, credencial.Senha, Regiao);            
 
             await ewelink.GetCredentials();
 

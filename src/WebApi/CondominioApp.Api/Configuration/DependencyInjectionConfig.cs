@@ -48,6 +48,7 @@ using CondominioApp.Automacao.Services;
 using CondominioApp.Automacao.App.Aplication.Commands;
 using CondominioApp.Automacao.App.Models;
 using CondominioApp.Automacao.App.Data.Repository;
+using CondominioApp.Automacao.App.Aplication.Query;
 
 namespace CondominioApp.Api.Configuration
 {
@@ -257,7 +258,7 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<IComunicadoQuery, ComunicadoQuery>();
             services.AddScoped<IReservaAreaComumQuery, ReservaAreaComumQuery>();
             services.AddScoped<IPortariaQuery, PortariaQuery>();
-
+            services.AddScoped<ICondominioCredencialQuery, CondominioCredencialQuery>(); 
             #endregion
 
             #region Repositórios

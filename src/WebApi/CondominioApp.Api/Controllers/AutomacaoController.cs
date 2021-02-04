@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CondominioApp.Core.Mediator;
 using CondominioApp.Automacao.App.Aplication.Commands;
+using CondominioApp.Core.Enumeradores;
 
 namespace CondominioApp.Api.Controllers
 {
@@ -25,12 +26,12 @@ namespace CondominioApp.Api.Controllers
 
        
 
-        [HttpGet("obter-dispositivos-ewelink")]
-        public async Task<ActionResult<IEnumerable<DispositivoViewModel>>> ObterDispositivosEwelink(string email, string senha)
+        [HttpGet("obter-dispositivos-ewelink/{condominioId:Guid}")]
+        public async Task<ActionResult<IEnumerable<DispositivoViewModel>>> ObterDispositivosEwelink(Guid condominioId)
         {
             try
             {
-                var dispositivos = await _automacaoService.ObterDispositivos(email, senha);
+                var dispositivos = await _automacaoService.ObterDispositivos(condominioId, TipoApiAutomacao.EWELINK);
 
                 return dispositivos.ToList();
             }
@@ -41,12 +42,12 @@ namespace CondominioApp.Api.Controllers
             }
         }
 
-        [HttpGet("ligar-desligar-dispositivo-ewelink")]
-        public async Task<ActionResult> LigarDesligarDispositivoEwelink(string email, string senha, string deviceId)
+        [HttpGet("ligar-desligar-dispositivo-ewelink/{condominioId:Guid}")]
+        public async Task<ActionResult> LigarDesligarDispositivoEwelink(Guid condominioId, string deviceId)
         {
             try
             {
-                var retorno = await _automacaoService.LigarDesligarDispositivo(email, senha, deviceId);
+                var retorno = await _automacaoService.LigarDesligarDispositivo(condominioId, deviceId);
 
                 return CustomResponse(retorno);
             }

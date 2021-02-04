@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using CondominioApp.Automacao.App.Models;
 using CondominioApp.Automacao.Models;
 using CondominioApp.Core.Data;
+using CondominioApp.Core.Enumeradores;
 using Microsoft.EntityFrameworkCore;
 
 namespace CondominioApp.Automacao.App.Data.Repository
@@ -66,8 +67,18 @@ namespace CondominioApp.Automacao.App.Data.Repository
                 .OrderBy(x => x.DataDeCadastro)
                 .ToListAsync();
         }
-        
-       
+
+        public async Task<bool> VerificaSeJaEstaCadastrado(Guid condominioId, TipoApiAutomacao tipoApiAutomacao)
+        {
+            var retorno =await _context.CondominiosCredenciais.Where
+                (c => c.CondominioId == condominioId && c.TipoApiAutomacao == tipoApiAutomacao).FirstOrDefaultAsync();
+
+            if (retorno == null)
+                return false;
+
+            return true;
+        }
+
 
 
         public void Adicionar(CondominioCredencial entity)
@@ -91,5 +102,6 @@ namespace CondominioApp.Automacao.App.Data.Repository
         {
             _context?.Dispose();
         }
+
     }
 }

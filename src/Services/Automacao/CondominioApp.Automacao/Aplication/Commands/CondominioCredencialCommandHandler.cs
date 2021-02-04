@@ -16,11 +16,11 @@ namespace CondominioApp.Automacao.App.Aplication.Commands
          IDisposable
     {
 
-        private ICondominioCredencialRepository _CondominioCredencialRepository;
+        private ICondominioCredencialRepository _condominioCredencialRepository;
 
         public CondominioCredencialCommandHandler(ICondominioCredencialRepository condominioCredencialRepository)
         {
-            _CondominioCredencialRepository = condominioCredencialRepository;
+            _condominioCredencialRepository = condominioCredencialRepository;
         }
 
 
@@ -31,16 +31,25 @@ namespace CondominioApp.Automacao.App.Aplication.Commands
 
             var credencial =  new CondominioCredencial(
                 request.Email, request.Senha, request.CondominioId, request.TipoApiAutomacao);
-                                   
-            _CondominioCredencialRepository.Adicionar(credencial);
 
-            return await PersistirDados(_CondominioCredencialRepository.UnitOfWork);
+            if (await _condominioCredencialRepository.VerificaSeJaEstaCadastrado(credencial.CondominioId, credencial.TipoApiAutomacao))
+            {
+                AdicionarErro("Credencial ja cadastrada!");
+                return ValidationResult;
+            }
+
+            _condominioCredencialRepository.Adicionar(credencial);
+
+            return await PersistirDados(_condominioCredencialRepository.UnitOfWork);
         }
 
-                
+
+
+      
+
         public void Dispose()
         {
-            _CondominioCredencialRepository?.Dispose();
+            _condominioCredencialRepository?.Dispose();
         }
 
 
