@@ -107,7 +107,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Automacao", "Automacao", "{
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioApp.EwelinkNet", "src\Services\Automacao\CondominioApp.EwelinkNET\EwelinkNet\CondominioApp.EwelinkNet.csproj", "{696CBF58-A0A7-46FE-A6D9-434C6B574E82}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CondominioApp.Automacao.App", "src\Services\Automacao\CondominioApp.Automacao\CondominioApp.Automacao.App.csproj", "{6076F1CD-7461-41F0-9762-951D2BB522B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioApp.Automacao.App", "src\Services\Automacao\CondominioApp.Automacao\CondominioApp.Automacao.App.csproj", "{6076F1CD-7461-41F0-9762-951D2BB522B2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

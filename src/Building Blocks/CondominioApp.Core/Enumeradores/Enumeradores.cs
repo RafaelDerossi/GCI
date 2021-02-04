@@ -102,4 +102,9 @@
         TERMINADA = 5,   //Visita ja terminou
         EXPIRADA = 6     //Visita nao aconteceu
     }
+
+    public enum TipoApiAutomacao
+    {
+        EWELINK = 1
+    }
 }

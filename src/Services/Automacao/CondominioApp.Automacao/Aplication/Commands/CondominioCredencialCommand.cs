@@ -1,4 +1,5 @@
 ﻿using CondominioApp.Automacao.App.ValueObjects;
+using CondominioApp.Core.Enumeradores;
 using CondominioApp.Core.Messages;
 using System;
 
@@ -13,6 +14,8 @@ namespace CondominioApp.Automacao.App.Aplication.Commands
         public string Senha { get; protected set; }
 
         public Guid CondominioId { get; protected set; }
+
+        public TipoApiAutomacao TipoApiAutomacao { get; set; }
 
 
         public void SetSenha(string senha)
@@ -35,6 +38,11 @@ namespace CondominioApp.Automacao.App.Aplication.Commands
             {
                 AdicionarErrosDeProcessamentoDoComando(e.Message);
             }
+        }
+
+        public void SetTipoApiAutomcao(TipoApiAutomacao tipoApiAutomacao)
+        {
+            TipoApiAutomacao = tipoApiAutomacao;
         }
     }
 }

@@ -34,6 +34,13 @@ namespace CondominioApp.Automacao.App.Aplication.Commands.Validations
                   .NotNull()
                   .NotEmpty();
         }
-        
+
+        protected void ValidateTipoApiAutomacao()
+        {
+            RuleFor(c => c.TipoApiAutomacao)
+                  .NotNull()
+                  .NotEmpty();
+        }
+
     }
 }

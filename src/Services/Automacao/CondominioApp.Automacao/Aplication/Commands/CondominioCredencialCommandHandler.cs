@@ -29,9 +29,10 @@ namespace CondominioApp.Automacao.App.Aplication.Commands
             if (!request.EstaValido())
                 return request.ValidationResult;
 
-            var comunicado =  new CondominioCredencial(request.Email, request.Senha, request.CondominioId);
+            var credencial =  new CondominioCredencial(
+                request.Email, request.Senha, request.CondominioId, request.TipoApiAutomacao);
                                    
-            _CondominioCredencialRepository.Adicionar(comunicado);
+            _CondominioCredencialRepository.Adicionar(credencial);
 
             return await PersistirDados(_CondominioCredencialRepository.UnitOfWork);
         }

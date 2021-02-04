@@ -104,7 +104,7 @@ namespace EwelinkNet
 
             device.Toggle();
 
-            Thread.Sleep(1000);
+            Thread.Sleep(500);
         }
 
         private void CreateDevices(string json)

@@ -1,43 +1,32 @@
 ﻿using CondominioApp.Automacao.ViewModel;
 using CondominioApp.Automacao.Services.Interfaces;
 using CondominioApp.WebApi.Core.Controllers;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CondominioApp.Core.Mediator;
+using CondominioApp.Automacao.App.Aplication.Commands;
 
 namespace CondominioApp.Api.Controllers
 {
     [Route("api/automacao")]
     public class AutomacaoController : MainController
     {
+        private readonly IMediatorHandler _mediatorHandler;
         private readonly IAutomacaoService _automacaoService;
 
-        public AutomacaoController(IAutomacaoService automacaoService)
+        public AutomacaoController(IMediatorHandler mediatorHandler, IAutomacaoService automacaoService)
         {
+            _mediatorHandler = mediatorHandler;
             _automacaoService = automacaoService;
         }
 
-        [HttpGet("obter-credencial")]
-        public async Task<ActionResult<CredencialViewModel>> ObterCredencial(string email, string senha)
-        {
-            try
-            {
-                var credencial = await _automacaoService.ObterCredencial(email, senha);                
-                                
-                return credencial;
-            }
-            catch (Exception e)
-            {
-                AdicionarErroProcessamento(e.Message);
-                return CustomResponse();                
-            }
-        }
+       
 
-        [HttpGet("obter-dispositivos")]
-        public async Task<ActionResult<IEnumerable<DispositivoViewModel>>> ObterDispositivos(string email, string senha)
+        [HttpGet("obter-dispositivos-ewelink")]
+        public async Task<ActionResult<IEnumerable<DispositivoViewModel>>> ObterDispositivosEwelink(string email, string senha)
         {
             try
             {
@@ -52,8 +41,8 @@ namespace CondominioApp.Api.Controllers
             }
         }
 
-        [HttpGet("ligar-desligar-dispositivo")]
-        public async Task<ActionResult> LigarDesligarDispositivo(string email, string senha, string deviceId)
+        [HttpGet("ligar-desligar-dispositivo-ewelink")]
+        public async Task<ActionResult> LigarDesligarDispositivoEwelink(string email, string senha, string deviceId)
         {
             try
             {
@@ -67,5 +56,21 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }
         }
+
+
+        
+        [HttpPost("cadastrar-credencial-de-api")]
+        public async Task<ActionResult> Post(CadastraCondominioCredencialViewModel credencialVM)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            var comando = new CadastrarCondominioCredencialCommand(
+                credencialVM.Email, credencialVM.Senha, credencialVM.CondominioId, credencialVM.TipoApiAutomacao);
+
+            var Resultado = await _mediatorHandler.EnviarComando(comando);            
+
+            return CustomResponse(Resultado);
+        }
+
     }
 }

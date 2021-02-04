@@ -45,6 +45,9 @@ using CondominioApp.Portaria.Infra.DataQuery.Repository;
 using CondominioApp.Portaria.Aplication.Query;
 using CondominioApp.Automacao.Services.Interfaces;
 using CondominioApp.Automacao.Services;
+using CondominioApp.Automacao.App.Aplication.Commands;
+using CondominioApp.Automacao.App.Models;
+using CondominioApp.Automacao.App.Data.Repository;
 
 namespace CondominioApp.Api.Configuration
 {
@@ -236,7 +239,10 @@ namespace CondominioApp.Api.Configuration
             #endregion
 
             #region Automacao -Contexto
+
             services.AddScoped<IAutomacaoService, AutomacaoService>();
+            services.AddScoped<IRequestHandler<CadastrarCondominioCredencialCommand, ValidationResult>, CondominioCredencialCommandHandler>();
+
             #endregion
 
 
@@ -267,6 +273,7 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<IReservaAreaComumQueryRepository, ReservaAreaComumQueryRepository>();
             services.AddScoped<IVisitanteRepository, VisitanteRepository>();
             services.AddScoped<IVisitanteQueryRepository, VisitanteQueryRepository>();
+            services.AddScoped<ICondominioCredencialRepository, CondominioCredencialRepository>();
 
             #endregion
 
