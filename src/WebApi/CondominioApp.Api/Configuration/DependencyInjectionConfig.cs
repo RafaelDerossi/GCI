@@ -243,7 +243,9 @@ namespace CondominioApp.Api.Configuration
 
             services.AddScoped<IAutomacaoService, AutomacaoService>();
             services.AddScoped<IRequestHandler<CadastrarCondominioCredencialCommand, ValidationResult>, CondominioCredencialCommandHandler>();
-
+            services.AddScoped<IRequestHandler<EditarCondominioCredencialCommand, ValidationResult>, CondominioCredencialCommandHandler>();
+            services.AddScoped<IRequestHandler<RemoverCondominioCredencialCommand, ValidationResult>, CondominioCredencialCommandHandler>();
+            
             #endregion
 
 

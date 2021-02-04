@@ -26,7 +26,7 @@ namespace CondominioApp.Automacao.Services
         {
             var credencial =await _condominioCredencialQuery.ObterPorCondominioETipoApi(condominioId, tipoApiAutomacao);
 
-            var ewelink = new Ewelink(credencial.Email.Endereco, credencial.Senha, Regiao);
+            var ewelink = new Ewelink(credencial.Email.Endereco, credencial.SenhaDescriptografa, Regiao);
             await ewelink.GetCredentials();
             await ewelink.GetDevices();
 
@@ -67,16 +67,21 @@ namespace CondominioApp.Automacao.Services
         public async Task<ValidationResult> LigarDesligarDispositivo(Guid condominioId, string dispositivoId)
         {
             var credencial = await _condominioCredencialQuery.ObterPorCondominioETipoApi(condominioId, TipoApiAutomacao.EWELINK);
+            if (credencial == null)
+            {
+                AdicionarErrosDeProcessamento("Credencial não encontrada no banco de dados.");
+                return ValidationResult;
+            }
 
-            var ewelink = new Ewelink(credencial.Email.Endereco, credencial.Senha, Regiao);            
+            var ewelink = new Ewelink(credencial.Email.Endereco, credencial.SenhaDescriptografa, Regiao);            
 
             await ewelink.GetCredentials();
 
             if (ewelink.at == null)
             {
-                AdicionarErrosDeProcessamento("Credencial não encontrada.");
+                AdicionarErrosDeProcessamento("Credencial não encontrada na API.");
                 return ValidationResult;
-            }                
+            }
 
             await ewelink.GetDevices();
 

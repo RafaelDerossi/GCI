@@ -42,7 +42,7 @@ namespace CondominioApp.Api.Controllers
             }
         }
 
-        [HttpGet("ligar-desligar-dispositivo-ewelink/{condominioId:Guid}")]
+        [HttpGet("ligar-desligar-dispositivo-ewelink")]
         public async Task<ActionResult> LigarDesligarDispositivoEwelink(Guid condominioId, string deviceId)
         {
             try
@@ -60,7 +60,7 @@ namespace CondominioApp.Api.Controllers
 
 
         
-        [HttpPost("cadastrar-credencial-de-api")]
+        [HttpPost("credencial-de-api")]
         public async Task<ActionResult> Post(CadastraCondominioCredencialViewModel credencialVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
@@ -73,5 +73,29 @@ namespace CondominioApp.Api.Controllers
             return CustomResponse(Resultado);
         }
 
+        [HttpPut("credencial-de-api")]
+        public async Task<ActionResult> Put(EditaCondominioCredencialViewModel credencialVM)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            var comando = new EditarCondominioCredencialCommand
+                (credencialVM.Id, credencialVM.Email, credencialVM.Senha, credencialVM.TipoApiAutomacao);
+
+            var Resultado = await _mediatorHandler.EnviarComando(comando);
+
+            return CustomResponse(Resultado);
+        }
+
+        [HttpDelete("credencial-de-api/{id:Guid}")]
+        public async Task<ActionResult> Delete(Guid id)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            var comando = new RemoverCondominioCredencialCommand(id);
+
+            var Resultado = await _mediatorHandler.EnviarComando(comando);
+
+            return CustomResponse(Resultado);
+        }
     }
 }

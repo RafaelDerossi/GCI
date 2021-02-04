@@ -71,7 +71,8 @@ namespace CondominioApp.Automacao.App.Data.Repository
         public async Task<bool> VerificaSeJaEstaCadastrado(Guid condominioId, TipoApiAutomacao tipoApiAutomacao)
         {
             var retorno =await _context.CondominiosCredenciais.Where
-                (c => c.CondominioId == condominioId && c.TipoApiAutomacao == tipoApiAutomacao).FirstOrDefaultAsync();
+                (c => c.CondominioId == condominioId && c.TipoApiAutomacao == tipoApiAutomacao && !c.Lixeira)
+                .FirstOrDefaultAsync();
 
             if (retorno == null)
                 return false;

@@ -28,7 +28,9 @@ namespace CondominioApp.Automacao.App.Aplication.Query
             (Guid condominioId, TipoApiAutomacao tipoApiAutomacao)
         {
             var lista = await _condominioCredencialRepository.Obter
-                (c => c.CondominioId == condominioId && c.TipoApiAutomacao == tipoApiAutomacao);
+                (c => c.CondominioId == condominioId && 
+                 c.TipoApiAutomacao == tipoApiAutomacao && 
+                 !c.Lixeira);
 
             if (lista == null || lista.Count() == 0)
                 return null;

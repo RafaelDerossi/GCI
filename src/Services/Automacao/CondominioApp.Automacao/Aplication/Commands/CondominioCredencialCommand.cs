@@ -1,7 +1,9 @@
 ﻿using CondominioApp.Automacao.App.ValueObjects;
 using CondominioApp.Core.Enumeradores;
+using CondominioApp.Core.Helpers;
 using CondominioApp.Core.Messages;
 using System;
+using System.Security.Cryptography;
 
 namespace CondominioApp.Automacao.App.Aplication.Commands
 {
@@ -19,8 +21,8 @@ namespace CondominioApp.Automacao.App.Aplication.Commands
 
 
         public void SetSenha(string senha)
-        {
-            Senha = senha;         
+        {            
+            Senha = Criptograph.Encrypt(senha);
         }
 
         public void SetCondominioId(Guid condominioId)
