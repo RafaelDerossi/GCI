@@ -31,9 +31,9 @@ namespace CondominioApp.Comunicados.App.Tests
         {
             //Arrange
             var grupoId = Guid.NewGuid();
-            var unidades = new List<Unidade>();
-            unidades.Add(new Unidade(Guid.NewGuid(), "101", "1", grupoId, "Bloco 1"));
-            unidades.Add(new Unidade(Guid.NewGuid(), "102", "1", grupoId, "Bloco 1"));
+            var unidades = new List<UnidadeComunicado>();
+            unidades.Add(new UnidadeComunicado(Guid.NewGuid(), "101", "1", grupoId, "Bloco 1"));
+            unidades.Add(new UnidadeComunicado(Guid.NewGuid(), "102", "1", grupoId, "Bloco 1"));
 
             //Act
             return new CadastrarComunicadoCommand(
@@ -46,9 +46,9 @@ namespace CondominioApp.Comunicados.App.Tests
         {
             //Arrange
             var grupoId = Guid.NewGuid();
-            var unidades = new List<Unidade>();
-            unidades.Add(new Unidade(Guid.NewGuid(), "101", "1", grupoId, "Bloco 1"));
-            unidades.Add(new Unidade(Guid.NewGuid(), "102", "1", grupoId, "Bloco 1"));
+            var unidades = new List<UnidadeComunicado>();
+            unidades.Add(new UnidadeComunicado(Guid.NewGuid(), "101", "1", grupoId, "Bloco 1"));
+            unidades.Add(new UnidadeComunicado(Guid.NewGuid(), "102", "1", grupoId, "Bloco 1"));
 
             //Act
             return new CadastrarComunicadoCommand(
@@ -71,9 +71,9 @@ namespace CondominioApp.Comunicados.App.Tests
             //Arrange
             var grupoId = Guid.NewGuid();
             var unidadeId = Guid.NewGuid();
-            var unidades = new List<Unidade>();
-            unidades.Add(new Unidade(unidadeId, "101", "1", grupoId, "Bloco 1"));
-            unidades.Add(new Unidade(unidadeId, "101", "1", grupoId, "Bloco 1"));
+            var unidades = new List<UnidadeComunicado>();
+            unidades.Add(new UnidadeComunicado(unidadeId, "101", "1", grupoId, "Bloco 1"));
+            unidades.Add(new UnidadeComunicado(unidadeId, "101", "1", grupoId, "Bloco 1"));
 
             //Act
             return new CadastrarComunicadoCommand(
@@ -94,9 +94,9 @@ namespace CondominioApp.Comunicados.App.Tests
             //Arrange
             var grupoId = Guid.NewGuid();
             var unidadeId = Guid.NewGuid();
-            var unidades = new List<Unidade>();
-            unidades.Add(new Unidade(unidadeId, "101", "1", grupoId, "Bloco 1"));
-            unidades.Add(new Unidade(unidadeId, "101", "1", grupoId, "Bloco 1"));
+            var unidades = new List<UnidadeComunicado>();
+            unidades.Add(new UnidadeComunicado(unidadeId, "101", "1", grupoId, "Bloco 1"));
+            unidades.Add(new UnidadeComunicado(unidadeId, "101", "1", grupoId, "Bloco 1"));
 
             //Act
             return new CadastrarComunicadoCommand(
@@ -183,9 +183,9 @@ namespace CondominioApp.Comunicados.App.Tests
         {
             //Arrange
             var grupoId = Guid.NewGuid();
-            var unidades = new List<Unidade>();
-            unidades.Add(new Unidade(Guid.NewGuid(), "101", "1", grupoId, "Bloco 1"));
-            unidades.Add(new Unidade(Guid.NewGuid(), "102", "1", grupoId, "Bloco 1"));
+            var unidades = new List<UnidadeComunicado>();
+            unidades.Add(new UnidadeComunicado(Guid.NewGuid(), "101", "1", grupoId, "Bloco 1"));
+            unidades.Add(new UnidadeComunicado(Guid.NewGuid(), "102", "1", grupoId, "Bloco 1"));
 
             //Act
             return new EditarComunicadoCommand(
@@ -198,9 +198,9 @@ namespace CondominioApp.Comunicados.App.Tests
         {
             //Arrange
             var grupoId = Guid.NewGuid();
-            var unidades = new List<Unidade>();
-            unidades.Add(new Unidade(Guid.NewGuid(), "101", "1", grupoId, "Bloco 1"));
-            unidades.Add(new Unidade(Guid.NewGuid(), "102", "1", grupoId, "Bloco 1"));
+            var unidades = new List<UnidadeComunicado>();
+            unidades.Add(new UnidadeComunicado(Guid.NewGuid(), "101", "1", grupoId, "Bloco 1"));
+            unidades.Add(new UnidadeComunicado(Guid.NewGuid(), "102", "1", grupoId, "Bloco 1"));
 
             //Act
             return new EditarComunicadoCommand(
@@ -223,9 +223,9 @@ namespace CondominioApp.Comunicados.App.Tests
             //Arrange
             var grupoId = Guid.NewGuid();
             var unidadeId = Guid.NewGuid();
-            var unidades = new List<Unidade>();
-            unidades.Add(new Unidade(unidadeId, "101", "1", grupoId, "Bloco 1"));
-            unidades.Add(new Unidade(unidadeId, "101", "1", grupoId, "Bloco 1"));
+            var unidades = new List<UnidadeComunicado>();
+            unidades.Add(new UnidadeComunicado(unidadeId, "101", "1", grupoId, "Bloco 1"));
+            unidades.Add(new UnidadeComunicado(unidadeId, "101", "1", grupoId, "Bloco 1"));
 
             //Act
             return new EditarComunicadoCommand(
@@ -246,9 +246,9 @@ namespace CondominioApp.Comunicados.App.Tests
             //Arrange
             var grupoId = Guid.NewGuid();
             var unidadeId = Guid.NewGuid();
-            var unidades = new List<Unidade>();
-            unidades.Add(new Unidade(unidadeId, "101", "1", grupoId, "Bloco 1"));
-            unidades.Add(new Unidade(unidadeId, "101", "1", grupoId, "Bloco 1"));
+            var unidades = new List<UnidadeComunicado>();
+            unidades.Add(new UnidadeComunicado(unidadeId, "101", "1", grupoId, "Bloco 1"));
+            unidades.Add(new UnidadeComunicado(unidadeId, "101", "1", grupoId, "Bloco 1"));
 
             //Act
             return new EditarComunicadoCommand(

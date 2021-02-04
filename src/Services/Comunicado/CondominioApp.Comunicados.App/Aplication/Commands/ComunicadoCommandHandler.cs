@@ -41,7 +41,7 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
                     return ValidationResult;
                 }
 
-                foreach (Unidade unidade in request.Unidades)
+                foreach (UnidadeComunicado unidade in request.Unidades)
                 {
                     var resultado = comunicado.AdicionarUnidade(unidade);
                     if (!resultado.IsValid) return resultado;
@@ -76,7 +76,7 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
 
             if (comunicado.Unidades != null)
             {
-                foreach (Unidade unidade in comunicado.Unidades)
+                foreach (UnidadeComunicado unidade in comunicado.Unidades)
                 {
                     _ComunicadoRepository.RemoverUnidade(unidade);
                 }
@@ -91,7 +91,7 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
                     return ValidationResult;
                 }
 
-                foreach (Unidade unidade in request.Unidades)
+                foreach (UnidadeComunicado unidade in request.Unidades)
                 {
                     var resultado = comunicado.AdicionarUnidade(unidade);
                     if (!resultado.IsValid) return resultado;

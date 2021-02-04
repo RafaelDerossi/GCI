@@ -41,8 +41,8 @@ namespace CondominioApp.Comunicados.App.Tests
                 Guid.NewGuid(), "Nome do Usuario", VisibilidadeComunicado.UNIDADES, CategoriaComunicado.COMUNICADO,
                 false, false);
 
-            comunicado.AdicionarUnidade(new Unidade(Guid.NewGuid(), "101", "1", grupoId, "Bloco 1"));
-            comunicado.AdicionarUnidade(new Unidade(Guid.NewGuid(), "102", "1", grupoId, "Bloco 1"));
+            comunicado.AdicionarUnidade(new UnidadeComunicado(Guid.NewGuid(), "101", "1", grupoId, "Bloco 1"));
+            comunicado.AdicionarUnidade(new UnidadeComunicado(Guid.NewGuid(), "102", "1", grupoId, "Bloco 1"));
         }
 
 
@@ -58,8 +58,8 @@ namespace CondominioApp.Comunicados.App.Tests
                 Guid.NewGuid(), "Nome do Usuario", VisibilidadeComunicado.PROPRIETARIOS_UNIDADES,
                 CategoriaComunicado.COMUNICADO, false, false);
 
-            comunicado.AdicionarUnidade(new Unidade(Guid.NewGuid(), "101", "1", grupoId, "Bloco 1"));
-            comunicado.AdicionarUnidade(new Unidade(Guid.NewGuid(), "102", "1", grupoId, "Bloco 1"));
+            comunicado.AdicionarUnidade(new UnidadeComunicado(Guid.NewGuid(), "101", "1", grupoId, "Bloco 1"));
+            comunicado.AdicionarUnidade(new UnidadeComunicado(Guid.NewGuid(), "102", "1", grupoId, "Bloco 1"));
         }
 
     }

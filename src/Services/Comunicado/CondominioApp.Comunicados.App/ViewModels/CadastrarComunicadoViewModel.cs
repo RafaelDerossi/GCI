@@ -15,13 +15,9 @@ namespace CondominioApp.Comunicados.App.ViewModels
 
         public DateTime? DataDeRealizacao { get; set; }
 
-        public Guid CondominioId { get; set; }
+        public Guid CondominioId { get; set; }      
 
-        public string NomeCondominio { get; set; }
-
-        public Guid UsuarioId { get; set; }
-
-        public string NomeUsuario { get; set; }
+        public Guid UsuarioId { get; set; }        
 
         public VisibilidadeComunicado Visibilidade { get; set; }
 
@@ -29,7 +25,7 @@ namespace CondominioApp.Comunicados.App.ViewModels
 
         public bool CriadoPelaAdministradora { get; set; }
 
-        public IEnumerable<UnidadeViewModel> Unidades { get; set; }
+        public IEnumerable<Guid> UnidadesId { get; set; }
 
         public IEnumerable<string> Anexos { get; set; }
 

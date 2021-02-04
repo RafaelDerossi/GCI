@@ -35,7 +35,7 @@ namespace CondominioApp.Comunicados.App.ViewModels
 
         public bool CriadoPelaAdministradora { get; set; }
 
-        public IEnumerable<UnidadeViewModel> Unidades { get; set; }
+        public IEnumerable<UnidadeComunicadoViewModel> Unidades { get; set; }
 
         public IEnumerable<string> Anexos { get; set; }
 
