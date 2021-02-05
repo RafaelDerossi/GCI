@@ -1,10 +1,10 @@
 ﻿using System;
 
-namespace CondominioApp.Core.Messages.CommonMessages.IntegrationEvents
+namespace CondominioApp.Usuarios.App.Aplication.Events
 {
-    public class UnidadeVeiculoCadastradaIntegrationEvent : VeiculoIntegrationEvent
+    public class VeiculoCadastradoEvent : VeiculoEvent
     {        
-        public UnidadeVeiculoCadastradaIntegrationEvent(
+        public VeiculoCadastradoEvent(
             Guid id, Guid veiculoId, string placa, string modelo, string cor, Guid usuarioId,
             string nomeUsuario, Guid unidadeId, Guid condominioId)
         {

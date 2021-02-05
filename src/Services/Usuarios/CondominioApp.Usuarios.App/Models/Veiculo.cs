@@ -12,22 +12,19 @@ namespace CondominioApp.Usuarios.App.Models
         
         public string Modelo { get; private set; }
 
-        public string Cor { get; private set; }
-
-        public Guid UsuarioId { get; private set; }
+        public string Cor { get; private set; }       
 
 
-        private readonly List<UnidadeVeiculo> _Unidades;
-        public IReadOnlyCollection<UnidadeVeiculo> Unidades => _Unidades;
+        private readonly List<VeiculoCondominio> _VeiculoCondominios;
+        public IReadOnlyCollection<VeiculoCondominio> VeiculoCondominios => _VeiculoCondominios;
 
         protected Veiculo() { }
 
-        public Veiculo(string placa, string modelo, string cor, Guid usuarioId)
+        public Veiculo(string placa, string modelo, string cor)
         {
             Placa = placa;
             Modelo = modelo;
-            Cor = cor;
-            UsuarioId = usuarioId;            
+            Cor = cor;            
         }
 
         public void SetVeiculo(string placa, string modelo, string cor)
@@ -35,35 +32,35 @@ namespace CondominioApp.Usuarios.App.Models
             Placa = placa;
             Modelo = modelo;
             Cor = cor;
-        }
+        }        
 
-        public void SetUsuarioId(Guid usuarioId) => UsuarioId = usuarioId;
-
-        public ValidationResult AdicionarUnidade(UnidadeVeiculo unidade)
+        public ValidationResult AdicionarVeiculoCondominio(VeiculoCondominio veiculoCondominio)
         {
-            _Unidades.Add(unidade);
+            _VeiculoCondominios.Add(veiculoCondominio);
 
             return ValidationResult;
         }
 
-        public bool EstaCadastradoNaUnidade(Guid usuarioId, Guid unidadeId)
+        public bool EstaCadastrado(Guid usuarioId, Guid unidadeId, Guid condominioId)
         {
-           return (UsuarioId == usuarioId && _Unidades.Any(u => u.UnidadeId == unidadeId) && !Lixeira);
+            if ((_VeiculoCondominios.Any(u => u.UnidadeId == unidadeId && u.UsuarioId == usuarioId && u.CondominioId == condominioId) && !Lixeira) == true)
+                return true;
+
+           return (_VeiculoCondominios.Any(u => u.UsuarioId == usuarioId && u.CondominioId == condominioId) && !Lixeira);
         }
 
-        public bool EstaCadastradoNoCondominio(Guid usuarioId, Guid condominioId)
+        public bool EstaCadastradoNoCondominio(Guid condominioId)
         {
-            return (UsuarioId == usuarioId && _Unidades.Any(u => u.CondominioId == condominioId) && !Lixeira);
-        }
+            return (_VeiculoCondominios.Any(u => u.CondominioId == condominioId) && !Lixeira);
+        }               
 
-        public bool PertenceAoMesmoUsuario(Guid usuarioId)
+        public void RemoverTodosOsVeiculoCondominioPorCondominio(Guid condominioId)
         {
-            return (UsuarioId == usuarioId && !Lixeira);
-        }
-
-        public void RemoverTodasAsUnidade()
-        {
-            _Unidades.Clear();
+            var veiculoCondominiosDoCondominio = _VeiculoCondominios.Where(c => c.CondominioId == condominioId);
+            foreach (VeiculoCondominio veiculoCondominio in veiculoCondominiosDoCondominio)
+            {
+                _VeiculoCondominios.Remove(veiculoCondominio);
+            }            
         }
 
     }

@@ -117,12 +117,12 @@ namespace CondominioApp.Usuarios.App.Data.Repository
 
 
 
-        public void AdicionarUnidadeVeiculo(UnidadeVeiculo veiculo)
+        public void AdicionarVeiculoCondominio(VeiculoCondominio veiculo)
         {
             _context.UnidadesVeiculo.Add(veiculo);
         }
 
-        public void RemoverUnidadeVeiculo(UnidadeVeiculo unidade)
+        public void RemoverVeiculoCondominio(VeiculoCondominio unidade)
         {
             _context.UnidadesVeiculo.Remove(unidade);
         }

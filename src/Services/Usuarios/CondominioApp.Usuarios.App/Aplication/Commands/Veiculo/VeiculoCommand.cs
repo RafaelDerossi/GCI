@@ -23,10 +23,19 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
 
         public Guid UnidadeId { get; protected set; }
 
+        public string NumeroUnidade { get; protected set; }
+
+        public string AndarUnidade { get; protected set; }
+
+        public string GrupoUnidade { get; protected set; }
+
         public Guid CondominioId { get; protected set; }
 
+        public string NomeCondominio { get; protected set; }
 
-        public void SetPlaca(string placa)
+
+
+        public void SetVeiculo(string placa, string modelo, string cor)
         {
             if (!string.IsNullOrEmpty(placa))
             {                
@@ -37,23 +46,28 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
             }
 
             Placa = placa;
-        }
-
-        public void SetModelo(string modelo)
-        {
             Modelo = modelo;
-        }
-
-        public void SetCor(string cor)
-        {
             Cor = cor;
+        }              
+
+        public void SetUsuarioId(Guid id)
+        {
+            UsuarioId = id;
         }
 
-        public void SetUsuarioId(Guid id) => UsuarioId = id;
+        public void SetUnidade(Guid id, string numero, string andar, string grupo)
+        {
+            UnidadeId = id;
+            NumeroUnidade = numero;
+            AndarUnidade = andar;
+            GrupoUnidade = grupo;
+        }
 
-        public void SetUnidadeId(Guid id) => UnidadeId = id;
-
-        public void SetCondominioId(Guid id) => CondominioId = id;
+        public void SetCondominio(Guid id, string nome)
+        {
+            CondominioId = id;
+            NomeCondominio = nome;
+        }
 
     }
 }

@@ -24,11 +24,19 @@ namespace CondominioApp.Api.Controllers
         [HttpPost]
         public async Task<ActionResult> Post(CadastraVeiculoViewModel veiculoVM)
         {
-            if (!ModelState.IsValid) return CustomResponse(ModelState);                        
-            
-             var comando = new CadastrarVeiculoCommand(
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            var unidade = await _condominioQuery.ObterUnidadePorId(veiculoVM.UnidadeId);
+            if (unidade == null)
+            {
+                AdicionarErroProcessamento("Unidade não encontrada!");
+                return CustomResponse();
+            }
+
+            var comando = new CadastrarVeiculoCommand(
                  veiculoVM.UsuarioId, veiculoVM.Placa, veiculoVM.Modelo, veiculoVM.Cor,
-                 veiculoVM.UnidadeId, veiculoVM.CondominioId);
+                 unidade.Id, unidade.Numero, unidade.Andar, unidade.GrupoDescricao,
+                 unidade.CondominioId, unidade.CondominioNome);
 
              var resultado = await _mediatorHandler.EnviarComando(comando);
 

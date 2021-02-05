@@ -1,9 +1,9 @@
 ﻿using CondominioApp.Core.DomainObjects;
 using System;
 
-namespace CondominioApp.Principal.Domain.FlatModel
+namespace CondominioApp.Usuarios.App.FlatModel
 {
-    public class VeiculoFlat
+    public class VeiculoFlat : IAggregateRoot
     {
         public const int Max = 200;
 
@@ -37,6 +37,7 @@ namespace CondominioApp.Principal.Domain.FlatModel
 
         public Guid CondominioId { get; private set; }
 
+        public string NomeCondominio { get; private set; }
 
 
         protected VeiculoFlat() { }
@@ -44,20 +45,13 @@ namespace CondominioApp.Principal.Domain.FlatModel
         public VeiculoFlat
             (Guid id, Guid veiculoId, string placa, string modelo, string cor, Guid usuarioId,
              string nomeUsuario, Guid unidadeId, string numeroUnidade, string andarUnidade,
-             string grupoUnidade, Guid codominioId)
+             string grupoUnidade, Guid condominioId, string nomeCondominio)
         {
-            Id = id;           
-            VeiculoId = veiculoId;
-            Placa = placa;
-            Modelo = modelo;
-            Cor = cor;
-            UsuarioId = usuarioId;
-            NomeUsuario = nomeUsuario;
-            UnidadeId = unidadeId;
-            NumeroUnidade = numeroUnidade;
-            AndarUnidade = andarUnidade;
-            GrupoUnidade = grupoUnidade;
-            CondominioId = codominioId;
+            Id = id;
+            SetVeiculo(veiculoId, placa, modelo, cor);
+            SetUsuario(usuarioId, nomeUsuario);
+            SetUnidade(unidadeId, numeroUnidade, andarUnidade, grupoUnidade);
+            SetCondominio(condominioId, nomeCondominio);
         }
 
         public void EnviarParaLixeira() => Lixeira = true;
@@ -78,7 +72,7 @@ namespace CondominioApp.Principal.Domain.FlatModel
             NomeUsuario = nomeUsuario;
         }
 
-        public void SetUnidade(Guid unidadeId, string numero, string andar, string grupo, Guid condominioId)
+        public void SetUnidade(Guid unidadeId, string numero, string andar, string grupo)
         {
             UnidadeId = unidadeId;
             NumeroUnidade = numero;
@@ -86,5 +80,12 @@ namespace CondominioApp.Principal.Domain.FlatModel
             GrupoUnidade = grupo;
             CondominioId = condominioId;
         }
+
+        public void SetCondominio(Guid condominioId, string nomeCondominio)
+        {
+            CondominioId = condominioId;
+            NomeCondominio = nomeCondominio;
+        }
+
     }
 }

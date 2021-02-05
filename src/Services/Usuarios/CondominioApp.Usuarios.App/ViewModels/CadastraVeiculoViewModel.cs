@@ -13,8 +13,6 @@ namespace CondominioApp.Usuarios.App.Models
 
         public Guid UsuarioId { get; private set; }
 
-        public Guid UnidadeId { get; set; }
-
-        public Guid CondominioId { get; set; }
+        public Guid UnidadeId { get; set; }        
     }
 }

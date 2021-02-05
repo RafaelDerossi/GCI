@@ -1,22 +1,18 @@
 ﻿using System;
-using CondominioApp.Core.Enumeradores;
-using CondominioApp.Core.Messages;
-using CondominioApp.Usuarios.App.ValueObjects;
 using CondominioApp.Usuarios.App.Aplication.Commands.Validations;
-using FluentValidation;
 
 namespace CondominioApp.Usuarios.App.Aplication.Commands
 {
     public class CadastrarVeiculoCommand : VeiculoCommand
     {
-        public CadastrarVeiculoCommand(Guid usuarioId, string placa, string modelo, string cor, Guid unidadeId, Guid condominioId)
+        public CadastrarVeiculoCommand
+            (Guid usuarioId, string placa, string modelo, string cor, Guid unidadeId, string numeroUnidade,
+            string andarUnidade, string grupoDaUnidade, Guid condominioId, string nomeCondominio)
         {
             SetUsuarioId(usuarioId);
-            SetPlaca(placa);
-            SetModelo(modelo);
-            SetCor(cor);
-            SetUnidadeId(unidadeId);
-            SetCondominioId(condominioId);
+            SetVeiculo(placa, modelo, cor);            
+            SetUnidade(unidadeId, numeroUnidade, andarUnidade, grupoDaUnidade);
+            SetCondominio(condominioId, nomeCondominio);
         }
 
         public override bool EstaValido()
@@ -33,9 +29,18 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
                 ValidatePlaca();
                 ValidateModelo();
                 ValidateCor();
+                
                 ValidateUsuarioId();
+                ValidateNomeUsuario();
+                
                 ValidateUnidadeId();
+                ValidateNumeroUnidade();
+                ValidateAndarUnidade();
+                ValidateGrupoDaUnidade();
+
                 ValidateCondominioId();
+                ValidateNomeCondominio();
+
             }
         }
 

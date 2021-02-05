@@ -285,6 +285,8 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<IReservaAreaComumQueryRepository, ReservaAreaComumQueryRepository>();
             services.AddScoped<IVisitanteRepository, VisitanteRepository>();
             services.AddScoped<IVisitanteQueryRepository, VisitanteQueryRepository>();
+            services.AddScoped<ICondominioCredencialRepository, CondominioCredencialRepository>();
+            services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 
             #endregion
 

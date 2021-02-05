@@ -17,7 +17,7 @@ namespace CondominioApp.Usuarios.App.Models
         Task<Veiculo> ObterVeiculoPorPlaca(string placa);
 
 
-        void AdicionarUnidadeVeiculo(UnidadeVeiculo veiculo);
-        void RemoverUnidadeVeiculo(UnidadeVeiculo unidade);
+        void AdicionarVeiculoCondominio(VeiculoCondominio veiculo);
+        void RemoverVeiculoCondominio(VeiculoCondominio unidade);
     }
 }
