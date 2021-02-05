@@ -4,6 +4,10 @@ using CondominioApp.Comunicados.App.Aplication.Query;
 using CondominioApp.Comunicados.App.Models;
 using CondominioApp.Comunicados.App.ViewModels;
 using CondominioApp.Core.Mediator;
+using CondominioApp.Principal.Aplication.Query.Interfaces;
+using CondominioApp.Principal.Domain.FlatModel;
+using CondominioApp.Usuarios.App.Aplication.Query;
+using CondominioApp.Usuarios.App.Models;
 using CondominioApp.WebApi.Core.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -19,13 +23,17 @@ namespace CondominioApp.Api.Controllers
 
         private readonly IMediatorHandler _mediatorHandler;
         private readonly IMapper _mapper;
-        private readonly IComunicadoQuery _comunicadoQuery;        
+        private readonly IComunicadoQuery _comunicadoQuery;
+        private readonly ICondominioQuery _condominioQuery;
+        private readonly IUsuarioQuery _usuarioQuery;
 
-        public ComunicadoController(IMediatorHandler mediatorHandler, IMapper mapper, IComunicadoQuery comunicadoQuery)
+        public ComunicadoController(IMediatorHandler mediatorHandler, IMapper mapper, IComunicadoQuery comunicadoQuery, ICondominioQuery condominioQuery, IUsuarioQuery usuarioQuery)
         {
             _mediatorHandler = mediatorHandler;
             _mapper = mapper;
-            _comunicadoQuery = comunicadoQuery;           
+            _comunicadoQuery = comunicadoQuery;
+            _condominioQuery = condominioQuery;
+            _usuarioQuery = usuarioQuery;
         }
 
 
@@ -103,12 +111,27 @@ namespace CondominioApp.Api.Controllers
 
 
 
+
         [HttpPost]
         public async Task<ActionResult> Post(CadastrarComunicadoViewModel comunicadoVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var comando = CadastrarComunicadoCommandFactory(comunicadoVM);
+            var condominio = await _condominioQuery.ObterPorId(comunicadoVM.CondominioId);
+            if(condominio == null)
+            {
+                AdicionarErroProcessamento("Condominio não encontrado!");
+                return CustomResponse();
+            }
+
+            var usuario = await _usuarioQuery.ObterPorId(comunicadoVM.UsuarioId);
+            if (usuario == null)
+            {
+                AdicionarErroProcessamento("Usuario não encontrado!");
+                return CustomResponse();
+            }
+
+            var comando = CadastrarComunicadoCommandFactory(comunicadoVM, condominio, usuario);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
@@ -125,10 +148,17 @@ namespace CondominioApp.Api.Controllers
         [HttpPut]
         public async Task<ActionResult> Put(EditarComunicadoViewModel comunicadoVM)
         {
-            if (!ModelState.IsValid) return CustomResponse(ModelState);         
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+                        
 
-           
-            var comando = EditarComunicadoCommandFactory(comunicadoVM);
+            var usuario = await _usuarioQuery.ObterPorId(comunicadoVM.UsuarioId);
+            if (usuario == null)
+            {
+                AdicionarErroProcessamento("Usuario não encontrado!");
+                return CustomResponse();
+            }
+
+            var comando = EditarComunicadoCommandFactory(comunicadoVM, usuario);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
@@ -141,6 +171,7 @@ namespace CondominioApp.Api.Controllers
             return CustomResponse(Resultado);
 
         }
+
 
         [HttpDelete("{id:Guid}")]
         public async Task<ActionResult> Delete(Guid id)
@@ -161,43 +192,46 @@ namespace CondominioApp.Api.Controllers
 
 
 
-        private CadastrarComunicadoCommand CadastrarComunicadoCommandFactory(CadastrarComunicadoViewModel comunicadoVM)
+        private CadastrarComunicadoCommand CadastrarComunicadoCommandFactory(CadastrarComunicadoViewModel comunicadoVM, CondominioFlat condominio, Usuario usuario)
         {
-            var listaUnidades = new List<Unidade>();
-            if (comunicadoVM.Unidades != null)
+            var listaUnidadesComunicado = new List<UnidadeComunicado>();
+            if (comunicadoVM.UnidadesId != null)
             {
-                foreach (UnidadeViewModel unidadeVM in comunicadoVM.Unidades)
+                foreach (Guid unidadeId in comunicadoVM.UnidadesId)
                 {
-                    var unidade = _mapper.Map<Unidade>(unidadeVM);
-                    listaUnidades.Add(unidade);
+                    var unidade = _condominioQuery.ObterUnidadePorId(unidadeId).Result;
+                    var unidadeComunicado = new UnidadeComunicado(unidade.Id, unidade.Numero, unidade.Andar, unidade.GrupoId, unidade.GrupoDescricao);
+                    listaUnidadesComunicado.Add(unidadeComunicado);
                 }
             }
            
            return new CadastrarComunicadoCommand(
                 comunicadoVM.Titulo, comunicadoVM.Descricao, comunicadoVM.DataDeRealizacao,
-                comunicadoVM.CondominioId, comunicadoVM.NomeCondominio, comunicadoVM.UsuarioId,
-                comunicadoVM.NomeUsuario, comunicadoVM.Visibilidade, comunicadoVM.Categoria,
-                comunicadoVM.TemAnexos, comunicadoVM.CriadoPelaAdministradora, listaUnidades);
+                comunicadoVM.CondominioId, condominio.Nome, usuario.Id,
+                usuario.NomeCompleto, comunicadoVM.Visibilidade, comunicadoVM.Categoria,
+                comunicadoVM.TemAnexos, comunicadoVM.CriadoPelaAdministradora, listaUnidadesComunicado);
         }
 
-        private EditarComunicadoCommand EditarComunicadoCommandFactory(EditarComunicadoViewModel comunicadoVM)
+        private EditarComunicadoCommand EditarComunicadoCommandFactory(EditarComunicadoViewModel comunicadoVM, Usuario usuario)
         {
-            var listaUnidades = new List<Unidade>();
-            if (comunicadoVM.Unidades != null)
+            var listaUnidadesComunicado = new List<UnidadeComunicado>();
+            if (comunicadoVM.UnidadesId != null)
             {
-                foreach (UnidadeViewModel unidadeVM in comunicadoVM.Unidades)
+                foreach (Guid unidadeId in comunicadoVM.UnidadesId)
                 {
-                    var unidade = _mapper.Map<Unidade>(unidadeVM);
-                    listaUnidades.Add(unidade);
+                    var unidade = _condominioQuery.ObterUnidadePorId(unidadeId).Result;
+                    var unidadeComunicado = new UnidadeComunicado(unidade.Id, unidade.Numero, unidade.Andar, unidade.GrupoId, unidade.GrupoDescricao);
+                    listaUnidadesComunicado.Add(unidadeComunicado);
                 }
             }
 
             //Edita Comunicado
-          return new EditarComunicadoCommand(
+            return new EditarComunicadoCommand(
                 comunicadoVM.ComunicadoId, comunicadoVM.Titulo, comunicadoVM.Descricao, comunicadoVM.DataDeRealizacao,
-                comunicadoVM.UsuarioId, comunicadoVM.NomeUsuario, comunicadoVM.Visibilidade, comunicadoVM.Categoria,
-                comunicadoVM.TemAnexos, listaUnidades);
+                usuario.Id, usuario.NomeCompleto, comunicadoVM.Visibilidade, comunicadoVM.Categoria,
+                comunicadoVM.TemAnexos, listaUnidadesComunicado);
 
         }
+
     }
 }

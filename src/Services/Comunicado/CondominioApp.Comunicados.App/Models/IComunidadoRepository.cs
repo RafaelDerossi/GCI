@@ -9,10 +9,10 @@ namespace CondominioApp.Comunicados.App.Models
 {
     public interface IComunidadoRepository : IRepository<Comunicado>
     {
-        void AdicionarUnidade(Unidade entity);
+        void AdicionarUnidade(UnidadeComunicado entity);
 
-        void RemoverUnidade(Unidade entity);
+        void RemoverUnidade(UnidadeComunicado entity);
 
-        Task<IEnumerable<Unidade>> ObterUnidades(Expression<Func<Unidade, bool>> expression, bool OrderByDesc = false, int take = 0);
+        Task<IEnumerable<UnidadeComunicado>> ObterUnidades(Expression<Func<UnidadeComunicado, bool>> expression, bool OrderByDesc = false, int take = 0);
     }
 }

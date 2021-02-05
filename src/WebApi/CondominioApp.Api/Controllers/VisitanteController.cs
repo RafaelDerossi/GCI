@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using CondominioApp.Core.Mediator;
+﻿using CondominioApp.Core.Mediator;
 using CondominioApp.Portaria.Aplication.Commands;
 using CondominioApp.Portaria.Aplication.ViewModels;
 using CondominioApp.Portaria.Aplication.Query;
@@ -10,6 +9,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using CondominioApp.Portaria.Domain.FlatModel;
 using System.Linq;
+using CondominioApp.Principal.Aplication.Query.Interfaces;
+using CondominioApp.Principal.Domain.FlatModel;
 
 namespace CondominioApp.Api.Controllers
 {
@@ -18,11 +19,13 @@ namespace CondominioApp.Api.Controllers
     {
         private readonly IMediatorHandler _mediatorHandler;      
         private readonly IPortariaQuery _portariaQuery;
+        private readonly ICondominioQuery _condominioQuery;
 
-        public VisitanteController(IMediatorHandler mediatorHandler, IPortariaQuery portariaQuery)
+        public VisitanteController(IMediatorHandler mediatorHandler, IPortariaQuery portariaQuery, ICondominioQuery condominioQuery)
         {
             _mediatorHandler = mediatorHandler;           
             _portariaQuery = portariaQuery;
+            _condominioQuery = condominioQuery;            
         }
 
 
@@ -81,7 +84,14 @@ namespace CondominioApp.Api.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var comando = CadastrarVisitantePorMoradorCommandFactory(visitanteVM);
+            var unidade = await _condominioQuery.ObterUnidadePorId(visitanteVM.UnidadeId);
+            if (unidade == null)
+            {
+                AdicionarErroProcessamento("Unidade não encontrada!");
+                return CustomResponse();
+            }
+
+            var comando = CadastrarVisitantePorMoradorCommandFactory(visitanteVM, unidade);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
@@ -113,14 +123,13 @@ namespace CondominioApp.Api.Controllers
 
 
         private CadastrarVisitantePorMoradorCommand CadastrarVisitantePorMoradorCommandFactory
-            (CadastraVisitanteViewModel viewModel)
+            (CadastraVisitanteViewModel viewModel, UnidadeFlat unidade)
         {
             return new CadastrarVisitantePorMoradorCommand(
                   viewModel.Nome, viewModel.TipoDoDocumento, viewModel.Documento, viewModel.Email, viewModel.Foto,
-                  viewModel.NomeOriginalFoto, viewModel.CondominioId, viewModel.NomeCondominio,
-                  viewModel.UnidadeId, viewModel.NumeroUnidade, viewModel.AndarUnidade,
-                  viewModel.GrupoUnidade, viewModel.VisitantePermanente, viewModel.QrCode,
-                  viewModel.TipoDeVisitante, viewModel.NomeEmpresa, viewModel.TemVeiculo);
+                  viewModel.NomeOriginalFoto, unidade.CondominioId, unidade.CondominioNome,
+                  unidade.Id, unidade.Numero, unidade.Andar, unidade.GrupoDescricao, viewModel.VisitantePermanente,
+                  viewModel.QrCode, viewModel.TipoDeVisitante, viewModel.NomeEmpresa, viewModel.TemVeiculo);
         }
 
         private EditarVisitantePorMoradorCommand EditarVisitantePorMoradorCommandFactory

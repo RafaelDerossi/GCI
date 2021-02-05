@@ -10,7 +10,7 @@ namespace CondominioApp.Portaria.Aplication.Events
         public Guid Id { get; protected set; }
 
         public string Nome { get; protected set; }
-        public TipoDeDocumento TipoDeDocumento { get; protected set; }
+        public string TipoDeDocumento { get; protected set; }
         public string Documento { get; protected set; }        
         public Email Email { get; protected set; }
         public Foto Foto { get; protected set; }
@@ -25,7 +25,7 @@ namespace CondominioApp.Portaria.Aplication.Events
 
         public bool VisitantePermanente { get; protected set; }
         public string QrCode { get; protected set; }
-        public TipoDeVisitante TipoDeVisitante { get; protected set; }
+        public string TipoDeVisitante { get; protected set; }
         public string NomeEmpresa { get; protected set; }
 
         public bool TemVeiculo { get; protected set; }
@@ -34,7 +34,7 @@ namespace CondominioApp.Portaria.Aplication.Events
 
         public void SetDocumento(string documento, TipoDeDocumento tipoDeDocumento)
         {
-            TipoDeDocumento = tipoDeDocumento;
+            TipoDeDocumento = tipoDeDocumento.ToString();
             Documento = documento;
         }
         

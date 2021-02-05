@@ -17,7 +17,7 @@ namespace CondominioApp.Portaria.Aplication.Events
             SetEmail(email);
             SetFoto(foto);
             VisitantePermanente = visitantePermanente;
-            TipoDeVisitante = tipoDeVisitante;
+            TipoDeVisitante = tipoDeVisitante.ToString();
             NomeEmpresa = nomeEmpresa;
             TemVeiculo = temVeiculo;           
         }

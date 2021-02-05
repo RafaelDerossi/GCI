@@ -9,17 +9,11 @@ namespace CondominioApp.Correspondencias.App.ViewModels
     {
         public Guid CondominioId { get; set; }
 
-        public Guid UnidadeId { get; set; }
+        public Guid UnidadeId { get; set; }        
 
-        public string NumeroUnidade { get; set; }
-
-        public string Bloco { get; set; }
-
-        public string Observacao { get; set; }       
+        public string Observacao { get; set; }
 
         public Guid UsuarioId { get; set; }
-
-        public string NomeUsuario { get; set; }
 
         public string Foto { get;  set; }
 
@@ -27,10 +21,11 @@ namespace CondominioApp.Correspondencias.App.ViewModels
 
         public string NumeroRastreamentoCorreio { get; set; }
 
-        public DateTime DataDeChegada { get; set; }       
+        public DateTime DataDeChegada { get; set; }
 
         public string TipoDeCorrespondencia { get; set; }
 
         public StatusCorrespondencia Status { get; set; }
+
     }
 }

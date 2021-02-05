@@ -35,14 +35,14 @@ namespace CondominioApp.Comunicados.App.Models
         public bool CriadoPelaAdministradora { get; private set; }
 
 
-        private readonly List<Unidade> _Unidades;
-        public IReadOnlyCollection<Unidade> Unidades => _Unidades;
+        private readonly List<UnidadeComunicado> _Unidades;
+        public IReadOnlyCollection<UnidadeComunicado> Unidades => _Unidades;
 
 
         /// Construtores
         protected Comunicado()
         {
-            _Unidades = new List<Unidade>();
+            _Unidades = new List<UnidadeComunicado>();
         }
 
         public Comunicado
@@ -50,7 +50,7 @@ namespace CondominioApp.Comunicados.App.Models
             Guid usuarioId, string nomeUsuario, VisibilidadeComunicado visibilidade, CategoriaComunicado categoria,
             bool temAnexos, bool criadoPelaAdministradora)
         {
-            _Unidades = new List<Unidade>();
+            _Unidades = new List<UnidadeComunicado>();
 
             Titulo = titulo;
             Descricao = descricao;
@@ -87,7 +87,7 @@ namespace CondominioApp.Comunicados.App.Models
         public void SetCriadoPelaAdministradora() => CriadoPelaAdministradora = true;
 
 
-        public ValidationResult AdicionarUnidade(Unidade unidade)
+        public ValidationResult AdicionarUnidade(UnidadeComunicado unidade)
         {
 
             if (_Unidades.Any(u => u.UnidadeId == unidade.UnidadeId))

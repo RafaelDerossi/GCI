@@ -43,7 +43,7 @@ namespace CondominioApp.Comunicados.App.Aplication.Query
 
             if (listaUnidades != null)
             {
-                foreach (Unidade unidade in listaUnidades)
+                foreach (UnidadeComunicado unidade in listaUnidades)
                 {
                     var comunicado = await _comunicadoRepository.ObterPorId(unidade.ComunicadoId);
                     listaFinal.Add(comunicado);
@@ -79,7 +79,7 @@ namespace CondominioApp.Comunicados.App.Aplication.Query
 
                 if (listaProprietarioUnidade != null)
                 {
-                    foreach (Unidade unidade in listaProprietarioUnidade)
+                    foreach (UnidadeComunicado unidade in listaProprietarioUnidade)
                     {
                         var comunicado = await _comunicadoRepository.ObterPorId(unidade.ComunicadoId);
                         listaFinal.Add(comunicado);

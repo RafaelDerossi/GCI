@@ -15,7 +15,7 @@ namespace CondominioApp.Principal.Infra.DataQuery.Mapping
 
             builder.Property(u => u.Nome).IsRequired().HasColumnType($"varchar({VisitanteFlat.Max})");
 
-            builder.Property(u => u.TipoDeDocumento).IsRequired();
+            builder.Property(u => u.TipoDeDocumento).IsRequired().HasColumnType($"varchar({VisitanteFlat.Max})");
 
             builder.Property(u => u.Documento)
                     .HasMaxLength(20)
@@ -46,9 +46,9 @@ namespace CondominioApp.Principal.Infra.DataQuery.Mapping
 
             builder.Property(u => u.VisitantePermanente).IsRequired();
 
-            builder.Property(u => u.QrCode).HasColumnType($"varchar({VisitanteFlat.Max})");
+            builder.Property(u => u.QrCode).HasColumnType($"varchar({VisitanteFlat.Max})");            
 
-            builder.Property(u => u.TipoDeVisitante).IsRequired();
+            builder.Property(u => u.TipoDeVisitante).IsRequired().HasColumnType($"varchar({VisitanteFlat.Max})");
 
             builder.Property(u => u.NomeEmpresa).HasColumnType($"varchar({VisitanteFlat.Max})");
 
