@@ -8,12 +8,8 @@ namespace CondominioApp.ReservaAreaComum.Aplication.ViewModels
     {      
         public Guid AreaComumId { get; set; }
         public string Observacao { get; set; }
-        public Guid UnidadeId { get; set; }
-        public string NumeroUnidade { get; set; }
-        public string AndarUnidade { get; set; }
-        public string DescricaoGrupoUnidade { get; set; }
-        public Guid UsuarioId { get; set; }
-        public string NomeUsuario { get; set; }
+        public Guid UnidadeId { get; set; }        
+        public Guid UsuarioId { get; set; }        
         public DateTime DataDeRealizacao { get; set; }
         public string HoraInicio { get; set; }
         public string HoraFim { get; set; }

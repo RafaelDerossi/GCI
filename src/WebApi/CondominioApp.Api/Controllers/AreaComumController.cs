@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using CondominioApp.Core.Mediator;
+using CondominioApp.Principal.Aplication.Query.Interfaces;
+using CondominioApp.Principal.Domain.FlatModel;
 using CondominioApp.ReservaAreaComum.Aplication.Commands;
 using CondominioApp.ReservaAreaComum.Aplication.ViewModels;
 using CondominioApp.ReservaAreaComum.App.Aplication.Query;
@@ -20,12 +22,15 @@ namespace CondominioApp.Api.Controllers
         private readonly IMediatorHandler _mediatorHandler;
         private readonly IMapper _mapper;
         private readonly IReservaAreaComumQuery _areaComumQuery;
+        private readonly ICondominioQuery _condominioQuery;
 
-        public AreaComumController(IMediatorHandler mediatorHandler, IMapper mapper, IReservaAreaComumQuery areaComumQuery)
+        public AreaComumController(IMediatorHandler mediatorHandler, IMapper mapper,
+                                   IReservaAreaComumQuery areaComumQuery, ICondominioQuery condominioQuery)
         {
             _mediatorHandler = mediatorHandler;
             _mapper = mapper;
             _areaComumQuery = areaComumQuery;
+            _condominioQuery = condominioQuery;
         }
 
 
@@ -60,7 +65,14 @@ namespace CondominioApp.Api.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var comando = CadastrarAreaComumCommandFactory(areaComumVM);
+            var condominio = await _condominioQuery.ObterPorId(areaComumVM.CondominioId);
+            if (condominio == null)
+            {
+                AdicionarErroProcessamento("Condominio não encontrado!");
+                return CustomResponse();
+            }
+
+            var comando = CadastrarAreaComumCommandFactory(areaComumVM, condominio);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
@@ -113,7 +125,7 @@ namespace CondominioApp.Api.Controllers
 
 
 
-        private CadastrarAreaComumCommand CadastrarAreaComumCommandFactory(CadastraAreaComumViewModel areaComumVM)
+        private CadastrarAreaComumCommand CadastrarAreaComumCommandFactory(CadastraAreaComumViewModel areaComumVM, CondominioFlat condominio)
         {
             var listaPeriodos = new List<Periodo>();
             if (areaComumVM.Periodos != null)
@@ -125,8 +137,8 @@ namespace CondominioApp.Api.Controllers
                 }
             }
            return new CadastrarAreaComumCommand(
-                 areaComumVM.Nome, areaComumVM.Descricao, areaComumVM.TermoDeUso, areaComumVM.CondominioId,
-                 areaComumVM.NomeCondominio, areaComumVM.Capacidade, areaComumVM.DiasPermitidos,
+                 areaComumVM.Nome, areaComumVM.Descricao, areaComumVM.TermoDeUso, condominio.Id,
+                 condominio.Nome, areaComumVM.Capacidade, areaComumVM.DiasPermitidos,
                  areaComumVM.AntecedenciaMaximaEmMeses, areaComumVM.AntecedenciaMaximaEmDias,
                  areaComumVM.AntecedenciaMinimaEmDias, areaComumVM.AntecedenciaMinimaParaCancelamentoEmDias,
                  areaComumVM.RequerAprovacaoDeReserva, areaComumVM.TemHorariosEspecificos,

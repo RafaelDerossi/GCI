@@ -9,8 +9,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.ViewModels
         public string Nome { get; set; }
         public string Descricao { get; set; }
         public string TermoDeUso { get; set; }
-        public Guid CondominioId { get; set; }
-        public string NomeCondominio { get; set; }
+        public Guid CondominioId { get; set; }        
         public int Capacidade { get; set; }
         public string DiasPermitidos { get; set; }
         public int AntecedenciaMaximaEmMeses { get; set; }
