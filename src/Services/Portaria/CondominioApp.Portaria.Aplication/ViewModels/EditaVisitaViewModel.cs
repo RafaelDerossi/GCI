@@ -20,10 +20,7 @@ namespace CondominioApp.Portaria.Aplication.ViewModels
         public TipoDeVisitante TipoDeVisitante { get; set; }
         public string NomeEmpresaVisitante { get; set; }
                 
-        public Guid UnidadeId { get; set; }
-        public string NumeroUnidade { get; set; }
-        public string AndarUnidade { get; set; }
-        public string GrupoUnidade { get; set; }
+        public Guid UnidadeId { get; set; }        
 
         public bool TemVeiculo { get; set; }
         public string PlacaVeiculo { get; set; }
@@ -31,7 +28,6 @@ namespace CondominioApp.Portaria.Aplication.ViewModels
         public string CorVeiculo { get; set; }
 
         public Guid UsuarioId { get; set; }
-        public string NomeUsuario { get; set; }
 
     }
 }

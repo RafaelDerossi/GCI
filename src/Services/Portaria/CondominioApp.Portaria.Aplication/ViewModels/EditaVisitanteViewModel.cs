@@ -1,7 +1,5 @@
 ﻿using CondominioApp.Core.Enumeradores;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CondominioApp.Portaria.Aplication.ViewModels
 {

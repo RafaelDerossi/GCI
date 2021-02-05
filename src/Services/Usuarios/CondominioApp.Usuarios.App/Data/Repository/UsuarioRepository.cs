@@ -22,7 +22,7 @@ namespace CondominioApp.Usuarios.App.Data.Repository
 
         public async Task<Usuario> ObterPorId(Guid Id)
         {
-            return await _context.Usuarios.FirstOrDefaultAsync(u => u.Id == Id);
+            return await _context.Usuarios.Where(u => u.Id == Id && !u.Lixeira).FirstOrDefaultAsync();
         }
 
         public async Task<IEnumerable<Usuario>> ObterTodos()
