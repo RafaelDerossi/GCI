@@ -1,10 +1,13 @@
 ﻿using AutoMapper;
 using CondominioApp.Core.Mediator;
+using CondominioApp.Principal.Aplication.Query.Interfaces;
+using CondominioApp.Principal.Domain.FlatModel;
 using CondominioApp.ReservaAreaComum.Aplication.Commands;
 using CondominioApp.ReservaAreaComum.Aplication.ViewModels;
 using CondominioApp.ReservaAreaComum.App.Aplication.Query;
-using CondominioApp.ReservaAreaComum.Domain;
 using CondominioApp.ReservaAreaComum.Domain.FlatModel;
+using CondominioApp.Usuarios.App.Aplication.Query;
+using CondominioApp.Usuarios.App.Models;
 using CondominioApp.WebApi.Core.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -17,15 +20,18 @@ namespace CondominioApp.Api.Controllers
     [Route("api/reserva")]
     public class ReservaController : MainController
     {
-        private readonly IMediatorHandler _mediatorHandler;
-        //private readonly IMapper _mapper;
+        private readonly IMediatorHandler _mediatorHandler;        
         private readonly IReservaAreaComumQuery _reservaAreaComumQuery;
+        private readonly ICondominioQuery _condominioQuery;
+        private readonly IUsuarioQuery _usuarioQuery;
 
-        public ReservaController(IMediatorHandler mediatorHandler, IReservaAreaComumQuery reservaAreaComumQuery) //, IMapper mapper)
+
+        public ReservaController(IMediatorHandler mediatorHandler, IReservaAreaComumQuery reservaAreaComumQuery, ICondominioQuery condominioQuery, IUsuarioQuery usuarioQuery) //, IMapper mapper)
         {
             _mediatorHandler = mediatorHandler;
             _reservaAreaComumQuery = reservaAreaComumQuery;
-            //_mapper = mapper;
+            _condominioQuery = condominioQuery;
+            _usuarioQuery = usuarioQuery;
         }
 
 
@@ -95,7 +101,21 @@ namespace CondominioApp.Api.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var comando = CadastrarReservaCommandFactory(reservaVM);
+            var usuario = await _usuarioQuery.ObterPorId(reservaVM.UsuarioId);
+            if (usuario == null)
+            {
+                AdicionarErroProcessamento("Usuario não encontrado!");
+                return CustomResponse();
+            }
+
+            var unidade = await _condominioQuery.ObterUnidadePorId(reservaVM.UnidadeId);
+            if (unidade == null)
+            {
+                AdicionarErroProcessamento("Unidade não encontrada!");
+                return CustomResponse();
+            }
+
+            var comando = CadastrarReservaCommandFactory(reservaVM, unidade, usuario);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
@@ -148,15 +168,14 @@ namespace CondominioApp.Api.Controllers
 
 
 
-        private CadastrarReservaCommand CadastrarReservaCommandFactory(CadastraReservaViewModel reservaVM)
+        private CadastrarReservaCommand CadastrarReservaCommandFactory(CadastraReservaViewModel reservaVM, UnidadeFlat unidade, Usuario usuario)
         {            
             return new CadastrarReservaCommand(
-                  reservaVM.AreaComumId, reservaVM.Observacao, reservaVM.UnidadeId, reservaVM.NumeroUnidade,
-                  reservaVM.AndarUnidade, reservaVM.DescricaoGrupoUnidade, reservaVM.UsuarioId,
-                  reservaVM.NomeUsuario, reservaVM.DataDeRealizacao, reservaVM.HoraInicio, reservaVM.HoraFim,
+                  reservaVM.AreaComumId, reservaVM.Observacao, unidade.Id, unidade.Numero,
+                  unidade.Andar, unidade.GrupoDescricao, usuario.Id,
+                  usuario.NomeCompleto, reservaVM.DataDeRealizacao, reservaVM.HoraInicio, reservaVM.HoraFim,
                   reservaVM.Preco, reservaVM.EstaNaFila, reservaVM.Origem, reservaVM.ReservadoPelaAdministracao);
         }
-
 
     }
 }

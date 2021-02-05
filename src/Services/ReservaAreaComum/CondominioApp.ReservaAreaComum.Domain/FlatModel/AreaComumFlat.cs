@@ -38,7 +38,7 @@ namespace CondominioApp.ReservaAreaComum.Domain.FlatModel
 
         public bool TemIntervaloFixoEntreReservas { get; private set; }
 
-        public string TempoDeIntervaloEntreReservasPorUsuario { get; private set; }
+        public string TempoDeIntervaloEntreReservasPorUnidade { get; private set; }
 
         private readonly List<PeriodoFlat> _Periodos;
         public IReadOnlyCollection<PeriodoFlat> Periodos => _Periodos;
@@ -58,7 +58,7 @@ namespace CondominioApp.ReservaAreaComum.Domain.FlatModel
             bool horariosEspecificos, string tempoDeIntervaloEntreReservas, bool ativo, string tempoDeDuracaoDaReserva,
             int numeroLimiteDeReservaPorUnidade, bool permiteReservaSobreposta, int numeroLimiteDeReservaSobreposta,
             int numeroLimiteDeReservaSobrepostaPorUnidade, bool temIntervaloFixoEntreReservas,
-            string tempoDeIntervaloEntreReservasPorUsuario)
+            string tempoDeIntervaloEntreReservasPorUnidade)
         {
             _Periodos = new List<PeriodoFlat>();
             Id = id;
@@ -83,7 +83,7 @@ namespace CondominioApp.ReservaAreaComum.Domain.FlatModel
             NumeroLimiteDeReservaSobreposta = numeroLimiteDeReservaSobreposta;
             NumeroLimiteDeReservaSobrepostaPorUnidade = numeroLimiteDeReservaSobrepostaPorUnidade;
             TemIntervaloFixoEntreReservas = temIntervaloFixoEntreReservas;
-            TempoDeIntervaloEntreReservasPorUsuario = tempoDeIntervaloEntreReservasPorUsuario;
+            TempoDeIntervaloEntreReservasPorUnidade = tempoDeIntervaloEntreReservasPorUnidade;
         }
 
 
@@ -138,7 +138,7 @@ namespace CondominioApp.ReservaAreaComum.Domain.FlatModel
         public void SetTemIntervaloFixoEntreReservas(bool temIntervaloFixoEntreReservas) =>
           TemIntervaloFixoEntreReservas = temIntervaloFixoEntreReservas;
 
-        public void SetTempoDeIntervaloEntreReservasPorUsuario(string intervalo) => TempoDeIntervaloEntreReservasPorUsuario = intervalo;
+        public void SetTempoDeIntervaloEntreReservasPorUnidade(string intervalo) => TempoDeIntervaloEntreReservasPorUnidade = intervalo;
 
         ///Outros Metodos
         ///

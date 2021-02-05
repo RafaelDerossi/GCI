@@ -23,12 +23,7 @@ namespace CondominioApp.Core.Helpers
         /// A chave é: "Criptografias com Rijndael / AES"     
         /// </summary>     
         public const string cryptoKey = "Q3JpcHRvZ3JhZmlhcyBjb20gUmluamRhZWwgLyBBRVM=";
-
-        public static string Decrypt(int escolaId)
-        {
-            throw new NotImplementedException();
-        }
-
+              
         /// <summary>     
         /// Metodo de criptografia de valor     
         /// </summary>     

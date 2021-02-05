@@ -20,18 +20,18 @@ namespace CondominioApp.Portaria.Domain.FlatModel
 
         public DateTime DataDeEntrada { get; private set; }       
         public DateTime DataDeSaida { get; private set; }
-        public StatusVisita Status { get; private set; }
+        public string Status { get; private set; }
         public string Observacao { get; private set; }
         
         
 
         public Guid VisitanteId { get; private set; }
         public string NomeVisitante { get; private set; }
-        public TipoDeDocumento TipoDeDocumentoVisitante { get; private set; }
+        public string TipoDeDocumentoVisitante { get; private set; }
         public string DocumentoVisitante { get; private set; }       
         public string EmailVisitante { get; private set; }
         public string FotoVisitante { get; private set; }
-        public TipoDeVisitante TipoDeVisitante { get; private set; }
+        public string TipoDeVisitante { get; private set; }
         public string NomeEmpresaVisitante { get; private set; }
 
 
@@ -61,10 +61,10 @@ namespace CondominioApp.Portaria.Domain.FlatModel
         }
 
         public VisitaFlat(
-            Guid id, DateTime dataDeEntrada, string observacao, StatusVisita status,
-            Guid visitanteId, string nomeVisitante, TipoDeDocumento tipoDeDocumentoVisitante,
+            Guid id, DateTime dataDeEntrada, string observacao, string status,
+            Guid visitanteId, string nomeVisitante, string tipoDeDocumentoVisitante,
             string documentoVisitante, string emailVisitante, string fotoVisitante,
-            TipoDeVisitante tipoDeVisitante, string nomeEmpresaVisitante, Guid condominioId,
+            string tipoDeVisitante, string nomeEmpresaVisitante, Guid condominioId,
             string nomeCondominio, Guid unidadeId, string numeroUnidade, string andarUnidade,
             string descricaoGrupoUnidade, bool temVeiculo,
             string placaVeiculo, string modeloVeiculo, string corVeiculo,
@@ -103,18 +103,18 @@ namespace CondominioApp.Portaria.Domain.FlatModel
         public void RestaurarDaLixeira() => Lixeira = false;
 
 
-        public void AprovarVisita() => Status = StatusVisita.APROVADA;
-        public void ReprovarVisita() => Status = StatusVisita.REPROVADA;
+        public void AprovarVisita() => Status = StatusVisita.APROVADA.ToString();
+        public void ReprovarVisita() => Status = StatusVisita.REPROVADA.ToString();
 
 
         public void IniciarVisita(DateTime dataDeEntrada)
         {
-            Status = StatusVisita.INICIADA;
+            Status = StatusVisita.INICIADA.ToString();
             DataDeEntrada = dataDeEntrada;
         }
         public void TerminarVisita(DateTime dataDeSaida)
         { 
-            Status = StatusVisita.TERMINADA;
+            Status = StatusVisita.TERMINADA.ToString();
             DataDeSaida = dataDeSaida;
         }
 
@@ -122,14 +122,14 @@ namespace CondominioApp.Portaria.Domain.FlatModel
         public void SetObservacao(string observacao) => Observacao = observacao;
         public void SetDataDeEntrada(DateTime dataDeEntrada) => DataDeEntrada = dataDeEntrada;       
         public void SetNomeVisitante(string nome) => NomeVisitante = nome;
-        public void SetDocumentoVisitante(string documento, TipoDeDocumento tipoDeDocumento)
+        public void SetDocumentoVisitante(string documento, string tipoDeDocumento)
         {
             TipoDeDocumentoVisitante = tipoDeDocumento;
             DocumentoVisitante = documento;
         }
         public void SetEmailVisitante(string email) => EmailVisitante = email;
         public void SetFotoVisitante(string foto) => FotoVisitante = foto;
-        public void SetTipoDeVisitante(TipoDeVisitante tipoDeVisitante) => TipoDeVisitante = tipoDeVisitante;
+        public void SetTipoDeVisitante(string tipoDeVisitante) => TipoDeVisitante = tipoDeVisitante;
         public void SetNomeEmpresaVisitante(string nomeEmpresa) => NomeEmpresaVisitante = nomeEmpresa;
 
         public void MarcarTemVeiculo() => TemVeiculo = true;
@@ -150,13 +150,13 @@ namespace CondominioApp.Portaria.Domain.FlatModel
             NomeUsuario = nome;
         }
 
-        public StatusVisita ObterStatus()
+        public string ObterStatus()
         {
-            if (Status == StatusVisita.PENDENTE && DataDeEntrada.Date < DataHoraDeBrasilia.Get().Date)
-                return StatusVisita.EXPIRADA;
+            if (Status == "PENDENTE" && DataDeEntrada.Date < DataHoraDeBrasilia.Get().Date)
+                return "EXPIRADA";
 
-            if (Status == StatusVisita.APROVADA && DataDeEntrada.Date < DataHoraDeBrasilia.Get().Date)
-                return StatusVisita.EXPIRADA;
+            if (Status == "APROVADA" && DataDeEntrada.Date < DataHoraDeBrasilia.Get().Date)
+                return "EXPIRADA";
 
             return Status;
         }

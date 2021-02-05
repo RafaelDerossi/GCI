@@ -17,7 +17,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
             string tempoDeIntervaloEntreReservas, string tempoDeDuracaoDeReserva, 
             int numeroLimiteDeReservaPorUnidade, bool permiteReservaSobreposta, int numeroLimiteDeReservaSobreposta,
             int numeroLimiteDeReservaSobrepostaPorUnidade, 
-            string tempoDeIntervaloEntreReservasPorUsuario, ICollection<Periodo> periodos)
+            string tempoDeIntervaloEntreReservasPorUnidade, ICollection<Periodo> periodos)
         {
             Id = areaComumId;
             SetNome(nome);
@@ -37,7 +37,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
             PermiteReservaSobreposta = permiteReservaSobreposta;
             SetNumeroLimiteDeReservaSobreposta(numeroLimiteDeReservaSobreposta);
             SetNumeroLimiteDeReservaSobrepostaPorUnidade(numeroLimiteDeReservaSobrepostaPorUnidade);
-            SetTempoDeIntervaloEntreReservasPorUsuario(tempoDeIntervaloEntreReservasPorUsuario);
+            SetTempoDeIntervaloEntreReservasPorUnidade(tempoDeIntervaloEntreReservasPorUnidade);
             Periodos = periodos;
         }
 

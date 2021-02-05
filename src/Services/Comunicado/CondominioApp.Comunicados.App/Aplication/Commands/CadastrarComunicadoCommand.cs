@@ -11,9 +11,9 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
         public CadastrarComunicadoCommand
             (string titulo, string descricao, DateTime? dataDeRealizacao, Guid condominioId, string nomeCondominio,
             Guid usuarioId, string nomeUsuario, VisibilidadeComunicado visibilidade, CategoriaComunicado categoria,
-            bool temAnexos, bool criadoPelaAdministradora, IEnumerable<Unidade> unidades)
+            bool temAnexos, bool criadoPelaAdministradora, IEnumerable<UnidadeComunicado> unidades)
         {
-            Unidades = new List<Unidade>();
+            Unidades = new List<UnidadeComunicado>();
             ComunicadoId = Guid.NewGuid();
             Titulo = titulo;
             Descricao = descricao;

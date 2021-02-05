@@ -100,6 +100,9 @@ namespace CondominioApp.ReservaAreaComum.Infra.Migrations
                     b.Property<string>("TempoDeIntervaloEntreReservas")
                         .HasColumnType("varchar(200)");
 
+                    b.Property<string>("TempoDeIntervaloEntreReservasPorUnidade")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("TermoDeUso")
                         .HasColumnType("varchar(500)");
 
@@ -211,7 +214,7 @@ namespace CondominioApp.ReservaAreaComum.Infra.Migrations
                         .HasColumnType("varchar(200)");
 
                     b.Property<decimal>("Preco")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(14,2)");
 
                     b.Property<bool>("ReservadoPelaAdministracao")
                         .HasColumnType("bit");

@@ -11,6 +11,10 @@ using System.Threading.Tasks;
 using CondominioApp.Portaria.Domain.FlatModel;
 using CondominioApp.Core.Enumeradores;
 using System.Linq;
+using CondominioApp.Principal.Aplication.Query.Interfaces;
+using CondominioApp.Usuarios.App.Aplication.Query;
+using CondominioApp.Principal.Domain.FlatModel;
+using CondominioApp.Usuarios.App.Models;
 
 namespace CondominioApp.Api.Controllers
 {
@@ -19,11 +23,15 @@ namespace CondominioApp.Api.Controllers
     {
         private readonly IMediatorHandler _mediatorHandler;      
         private readonly IPortariaQuery _portariaQuery;
+        private readonly ICondominioQuery _condominioQuery;
+        private readonly IUsuarioQuery _usuarioQuery;
 
-        public VisitaController(IMediatorHandler mediatorHandler, IPortariaQuery portariaQuery)
+        public VisitaController(IMediatorHandler mediatorHandler, IPortariaQuery portariaQuery, ICondominioQuery condominioQuery, IUsuarioQuery usuarioQuery)
         {
             _mediatorHandler = mediatorHandler;           
             _portariaQuery = portariaQuery;
+            _condominioQuery = condominioQuery;
+            _usuarioQuery = usuarioQuery;
         }
 
 
@@ -84,10 +92,26 @@ namespace CondominioApp.Api.Controllers
 
             var dias = (visitaVM.DataDeEntradaFim.Date - visitaVM.DataDeEntradaInicio.Date).Days + 1;
 
-            for (int i = 0; i < dias; i++)
+            var usuario = await _usuarioQuery.ObterPorId(visitaVM.UsuarioId);
+            if (usuario == null)
             {
+                AdicionarErroProcessamento("Usuario não encontrado!");
+                return CustomResponse();
+            }
+
+            var unidade = await _condominioQuery.ObterUnidadePorId(visitaVM.UnidadeId);
+            if (unidade == null)
+            {
+                AdicionarErroProcessamento("Unidade não encontrada!");
+                return CustomResponse();
+            }
+
+            for (int i = 0; i < dias; i++)
+            {               
+
                 var cadastrarVisitaComando = 
-                    CadastrarVisitaPorMoradorCommandFactory(visitaVM, visitaVM.DataDeEntradaInicio.AddDays(i).Date);
+                    CadastrarVisitaPorMoradorCommandFactory
+                    (visitaVM, visitaVM.DataDeEntradaInicio.AddDays(i).Date, unidade, usuario);
 
                 var resultado = await _mediatorHandler.EnviarComando(cadastrarVisitaComando);
 
@@ -104,19 +128,33 @@ namespace CondominioApp.Api.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
+            var usuario = await _usuarioQuery.ObterPorId(visitaVM.UsuarioId);
+            if (usuario == null)
+            {
+                AdicionarErroProcessamento("Usuario não encontrado!");
+                return CustomResponse();
+            }
+
+            var unidade = await _condominioQuery.ObterUnidadePorId(visitaVM.UsuarioId);
+            if (unidade == null)
+            {
+                AdicionarErroProcessamento("Unidade não encontrada!");
+                return CustomResponse();
+            }
 
             if (visitaVM.VisitanteId == Guid.Empty)
             {
                 visitaVM.VisitanteId = Guid.NewGuid();
 
-                var cadastrarVisitanteComando = CadastrarVisitantePorPorteiroCommandFactory(visitaVM);
+                var cadastrarVisitanteComando = 
+                    CadastrarVisitantePorPorteiroCommandFactory(visitaVM, unidade);
 
                 var retorno = await _mediatorHandler.EnviarComando(cadastrarVisitanteComando);
 
                 if (!retorno.IsValid)
                     return CustomResponse(retorno);
 
-                var comando = CadastrarVisitaPorPorteiroCommandFactory(visitaVM);
+                var comando = CadastrarVisitaPorPorteiroCommandFactory(visitaVM, unidade, usuario);
 
                 retorno = await _mediatorHandler.EnviarComando(comando);
 
@@ -129,7 +167,7 @@ namespace CondominioApp.Api.Controllers
             if (!result.IsValid)
                 return CustomResponse(result);
 
-            var cadastrarVisitaComando = CadastrarVisitaPorPorteiroCommandFactory(visitaVM);
+            var cadastrarVisitaComando = CadastrarVisitaPorPorteiroCommandFactory(visitaVM, unidade, usuario);
             result = await _mediatorHandler.EnviarComando(cadastrarVisitaComando);
           
 
@@ -142,7 +180,21 @@ namespace CondominioApp.Api.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var comando = EditarVisitaCommandFactory(visitaVM);
+            var usuario = await _usuarioQuery.ObterPorId(visitaVM.UsuarioId);
+            if (usuario == null)
+            {
+                AdicionarErroProcessamento("Usuario não encontrado!");
+                return CustomResponse();
+            }
+
+            var unidade = await _condominioQuery.ObterUnidadePorId(visitaVM.UsuarioId);
+            if (unidade == null)
+            {
+                AdicionarErroProcessamento("Unidade não encontrada!");
+                return CustomResponse();
+            }
+
+            var comando = EditarVisitaCommandFactory(visitaVM, unidade, usuario);
 
             var resultado = await _mediatorHandler.EnviarComando(comando);
 
@@ -210,46 +262,49 @@ namespace CondominioApp.Api.Controllers
 
 
 
-        private CadastrarVisitaPorPorteiroCommand CadastrarVisitaPorPorteiroCommandFactory(CadastraVisitaPorteiroViewModel viewModel)
+        private CadastrarVisitaPorPorteiroCommand CadastrarVisitaPorPorteiroCommandFactory
+            (CadastraVisitaPorteiroViewModel viewModel, UnidadeFlat unidade, Usuario usuario)
         {
             return new CadastrarVisitaPorPorteiroCommand(
                   viewModel.DataDeEntrada,viewModel.Observacao, StatusVisita.PENDENTE, viewModel.VisitanteId,
                   viewModel.NomeVisitante, viewModel.TipoDoDocumento, viewModel.Documento, viewModel.EmailVisitante, viewModel.FotoVisitante,
                   viewModel.NomeOriginalFotoVisitante, viewModel.TipoDeVisitante, viewModel.NomeEmpresaVisitante,
-                  viewModel.CondominioId, viewModel.NomeCondominio, viewModel.UnidadeId, viewModel.NumeroUnidade,
-                  viewModel.AndarUnidade, viewModel.GrupoUnidade, viewModel.TemVeiculo, viewModel.PlacaVeiculo, 
-                  viewModel.ModeloVeiculo, viewModel.CorVeiculo, viewModel.UsuarioId, viewModel.NomeUsuario);
+                  unidade.CondominioId, unidade.CondominioNome, unidade.Id, unidade.Numero,
+                  unidade.Andar, unidade.GrupoDescricao, viewModel.TemVeiculo, viewModel.PlacaVeiculo, 
+                  viewModel.ModeloVeiculo, viewModel.CorVeiculo, usuario.Id, usuario.NomeCompleto);
         }
 
-        private CadastrarVisitaPorMoradorCommand CadastrarVisitaPorMoradorCommandFactory(CadastraVisitaMoradorViewModel viewModel, DateTime dataDeEntrada)
+        private CadastrarVisitaPorMoradorCommand CadastrarVisitaPorMoradorCommandFactory
+            (CadastraVisitaMoradorViewModel viewModel, DateTime dataDeEntrada, UnidadeFlat unidade, Usuario usuario)
         {
             return new CadastrarVisitaPorMoradorCommand(
                   dataDeEntrada, viewModel.Observacao, StatusVisita.APROVADA, viewModel.VisitanteId,
-                  viewModel.CondominioId, viewModel.NomeCondominio, viewModel.UnidadeId, viewModel.NumeroUnidade,
-                  viewModel.AndarUnidade, viewModel.GrupoUnidade, viewModel.TemVeiculo,viewModel.PlacaVeiculo,
-                  viewModel.ModeloVeiculo,viewModel.CorVeiculo, viewModel.UsuarioId, viewModel.NomeUsuario);
+                  unidade.CondominioId, unidade.CondominioNome, unidade.Id, unidade.Numero,
+                  unidade.Andar, unidade.GrupoDescricao, viewModel.TemVeiculo,viewModel.PlacaVeiculo,
+                  viewModel.ModeloVeiculo,viewModel.CorVeiculo, usuario.Id, usuario.NomeCompleto);
         }
 
-        private EditarVisitaCommand EditarVisitaCommandFactory(EditaVisitaViewModel viewModel)
+        private EditarVisitaCommand EditarVisitaCommandFactory(EditaVisitaViewModel viewModel, UnidadeFlat unidade, Usuario usuario)
         {
             return new EditarVisitaCommand(
                    viewModel.Id,viewModel.Observacao, viewModel.NomeVisitante,viewModel.TipoDoDocumento, viewModel.Documento,
                    viewModel.EmailVisitante, viewModel.FotoVisitante, viewModel.NomeOriginalFotoVisitante,
-                   viewModel.TipoDeVisitante, viewModel.NomeEmpresaVisitante,viewModel.UnidadeId, viewModel.NumeroUnidade,
-                   viewModel.AndarUnidade, viewModel.GrupoUnidade, viewModel.TemVeiculo, viewModel.PlacaVeiculo,
-                   viewModel.ModeloVeiculo, viewModel.CorVeiculo, viewModel.UsuarioId, viewModel.NomeUsuario);
+                   viewModel.TipoDeVisitante, viewModel.NomeEmpresaVisitante, unidade.Id, unidade.Numero,
+                   unidade.Andar, unidade.GrupoDescricao, viewModel.TemVeiculo, viewModel.PlacaVeiculo,
+                   viewModel.ModeloVeiculo, viewModel.CorVeiculo, usuario.Id, usuario.NomeCompleto);
         }
 
 
 
 
-        private CadastrarVisitantePorPorteiroCommand CadastrarVisitantePorPorteiroCommandFactory(CadastraVisitaPorteiroViewModel visitaVM)
+        private CadastrarVisitantePorPorteiroCommand CadastrarVisitantePorPorteiroCommandFactory
+            (CadastraVisitaPorteiroViewModel visitaVM, UnidadeFlat unidade)
         {
             return new CadastrarVisitantePorPorteiroCommand(
                   visitaVM.VisitanteId, visitaVM.NomeVisitante, visitaVM.TipoDoDocumento, visitaVM.Documento,
                   visitaVM.EmailVisitante, visitaVM.FotoVisitante, visitaVM.NomeOriginalFotoVisitante,
-                  visitaVM.CondominioId, visitaVM.NomeCondominio, visitaVM.UnidadeId, visitaVM.NumeroUnidade,
-                  visitaVM.AndarUnidade, visitaVM.GrupoUnidade, visitaVM.TipoDeVisitante, visitaVM.NomeEmpresaVisitante,
+                  unidade.CondominioId, unidade.CondominioNome, unidade.Id, unidade.Numero,
+                  unidade.Andar, unidade.GrupoDescricao, visitaVM.TipoDeVisitante, visitaVM.NomeEmpresaVisitante,
                   visitaVM.TemVeiculo);
         }
        

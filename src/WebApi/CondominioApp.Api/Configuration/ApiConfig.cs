@@ -1,4 +1,5 @@
-﻿using CondominioApp.Comunicados.App.Models;
+﻿using CondominioApp.Automacao.App.Models;
+using CondominioApp.Comunicados.App.Models;
 using CondominioApp.Correspondencias.App.Data;
 using CondominioApp.Enquetes.App.Data;
 using CondominioApp.Portaria.Infra.Data;
@@ -64,6 +65,8 @@ namespace CondominioApp.Api.Configuration
             services.AddDbContext<PortariaQueryContextDB>(options =>
              options.UseSqlServer(configuration.GetConnectionString("QueryConnection")));
 
+            services.AddDbContext<AutomacaoContextDB>(options =>
+            options.UseSqlServer(configuration.GetConnectionString("AutomacaoConnection")));
 
 
             services.Configure<ApiBehaviorOptions>(options =>

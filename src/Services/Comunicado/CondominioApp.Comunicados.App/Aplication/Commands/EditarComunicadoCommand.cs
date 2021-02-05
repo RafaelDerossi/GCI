@@ -12,9 +12,9 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
         public EditarComunicadoCommand
             (Guid comunicadoId, string titulo, string descricao, DateTime? dataDeRealizacao, Guid usuarioId,
             string nomeUsuario, VisibilidadeComunicado visibilidade, CategoriaComunicado categoria,
-            bool temAnexos, IEnumerable<Unidade> unidades)
+            bool temAnexos, IEnumerable<UnidadeComunicado> unidades)
         {
-            Unidades = new List<Unidade>();
+            Unidades = new List<UnidadeComunicado>();
             ComunicadoId = comunicadoId;
             Titulo = titulo;
             Descricao = descricao;

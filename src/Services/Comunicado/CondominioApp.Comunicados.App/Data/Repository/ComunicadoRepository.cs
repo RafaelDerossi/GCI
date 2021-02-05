@@ -71,7 +71,7 @@ namespace CondominioApp.Comunicados.App.Data.Repository
                 .ToListAsync();
         }
         
-        public async Task<IEnumerable<Unidade>> ObterUnidades(Expression<Func<Unidade, bool>> expression, bool OrderByDesc = false, int take = 0)
+        public async Task<IEnumerable<UnidadeComunicado>> ObterUnidades(Expression<Func<UnidadeComunicado, bool>> expression, bool OrderByDesc = false, int take = 0)
         {
             if (OrderByDesc)
             {
@@ -124,12 +124,12 @@ namespace CondominioApp.Comunicados.App.Data.Repository
         }
 
 
-        public void AdicionarUnidade(Unidade entity)
+        public void AdicionarUnidade(UnidadeComunicado entity)
         {
             _context.Unidades.Add(entity);
         }
 
-        public void RemoverUnidade(Unidade entity)
+        public void RemoverUnidade(UnidadeComunicado entity)
         {
             _context.Unidades.Remove(entity);
         }

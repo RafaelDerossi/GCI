@@ -24,7 +24,7 @@ namespace CondominioApp.Correspondencias.App.AutoMapper
                 .ForMember(c => c.CriadoPelaAdministradora, p => p.MapFrom(x => x.CriadoPelaAdministradora));
 
 
-            CreateMap<Unidade, UnidadeViewModel>()
+            CreateMap<UnidadeComunicado, UnidadeComunicadoViewModel>()
                 .ForMember(m => m.UnidadeId, cfg => cfg.MapFrom(x => x.UnidadeId))
                 .ForMember(c => c.Numero, p => p.MapFrom(x => x.Numero))
                 .ForMember(c => c.Andar, p => p.MapFrom(x => x.Andar))

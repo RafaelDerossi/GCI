@@ -4,6 +4,7 @@ using CondominioApp.Core.Helpers;
 using CondominioApp.Core.Mediator;
 using CondominioApp.Core.Messages;
 using CondominioApp.ReservaAreaComum.Domain;
+using CondominioApp.ReservaAreaComum.Domain.FlatModel;
 using FluentValidation.Results;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -33,6 +34,11 @@ namespace CondominioApp.ReservaAreaComum.Infra.Data
             modelBuilder.Ignore<ValidationResult>();
             modelBuilder.Ignore<Event>();
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ReservaAreaComumContextDB).Assembly);
+
+            modelBuilder.Ignore<AreaComumFlat>();
+            modelBuilder.Ignore<ReservaFlat>();
+            modelBuilder.Ignore<PeriodoFlat>();
+            
         }
 
         public async Task<bool> Commit()

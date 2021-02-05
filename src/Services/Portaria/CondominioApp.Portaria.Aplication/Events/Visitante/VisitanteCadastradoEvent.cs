@@ -27,7 +27,7 @@ namespace CondominioApp.Portaria.Aplication.Events
             SetGrupoDaUnidade(grupoUnidade);
             VisitantePermanente = visitantePermanente;
             QrCode = qrCode;
-            TipoDeVisitante = tipoDeVisitante;
+            TipoDeVisitante = tipoDeVisitante.ToString();
             NomeEmpresa = nomeEmpresa;
             TemVeiculo = temVeiculo;           
         }

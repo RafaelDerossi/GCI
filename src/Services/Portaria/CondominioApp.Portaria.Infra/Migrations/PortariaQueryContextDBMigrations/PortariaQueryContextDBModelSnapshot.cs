@@ -105,17 +105,20 @@ namespace CondominioApp.Portaria.Infra.Migrations.PortariaQueryContextDBMigratio
                         .HasColumnType("varchar(7)")
                         .HasMaxLength(7);
 
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("varchar(200)");
 
                     b.Property<bool>("TemVeiculo")
                         .HasColumnType("bit");
 
-                    b.Property<int>("TipoDeDocumentoVisitante")
-                        .HasColumnType("int");
+                    b.Property<string>("TipoDeDocumentoVisitante")
+                        .IsRequired()
+                        .HasColumnType("varchar(200)");
 
-                    b.Property<int>("TipoDeVisitante")
-                        .HasColumnType("int");
+                    b.Property<string>("TipoDeVisitante")
+                        .IsRequired()
+                        .HasColumnType("varchar(200)");
 
                     b.Property<Guid>("UnidadeId")
                         .HasColumnType("uniqueidentifier");
@@ -194,11 +197,13 @@ namespace CondominioApp.Portaria.Infra.Migrations.PortariaQueryContextDBMigratio
                     b.Property<bool>("TemVeiculo")
                         .HasColumnType("bit");
 
-                    b.Property<int>("TipoDeDocumento")
-                        .HasColumnType("int");
+                    b.Property<string>("TipoDeDocumento")
+                        .IsRequired()
+                        .HasColumnType("varchar(200)");
 
-                    b.Property<int>("TipoDeVisitante")
-                        .HasColumnType("int");
+                    b.Property<string>("TipoDeVisitante")
+                        .IsRequired()
+                        .HasColumnType("varchar(200)");
 
                     b.Property<Guid>("UnidadeId")
                         .HasColumnType("uniqueidentifier");

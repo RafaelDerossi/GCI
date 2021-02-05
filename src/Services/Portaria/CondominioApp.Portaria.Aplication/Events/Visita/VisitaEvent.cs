@@ -14,17 +14,17 @@ namespace CondominioApp.Portaria.Aplication.Events
         public DateTime DataDeSaida { get; protected set; }
         
         public string Observacao { get; protected set; }
-        public StatusVisita Status { get; protected set; }
+        public string Status { get; protected set; }
        
 
         public Guid VisitanteId { get; protected set; }
         public string NomeVisitante { get; protected set; }
-        public TipoDeDocumento TipoDeDocumentoVisitante { get; protected set; }
+        public string TipoDeDocumentoVisitante { get; protected set; }
         public string DocumentoVisitante { get; protected set; }
         public Cpf CpfVisitante { get; protected set; }
         public Email EmailVisitante { get; protected set; }
         public Foto FotoVisitante { get; protected set; }
-        public TipoDeVisitante TipoDeVisitante { get; protected set; }       
+        public string TipoDeVisitante { get; protected set; }       
         public string NomeEmpresaVisitante { get; protected set; }
 
 
@@ -46,7 +46,7 @@ namespace CondominioApp.Portaria.Aplication.Events
 
         public void SetDocumentoVisitante(string documento, TipoDeDocumento tipoDeDocumento)
         {
-            TipoDeDocumentoVisitante = tipoDeDocumento;
+            TipoDeDocumentoVisitante = tipoDeDocumento.ToString();
             DocumentoVisitante = documento;
         }       
 
@@ -62,11 +62,11 @@ namespace CondominioApp.Portaria.Aplication.Events
 
         public void SetDataDeEntrada(DateTime dataDeEntrada) => DataDeEntrada = dataDeEntrada;
 
-        public void AprovarVisita() => Status = StatusVisita.APROVADA;
+        public void AprovarVisita() => Status = StatusVisita.APROVADA.ToString();
 
         public void SetVisitanteId(Guid visitanteId) => VisitanteId = visitanteId;
 
-        public void SetTipoDeVisitante(TipoDeVisitante tipoDeVisiante) => TipoDeVisitante = tipoDeVisiante;
+        public void SetTipoDeVisitante(TipoDeVisitante tipoDeVisiante) => TipoDeVisitante = tipoDeVisiante.ToString();
 
         public void SetNomeEmpresaVisitante(string  nomeEmpresaVisitante) => NomeEmpresaVisitante = nomeEmpresaVisitante;
 

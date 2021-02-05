@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CondominioApp.Comunicados.App.Data.Mapping
 {
-    public class UnidadeMapping : IEntityTypeConfiguration<Unidade>
+    public class UnidadeMapping : IEntityTypeConfiguration<UnidadeComunicado>
     {
-        public void Configure(EntityTypeBuilder<Unidade> builder)
+        public void Configure(EntityTypeBuilder<UnidadeComunicado> builder)
         {
             builder.HasKey(u => u.Id);
 

@@ -33,7 +33,7 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
 
         public bool CriadoPelaAdministradora { get; protected set; }
 
-        public IEnumerable<Unidade> Unidades { get; protected set; }
+        public IEnumerable<UnidadeComunicado> Unidades { get; protected set; }
 
     }
 }

@@ -4,6 +4,8 @@ using CondominioApp.Enquetes.App.Aplication.Commands;
 using CondominioApp.Enquetes.App.Aplication.Query;
 using CondominioApp.Enquetes.App.Models;
 using CondominioApp.Enquetes.App.ViewModels;
+using CondominioApp.Principal.Aplication.Query.Interfaces;
+using CondominioApp.Usuarios.App.Aplication.Query;
 using CondominioApp.WebApi.Core.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -19,12 +21,16 @@ namespace CondominioApp.Api.Controllers
         private readonly IMediatorHandler _mediatorHandler;
         private readonly IEnqueteQuery _enqueteQuery;
         public readonly IMapper _mapper;
+        private readonly ICondominioQuery _condominioQuery;
+        private readonly IUsuarioQuery _usuarioQuery;
 
-        public EnqueteController(IMediatorHandler mediatorHandler, IEnqueteQuery enqueteQuery, IMapper mapper)
+        public EnqueteController(IMediatorHandler mediatorHandler, IEnqueteQuery enqueteQuery, IMapper mapper, ICondominioQuery condominioQuery, IUsuarioQuery usuarioQuery)
         {
             _mediatorHandler = mediatorHandler;
             _enqueteQuery = enqueteQuery;
             _mapper = mapper;
+            _condominioQuery = condominioQuery;
+            _usuarioQuery = usuarioQuery;
         }
 
 
@@ -109,10 +115,24 @@ namespace CondominioApp.Api.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
+            var condominio = await _condominioQuery.ObterPorId(enqueteVM.CondominioId);
+            if (condominio == null)
+            {
+                AdicionarErroProcessamento("Condominio não encontrado!");
+                return CustomResponse();
+            }
+
+            var usuario = await _usuarioQuery.ObterPorId(enqueteVM.UsuarioId);
+            if (usuario == null)
+            {
+                AdicionarErroProcessamento("Usuario não encontrado!");
+                return CustomResponse();
+            }
+
             var comando = new CadastrarEnqueteCommand(
                  enqueteVM.Descricao, enqueteVM.DataInicio, enqueteVM.DataFim,
-                 enqueteVM.CondominioId, enqueteVM.CondominioNome,
-                 enqueteVM.UsuarioId, enqueteVM.UsuarioNome,
+                 condominio.Id, condominio.Nome,
+                 usuario.Id, usuario.NomeCompleto,
                  enqueteVM.ApenasProprietarios, enqueteVM.Alternativas);           
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
@@ -183,9 +203,24 @@ namespace CondominioApp.Api.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
+            var unidade = await _condominioQuery.ObterUnidadePorId(votoEnqueteVM.UnidadeId);
+            if (unidade == null)
+            {
+                AdicionarErroProcessamento("Unidade não encontrada!");
+                return CustomResponse();
+            }
+
+            var usuario = await _usuarioQuery.ObterPorId(votoEnqueteVM.UsuarioId);
+            if (usuario == null)
+            {
+                AdicionarErroProcessamento("Usuario não encontrado!");
+                return CustomResponse();
+            }
+
+
             var comando = new CadastrarRespostaCommand(
-                votoEnqueteVM.UnidadeId, votoEnqueteVM.Unidade, votoEnqueteVM.Bloco,
-                votoEnqueteVM.UsuarioId, votoEnqueteVM.UsuarioNome, votoEnqueteVM.TipoDeUsuario, 
+                unidade.Id, unidade.Numero, unidade.GrupoDescricao,
+                usuario.Id, usuario.NomeCompleto, usuario.TpUsuario.ToString(), 
                 votoEnqueteVM.AlternativaId);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
@@ -193,5 +228,6 @@ namespace CondominioApp.Api.Controllers
             return CustomResponse(Resultado);
 
         }
+
     }
 }

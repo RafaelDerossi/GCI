@@ -5,8 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Aplication\Commands\Mobile\" />
-    <Folder Include="Aplication\Query\" />
+    <Folder Include="Data\Mapping\" />
     <Folder Include="Data\Repository\" />
   </ItemGroup>
 

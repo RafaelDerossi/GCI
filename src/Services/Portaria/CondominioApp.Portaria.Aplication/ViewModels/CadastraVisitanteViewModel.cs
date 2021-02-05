@@ -13,14 +13,8 @@ namespace CondominioApp.Portaria.Aplication.ViewModels
         public string Email { get; set; }
         public string Foto { get; set; }
         public string NomeOriginalFoto { get; set; }
-
-        public Guid CondominioId { get; set; }
-        public string NomeCondominio { get; set; }
-
-        public Guid UnidadeId { get; set; }
-        public string NumeroUnidade { get; set; }
-        public string AndarUnidade { get; set; }
-        public string GrupoUnidade { get; set; }
+        
+        public Guid UnidadeId { get; set; }        
 
         public bool VisitantePermanente { get; set; }
         public string QrCode { get; set; }

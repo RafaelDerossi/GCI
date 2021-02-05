@@ -8,7 +8,7 @@ namespace CondominioApp.Correspondencias.App.AutoMapper
     {
         public ViewModelToEntityComunicado()
         {
-            CreateMap<UnidadeViewModel, Unidade>()
+            CreateMap<UnidadeComunicadoViewModel, UnidadeComunicado>()
                 .ForMember(m => m.UnidadeId, cfg => cfg.MapFrom(x => x.UnidadeId))
                 .ForMember(c => c.Numero, p  => p.MapFrom(x => x.Numero))
                 .ForMember(c => c.Andar, p => p.MapFrom(x => x.Andar))

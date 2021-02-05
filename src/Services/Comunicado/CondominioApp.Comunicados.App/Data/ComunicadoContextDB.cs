@@ -17,7 +17,7 @@ namespace CondominioApp.Comunicados.App.Models
         private readonly IMediatorHandler _mediatorHandler;
 
         public DbSet<Comunicado> Comunicados { get; set; }
-        public DbSet<Unidade> Unidades { get; set; }
+        public DbSet<UnidadeComunicado> Unidades { get; set; }
 
         public ComunicadoContextDB(DbContextOptions<ComunicadoContextDB> options, IMediatorHandler mediatorHandler)
             : base(options)

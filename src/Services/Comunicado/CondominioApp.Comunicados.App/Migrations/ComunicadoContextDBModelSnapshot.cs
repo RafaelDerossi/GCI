@@ -74,7 +74,7 @@ namespace CondominioApp.Comunicados.App.Migrations
                     b.ToTable("Comunicados");
                 });
 
-            modelBuilder.Entity("CondominioApp.Comunicados.App.Models.Unidade", b =>
+            modelBuilder.Entity("CondominioApp.Comunicados.App.Models.UnidadeComunicado", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -84,7 +84,7 @@ namespace CondominioApp.Comunicados.App.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(200)");
 
-                    b.Property<Guid?>("ComunicadoId")
+                    b.Property<Guid>("ComunicadoId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("DataDeAlteracao")
@@ -116,11 +116,13 @@ namespace CondominioApp.Comunicados.App.Migrations
                     b.ToTable("Unidades");
                 });
 
-            modelBuilder.Entity("CondominioApp.Comunicados.App.Models.Unidade", b =>
+            modelBuilder.Entity("CondominioApp.Comunicados.App.Models.UnidadeComunicado", b =>
                 {
-                    b.HasOne("CondominioApp.Comunicados.App.Models.Comunicado", null)
+                    b.HasOne("CondominioApp.Comunicados.App.Models.Comunicado", "Comunicado")
                         .WithMany("Unidades")
-                        .HasForeignKey("ComunicadoId");
+                        .HasForeignKey("ComunicadoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
