@@ -1,5 +1,4 @@
 ﻿using CondominioApp.Automacao.ViewModel;
-using CondominioApp.Automacao.Services.Interfaces;
 using CondominioApp.WebApi.Core.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -9,6 +8,8 @@ using System.Threading.Tasks;
 using CondominioApp.Core.Mediator;
 using CondominioApp.Automacao.App.Aplication.Commands;
 using CondominioApp.Core.Enumeradores;
+using CondominioApp.Automacao.App.Factory;
+using CondominioApp.Automacao.App.Services.Interfaces;
 
 namespace CondominioApp.Api.Controllers
 {
@@ -16,46 +17,34 @@ namespace CondominioApp.Api.Controllers
     public class AutomacaoController : MainController
     {
         private readonly IMediatorHandler _mediatorHandler;
-        private readonly IAutomacaoService _automacaoService;
+        private readonly IDispositivosServiceFactory _dispositivosServiceFactory;
 
-        public AutomacaoController(IMediatorHandler mediatorHandler, IAutomacaoService automacaoService)
+        public AutomacaoController(IMediatorHandler mediatorHandler, IDispositivosServiceFactory dispositivosServiceFactory)
         {
             _mediatorHandler = mediatorHandler;
-            _automacaoService = automacaoService;
+            _dispositivosServiceFactory = dispositivosServiceFactory;
         }
 
        
 
-        [HttpGet("obter-dispositivos-ewelink/{condominioId:Guid}")]
-        public async Task<ActionResult<IEnumerable<DispositivoViewModel>>> ObterDispositivosEwelink(Guid condominioId)
+        [HttpGet("obter-dispositivos")]
+        public async Task<ActionResult<IEnumerable<DispositivoViewModel>>> ObterDispositivos(Guid condominioId)
         {
-            try
-            {
-                var dispositivos = await _automacaoService.ObterDispositivos(condominioId, TipoApiAutomacao.EWELINK);
+            IDispositivosService dispositivoService = await _dispositivosServiceFactory.Fabricar(TipoApiAutomacao.EWELINK, condominioId);
 
-                return dispositivos.ToList();
-            }
-            catch (Exception e)
-            {
-                AdicionarErroProcessamento(e.Message);
-                return CustomResponse();
-            }
+            var dispositivos = await dispositivoService.ObterDispositivos();
+
+            return dispositivos.ToList();            
         }
 
-        [HttpGet("ligar-desligar-dispositivo-ewelink")]
-        public async Task<ActionResult> LigarDesligarDispositivoEwelink(Guid condominioId, string deviceId)
+        [HttpGet("ligar-desligar-dispositivo")]
+        public async Task<ActionResult> LigarDesligarDispositivo(Guid condominioId, string deviceId)
         {
-            try
-            {
-                var retorno = await _automacaoService.LigarDesligarDispositivo(condominioId, deviceId);
+            IDispositivosService dispositivoService = await _dispositivosServiceFactory.Fabricar(TipoApiAutomacao.EWELINK, condominioId);
 
-                return CustomResponse(retorno);
-            }
-            catch (Exception e)
-            {
-                AdicionarErroProcessamento(e.Message);
-                return CustomResponse();
-            }
+            var retorno = await dispositivoService.LigarDesligarDispositivo(deviceId);
+
+            return CustomResponse(retorno);           
         }
 
 
