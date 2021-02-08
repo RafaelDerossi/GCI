@@ -5,8 +5,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20210208142752_VeiculoInit.cs" />
+    <Compile Remove="Migrations\20210208142752_VeiculoInit.Designer.cs" />
+    <Compile Remove="Migrations\UsuarioQueryContextDBMigrations\20210208143205_VeiculoInitQuery.cs" />
+    <Compile Remove="Migrations\UsuarioQueryContextDBMigrations\20210208143205_VeiculoInitQuery.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Aplication\Query\" />
     <Folder Include="Data\Mapping\" />
     <Folder Include="Data\Repository\" />
+    <Folder Include="Migrations\UsuarioQueryContextDBMigrations\" />
   </ItemGroup>
 
   <ItemGroup>

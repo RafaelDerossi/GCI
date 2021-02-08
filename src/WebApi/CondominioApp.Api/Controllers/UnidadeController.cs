@@ -71,8 +71,7 @@ namespace CondominioApp.Api.Controllers
         public async Task<ActionResult> Post(CadastraUnidadeViewModel unidadeVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
-
-            var Resultado = new ValidationResult();
+                        
             for (int i = unidadeVM.NumeroInicial; i <= unidadeVM.NumeroFinal; i++)
             {
                 var comando = new CadastrarUnidadeCommand(
@@ -80,13 +79,13 @@ namespace CondominioApp.Api.Controllers
                  unidadeVM.Vagas, unidadeVM.Telefone, unidadeVM.Ramal,
                  unidadeVM.Complemento, unidadeVM.GrupoId);
 
-                Resultado = await _mediatorHandler.EnviarComando(comando);
+                var resultado = await _mediatorHandler.EnviarComando(comando);
 
-                if (!Resultado.IsValid)
-                    CustomResponse(Resultado);
+                if (!resultado.IsValid)
+                    CustomResponse(resultado);
             }            
 
-            return CustomResponse(Resultado);
+            return CustomResponse();
             
         }
 

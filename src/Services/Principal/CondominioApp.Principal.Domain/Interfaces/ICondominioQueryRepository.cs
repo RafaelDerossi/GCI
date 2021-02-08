@@ -27,5 +27,8 @@ namespace CondominioApp.Principal.Domain.Interfaces
         Task<IEnumerable<UnidadeFlat>> ObterUnidadesPorGrupo(Guid grupoId);
 
         Task<IEnumerable<UnidadeFlat>> ObterUnidadesPorCondominio(Guid condominioId);
+
+       
+
     }
 }

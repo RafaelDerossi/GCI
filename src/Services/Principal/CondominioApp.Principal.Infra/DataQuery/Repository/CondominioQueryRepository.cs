@@ -145,12 +145,11 @@ namespace CondominioApp.Principal.Infra.Data.Repository
 
         #endregion
 
-       
 
-
+    
         public void Dispose()
         {
             _queryContext?.Dispose();
-        }
+        }       
     }
 }

@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using CondominioApp.Core.Messages;
 using CondominioApp.Principal.Domain.FlatModel;
 using CondominioApp.Principal.Domain.Interfaces;
-using FluentValidation.Results;
 using MediatR;
 
 namespace CondominioApp.Principal.Aplication.Events
@@ -12,7 +11,7 @@ namespace CondominioApp.Principal.Aplication.Events
         INotificationHandler<UnidadeCadastradaEvent>,
         INotificationHandler<UnidadeEditadaEvent>,
         INotificationHandler<CodigoUnidadeResetadoEvent>,
-        INotificationHandler<UnidadeRemovidaEvent>,
+        INotificationHandler<UnidadeRemovidaEvent>,        
         System.IDisposable
     {
         private ICondominioQueryRepository _condominioQueryRepository;
@@ -73,6 +72,7 @@ namespace CondominioApp.Principal.Aplication.Events
 
             await PersistirDados(_condominioQueryRepository.UnitOfWork);
         }
+
 
         public void Dispose()
         {

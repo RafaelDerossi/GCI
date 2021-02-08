@@ -2,28 +2,24 @@
 using System.Linq;
 using System.Threading.Tasks;
 using CondominioApp.Core.Data;
-using CondominioApp.Core.Extensions;
 using CondominioApp.Core.Helpers;
 using CondominioApp.Core.Mediator;
 using CondominioApp.Core.Messages;
 using CondominioApp.Usuarios.App.FlatModel;
 using CondominioApp.Usuarios.App.Models;
+using CondominioApp.Usuarios.App.ValueObjects;
 using FluentValidation.Results;
 using Microsoft.EntityFrameworkCore;
 
 namespace CondominioApp.Usuarios.App.Data
 {
-    public class UsuarioContextDB : DbContext, IUnitOfWorks
+    public class UsuarioQueryContextDB : DbContext, IUnitOfWorks
     {
         private readonly IMediatorHandler _mediatorHandler;
 
-        public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<VeiculoFlat> VeiculosFlat { get; set; }        
 
-        public DbSet<Veiculo> Veiculos { get; set; }
-
-        public DbSet<VeiculoCondominio> VeiculosCondominios { get; set; }
-
-        public UsuarioContextDB(DbContextOptions<UsuarioContextDB> options, IMediatorHandler mediatorHandler)
+        public UsuarioQueryContextDB(DbContextOptions<UsuarioQueryContextDB> options, IMediatorHandler mediatorHandler)
             : base(options)
         {
             _mediatorHandler = mediatorHandler;
@@ -33,9 +29,16 @@ namespace CondominioApp.Usuarios.App.Data
         {
             modelBuilder.Ignore<ValidationResult>();
             modelBuilder.Ignore<Event>();
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(UsuarioContextDB).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(UsuarioQueryContextDB).Assembly);
 
-            modelBuilder.Ignore<VeiculoFlat>();
+            modelBuilder.Ignore<Usuario>();
+            modelBuilder.Ignore<Veiculo>();
+            modelBuilder.Ignore<VeiculoCondominio>();
+            modelBuilder.Ignore<Cpf>();
+            modelBuilder.Ignore<Email>();
+            modelBuilder.Ignore<Endereco>();
+            modelBuilder.Ignore<Foto>();
+
         }
 
         public async Task<bool> Commit()
@@ -57,10 +60,7 @@ namespace CondominioApp.Usuarios.App.Data
                 }
             }
 
-            var sucesso = await SaveChangesAsync() > 0;
-            if (sucesso) await _mediatorHandler.PublicarEventos(this);
-
-            return sucesso;
+            return await SaveChangesAsync() > 0;            
         }
     }
 }

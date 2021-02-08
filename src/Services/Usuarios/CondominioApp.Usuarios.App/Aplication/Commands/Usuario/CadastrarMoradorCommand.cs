@@ -1,13 +1,15 @@
-﻿using CondominioApp.Core.Enumeradores;
+﻿using System;
+using CondominioApp.Core.Enumeradores;
+using CondominioApp.Core.Messages;
+using CondominioApp.Usuarios.App.ValueObjects;
 using CondominioApp.Usuarios.App.Aplication.Commands.Validations;
-using System;
+using FluentValidation;
 
 namespace CondominioApp.Usuarios.App.Aplication.Commands
 {
-    public class EditarMoradorCommand : UsuarioCommand
+    public class CadastrarMoradorCommand : UsuarioCommand
     {
-
-        public EditarMoradorCommand(Guid usuarioId, string nome, string sobrenome, string email,
+        public CadastrarMoradorCommand(Guid usuarioId, string nome, string sobrenome, string email,
             string rg = null, string cpf = null, string cel = null, string foto = null,
             string nomeOriginal = null, DateTime? dataNascimento = null)
         {
@@ -25,22 +27,26 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
             SetEmail(email);
             SetFoto(foto, nomeOriginal);
         }
-        
+
         public override bool EstaValido()
         {
-            ValidationResult = new EditarMoradorCommandValidation().Validate(this);
+            if (!ValidationResult.IsValid)
+                return ValidationResult.IsValid;
+
+            ValidationResult = new CadastrarMoradorCommandValidation().Validate(this);
             return ValidationResult.IsValid;
         }
-        
 
-        public class EditarMoradorCommandValidation : UsuarioValidation<EditarMoradorCommand>
+
+        public class CadastrarMoradorCommandValidation : UsuarioValidation<CadastrarMoradorCommand>
         {
-            public EditarMoradorCommandValidation()
+            public CadastrarMoradorCommandValidation()
             {
                 ValidateNome();
                 ValidateEmail();
-                ValidateId();
+                ValidateId();                
             }
         }
+
     }
 }

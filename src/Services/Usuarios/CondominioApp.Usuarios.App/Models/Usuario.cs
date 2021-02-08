@@ -80,6 +80,8 @@ namespace CondominioApp.Usuarios.App.Models
             get { return $"{Nome} {Sobrenome}"; }
         }
 
+
+
         public void Ativar() => Ativo = true;
 
         public void Desativar() => Ativo = false;

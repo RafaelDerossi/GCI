@@ -20,6 +20,7 @@ namespace CondominioApp.Usuarios.App.Data.Repository
 
         public IUnitOfWorks UnitOfWork => _context;
 
+
         public async Task<Usuario> ObterPorId(Guid Id)
         {
             return await _context.Usuarios.Where(u => u.Id == Id && !u.Lixeira).FirstOrDefaultAsync();
@@ -50,6 +51,7 @@ namespace CondominioApp.Usuarios.App.Data.Repository
                                     .OrderBy(x => x.DataDeCadastro).ToListAsync();
         }
 
+
         public void Adicionar(Usuario entity)
         {
             _context.Usuarios.Add(entity);
@@ -77,6 +79,67 @@ namespace CondominioApp.Usuarios.App.Data.Repository
             return _context.Usuarios.Any(u => u.Email.Endereco == Usuario.Email.Endereco &&
                                               !u.Lixeira);
         }
+
+
+
+
+
+        public async Task<Veiculo> ObterVeiculoPorId(Guid Id)
+        {
+            return await _context.Veiculos
+                    .Include(u=>u.VeiculoCondominios)
+                    .Where(u => u.Id == Id && !u.Lixeira)
+                    .FirstOrDefaultAsync();
+        }
+
+        public async Task<IEnumerable<Veiculo>> ObterVeiculo(Expression<Func<Veiculo, bool>> expression, bool OrderByDesc = false, int take = 0)
+        {
+            if (OrderByDesc)
+            {
+                if (take > 0)
+                    return await _context.Veiculos.AsNoTracking().Where(expression).Include(x=>x.VeiculoCondominios)
+                                        .OrderByDescending(x => x.DataDeCadastro).Take(take).ToListAsync();
+
+                return await _context.Veiculos.AsNoTracking().Where(expression).Include(x => x.VeiculoCondominios)
+                                        .OrderByDescending(x => x.DataDeCadastro).ToListAsync();
+            }
+
+            if (take > 0)
+                return await _context.Veiculos.AsNoTracking().Where(expression).Include(x => x.VeiculoCondominios)
+                                        .OrderBy(x => x.DataDeCadastro).Take(take).ToListAsync();
+
+            return await _context.Veiculos.AsNoTracking().Where(expression).Include(x => x.VeiculoCondominios)
+                                    .OrderBy(x => x.DataDeCadastro).ToListAsync();
+        }
+
+        public async Task<Veiculo> ObterVeiculoPorPlaca(string placa)
+        {
+            return await _context.Veiculos.Include(x => x.VeiculoCondominios).FirstOrDefaultAsync(v => v.Placa == placa);
+        }
+
+       
+
+        public void AdicionarVeiculo(Veiculo veiculo)
+        {
+            _context.Veiculos.Add(veiculo);
+        }
+
+        public void AtualizarVeiculo(Veiculo entity)
+        {
+            _context.Veiculos.Update(entity);
+        }
+
+        public void AdicionarVeiculoCondominio(VeiculoCondominio veiculo)
+        {
+            _context.VeiculosCondominios.Add(veiculo);
+        }
+
+        public void RemoverVeiculoCondominio(VeiculoCondominio unidade)
+        {
+            _context.VeiculosCondominios.Remove(unidade);
+        }
+
+
 
         public void Dispose()
         {

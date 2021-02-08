@@ -29,6 +29,7 @@ namespace CondominioApp.Api.Configuration
         {
             services.AddControllers();
 
+            //Contexts
             services.AddDbContext<UsuarioContextDB>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("UsuariosConnection")));
 
@@ -39,10 +40,7 @@ namespace CondominioApp.Api.Configuration
                 options.UseSqlServer(configuration.GetConnectionString("PreCadastroConnection")));
 
             services.AddDbContext<MarketplaceContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("MarketplaceConnection")));
-
-            services.AddDbContext<PrincipalQueryContextDB>(options =>
-              options.UseSqlServer(configuration.GetConnectionString("QueryConnection")));
+                options.UseSqlServer(configuration.GetConnectionString("MarketplaceConnection")));          
 
             services.AddDbContext<EnqueteContextDB>(options =>
               options.UseSqlServer(configuration.GetConnectionString("EnqueteConnection")));
@@ -54,19 +52,28 @@ namespace CondominioApp.Api.Configuration
               options.UseSqlServer(configuration.GetConnectionString("ComunicadoConnection")));
 
             services.AddDbContext<ReservaAreaComumContextDB>(options =>
-              options.UseSqlServer(configuration.GetConnectionString("ReservaAreaComumConnection")));
-
-            services.AddDbContext<ReservaAreaComumQueryContextDB>(options =>
-             options.UseSqlServer(configuration.GetConnectionString("QueryConnection")));
+              options.UseSqlServer(configuration.GetConnectionString("ReservaAreaComumConnection")));           
 
             services.AddDbContext<PortariaContextDB>(options =>
-            options.UseSqlServer(configuration.GetConnectionString("PortariaConnection")));
-
-            services.AddDbContext<PortariaQueryContextDB>(options =>
-             options.UseSqlServer(configuration.GetConnectionString("QueryConnection")));
+            options.UseSqlServer(configuration.GetConnectionString("PortariaConnection")));          
 
             services.AddDbContext<AutomacaoContextDB>(options =>
             options.UseSqlServer(configuration.GetConnectionString("AutomacaoConnection")));
+
+
+            //Query Contexts
+            services.AddDbContext<UsuarioQueryContextDB>(options =>
+              options.UseSqlServer(configuration.GetConnectionString("QueryConnection")));
+            
+            services.AddDbContext<PrincipalQueryContextDB>(options =>
+              options.UseSqlServer(configuration.GetConnectionString("QueryConnection")));
+
+            services.AddDbContext<ReservaAreaComumQueryContextDB>(options =>
+              options.UseSqlServer(configuration.GetConnectionString("QueryConnection")));
+
+            services.AddDbContext<PortariaQueryContextDB>(options =>
+              options.UseSqlServer(configuration.GetConnectionString("QueryConnection")));
+
 
 
             services.Configure<ApiBehaviorOptions>(options =>
