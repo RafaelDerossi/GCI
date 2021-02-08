@@ -43,17 +43,17 @@ using CondominioApp.Portaria.Domain.Interfaces;
 using CondominioApp.Portaria.Infra.Data.Repository;
 using CondominioApp.Portaria.Infra.DataQuery.Repository;
 using CondominioApp.Portaria.Aplication.Query;
-using CondominioApp.Automacao.Services.Interfaces;
-using CondominioApp.Automacao.Services;
 using CondominioApp.Automacao.App.Aplication.Commands;
 using CondominioApp.Automacao.App.Models;
 using CondominioApp.Automacao.App.Data.Repository;
 using CondominioApp.Automacao.App.Aplication.Query;
+using CondominioApp.Usuarios.App.Aplication.Query;
 using CondominioApp.Usuarios.App.Models;
 using CondominioApp.Usuarios.App.Data.Repository;
 using CondominioApp.Usuarios.App.Aplication.Events;
 using CondominioApp.Usuarios.App.Aplication.Query;
 using CondominioApp.Usuarios.App.Aplication.Commands;
+using CondominioApp.Automacao.App.Factory;
 
 namespace CondominioApp.Api.Configuration
 {
@@ -255,12 +255,14 @@ namespace CondominioApp.Api.Configuration
 
             #region Automacao -Contexto
 
-            services.AddScoped<IAutomacaoService, AutomacaoService>();
+            services.AddScoped<IDispositivosServiceFactory, DispositivoServiceFactory>();
             services.AddScoped<IRequestHandler<CadastrarCondominioCredencialCommand, ValidationResult>, CondominioCredencialCommandHandler>();
             services.AddScoped<IRequestHandler<EditarCondominioCredencialCommand, ValidationResult>, CondominioCredencialCommandHandler>();
             services.AddScoped<IRequestHandler<RemoverCondominioCredencialCommand, ValidationResult>, CondominioCredencialCommandHandler>();
 
             #endregion
+
+            
 
 
             #region Querys
