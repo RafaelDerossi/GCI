@@ -66,6 +66,18 @@ namespace CondominioApp.Api.Controllers
             return veiculos.ToList();
         }
 
+        [HttpGet("por-condominio-e-modelo-ou-placa")]
+        public async Task<ActionResult<VeiculoFlat>> ObterPorModeloOuPlacaECondominio(Guid condominioId, string pesquisa)
+        {
+            var veiculo = await _usuarioQuery.ObterVeiculoPorPlacaOuModeloECondominio(pesquisa, condominioId);
+            if (veiculo == null)
+            {
+                AdicionarErroProcessamento("Veículo não encontrado.");
+                return CustomResponse();
+            }
+            return veiculo;
+        }
+
 
 
         [HttpPost]

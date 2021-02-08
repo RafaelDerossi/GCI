@@ -71,6 +71,14 @@ namespace CondominioApp.Portaria.Aplication.Query
                              !c.Lixeira);
         }
 
+        public async Task<IEnumerable<VisitaFlat>> ObterVisitasPorPlacaOuModeloDoVeiculo(string pesquisa, Guid condominioId)
+        {
+            return await _visitanteQueryRepository.ObterVisitas(
+                             c => c.CondominioId == condominioId &&
+                             (c.PlacaVeiculo.Contains(pesquisa) || c.ModeloVeiculo.Contains(pesquisa)) &&
+                             !c.Lixeira);
+        }
+
 
         public void Dispose()
         {           

@@ -83,6 +83,18 @@ namespace CondominioApp.Api.Controllers
             return visitas.ToList();
         }
 
+        [HttpGet("por-condominio-e-placaOuModelo/{condominioId:Guid}")]
+        public async Task<ActionResult<IEnumerable<VisitaFlat>>> ObterPorCondominioEPlacaOuModelo(Guid condominioId, string pesquisa)
+        {
+            var visitas = await _portariaQuery.ObterVisitasPorPlacaOuModeloDoVeiculo(pesquisa, condominioId);
+            if (visitas.Count() == 0)
+            {
+                AdicionarErroProcessamento("Nenhum registro encontrado.");
+                return CustomResponse();
+            }
+            return visitas.ToList();
+        }
+
 
 
         [HttpPost("por-morador")]

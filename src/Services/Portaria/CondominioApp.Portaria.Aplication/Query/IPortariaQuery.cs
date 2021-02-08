@@ -24,5 +24,7 @@ namespace CondominioApp.Portaria.Aplication.Query
 
         Task<IEnumerable<VisitaFlat>> ObterVisitasPorUsuario(Guid usuarioId);
 
+        Task<IEnumerable<VisitaFlat>> ObterVisitasPorPlacaOuModeloDoVeiculo(string pesquisa, Guid condominioId);
+
     }
 }

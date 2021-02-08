@@ -16,5 +16,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Query
         Task<IEnumerable<VeiculoFlat>> ObterVeiculosPorCondominio(Guid condominioId);
 
         Task<IEnumerable<VeiculoFlat>> ObterVeiculosPorUsuario(Guid usuarioId);
+
+        Task<VeiculoFlat> ObterVeiculoPorPlacaOuModeloECondominio(string pesquisa, Guid condominioId);
     }
 }

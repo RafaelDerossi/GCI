@@ -29,6 +29,12 @@ namespace CondominioApp.Usuarios.App.Aplication.Query
             return retorno.FirstOrDefault(); ;
         }
 
+        public async Task<VeiculoFlat> ObterVeiculoPorPlacaOuModeloECondominio(string pesquisa, Guid condominioId)
+        {
+            var retorno = await _veiculoQueryRepository.Obter(v => v.CondominioId == condominioId && (v.Placa.Contains(pesquisa) || v.Modelo.Contains(pesquisa)));
+            return retorno.FirstOrDefault(); ;
+        }
+
         public async Task<IEnumerable<VeiculoFlat>> ObterVeiculosPorCondominio(Guid condominioId)
         {
             return await _veiculoQueryRepository.Obter(v => v.CondominioId == condominioId);
