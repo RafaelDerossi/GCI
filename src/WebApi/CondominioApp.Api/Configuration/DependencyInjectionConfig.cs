@@ -51,7 +51,6 @@ using CondominioApp.Usuarios.App.Aplication.Query;
 using CondominioApp.Usuarios.App.Models;
 using CondominioApp.Usuarios.App.Data.Repository;
 using CondominioApp.Usuarios.App.Aplication.Events;
-using CondominioApp.Usuarios.App.Aplication.Query;
 using CondominioApp.Usuarios.App.Aplication.Commands;
 using CondominioApp.Automacao.App.Factory;
 
