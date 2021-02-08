@@ -77,8 +77,7 @@ namespace CondominioApp.Usuarios.App.FlatModel
             UnidadeId = unidadeId;
             NumeroUnidade = numero;
             AndarUnidade = andar;
-            GrupoUnidade = grupo;
-            CondominioId = condominioId;
+            GrupoUnidade = grupo;            
         }
 
         public void SetCondominio(Guid condominioId, string nomeCondominio)

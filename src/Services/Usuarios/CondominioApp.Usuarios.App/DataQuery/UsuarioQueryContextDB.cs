@@ -7,6 +7,7 @@ using CondominioApp.Core.Mediator;
 using CondominioApp.Core.Messages;
 using CondominioApp.Usuarios.App.FlatModel;
 using CondominioApp.Usuarios.App.Models;
+using CondominioApp.Usuarios.App.ValueObjects;
 using FluentValidation.Results;
 using Microsoft.EntityFrameworkCore;
 
@@ -33,6 +34,11 @@ namespace CondominioApp.Usuarios.App.Data
             modelBuilder.Ignore<Usuario>();
             modelBuilder.Ignore<Veiculo>();
             modelBuilder.Ignore<VeiculoCondominio>();
+            modelBuilder.Ignore<Cpf>();
+            modelBuilder.Ignore<Email>();
+            modelBuilder.Ignore<Endereco>();
+            modelBuilder.Ignore<Foto>();
+
         }
 
         public async Task<bool> Commit()

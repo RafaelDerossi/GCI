@@ -49,13 +49,11 @@ using CondominioApp.Automacao.App.Aplication.Commands;
 using CondominioApp.Automacao.App.Models;
 using CondominioApp.Automacao.App.Data.Repository;
 using CondominioApp.Automacao.App.Aplication.Query;
+using CondominioApp.Usuarios.App.Models;
+using CondominioApp.Usuarios.App.Data.Repository;
+using CondominioApp.Usuarios.App.Aplication.Events;
 using CondominioApp.Usuarios.App.Aplication.Query;
-using CondominioApp.Usuarios.App.Models;
-using CondominioApp.Usuarios.App.Data.Repository;
 using CondominioApp.Usuarios.App.Aplication.Commands;
-using CondominioApp.Usuarios.App.Models;
-using CondominioApp.Usuarios.App.Data.Repository;
-using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents;
 
 namespace CondominioApp.Api.Configuration
 {
@@ -137,9 +135,7 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<INotificationHandler<UnidadeCadastradaEvent>, UnidadeEventHandler>();
             services.AddScoped<INotificationHandler<UnidadeEditadaEvent>, UnidadeEventHandler>();
             services.AddScoped<INotificationHandler<CodigoUnidadeResetadoEvent>, UnidadeEventHandler>();
-            services.AddScoped<INotificationHandler<UnidadeRemovidaEvent>, UnidadeEventHandler>();
-            services.AddScoped<INotificationHandler<UnidadeVeiculoCadastradaIntegrationEvent>, VeiculoEventHandler>();
-            services.AddScoped<INotificationHandler<VeiculoEditadoComTrocaDeUsuarioIntegrationEvent>, VeiculoEventHandler>();
+            services.AddScoped<INotificationHandler<UnidadeRemovidaEvent>, UnidadeEventHandler>();           
 
             //Contratos
             services.AddScoped<IRequestHandler<CadastrarContratoCommand, ValidationResult>, ContratoCommandHandler>();
@@ -148,6 +144,15 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<INotificationHandler<ContratoCadastradoEvent>, ContratoEventHandler>();
             services.AddScoped<INotificationHandler<ContratoEditadoEvent>, ContratoEventHandler>();
             services.AddScoped<INotificationHandler<ContratoRemovidoEvent>, ContratoEventHandler>();
+
+            #endregion
+
+            #region Usuario
+            services.AddScoped<IRequestHandler<CadastrarVeiculoCommand, ValidationResult>, VeiculoCommandHandler>();
+            services.AddScoped<IRequestHandler<RemoverVeiculoCommand, ValidationResult>, VeiculoCommandHandler>();
+            services.AddScoped<INotificationHandler<VeiculoCadastradoEvent>, VeiculoEventHandler>();
+            services.AddScoped<INotificationHandler<UsuarioDoVeiculoNoCondominioEditadoEvent>, VeiculoEventHandler>();
+            services.AddScoped<INotificationHandler<VeiculoRemovidoEvent>, VeiculoEventHandler>();
 
             #endregion
 
@@ -287,7 +292,7 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<IVisitanteQueryRepository, VisitanteQueryRepository>();
             services.AddScoped<ICondominioCredencialRepository, CondominioCredencialRepository>();
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
-
+            services.AddScoped<IVeiculoQueryRepository, VeiculoQueryRepository>();
             #endregion
 
         }

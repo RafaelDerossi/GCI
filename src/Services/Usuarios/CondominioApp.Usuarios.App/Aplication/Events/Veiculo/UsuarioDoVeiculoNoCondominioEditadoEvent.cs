@@ -2,12 +2,12 @@
 
 namespace CondominioApp.Usuarios.App.Aplication.Events
 {
-    public class VeiculoCadastradoEvent : VeiculoEvent
+    public class UsuarioDoVeiculoNoCondominioEditadoEvent : VeiculoEvent
     {        
-        public VeiculoCadastradoEvent(
-            Guid id, Guid veiculoId, string placa, string modelo, string cor, Guid usuarioId,
-            string nomeUsuario, Guid unidadeId, string numeroUnidade, string andarUnidade,
-            string grupoUnidade ,Guid condominioId, string nomeCondominio)
+        public UsuarioDoVeiculoNoCondominioEditadoEvent(
+            Guid id, Guid veiculoId, string placa, string modelo, string cor,
+            Guid usuarioId,string nomeUsuario, Guid unidadeId, string numeroUnidade,
+            string andarUnidade, string grupoDaUnidade, Guid condominioId, string nomeCondominio)
         {
             Id = id;
             VeiculoId = veiculoId;
@@ -19,7 +19,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Events
             UnidadeId = unidadeId;
             NumeroUnidade = numeroUnidade;
             AndarUnidade = andarUnidade;
-            GrupoUnidade = grupoUnidade;
+            GrupoUnidade = grupoDaUnidade;
             CondominioId = condominioId;
             NomeCondominio = nomeCondominio;
         }

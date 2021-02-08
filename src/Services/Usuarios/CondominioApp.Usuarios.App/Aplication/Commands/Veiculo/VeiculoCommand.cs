@@ -42,7 +42,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
                 Regex regex = new Regex(@"^([A-Z]{3}[0-9][0-9A-Z][0-9]{2})*$");
                 Match match = regex.Match(placa);
                 if (!match.Success)
-                    throw new DomainException("Placa inválida!");
+                    AdicionarErrosDeProcessamentoDoComando("Placa inválida!");
             }
 
             Placa = placa;

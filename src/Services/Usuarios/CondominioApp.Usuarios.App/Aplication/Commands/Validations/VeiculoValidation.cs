@@ -38,12 +38,6 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands.Validations
             RuleFor(c => c.UsuarioId)
                 .NotEqual(Guid.Empty);
         }
-        protected void ValidateNomeUsuario()
-        {
-            RuleFor(c => c.NomeUsuario)
-                  .NotNull().WithMessage("Nome do Usuário não pode estar vazio!")
-                  .NotEmpty().WithMessage("Nome do Usuário não pode estar vazio!");      
-        }
 
         protected void ValidateUnidadeId()
         {

@@ -3,15 +3,15 @@ using System;
 
 namespace CondominioApp.Usuarios.App.Models
 {
-    public class CadastraVeiculoViewModel : Entity
+    public class CadastraVeiculoViewModel
     {
-        public string Placa { get; private set; }
+        public string Placa { get; set; }
         
-        public string Modelo { get; private set; }
+        public string Modelo { get; set; }
 
-        public string Cor { get; private set; }
+        public string Cor { get; set; }
 
-        public Guid UsuarioId { get; private set; }
+        public Guid UsuarioId { get; set; }
 
         public Guid UnidadeId { get; set; }        
     }

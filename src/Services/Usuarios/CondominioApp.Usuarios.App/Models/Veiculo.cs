@@ -18,10 +18,14 @@ namespace CondominioApp.Usuarios.App.Models
         private readonly List<VeiculoCondominio> _VeiculoCondominios;
         public IReadOnlyCollection<VeiculoCondominio> VeiculoCondominios => _VeiculoCondominios;
 
-        protected Veiculo() { }
+        protected Veiculo() 
+        {
+            _VeiculoCondominios = new List<VeiculoCondominio>();
+        }
 
         public Veiculo(string placa, string modelo, string cor)
         {
+            _VeiculoCondominios = new List<VeiculoCondominio>();
             Placa = placa;
             Modelo = modelo;
             Cor = cor;            
@@ -56,11 +60,7 @@ namespace CondominioApp.Usuarios.App.Models
 
         public void RemoverTodosOsVeiculoCondominioPorCondominio(Guid condominioId)
         {
-            var veiculoCondominiosDoCondominio = _VeiculoCondominios.Where(c => c.CondominioId == condominioId);
-            foreach (VeiculoCondominio veiculoCondominio in veiculoCondominiosDoCondominio)
-            {
-                _VeiculoCondominios.Remove(veiculoCondominio);
-            }            
+            _VeiculoCondominios.RemoveAll(v => v.CondominioId == condominioId);
         }
 
     }

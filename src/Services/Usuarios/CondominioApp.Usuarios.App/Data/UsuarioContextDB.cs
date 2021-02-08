@@ -6,6 +6,7 @@ using CondominioApp.Core.Extensions;
 using CondominioApp.Core.Helpers;
 using CondominioApp.Core.Mediator;
 using CondominioApp.Core.Messages;
+using CondominioApp.Usuarios.App.FlatModel;
 using CondominioApp.Usuarios.App.Models;
 using FluentValidation.Results;
 using Microsoft.EntityFrameworkCore;
@@ -20,7 +21,7 @@ namespace CondominioApp.Usuarios.App.Data
 
         public DbSet<Veiculo> Veiculos { get; set; }
 
-        public DbSet<VeiculoCondominio> UnidadesVeiculo { get; set; }
+        public DbSet<VeiculoCondominio> VeiculosCondominios { get; set; }
 
         public UsuarioContextDB(DbContextOptions<UsuarioContextDB> options, IMediatorHandler mediatorHandler)
             : base(options)
@@ -32,7 +33,9 @@ namespace CondominioApp.Usuarios.App.Data
         {
             modelBuilder.Ignore<ValidationResult>();
             modelBuilder.Ignore<Event>();
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(UsuarioContextDB).Assembly);            
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(UsuarioContextDB).Assembly);
+
+            modelBuilder.Ignore<VeiculoFlat>();
         }
 
         public async Task<bool> Commit()

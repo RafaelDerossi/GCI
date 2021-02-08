@@ -4,14 +4,16 @@ using CondominioApp.Usuarios.App.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CondominioApp.Usuarios.App.Migrations
 {
     [DbContext(typeof(UsuarioContextDB))]
-    partial class UsuarioContextDBModelSnapshot : ModelSnapshot
+    [Migration("20210208143026_VeiculoInit")]
+    partial class VeiculoInit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

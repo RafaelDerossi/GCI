@@ -28,6 +28,9 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
         
         public override bool EstaValido()
         {
+            if (!ValidationResult.IsValid)
+                return ValidationResult.IsValid;
+
             ValidationResult = new EditarMoradorCommandValidation().Validate(this);
             return ValidationResult.IsValid;
         }

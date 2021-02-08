@@ -11,9 +11,10 @@ using MediatR;
 
 namespace CondominioApp.Usuarios.App.Aplication.Commands
 {
-    public class VeiculoCommandHandler : CommandHandler,
-                                         IRequestHandler<CadastrarVeiculoCommand, ValidationResult>,        
-                                         IDisposable
+    public class VeiculoCommandHandler : CommandHandler, 
+        IRequestHandler<CadastrarVeiculoCommand, ValidationResult>,
+        IRequestHandler<RemoverVeiculoCommand, ValidationResult>,
+        IDisposable
     {
         private IUsuarioRepository _usuarioRepository;
 
@@ -56,9 +57,38 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
 
         }
 
+        public async Task<ValidationResult> Handle(RemoverVeiculoCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido()) return request.ValidationResult;
+
+            var veiculo = await _usuarioRepository.ObterVeiculoPorId(request.Id);
+            if (veiculo == null)
+            {
+                AdicionarErro("Veículo não encontrado.");
+                return ValidationResult;
+            }
+
+            //Exclui todos os VeiculoCondominio do Condominio
+            var veiculoCondominiosDoCondominio =
+                veiculo.VeiculoCondominios.Where(v => v.CondominioId == request.CondominioId);
+            foreach (VeiculoCondominio vC in veiculoCondominiosDoCondominio)
+            {
+                _usuarioRepository.RemoverVeiculoCondominio(vC);
+            }
+            veiculo.RemoverTodosOsVeiculoCondominioPorCondominio(request.CondominioId);
+
+            if (veiculo.VeiculoCondominios.Count() == 0)
+                veiculo.EnviarParaLixeira();
+
+            _usuarioRepository.AtualizarVeiculo(veiculo);
+
+            veiculo.AdicionarEvento(new VeiculoRemovidoEvent(request.Id, request.CondominioId));
+
+            return await PersistirDados(_usuarioRepository.UnitOfWork);
+
+        }
 
 
-        
 
         private async Task<ValidationResult> CadastrarVeiculo(VeiculoCommand request, string nomeUsuario)
         {
@@ -71,19 +101,20 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
 
             _usuarioRepository.AdicionarVeiculo(veiculo);
 
-            AdicionarEventoVeiculoCadastrado(veiculo, nomeUsuario, request.UnidadeId, request.CondominioId, veiculoCondominio);
+            AdicionarEventoVeiculoCadastrado(veiculo, request, nomeUsuario, veiculoCondominio);
 
             return await PersistirDados(_usuarioRepository.UnitOfWork);
         }
 
         private async Task<ValidationResult> EditarUsuarioDoVeiculoNoCondominio(Veiculo veiculo, VeiculoCommand request, Usuario usuario)
-        {
+        {            
+
             //Retirar da lixeira
             veiculo.RestaurarDaLixeira();
 
             //Exclui todos os VeiculoCondominio do Condominio
             var veiculoCondominiosDoCondominio =
-                veiculo.VeiculoCondominios.Where(uvu => uvu.CondominioId == request.CondominioId);
+                veiculo.VeiculoCondominios.Where(v => v.CondominioId == request.CondominioId);
             foreach (VeiculoCondominio vC in veiculoCondominiosDoCondominio)
             {
                 _usuarioRepository.RemoverVeiculoCondominio(vC);
@@ -101,8 +132,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
             _usuarioRepository.AdicionarVeiculoCondominio(veiculoCondominio);
             _usuarioRepository.AtualizarVeiculo(veiculo);
 
-            AdicionarEventoUsuarioDoVeiculoNoCondominioEditado(
-                veiculo, usuario.NomeCompleto, request.UnidadeId, request.CondominioId, veiculoCondominio);
+            AdicionarEventoUsuarioDoVeiculoNoCondominioEditado(veiculo, request, usuario.NomeCompleto, veiculoCondominio);
 
             return await PersistirDados(_usuarioRepository.UnitOfWork);
         }
@@ -123,11 +153,10 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
             _usuarioRepository.AdicionarVeiculoCondominio(veiculoCondominio);
             _usuarioRepository.AtualizarVeiculo(veiculo);
 
-            AdicionarEventoVeiculoCadastrado(veiculo, nomeUsuario, request.UnidadeId, request.CondominioId, veiculoCondominio);
+            AdicionarEventoVeiculoCadastrado(veiculo, request, nomeUsuario, veiculoCondominio);
 
             return await PersistirDados(_usuarioRepository.UnitOfWork);
         }
-
         
 
 
@@ -139,22 +168,26 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
         }
 
         private void AdicionarEventoVeiculoCadastrado
-            (Veiculo veiculo, string nomeUsuario, Guid unidadeId, Guid condominioId, VeiculoCondominio veiculoCondominio)
+            (Veiculo veiculo, VeiculoCommand request, string nomeUsuario, VeiculoCondominio veiculoCondominio)
         {
             veiculo.AdicionarEvento(new VeiculoCadastradoEvent
                 (veiculoCondominio.Id, veiculo.Id, veiculo.Placa, veiculo.Modelo, veiculo.Cor,
-                veiculoCondominio.UsuarioId, nomeUsuario, unidadeId, condominioId));
+                 veiculoCondominio.UsuarioId, nomeUsuario, request.UnidadeId,
+                 request.NumeroUnidade, request.AndarUnidade, request.GrupoUnidade, request.CondominioId,
+                 request.NomeCondominio));
         }
         
         private void AdicionarEventoUsuarioDoVeiculoNoCondominioEditado
-            (Veiculo veiculo, string nomeUsuario, Guid unidadeId, Guid condominioId, VeiculoCondominio veiculoCondominio)
+            (Veiculo veiculo, VeiculoCommand request, string nomeUsuario, VeiculoCondominio veiculoCondominio)
         {
-            veiculo.AdicionarEvento(new VeiculoEditadoComTrocaDeUsuarioEvent
+            veiculo.AdicionarEvento(new UsuarioDoVeiculoNoCondominioEditadoEvent
                 (veiculoCondominio.Id, veiculo.Id, veiculo.Placa, veiculo.Modelo, veiculo.Cor,
-                veiculoCondominio.UsuarioId, nomeUsuario, unidadeId, condominioId));
+                 veiculoCondominio.UsuarioId, nomeUsuario, request.UnidadeId,
+                 request.NumeroUnidade, request.AndarUnidade, request.GrupoUnidade, request.CondominioId,
+                 request.NomeCondominio));
         }
 
-        
+
 
         public void Dispose()
         {

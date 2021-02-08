@@ -72,7 +72,11 @@ namespace CondominioApp.Usuarios.App.Data.Repository
             return await _context.VeiculosFlat.FirstOrDefaultAsync(v => v.Placa == placa);
         }
 
-              
+        public void Remover(VeiculoFlat veiculo)
+        {
+            _context.VeiculosFlat.Remove(veiculo);
+        }
+
 
         public void Dispose()
         {

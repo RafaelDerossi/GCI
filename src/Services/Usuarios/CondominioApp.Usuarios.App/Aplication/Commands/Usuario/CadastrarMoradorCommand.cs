@@ -30,6 +30,9 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
 
         public override bool EstaValido()
         {
+            if (!ValidationResult.IsValid)
+                return ValidationResult.IsValid;
+
             ValidationResult = new CadastrarMoradorCommandValidation().Validate(this);
             return ValidationResult.IsValid;
         }

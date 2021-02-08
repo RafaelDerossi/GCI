@@ -5,6 +5,7 @@ using CondominioApp.Usuarios.App.Models;
 using CondominioApp.WebApi.Core.Controllers;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 
 namespace CondominioApp.Api.Controllers
@@ -46,6 +47,16 @@ namespace CondominioApp.Api.Controllers
 
             return CustomResponse();
 
+        }
+
+        [HttpDelete]
+        public async Task<ActionResult> Delete(Guid veiculoId, Guid condominioId)
+        {
+            var comando = new RemoverVeiculoCommand(veiculoId, condominioId);
+
+            var Resultado = await _mediatorHandler.EnviarComando(comando);
+
+            return CustomResponse(Resultado);
         }
     }
 }

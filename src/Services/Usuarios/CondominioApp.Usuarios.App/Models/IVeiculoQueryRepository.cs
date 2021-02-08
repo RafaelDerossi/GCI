@@ -7,5 +7,7 @@ namespace CondominioApp.Usuarios.App.Models
     public interface IVeiculoQueryRepository : IRepository<VeiculoFlat>
     {
         Task<VeiculoFlat> ObterVeiculoPorPlaca(string placa);
+
+        void Remover(VeiculoFlat veiculo);
     }
 }

@@ -17,6 +17,9 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
 
         public override bool EstaValido()
         {
+            if (!ValidationResult.IsValid)
+                return ValidationResult.IsValid;
+
             ValidationResult = new CadastrarVeiculoCommandValidation().Validate(this);
             return ValidationResult.IsValid;
         }
@@ -30,8 +33,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
                 ValidateModelo();
                 ValidateCor();
                 
-                ValidateUsuarioId();
-                ValidateNomeUsuario();
+                ValidateUsuarioId();                
                 
                 ValidateUnidadeId();
                 ValidateNumeroUnidade();
