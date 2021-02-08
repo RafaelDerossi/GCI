@@ -54,6 +54,11 @@ namespace CondominioApp.Usuarios.App.FlatModel
             SetCondominio(condominioId, nomeCondominio);
         }
 
+        public int Count()
+        {
+            throw new NotImplementedException();
+        }
+
         public void EnviarParaLixeira() => Lixeira = true;
 
         public void RestaurarDaLixeira() => Lixeira = false;

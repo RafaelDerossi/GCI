@@ -1,12 +1,16 @@
 ﻿using CondominioApp.Core.Mediator;
 using CondominioApp.Principal.Aplication.Query.Interfaces;
 using CondominioApp.Usuarios.App.Aplication.Commands;
+using CondominioApp.Usuarios.App.Aplication.Query;
+using CondominioApp.Usuarios.App.FlatModel;
 using CondominioApp.Usuarios.App.Models;
 using CondominioApp.WebApi.Core.Controllers;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace CondominioApp.Api.Controllers
 {
@@ -15,12 +19,54 @@ namespace CondominioApp.Api.Controllers
     {
         private readonly IMediatorHandler _mediatorHandler;
         private readonly ICondominioQuery _condominioQuery;
+        private readonly IUsuarioQuery _usuarioQuery;
 
-        public VeiculoController(IMediatorHandler mediatorHandler, ICondominioQuery condominioQuery)
+        public VeiculoController(IMediatorHandler mediatorHandler, ICondominioQuery condominioQuery, IUsuarioQuery usuarioQuery)
         {
             _mediatorHandler = mediatorHandler;
             _condominioQuery = condominioQuery;
+            _usuarioQuery = usuarioQuery;
         }
+
+
+
+        [HttpGet("por-placa-e-condominio")]
+        public async Task<ActionResult<VeiculoFlat>> ObterPorPlacaECondominio(string placa, Guid condominioId)
+        {
+            var veiculo = await _usuarioQuery.ObterVeiculoPorPlacaECondominio(placa, condominioId);
+            if (veiculo == null)
+            {
+                AdicionarErroProcessamento("Veiculo não encontrado.");
+                return CustomResponse();
+            }
+            return veiculo;
+        }
+
+        [HttpGet("por-condominio/{condominioId:Guid}")]
+        public async Task<ActionResult<IEnumerable<VeiculoFlat>>> ObterPorCondominio(Guid condominioId)
+        {
+            var veiculos = await _usuarioQuery.ObterVeiculosPorCondominio(condominioId);
+            if (veiculos.Count() == 0)
+            {
+                AdicionarErroProcessamento("Nenhum registro encontrado.");
+                return CustomResponse();
+            }
+            return veiculos.ToList();
+        }
+
+        [HttpGet("por-usuario/{usuarioId:Guid}")]
+        public async Task<ActionResult<IEnumerable<VeiculoFlat>>> ObterPorUsuario(Guid usuarioId)
+        {
+            var veiculos = await _usuarioQuery.ObterVeiculosPorUsuario(usuarioId);
+            if (veiculos.Count() == 0)
+            {
+                AdicionarErroProcessamento("Nenhum registro encontrado.");
+                return CustomResponse();
+            }
+            return veiculos.ToList();
+        }
+
+
 
         [HttpPost]
         public async Task<ActionResult> Post(CadastraVeiculoViewModel veiculoVM)
@@ -58,5 +104,6 @@ namespace CondominioApp.Api.Controllers
 
             return CustomResponse(Resultado);
         }
+
     }
 }
