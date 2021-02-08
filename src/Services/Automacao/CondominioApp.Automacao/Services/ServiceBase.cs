@@ -1,9 +1,10 @@
 ﻿using System;
+using CondominioApp.Automacao.App.Services.Interfaces;
 using FluentValidation.Results;
 
 namespace CondominioApp.Automacao.Services
 {
-    public abstract class ServiceBase
+    public abstract class ServiceBase : IServiceBase
     {        
         public ValidationResult ValidationResult { get; set; }
 

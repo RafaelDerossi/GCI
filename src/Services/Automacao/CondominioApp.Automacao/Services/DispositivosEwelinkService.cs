@@ -1,32 +1,32 @@
-﻿using CondominioApp.Automacao.Services.Interfaces;
-using EwelinkNet;
+﻿using EwelinkNet;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using FluentValidation.Results;
 using System.Linq;
 using CondominioApp.Automacao.ViewModel;
-using System;
-using CondominioApp.Core.Enumeradores;
-using CondominioApp.Automacao.App.Aplication.Query;
+using CondominioApp.Automacao.Models;
+using CondominioApp.Automacao.App.Services.Interfaces;
 
 namespace CondominioApp.Automacao.Services
 {
-   public class AutomacaoService : ServiceBase, IAutomacaoService
+   public class DispositivosEwelinkService : ServiceBase, IDispositivosService
     {
         private string Regiao = "us";
-        private readonly ICondominioCredencialQuery _condominioCredencialQuery;
 
-        public AutomacaoService(ICondominioCredencialQuery condominioCredencialQuery)
+        CondominioCredencial _credencial;
+
+        public DispositivosEwelinkService()
         {
-            _condominioCredencialQuery = condominioCredencialQuery;            
         }
-       
-
-        public async Task<IEnumerable<DispositivoViewModel>> ObterDispositivos(Guid condominioId, TipoApiAutomacao tipoApiAutomacao)
+        public DispositivosEwelinkService(CondominioCredencial credencial)
         {
-            var credencial =await _condominioCredencialQuery.ObterPorCondominioETipoApi(condominioId, tipoApiAutomacao);
+            _credencial = credencial;            
+        }
 
-            var ewelink = new Ewelink(credencial.Email.Endereco, credencial.SenhaDescriptografa, Regiao);
+
+        public async Task<IEnumerable<DispositivoViewModel>> ObterDispositivos()
+        {
+            var ewelink = new Ewelink(_credencial.Email.Endereco, _credencial.SenhaDescriptografa, Regiao);
             await ewelink.GetCredentials();
             await ewelink.GetDevices();
 
@@ -37,11 +37,11 @@ namespace CondominioApp.Automacao.Services
                 {
                     var dispositivo = new DispositivoViewModel()
                     {
-                        DispositivoId = ewelink.Devices[i].deviceid,                        
+                        DispositivoId = ewelink.Devices[i].deviceid,
                         Nome = ewelink.Devices[i].name,
                         Tipo = ewelink.Devices[i].type,
                         Chave = ewelink.Devices[i].devicekey,
-                        Apikey = ewelink.Devices[i].apikey,                        
+                        Apikey = ewelink.Devices[i].apikey,
                         Grupo = ewelink.Devices[i].group,
                         Online = ewelink.Devices[i].online,
                         Localizacao = ewelink.Devices[i].location,
@@ -54,26 +54,25 @@ namespace CondominioApp.Automacao.Services
                         NomeDaMarca = ewelink.Devices[i].brandName,
                         MostraMarca = ewelink.Devices[i].showBrand,
                         UrlDaLogoDaMarca = ewelink.Devices[i].brandLogoUrl,
-                        ModeloDoProduto = ewelink.Devices[i].productModel                        
+                        ModeloDoProduto = ewelink.Devices[i].productModel
                     };
 
                     dispositivos.Add(dispositivo);
                 }
-            }            
-
+            }
             return dispositivos;
         }
-        
-        public async Task<ValidationResult> LigarDesligarDispositivo(Guid condominioId, string dispositivoId)
-        {
-            var credencial = await _condominioCredencialQuery.ObterPorCondominioETipoApi(condominioId, TipoApiAutomacao.EWELINK);
-            if (credencial == null)
+    
+
+        public async Task<ValidationResult> LigarDesligarDispositivo(string dispositivoId)
+        {            
+            if (_credencial == null)
             {
                 AdicionarErrosDeProcessamento("Credencial não encontrada no banco de dados.");
                 return ValidationResult;
             }
 
-            var ewelink = new Ewelink(credencial.Email.Endereco, credencial.SenhaDescriptografa, Regiao);            
+            var ewelink = new Ewelink(_credencial.Email.Endereco, _credencial.SenhaDescriptografa, Regiao);            
 
             await ewelink.GetCredentials();
 
@@ -106,5 +105,7 @@ namespace CondominioApp.Automacao.Services
             return ValidationResult;
         }
 
+       
+       
     }
 }
