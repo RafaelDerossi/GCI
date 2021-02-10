@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net;
+using CondominioApp.OneSignal.Serializador;
 using RestSharp;
 
 namespace CondominioApp.OneSignal.Recursos.Notificacoes
@@ -17,7 +18,8 @@ namespace CondominioApp.OneSignal.Recursos.Notificacoes
 
             restRequest.AddHeader("Authorization", string.Format("Basic {0}", base.ApiKey));
 
-            restRequest.RequestFormat = DataFormat.Json;            
+            restRequest.RequestFormat = DataFormat.Json;
+            restRequest.JsonSerializer = new SerializadorJsonNewtonsoft();
             restRequest.AddJsonBody(options);
 
             IRestResponse<RetornoDoCriarNotificacao> restResponse = base.RestClient.Execute<RetornoDoCriarNotificacao>(restRequest);

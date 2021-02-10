@@ -5,12 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Serializador\**" />
-    <EmbeddedResource Remove="Serializador\**" />
-    <None Remove="Serializador\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="RestSharp" Version="106.10.0" />
   </ItemGroup>

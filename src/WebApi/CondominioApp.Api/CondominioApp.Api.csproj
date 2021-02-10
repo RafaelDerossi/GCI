@@ -46,6 +46,7 @@
     <ProjectReference Include="..\..\Services\Marketplace\CondominioAppMarketplace.App\CondominioAppMarketplace.App.csproj" />
     <ProjectReference Include="..\..\Services\Marketplace\CondominioAppMarketplace.Domain\CondominioAppMarketplace.Domain.csproj" />
     <ProjectReference Include="..\..\Services\Marketplace\CondominioAppMarketplace.Infra\CondominioAppMarketplace.Infra.csproj" />
+    <ProjectReference Include="..\..\Services\NotificacaoPush\CondominioApp.NotificacaoPush.App\CondominioApp.NotificacaoPush.App.csproj" />
     <ProjectReference Include="..\..\Services\Portaria\CondominioApp.Portaria.Aplication\CondominioApp.Portaria.Aplication.csproj" />
     <ProjectReference Include="..\..\Services\Portaria\CondominioApp.Portaria.Infra\CondominioApp.Portaria.Infra.csproj" />
     <ProjectReference Include="..\..\Services\PreCadastro\CondominioAppPreCadastro.App\CondominioAppPreCadastro.App.csproj" />

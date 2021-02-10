@@ -53,6 +53,8 @@ using CondominioApp.Usuarios.App.Data.Repository;
 using CondominioApp.Usuarios.App.Aplication.Events;
 using CondominioApp.Usuarios.App.Aplication.Commands;
 using CondominioApp.Automacao.App.Factory;
+using CondominioApp.NotificacaoPush.App.Services.Interfaces;
+using CondominioApp.NotificacaoPush.App.Services;
 
 namespace CondominioApp.Api.Configuration
 {
@@ -261,7 +263,9 @@ namespace CondominioApp.Api.Configuration
 
             #endregion
 
-            
+            #region NotificacaoPush -Contexto
+            services.AddScoped<INotificacaoPushService, NotificacaoPushService>();
+            #endregion
 
 
             #region Querys

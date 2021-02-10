@@ -1,8 +1,6 @@
-﻿using System;
-using CondominioApp.Automacao.App.Services.Interfaces;
-using FluentValidation.Results;
+﻿using FluentValidation.Results;
 
-namespace CondominioApp.Automacao.Services
+namespace CondominioApp.Core.Service
 {
     public abstract class ServiceBase : IServiceBase
     {        

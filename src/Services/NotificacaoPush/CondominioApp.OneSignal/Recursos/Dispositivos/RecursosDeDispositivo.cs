@@ -1,4 +1,6 @@
-﻿using RestSharp;
+﻿using CondominioApp.OneSignal.Serializador;
+using RestSharp;
+using System.Threading.Tasks;
 
 namespace CondominioApp.OneSignal.Recursos.Dispositivos
 {
@@ -15,10 +17,11 @@ namespace CondominioApp.OneSignal.Recursos.Dispositivos
 
             restRequest.AddHeader("Authorization", string.Format("Basic {0}", base.ApiKey));
 
-            restRequest.RequestFormat = DataFormat.Json;            
+            restRequest.RequestFormat = DataFormat.Json;
+            restRequest.JsonSerializer = new SerializadorJsonNewtonsoft();
             restRequest.AddJsonBody(opcoes);
 
-            var restResponse = base.RestClient.Execute<RetornoDoAdicionarDispositivo>(restRequest);
+            var restResponse =  base.RestClient.Execute<RetornoDoAdicionarDispositivo>(restRequest);
 
             if (restResponse.ErrorException != null)
             {

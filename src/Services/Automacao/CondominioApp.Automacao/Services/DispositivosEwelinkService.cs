@@ -6,14 +6,16 @@ using System.Linq;
 using CondominioApp.Automacao.ViewModel;
 using CondominioApp.Automacao.Models;
 using CondominioApp.Automacao.App.Services.Interfaces;
+using CondominioApp.Core.Service;
 
 namespace CondominioApp.Automacao.Services
 {
    public class DispositivosEwelinkService : ServiceBase, IDispositivosService
     {
-        private string Regiao = "us";
+        private readonly string Regiao = "us";
 
-        CondominioCredencial _credencial;
+        private readonly CondominioCredencial _credencial;
+        
 
         public DispositivosEwelinkService()
         {

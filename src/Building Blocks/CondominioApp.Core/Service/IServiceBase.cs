@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CondominioApp.Automacao.App.Services.Interfaces
+﻿
+namespace CondominioApp.Core.Service
 {
    public interface IServiceBase
     {

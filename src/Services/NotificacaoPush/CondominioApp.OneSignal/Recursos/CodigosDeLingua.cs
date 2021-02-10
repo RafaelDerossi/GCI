@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CondominioApp.OneSignal
+﻿
+namespace CondominioApp.OneSignal.Recursos
 {
   public static  class CodigosDeLingua
     {
