@@ -1,5 +1,6 @@
 ﻿using CondominioApp.OneSignal.Serializador;
 using RestSharp;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace CondominioApp.OneSignal.Recursos.Dispositivos
@@ -23,12 +24,25 @@ namespace CondominioApp.OneSignal.Recursos.Dispositivos
 
             var restResponse =  base.RestClient.Execute<RetornoDoAdicionarDispositivo>(restRequest);
 
-            if (restResponse.ErrorException != null)
+            var retorno = restResponse.Data;
+            if (retorno == null)
+                retorno = new RetornoDoAdicionarDispositivo();
+
+            if ((restResponse.StatusCode != HttpStatusCode.Created || restResponse.StatusCode != HttpStatusCode.OK))
             {
-                throw restResponse.ErrorException;
+                if (restResponse.ErrorException != null)
+                {
+                    retorno.AdicionarErrosDeProcessamento(restResponse.ErrorException.Message);
+                    return retorno;
+                }
+                else if (restResponse.StatusCode != HttpStatusCode.OK && restResponse.Content != null)
+                {
+                    retorno.AdicionarErrosDeProcessamento(restResponse.Content);
+                    return retorno;
+                }
             }
 
-            return restResponse.Data;
+            return retorno;
         }
 
 

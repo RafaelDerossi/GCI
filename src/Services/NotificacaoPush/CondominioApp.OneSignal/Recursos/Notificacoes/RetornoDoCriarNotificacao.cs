@@ -1,8 +1,9 @@
 ﻿using RestSharp.Deserializers;
 
+
 namespace CondominioApp.OneSignal.Recursos.Notificacoes
 {
-   public class RetornoDoCriarNotificacao
+   public class RetornoDoCriarNotificacao : RetornoBase
     {        
         [DeserializeAs(Name = "recipients")]
         public int Destinatarios { get; set; }
@@ -10,5 +11,6 @@ namespace CondominioApp.OneSignal.Recursos.Notificacoes
         
         [DeserializeAs(Name = "id")]
         public string Id { get; set; }
+
     }
 }

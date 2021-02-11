@@ -4,7 +4,7 @@ using RestSharp.Deserializers;
 
 namespace CondominioApp.OneSignal.Recursos.Notificacoes
 {
-   public class RetornoDoVerNotificacao
+   public class RetornoDoVerNotificacao : RetornoBase
     {        
         [JsonProperty("id")]
         public string Id { get; set; }

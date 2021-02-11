@@ -1,12 +1,13 @@
 ﻿using CondominioApp.NotificacaoPush.App.DTO;
+using FluentValidation.Results;
 
 namespace CondominioApp.NotificacaoPush.App.Services.Interfaces
 {
    public interface INotificacaoPushService
-   {      
+   {
 
-        void AdcionarDispositivo(DispositivoDTO dispositivo);
+        ValidationResult AdcionarDispositivo(DispositivoDTO dispositivo);
 
-        void CriarNotificacao(NotificacaoPushDTO push);
+        ValidationResult CriarNotificacao(NotificacaoPushDTO notificacao);
     }
 }

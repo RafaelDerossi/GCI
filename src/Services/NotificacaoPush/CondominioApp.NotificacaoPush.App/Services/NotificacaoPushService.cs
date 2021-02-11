@@ -3,6 +3,7 @@ using CondominioApp.NotificacaoPush.App.Services.Interfaces;
 using CondominioApp.OneSignal;
 using CondominioApp.OneSignal.Recursos.Dispositivos;
 using CondominioApp.OneSignal.Recursos.Notificacoes;
+using FluentValidation.Results;
 
 namespace CondominioApp.NotificacaoPush.App.Services
 {
@@ -11,7 +12,7 @@ namespace CondominioApp.NotificacaoPush.App.Services
         private IOneSignalClient _OneSignalClient;
 
 
-        public void AdcionarDispositivo(DispositivoDTO dispositivo)
+        public ValidationResult AdcionarDispositivo(DispositivoDTO dispositivo)
         {
             _OneSignalClient = new OneSignalClient(dispositivo.AppOneSignal.ApiKey);
 
@@ -26,13 +27,10 @@ namespace CondominioApp.NotificacaoPush.App.Services
             
             RetornoDoAdicionarDispositivo retorno = _OneSignalClient.Devices.Adicionar(opcoes);
 
-            if (retorno.IsSuccess)
-            {
-
-            }
+            return retorno.ValidationResult;
         }
 
-        public void CriarNotificacao(NotificacaoPushDTO notificacao)
+        public ValidationResult CriarNotificacao(NotificacaoPushDTO notificacao)
         {
             _OneSignalClient = new OneSignalClient(notificacao.AppOneSignal.ApiKey);
 
@@ -45,10 +43,8 @@ namespace CondominioApp.NotificacaoPush.App.Services
 
             RetornoDoCriarNotificacao retorno = _OneSignalClient.Notifications.Criar(opcoes);
 
-            if (retorno.Id == null)
-            {
+            return retorno.ValidationResult;
 
-            }
         }
     }
 }

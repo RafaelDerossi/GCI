@@ -24,19 +24,26 @@ namespace CondominioApp.OneSignal.Recursos.Notificacoes
 
             IRestResponse<RetornoDoCriarNotificacao> restResponse = base.RestClient.Execute<RetornoDoCriarNotificacao>(restRequest);
 
-            if (!(restResponse.StatusCode != HttpStatusCode.Created || restResponse.StatusCode != HttpStatusCode.OK))
+            
+            var retorno = restResponse.Data;
+            if (retorno == null)
+                retorno = new RetornoDoCriarNotificacao();
+
+            if ((restResponse.StatusCode != HttpStatusCode.Created || restResponse.StatusCode != HttpStatusCode.OK))
             {
                 if (restResponse.ErrorException != null)
                 {
-                    throw restResponse.ErrorException;
+                    retorno.AdicionarErrosDeProcessamento(restResponse.ErrorException.Message);
+                    return retorno;
                 }
                 else if (restResponse.StatusCode != HttpStatusCode.OK && restResponse.Content != null)
                 {
-                    throw new Exception(restResponse.Content);
+                    retorno.AdicionarErrosDeProcessamento(restResponse.Content);
+                    return retorno;                    
                 }
             }
 
-            return restResponse.Data;
+            return retorno;
         }
 
         
@@ -52,19 +59,25 @@ namespace CondominioApp.OneSignal.Recursos.Notificacoes
 
             var restResponse = base.RestClient.Execute<RetornoDoVerNotificacao>(restRequest);
 
-            if (!(restResponse.StatusCode != HttpStatusCode.Created || restResponse.StatusCode != HttpStatusCode.OK))
+            var retorno = restResponse.Data;
+            if (retorno == null)
+                retorno = new RetornoDoVerNotificacao();
+
+            if ((restResponse.StatusCode != HttpStatusCode.Created || restResponse.StatusCode != HttpStatusCode.OK))
             {
                 if (restResponse.ErrorException != null)
                 {
-                    throw restResponse.ErrorException;
+                    retorno.AdicionarErrosDeProcessamento(restResponse.ErrorException.Message);
+                    return retorno;
                 }
                 else if (restResponse.StatusCode != HttpStatusCode.OK && restResponse.Content != null)
                 {
-                    throw new Exception(restResponse.Content);
+                    retorno.AdicionarErrosDeProcessamento(restResponse.Content);
+                    return retorno;
                 }
             }
 
-            return restResponse.Data;
+            return retorno;
         }
 
       
@@ -80,16 +93,27 @@ namespace CondominioApp.OneSignal.Recursos.Notificacoes
 
             IRestResponse<RetornoDoCancelarNotificacao> restResponse = base.RestClient.Execute<RetornoDoCancelarNotificacao>(restRequest);
 
-            if (restResponse.ErrorException != null)
+
+            var retorno = restResponse.Data;
+            if (retorno == null)
+                retorno = new RetornoDoCancelarNotificacao();
+
+            if ((restResponse.StatusCode != HttpStatusCode.Created || restResponse.StatusCode != HttpStatusCode.OK))
             {
-                throw restResponse.ErrorException;
-            }
-            else if (restResponse.StatusCode != HttpStatusCode.OK && restResponse.Content != null)
-            {
-                throw new Exception(restResponse.Content);
+                if (restResponse.ErrorException != null)
+                {
+                    retorno.AdicionarErrosDeProcessamento(restResponse.ErrorException.Message);
+                    return retorno;
+                }
+                else if (restResponse.StatusCode != HttpStatusCode.OK && restResponse.Content != null)
+                {
+                    retorno.AdicionarErrosDeProcessamento(restResponse.Content);
+                    return retorno;
+                }
             }
 
-            return restResponse.Data;
+            return retorno;
+            
         }
 
     }

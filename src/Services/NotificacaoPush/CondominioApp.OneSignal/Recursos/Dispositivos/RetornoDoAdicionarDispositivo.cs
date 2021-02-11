@@ -2,7 +2,7 @@
 
 namespace CondominioApp.OneSignal.Recursos.Dispositivos
 {
-   public class RetornoDoAdicionarDispositivo
+   public class RetornoDoAdicionarDispositivo : RetornoBase
     {
         /// <summary>
         /// Returns true if operation is successfull.
