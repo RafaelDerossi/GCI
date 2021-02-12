@@ -1,4 +1,5 @@
-﻿using CondominioApp.NotificacaoPush.App.DTO;
+﻿using CondominioApp.Core.Helpers;
+using CondominioApp.NotificacaoPush.App.DTO;
 using CondominioApp.NotificacaoPush.App.Services.Interfaces;
 using CondominioApp.OneSignal;
 using CondominioApp.OneSignal.Recursos.Dispositivos;
@@ -38,7 +39,12 @@ namespace CondominioApp.NotificacaoPush.App.Services
                                     
             opcoes.AppId = notificacao.AppOneSignal.AppId;
             opcoes.Titulos = notificacao.Titulos;
-            opcoes.Conteudo = notificacao.Conteudo;
+
+            foreach (var item in notificacao.Conteudo)
+            {
+                opcoes.Conteudo.Add(item.Key, RemoverHTML.RemoverHTMLdeString(item.Value));
+            }
+
             opcoes.IncluirIdsDePlayers = notificacao.DispositivosIds;
 
             RetornoDoCriarNotificacao retorno = _OneSignalClient.Notifications.Criar(opcoes);
