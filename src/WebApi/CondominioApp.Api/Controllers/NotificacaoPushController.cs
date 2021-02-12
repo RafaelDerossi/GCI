@@ -22,7 +22,7 @@ namespace CondominioApp.Api.Controllers
         }        
 
         [HttpPost("criar-notificacao")]
-        public ActionResult CriarNotificacaoAppV1(NotificacaoPushViewModel notificacaoVM)
+        public ActionResult CriarNotificacao(NotificacaoPushViewModel notificacaoVM)
         {
             var notificacaoDTO = new NotificacaoPushDTO();
 
@@ -42,12 +42,24 @@ namespace CondominioApp.Api.Controllers
 
             var retorno = _notificacaoPushService.CriarNotificacao(notificacaoDTO);
             if (!retorno.IsValid)
-                return CustomResponse(retorno);
-
+            {
+                foreach (var item in retorno.Errors)
+                {
+                    AdicionarErroProcessamento(item.ErrorMessage);
+                }
+            }
 
             notificacaoDTO.AppOneSignal = new CondominioAppV2OneSignalApp();
+            retorno = _notificacaoPushService.CriarNotificacao(notificacaoDTO);
+            if (!retorno.IsValid)
+            {
+                foreach (var item in retorno.Errors)
+                {
+                    AdicionarErroProcessamento(item.ErrorMessage);
+                }
+            }
 
-            return CustomResponse(_notificacaoPushService.CriarNotificacao(notificacaoDTO));
+            return CustomResponse();
             
         }
 
