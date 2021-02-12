@@ -1,4 +1,6 @@
-﻿using CondominioApp.Automacao.ViewModel;
+﻿using CondominioApp.Automacao.Models;
+using CondominioApp.Automacao.ViewModel;
+using CondominioApp.Core.Service;
 using FluentValidation.Results;
 using System.Collections.Generic;
 using System.Threading.Tasks;
