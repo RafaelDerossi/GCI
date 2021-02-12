@@ -21,45 +21,62 @@ namespace CondominioApp.Api.Controllers
             _notificacaoPushService = notificacaoPushService;
         }        
 
-        [HttpPost("criar-notificacao-AppV1")]
+        [HttpPost("criar-notificacao")]
         public ActionResult CriarNotificacaoAppV1(NotificacaoPushViewModel notificacaoVM)
         {
             var notificacaoDTO = new NotificacaoPushDTO();
 
             notificacaoDTO.AppOneSignal = new CondominioAppOneSignalApp();
 
-            //notificacaoDTO.Titulos.Add(CodigosDeLingua.English, "Condominio App");
+            if (notificacaoVM.ApiKey != notificacaoDTO.AppOneSignal.ApiKey)
+            {
+                AdicionarErroProcessamento("ApiKey invalida!");
+                return CustomResponse();
+            }
+                        
             notificacaoDTO.Titulos.Add(CodigosDeLingua.English, notificacaoVM.Titulo);
-
-            //notificacaoDTO.Conteudo.Add(CodigosDeLingua.English, "Hello world 6!");
+                        
             notificacaoDTO.Conteudo.Add(CodigosDeLingua.English, notificacaoVM.Conteudo);
-
-            //notificacaoDTO.DispositivosIds = new List<string> { "159b6c6f-99b2-4e82-9875-3aa5295c5c74" };
+                        
             notificacaoDTO.DispositivosIds = notificacaoVM.DispositivosIds;
+
+            var retorno = _notificacaoPushService.CriarNotificacao(notificacaoDTO);
+            if (!retorno.IsValid)
+                return CustomResponse(retorno);
+
+
+            notificacaoDTO.AppOneSignal = new CondominioAppV2OneSignalApp();
 
             return CustomResponse(_notificacaoPushService.CriarNotificacao(notificacaoDTO));
             
         }
 
 
-        [HttpPost("criar-notificacao-AppV2")]
-        public ActionResult CriarNotificacaoAppV2(NotificacaoPushViewModel notificacaoVM)
-        {
-            var notificacaoDTO = new NotificacaoPushDTO();
+        //[HttpPost("criar-notificacao-AppV2")]
+        //public ActionResult CriarNotificacaoAppV2(NotificacaoPushViewModel notificacaoVM)
+        //{
+        //    var notificacaoDTO = new NotificacaoPushDTO();
 
-            notificacaoDTO.AppOneSignal = new CondominioAppV2OneSignalApp();
-            //notificacaoDTO.Titulos.Add(CodigosDeLingua.English, "Condominio App");
-            notificacaoDTO.Titulos.Add(CodigosDeLingua.English, notificacaoVM.Titulo);
+        //    notificacaoDTO.AppOneSignal = new CondominioAppV2OneSignalApp();
 
-            //notificacaoDTO.Conteudo.Add(CodigosDeLingua.English, "Hello world 6!");
-            notificacaoDTO.Conteudo.Add(CodigosDeLingua.English, notificacaoVM.Conteudo);
+        //    if (notificacaoVM.ApiKey != notificacaoDTO.AppOneSignal.ApiKey)
+        //    {
+        //        AdicionarErroProcessamento("ApiKey invalida!");
+        //        return CustomResponse();
+        //    }
 
-            //notificacaoDTO.DispositivosIds = new List<string> { "159b6c6f-99b2-4e82-9875-3aa5295c5c74" };
-            notificacaoDTO.DispositivosIds = notificacaoVM.DispositivosIds;
+        //    //notificacaoDTO.Titulos.Add(CodigosDeLingua.English, "Condominio App");
+        //    notificacaoDTO.Titulos.Add(CodigosDeLingua.English, notificacaoVM.Titulo);
 
-            return CustomResponse(_notificacaoPushService.CriarNotificacao(notificacaoDTO));
+        //    //notificacaoDTO.Conteudo.Add(CodigosDeLingua.English, "Hello world 6!");
+        //    notificacaoDTO.Conteudo.Add(CodigosDeLingua.English, notificacaoVM.Conteudo);
 
-        }
+        //    //notificacaoDTO.DispositivosIds = new List<string> { "159b6c6f-99b2-4e82-9875-3aa5295c5c74" };
+        //    notificacaoDTO.DispositivosIds = notificacaoVM.DispositivosIds;
+
+        //    return CustomResponse(_notificacaoPushService.CriarNotificacao(notificacaoDTO));
+
+        //}
 
     }
 }
