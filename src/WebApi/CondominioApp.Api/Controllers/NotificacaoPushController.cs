@@ -24,16 +24,23 @@ namespace CondominioApp.Api.Controllers
         [HttpPost("criar-notificacao")]
         public ActionResult CriarNotificacao(NotificacaoPushViewModel notificacaoVM)
         {
-            var notificacaoDTO = new NotificacaoPushDTO();
+            var notificacaoDTO = new NotificacaoPushDTO();            
 
-            notificacaoDTO.AppOneSignal = new CondominioAppOneSignalApp();
+            var AppMorador = new MoradorOneSignalApp();
+            var AppSindico = new SindicoOneSignalApp();
 
-            if (notificacaoVM.ApiKey != notificacaoDTO.AppOneSignal.ApiKey)
+            if (notificacaoVM.ApiKey == AppMorador.ApiKey)
+                notificacaoDTO.AppOneSignal = AppMorador;
+
+            if (notificacaoVM.ApiKey == AppSindico.ApiKey)
+                notificacaoDTO.AppOneSignal = AppSindico;
+
+            if (notificacaoVM.ApiKey == null)
             {
-                AdicionarErroProcessamento("ApiKey invalida!");
+                AdicionarErroProcessamento("ApiKey não identificada.");
                 return CustomResponse();
-            }
-                        
+            }                
+
             notificacaoDTO.Titulos.Add(CodigosDeLingua.English, notificacaoVM.Titulo);
                         
             notificacaoDTO.Conteudo.Add(CodigosDeLingua.English, notificacaoVM.Conteudo);
@@ -49,7 +56,7 @@ namespace CondominioApp.Api.Controllers
                 }
             }
 
-            notificacaoDTO.AppOneSignal = new CondominioAppV2OneSignalApp();
+            notificacaoDTO.AppOneSignal = new SindicoOneSignalApp();
             retorno = _notificacaoPushService.CriarNotificacao(notificacaoDTO);
             if (!retorno.IsValid)
             {
