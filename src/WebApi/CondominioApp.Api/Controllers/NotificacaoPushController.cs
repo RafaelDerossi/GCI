@@ -46,27 +46,8 @@ namespace CondominioApp.Api.Controllers
             notificacaoDTO.Conteudo.Add(CodigosDeLingua.English, notificacaoVM.Conteudo);
                         
             notificacaoDTO.DispositivosIds = notificacaoVM.DispositivosIds;
-
-            var retorno = _notificacaoPushService.CriarNotificacao(notificacaoDTO);
-            if (!retorno.IsValid)
-            {
-                foreach (var item in retorno.Errors)
-                {
-                    AdicionarErroProcessamento(item.ErrorMessage);
-                }
-            }
-
-            notificacaoDTO.AppOneSignal = new SindicoOneSignalApp();
-            retorno = _notificacaoPushService.CriarNotificacao(notificacaoDTO);
-            if (!retorno.IsValid)
-            {
-                foreach (var item in retorno.Errors)
-                {
-                    AdicionarErroProcessamento(item.ErrorMessage);
-                }
-            }
-
-            return CustomResponse();
+                       
+            return CustomResponse(_notificacaoPushService.CriarNotificacao(notificacaoDTO));
             
         }
 
