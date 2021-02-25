@@ -264,7 +264,7 @@ namespace CondominioApp.Identidade.Api.Controllers
         {
             return new CadastrarMoradorCommand(usuarioRegistro.UsuarioId, usuarioRegistro.Nome, usuarioRegistro.Sobrenome, usuarioRegistro.Email,
              usuarioRegistro.Rg, usuarioRegistro.Cpf, usuarioRegistro.Celular, usuarioRegistro.Foto, usuarioRegistro.NomeOriginal,
-             usuarioRegistro.DataDeNascimento);
+             usuarioRegistro.DataDeNascimento, usuarioRegistro.TpUsuario, usuarioRegistro.Permissao);
         }
 
         #endregion

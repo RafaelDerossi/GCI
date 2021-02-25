@@ -23,7 +23,7 @@ namespace CondominioApp.Usuarios.App.Data.Repository
 
         public async Task<Usuario> ObterPorId(Guid Id)
         {
-            return await _context.Usuarios.Where(u => u.Id == Id && !u.Lixeira).FirstOrDefaultAsync();
+            return await _context.Usuarios.Include(u=>u.Mobiles).Where(u => u.Id == Id && !u.Lixeira).FirstOrDefaultAsync();
         }
 
         public async Task<IEnumerable<Usuario>> ObterTodos()
@@ -139,6 +139,21 @@ namespace CondominioApp.Usuarios.App.Data.Repository
             _context.VeiculosCondominios.Remove(unidade);
         }
 
+
+        public async Task<Mobile> ObterMobilePorId(Guid id)
+        {
+            return await _context.Mobiles.FindAsync(id);
+        }      
+
+        public void AdicionarMobile(Mobile mobile)
+        {
+            _context.Mobiles.Add(mobile);
+        }
+
+        public void AtualizarMobile(Mobile mobile)
+        {
+            _context.Mobiles.Update(mobile);
+        }
 
 
         public void Dispose()

@@ -21,6 +21,15 @@ namespace CondominioApp.Usuarios.App.Models
         void AtualizarVeiculo(Veiculo entity);
 
         void AdicionarVeiculoCondominio(VeiculoCondominio veiculo);
+
         void RemoverVeiculoCondominio(VeiculoCondominio unidade);
+
+
+
+        Task<Mobile> ObterMobilePorId(Guid id);
+
+        void AdicionarMobile(Mobile mobile);
+
+        void AtualizarMobile(Mobile mobile);
     }
 }

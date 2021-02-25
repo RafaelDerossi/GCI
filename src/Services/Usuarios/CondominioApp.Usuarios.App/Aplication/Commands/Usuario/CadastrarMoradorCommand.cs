@@ -1,9 +1,6 @@
 ﻿using System;
 using CondominioApp.Core.Enumeradores;
-using CondominioApp.Core.Messages;
-using CondominioApp.Usuarios.App.ValueObjects;
 using CondominioApp.Usuarios.App.Aplication.Commands.Validations;
-using FluentValidation;
 
 namespace CondominioApp.Usuarios.App.Aplication.Commands
 {
@@ -11,7 +8,8 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
     {
         public CadastrarMoradorCommand(Guid usuarioId, string nome, string sobrenome, string email,
             string rg = null, string cpf = null, string cel = null, string foto = null,
-            string nomeOriginal = null, DateTime? dataNascimento = null)
+            string nomeOriginal = null, DateTime? dataNascimento = null,
+            TipoDeUsuario tpUsuario = TipoDeUsuario.CLIENTE, Permissao permissao = Permissao.USUARIO)
         {
             UsuarioId = usuarioId;
             Nome = nome;
@@ -19,8 +17,8 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
             Rg = rg;
             DataNascimento = dataNascimento;
 
-            TpUsuario = TipoDeUsuario.CLIENTE;
-            Permissao = Permissao.USUARIO;
+            TpUsuario = tpUsuario;
+            Permissao = permissao;
 
             SetCpf(cpf);
             SetCelular(cel);

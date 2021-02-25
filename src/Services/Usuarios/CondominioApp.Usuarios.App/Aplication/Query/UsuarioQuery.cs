@@ -23,6 +23,15 @@ namespace CondominioApp.Usuarios.App.Aplication.Query
            return await _usuarioRepository.ObterPorId(Id);
         }
 
+
+
+
+
+        public async Task<VeiculoFlat> ObterVeiculoPorId(Guid id)
+        {
+            return await _veiculoQueryRepository.ObterPorId(id);
+        }
+
         public async Task<VeiculoFlat> ObterVeiculoPorPlacaECondominio(string placa, Guid condominioId)
         {
             var retorno = await _veiculoQueryRepository.Obter(v => v.Placa == placa && v.CondominioId == condominioId);
@@ -44,6 +53,9 @@ namespace CondominioApp.Usuarios.App.Aplication.Query
         {
             return await _veiculoQueryRepository.Obter(v => v.UsuarioId == usuarioId);
         }
+
+
+
 
 
         public void Dispose()
