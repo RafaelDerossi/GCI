@@ -109,6 +109,30 @@ namespace CondominioApp.Api.Controllers
             return comunicadosVM;
         }
 
+        [HttpGet("por-condominio/{condominioId:Guid}")]
+        public async Task<ActionResult<IEnumerable<ComunicadoViewModel>>> ObterPorCondominio(Guid condominioId)
+        {
+            var comunicados = await _comunicadoQuery.ObterPorCondominio(condominioId);
+            if (comunicados.Count() == 0)
+            {
+                AdicionarErroProcessamento("Nenhum registro encontrado.");
+                return CustomResponse();
+            }
+
+            var comunicadosVM = new List<ComunicadoViewModel>();
+            foreach (Comunicado comunicado in comunicados)
+            {
+                //Obtem Anexos
+                if (comunicado.TemAnexos)
+                {
+
+                }
+                var comunicadoVM = _mapper.Map<ComunicadoViewModel>(comunicado);
+                comunicadosVM.Add(comunicadoVM);
+            }
+
+            return comunicadosVM;
+        }
 
 
 

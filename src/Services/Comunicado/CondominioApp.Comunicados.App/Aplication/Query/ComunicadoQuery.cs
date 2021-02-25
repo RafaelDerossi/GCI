@@ -97,9 +97,14 @@ namespace CondominioApp.Comunicados.App.Aplication.Query
                  c => c.CondominioId == condominioId &&
                  c.UsuarioId == usuarioId &&
                  !c.Lixeira);
-        }        
-                
+        }
 
+        public async Task<IEnumerable<Comunicado>> ObterPorCondominio(Guid condominioId)
+        {
+            return await _comunicadoRepository.Obter(
+                 c => c.CondominioId == condominioId &&
+                 !c.Lixeira);
+        }
 
 
         public void Dispose()
