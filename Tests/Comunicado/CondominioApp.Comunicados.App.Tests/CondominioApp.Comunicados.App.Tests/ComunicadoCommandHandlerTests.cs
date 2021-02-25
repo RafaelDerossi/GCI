@@ -28,7 +28,7 @@ namespace CondominioApp.Correspondencias.App.Tests
         public async Task AdicionarComunicadoPublico_CommandoValido_DevePassarNaValidacao()
         {
             //Arrange
-            var command = ComunicadoCommandFactory.CriarComandoCadastroDeComunicadoPublico();          
+            var command = ComunicadoCommandFactory.CriarComando_CadastroDeComunicado_Publico();          
            
             _mocker.GetMock<IComunidadoRepository>().Setup(r => r.UnitOfWork.Commit())
                .Returns(Task.FromResult(true));
@@ -47,7 +47,7 @@ namespace CondominioApp.Correspondencias.App.Tests
         public async Task AdicionarComunicadoProprietario_CommandoValido_DevePassarNaValidacao()
         {
             //Arrange
-            var command = ComunicadoCommandFactory.CriarComandoCadastroDeComunicadoProprietario();
+            var command = ComunicadoCommandFactory.CriarComando_CadastroDeComunicado_Proprietario();
 
             _mocker.GetMock<IComunidadoRepository>().Setup(r => r.UnitOfWork.Commit())
                .Returns(Task.FromResult(true));
@@ -67,7 +67,7 @@ namespace CondominioApp.Correspondencias.App.Tests
         public async Task AdicionarComunicadoUnidade_CommandoValido_DevePassarNaValidacao()
         {
             //Arrange
-            var command = ComunicadoCommandFactory.CriarComandoCadastroDeComunicadoUnidade();
+            var command = ComunicadoCommandFactory.CriarComando_CadastroDeComunicado_Unidade();
 
             _mocker.GetMock<IComunidadoRepository>().Setup(r => r.UnitOfWork.Commit())
                .Returns(Task.FromResult(true));
@@ -87,7 +87,7 @@ namespace CondominioApp.Correspondencias.App.Tests
         public async Task AdicionarComunicadoProprietarioUnidade_CommandoValido_DevePassarNaValidacao()
         {
             //Arrange
-            var command = ComunicadoCommandFactory.CriarComandoCadastroDeComunicadoProprietarioUnidade();
+            var command = ComunicadoCommandFactory.CriarComando_CadastroDeComunicado_ProprietarioUnidade();
 
             _mocker.GetMock<IComunidadoRepository>().Setup(r => r.UnitOfWork.Commit())
                .Returns(Task.FromResult(true));
@@ -108,7 +108,7 @@ namespace CondominioApp.Correspondencias.App.Tests
         public async Task AdicionarComunicadoPraUnidadeSemUnidade_CommandoInvalido_NaoDevePassarNaValidacao()
         {
             //Arrange
-            var command = ComunicadoCommandFactory.CriarComandoCadastroDeComunicadoPraUnidadeSemUnidades();
+            var command = ComunicadoCommandFactory.CriarComando_CadastroDeComunicado_Unidade_SemUnidades();
 
             _mocker.GetMock<IComunidadoRepository>().Setup(r => r.UnitOfWork.Commit())
                .Returns(Task.FromResult(true));
@@ -125,7 +125,7 @@ namespace CondominioApp.Correspondencias.App.Tests
         public async Task AdicionarComunicadoPraUnidadeComUnidadeRepetida_CommandoInvalido_NaoDevePassarNaValidacao()
         {
             //Arrange
-            var command = ComunicadoCommandFactory.CriarComandoCadastroDeComunicadoUnidadeComUnidadeRepetida();
+            var command = ComunicadoCommandFactory.CriarComando_CadastroDeComunicado_Unidade_ComUnidadeRepetida();
 
             _mocker.GetMock<IComunidadoRepository>().Setup(r => r.UnitOfWork.Commit())
                .Returns(Task.FromResult(true));
@@ -142,7 +142,7 @@ namespace CondominioApp.Correspondencias.App.Tests
         public async Task AdicionarComunicadoPraProprietarioDeUnidadeSemUnidade_CommandoInvalido_NaoDevePassarNaValidacao()
         {
             //Arrange
-            var command = ComunicadoCommandFactory.CriarComandoCadastroDeComunicadoPraProprietarioDeUnidadeSemUnidades();
+            var command = ComunicadoCommandFactory.CriarComando_CadastroDeComunicado_ProprietarioUnidade_SemUnidades();
 
             _mocker.GetMock<IComunidadoRepository>().Setup(r => r.UnitOfWork.Commit())
                .Returns(Task.FromResult(true));
@@ -159,7 +159,7 @@ namespace CondominioApp.Correspondencias.App.Tests
         public async Task AdicionarComunicadoPraProprietarioDeUnidadeComUnidadeRepetida_CommandoInvalido_NaoDevePassarNaValidacao()
         {
             //Arrange
-            var command = ComunicadoCommandFactory.CriarComandoCadastroDeComunicadoPraProprietarioDeUnidadeComUnidadeRepetida();
+            var command = ComunicadoCommandFactory.CriarComando_CadastroDeComunicado_ProprietarioUnidade_ComUnidadeRepetida();
 
             _mocker.GetMock<IComunidadoRepository>().Setup(r => r.UnitOfWork.Commit())
                .Returns(Task.FromResult(true));
@@ -179,7 +179,7 @@ namespace CondominioApp.Correspondencias.App.Tests
         public async Task AdicionarComunicadoSemTitulo_CommandoInvalido_NaoDevePassarNaValidacao()
         {
             //Arrange
-            var command = ComunicadoCommandFactory.CriarComandoCadastroDeComunicadoSemTitulo();
+            var command = ComunicadoCommandFactory.CriarComando_CadastroDeComunicado_SemTitulo();
 
             _mocker.GetMock<IComunidadoRepository>().Setup(r => r.UnitOfWork.Commit())
                .Returns(Task.FromResult(true));
@@ -196,7 +196,7 @@ namespace CondominioApp.Correspondencias.App.Tests
         public async Task AdicionarComunicadoSemDescricao_CommandoInvalido_NaoDevePassarNaValidacao()
         {
             //Arrange
-            var command = ComunicadoCommandFactory.CriarComandoCadastroDeComunicadoSemDescricao();
+            var command = ComunicadoCommandFactory.CriarComando_CadastroDeComunicado_SemDescricao();
 
             _mocker.GetMock<IComunidadoRepository>().Setup(r => r.UnitOfWork.Commit())
                .Returns(Task.FromResult(true));
@@ -213,7 +213,7 @@ namespace CondominioApp.Correspondencias.App.Tests
         public async Task AdicionarComunicadoSemCondominioId_CommandoInvalido_NaoDevePassarNaValidacao()
         {
             //Arrange
-            var command = ComunicadoCommandFactory.CriarComandoCadastroDeComunicadoSemCondominioId();
+            var command = ComunicadoCommandFactory.CriarComando_CadastroDeComunicado_SemCondominioId();
 
             _mocker.GetMock<IComunidadoRepository>().Setup(r => r.UnitOfWork.Commit())
                .Returns(Task.FromResult(true));
@@ -230,7 +230,7 @@ namespace CondominioApp.Correspondencias.App.Tests
         public async Task AdicionarComunicadoSemNomeDoCondominio_CommandoInvalido_NaoDevePassarNaValidacao()
         {
             //Arrange
-            var command = ComunicadoCommandFactory.CriarComandoCadastroDeComunicadoSemNomeDoCondominio();
+            var command = ComunicadoCommandFactory.CriarComando_CadastroDeComunicado_SemNomeDoCondominio();
 
             _mocker.GetMock<IComunidadoRepository>().Setup(r => r.UnitOfWork.Commit())
                .Returns(Task.FromResult(true));
@@ -247,7 +247,7 @@ namespace CondominioApp.Correspondencias.App.Tests
         public async Task AdicionarComunicadoSemUsuarioId_CommandoInvalido_NaoDevePassarNaValidacao()
         {
             //Arrange
-            var command = ComunicadoCommandFactory.CriarComandoCadastroDeComunicadoSemUsuarioId();
+            var command = ComunicadoCommandFactory.CriarComando_CadastroDeComunicado_SemUsuarioId();
 
             _mocker.GetMock<IComunidadoRepository>().Setup(r => r.UnitOfWork.Commit())
                .Returns(Task.FromResult(true));
@@ -264,7 +264,7 @@ namespace CondominioApp.Correspondencias.App.Tests
         public async Task AdicionarComunicadoSemNomeDoUsuario_CommandoInvalido_NaoDevePassarNaValidacao()
         {
             //Arrange
-            var command = ComunicadoCommandFactory.CriarComandoCadastroDeComunicadoSemNomeUsuario();
+            var command = ComunicadoCommandFactory.CriarComando_CadastroDeComunicado_SemNomeUsuario();
 
             _mocker.GetMock<IComunidadoRepository>().Setup(r => r.UnitOfWork.Commit())
                .Returns(Task.FromResult(true));
@@ -287,7 +287,7 @@ namespace CondominioApp.Correspondencias.App.Tests
         {
             //Arrange
 
-            var command = ComunicadoCommandFactory.CriarComandoEdicaoDeComunicadoPublico();
+            var command = ComunicadoCommandFactory.CriarComando_EdicaoDeComunicado_Publico();
 
             var grupoId = Guid.NewGuid();
             var comunicado = new Comunicado(
@@ -316,7 +316,7 @@ namespace CondominioApp.Correspondencias.App.Tests
         public async Task EditarComunicadoProprietario_CommandoValido_DevePassarNaValidacao()
         {
             //Arrange
-            var command = ComunicadoCommandFactory.CriarComandoEdicaoDeComunicadoProprietario();
+            var command = ComunicadoCommandFactory.CriarComando_EdicaoDeComunicado_Proprietario();
 
             var grupoId = Guid.NewGuid();
             var comunicado = new Comunicado(
@@ -345,7 +345,7 @@ namespace CondominioApp.Correspondencias.App.Tests
         {
             //Arrange
 
-            var command = ComunicadoCommandFactory.CriarComandoEdicaoDeComunicadoUnidade();
+            var command = ComunicadoCommandFactory.CriarComando_EdicaoDeComunicado_Unidade();
 
             var grupoId = Guid.NewGuid();
             var comunicado = new Comunicado(
@@ -378,7 +378,7 @@ namespace CondominioApp.Correspondencias.App.Tests
         {
             //Arrange
 
-            var command = ComunicadoCommandFactory.CriarComandoEdicaoDeComunicadoProprietarioUnidade();
+            var command = ComunicadoCommandFactory.CriarComando_EdicaoDeComunicado_ProprietarioUnidade();
 
             var grupoId = Guid.NewGuid();
             var comunicado = new Comunicado(
@@ -414,7 +414,7 @@ namespace CondominioApp.Correspondencias.App.Tests
         {
             //Arrange
 
-            var command = ComunicadoCommandFactory.CriarComandoEdicaoDeComunicadoPraUnidadeSemUnidades();
+            var command = ComunicadoCommandFactory.CriarComando_EdicaoDeComunicado_Unidade_SemUnidades();
 
             var grupoId = Guid.NewGuid();
             var comunicado = new Comunicado(
@@ -445,7 +445,7 @@ namespace CondominioApp.Correspondencias.App.Tests
         {
             //Arrange
 
-            var command = ComunicadoCommandFactory.CriarComandoEdicaoDeComunicadoPraUnidadeComUnidadeRepetida();
+            var command = ComunicadoCommandFactory.CriarComando_EdicaoDeComunicado_Unidade_ComUnidadeRepetida();
 
             var grupoId = Guid.NewGuid();
             var comunicado = new Comunicado(
@@ -476,7 +476,7 @@ namespace CondominioApp.Correspondencias.App.Tests
         {
             //Arrange
 
-            var command = ComunicadoCommandFactory.CriarComandoEdicaoDeComunicadoPraProprietarioDeUnidadeSemUnidades();
+            var command = ComunicadoCommandFactory.CriarComando_EdicaoDeComunicado_ProprietarioUnidade_SemUnidades();
 
             var grupoId = Guid.NewGuid();
             var comunicado = new Comunicado(
@@ -507,7 +507,7 @@ namespace CondominioApp.Correspondencias.App.Tests
         {
             //Arrange
 
-            var command = ComunicadoCommandFactory.CriarComandoEdicaoDeComunicadoPraProprietarioDeUnidadeComUnidadeRepetida();
+            var command = ComunicadoCommandFactory.CriarComando_EdicaoDeComunicado_ProprietarioUnidade_ComUnidadeRepetida();
 
             var grupoId = Guid.NewGuid();
             var comunicado = new Comunicado(
@@ -540,7 +540,7 @@ namespace CondominioApp.Correspondencias.App.Tests
         {
             //Arrange
 
-            var command = ComunicadoCommandFactory.CriarComandoEdicaoDeComunicadoSemTitulo();
+            var command = ComunicadoCommandFactory.CriarComando_EdicaoDeComunicado_SemTitulo();
 
             var grupoId = Guid.NewGuid();
             var comunicado = new Comunicado(
@@ -569,7 +569,7 @@ namespace CondominioApp.Correspondencias.App.Tests
         {
             //Arrange
 
-            var command = ComunicadoCommandFactory.CriarComandoEdicaoDeComunicadoSemDescricao();
+            var command = ComunicadoCommandFactory.CriarComando_EdicaoDeComunicado_SemDescricao();
 
             var grupoId = Guid.NewGuid();
             var comunicado = new Comunicado(
@@ -599,7 +599,7 @@ namespace CondominioApp.Correspondencias.App.Tests
         {
             //Arrange
 
-            var command = ComunicadoCommandFactory.CriarComandoEdicaoDeComunicadoSemUsuarioId();
+            var command = ComunicadoCommandFactory.CriarComando_EdicaoDeComunicado_SemUsuarioId();
 
             var grupoId = Guid.NewGuid();
             var comunicado = new Comunicado(
@@ -629,7 +629,7 @@ namespace CondominioApp.Correspondencias.App.Tests
         {
             //Arrange
 
-            var command = ComunicadoCommandFactory.CriarComandoEdicaoDeComunicadoSemNomeDoUsuario();
+            var command = ComunicadoCommandFactory.CriarComando_EdicaoDeComunicado_SemNomeDoUsuario();
 
             var grupoId = Guid.NewGuid();
             var comunicado = new Comunicado(

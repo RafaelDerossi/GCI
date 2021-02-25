@@ -9,66 +9,115 @@ namespace CondominioApp.Comunicados.App.Tests
 {
     public class ComunicadoCommandFactory
     {
-        public static CadastrarComunicadoCommand CriarComandoCadastroDeComunicadoPublico()
-        {          
-            //Act
+        private static CadastrarComunicadoCommand CadastrarCondominioCommandFactory()
+        {
             return new CadastrarComunicadoCommand(
-                "Titulo do Comunicado", "Descricao do Comunicado", null, Guid.NewGuid(),
-                "Nome do Condominio", Guid.NewGuid(), "Nome do Usuario", VisibilidadeComunicado.PUBLICO,
-                CategoriaComunicado.COMUNICADO, false, false, null);
+               "Titulo do Comunicado", "Descricao do Comunicado", null, Guid.NewGuid(),
+               "Nome do Condominio", Guid.NewGuid(), "Nome do Usuario", VisibilidadeComunicado.PUBLICO,
+               CategoriaComunicado.COMUNICADO, false, false, null);
+        }
+        private static EditarComunicadoCommand EditarComunicadoCommandFactory()
+        {
+            return new EditarComunicadoCommand(
+                Guid.NewGuid(), "Titulo do Comunicado", "Descricao do Comunicado", null, Guid.NewGuid(),
+                "Nome do Usuario", VisibilidadeComunicado.PUBLICO, CategoriaComunicado.COMUNICADO, false,
+                null);
         }
 
-        public static CadastrarComunicadoCommand CriarComandoCadastroDeComunicadoProprietario()
+
+
+        public static CadastrarComunicadoCommand CriarComando_CadastroDeComunicado_Publico()
         {
             //Act
-            return new CadastrarComunicadoCommand(
-                "Titulo do Comunicado", "Descricao do Comunicado", null, Guid.NewGuid(),
-                "Nome do Condominio", Guid.NewGuid(), "Nome do Usuario", VisibilidadeComunicado.PROPRIETARIOS,
-                CategoriaComunicado.COMUNICADO, false, false, null);
+            return CadastrarCondominioCommandFactory();
         }
-
-        public static CadastrarComunicadoCommand CriarComandoCadastroDeComunicadoUnidade()
+        public static CadastrarComunicadoCommand CriarComando_CadastroDeComunicado_Proprietario()
         {
             //Arrange
+            var comando = CadastrarCondominioCommandFactory();
+            comando.SetVisibilidade(VisibilidadeComunicado.PROPRIETARIOS);
+
+            //Act
+            return comando;
+        }
+        public static CadastrarComunicadoCommand CriarComando_CadastroDeComunicado_Unidade()
+        {
+            //Arrange
+            var comando = CadastrarCondominioCommandFactory();
+            comando.SetVisibilidade(VisibilidadeComunicado.UNIDADES);
+
             var grupoId = Guid.NewGuid();
             var unidades = new List<UnidadeComunicado>();
             unidades.Add(new UnidadeComunicado(Guid.NewGuid(), "101", "1", grupoId, "Bloco 1"));
             unidades.Add(new UnidadeComunicado(Guid.NewGuid(), "102", "1", grupoId, "Bloco 1"));
 
-            //Act
-            return new CadastrarComunicadoCommand(
-                "Titulo do Comunicado", "Descricao do Comunicado", null, Guid.NewGuid(),
-                "Nome do Condominio", Guid.NewGuid(), "Nome do Usuario", VisibilidadeComunicado.UNIDADES,
-                CategoriaComunicado.COMUNICADO, false, false, unidades);
-        }
+            comando.SetUnidades(unidades);
 
-        public static CadastrarComunicadoCommand CriarComandoCadastroDeComunicadoProprietarioUnidade()
+            //Act
+            return comando;
+        }
+        public static CadastrarComunicadoCommand CriarComando_CadastroDeComunicado_ProprietarioUnidade()
         {
             //Arrange
+            var comando = CadastrarCondominioCommandFactory();
+            comando.SetVisibilidade(VisibilidadeComunicado.PROPRIETARIOS_UNIDADES);
+
             var grupoId = Guid.NewGuid();
             var unidades = new List<UnidadeComunicado>();
             unidades.Add(new UnidadeComunicado(Guid.NewGuid(), "101", "1", grupoId, "Bloco 1"));
             unidades.Add(new UnidadeComunicado(Guid.NewGuid(), "102", "1", grupoId, "Bloco 1"));
 
+            comando.SetUnidades(unidades);
+
             //Act
-            return new CadastrarComunicadoCommand(
-                "Titulo do Comunicado", "Descricao do Comunicado", null, Guid.NewGuid(),
-                "Nome do Condominio", Guid.NewGuid(), "Nome do Usuario", VisibilidadeComunicado.PROPRIETARIOS_UNIDADES,
-                CategoriaComunicado.COMUNICADO, false, false, unidades);
+            return comando;
+
         }
 
 
-        public static CadastrarComunicadoCommand CriarComandoCadastroDeComunicadoPraUnidadeSemUnidades()
-        {
-            //Act
-            return new CadastrarComunicadoCommand(
-                "Titulo do Comunicado", "Descricao do Comunicado", null, Guid.NewGuid(),
-                "Nome do Condominio", Guid.NewGuid(), "Nome do Usuario", VisibilidadeComunicado.UNIDADES,
-                CategoriaComunicado.COMUNICADO, false, false, null);
-        }
-        public static CadastrarComunicadoCommand CriarComandoCadastroDeComunicadoUnidadeComUnidadeRepetida()
+        public static CadastrarComunicadoCommand CriarComando_CadastroDeComunicado_Unidade_SemUnidades()
         {
             //Arrange
+            var comando = CadastrarCondominioCommandFactory();
+            comando.SetVisibilidade(VisibilidadeComunicado.UNIDADES);
+
+            //Act
+            return comando;
+
+        }
+        public static CadastrarComunicadoCommand CriarComando_CadastroDeComunicado_Unidade_ComUnidadeRepetida()
+        {
+            //Arrange
+            var comando = CadastrarCondominioCommandFactory();
+            comando.SetVisibilidade(VisibilidadeComunicado.UNIDADES);
+
+            var grupoId = Guid.NewGuid();
+            var unidadeId = Guid.NewGuid();
+            var unidades = new List<UnidadeComunicado>();
+            unidades.Add(new UnidadeComunicado(unidadeId, "101", "1", grupoId, "Bloco 1"));
+            unidades.Add(new UnidadeComunicado(unidadeId, "101", "1", grupoId, "Bloco 1"));
+
+            comando.SetUnidades(unidades);
+
+            //Act
+            return comando;
+
+        }
+        public static CadastrarComunicadoCommand CriarComando_CadastroDeComunicado_ProprietarioUnidade_SemUnidades()
+        {
+            //Arrange
+            var comando = CadastrarCondominioCommandFactory();
+            comando.SetVisibilidade(VisibilidadeComunicado.PROPRIETARIOS_UNIDADES);
+
+            //Act
+            return comando;
+        }
+        public static CadastrarComunicadoCommand CriarComando_CadastroDeComunicado_ProprietarioUnidade_ComUnidadeRepetida()
+        {
+            //Arrange
+            var comando = CadastrarCondominioCommandFactory();
+            comando.SetVisibilidade(VisibilidadeComunicado.PROPRIETARIOS_UNIDADES);
+
             var grupoId = Guid.NewGuid();
             var unidadeId = Guid.NewGuid();
             var unidades = new List<UnidadeComunicado>();
@@ -76,222 +125,257 @@ namespace CondominioApp.Comunicados.App.Tests
             unidades.Add(new UnidadeComunicado(unidadeId, "101", "1", grupoId, "Bloco 1"));
 
             //Act
-            return new CadastrarComunicadoCommand(
-                "Titulo do Comunicado", "Descricao do Comunicado", null, Guid.NewGuid(),
-                "Nome do Condominio", Guid.NewGuid(), "Nome do Usuario", VisibilidadeComunicado.UNIDADES,
-                CategoriaComunicado.COMUNICADO, false, false, unidades);
-        }
-        public static CadastrarComunicadoCommand CriarComandoCadastroDeComunicadoPraProprietarioDeUnidadeSemUnidades()
-        {
+            comando.SetUnidades(unidades);
+
             //Act
-            return new CadastrarComunicadoCommand(
-                "Titulo do Comunicado", "Descricao do Comunicado", null, Guid.NewGuid(),
-                "Nome do Condominio", Guid.NewGuid(), "Nome do Usuario", VisibilidadeComunicado.PROPRIETARIOS_UNIDADES,
-                CategoriaComunicado.COMUNICADO, false, false, null);
+            return comando;
+
         }
-        public static CadastrarComunicadoCommand CriarComandoCadastroDeComunicadoPraProprietarioDeUnidadeComUnidadeRepetida()
+
+
+
+
+        public static CadastrarComunicadoCommand CriarComando_CadastroDeComunicado_SemTitulo()
         {
             //Arrange
-            var grupoId = Guid.NewGuid();
-            var unidadeId = Guid.NewGuid();
-            var unidades = new List<UnidadeComunicado>();
-            unidades.Add(new UnidadeComunicado(unidadeId, "101", "1", grupoId, "Bloco 1"));
-            unidades.Add(new UnidadeComunicado(unidadeId, "101", "1", grupoId, "Bloco 1"));
+            var comando = CadastrarCondominioCommandFactory();
+            comando.SetTitulo("");
 
             //Act
-            return new CadastrarComunicadoCommand(
-                "Titulo do Comunicado", "Descricao do Comunicado", null, Guid.NewGuid(),
-                "Nome do Condominio", Guid.NewGuid(), "Nome do Usuario", VisibilidadeComunicado.PROPRIETARIOS_UNIDADES,
-                CategoriaComunicado.COMUNICADO, false, false, unidades);
-        }
+            return comando;
 
+        }
+        public static CadastrarComunicadoCommand CriarComando_CadastroDeComunicado_SemDescricao()
+        {
+            //Arrange
+            var comando = CadastrarCondominioCommandFactory();
+            comando.SetDescricao("");
 
+            //Act
+            return comando;
+            
+        }
+        public static CadastrarComunicadoCommand CriarComando_CadastroDeComunicado_ComDescricaoGrandeDemais()
+        {
+            //Arrange
+            var comando = CadastrarCondominioCommandFactory();
+            comando.SetDescricao("qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu " +
+                "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu");
 
+            //Act
+            return comando;
 
+        }
+        public static CadastrarComunicadoCommand CriarComando_CadastroDeComunicado_SemCondominioId()
+        {
+            //Arrange
+            var comando = CadastrarCondominioCommandFactory();
+            comando.SetCondominio(Guid.Empty, "");
 
-        public static CadastrarComunicadoCommand CriarComandoCadastroDeComunicadoSemTitulo()
-        {
             //Act
-            return new CadastrarComunicadoCommand(
-               "", "Descricao do Comunicado", null, Guid.NewGuid(),
-                "Nome do Condominio", Guid.NewGuid(), "Nome do Usuario", VisibilidadeComunicado.PUBLICO,
-                CategoriaComunicado.COMUNICADO, false, false, null);
+            return comando;
+
         }
-        public static CadastrarComunicadoCommand CriarComandoCadastroDeComunicadoSemDescricao()
+        public static CadastrarComunicadoCommand CriarComando_CadastroDeComunicado_SemNomeDoCondominio()
         {
+            //Arrange
+            var comando = CadastrarCondominioCommandFactory();
+            comando.SetCondominio(Guid.NewGuid(), "");
+
             //Act
-            return new CadastrarComunicadoCommand(
-                "Titulo do Comunicado", "", null, Guid.NewGuid(),
-                "Nome do Condominio", Guid.NewGuid(), "Nome do Usuario", VisibilidadeComunicado.PUBLICO,
-                CategoriaComunicado.COMUNICADO, false, false, null);
+            return comando;
+
         }
-        public static CadastrarComunicadoCommand CriarComandoCadastroDeComunicadoSemCondominioId()
+        public static CadastrarComunicadoCommand CriarComando_CadastroDeComunicado_SemUsuarioId()
         {
+            //Arrange
+            var comando = CadastrarCondominioCommandFactory();
+            comando.SetUsuario(Guid.Empty, "");
+
             //Act
-            return new CadastrarComunicadoCommand(
-                "Titulo do Comunicado", "Descricao do Comunicado", null, Guid.Empty,
-                "Nome do Condominio", Guid.NewGuid(), "Nome do Usuario", VisibilidadeComunicado.PUBLICO,
-                CategoriaComunicado.COMUNICADO, false, false, null);
+            return comando;
+
         }
-        public static CadastrarComunicadoCommand CriarComandoCadastroDeComunicadoSemNomeDoCondominio()
+        public static CadastrarComunicadoCommand CriarComando_CadastroDeComunicado_SemNomeUsuario()
         {
+            //Arrange
+            var comando = CadastrarCondominioCommandFactory();
+            comando.SetUsuario(Guid.NewGuid(), "");
+
             //Act
-            return new CadastrarComunicadoCommand(
-                "Titulo do Comunicado", "Descricao do Comunicado", null, Guid.NewGuid(),
-                "", Guid.NewGuid(), "Nome do Usuario", VisibilidadeComunicado.PUBLICO,
-                CategoriaComunicado.COMUNICADO, false, false, null);
-        }
-        public static CadastrarComunicadoCommand CriarComandoCadastroDeComunicadoSemUsuarioId()
-        {
-            //Act
-            return new CadastrarComunicadoCommand(
-                "Titulo do Comunicado", "Descricao do Comunicado", null, Guid.NewGuid(),
-                "Nome do Condominio", Guid.Empty, "Nome do Usuario", VisibilidadeComunicado.PUBLICO,
-                CategoriaComunicado.COMUNICADO, false, false, null);
-        }
-        public static CadastrarComunicadoCommand CriarComandoCadastroDeComunicadoSemNomeUsuario()
-        {
-            //Act
-            return new CadastrarComunicadoCommand(
-                "Titulo do Comunicado", "Descricao do Comunicado", null, Guid.NewGuid(),
-                "Nome do Condominio", Guid.NewGuid(), null, VisibilidadeComunicado.PUBLICO,
-                CategoriaComunicado.COMUNICADO, false, false, null);
+            return comando;
         }
       
 
 
 
-        public static EditarComunicadoCommand CriarComandoEdicaoDeComunicadoPublico()
-        {
-            //Act
-            return new EditarComunicadoCommand(
-                Guid.NewGuid(),"Titulo do Comunicado", "Descricao do Comunicado", null, Guid.NewGuid(),
-                "Nome do Usuario", VisibilidadeComunicado.PUBLICO, CategoriaComunicado.COMUNICADO, false,
-                null);
-        }
-
-        public static EditarComunicadoCommand CriarComandoEdicaoDeComunicadoProprietario()
-        {
-            //Act
-            return new EditarComunicadoCommand(
-                Guid.NewGuid(), "Titulo do Comunicado", "Descricao do Comunicado", null, Guid.NewGuid(),
-                "Nome do Usuario", VisibilidadeComunicado.PROPRIETARIOS, CategoriaComunicado.COMUNICADO, false,
-                null);
-        }
-
-        public static EditarComunicadoCommand CriarComandoEdicaoDeComunicadoUnidade()
+        public static EditarComunicadoCommand CriarComando_EdicaoDeComunicado_Publico()
         {
             //Arrange
+            var comando = EditarComunicadoCommandFactory();
+
+            //Act
+            return comando;
+
+        }
+
+        public static EditarComunicadoCommand CriarComando_EdicaoDeComunicado_Proprietario()
+        {
+            //Arrange
+            var comando = EditarComunicadoCommandFactory();
+            comando.SetVisibilidade(VisibilidadeComunicado.PROPRIETARIOS);
+
+            //Act
+            return comando;
+
+        }
+
+        public static EditarComunicadoCommand CriarComando_EdicaoDeComunicado_Unidade()
+        {
+            //Arrange
+            var comando = EditarComunicadoCommandFactory();
+            comando.SetVisibilidade(VisibilidadeComunicado.UNIDADES);
+
             var grupoId = Guid.NewGuid();
             var unidades = new List<UnidadeComunicado>();
             unidades.Add(new UnidadeComunicado(Guid.NewGuid(), "101", "1", grupoId, "Bloco 1"));
             unidades.Add(new UnidadeComunicado(Guid.NewGuid(), "102", "1", grupoId, "Bloco 1"));
 
+            comando.SetUnidades(unidades);
+
             //Act
-            return new EditarComunicadoCommand(
-                Guid.NewGuid(), "Titulo do Comunicado", "Descricao do Comunicado", null, Guid.NewGuid(),
-                "Nome do Usuario", VisibilidadeComunicado.UNIDADES, CategoriaComunicado.COMUNICADO, 
-                false, unidades);
+            return comando;
+
         }
 
-        public static EditarComunicadoCommand CriarComandoEdicaoDeComunicadoProprietarioUnidade()
+        public static EditarComunicadoCommand CriarComando_EdicaoDeComunicado_ProprietarioUnidade()
         {
             //Arrange
+            var comando = EditarComunicadoCommandFactory();
+            comando.SetVisibilidade(VisibilidadeComunicado.PROPRIETARIOS_UNIDADES);
+
             var grupoId = Guid.NewGuid();
             var unidades = new List<UnidadeComunicado>();
             unidades.Add(new UnidadeComunicado(Guid.NewGuid(), "101", "1", grupoId, "Bloco 1"));
             unidades.Add(new UnidadeComunicado(Guid.NewGuid(), "102", "1", grupoId, "Bloco 1"));
 
+            comando.SetUnidades(unidades);
+
             //Act
-            return new EditarComunicadoCommand(
-                Guid.NewGuid(), "Titulo do Comunicado", "Descricao do Comunicado", null, Guid.NewGuid(),
-                "Nome do Usuario", VisibilidadeComunicado.PROPRIETARIOS_UNIDADES, CategoriaComunicado.COMUNICADO,
-                false, unidades);
+            return comando;
+
         }
 
-
-        public static EditarComunicadoCommand CriarComandoEdicaoDeComunicadoPraUnidadeSemUnidades()
-        {
-            //Act
-            return new EditarComunicadoCommand(
-                Guid.NewGuid(), "Titulo do Comunicado", "Descricao do Comunicado", null, Guid.NewGuid(),
-                "Nome do Usuario", VisibilidadeComunicado.UNIDADES, CategoriaComunicado.COMUNICADO,
-                false, null);
-        }
-        public static EditarComunicadoCommand CriarComandoEdicaoDeComunicadoPraUnidadeComUnidadeRepetida()
+        public static EditarComunicadoCommand CriarComando_EdicaoDeComunicado_Unidade_SemUnidades()
         {
             //Arrange
+            var comando = EditarComunicadoCommandFactory();
+            comando.SetVisibilidade(VisibilidadeComunicado.UNIDADES);
+
+            //Act
+            return comando;
+
+        }
+
+        public static EditarComunicadoCommand CriarComando_EdicaoDeComunicado_Unidade_ComUnidadeRepetida()
+        {
+            //Arrange
+            var comando = EditarComunicadoCommandFactory();
+            comando.SetVisibilidade(VisibilidadeComunicado.UNIDADES);
+
             var grupoId = Guid.NewGuid();
             var unidadeId = Guid.NewGuid();
             var unidades = new List<UnidadeComunicado>();
             unidades.Add(new UnidadeComunicado(unidadeId, "101", "1", grupoId, "Bloco 1"));
             unidades.Add(new UnidadeComunicado(unidadeId, "101", "1", grupoId, "Bloco 1"));
 
+            comando.SetUnidades(unidades);
+
             //Act
-            return new EditarComunicadoCommand(
-                Guid.NewGuid(), "Titulo do Comunicado", "Descricao do Comunicado", null, Guid.NewGuid(),
-                "Nome do Usuario", VisibilidadeComunicado.UNIDADES, CategoriaComunicado.COMUNICADO,
-                false, unidades);
+            return comando;
         }
-        public static EditarComunicadoCommand CriarComandoEdicaoDeComunicadoPraProprietarioDeUnidadeSemUnidades()
-        {
-            //Act
-            return new EditarComunicadoCommand(
-                Guid.NewGuid(), "Titulo do Comunicado", "Descricao do Comunicado", null, Guid.NewGuid(),
-                "Nome do Usuario", VisibilidadeComunicado.PROPRIETARIOS_UNIDADES, CategoriaComunicado.COMUNICADO,
-                false, null);
-        }
-        public static EditarComunicadoCommand CriarComandoEdicaoDeComunicadoPraProprietarioDeUnidadeComUnidadeRepetida()
+
+        public static EditarComunicadoCommand CriarComando_EdicaoDeComunicado_ProprietarioUnidade_SemUnidades()
         {
             //Arrange
+            var comando = EditarComunicadoCommandFactory();
+            comando.SetVisibilidade(VisibilidadeComunicado.PROPRIETARIOS_UNIDADES);
+
+            //Act
+            return comando;
+
+        }
+
+        public static EditarComunicadoCommand CriarComando_EdicaoDeComunicado_ProprietarioUnidade_ComUnidadeRepetida()
+        {
+            //Arrange
+            var comando = EditarComunicadoCommandFactory();
+            comando.SetVisibilidade(VisibilidadeComunicado.PROPRIETARIOS_UNIDADES);
+
             var grupoId = Guid.NewGuid();
             var unidadeId = Guid.NewGuid();
             var unidades = new List<UnidadeComunicado>();
             unidades.Add(new UnidadeComunicado(unidadeId, "101", "1", grupoId, "Bloco 1"));
             unidades.Add(new UnidadeComunicado(unidadeId, "101", "1", grupoId, "Bloco 1"));
 
+            comando.SetUnidades(unidades);
+
             //Act
-            return new EditarComunicadoCommand(
-                Guid.NewGuid(), "Titulo do Comunicado", "Descricao do Comunicado", null, Guid.NewGuid(),
-                "Nome do Usuario", VisibilidadeComunicado.PROPRIETARIOS_UNIDADES, CategoriaComunicado.COMUNICADO,
-                false, unidades);
+            return comando;
+
         }
 
 
-        public static EditarComunicadoCommand CriarComandoEdicaoDeComunicadoSemTitulo()
+        public static EditarComunicadoCommand CriarComando_EdicaoDeComunicado_SemTitulo()
         {
+            //Arrange
+            var comando = EditarComunicadoCommandFactory();
+            comando.SetTitulo("");
+
             //Act
-            return new EditarComunicadoCommand(
-                Guid.NewGuid(), "", "Descricao do Comunicado", null, Guid.NewGuid(),
-                "Nome do Usuario", VisibilidadeComunicado.PUBLICO, CategoriaComunicado.COMUNICADO, false,
-                null);
+            return comando;           
         }
 
-        public static EditarComunicadoCommand CriarComandoEdicaoDeComunicadoSemDescricao()
+        public static EditarComunicadoCommand CriarComando_EdicaoDeComunicado_SemDescricao()
         {
+            //Arrange
+            var comando = EditarComunicadoCommandFactory();
+            comando.SetDescricao("");
+
             //Act
-            return new EditarComunicadoCommand(
-                Guid.NewGuid(), "Titulo do Comunicado", "", null, Guid.NewGuid(),
-                "Nome do Usuario", VisibilidadeComunicado.PUBLICO, CategoriaComunicado.COMUNICADO, false,
-                null);
+            return comando;
         }
 
-        public static EditarComunicadoCommand CriarComandoEdicaoDeComunicadoSemUsuarioId()
+        public static EditarComunicadoCommand CriarComando_EdicaoDeComunicado_SemUsuarioId()
         {
+            //Arrange
+            var comando = EditarComunicadoCommandFactory();
+            comando.SetUsuario(Guid.Empty, "");
+
             //Act
-            return new EditarComunicadoCommand(
-                Guid.NewGuid(), "Titulo do Comunicado", "Descricao do Comunicado", null, Guid.Empty,
-                "Nome do Usuario", VisibilidadeComunicado.PUBLICO, CategoriaComunicado.COMUNICADO, false,
-                null);
+            return comando;
         }
 
-        public static EditarComunicadoCommand CriarComandoEdicaoDeComunicadoSemNomeDoUsuario()
+        public static EditarComunicadoCommand CriarComando_EdicaoDeComunicado_SemNomeDoUsuario()
         {
+            //Arrange
+            var comando = EditarComunicadoCommandFactory();
+            comando.SetUsuario(Guid.NewGuid(), "");
+
             //Act
-            return new EditarComunicadoCommand(
-                Guid.NewGuid(), "Titulo do Comunicado", "Descricao do Comunicado", null, Guid.NewGuid(),
-                "", VisibilidadeComunicado.PUBLICO, CategoriaComunicado.COMUNICADO, false,
-                null);
+            return comando;
+        }
+
+        public static EditarComunicadoCommand CriarComando_EdicaoDeComunicado_ComDescricaoGrandeDemais()
+        {
+            //Arrange
+            var comando = EditarComunicadoCommandFactory();
+            comando.SetDescricao("qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu " +
+                "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu");
+
+            //Act
+            return comando;
+
         }
     }
 }

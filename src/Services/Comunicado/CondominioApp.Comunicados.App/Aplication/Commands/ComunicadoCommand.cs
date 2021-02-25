@@ -35,5 +35,31 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
 
         public IEnumerable<UnidadeComunicado> Unidades { get; protected set; }
 
+
+
+        public void SetTitulo(string titulo) => Titulo = titulo;
+
+        public void SetDescricao(string descricao) => Descricao = descricao;
+
+        public void SetCondominio(Guid id, string nome)
+        {
+            CondominioId = id;
+            NomeCondominio = nome;
+        }
+
+        public void SetUsuario(Guid id, string nome)
+        {
+            UsuarioId = id;
+            NomeUsuario = nome;
+        }
+
+        public void SetVisibilidade(VisibilidadeComunicado visibilidade) => Visibilidade = visibilidade;
+
+        public void SetUnidades(IEnumerable<UnidadeComunicado> unidades)
+        {
+            Unidades = unidades;
+        }
+        
+
     }
 }
