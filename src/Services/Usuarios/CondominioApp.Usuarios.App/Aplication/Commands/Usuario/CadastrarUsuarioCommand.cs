@@ -4,12 +4,12 @@ using CondominioApp.Usuarios.App.Aplication.Commands.Validations;
 
 namespace CondominioApp.Usuarios.App.Aplication.Commands
 {
-    public class CadastrarMoradorCommand : UsuarioCommand
+    public class CadastrarUsuarioCommand : UsuarioCommand
     {
-        public CadastrarMoradorCommand(Guid usuarioId, string nome, string sobrenome, string email,
-            string rg = null, string cpf = null, string cel = null, string foto = null,
-            string nomeOriginal = null, DateTime? dataNascimento = null,
-            TipoDeUsuario tpUsuario = TipoDeUsuario.CLIENTE, Permissao permissao = Permissao.USUARIO)
+        public CadastrarUsuarioCommand(Guid usuarioId, string nome, string sobrenome, string email,
+            Guid condominioId, Guid unidadeId, string rg, string cpf, string cel,
+            string foto, string nomeOriginal, string atribuicao, string funcao, DateTime? dataNascimento = null,
+            TipoDeUsuario tpUsuario = TipoDeUsuario.MORADOR, Permissao permissao = Permissao.USUARIO)
         {
             UsuarioId = usuarioId;
             Nome = nome;
@@ -19,6 +19,12 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
 
             TpUsuario = tpUsuario;
             Permissao = permissao;
+
+            CondominioId = condominioId;
+            UnidadeId = unidadeId;
+
+            Atribuicao = atribuicao;
+            Funcao = funcao;
 
             SetCpf(cpf);
             SetCelular(cel);
@@ -36,7 +42,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
         }
 
 
-        public class CadastrarMoradorCommandValidation : UsuarioValidation<CadastrarMoradorCommand>
+        public class CadastrarMoradorCommandValidation : UsuarioValidation<CadastrarUsuarioCommand>
         {
             public CadastrarMoradorCommandValidation()
             {

@@ -99,7 +99,32 @@ namespace CondominioApp.Identidade.Api.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var user = IdentityUserFactory(usuarioRegistro);
+            
+            var user = await _userManager.FindByEmailAsync(usuarioRegistro.Email);
+            if (user != null)
+            {
+                usuarioRegistro.UsuarioId = Guid.Parse(user.Id);
+
+                await _userManager.AddClaimAsync(user, new Claim("TipoUsuario",
+                    Enum.GetName(typeof(TipoDeUsuario), usuarioRegistro.TpUsuario)));
+
+                var comando = CadastrarUsuarioCommandFactory(usuarioRegistro);
+
+                var Resultado = await _mediatorHandler.EnviarComando(comando);
+
+                if (!Resultado.IsValid)
+                {                 
+                    return CustomResponse(Resultado);
+                }
+
+                var DisparadorDeEmail = new DisparadorDeEmails(new EmailConfirmacaoDeCadastro(user, _appSettings.LinkConfirmacaoDeCadastro, usuarioRegistro.Nome));
+                await DisparadorDeEmail.Disparar();
+
+                return CustomResponse();
+            }
+
+
+            user = IdentityUserFactory(usuarioRegistro);
 
             var result = await _userManager.CreateAsync(user, usuarioRegistro.Senha);
 
@@ -110,7 +135,7 @@ namespace CondominioApp.Identidade.Api.Controllers
                 await _userManager.AddClaimAsync(user, new Claim("TipoUsuario",
                     Enum.GetName(typeof(TipoDeUsuario), usuarioRegistro.TpUsuario)));
 
-                var comando = CadastrarMoradorCommandFactory(usuarioRegistro);
+                var comando = CadastrarUsuarioCommandFactory(usuarioRegistro);
 
                 var Resultado = await _mediatorHandler.EnviarComando(comando);
 
@@ -260,11 +285,13 @@ namespace CondominioApp.Identidade.Api.Controllers
             };
         }
 
-        private CadastrarMoradorCommand CadastrarMoradorCommandFactory(UsuarioRegistro usuarioRegistro)
+        private CadastrarUsuarioCommand CadastrarUsuarioCommandFactory(UsuarioRegistro usuarioRegistro)
         {
-            return new CadastrarMoradorCommand(usuarioRegistro.UsuarioId, usuarioRegistro.Nome, usuarioRegistro.Sobrenome, usuarioRegistro.Email,
-             usuarioRegistro.Rg, usuarioRegistro.Cpf, usuarioRegistro.Celular, usuarioRegistro.Foto, usuarioRegistro.NomeOriginal,
-             usuarioRegistro.DataDeNascimento, usuarioRegistro.TpUsuario, usuarioRegistro.Permissao);
+            return new CadastrarUsuarioCommand
+                (usuarioRegistro.UsuarioId, usuarioRegistro.Nome, usuarioRegistro.Sobrenome, usuarioRegistro.Email,
+                 usuarioRegistro.CondominioId, usuarioRegistro.UnidadeId, usuarioRegistro.Rg, usuarioRegistro.Cpf,
+                 usuarioRegistro.Celular, usuarioRegistro.Foto, usuarioRegistro.NomeOriginal, usuarioRegistro.Atribuicao,
+                 usuarioRegistro.Funcao, usuarioRegistro.DataDeNascimento, usuarioRegistro.TpUsuario, usuarioRegistro.Permissao);
         }
 
         #endregion

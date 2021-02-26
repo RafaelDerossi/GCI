@@ -21,6 +21,9 @@ namespace CondominioApp.Usuarios.App.Data.Repository
         public IUnitOfWorks UnitOfWork => _context;
 
 
+
+        #region Usuario      
+
         public async Task<Usuario> ObterPorId(Guid Id)
         {
             return await _context.Usuarios.Include(u=>u.Mobiles).Where(u => u.Id == Id && !u.Lixeira).FirstOrDefaultAsync();
@@ -52,6 +55,7 @@ namespace CondominioApp.Usuarios.App.Data.Repository
         }
 
 
+
         public void Adicionar(Usuario entity)
         {
             _context.Usuarios.Add(entity);
@@ -80,14 +84,42 @@ namespace CondominioApp.Usuarios.App.Data.Repository
                                               !u.Lixeira);
         }
 
+        #endregion
 
 
+        #region Morador
+        public async Task<IEnumerable<Morador>> ObterMoradorPorUsuarioIdEUnidadeId(Guid usuarioId, Guid unidadeId )
+        {
+            return await _context.Moradores.Where(u=>u.UsuarioId == usuarioId && u.UnidadeId == unidadeId).ToListAsync();
+        }
+
+        public void AdicionarMorador(Morador morador)
+        {
+            _context.Moradores.Add(morador);
+        }       
+
+        #endregion
 
 
+        #region Funcionario
+        public async Task<IEnumerable<Funcionario>> ObterFuncionarioPorUsuarioIdECondominioId(Guid usuarioId, Guid condominioId)
+        {
+            return await _context.Funcionarios.Where(u => u.UsuarioId == usuarioId && u.CondominioId == condominioId).ToListAsync();
+        }
+
+        public void AdicionarFuncionario(Funcionario funcionario)
+        {
+            _context.Funcionarios.Add(funcionario);
+        }
+
+        #endregion
+
+
+        #region Veiculo
         public async Task<Veiculo> ObterVeiculoPorId(Guid Id)
         {
             return await _context.Veiculos
-                    .Include(u=>u.VeiculoCondominios)
+                    .Include(u => u.VeiculoCondominios)
                     .Where(u => u.Id == Id && !u.Lixeira)
                     .FirstOrDefaultAsync();
         }
@@ -97,7 +129,7 @@ namespace CondominioApp.Usuarios.App.Data.Repository
             if (OrderByDesc)
             {
                 if (take > 0)
-                    return await _context.Veiculos.AsNoTracking().Where(expression).Include(x=>x.VeiculoCondominios)
+                    return await _context.Veiculos.AsNoTracking().Where(expression).Include(x => x.VeiculoCondominios)
                                         .OrderByDescending(x => x.DataDeCadastro).Take(take).ToListAsync();
 
                 return await _context.Veiculos.AsNoTracking().Where(expression).Include(x => x.VeiculoCondominios)
@@ -117,7 +149,7 @@ namespace CondominioApp.Usuarios.App.Data.Repository
             return await _context.Veiculos.Include(x => x.VeiculoCondominios).FirstOrDefaultAsync(v => v.Placa == placa);
         }
 
-       
+
 
         public void AdicionarVeiculo(Veiculo veiculo)
         {
@@ -138,12 +170,14 @@ namespace CondominioApp.Usuarios.App.Data.Repository
         {
             _context.VeiculosCondominios.Remove(unidade);
         }
+        #endregion
 
 
+        #region Mobile
         public async Task<Mobile> ObterMobilePorId(Guid id)
         {
             return await _context.Mobiles.FindAsync(id);
-        }      
+        }
 
         public void AdicionarMobile(Mobile mobile)
         {
@@ -154,6 +188,9 @@ namespace CondominioApp.Usuarios.App.Data.Repository
         {
             _context.Mobiles.Update(mobile);
         }
+        #endregion
+
+        
 
 
         public void Dispose()

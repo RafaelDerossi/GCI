@@ -15,7 +15,7 @@ namespace CondominioApp.Identidade.Api.Configuration
         {
             services.AddScoped<IMediatorHandler, MediatorHandler>();            
 
-            services.AddScoped<IRequestHandler<CadastrarMoradorCommand, ValidationResult>, UsuarioCommandHandler>();
+            services.AddScoped<IRequestHandler<CadastrarUsuarioCommand, ValidationResult>, UsuarioCommandHandler>();
 
             services.AddScoped<INotificationHandler<MoradorCadastradoEvent>, UsuarioEventHandler>();
                        

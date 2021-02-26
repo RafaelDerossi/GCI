@@ -25,6 +25,10 @@ namespace CondominioApp.Usuarios.App.Data
 
         public DbSet<Mobile> Mobiles { get; set; }
 
+        public DbSet<Morador> Moradores { get; set; }
+
+        public DbSet<Funcionario> Funcionarios { get; set; }
+
         public UsuarioContextDB(DbContextOptions<UsuarioContextDB> options, IMediatorHandler mediatorHandler)
             : base(options)
         {

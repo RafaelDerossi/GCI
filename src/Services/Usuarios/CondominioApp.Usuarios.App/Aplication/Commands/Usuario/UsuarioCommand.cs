@@ -30,6 +30,15 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
 
         public DateTime? DataNascimento { get; protected set; }
 
+        public Guid CondominioId { get; protected set; }
+
+        public Guid UnidadeId { get; protected set; }
+
+        public string Atribuicao { get; set; }
+
+        public string Funcao { get; set; }
+
+
         public void SetCpf(string cpf)
         {
             try

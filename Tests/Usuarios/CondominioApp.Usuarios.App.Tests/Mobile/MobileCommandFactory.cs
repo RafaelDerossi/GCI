@@ -24,6 +24,20 @@ namespace CondominioApp.Usuarios.App.Tests
             return comando;
         }
 
-       
+        public static CadastrarMobileCommand CriarComandoCadastroDeMobile_SemMobileId()
+        {
+            var comando = CadastrarMobileCommandFactory();
+            comando.SetMobileId("");
+
+            return comando;
+        }
+
+        public static CadastrarMobileCommand CriarComandoCadastroDeMobile_SemUsuarioId()
+        {
+            var comando = CadastrarMobileCommandFactory();
+            comando.SetUsuarioId(Guid.Empty);
+
+            return comando;
+        }
     }
 }

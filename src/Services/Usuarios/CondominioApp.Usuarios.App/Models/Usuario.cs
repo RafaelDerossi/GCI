@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using CondominioApp.Core.DomainObjects;
 using CondominioApp.Core.Enumeradores;
 using CondominioApp.Usuarios.App.ValueObjects;
@@ -28,13 +29,9 @@ namespace CondominioApp.Usuarios.App.Models
 
         public TipoDeUsuario TpUsuario { get; private set; }
 
-        public Permissao Permissao { get; private set; }
+       
 
-        public bool Ativo { get; private set; }
-
-        public string Atribuicao { get; private set; }
-
-        public string Funcao { get; private set; }
+        public bool Ativo { get; private set; }       
 
         public DateTime? DataNascimento { get; private set; }
 
@@ -44,6 +41,7 @@ namespace CondominioApp.Usuarios.App.Models
 
         public bool SindicoProfissional { get; private set; }
 
+
         //EF
         private readonly List<Mobile> _Mobiles;
 
@@ -52,8 +50,8 @@ namespace CondominioApp.Usuarios.App.Models
         protected Usuario() { }
 
         public Usuario(string nome, string sobrenome, string rg, Telefone cel, Email email, 
-            Foto foto, TipoDeUsuario tpUsuario, Permissao permissao, DateTime? dataNascimento = null, Cpf cpf = null, string atribuicao = null, string funcao = null, 
-            Telefone telefone = null, Endereco endereco = null, bool sindicoProfissional = false)
+            Foto foto, TipoDeUsuario tpUsuario, DateTime? dataNascimento = null,
+            Cpf cpf = null, Telefone telefone = null, Endereco endereco = null, bool sindicoProfissional = false)
         {
             _Mobiles = new List<Mobile>();
             Nome = nome;
@@ -64,10 +62,7 @@ namespace CondominioApp.Usuarios.App.Models
             Telefone = telefone;
             Email = email;
             Foto = foto;
-            TpUsuario = tpUsuario;
-            Permissao = permissao;
-            Atribuicao = atribuicao;
-            Funcao = funcao;
+            TpUsuario = tpUsuario;           
             DataNascimento = dataNascimento;
             Endereco = endereco;
             SindicoProfissional = sindicoProfissional;
@@ -110,13 +105,20 @@ namespace CondominioApp.Usuarios.App.Models
 
         public void SetTipoDeUsuario(TipoDeUsuario tipoDeUsuario) => TpUsuario = tipoDeUsuario;
 
-        public void SetPermissao(Permissao permissao) => Permissao = permissao;
+       
 
         public void SetDataNascimento(DateTime? dataNascimento) => DataNascimento = dataNascimento;
+
 
         public void AdicionarMobile(Mobile mobile)
         {
             _Mobiles.Add(mobile);
+        }
+
+
+        public List<string> ObterDispositivosIds()
+        {
+            return _Mobiles.Select(m => m.DeviceKey).ToList();
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using CondominioApp.Core.Enumeradores;
 using CondominioApp.Core.Messages;
 using CondominioApp.Usuarios.App.Models;
 using FluentValidation.Results;
@@ -9,7 +10,7 @@ using MediatR;
 namespace CondominioApp.Usuarios.App.Aplication.Commands
 {
     public class UsuarioCommandHandler : CommandHandler,
-        IRequestHandler<CadastrarMoradorCommand, ValidationResult>,
+        IRequestHandler<CadastrarUsuarioCommand, ValidationResult>,
         IRequestHandler<EditarMoradorCommand, ValidationResult>,
         IRequestHandler<CadastrarResponsavelDaLojaCommand, ValidationResult>,
         IDisposable
@@ -21,17 +22,60 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
             _usuarioRepository = usuarioRepository;
         }
 
-        public async Task<ValidationResult> Handle(CadastrarMoradorCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(CadastrarUsuarioCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido()) return request.ValidationResult;
 
-            var Morador = UsuarioFactory(request);
+            var usuario = await _usuarioRepository.ObterPorId(request.UsuarioId);
 
-            Morador.SetEntidadeId(request.UsuarioId);
+            if (usuario == null)
+            {
+                usuario = UsuarioFactory(request);
 
-            _usuarioRepository.Adicionar(Morador);
+                usuario.SetEntidadeId(request.UsuarioId);
 
-            return await PersistirDados(_usuarioRepository.UnitOfWork);
+                _usuarioRepository.Adicionar(usuario);
+
+                var retornoPersisteUsuario = await PersistirDados(_usuarioRepository.UnitOfWork);
+
+                if (!retornoPersisteUsuario.IsValid)
+                    return retornoPersisteUsuario;
+
+
+                if (usuario.TpUsuario == TipoDeUsuario.MORADOR)
+                {                   
+                    return await AdicionarMorador(request);
+                }
+
+                if (usuario.TpUsuario == TipoDeUsuario.FUNCIONARIO)
+                {                    
+                    return await AdicionarFuncionario(request);
+                }
+
+                return retornoPersisteUsuario;
+            }
+
+
+            if (usuario.TpUsuario == TipoDeUsuario.MORADOR)
+            {
+                var morador = _usuarioRepository.ObterMoradorPorUsuarioIdEUnidadeId(request.UsuarioId, request.UnidadeId);
+                if (morador == null)
+                {
+                    return await AdicionarMorador(request);
+                }
+            }
+
+            if (usuario.TpUsuario == TipoDeUsuario.FUNCIONARIO)
+            {
+                var funcionario = _usuarioRepository.ObterFuncionarioPorUsuarioIdECondominioId(request.UsuarioId, request.CondominioId);
+                if (funcionario == null)
+                {
+                    return await AdicionarFuncionario(request);
+                }
+            }
+
+            AdicionarErro("Usuário já cadastrado.");
+            return ValidationResult;
         }
         
 
@@ -49,8 +93,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
             Morador.SetCelular(request.Cel);
             Morador.SetEmail(request.Email);
             Morador.SetFoto(request.Foto);
-            Morador.SetTipoDeUsuario(request.TpUsuario);
-            Morador.SetPermissao(request.Permissao);
+            Morador.SetTipoDeUsuario(request.TpUsuario);            
             Morador.SetDataNascimento(request.DataNascimento);
 
             _usuarioRepository.Atualizar(Morador);
@@ -71,14 +114,49 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
             return await PersistirDados(_usuarioRepository.UnitOfWork);
         }
 
+
+        
+        
         private Usuario UsuarioFactory(UsuarioCommand request)
         {
             var usuario = new Usuario(request.Nome, request.Sobrenome, request.Rg,
-                 request.Cel, request.Email, request.Foto, request.TpUsuario, request.Permissao, request.DataNascimento, request.Cpf);
+                 request.Cel, request.Email, request.Foto, request.TpUsuario, request.DataNascimento, request.Cpf);
 
             return usuario;
+        }              
+
+
+        private async Task<ValidationResult> AdicionarMorador(UsuarioCommand request)
+        {
+            var moradorNovo = MoradorFactory(request);
+            _usuarioRepository.AdicionarMorador(moradorNovo);
+            var retorno = await PersistirDados(_usuarioRepository.UnitOfWork);
+            return retorno;
         }
-        
+        private Morador MoradorFactory(UsuarioCommand request)
+        {
+            var morador = new Morador(request.UsuarioId, request.UnidadeId, request.CondominioId);
+
+            return morador;
+        }
+
+
+        private async Task<ValidationResult> AdicionarFuncionario(UsuarioCommand request)
+        {
+            var moradorNovo = MoradorFactory(request);
+            _usuarioRepository.AdicionarMorador(moradorNovo);
+            var retorno = await PersistirDados(_usuarioRepository.UnitOfWork);
+            return retorno;
+        }
+        private Funcionario FuncionarioFactory(UsuarioCommand request)
+        {
+            var funcionario = new Funcionario
+                (request.UsuarioId, request.CondominioId, request.Atribuicao, request.Funcao, request.Permissao);
+
+            return funcionario;
+        }
+
+
         public void Dispose()
         {
             _usuarioRepository?.Dispose();
