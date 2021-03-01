@@ -90,7 +90,7 @@ namespace CondominioApp.Usuarios.App.Data.Repository
         #region Morador
         public async Task<IEnumerable<Morador>> ObterMoradorPorUsuarioIdEUnidadeId(Guid usuarioId, Guid unidadeId )
         {
-            return await _context.Moradores.Where(u=>u.UsuarioId == usuarioId && u.UnidadeId == unidadeId).ToListAsync();
+            return await _context.Moradores.Where(u=>u.UsuarioId == usuarioId && u.UnidadeId == unidadeId && !u.Lixeira).ToListAsync();
         }
 
         public void AdicionarMorador(Morador morador)
@@ -104,7 +104,7 @@ namespace CondominioApp.Usuarios.App.Data.Repository
         #region Funcionario
         public async Task<IEnumerable<Funcionario>> ObterFuncionarioPorUsuarioIdECondominioId(Guid usuarioId, Guid condominioId)
         {
-            return await _context.Funcionarios.Where(u => u.UsuarioId == usuarioId && u.CondominioId == condominioId).ToListAsync();
+            return await _context.Funcionarios.Where(u => u.UsuarioId == usuarioId && u.CondominioId == condominioId && !u.Lixeira).ToListAsync();
         }
 
         public void AdicionarFuncionario(Funcionario funcionario)

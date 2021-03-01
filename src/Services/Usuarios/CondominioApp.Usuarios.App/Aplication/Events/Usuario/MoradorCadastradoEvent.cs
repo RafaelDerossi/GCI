@@ -1,51 +1,31 @@
 ﻿using System;
 using CondominioApp.Core.Enumeradores;
-using CondominioApp.Core.Messages;
-using CondominioApp.Usuarios.App.ValueObjects;
-using FluentValidation;
 
 namespace CondominioApp.Usuarios.App.Aplication.Events
 {
-    public class MoradorCadastradoEvent : Core.Messages.Event
-    {
-        public Guid UsuarioId { get; set; }
-
-        public string Nome { get; protected set; }
-
-        public string Sobrenome { get; protected set; }
-
-        public string Rg { get; protected set; }
-
-        public Cpf Cpf { get; protected set; }
-
-        public Telefone Cel { get; protected set; }
-
-        public Email Email { get; protected set; }
-
-        public Foto Foto { get; protected set; }
-
-        public TipoDeUsuario TpUsuario { get; protected set; }
-
-        public Permissao Permissao { get; protected set; }
-
-        public DateTime? DataNascimento { get; protected set; }
+    public class MoradorCadastradoEvent : UsuarioEvent
+    {        
         public MoradorCadastradoEvent(Guid usuarioId, string nome, string sobrenome, string email,
-            string rg = null, string cpf = null, string cel = null, string foto = null,
-            string nomeOriginal = null, DateTime? dataNascimento = null)
+            string rg, string cpf, string cel, string telefone, string foto, bool ativo, Guid unidadeId, 
+            Guid condominioId, bool proprietario, bool principal, DateTime? dataNascimento = null)
         {
             UsuarioId = usuarioId;
             Nome = nome;
             Sobrenome = sobrenome;
             Rg = rg;
             DataNascimento = dataNascimento;
+            UnidadeId = unidadeId;
+            CondominioId = condominioId;
+            Proprietario = proprietario;
+            Principal = principal;
+            Ativo = ativo;
+            TpUsuario = TipoDeUsuario.MORADOR.ToString(); 
 
-            TpUsuario = TipoDeUsuario.CLIENTE;
-            Permissao = Permissao.USUARIO;
-
-            Cpf = new Cpf(cpf);
-            Cel = new Telefone(cel);
-            Email = new Email(email);
-            Foto = new Foto(nomeOriginal, foto);
+            Cpf = cpf;
+            Cel = cel;
+            Telefone = telefone;
+            Email = email;
+            Foto = foto;
         }
     }
 }

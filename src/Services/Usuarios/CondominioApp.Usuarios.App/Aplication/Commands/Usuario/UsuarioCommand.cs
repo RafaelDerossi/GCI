@@ -34,9 +34,20 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
 
         public Guid UnidadeId { get; protected set; }
 
-        public string Atribuicao { get; set; }
+        public string Atribuicao { get; protected set; }
 
-        public string Funcao { get; set; }
+        public string Funcao { get; protected set; }
+
+        public bool Proprietario { get; protected set; }
+
+        public bool Principal { get; protected set; }
+
+
+        public void SetNome(string nome) => Nome = nome;
+
+        public void SetSobrenome(string sobrenome) => Sobrenome = sobrenome;
+
+        public void SetDataNascimento(DateTime dataNascimento) => DataNascimento = dataNascimento;
 
 
         public void SetCpf(string cpf)

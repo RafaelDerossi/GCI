@@ -31,16 +31,10 @@ namespace CondominioApp.Usuarios.App.ViewModels
 
         public string Foto { get; set; }
 
-        public string TpUsuario { get; set; }
-
-        public string Permissao { get; set; }
+        public string TpUsuario { get; set; }      
 
         public bool Ativo { get; set; }
-
-        public string Atribuicao { get; set; }
-
-        public string Funcao { get; set; }
-
+      
         public DateTime? DataNascimento { get; set; }
 
         public DateTime? UltimoLogin { get; set; }

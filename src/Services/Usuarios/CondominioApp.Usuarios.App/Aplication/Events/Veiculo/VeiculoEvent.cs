@@ -7,6 +7,12 @@ namespace CondominioApp.Usuarios.App.Aplication.Events
     {
         public Guid Id { get; protected set; }
 
+        public DateTime DataDeCadastro { get; private set; }
+
+        public DateTime DataDeAlteracao { get; private set; }
+
+        public bool Lixeira { get; private set; }
+
         public Guid VeiculoId { get; protected set; }
 
         public string Placa { get; protected set; }

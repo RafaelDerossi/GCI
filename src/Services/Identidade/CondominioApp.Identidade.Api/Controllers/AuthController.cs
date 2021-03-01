@@ -289,9 +289,10 @@ namespace CondominioApp.Identidade.Api.Controllers
         {
             return new CadastrarUsuarioCommand
                 (usuarioRegistro.UsuarioId, usuarioRegistro.Nome, usuarioRegistro.Sobrenome, usuarioRegistro.Email,
-                 usuarioRegistro.CondominioId, usuarioRegistro.UnidadeId, usuarioRegistro.Rg, usuarioRegistro.Cpf,
-                 usuarioRegistro.Celular, usuarioRegistro.Foto, usuarioRegistro.NomeOriginal, usuarioRegistro.Atribuicao,
-                 usuarioRegistro.Funcao, usuarioRegistro.DataDeNascimento, usuarioRegistro.TpUsuario, usuarioRegistro.Permissao);
+                 usuarioRegistro.CondominioId, usuarioRegistro.UnidadeId, usuarioRegistro.Foto, usuarioRegistro.NomeOriginal,
+                 usuarioRegistro.Rg, usuarioRegistro.Cpf, usuarioRegistro.Celular, usuarioRegistro.Proprietario,
+                 usuarioRegistro.Principal, usuarioRegistro.Atribuicao, usuarioRegistro.Funcao, 
+                 usuarioRegistro.DataDeNascimento, usuarioRegistro.TpUsuario, usuarioRegistro.Permissao);
         }
 
         #endregion

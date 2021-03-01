@@ -7,6 +7,8 @@
   <ItemGroup>
     <Compile Remove="Migrations\20210208142752_VeiculoInit.cs" />
     <Compile Remove="Migrations\20210208142752_VeiculoInit.Designer.cs" />
+    <Compile Remove="Migrations\20210301175433_MoradorFuncionario.cs" />
+    <Compile Remove="Migrations\20210301175433_MoradorFuncionario.Designer.cs" />
     <Compile Remove="Migrations\UsuarioQueryContextDBMigrations\20210208143205_VeiculoInitQuery.cs" />
     <Compile Remove="Migrations\UsuarioQueryContextDBMigrations\20210208143205_VeiculoInitQuery.Designer.cs" />
   </ItemGroup>

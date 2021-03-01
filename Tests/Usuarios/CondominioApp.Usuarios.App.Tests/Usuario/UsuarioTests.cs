@@ -13,9 +13,9 @@ namespace CondominioApp.Usuarios.App.Tests
         public void Criar_Morador_Valido()
         {
             //Act
-            var usuario = new Usuario("Alexandre", "Nascimento", "52145256", new Telefone("(21) 99796-7038"),
-                new Email("alexandre@techdog.com.br"),
-                new Foto("Foto.jpg", "Foto.jpg"), TipoDeUsuario.CLIENTE, Permissao.USUARIO);
+            var usuario = new Usuario("Nome", "sobrenome", "52145256", new Telefone("(21) 99796-7038"),
+                new Email("alexandre@techdog.com.br"), new Foto("Foto.jpg", "Foto.jpg"), 
+                TipoDeUsuario.MORADOR);
 
         }
 
@@ -24,10 +24,9 @@ namespace CondominioApp.Usuarios.App.Tests
         public void Criar_Morador_Valido_SemFoto()
         {
             //Act
-            var usuario = new Usuario("Alexandre", "Nascimento", "52145256", new Telefone("(21) 99796-7038"),
-                new Email("alexandre@techdog.com.br"),
-                new Foto("", ""), TipoDeUsuario.CLIENTE, Permissao.USUARIO);
-
+            var usuario = new Usuario("Nome", "sobrenome", "52145256", new Telefone("(21) 99796-7038"),
+               new Email("alexandre@techdog.com.br"), new Foto("", ""),
+               TipoDeUsuario.MORADOR);
         }
 
     }

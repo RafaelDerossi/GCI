@@ -74,6 +74,10 @@ namespace CondominioApp.Identidade.Api.Models
         public Guid CondominioId { get; set; }
 
         public Guid UnidadeId { get; set; }
+
+        public bool Proprietario { get; set; }
+
+        public bool Principal { get; set; }
     }
 
     public class UsuarioLogin
