@@ -42,12 +42,21 @@ namespace CondominioApp.Usuarios.App.Aplication.Events
 
         public Guid UnidadeId { get; protected set; }
 
+        public string NumeroUnidade { get; protected set; }
+
+        public string AndarUnidade { get; protected set; }
+
+        public string GrupoUnidade { get; protected set; }
+
         public Guid CondominioId { get; protected set; }
+
+        public string NomeCondominio { get; protected set; }
 
         public bool Proprietario { get; protected set; }
 
         public bool Principal { get; protected set; }
 
+        
 
 
         public void SetNome(string nome) => Nome = nome;

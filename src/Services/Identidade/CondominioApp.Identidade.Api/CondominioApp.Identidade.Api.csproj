@@ -39,6 +39,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\Building Blocks\CondominioApp.Core\CondominioApp.Core.csproj" />
     <ProjectReference Include="..\..\..\Building Blocks\CondominioApp.WebApi.Core\CondominioApp.WebApi.Core.csproj" />
+    <ProjectReference Include="..\..\Principal\CondominioApp.Principal.Aplication\CondominioApp.Principal.Aplication.csproj" />
     <ProjectReference Include="..\..\Usuarios\CondominioApp.Usuarios.App\CondominioApp.Usuarios.App.csproj" />
   </ItemGroup>
 

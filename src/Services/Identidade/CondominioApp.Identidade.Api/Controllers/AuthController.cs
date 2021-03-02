@@ -9,12 +9,14 @@ using CondominioApp.Core.Enumeradores;
 using CondominioApp.Core.Mediator;
 using CondominioApp.Identidade.Api.Email;
 using CondominioApp.Identidade.Api.Models;
+using CondominioApp.Principal.Aplication.Query.Interfaces;
+using CondominioApp.Principal.Domain.FlatModel;
 using CondominioApp.Usuarios.App.Aplication.Commands;
 using CondominioApp.WebApi.Core.Controllers;
 using CondominioApp.WebApi.Core.Identidade;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
@@ -27,16 +29,19 @@ namespace CondominioApp.Identidade.Api.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly AppSettings _appSettings;
         private readonly IMediatorHandler _mediatorHandler;
+        private readonly ICondominioQuery _condominioQuery;
 
         public AuthController(SignInManager<IdentityUser> signInManager,
                               UserManager<IdentityUser> userManager,
                               IOptions<AppSettings> appSettings,
-                              IMediatorHandler mediatorHandler)
+                              IMediatorHandler mediatorHandler,
+                              ICondominioQuery condominioQuery)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _appSettings = appSettings.Value;
             _mediatorHandler = mediatorHandler;
+            _condominioQuery = condominioQuery;
         }
 
 
@@ -95,61 +100,23 @@ namespace CondominioApp.Identidade.Api.Controllers
 
 
         [HttpPost("nova-conta")]
-        public async Task<ActionResult> Registrar(UsuarioRegistro usuarioRegistro)
+        public async Task<ActionResult> Registrar(UsuarioRegistroViewModel usuarioRegistroVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
             
-            var user = await _userManager.FindByEmailAsync(usuarioRegistro.Email);
+            var user = await _userManager.FindByEmailAsync(usuarioRegistroVM.Email);
             if (user != null)
-            {
-                usuarioRegistro.UsuarioId = Guid.Parse(user.Id);
-
-                await _userManager.AddClaimAsync(user, new Claim("TipoUsuario",
-                    Enum.GetName(typeof(TipoDeUsuario), usuarioRegistro.TpUsuario)));
-
-                var comando = CadastrarUsuarioCommandFactory(usuarioRegistro);
-
-                var Resultado = await _mediatorHandler.EnviarComando(comando);
-
-                if (!Resultado.IsValid)
-                {                 
-                    return CustomResponse(Resultado);
-                }
-
-                var DisparadorDeEmail = new DisparadorDeEmails(new EmailConfirmacaoDeCadastro(user, _appSettings.LinkConfirmacaoDeCadastro, usuarioRegistro.Nome));
-                await DisparadorDeEmail.Disparar();
-
-                return CustomResponse();
-            }
+                return await RegistrarUsuarioExistente(usuarioRegistroVM, user);
+            
 
 
-            user = IdentityUserFactory(usuarioRegistro);
-
-            var result = await _userManager.CreateAsync(user, usuarioRegistro.Senha);
-
+            user = IdentityUserFactory(usuarioRegistroVM);
+            var result = await _userManager.CreateAsync(user, usuarioRegistroVM.Senha);
             if (result.Succeeded)
-            {
-                usuarioRegistro.UsuarioId = Guid.Parse(user.Id);
+                return await RegistrarUsuarioNovo(usuarioRegistroVM, user);
 
-                await _userManager.AddClaimAsync(user, new Claim("TipoUsuario",
-                    Enum.GetName(typeof(TipoDeUsuario), usuarioRegistro.TpUsuario)));
-
-                var comando = CadastrarUsuarioCommandFactory(usuarioRegistro);
-
-                var Resultado = await _mediatorHandler.EnviarComando(comando);
-
-                if (!Resultado.IsValid)
-                {
-                    await _userManager.DeleteAsync(user);
-                    return CustomResponse(Resultado);
-                }
-
-                var DisparadorDeEmail = new DisparadorDeEmails(new EmailConfirmacaoDeCadastro(user, _appSettings.LinkConfirmacaoDeCadastro, usuarioRegistro.Nome));
-                await DisparadorDeEmail.Disparar();
-
-                return CustomResponse();
-            }
+              
 
             foreach (var error in result.Errors)
             {
@@ -158,6 +125,7 @@ namespace CondominioApp.Identidade.Api.Controllers
 
             return CustomResponse();
         }
+
 
         [HttpPost("nova-identidade")]
         public async Task<IActionResult> NovaIdentidade(List<UsuarioDTO> dtos)
@@ -184,7 +152,7 @@ namespace CondominioApp.Identidade.Api.Controllers
         }
 
         [HttpPost("autenticar")]
-        public async Task<ActionResult> Login(UsuarioLogin usuarioLogin)
+        public async Task<ActionResult> Login(UsuarioLoginViewModel usuarioLogin)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
@@ -206,7 +174,7 @@ namespace CondominioApp.Identidade.Api.Controllers
             return CustomResponse();
         }
       
-        private async Task<UsuarioRespostaLogin> GerarJwt(string login)
+        private async Task<UsuarioRespostaLoginViewModel> GerarJwt(string login)
         {
             var user = await _userManager.FindByNameAsync(login);
             var claims = await _userManager.GetClaimsAsync(user);
@@ -254,17 +222,17 @@ namespace CondominioApp.Identidade.Api.Controllers
             return tokenHandler.WriteToken(token);
         }
 
-        private UsuarioRespostaLogin ObterRespostaToken(string encodedToken, IdentityUser user, IEnumerable<Claim> claims)
+        private UsuarioRespostaLoginViewModel ObterRespostaToken(string encodedToken, IdentityUser user, IEnumerable<Claim> claims)
         {
-            return new UsuarioRespostaLogin
+            return new UsuarioRespostaLoginViewModel
             {
                 AccessToken = encodedToken,
                 ExpiresIn = TimeSpan.FromHours(_appSettings.ExpiracaoHoras).TotalSeconds,
-                UsuarioToken = new UsuarioToken
+                UsuarioToken = new UsuarioTokenViewModel
                 {
                     Id = user.Id,
                     Email = user.Email,
-                    Claims = claims.Select(c => new UsuarioClaim { Type = c.Type, Value = c.Value })
+                    Claims = claims.Select(c => new UsuarioClaimViewModel { Type = c.Type, Value = c.Value })
                 }
             };
         }
@@ -272,9 +240,12 @@ namespace CondominioApp.Identidade.Api.Controllers
         private static long ToUnixEpochDate(DateTime date)
             => (long)Math.Round((date.ToUniversalTime() - new DateTimeOffset(1970, 1, 1, 0, 0, 0, TimeSpan.Zero)).TotalSeconds);
 
+
+
+
         #region MétodosAuxiliares
 
-        private IdentityUser IdentityUserFactory(UsuarioRegistro usuarioRegistro)
+        private IdentityUser IdentityUserFactory(UsuarioRegistroViewModel usuarioRegistro)
         {
             return new IdentityUser
             {
@@ -285,15 +256,135 @@ namespace CondominioApp.Identidade.Api.Controllers
             };
         }
 
-        private CadastrarUsuarioCommand CadastrarUsuarioCommandFactory(UsuarioRegistro usuarioRegistro)
+        private async Task<ActionResult> RegistrarUsuarioExistente(UsuarioRegistroViewModel usuarioRegistroVM, IdentityUser user)
         {
-            return new CadastrarUsuarioCommand
-                (usuarioRegistro.UsuarioId, usuarioRegistro.Nome, usuarioRegistro.Sobrenome, usuarioRegistro.Email,
-                 usuarioRegistro.CondominioId, usuarioRegistro.UnidadeId, usuarioRegistro.Foto, usuarioRegistro.NomeOriginal,
-                 usuarioRegistro.Rg, usuarioRegistro.Cpf, usuarioRegistro.Celular, usuarioRegistro.Proprietario,
-                 usuarioRegistro.Principal, usuarioRegistro.Atribuicao, usuarioRegistro.Funcao, 
-                 usuarioRegistro.DataDeNascimento, usuarioRegistro.TpUsuario, usuarioRegistro.Permissao);
+            var Resultado = await PersistirUsuario(usuarioRegistroVM, user);
+
+            if (!Resultado.IsValid)
+            {
+                return CustomResponse(Resultado);
+            }
+
+            await AddClaimAsync(usuarioRegistroVM, user);
+
+            await EnviarEmailDeConfirmacaoDeCadastro(usuarioRegistroVM, user);
+
+            return CustomResponse();
         }
+
+        private async Task<ActionResult> RegistrarUsuarioNovo(UsuarioRegistroViewModel usuarioRegistroVM, IdentityUser user)
+        {
+
+            var Resultado = await PersistirUsuario(usuarioRegistroVM, user);
+
+            if (!Resultado.IsValid)
+            {
+                await _userManager.DeleteAsync(user);
+                return CustomResponse(Resultado);
+            }
+
+            await AddClaimAsync(usuarioRegistroVM, user);
+
+            await EnviarEmailDeConfirmacaoDeCadastro(usuarioRegistroVM, user);
+
+            return CustomResponse();
+        }
+
+        private async Task<ValidationResult> PersistirUsuario(UsuarioRegistroViewModel usuarioRegistroVM, IdentityUser user)
+        {
+            usuarioRegistroVM.UsuarioId = Guid.Parse(user.Id);
+
+            if (usuarioRegistroVM.TpUsuario == TipoDeUsuario.MORADOR)
+               return await PersistirMorador(usuarioRegistroVM);           
+
+            if (usuarioRegistroVM.TpUsuario == TipoDeUsuario.FUNCIONARIO)
+                return await PersistirFuncionario(usuarioRegistroVM);
+            
+            return new ValidationResult();
+        }
+
+        private async Task<ValidationResult> PersistirMorador(UsuarioRegistroViewModel usuarioRegistroVM)
+        {
+            var validatioResult = new ValidationResult();                        
+
+            var condominio = await _condominioQuery.ObterPorId(usuarioRegistroVM.CondominioId);
+            if (condominio == null)
+            {
+                AdicionarErroProcessamento("Condominio não encontrado");
+
+                validatioResult.Errors.Add(new ValidationFailure("CondominioId", "Condominio não encontrado"));
+                return validatioResult;
+            }
+
+            var unidade = await _condominioQuery.ObterUnidadePorId(usuarioRegistroVM.UnidadeId);
+            if (unidade == null)
+            {
+                AdicionarErroProcessamento("Unidade não encontrada");
+
+                validatioResult.Errors.Add(new ValidationFailure("UnidadeId", "Unidade não encontrada"));
+                return validatioResult;
+            }
+
+
+            var comando = CadastrarMoradorCommandFactory(usuarioRegistroVM, condominio, unidade);
+
+            validatioResult = await _mediatorHandler.EnviarComando(comando);
+            return validatioResult;
+        }
+
+        private async Task<ValidationResult> PersistirFuncionario(UsuarioRegistroViewModel usuarioRegistroVM)
+        {
+            var validatioResult = new ValidationResult();            
+
+            var condominio = await _condominioQuery.ObterPorId(usuarioRegistroVM.CondominioId);
+            if (condominio == null)
+            {
+                AdicionarErroProcessamento("Condominio não encontrado");
+
+                validatioResult.Errors.Add(new ValidationFailure("CondominioId", "Condominio não encontrado"));
+                return validatioResult;
+            }           
+
+            var comando = CadastrarFuncionarioCommandFactory(usuarioRegistroVM, condominio);
+
+            validatioResult = await _mediatorHandler.EnviarComando(comando);
+            return validatioResult;
+        }
+
+        private CadastrarMoradorCommand CadastrarMoradorCommandFactory(UsuarioRegistroViewModel usuarioRegistro,
+            CondominioFlat condominio, UnidadeFlat unidade)
+        {
+            return new CadastrarMoradorCommand
+                (usuarioRegistro.UsuarioId, usuarioRegistro.Nome, usuarioRegistro.Sobrenome, usuarioRegistro.Email,
+                 usuarioRegistro.CondominioId, condominio.Nome, usuarioRegistro.UnidadeId, unidade.Numero,
+                 unidade.Andar, unidade.GrupoDescricao, usuarioRegistro.Foto, usuarioRegistro.NomeOriginal,
+                 usuarioRegistro.Rg, usuarioRegistro.Cpf, usuarioRegistro.Celular, usuarioRegistro.Proprietario,
+                 usuarioRegistro.Principal, usuarioRegistro.DataDeNascimento);
+        }
+
+        private CadastrarFuncionarioCommand CadastrarFuncionarioCommandFactory(UsuarioRegistroViewModel usuarioRegistro,
+           CondominioFlat condominio)
+        {
+            return new CadastrarFuncionarioCommand
+                (usuarioRegistro.UsuarioId, usuarioRegistro.Nome, usuarioRegistro.Sobrenome, usuarioRegistro.Email,
+                 usuarioRegistro.CondominioId, condominio.Nome, usuarioRegistro.Foto, usuarioRegistro.NomeOriginal,
+                 usuarioRegistro.Rg, usuarioRegistro.Cpf, usuarioRegistro.Celular, usuarioRegistro.Atribuicao,
+                 usuarioRegistro.Funcao, usuarioRegistro.DataDeNascimento, usuarioRegistro.Permissao);
+        }
+
+        private async Task AddClaimAsync(UsuarioRegistroViewModel usuarioRegistroVM, IdentityUser user)
+        {
+            await _userManager.AddClaimAsync(user, new Claim("TipoUsuario",
+                 Enum.GetName(typeof(TipoDeUsuario), usuarioRegistroVM.TpUsuario)));
+        }
+
+        private async Task EnviarEmailDeConfirmacaoDeCadastro(UsuarioRegistroViewModel usuarioRegistroVM, IdentityUser user)
+        {
+            var DisparadorDeEmail = new DisparadorDeEmails(new EmailConfirmacaoDeCadastro(user, _appSettings.LinkConfirmacaoDeCadastro, usuarioRegistroVM.Nome));
+            await DisparadorDeEmail.Disparar();
+        }
+
+       
 
         #endregion
     }

@@ -5,7 +5,7 @@ using CondominioApp.Core.Enumeradores;
 
 namespace CondominioApp.Identidade.Api.Models
 {
-    public class UsuarioRegistro
+    public class UsuarioRegistroViewModel
     {
         public Guid UsuarioId { get; set; }
 
@@ -80,7 +80,7 @@ namespace CondominioApp.Identidade.Api.Models
         public bool Principal { get; set; }
     }
 
-    public class UsuarioLogin
+    public class UsuarioLoginViewModel
     {
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public string Login { get; set; }
@@ -90,21 +90,21 @@ namespace CondominioApp.Identidade.Api.Models
         public string Senha { get; set; }
     }
 
-    public class UsuarioRespostaLogin
+    public class UsuarioRespostaLoginViewModel
     {
         public string AccessToken { get; set; }
         public double ExpiresIn { get; set; }
-        public UsuarioToken UsuarioToken { get; set; }
+        public UsuarioTokenViewModel UsuarioToken { get; set; }
     }
 
-    public class UsuarioToken
+    public class UsuarioTokenViewModel
     {
         public string Id { get; set; }
         public string Email { get; set; }
-        public IEnumerable<UsuarioClaim> Claims { get; set; }
+        public IEnumerable<UsuarioClaimViewModel> Claims { get; set; }
     }
 
-    public class UsuarioClaim
+    public class UsuarioClaimViewModel
     {
         public string Value { get; set; }
         public string Type { get; set; }

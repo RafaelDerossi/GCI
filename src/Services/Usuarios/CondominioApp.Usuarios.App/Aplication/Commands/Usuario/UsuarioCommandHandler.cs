@@ -10,7 +10,8 @@ using MediatR;
 namespace CondominioApp.Usuarios.App.Aplication.Commands
 {
     public class UsuarioCommandHandler : CommandHandler,
-        IRequestHandler<CadastrarUsuarioCommand, ValidationResult>,
+        IRequestHandler<CadastrarMoradorCommand, ValidationResult>,
+        IRequestHandler<CadastrarFuncionarioCommand, ValidationResult>,
         IRequestHandler<EditarMoradorCommand, ValidationResult>,
         IRequestHandler<CadastrarResponsavelDaLojaCommand, ValidationResult>,
         IDisposable
@@ -22,26 +23,56 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
             _usuarioRepository = usuarioRepository;
         }
 
-        public async Task<ValidationResult> Handle(CadastrarUsuarioCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(CadastrarMoradorCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido()) return request.ValidationResult;
 
-            var usuario = await _usuarioRepository.ObterPorId(request.UsuarioId);
 
+            var usuario = await _usuarioRepository.ObterPorId(request.UsuarioId);            
             if (usuario == null)
-               return await AdicionarUsuario(request);
+            {
+                var retorno = await AdicionarUsuario(request);
+                if (!retorno.IsValid)
+                    return retorno;
+            }
 
-            if (usuario.TpUsuario == TipoDeUsuario.MORADOR)
-                return await AdicionarMorador(request);
+            var morador = _usuarioRepository.ObterMoradorPorUsuarioIdEUnidadeId(request.UsuarioId, request.UnidadeId);
+            if (morador == null)
+            {
+                var moradorNovo = MoradorFactory(request);
+                _usuarioRepository.AdicionarMorador(moradorNovo);                
+                return await PersistirDados(_usuarioRepository.UnitOfWork);
+            }
 
-            if (usuario.TpUsuario == TipoDeUsuario.FUNCIONARIO)
-                return await AdicionarFuncionario(request);
-
-
-            AdicionarErro("Usuário já cadastrado.");
-            return ValidationResult;
+            AdicionarErro("Morador já cadastrado.");
+            return ValidationResult;            
+           
         }
-        
+
+        public async Task<ValidationResult> Handle(CadastrarFuncionarioCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido()) return request.ValidationResult;         
+
+            var usuario = await _usuarioRepository.ObterPorId(request.UsuarioId);
+            if (usuario == null)
+            {
+                var retorno = await AdicionarUsuario(request);
+                if (!retorno.IsValid)
+                    return retorno;
+            }
+
+            var funcionario = _usuarioRepository.ObterFuncionarioPorUsuarioIdECondominioId(request.UsuarioId, request.CondominioId);
+            if (funcionario == null)
+            {
+                var funcionarioNovo = FuncionarioFactory(request);
+                _usuarioRepository.AdicionarFuncionario(funcionarioNovo);                
+                return await PersistirDados(_usuarioRepository.UnitOfWork);
+            }
+
+            AdicionarErro("Funcionário já cadastrado.");
+            return ValidationResult;
+            
+        }
 
         public async Task<ValidationResult> Handle(EditarMoradorCommand request, CancellationToken cancellationToken)
 
@@ -91,22 +122,8 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
 
             _usuarioRepository.Adicionar(usuario);
 
-            var retornoPersisteUsuario = await PersistirDados(_usuarioRepository.UnitOfWork);
+            return await PersistirDados(_usuarioRepository.UnitOfWork);
 
-            if (!retornoPersisteUsuario.IsValid)
-                return retornoPersisteUsuario;
-
-
-
-            if (usuario.TpUsuario == TipoDeUsuario.MORADOR)
-                return await PersistirMorador(request);
-
-
-            if (usuario.TpUsuario == TipoDeUsuario.FUNCIONARIO)
-                return await PersistirFuncionario(request);
-
-
-            return retornoPersisteUsuario;
         }
         private Usuario UsuarioFactory(UsuarioCommand request)
         {
@@ -115,26 +132,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
 
             return usuario;
         }
-
-
-        private async Task<ValidationResult> AdicionarMorador(UsuarioCommand request)
-        {
-            var morador = _usuarioRepository.ObterMoradorPorUsuarioIdEUnidadeId(request.UsuarioId, request.UnidadeId);
-            if (morador == null)
-            {
-                return await PersistirMorador(request);
-            }
-            
-            AdicionarErro("Morador já cadastrado.");
-            return ValidationResult;            
-        }       
-        private async Task<ValidationResult> PersistirMorador(UsuarioCommand request)
-        {
-            var moradorNovo = MoradorFactory(request);
-            _usuarioRepository.AdicionarMorador(moradorNovo);
-            var retorno = await PersistirDados(_usuarioRepository.UnitOfWork);
-            return retorno;
-        }
+      
         private Morador MoradorFactory(UsuarioCommand request)
         {
             var morador = new Morador
@@ -143,24 +141,6 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
             return morador;
         }
 
-
-        private async Task<ValidationResult> AdicionarFuncionario(UsuarioCommand request)
-        {
-            var funcionario = _usuarioRepository.ObterFuncionarioPorUsuarioIdECondominioId(request.UsuarioId, request.CondominioId);
-            if (funcionario == null)
-            {
-                return await PersistirFuncionario(request);
-            }
-            AdicionarErro("Funcionário já cadastrado.");
-            return ValidationResult;            
-        }        
-        private async Task<ValidationResult> PersistirFuncionario(UsuarioCommand request)
-        {
-            var funcionarioNovo = FuncionarioFactory(request);
-            _usuarioRepository.AdicionarFuncionario(funcionarioNovo);
-            var retorno = await PersistirDados(_usuarioRepository.UnitOfWork);
-            return retorno;
-        }
         private Funcionario FuncionarioFactory(UsuarioCommand request)
         {
             var funcionario = new Funcionario
