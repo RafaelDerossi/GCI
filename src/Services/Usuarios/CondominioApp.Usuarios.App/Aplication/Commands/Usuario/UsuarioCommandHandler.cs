@@ -127,8 +127,10 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
         }
         private Usuario UsuarioFactory(UsuarioCommand request)
         {
-            var usuario = new Usuario(request.Nome, request.Sobrenome, request.Rg,
-                 request.Cel, request.Email, request.Foto, request.TpUsuario, request.DataNascimento, request.Cpf);
+            var usuario = new Usuario
+                (request.Nome, request.Sobrenome, request.Rg, request.Cel, request.Email, request.Foto, 
+                request.TpUsuario, request.DataNascimento, request.Cpf, request.Telefone, request.Endereco,
+                request.SindicoProfissional);
 
             return usuario;
         }

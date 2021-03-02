@@ -8,7 +8,9 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
     {
         public CadastrarFuncionarioCommand(Guid usuarioId, string nome, string sobrenome, string email,
             Guid condominioId, string nomeCondominio, string foto, string nomeOriginal, string rg = null,
-            string cpf = null, string cel = null, string atribuicao = null, string funcao = null,
+            string cpf = null, string cel = null, string tel = null, string atribuicao = null, string funcao = null,
+            string logradouro = null, string complemento = null, string numeroEndereco = null,
+            string cep = null, string bairro = null, string cidade = null, string estado = null,
             DateTime? dataNascimento = null, Permissao permissao = Permissao.USUARIO)
         {
             UsuarioId = usuarioId;
@@ -30,8 +32,10 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
 
             SetCpf(cpf);
             SetCelular(cel);
+            SetTelefone(tel);
             SetEmail(email);
             SetFoto(foto, nomeOriginal);
+            SetEndereco(logradouro, complemento, numeroEndereco, cep, bairro, cidade, estado);
         }
 
         public override bool EstaValido()
@@ -51,7 +55,10 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
                 ValidateId();
                 ValidateCondominioId();
                 ValidateNome();
+                ValidateSobrenome();
                 ValidateEmail();
+                ValidateAtribuicao();
+                ValidateFuncao();
             }
         }
 

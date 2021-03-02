@@ -8,8 +8,11 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
     {
         public CadastrarMoradorCommand(Guid usuarioId, string nome, string sobrenome, string email,
             Guid condominioId, string nomeCondominio, Guid unidadeId, string numeroUnidade, string andarUnidade,
-            string grupoUnidade, string foto, string nomeOriginal, string rg = null, string cpf = null, string cel = null,
-            bool proprietario = false, bool principal = false, DateTime? dataNascimento = null)
+            string grupoUnidade, string foto, string nomeOriginal, string rg = null, string cpf = null,
+            string tel = null, string cel = null, bool proprietario = false, bool principal = false, 
+            string logradouro = null, string complemento = null, string numeroEndereco = null,
+            string cep = null, string bairro = null, string cidade = null, string estado = null,
+            DateTime? dataNascimento = null)
         {
             UsuarioId = usuarioId;
             Nome = nome;
@@ -33,8 +36,11 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
 
             SetCpf(cpf);
             SetCelular(cel);
+            SetTelefone(tel);
             SetEmail(email);
             SetFoto(foto, nomeOriginal);
+            SetEndereco(logradouro, complemento, numeroEndereco, cep, bairro, cidade, estado);
+
         }
 
         public override bool EstaValido()
@@ -55,6 +61,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
                 ValidateCondominioId();
                 ValidateUnidadeId();
                 ValidateNome();
+                ValidateSobrenome();
                 ValidateEmail();                      
             }
         }

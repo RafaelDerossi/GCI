@@ -41,6 +41,8 @@ namespace CondominioApp.Usuarios.App.Data
             modelBuilder.Ignore<Event>();
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(UsuarioContextDB).Assembly);
 
+            modelBuilder.Ignore<MoradorFlat>();
+            modelBuilder.Ignore<FuncionarioFlat>();
             modelBuilder.Ignore<VeiculoFlat>();
         }
 

@@ -30,6 +30,13 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands.Validations
                 .Length(2, 150).WithMessage("Nome do usuario deve ter entre 2 e 150 caracteres!");
         }
 
+        protected void ValidateSobrenome()
+        {
+            RuleFor(c => c.Sobrenome)
+                .NotEmpty()
+                .Length(2, 150).WithMessage("Sobrenome do usuario deve ter entre 2 e 150 caracteres!");
+        }
+
         protected void ValidateEmail()
         {
             RuleFor(c => c.Email.Endereco)
@@ -39,7 +46,18 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands.Validations
                   .WithMessage("E-mail do usuario não pode estar vazio!");
         }
 
-      
+
+        protected void ValidateAtribuicao()
+        {
+            RuleFor(c => c.Atribuicao)                
+                .MaximumLength(200).WithMessage("Atribuição do funcionario deve ter no máximo 200 caracteres!");
+        }
+
+        protected void ValidateFuncao()
+        {
+            RuleFor(c => c.Funcao)                
+                .MaximumLength(200).WithMessage("Função do funcionario deve ter no máximo 200 caracteres!");
+        }
 
     }
 }

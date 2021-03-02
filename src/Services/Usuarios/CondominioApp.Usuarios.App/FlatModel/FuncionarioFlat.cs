@@ -3,7 +3,7 @@ using System;
 
 namespace CondominioApp.Usuarios.App.FlatModel
 {
-    public class MoradorFlat : IAggregateRoot
+    public class FuncionarioFlat : IAggregateRoot
     {
         public const int Max = 200;
 
@@ -15,23 +15,11 @@ namespace CondominioApp.Usuarios.App.FlatModel
 
         public bool Lixeira { get; private set; }
 
-        public Guid UsuarioId { get; private set; }
-
-        public Guid UnidadeId { get; private set; }
-
-        public string NumeroUnidade { get; private set; }
-
-        public string AndarUnidade { get; private set; }
-
-        public string GrupoUnidade { get; private set; }
+        public Guid UsuarioId { get; private set; }       
 
         public Guid CondominioId { get; private set; }
 
-        public string NomeCondominio { get; private set; }
-
-        public bool Proprietario { get; private set; }
-
-        public bool Principal { get; private set; }
+        public string NomeCondominio { get; private set; }        
 
         public string Nome { get; private set; }
 
@@ -51,12 +39,16 @@ namespace CondominioApp.Usuarios.App.FlatModel
 
         public string TpUsuario { get; private set; }
 
+        public string Atribuicao { get; private set; }
 
+        public string Funcao { get; private set; }
+
+        public bool SindicoProfissional { get; set; }
 
         public bool Ativo { get; private set; }
 
         public DateTime? DataNascimento { get; private set; }
-        
+
 
         public string Logradouro { get; private set; }
 
@@ -70,31 +62,23 @@ namespace CondominioApp.Usuarios.App.FlatModel
 
         public string Cidade { get; private set; }
 
-        public string Estado { get; private set; }      
+        public string Estado { get; private set; }
 
 
 
-        public MoradorFlat()
+        public FuncionarioFlat()
         {
         }
 
-        public MoradorFlat
-            (Guid id, Guid usuarioId, Guid unidadeId, string numeroUnidade, string andarUnidade, string grupoUnidade,
-            Guid condominioId, string nomeCondominio, bool proprietario, bool principal, string nome, string sobrenome, 
-            string rg, string cpf, string cel, string telefone, string email, string foto, string tpUsuario,
-            DateTime? dataNascimento, string logradouro, string complemento, string numero, string cep, string bairro,
-            string cidade, string estado)
+        public FuncionarioFlat
+            (Guid id, Guid usuarioId, Guid condominioId, string nomeCondominio, string nome, string sobrenome, string rg,
+            string cpf, string cel, string telefone, string email, string foto, string tpUsuario, DateTime? dataNascimento, 
+            string logradouro, string complemento, string numero, string cep, string bairro, string cidade, string estado)
         {
             Id = id;            
             UsuarioId = usuarioId;
-            UnidadeId = unidadeId;
-            NumeroUnidade = numeroUnidade;
-            AndarUnidade = andarUnidade;
-            GrupoUnidade = grupoUnidade;
             CondominioId = condominioId;
             NomeCondominio = nomeCondominio;
-            Proprietario = proprietario;
-            Principal = principal;
             Nome = nome;
             Sobrenome = sobrenome;
             Rg = rg;

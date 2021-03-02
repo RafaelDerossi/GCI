@@ -25,19 +25,18 @@ namespace CondominioApp.Usuarios.App.Models
 
         public Email Email { get; private set; }
 
-        public Foto Foto { get; private set; }
-
-        public TipoDeUsuario TpUsuario { get; private set; }
-
-       
-
-        public bool Ativo { get; private set; }       
+        public Foto Foto { get; private set; }    
 
         public DateTime? DataNascimento { get; private set; }
 
-        public DateTime? UltimoLogin { get; private set; }
-
         public Endereco Endereco { get; set; }
+
+
+        public TipoDeUsuario TpUsuario { get; private set; }
+
+        public bool Ativo { get; private set; }
+
+        public DateTime? UltimoLogin { get; private set; }
 
         public bool SindicoProfissional { get; private set; }
 
@@ -51,7 +50,8 @@ namespace CondominioApp.Usuarios.App.Models
 
         public Usuario(string nome, string sobrenome, string rg, Telefone cel, Email email, 
             Foto foto, TipoDeUsuario tpUsuario, DateTime? dataNascimento = null,
-            Cpf cpf = null, Telefone telefone = null, Endereco endereco = null, bool sindicoProfissional = false)
+            Cpf cpf = null, Telefone telefone = null, Endereco endereco = null,
+            bool sindicoProfissional = false)
         {
             _Mobiles = new List<Mobile>();
             Nome = nome;

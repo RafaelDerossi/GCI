@@ -20,6 +20,8 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
 
         public Telefone Cel { get; protected set; }
 
+        public Telefone Telefone { get; protected set; }
+
         public Email Email { get; protected set; }
 
         public Foto Foto { get; protected set; }
@@ -49,6 +51,12 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
         public bool Proprietario { get; protected set; }
 
         public bool Principal { get; protected set; }
+
+
+        public Endereco Endereco { get; protected set; }
+    
+        public bool SindicoProfissional { get; protected set; }
+
 
 
         public void SetNome(string nome) => Nome = nome;
@@ -82,6 +90,18 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
             }
         }
 
+        public void SetTelefone(string tel)
+        {
+            try
+            {
+                Telefone = new Telefone(tel);
+            }
+            catch (Exception e)
+            {
+                AdicionarErrosDeProcessamentoDoComando(e.Message);
+            }
+        }
+
         public void SetEmail(string email)
         {
             try
@@ -99,6 +119,20 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
             try
             {
                 Foto = new Foto(nomeOriginal, foto);
+            }
+            catch (Exception e)
+            {
+                AdicionarErrosDeProcessamentoDoComando(e.Message);
+            }
+        }
+
+        public void SetEndereco
+            (string logradouro, string complemento, string numero, string cep,
+            string bairro, string cidade, string estado)
+        {
+            try
+            {
+                Endereco = new Endereco(logradouro, complemento, numero, cep, bairro, cidade, estado);
             }
             catch (Exception e)
             {
