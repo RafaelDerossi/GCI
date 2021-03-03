@@ -57,6 +57,11 @@ namespace CondominioApp.Principal.Aplication.Query
             return await _condominioQueryRepository.ObterUnidadePorId(Id);
         }
 
+        public async Task<UnidadeFlat> ObterUnidadePorCodigo(string codigo)
+        {
+            return await _condominioQueryRepository.ObterUnidadePorCodigo(codigo);
+        }
+
         public async Task<IEnumerable<UnidadeFlat>> ObterUnidadesPorGrupo(Guid grupoId)
         {
             return await _condominioQueryRepository.ObterUnidadesPorGrupo(grupoId);

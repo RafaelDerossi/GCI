@@ -6,17 +6,12 @@ namespace CondominioApp.Usuarios.App.Aplication.Events
 {
     public class MoradorCadastradoEvent : UsuarioEvent
     {        
-        public MoradorCadastradoEvent(Guid id, Guid usuarioId, string nome, string sobrenome, Email email,
-            Guid condominioId, string nomeCondominio, Guid unidadeId, string numeroUnidade, string andarUnidade,
-            string grupoUnidade, Foto foto, string rg = null, Cpf cpf = null, Telefone cel = null, Telefone tel = null,
-            bool proprietario = false, bool principal = false, Endereco endereco = null, DateTime? dataNascimento = null)
+        public MoradorCadastradoEvent(Guid id, Guid usuarioId, Guid condominioId, string nomeCondominio,
+            Guid unidadeId, string numeroUnidade, string andarUnidade, string grupoUnidade,
+            bool proprietario = false, bool principal = false)
         {
             Id = id;
-            UsuarioId = usuarioId;
-            Nome = nome;
-            Sobrenome = sobrenome;
-            Rg = rg;
-            DataNascimento = dataNascimento;
+            UsuarioId = usuarioId;            
 
             UnidadeId = unidadeId;
             NumeroUnidade = numeroUnidade;
@@ -28,15 +23,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Events
 
             Proprietario = proprietario;
             Principal = principal;            
-            TpUsuario = TipoDeUsuario.MORADOR; 
-
-            Cpf = cpf;
-            Cel = cel;
-            Telefone = tel;
-            Email = email;
-            Foto = foto;
-            Endereco = endereco;
-                        
+            TpUsuario = TipoDeUsuario.MORADOR;                         
         }
     }
 }

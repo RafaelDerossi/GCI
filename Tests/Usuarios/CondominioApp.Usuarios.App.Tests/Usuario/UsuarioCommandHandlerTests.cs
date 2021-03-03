@@ -24,7 +24,7 @@ namespace CondominioApp.Usuarios.App.Tests
         public async Task AdicionarUsuario_CommandoValido_DevePassarNaValidacao()
         {
             //Arrange
-            var UsuarioCommand = UsuarioCommandFactory.CriarComandoCadastroDeMorador();
+            var UsuarioCommand = UsuarioCommandFactory.CriarComandoCadastroDeUsuario();
 
 
             _mocker.GetMock<IUsuarioRepository>().Setup(r => r.UnitOfWork.Commit())

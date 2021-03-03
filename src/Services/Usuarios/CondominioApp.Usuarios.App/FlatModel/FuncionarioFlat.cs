@@ -37,13 +37,7 @@ namespace CondominioApp.Usuarios.App.FlatModel
 
         public string Foto { get; private set; }
 
-        public string TpUsuario { get; private set; }
-
-        public string Atribuicao { get; private set; }
-
-        public string Funcao { get; private set; }
-
-        public bool SindicoProfissional { get; set; }
+        public string TpUsuario { get; private set; }     
 
         public bool Ativo { get; private set; }
 
@@ -64,6 +58,13 @@ namespace CondominioApp.Usuarios.App.FlatModel
 
         public string Estado { get; private set; }
 
+        public string Atribuicao { get; private set; }
+
+        public string Funcao { get; private set; }
+
+        public bool SindicoProfissional { get; set; }
+
+        public string Permissao { get; set; }
 
 
         public FuncionarioFlat()
@@ -71,9 +72,10 @@ namespace CondominioApp.Usuarios.App.FlatModel
         }
 
         public FuncionarioFlat
-            (Guid id, Guid usuarioId, Guid condominioId, string nomeCondominio, string nome, string sobrenome, string rg,
-            string cpf, string cel, string telefone, string email, string foto, string tpUsuario, DateTime? dataNascimento, 
-            string logradouro, string complemento, string numero, string cep, string bairro, string cidade, string estado)
+            (Guid id, Guid usuarioId, Guid condominioId, string nomeCondominio, string atribuicao, string funcao,
+            bool sindicoProfissional, string permissao, string nome, string sobrenome, string rg, 
+             string cpf, string cel, string telefone, string email, string foto, string tpUsuario, DateTime? dataNascimento,
+             string logradouro, string complemento, string numero, string cep, string bairro, string cidade, string estado)
         {
             Id = id;            
             UsuarioId = usuarioId;
@@ -97,6 +99,10 @@ namespace CondominioApp.Usuarios.App.FlatModel
             Bairro = bairro;
             Cidade = cidade;
             Estado = estado;
+            Atribuicao = atribuicao;
+            Funcao = funcao;
+            SindicoProfissional = sindicoProfissional;
+            Permissao = permissao;
         }
 
         public void EnviarParaLixeira() => Lixeira = true;

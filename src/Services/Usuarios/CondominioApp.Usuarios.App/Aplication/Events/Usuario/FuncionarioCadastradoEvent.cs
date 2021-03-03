@@ -6,32 +6,20 @@ namespace CondominioApp.Usuarios.App.Aplication.Events
 {
     public class FuncionarioCadastradoEvent : UsuarioEvent
     {        
-        public FuncionarioCadastradoEvent(Guid usuarioId, string nome, string sobrenome, Email email,
-            Guid condominioId, string nomeCondominio, Foto foto, string rg = null, Cpf cpf = null, Telefone cel = null,
-            Telefone tel = null, string atribuicao = null, string funcao = null, bool sindicoProfissional = false,
-            Endereco endereco = null, DateTime? dataNascimento = null)
+        public FuncionarioCadastradoEvent(Guid id, Guid usuarioId, Guid condominioId, string nomeCondominio, 
+            string atribuicao = null, string funcao = null, Permissao permissao = Permissao.USUARIO)
         {
-            UsuarioId = usuarioId;
-            Nome = nome;
-            Sobrenome = sobrenome;
-            Rg = rg;
-            DataNascimento = dataNascimento;
+            Id = id;
+            UsuarioId = usuarioId;            
 
             CondominioId = condominioId;
             NomeCondominio = nomeCondominio;
 
             Atribuicao = atribuicao;
             Funcao = funcao;
-            SindicoProfissional = sindicoProfissional;
+            Permissao = permissao;
             
-            TpUsuario = TipoDeUsuario.MORADOR; 
-
-            Cpf = cpf;
-            Cel = cel;
-            Telefone = tel;
-            Email = email;
-            Foto = foto;
-            Endereco = endereco;
+            TpUsuario = TipoDeUsuario.FUNCIONARIO; 
                         
         }
     }

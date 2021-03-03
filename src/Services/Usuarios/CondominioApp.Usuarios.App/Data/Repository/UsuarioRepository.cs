@@ -84,13 +84,18 @@ namespace CondominioApp.Usuarios.App.Data.Repository
                                               !u.Lixeira);
         }
 
+        public void Excluir(Usuario entity)
+        {
+            _context.Usuarios.Remove(entity);
+        }
+
         #endregion
 
 
         #region Morador
-        public async Task<IEnumerable<Morador>> ObterMoradorPorUsuarioIdEUnidadeId(Guid usuarioId, Guid unidadeId )
+        public async Task<Morador> ObterMoradorPorUsuarioIdEUnidadeId(Guid usuarioId, Guid unidadeId )
         {
-            return await _context.Moradores.Where(u=>u.UsuarioId == usuarioId && u.UnidadeId == unidadeId && !u.Lixeira).ToListAsync();
+            return await _context.Moradores.Where(u=>u.UsuarioId == usuarioId && u.UnidadeId == unidadeId && !u.Lixeira).FirstOrDefaultAsync();
         }
 
         public void AdicionarMorador(Morador morador)
@@ -102,9 +107,9 @@ namespace CondominioApp.Usuarios.App.Data.Repository
 
 
         #region Funcionario
-        public async Task<IEnumerable<Funcionario>> ObterFuncionarioPorUsuarioIdECondominioId(Guid usuarioId, Guid condominioId)
+        public async Task<Funcionario> ObterFuncionarioPorUsuarioIdECondominioId(Guid usuarioId, Guid condominioId)
         {
-            return await _context.Funcionarios.Where(u => u.UsuarioId == usuarioId && u.CondominioId == condominioId && !u.Lixeira).ToListAsync();
+            return await _context.Funcionarios.Where(u => u.UsuarioId == usuarioId && u.CondominioId == condominioId && !u.Lixeira).FirstOrDefaultAsync();
         }
 
         public void AdicionarFuncionario(Funcionario funcionario)

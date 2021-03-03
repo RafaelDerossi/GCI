@@ -1,66 +1,67 @@
 ﻿using System;
+using CondominioApp.Core.Enumeradores;
 using CondominioApp.Usuarios.App.Aplication.Commands;
 
 namespace CondominioApp.Usuarios.App.Tests
 {
     public class UsuarioCommandFactory
     {
-        public static CadastrarMoradorCommand CadastrarMoradorCommandFactoy()
+        public static CadastrarUsuarioCommand CadastrarUsuarioCommandFactoy()
         {
-            return new CadastrarMoradorCommand
-                (Guid.NewGuid(), "Nome", "Sobrenome", "alexandre@techdog.com.br", Guid.NewGuid(), "Nome condominio",
-                 Guid.NewGuid(), "101","1","Bloco A", "foto2.jpg", "fotoOriginal.jpg", "874541213", "689.560.890-78",
-                 "(21) 99988-5241", "(21) 99988-5241", true, true, "logradouro", "lt 30","S/N","","Bairro","Rio de Janeiro",
+            return new CadastrarUsuarioCommand
+                (Guid.NewGuid(), "Nome", "Sobrenome", "alexandre@techdog.com.br", "foto2.jpg", "fotoOriginal.jpg",
+                 "874541213", "689.560.890-78", TipoDeUsuario.MORADOR, "(21) 99988-5241",
+                 "(21) 99988-5241", "logradouro", "lt 30","S/N","","Bairro","Rio de Janeiro",
                  "RJ", new DateTime(1985, 05, 10));
         }
 
-        public static CadastrarMoradorCommand CriarComandoCadastroDeMorador()
+        public static CadastrarUsuarioCommand CriarComandoCadastroDeUsuario()
         {
-            return CadastrarMoradorCommandFactoy();
+            return CadastrarUsuarioCommandFactoy();
         }
 
-        public static CadastrarMoradorCommand CriarComandoCadastroDeMoradorSemFoto()
+        public static CadastrarUsuarioCommand CriarComandoCadastroDeUsuarioSemFoto()
         {
-            var comando = CadastrarMoradorCommandFactoy();
+            var comando = CadastrarUsuarioCommandFactoy();
             comando.SetFoto("", "");
 
             return comando;
         }
 
-        public static CadastrarMoradorCommand CriarComandoCadastroDeMoradorSemNome()
+        public static CadastrarUsuarioCommand CriarComandoCadastroDeUsuarioSemNome()
         {
-            var comando = CadastrarMoradorCommandFactoy();
+            var comando = CadastrarUsuarioCommandFactoy();
             comando.SetNome("");
 
             return comando;
         }
 
-        public static CadastrarMoradorCommand CriarComandoCadastroDeMoradorSemEmail()
+        public static CadastrarUsuarioCommand CriarComandoCadastroDeUsuarioSemEmail()
         {
-            var comando = CadastrarMoradorCommandFactoy();
+            var comando = CadastrarUsuarioCommandFactoy();
             comando.SetEmail("");
 
             return comando;
         }
 
-        public static CadastrarMoradorCommand CriarComandoCadastroDeMoradorComEmailInvalido()
+        public static CadastrarUsuarioCommand CriarComandoCadastroDeUsuarioComEmailInvalido()
         {
-            var comando = CadastrarMoradorCommandFactoy();
+            var comando = CadastrarUsuarioCommandFactoy();
             comando.SetEmail("alexandre@techdog");
 
             return comando;
             
         }
 
-        public static CadastrarMoradorCommand CriarComandoCadastroDeMoradorSemDataDeNascimento()
+        public static CadastrarUsuarioCommand CriarComandoCadastroDeUsuarioSemDataDeNascimento()
         {
             try
             {
-                return new CadastrarMoradorCommand
-                 (Guid.NewGuid(), "Nome", "Sobrenome", "alexandre@techdog.com.br", Guid.NewGuid(), "Nome condominio",
-                 Guid.NewGuid(), "101", "1", "Bloco A", "foto2.jpg", "fotoOriginal.jpg", "874541213", "689.560.890-78",
-                 "(21) 99988-5241", "(21) 99988-5241", true, true, "logradouro", "lt 30", "S/N", "", "Bairro", "Rio de Janeiro",
-                 "RJ");
+                return new CadastrarUsuarioCommand
+                 (Guid.NewGuid(), "Nome", "Sobrenome", "alexandre@techdog.com.br", "foto2.jpg",
+                 "fotoOriginal.jpg", "874541213", "689.560.890-78",TipoDeUsuario.MORADOR,
+                 "(21) 99988-5241", "(21) 99988-5241", "logradouro", "lt 30", "S/N", "", "Bairro",
+                 "Rio de Janeiro", "RJ");
             }
             catch (Exception)
             {
@@ -69,9 +70,9 @@ namespace CondominioApp.Usuarios.App.Tests
           
         }
 
-        public static CadastrarMoradorCommand CriarComandoCadastroDeMoradorCPFInvalido()
+        public static CadastrarUsuarioCommand CriarComandoCadastroDeUsuarioCPFInvalido()
         {
-            var comando = CadastrarMoradorCommandFactoy();
+            var comando = CadastrarUsuarioCommandFactoy();
             comando.SetCpf("689.560.890-77");
 
             return comando;

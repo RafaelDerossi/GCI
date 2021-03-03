@@ -24,6 +24,8 @@ namespace CondominioApp.Principal.Domain.Interfaces
 
         Task<UnidadeFlat> ObterUnidadePorId(Guid Id);
 
+        Task<UnidadeFlat> ObterUnidadePorCodigo(string codigo);
+
         Task<IEnumerable<UnidadeFlat>> ObterUnidadesPorGrupo(Guid grupoId);
 
         Task<IEnumerable<UnidadeFlat>> ObterUnidadesPorCondominio(Guid condominioId);

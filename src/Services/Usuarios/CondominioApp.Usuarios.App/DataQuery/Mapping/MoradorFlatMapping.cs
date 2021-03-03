@@ -27,29 +27,25 @@ namespace CondominioApp.Usuarios.App.DataQuery.Mapping
                     .HasColumnName("Email")
                     .HasColumnType($"varchar({Email.EmailMaximo})");
             
-            builder.Property(u => u.Cpf)
-                    .IsRequired()
+            builder.Property(u => u.Cpf)                    
                     .HasMaxLength(Cpf.Maxlength)
                     .HasColumnName("Cpf")
                     .HasColumnType($"varchar({Cpf.Maxlength})");
 
 
-            builder.Property(u => u.Telefone)
-                    .IsRequired()
+            builder.Property(u => u.Telefone)                    
                     .HasMaxLength(Telefone.NumeroMaximo)
                     .HasColumnName("Telefone")
                     .HasColumnType($"varchar({Telefone.NumeroMaximo})");
            
 
-            builder.Property(u => u.Cel)
-                    .IsRequired()
+            builder.Property(u => u.Cel)                    
                     .HasMaxLength(Telefone.NumeroMaximo)
                     .HasColumnName("Celular")
                     .HasColumnType($"varchar({Telefone.NumeroMaximo})");
            
 
-            builder.Property(u => u.Foto)
-                    .IsRequired()
+            builder.Property(u => u.Foto)                    
                     .HasMaxLength(Foto.NomeFotoMaximo)
                     .HasColumnName("Foto")
                     .HasColumnType($"varchar({Foto.NomeFotoMaximo})");

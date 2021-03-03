@@ -4,14 +4,16 @@ using CondominioApp.Usuarios.App.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CondominioApp.Usuarios.App.Migrations.UsuarioQueryContextDBMigrations
 {
     [DbContext(typeof(UsuarioQueryContextDB))]
-    partial class UsuarioQueryContextDBModelSnapshot : ModelSnapshot
+    [Migration("20210303210757_AjusteNoMoradorFlat")]
+    partial class AjusteNoMoradorFlat
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,6 +41,7 @@ namespace CondominioApp.Usuarios.App.Migrations.UsuarioQueryContextDBMigrations
                         .HasMaxLength(200);
 
                     b.Property<string>("Cel")
+                        .IsRequired()
                         .HasColumnName("Celular")
                         .HasColumnType("varchar(15)")
                         .HasMaxLength(15);
@@ -62,6 +65,7 @@ namespace CondominioApp.Usuarios.App.Migrations.UsuarioQueryContextDBMigrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Cpf")
+                        .IsRequired()
                         .HasColumnName("Cpf")
                         .HasColumnType("varchar(14)")
                         .HasMaxLength(14);
@@ -87,6 +91,7 @@ namespace CondominioApp.Usuarios.App.Migrations.UsuarioQueryContextDBMigrations
                         .HasMaxLength(100);
 
                     b.Property<string>("Foto")
+                        .IsRequired()
                         .HasColumnName("Foto")
                         .HasColumnType("varchar(200)")
                         .HasMaxLength(200);
@@ -129,6 +134,7 @@ namespace CondominioApp.Usuarios.App.Migrations.UsuarioQueryContextDBMigrations
                         .HasColumnType("varchar(200)");
 
                     b.Property<string>("Telefone")
+                        .IsRequired()
                         .HasColumnName("Telefone")
                         .HasColumnType("varchar(15)")
                         .HasMaxLength(15);

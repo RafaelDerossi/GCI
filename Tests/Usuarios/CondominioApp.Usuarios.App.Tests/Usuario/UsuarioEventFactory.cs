@@ -8,11 +8,9 @@ namespace CondominioApp.Usuarios.App.Tests
     {
         public static MoradorCadastradoEvent MoradorCadastradoEventFactory()
         {
-            return new MoradorCadastradoEvent(Guid.NewGuid(), Guid.NewGuid(), "Nome", "Sobrenome", new Email("alexandre@techdog.com.br"),
-                Guid.NewGuid(), "Nome condominio", Guid.NewGuid(),"101", "1", "Bloco A", new Foto("foto2.jpg", "foto2.jpg"),
-                "874541213", new Cpf("689.560.890-78"), new Telefone("(21) 99988-5241"), new Telefone("(21) 99988-5241"),
-                true, true, new Endereco("Logradouro", "Complemento", "numero", "", "Bairro", "Cidade", "RJ"),
-                new DateTime(1985, 05, 10));
+            return new MoradorCadastradoEvent
+                (Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(), "Nome condominio", Guid.NewGuid(), "101", "1", "Bloco A",
+                 true, true);
         }
 
         public static MoradorCadastradoEvent CriarEventoCadastroDeMorador()
@@ -40,13 +38,6 @@ namespace CondominioApp.Usuarios.App.Tests
             comando.SetEmail(new Email(""));
             return comando;
         }
-
-        public static MoradorCadastradoEvent CriarEventoCadastroDeMoradorSemDataDeNascimento()
-        {
-            return new MoradorCadastradoEvent(Guid.NewGuid(), Guid.NewGuid(), "Nome", "Sobrenome", new Email("alexandre@techdog.com.br"),
-                Guid.NewGuid(), "Nome condominio", Guid.NewGuid(), "101", "1", "Bloco A", new Foto("foto2.jpg", "foto2.jpg"),
-                "874541213", new Cpf("689.560.890-78"), new Telefone("(21) 99988-5241"), new Telefone("(21) 99988-5241"),
-                true, true, new Endereco("Logradouro", "Complemento", "numero", "", "Bairro", "Cidade", "RJ"));
-        }
+        
     }
 }

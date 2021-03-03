@@ -8,16 +8,19 @@ namespace CondominioApp.Usuarios.App.Models
 {
     public interface IUsuarioRepository : IRepository<Usuario>
     {
+        #region Usuario
+        void Excluir(Usuario entity);
+        #endregion
 
         #region Morador
-        Task<IEnumerable<Morador>> ObterMoradorPorUsuarioIdEUnidadeId(Guid usuarioId, Guid unidadeId);
+        Task<Morador> ObterMoradorPorUsuarioIdEUnidadeId(Guid usuarioId, Guid unidadeId);
         void AdicionarMorador(Morador morador);
 
         #endregion
 
 
         #region Funcionario
-        Task<IEnumerable<Funcionario>> ObterFuncionarioPorUsuarioIdECondominioId(Guid usuarioId, Guid condominioId);
+        Task<Funcionario> ObterFuncionarioPorUsuarioIdECondominioId(Guid usuarioId, Guid condominioId);
         void AdicionarFuncionario(Funcionario funcionario);
         #endregion
 
@@ -50,12 +53,6 @@ namespace CondominioApp.Usuarios.App.Models
         void RemoverVeiculoCondominio(VeiculoCondominio unidade);
 
         #endregion
-
-
-
-
-
-
 
     }
 }

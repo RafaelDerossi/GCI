@@ -20,6 +20,11 @@ namespace CondominioApp.Identidade.Api.Configuration
         {
             services.AddScoped<IMediatorHandler, MediatorHandler>();
 
+            #region Usuario
+            services.AddScoped<IRequestHandler<CadastrarUsuarioCommand, ValidationResult>, UsuarioCommandHandler>();
+            services.AddScoped<IRequestHandler<ExcluirUsuarioCommand, ValidationResult>, UsuarioCommandHandler>();
+            #endregion
+
             #region Morador
             services.AddScoped<IRequestHandler<CadastrarMoradorCommand, ValidationResult>, UsuarioCommandHandler>();
             services.AddScoped<INotificationHandler<MoradorCadastradoEvent>, UsuarioEventHandler>();

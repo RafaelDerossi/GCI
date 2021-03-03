@@ -129,6 +129,13 @@ namespace CondominioApp.Principal.Infra.Data.Repository
                 .FirstOrDefaultAsync(u => u.Id == Id && !u.Lixeira);
         }
 
+        public async Task<UnidadeFlat> ObterUnidadePorCodigo(string codigo)
+        {
+            return await _queryContext.UnidadesFlat
+                .AsNoTracking()
+                .FirstOrDefaultAsync(u => u.Codigo == codigo && !u.Lixeira);
+        }
+
         public async Task<IEnumerable<UnidadeFlat>> ObterUnidadesPorGrupo(Guid grupoId)
         {
             return await _queryContext.UnidadesFlat

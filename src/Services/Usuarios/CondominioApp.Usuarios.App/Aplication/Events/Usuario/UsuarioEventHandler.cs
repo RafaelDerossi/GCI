@@ -12,11 +12,13 @@ namespace CondominioApp.Usuarios.App.Aplication.Events
         INotificationHandler<FuncionarioCadastradoEvent>,
         System.IDisposable
     {
+        private IUsuarioRepository _usuarioRepository;
         private IMoradorQueryRepository _moradorQueryRepository;
         private IFuncionarioQueryRepository _funcionarioQueryRepository;
 
-        public UsuarioEventHandler(IMoradorQueryRepository moradorQueryRepository, IFuncionarioQueryRepository funcionarioQueryRepository)
+        public UsuarioEventHandler(IUsuarioRepository usuarioRepository, IMoradorQueryRepository moradorQueryRepository, IFuncionarioQueryRepository funcionarioQueryRepository)
         {
+            _usuarioRepository = usuarioRepository;
             _moradorQueryRepository = moradorQueryRepository;
             _funcionarioQueryRepository = funcionarioQueryRepository;
         }
@@ -24,14 +26,16 @@ namespace CondominioApp.Usuarios.App.Aplication.Events
 
         public async Task Handle(MoradorCadastradoEvent notification, CancellationToken cancellationToken)
         {
+            var usuario = await _usuarioRepository.ObterPorId(notification.UsuarioId);
+
             var moradorFlat = new MoradorFlat
                 (notification.Id, notification.UsuarioId, notification.UnidadeId, notification.NumeroUnidade, notification.AndarUnidade,
                 notification.GrupoUnidade, notification.CondominioId, notification.NomeCondominio, notification.Proprietario, 
-                notification.Principal, notification.Nome, notification.Sobrenome, notification.Rg, notification.Cpf.Numero,
-                notification.Cel.Numero, notification.Telefone.Numero, notification.Email.Endereco, notification.Foto.NomeDoArquivo,
-                notification.TpUsuario.ToString(), notification.DataNascimento, notification.Endereco.logradouro, 
-                notification.Endereco.complemento, notification.Endereco.numero, notification.Endereco.cep,
-                notification.Endereco.bairro, notification.Endereco.cidade, notification.Endereco.estado);
+                notification.Principal, usuario.Nome, usuario.Sobrenome, usuario.Rg, usuario.Cpf.Numero,
+                usuario.Cel.Numero, usuario.Telefone.Numero, usuario.Email.Endereco, usuario.Foto.NomeDoArquivo,
+                usuario.TpUsuario.ToString(), usuario.DataNascimento, usuario.Endereco.logradouro,
+                usuario.Endereco.complemento, usuario.Endereco.numero, usuario.Endereco.cep,
+                usuario.Endereco.bairro, usuario.Endereco.cidade, usuario.Endereco.estado);
 
             _moradorQueryRepository.Adicionar(moradorFlat);
 
@@ -40,14 +44,17 @@ namespace CondominioApp.Usuarios.App.Aplication.Events
 
         public async Task Handle(FuncionarioCadastradoEvent notification, CancellationToken cancellationToken)
         {
+            var usuario = await _usuarioRepository.ObterPorId(notification.UsuarioId);
+
             var funcionarioFlat = new FuncionarioFlat
                 (notification.Id, notification.UsuarioId, notification.CondominioId, notification.NomeCondominio,
-                 notification.Nome, notification.Sobrenome, notification.Rg, notification.Cpf.Numero,
-                 notification.Cel.Numero, notification.Telefone.Numero, notification.Email.Endereco,
-                 notification.Foto.NomeDoArquivo, notification.TpUsuario.ToString(), notification.DataNascimento,
-                 notification.Endereco.logradouro, notification.Endereco.complemento, notification.Endereco.numero,
-                 notification.Endereco.cep, notification.Endereco.bairro, notification.Endereco.cidade,
-                 notification.Endereco.estado);
+                 notification.Atribuicao, notification.Funcao, usuario.SindicoProfissional,
+                 notification.Permissao.ToString(), usuario.Nome, usuario.Sobrenome, usuario.Rg, usuario.Cpf.Numero,
+                 usuario.Cel.Numero, usuario.Telefone.Numero, usuario.Email.Endereco,
+                 usuario.Foto.NomeDoArquivo, usuario.TpUsuario.ToString(), usuario.DataNascimento,
+                 usuario.Endereco.logradouro, usuario.Endereco.complemento, usuario.Endereco.numero,
+                 usuario.Endereco.cep, usuario.Endereco.bairro, usuario.Endereco.cidade,
+                 usuario.Endereco.estado);
 
             _funcionarioQueryRepository.Adicionar(funcionarioFlat);
 
