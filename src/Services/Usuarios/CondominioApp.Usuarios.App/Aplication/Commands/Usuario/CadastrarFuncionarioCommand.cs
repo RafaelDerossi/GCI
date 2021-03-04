@@ -18,8 +18,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
             Sobrenome = sobrenome;
             Rg = rg;
             DataNascimento = dataNascimento;
-
-            TpUsuario = TipoDeUsuario.FUNCIONARIO;
+            
             Permissao = permissao;
 
             CondominioId = condominioId;

@@ -13,7 +13,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
             Nome = nome;
             Sobrenome = sobrenome;
 
-            TpUsuario = TipoDeUsuario.LOJISTA;
+            TipoDeUsuario = TipoDeUsuario.LOJISTA;
             Permissao = Permissao.USUARIO;
 
             SetCelular(cel);

@@ -24,9 +24,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
 
         public Email Email { get; protected set; }
 
-        public Foto Foto { get; protected set; }
-
-        public TipoDeUsuario TpUsuario { get; protected set; }
+        public Foto Foto { get; protected set; }       
 
         public Permissao Permissao { get; protected set; }
 
@@ -58,6 +56,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
         public bool SindicoProfissional { get; protected set; }
 
 
+        public TipoDeUsuario TipoDeUsuario { get; protected set; }
 
         public void SetNome(string nome) => Nome = nome;
 

@@ -31,11 +31,10 @@ namespace CondominioApp.Usuarios.App.Aplication.Events
             var moradorFlat = new MoradorFlat
                 (notification.Id, notification.UsuarioId, notification.UnidadeId, notification.NumeroUnidade, notification.AndarUnidade,
                 notification.GrupoUnidade, notification.CondominioId, notification.NomeCondominio, notification.Proprietario, 
-                notification.Principal, usuario.Nome, usuario.Sobrenome, usuario.Rg, usuario.Cpf.Numero,
-                usuario.Cel.Numero, usuario.Telefone.Numero, usuario.Email.Endereco, usuario.Foto.NomeDoArquivo,
-                usuario.TpUsuario.ToString(), usuario.DataNascimento, usuario.Endereco.logradouro,
-                usuario.Endereco.complemento, usuario.Endereco.numero, usuario.Endereco.cep,
-                usuario.Endereco.bairro, usuario.Endereco.cidade, usuario.Endereco.estado);
+                notification.Principal, usuario.Nome, usuario.Sobrenome, usuario.Rg, usuario.ObterCPF(),
+                usuario.ObterCelular(), usuario.ObterTelefone(), usuario.ObterEmail(), usuario.ObterFoto(),
+                usuario.DataNascimento, usuario.ObterLogradouro(), usuario.ObterComplemento(), usuario.ObterNumero(),
+                usuario.ObterCep(), usuario.ObterBairro(), usuario.ObterCidade(), usuario.ObterEstado());
 
             _moradorQueryRepository.Adicionar(moradorFlat);
 
@@ -45,16 +44,14 @@ namespace CondominioApp.Usuarios.App.Aplication.Events
         public async Task Handle(FuncionarioCadastradoEvent notification, CancellationToken cancellationToken)
         {
             var usuario = await _usuarioRepository.ObterPorId(notification.UsuarioId);
-
+            
             var funcionarioFlat = new FuncionarioFlat
                 (notification.Id, notification.UsuarioId, notification.CondominioId, notification.NomeCondominio,
                  notification.Atribuicao, notification.Funcao, usuario.SindicoProfissional,
-                 notification.Permissao.ToString(), usuario.Nome, usuario.Sobrenome, usuario.Rg, usuario.Cpf.Numero,
-                 usuario.Cel.Numero, usuario.Telefone.Numero, usuario.Email.Endereco,
-                 usuario.Foto.NomeDoArquivo, usuario.TpUsuario.ToString(), usuario.DataNascimento,
-                 usuario.Endereco.logradouro, usuario.Endereco.complemento, usuario.Endereco.numero,
-                 usuario.Endereco.cep, usuario.Endereco.bairro, usuario.Endereco.cidade,
-                 usuario.Endereco.estado);
+                 notification.Permissao.ToString(), usuario.Nome, usuario.Sobrenome, usuario.Rg, usuario.ObterCPF(),
+                 usuario.ObterCelular(), usuario.ObterTelefone(), usuario.ObterEmail(), usuario.ObterFoto(), usuario.DataNascimento,
+                 usuario.ObterLogradouro(), usuario.ObterComplemento(), usuario.ObterNumero(), usuario.ObterCep(),
+                 usuario.ObterBairro(), usuario.ObterCidade(), usuario.ObterEstado());
 
             _funcionarioQueryRepository.Adicionar(funcionarioFlat);
 

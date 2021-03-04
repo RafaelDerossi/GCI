@@ -125,8 +125,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
             Morador.SetCpf(request.Cpf);
             Morador.SetCelular(request.Cel);
             Morador.SetEmail(request.Email);
-            Morador.SetFoto(request.Foto);
-            Morador.SetTipoDeUsuario(request.TpUsuario);            
+            Morador.SetFoto(request.Foto);            
             Morador.SetDataNascimento(request.DataNascimento);
 
             _usuarioRepository.Atualizar(Morador);
@@ -171,8 +170,8 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
         {
             var usuario = new Usuario
                 (request.Nome, request.Sobrenome, request.Rg, request.Cel, request.Email, request.Foto, 
-                request.TpUsuario, request.DataNascimento, request.Cpf, request.Telefone, request.Endereco,
-                request.SindicoProfissional);
+                 request.DataNascimento, request.Cpf, request.Telefone, request.Endereco,
+                 request.SindicoProfissional);
 
             return usuario;
         }

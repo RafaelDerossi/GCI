@@ -30,9 +30,7 @@ namespace CondominioApp.Usuarios.App.Models
         public DateTime? DataNascimento { get; private set; }
 
         public Endereco Endereco { get; set; }
-
-
-        public TipoDeUsuario TpUsuario { get; private set; }
+       
 
         public bool Ativo { get; private set; }
 
@@ -49,7 +47,7 @@ namespace CondominioApp.Usuarios.App.Models
         protected Usuario() { }
 
         public Usuario(string nome, string sobrenome, string rg, Telefone cel, Email email, 
-            Foto foto, TipoDeUsuario tpUsuario, DateTime? dataNascimento = null,
+            Foto foto, DateTime? dataNascimento = null,
             Cpf cpf = null, Telefone telefone = null, Endereco endereco = null,
             bool sindicoProfissional = false)
         {
@@ -61,8 +59,7 @@ namespace CondominioApp.Usuarios.App.Models
             Cel = cel;
             Telefone = telefone;
             Email = email;
-            Foto = foto;
-            TpUsuario = tpUsuario;           
+            Foto = foto;            
             DataNascimento = dataNascimento;
             Endereco = endereco;
             SindicoProfissional = sindicoProfissional;
@@ -102,8 +99,7 @@ namespace CondominioApp.Usuarios.App.Models
         public void SetEmail(Email email) => Email = email;
 
         public void SetFoto(Foto foto) => Foto = foto;
-
-        public void SetTipoDeUsuario(TipoDeUsuario tipoDeUsuario) => TpUsuario = tipoDeUsuario;
+               
 
        
 
@@ -119,6 +115,90 @@ namespace CondominioApp.Usuarios.App.Models
         public List<string> ObterDispositivosIds()
         {
             return _Mobiles.Select(m => m.DeviceKey).ToList();
+        }
+
+        public string ObterCPF()
+        {
+            if (Cpf == null)
+                return "";
+            return Cpf.Numero;
+        }
+
+        public string ObterCelular()
+        {
+            if (Cel == null)
+                return "";
+            return Cel.Numero;
+        }
+
+        public string ObterTelefone()
+        {
+            if (Telefone == null)
+                return "";
+            return Telefone.Numero;
+        }
+
+        public string ObterEmail()
+        {
+            if (Email == null)
+                return "";
+            return Email.Endereco;
+        }
+
+        public string ObterFoto()
+        {
+            if (Foto == null)
+                return "";
+            return Foto.NomeDoArquivo;
+        }
+
+        public string ObterLogradouro()
+        {
+            if (Endereco == null)
+                return "";
+            return Endereco.logradouro;
+        }
+
+        public string ObterComplemento()
+        {
+            if (Endereco == null)
+                return "";
+            return Endereco.complemento;
+        }
+
+        public string ObterNumero()
+        {
+            if (Endereco == null)
+                return "";
+            return Endereco.numero;
+        }
+
+        public string ObterCep()
+        {
+            if (Endereco == null)
+                return "";
+            return Endereco.cep;
+        }
+
+        public string ObterBairro()
+        {
+            if (Endereco == null)
+                return "";
+            return Endereco.bairro;
+        }
+
+        public string ObterCidade()
+        {
+            if (Endereco == null)
+                return "";
+            return Endereco.cidade;
+        }
+
+        public string ObterEstado()
+        {
+            if (Endereco == null)
+                return "";
+            return Endereco.estado;
         }
     }
 }

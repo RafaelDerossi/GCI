@@ -35,9 +35,7 @@ namespace CondominioApp.Usuarios.App.FlatModel
 
         public string Email { get; private set; }
 
-        public string Foto { get; private set; }
-
-        public string TpUsuario { get; private set; }     
+        public string Foto { get; private set; }        
 
         public bool Ativo { get; private set; }
 
@@ -74,7 +72,7 @@ namespace CondominioApp.Usuarios.App.FlatModel
         public FuncionarioFlat
             (Guid id, Guid usuarioId, Guid condominioId, string nomeCondominio, string atribuicao, string funcao,
             bool sindicoProfissional, string permissao, string nome, string sobrenome, string rg, 
-             string cpf, string cel, string telefone, string email, string foto, string tpUsuario, DateTime? dataNascimento,
+             string cpf, string cel, string telefone, string email, string foto, DateTime? dataNascimento,
              string logradouro, string complemento, string numero, string cep, string bairro, string cidade, string estado)
         {
             Id = id;            
@@ -88,8 +86,7 @@ namespace CondominioApp.Usuarios.App.FlatModel
             Cel = cel;
             Telefone = telefone;
             Email = email;
-            Foto = foto;
-            TpUsuario = tpUsuario;
+            Foto = foto;            
             Ativo = true;
             DataNascimento = dataNascimento;
             Logradouro = logradouro;

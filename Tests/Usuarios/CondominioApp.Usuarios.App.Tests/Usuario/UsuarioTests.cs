@@ -9,24 +9,22 @@ namespace CondominioApp.Usuarios.App.Tests
 {
     public class UsuarioTests
     {
-        [Fact(DisplayName = "Criar um Morador")]
-        public void Criar_Morador_Valido()
+        [Fact(DisplayName = "Criar um Usuario")]
+        public void Criar_Usuario_Valido()
         {
             //Act
             var usuario = new Usuario("Nome", "sobrenome", "52145256", new Telefone("(21) 99796-7038"),
-                new Email("alexandre@techdog.com.br"), new Foto("Foto.jpg", "Foto.jpg"), 
-                TipoDeUsuario.MORADOR);
+                new Email("alexandre@techdog.com.br"), new Foto("Foto.jpg", "Foto.jpg"));
 
         }
 
 
-        [Fact(DisplayName = "Criar um Morador Sem foto")]
-        public void Criar_Morador_Valido_SemFoto()
+        [Fact(DisplayName = "Criar um usuario Sem foto")]
+        public void Criar_Usuario_Valido_SemFoto()
         {
             //Act
             var usuario = new Usuario("Nome", "sobrenome", "52145256", new Telefone("(21) 99796-7038"),
-               new Email("alexandre@techdog.com.br"), new Foto("", ""),
-               TipoDeUsuario.MORADOR);
+               new Email("alexandre@techdog.com.br"), new Foto("", ""));
         }
 
     }

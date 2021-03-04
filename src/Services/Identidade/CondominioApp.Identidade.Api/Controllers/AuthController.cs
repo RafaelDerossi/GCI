@@ -101,86 +101,92 @@ namespace CondominioApp.Identidade.Api.Controllers
 
         
         [HttpPost("nova-conta")]
-        public async Task<ActionResult> Registrar(UsuarioRegistroViewModel usuarioRegistroVM)
+        public async Task<ActionResult> NovaConta(UsuarioRegistroViewModel usuarioRegistroVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
-
 
             var user = await _userManager.FindByEmailAsync(usuarioRegistroVM.Email);
             if (user != null)
             {
-                AdicionarErroProcessamento("E-mail já cadastrado.");
+                await VerificaSeClaimEstaCadastrado(user, usuarioRegistroVM.TpUsuario);
+                if (!OperacaoValida())
+                    return CustomResponse();                
+                
+                await AddClaimAsync(user, usuarioRegistroVM.TpUsuario);
+
+                await EnviarEmailDeConfirmacaoDeCadastro(user, usuarioRegistroVM.Nome);
+
                 return CustomResponse();
             }
-
-
-            user = IdentityUserFactory(usuarioRegistroVM.Email);
-            var result = await _userManager.CreateAsync(user, usuarioRegistroVM.Senha);
-            if (result.Succeeded)
-                return await RegistrarUsuario(usuarioRegistroVM, user);
-
-
-            foreach (var error in result.Errors)
-            {
-                AdicionarErroProcessamento(error.Description);
-            }
-
-            return CustomResponse();
+            
+            return await RegistrarUsuario(usuarioRegistroVM);           
         }       
 
         [HttpPost("nova-conta-morador")]
-        public async Task<ActionResult> RegistrarMorador(MoradorRegistroViewModel moradorVM)
+        public async Task<ActionResult> NovaContaMorador(MoradorRegistroViewModel moradorVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
-
             
             var user = await _userManager.FindByEmailAsync(moradorVM.Email);
             if (user != null)
             {
-                AdicionarErroProcessamento("E-mail já cadastrado.");
-                return CustomResponse();
+                await VerificaSeClaimEstaCadastrado(user, TipoDeUsuario.MORADOR);
+                if (!OperacaoValida())
+                    return CustomResponse();
+                
+                return await RegistrarMorador(moradorVM, user);
             }            
 
             user = IdentityUserFactory(moradorVM.Email);
             var result = await _userManager.CreateAsync(user, moradorVM.Senha);
-            if (result.Succeeded)
-                return await RegistrarUsuario(moradorVM, user);
-
-
-            foreach (var error in result.Errors)
+            if (!result.Succeeded)
             {
-                AdicionarErroProcessamento(error.Description);
+                foreach (var error in result.Errors)
+                    AdicionarErroProcessamento(error.Description);
+
+                return CustomResponse();
             }
 
-            return CustomResponse();
+            await CadastrarUsuario(moradorVM, user);
+            if (!OperacaoValida())
+                return CustomResponse();            
+
+            return await RegistrarMorador(moradorVM, user);
+            
         }
 
         [HttpPost("nova-conta-funcionario")]
-        public async Task<ActionResult> RegistrarFuncionario(FuncionarioRegistroViewModel funcionarioVM)
+        public async Task<ActionResult> NovaContaFuncionario(FuncionarioRegistroViewModel funcionarioVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
-
 
             var user = await _userManager.FindByEmailAsync(funcionarioVM.Email);
             if (user != null)
             {
-                AdicionarErroProcessamento("E-mail já cadastrado.");
-                return CustomResponse();
+                await VerificaSeClaimEstaCadastrado(user, TipoDeUsuario.FUNCIONARIO);
+                if (!OperacaoValida())
+                    return CustomResponse();                
+
+                return await RegistrarFuncionario(funcionarioVM, user);
             }           
 
             user = IdentityUserFactory(funcionarioVM.Email);
             var result = await _userManager.CreateAsync(user, funcionarioVM.Senha);
-            if (result.Succeeded)
-                return await RegistrarUsuario(funcionarioVM, user);
-
-
-            foreach (var error in result.Errors)
+            if (!result.Succeeded)
             {
-                AdicionarErroProcessamento(error.Description);
+                foreach (var error in result.Errors)
+                    AdicionarErroProcessamento(error.Description);
+
+                return CustomResponse();
             }
 
-            return CustomResponse();
-        }        
+            await CadastrarUsuario(funcionarioVM, user);
+            if (!OperacaoValida())
+                return CustomResponse();
+
+            return await RegistrarFuncionario(funcionarioVM, user);
+           
+        }   
 
         
 
@@ -302,6 +308,14 @@ namespace CondominioApp.Identidade.Api.Controllers
 
 
         #region MétodosAuxiliares
+        private async Task VerificaSeClaimEstaCadastrado(IdentityUser user, TipoDeUsuario tipoDeUsuario)
+        {
+            var claims = await _userManager.GetClaimsAsync(user);
+            if (claims.Any(c => c.Type == "TipoUsuario" && c.Value == tipoDeUsuario.ToString()))
+            {
+                AdicionarErroProcessamento("E-mail já cadastrado.");                
+            }            
+        }
 
         private IdentityUser IdentityUserFactory(string email)
         {
@@ -313,37 +327,33 @@ namespace CondominioApp.Identidade.Api.Controllers
                 EmailConfirmed = true
             };
         }
-               
-        private async Task<ActionResult> RegistrarUsuario(UsuarioRegistroViewModel usuarioVM, IdentityUser user)
+
+        private async Task<ActionResult> RegistrarUsuario(UsuarioRegistroViewModel usuarioRegistroVM)
         {
-            await CadastrarUsuario(usuarioVM, user);
-            if (!OperacaoValida())
+            var user = IdentityUserFactory(usuarioRegistroVM.Email);
+            var result = await _userManager.CreateAsync(user, usuarioRegistroVM.Senha);
+            if (!result.Succeeded)
             {
-                await _userManager.DeleteAsync(user);
+                foreach (var error in result.Errors)
+                    AdicionarErroProcessamento(error.Description);
+
                 return CustomResponse();
             }
-                
 
-            await AddClaimAsync(user, usuarioVM.TpUsuario);
+            await CadastrarUsuario(usuarioRegistroVM, user);
+            if (!OperacaoValida())
+                return CustomResponse();
 
-            await EnviarEmailDeConfirmacaoDeCadastro(user, usuarioVM.Nome);
+
+            await AddClaimAsync(user, usuarioRegistroVM.TpUsuario);
+
+            await EnviarEmailDeConfirmacaoDeCadastro(user, usuarioRegistroVM.Nome);
 
             return CustomResponse();
 
-        }      
-        private async Task<ActionResult> RegistrarUsuario(MoradorRegistroViewModel moradorVM, IdentityUser user)
+        }
+        private async Task<ActionResult> RegistrarMorador(MoradorRegistroViewModel moradorVM, IdentityUser user)
         {
-            moradorVM.TpUsuario = TipoDeUsuario.MORADOR;
-
-            await CadastrarUsuario(moradorVM, user);
-            if (!OperacaoValida())
-            {
-                await _userManager.DeleteAsync(user);
-                return CustomResponse();
-            }
-                
-                
-
             await CadastrarMorador(moradorVM, user);
             if (!OperacaoValida())
             {
@@ -352,8 +362,6 @@ namespace CondominioApp.Identidade.Api.Controllers
                 await _userManager.DeleteAsync(user);
                 return CustomResponse();
             }
-                
-
 
             await AddClaimAsync(user, TipoDeUsuario.MORADOR);
 
@@ -362,18 +370,8 @@ namespace CondominioApp.Identidade.Api.Controllers
             return CustomResponse();
 
         }
-        private async Task<ActionResult> RegistrarUsuario(FuncionarioRegistroViewModel funcionarioVM, IdentityUser user)
+        private async Task<ActionResult> RegistrarFuncionario(FuncionarioRegistroViewModel funcionarioVM, IdentityUser user)
         {
-            funcionarioVM.TpUsuario = TipoDeUsuario.FUNCIONARIO;
-
-            await CadastrarUsuario(funcionarioVM, user);
-            if (!OperacaoValida())
-            {
-                await _userManager.DeleteAsync(user);
-                return CustomResponse();
-            }                
-
-
             await CadastrarFuncionario(funcionarioVM, user);
             if (!OperacaoValida())
             {
@@ -402,7 +400,8 @@ namespace CondominioApp.Identidade.Api.Controllers
                 foreach (var item in resultado.Errors)
                 {
                     AdicionarErroProcessamento(item.ErrorMessage);
-                }               
+                }
+                await _userManager.DeleteAsync(user);
             }
         }
 
@@ -483,7 +482,7 @@ namespace CondominioApp.Identidade.Api.Controllers
             return new CadastrarUsuarioCommand
                 (userId, usuarioRegistro.Nome, usuarioRegistro.Sobrenome, usuarioRegistro.Email,
                  usuarioRegistro.Foto, usuarioRegistro.NomeOriginal, usuarioRegistro.Rg, usuarioRegistro.Cpf,
-                 usuarioRegistro.TpUsuario, usuarioRegistro.Telefone, usuarioRegistro.Celular, 
+                 usuarioRegistro.Telefone, usuarioRegistro.Celular, 
                  usuarioRegistro.Logradouro, usuarioRegistro.Complemento, usuarioRegistro.Numero,
                  usuarioRegistro.Cep, usuarioRegistro.Bairro, usuarioRegistro.Cidade, usuarioRegistro.Estado,
                  usuarioRegistro.DataNascimento);

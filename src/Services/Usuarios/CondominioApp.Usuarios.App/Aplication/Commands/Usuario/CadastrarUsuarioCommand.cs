@@ -7,7 +7,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
     public class CadastrarUsuarioCommand : UsuarioCommand
     {
         public CadastrarUsuarioCommand(Guid usuarioId, string nome, string sobrenome, string email,           
-            string foto, string nomeOriginal, string rg, string cpf, TipoDeUsuario tipoDeUsuario, string tel = null,
+            string foto, string nomeOriginal, string rg, string cpf, string tel = null,
             string cel = null, string logradouro = null, string complemento = null, string numeroEndereco = null,
             string cep = null, string bairro = null, string cidade = null, string estado = null,
             DateTime? dataNascimento = null)
@@ -16,9 +16,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
             Nome = nome;
             Sobrenome = sobrenome;
             Rg = rg;
-            DataNascimento = dataNascimento;
-
-            TpUsuario = tipoDeUsuario;            
+            DataNascimento = dataNascimento;                
 
             SetCpf(cpf);
             SetCelular(cel);

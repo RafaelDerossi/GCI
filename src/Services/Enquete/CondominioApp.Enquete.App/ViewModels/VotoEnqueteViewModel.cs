@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CondominioApp.Core.Enumeradores;
+using System;
 
 namespace CondominioApp.Enquetes.App.ViewModels
 {
@@ -9,5 +10,7 @@ namespace CondominioApp.Enquetes.App.ViewModels
         public Guid UsuarioId { get; set; }        
 
         public Guid AlternativaId { get; set; }
+
+        public TipoDeUsuario TipoDeUsuario { get; set; }
     }
 }

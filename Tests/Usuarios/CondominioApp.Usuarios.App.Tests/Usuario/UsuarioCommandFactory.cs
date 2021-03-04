@@ -10,7 +10,7 @@ namespace CondominioApp.Usuarios.App.Tests
         {
             return new CadastrarUsuarioCommand
                 (Guid.NewGuid(), "Nome", "Sobrenome", "alexandre@techdog.com.br", "foto2.jpg", "fotoOriginal.jpg",
-                 "874541213", "689.560.890-78", TipoDeUsuario.MORADOR, "(21) 99988-5241",
+                 "874541213", "689.560.890-78", "(21) 99988-5241",
                  "(21) 99988-5241", "logradouro", "lt 30","S/N","","Bairro","Rio de Janeiro",
                  "RJ", new DateTime(1985, 05, 10));
         }
@@ -59,8 +59,7 @@ namespace CondominioApp.Usuarios.App.Tests
             {
                 return new CadastrarUsuarioCommand
                  (Guid.NewGuid(), "Nome", "Sobrenome", "alexandre@techdog.com.br", "foto2.jpg",
-                 "fotoOriginal.jpg", "874541213", "689.560.890-78",TipoDeUsuario.MORADOR,
-                 "(21) 99988-5241", "(21) 99988-5241", "logradouro", "lt 30", "S/N", "", "Bairro",
+                 "fotoOriginal.jpg", "874541213", "689.560.890-78", "(21) 99988-5241", "(21) 99988-5241", "logradouro", "lt 30", "S/N", "", "Bairro",
                  "Rio de Janeiro", "RJ");
             }
             catch (Exception)

@@ -16,8 +16,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
             Sobrenome = sobrenome;
             Rg = rg;
             DataNascimento = dataNascimento;
-
-            TpUsuario = TipoDeUsuario.MORADOR;
+            
             Permissao = Permissao.USUARIO;
 
             SetCpf(cpf);
