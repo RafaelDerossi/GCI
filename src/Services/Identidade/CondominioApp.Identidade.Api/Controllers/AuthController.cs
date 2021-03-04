@@ -118,8 +118,16 @@ namespace CondominioApp.Identidade.Api.Controllers
 
                 return CustomResponse();
             }
-            
-            return await RegistrarUsuario(usuarioRegistroVM);           
+
+            await RegistrarUsuario(usuarioRegistroVM);
+            if (!OperacaoValida())
+                return CustomResponse();
+
+            await AddClaimAsync(user, usuarioRegistroVM.TpUsuario);
+
+            await EnviarEmailDeConfirmacaoDeCadastro(user, usuarioRegistroVM.Nome);
+
+            return CustomResponse();            
         }       
 
         [HttpPost("nova-conta-morador")]
@@ -135,21 +143,11 @@ namespace CondominioApp.Identidade.Api.Controllers
                     return CustomResponse();
                 
                 return await RegistrarMorador(moradorVM, user);
-            }            
-
-            user = IdentityUserFactory(moradorVM.Email);
-            var result = await _userManager.CreateAsync(user, moradorVM.Senha);
-            if (!result.Succeeded)
-            {
-                foreach (var error in result.Errors)
-                    AdicionarErroProcessamento(error.Description);
-
-                return CustomResponse();
             }
 
-            await CadastrarUsuario(moradorVM, user);
+            user = await RegistrarUsuario(moradorVM);
             if (!OperacaoValida())
-                return CustomResponse();            
+                return CustomResponse();          
 
             return await RegistrarMorador(moradorVM, user);
             
@@ -168,19 +166,9 @@ namespace CondominioApp.Identidade.Api.Controllers
                     return CustomResponse();                
 
                 return await RegistrarFuncionario(funcionarioVM, user);
-            }           
-
-            user = IdentityUserFactory(funcionarioVM.Email);
-            var result = await _userManager.CreateAsync(user, funcionarioVM.Senha);
-            if (!result.Succeeded)
-            {
-                foreach (var error in result.Errors)
-                    AdicionarErroProcessamento(error.Description);
-
-                return CustomResponse();
             }
 
-            await CadastrarUsuario(funcionarioVM, user);
+            user = await RegistrarUsuario(funcionarioVM);
             if (!OperacaoValida())
                 return CustomResponse();
 
@@ -238,6 +226,10 @@ namespace CondominioApp.Identidade.Api.Controllers
             return CustomResponse();
         }
       
+
+
+
+
         private async Task<UsuarioRespostaLoginViewModel> GerarJwt(string login)
         {
             var user = await _userManager.FindByNameAsync(login);
@@ -328,7 +320,8 @@ namespace CondominioApp.Identidade.Api.Controllers
             };
         }
 
-        private async Task<ActionResult> RegistrarUsuario(UsuarioRegistroViewModel usuarioRegistroVM)
+
+        private async Task<IdentityUser> RegistrarUsuario(UsuarioRegistro usuarioRegistroVM)
         {
             var user = IdentityUserFactory(usuarioRegistroVM.Email);
             var result = await _userManager.CreateAsync(user, usuarioRegistroVM.Senha);
@@ -337,20 +330,12 @@ namespace CondominioApp.Identidade.Api.Controllers
                 foreach (var error in result.Errors)
                     AdicionarErroProcessamento(error.Description);
 
-                return CustomResponse();
+                return null;
             }
 
             await CadastrarUsuario(usuarioRegistroVM, user);
-            if (!OperacaoValida())
-                return CustomResponse();
 
-
-            await AddClaimAsync(user, usuarioRegistroVM.TpUsuario);
-
-            await EnviarEmailDeConfirmacaoDeCadastro(user, usuarioRegistroVM.Nome);
-
-            return CustomResponse();
-
+            return user;
         }
         private async Task<ActionResult> RegistrarMorador(MoradorRegistroViewModel moradorVM, IdentityUser user)
         {
@@ -398,13 +383,11 @@ namespace CondominioApp.Identidade.Api.Controllers
             if (!resultado.IsValid)
             {
                 foreach (var item in resultado.Errors)
-                {
                     AdicionarErroProcessamento(item.ErrorMessage);
-                }
+
                 await _userManager.DeleteAsync(user);
             }
         }
-
         private async Task CadastrarMorador(MoradorRegistroViewModel moradorVM, IdentityUser user)
         {
             var unidade = await _condominioQuery.ObterUnidadePorCodigo(moradorVM.CodigoDaUnidade);
@@ -427,13 +410,10 @@ namespace CondominioApp.Identidade.Api.Controllers
             if (!result.IsValid)
             {               
                 foreach (var item in result.Errors)
-                {
-                    AdicionarErroProcessamento(item.ErrorMessage);
-                }                
+                    AdicionarErroProcessamento(item.ErrorMessage);                
             }
 
         }
-
         private async Task CadastrarFuncionario(FuncionarioRegistroViewModel funcionarioVM, IdentityUser user)
         {
             var condominio = await _condominioQuery.ObterPorId(funcionarioVM.CondominioId);
@@ -449,9 +429,7 @@ namespace CondominioApp.Identidade.Api.Controllers
             if (!result.IsValid)
             {
                 foreach (var item in result.Errors)
-                {
                     AdicionarErroProcessamento(item.ErrorMessage);
-                }               
             }
         }
         
@@ -487,6 +465,7 @@ namespace CondominioApp.Identidade.Api.Controllers
                  usuarioRegistro.Cep, usuarioRegistro.Bairro, usuarioRegistro.Cidade, usuarioRegistro.Estado,
                  usuarioRegistro.DataNascimento);
         }
+
 
         private async Task AddClaimAsync(IdentityUser user, TipoDeUsuario tipoDeUsuario)
         {
