@@ -44,7 +44,12 @@ namespace CondominioApp.Api.Controllers
                 AdicionarErroProcessamento("Enquete não encontrada.");
                 return CustomResponse();
             }
-            return _mapper.Map<EnqueteViewModel>(enquete);
+
+            var enqueteVM = _mapper.Map<EnqueteViewModel>(enquete);
+
+            enqueteVM.CalcularPorcentagem();
+
+            return enqueteVM;
         }
 
         [HttpGet("por-condominio/{condominioId:Guid}")]
@@ -61,6 +66,7 @@ namespace CondominioApp.Api.Controllers
             foreach (Enquete item in enquetes)
             {
                 var enqueteVM = _mapper.Map<EnqueteViewModel>(item);
+                enqueteVM.CalcularPorcentagem();
                 enquetesVM.Add(enqueteVM);
             }
             return enquetesVM;
@@ -82,6 +88,7 @@ namespace CondominioApp.Api.Controllers
                 if (!enquete.UsuarioJaVotou(usuarioId))
                 {
                     var enqueteVM = _mapper.Map<EnqueteViewModel>(enquete);
+                    enqueteVM.CalcularPorcentagem();
                     enquetesVM.Add(enqueteVM);
                 }               
             }
@@ -104,6 +111,7 @@ namespace CondominioApp.Api.Controllers
             {
                 var enqueteVM = _mapper.Map<EnqueteViewModel>(enquete);
                 enqueteVM.EnqueteVotada = enquete.UsuarioJaVotou(usuarioId);
+                enqueteVM.CalcularPorcentagem();
                 enquetesVM.Add(enqueteVM);
             }
             return enquetesVM;

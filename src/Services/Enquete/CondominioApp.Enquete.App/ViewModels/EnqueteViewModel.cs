@@ -1,7 +1,6 @@
-﻿using CondominioApp.Enquetes.App.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 
 namespace CondominioApp.Enquetes.App.ViewModels
 {
@@ -35,5 +34,17 @@ namespace CondominioApp.Enquetes.App.ViewModels
         public bool EnqueteVotada { get; set; }
 
         public IEnumerable<AlternativaEnqueteViewModel> Alternativas { get; set; }
+
+        public void CalcularPorcentagem()
+        {
+            if (QuantidadeDeVotos == 0)
+                return;
+
+            foreach (var item in Alternativas)
+            {
+               item.Porcentagem = (item.Respostas.Count() * 100) / QuantidadeDeVotos;
+            }
+        }
+                
     }
 }
