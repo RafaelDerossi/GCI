@@ -1,31 +1,28 @@
 ﻿using System;
 using CondominioApp.Core.Enumeradores;
-using CondominioApp.Core.Messages;
-using CondominioApp.Usuarios.App.ValueObjects;
 using CondominioApp.Usuarios.App.Aplication.Commands.Validations;
-using FluentValidation;
 
 namespace CondominioApp.Usuarios.App.Aplication.Commands
 {
     public class CadastrarMoradorCommand : UsuarioCommand
     {
-        public CadastrarMoradorCommand(Guid usuarioId, string nome, string sobrenome, string email,
-            string rg = null, string cpf = null, string cel = null, string foto = null,
-            string nomeOriginal = null, DateTime? dataNascimento = null)
+        public CadastrarMoradorCommand(Guid usuarioId, Guid condominioId, string nomeCondominio,
+            Guid unidadeId, string numeroUnidade, string andarUnidade, string grupoUnidade, 
+            bool proprietario = false, bool principal = false)
         {
-            UsuarioId = usuarioId;
-            Nome = nome;
-            Sobrenome = sobrenome;
-            Rg = rg;
-            DataNascimento = dataNascimento;
+            UsuarioId = usuarioId;            
 
-            TpUsuario = TipoDeUsuario.CLIENTE;
-            Permissao = Permissao.USUARIO;
+            CondominioId = condominioId;
+            NomeCondominio = nomeCondominio;
 
-            SetCpf(cpf);
-            SetCelular(cel);
-            SetEmail(email);
-            SetFoto(foto, nomeOriginal);
+            UnidadeId = unidadeId;
+            NumeroUnidade = numeroUnidade;
+            AndarUnidade = andarUnidade;
+            GrupoUnidade = grupoUnidade;
+            
+            Proprietario = proprietario;
+            Principal = principal;
+
         }
 
         public override bool EstaValido()
@@ -42,9 +39,9 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
         {
             public CadastrarMoradorCommandValidation()
             {
-                ValidateNome();
-                ValidateEmail();
-                ValidateId();                
+                ValidateId();
+                ValidateCondominioId();
+                ValidateUnidadeId();
             }
         }
 

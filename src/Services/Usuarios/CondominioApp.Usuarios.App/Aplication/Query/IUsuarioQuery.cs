@@ -9,7 +9,20 @@ namespace CondominioApp.Usuarios.App.Aplication.Query
 {
     public interface IUsuarioQuery : IDisposable
     {
+        #region Usuario
         Task<Usuario> ObterPorId(Guid Id);
+        #endregion
+
+        #region Morador
+        Task<MoradorFlat> ObterMoradorPorId(Guid id);
+        Task<MoradorFlat> ObterMoradorPorUsuarioId(Guid usuarioId);
+        Task<IEnumerable<MoradorFlat>> ObterMoradoresPorCondominioId(Guid condominioId);
+        Task<IEnumerable<MoradorFlat>> ObterMoradoresPorUnidadeId(Guid unidadeId);
+        #endregion
+
+
+        #region Veiculo
+        Task<VeiculoFlat> ObterVeiculoPorId(Guid id);
 
         Task<VeiculoFlat> ObterVeiculoPorPlacaECondominio(string placa, Guid condominioId);
 
@@ -18,5 +31,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Query
         Task<IEnumerable<VeiculoFlat>> ObterVeiculosPorUsuario(Guid usuarioId);
 
         Task<VeiculoFlat> ObterVeiculoPorPlacaOuModeloECondominio(string pesquisa, Guid condominioId);
+        #endregion
+
     }
 }

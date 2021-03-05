@@ -228,7 +228,7 @@ namespace CondominioApp.Api.Controllers
 
             var comando = new CadastrarRespostaCommand(
                 unidade.Id, unidade.Numero, unidade.GrupoDescricao,
-                usuario.Id, usuario.NomeCompleto, usuario.TpUsuario.ToString(), 
+                usuario.Id, usuario.NomeCompleto, votoEnqueteVM.TipoDeUsuario.ToString(), 
                 votoEnqueteVM.AlternativaId);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);

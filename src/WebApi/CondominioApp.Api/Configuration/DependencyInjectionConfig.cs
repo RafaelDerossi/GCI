@@ -149,13 +149,28 @@ namespace CondominioApp.Api.Configuration
             #endregion
 
             #region Usuario
+            services.AddScoped<IRequestHandler<CadastrarUsuarioCommand, ValidationResult>, UsuarioCommandHandler>();
+            services.AddScoped<IRequestHandler<ExcluirUsuarioCommand, ValidationResult>, UsuarioCommandHandler>();
+            #endregion
+
+            #region Morador
+            services.AddScoped<IRequestHandler<CadastrarMoradorCommand, ValidationResult>, UsuarioCommandHandler>();            
+            services.AddScoped<INotificationHandler<MoradorCadastradoEvent>, UsuarioEventHandler>();            
+            #endregion
+
+            #region Funcionario           
+            services.AddScoped<IRequestHandler<CadastrarFuncionarioCommand, ValidationResult>, UsuarioCommandHandler>();
+            services.AddScoped<INotificationHandler<FuncionarioCadastradoEvent>, UsuarioEventHandler>();            
+            #endregion
+
+            #region Veiculo
             services.AddScoped<IRequestHandler<CadastrarVeiculoCommand, ValidationResult>, VeiculoCommandHandler>();
-            services.AddScoped<IRequestHandler<RemoverVeiculoCommand, ValidationResult>, VeiculoCommandHandler>();
+            services.AddScoped<IRequestHandler<RemoverVeiculoCommand, ValidationResult>, VeiculoCommandHandler>();            
             services.AddScoped<INotificationHandler<VeiculoCadastradoEvent>, VeiculoEventHandler>();
             services.AddScoped<INotificationHandler<UsuarioDoVeiculoNoCondominioEditadoEvent>, VeiculoEventHandler>();
             services.AddScoped<INotificationHandler<VeiculoRemovidoEvent>, VeiculoEventHandler>();
-
             #endregion
+
 
             #region Enquete -Contexto
 
@@ -283,21 +298,26 @@ namespace CondominioApp.Api.Configuration
             #endregion
 
             #region Repositórios
-
             //Repositórios
             services.AddScoped<ICondominioRepository, CondominioRepository>();
-            services.AddScoped<ILeadRepository, LeadRepository>();
-            services.AddScoped<ICondominioQueryRepository, CondominioQueryRepository>();
+            services.AddScoped<ILeadRepository, LeadRepository>();            
             services.AddScoped<IEnqueteRepository, EnqueteRepository>();
             services.AddScoped<ICorrespondenciaRepository, CorrespondenciaRepository>();
             services.AddScoped<IComunidadoRepository, ComunicadoRepository>();
-            services.AddScoped<IReservaAreaComumRepository, ReservaAreaComumRepository>();
-            services.AddScoped<IReservaAreaComumQueryRepository, ReservaAreaComumQueryRepository>();
-            services.AddScoped<IVisitanteRepository, VisitanteRepository>();
-            services.AddScoped<IVisitanteQueryRepository, VisitanteQueryRepository>();
+            services.AddScoped<IReservaAreaComumRepository, ReservaAreaComumRepository>();            
+            services.AddScoped<IVisitanteRepository, VisitanteRepository>();            
             services.AddScoped<ICondominioCredencialRepository, CondominioCredencialRepository>();
-            services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+            services.AddScoped<IUsuarioRepository, UsuarioRepository>();            
+            #endregion
+
+            #region Repositórios Query
+            //Repositórios Query                     
+            services.AddScoped<ICondominioQueryRepository, CondominioQueryRepository>();                        
+            services.AddScoped<IReservaAreaComumQueryRepository, ReservaAreaComumQueryRepository>();            
+            services.AddScoped<IVisitanteQueryRepository, VisitanteQueryRepository>();            
             services.AddScoped<IVeiculoQueryRepository, VeiculoQueryRepository>();
+            services.AddScoped<IMoradorQueryRepository, MoradorQueryRepository>();
+            services.AddScoped<IFuncionarioQueryRepository, FuncionarioQueryRepository>();
             #endregion
 
         }

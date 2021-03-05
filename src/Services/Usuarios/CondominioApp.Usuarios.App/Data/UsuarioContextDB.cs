@@ -23,6 +23,12 @@ namespace CondominioApp.Usuarios.App.Data
 
         public DbSet<VeiculoCondominio> VeiculosCondominios { get; set; }
 
+        public DbSet<Mobile> Mobiles { get; set; }
+
+        public DbSet<Morador> Moradores { get; set; }
+
+        public DbSet<Funcionario> Funcionarios { get; set; }
+
         public UsuarioContextDB(DbContextOptions<UsuarioContextDB> options, IMediatorHandler mediatorHandler)
             : base(options)
         {
@@ -35,6 +41,8 @@ namespace CondominioApp.Usuarios.App.Data
             modelBuilder.Ignore<Event>();
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(UsuarioContextDB).Assembly);
 
+            modelBuilder.Ignore<MoradorFlat>();
+            modelBuilder.Ignore<FuncionarioFlat>();
             modelBuilder.Ignore<VeiculoFlat>();
         }
 

@@ -19,6 +19,41 @@ namespace CondominioApp.Usuarios.App.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("CondominioApp.Usuarios.App.Models.Funcionario", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Atribuicao")
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<Guid>("CondominioId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("DataDeAlteracao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DataDeCadastro")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Funcao")
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<bool>("Lixeira")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Permissao")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("UsuarioId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Funcionarios");
+                });
+
             modelBuilder.Entity("CondominioApp.Usuarios.App.Models.Mobile", b =>
                 {
                     b.Property<Guid>("Id")
@@ -32,31 +67,72 @@ namespace CondominioApp.Usuarios.App.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("DeviceKey")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("varchar(200)");
 
                     b.Property<bool>("Lixeira")
                         .HasColumnType("bit");
 
                     b.Property<string>("MobileId")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("varchar(200)");
 
                     b.Property<string>("Modelo")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(200)");
 
                     b.Property<string>("Plataforma")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(200)");
 
-                    b.Property<Guid?>("UsuarioId")
+                    b.Property<Guid>("UsuarioId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Versao")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(200)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("UsuarioId");
 
-                    b.ToTable("Mobile");
+                    b.ToTable("Mobiles");
+                });
+
+            modelBuilder.Entity("CondominioApp.Usuarios.App.Models.Morador", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CondominioId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("DataDeAlteracao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DataDeCadastro")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Lixeira")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Principal")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValueSql("0");
+
+                    b.Property<bool>("Proprietario")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValueSql("0");
+
+                    b.Property<Guid>("UnidadeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UsuarioId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Moradores");
                 });
 
             modelBuilder.Entity("CondominioApp.Usuarios.App.Models.Usuario", b =>
@@ -70,9 +146,6 @@ namespace CondominioApp.Usuarios.App.Migrations
                         .HasColumnType("bit")
                         .HasDefaultValueSql("0");
 
-                    b.Property<string>("Atribuicao")
-                        .HasColumnType("varchar(200)");
-
                     b.Property<DateTime>("DataDeAlteracao")
                         .HasColumnType("datetime2");
 
@@ -82,18 +155,12 @@ namespace CondominioApp.Usuarios.App.Migrations
                     b.Property<DateTime?>("DataNascimento")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Funcao")
-                        .HasColumnType("varchar(200)");
-
                     b.Property<bool>("Lixeira")
                         .HasColumnType("bit");
 
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("varchar(200)");
-
-                    b.Property<int>("Permissao")
-                        .HasColumnType("int");
 
                     b.Property<string>("Rg")
                         .HasColumnType("varchar(200)");
@@ -105,9 +172,6 @@ namespace CondominioApp.Usuarios.App.Migrations
 
                     b.Property<string>("Sobrenome")
                         .HasColumnType("varchar(200)");
-
-                    b.Property<int>("TpUsuario")
-                        .HasColumnType("int");
 
                     b.Property<DateTime?>("UltimoLogin")
                         .HasColumnType("datetime2");
@@ -185,7 +249,9 @@ namespace CondominioApp.Usuarios.App.Migrations
                 {
                     b.HasOne("CondominioApp.Usuarios.App.Models.Usuario", "Usuario")
                         .WithMany("Mobiles")
-                        .HasForeignKey("UsuarioId");
+                        .HasForeignKey("UsuarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("CondominioApp.Usuarios.App.Models.Usuario", b =>

@@ -29,6 +29,17 @@ namespace CondominioApp.Api.Controllers
         }
 
 
+        [HttpGet("{id:Guid}")]
+        public async Task<ActionResult<VeiculoFlat>> ObterPorId(Guid id)
+        {
+            var veiculo = await _usuarioQuery.ObterVeiculoPorId(id);
+            if (veiculo == null)
+            {
+                AdicionarErroProcessamento("Veiculo não encontrado.");
+                return CustomResponse();
+            }
+            return veiculo;
+        }
 
         [HttpGet("por-placa-e-condominio")]
         public async Task<ActionResult<VeiculoFlat>> ObterPorPlacaECondominio(string placa, Guid condominioId)

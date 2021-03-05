@@ -24,7 +24,7 @@ namespace CondominioApp.Usuarios.App.Tests
         public async Task AdicionarUsuario_CommandoValido_DevePassarNaValidacao()
         {
             //Arrange
-            var UsuarioCommand = UsuarioCommandFactory.CriarComandoCadastroDeMorador();
+            var UsuarioCommand = UsuarioCommandFactory.CriarComandoCadastroDeUsuario();
 
 
             _mocker.GetMock<IUsuarioRepository>().Setup(r => r.UnitOfWork.Commit())
@@ -36,7 +36,7 @@ namespace CondominioApp.Usuarios.App.Tests
             //Assert
             Assert.True(result.IsValid);
             _mocker.GetMock<IUsuarioRepository>().Verify(r => r.Adicionar(It.IsAny<Usuario>()), Times.Once);
-            _mocker.GetMock<IUsuarioRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
+            _mocker.GetMock<IUsuarioRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Exactly(2));
         }
     }
 }

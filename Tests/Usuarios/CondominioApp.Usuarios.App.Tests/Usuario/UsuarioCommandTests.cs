@@ -1,17 +1,16 @@
 ﻿using System;
-using CondominioApp.Usuarios.App.Aplication.Commands;
 using Xunit;
 
 namespace CondominioApp.Usuarios.App.Tests
 {
     public class UsuarioCommandTests
     {
-        [Fact(DisplayName = "Adicionar morador Válido")]
-        [Trait("Categoria", "Usuario - Morador Command")]
-        public void CadastroDeMorador_CommandoValido_DevePassarNaValidacao()
+        [Fact(DisplayName = "Adicionar usuario Válido")]
+        [Trait("Categoria", "CadastrarUsuarioCommand")]
+        public void CadastroDeUsuario_CommandoValido_DevePassarNaValidacao()
         {
             //Arrange
-            var UsuarioCommand = UsuarioCommandFactory.CriarComandoCadastroDeMorador();
+            var UsuarioCommand = UsuarioCommandFactory.CriarComandoCadastroDeUsuario();
 
             //Act
             var result = UsuarioCommand.EstaValido();
@@ -21,12 +20,12 @@ namespace CondominioApp.Usuarios.App.Tests
         }
 
 
-        [Fact(DisplayName = "Adicionar morador sem foto")]
-        [Trait("Categoria", "Usuario - Morador Command sem foto")]
-        public void CadastroDeMoradorSemFoto_CommandoValido_DevePassarNaValidacao()
+        [Fact(DisplayName = "Adicionar usuario sem foto")]
+        [Trait("Categoria", "CadastrarUsuarioCommand")]
+        public void CadastroDeUsuarioSemFoto_CommandoValido_DevePassarNaValidacao()
         {
             //Arrange
-            var UsuarioCommand = UsuarioCommandFactory.CriarComandoCadastroDeMoradorSemFoto();
+            var UsuarioCommand = UsuarioCommandFactory.CriarComandoCadastroDeUsuarioSemFoto();
 
             //Act
             var result = UsuarioCommand.EstaValido();
@@ -36,12 +35,12 @@ namespace CondominioApp.Usuarios.App.Tests
         }
 
 
-        [Fact(DisplayName = "Adicionar morador sem data de nascimento")]
-        [Trait("Categoria", "Usuario - Morador Command data de nascimento")]
-        public void CadastroDeMoradorSemDataNascimento_CommandoValido_DevePassarNaValidacao()
+        [Fact(DisplayName = "Adicionar usuario sem data de nascimento")]
+        [Trait("Categoria", "CadastrarUsuarioCommand")]
+        public void CadastroDeUsuarioSemDataNascimento_CommandoValido_DevePassarNaValidacao()
         {
             //Arrange
-            var UsuarioCommand = UsuarioCommandFactory.CriarComandoCadastroDeMoradorSemDataDeNascimento();
+            var UsuarioCommand = UsuarioCommandFactory.CriarComandoCadastroDeUsuarioSemDataDeNascimento();
 
             //Act
             var result = UsuarioCommand.EstaValido();
@@ -51,12 +50,12 @@ namespace CondominioApp.Usuarios.App.Tests
         }
 
 
-        [Fact(DisplayName = "Adicionar morador sem e-mail")]
-        [Trait("Categoria", "Usuario - Morador Command sem e-mail")]
-        public void CadastroDeMoradorSemEmail_CommandoValido_DeveNaoPassarNaValidacao()
+        [Fact(DisplayName = "Adicionar usuario sem e-mail")]
+        [Trait("Categoria", "CadastrarUsuarioCommand")]
+        public void CadastroDeUsuarioSemEmail_CommandoValido_DeveNaoPassarNaValidacao()
         {
             //Arrange
-            var UsuarioCommand = UsuarioCommandFactory.CriarComandoCadastroDeMoradorSemEmail();
+            var UsuarioCommand = UsuarioCommandFactory.CriarComandoCadastroDeUsuarioSemEmail();
 
             //Act
             var result = UsuarioCommand.EstaValido();
@@ -66,12 +65,12 @@ namespace CondominioApp.Usuarios.App.Tests
         }
 
 
-        [Fact(DisplayName = "Adicionar morador sem nome")]
-        [Trait("Categoria", "Usuario - Morador Command sem nome")]
-        public void CadastroDeMoradorSemNome_CommandoValido_DeveNaoPassarNaValidacao()
+        [Fact(DisplayName = "Adicionar usuario sem nome")]
+        [Trait("Categoria", "CadastrarUsuarioCommand")]
+        public void CadastroDeUsuarioSemNome_CommandoValido_DeveNaoPassarNaValidacao()
         {
             //Arrange
-            var UsuarioCommand = UsuarioCommandFactory.CriarComandoCadastroDeMoradorSemNome();
+            var UsuarioCommand = UsuarioCommandFactory.CriarComandoCadastroDeUsuarioSemNome();
 
             //Act
             var result = UsuarioCommand.EstaValido();
@@ -80,14 +79,14 @@ namespace CondominioApp.Usuarios.App.Tests
             Assert.False(result);
         }
 
-        [Fact(DisplayName = "Adicionar morador com CPF invalido")]
-        [Trait("Categoria", "Usuario - Morador Command CPF invalido")]
-        public void CadastroDeMoradorComCPFInvalido_CommandoInvalido_DeveNaoPassarNaValidacao()
+        [Fact(DisplayName = "Adicionar usuario com CPF invalido")]
+        [Trait("Categoria", "CadastrarUsuarioCommand")]
+        public void CadastroDeUsuarioComCPFInvalido_CommandoInvalido_DeveNaoPassarNaValidacao()
         {
             try
             {
                 //Arrange
-                var UsuarioCommand = UsuarioCommandFactory.CriarComandoCadastroDeMoradorCPFInvalido();
+                var UsuarioCommand = UsuarioCommandFactory.CriarComandoCadastroDeUsuarioCPFInvalido();
 
                 //Act
                 var result = UsuarioCommand.EstaValido();
@@ -103,15 +102,15 @@ namespace CondominioApp.Usuarios.App.Tests
             
         }
 
-        [Fact(DisplayName = "Adicionar morador com e-mail invalido")]
-        [Trait("Categoria", "Usuario - Morador Command e-mail invalido")]
-        public void CadastroDeMoradorComEmailInvalido_CommandoInvalido_DeveNaoPassarNaValidacao()
+        [Fact(DisplayName = "Adicionar usuario com e-mail invalido")]
+        [Trait("Categoria", "CadastrarUsuarioCommand")]
+        public void CadastroDeUsuarioComEmailInvalido_CommandoInvalido_DeveNaoPassarNaValidacao()
         {
            
             try
             {
                 //Arrange
-                var UsuarioCommand = UsuarioCommandFactory.CriarComandoCadastroDeMoradorComEmailInvalido();
+                var UsuarioCommand = UsuarioCommandFactory.CriarComandoCadastroDeUsuarioComEmailInvalido();
 
                 //Act
                 var result = UsuarioCommand.EstaValido();
@@ -127,5 +126,6 @@ namespace CondominioApp.Usuarios.App.Tests
            
             
         }
+
     }
 }

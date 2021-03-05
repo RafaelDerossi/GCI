@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using CondominioApp.Core.DomainObjects;
 using CondominioApp.Core.Enumeradores;
 using CondominioApp.Usuarios.App.ValueObjects;
@@ -24,25 +25,19 @@ namespace CondominioApp.Usuarios.App.Models
 
         public Email Email { get; private set; }
 
-        public Foto Foto { get; private set; }
-
-        public TipoDeUsuario TpUsuario { get; private set; }
-
-        public Permissao Permissao { get; private set; }
-
-        public bool Ativo { get; private set; }
-
-        public string Atribuicao { get; private set; }
-
-        public string Funcao { get; private set; }
+        public Foto Foto { get; private set; }    
 
         public DateTime? DataNascimento { get; private set; }
 
+        public Endereco Endereco { get; set; }
+       
+
+        public bool Ativo { get; private set; }
+
         public DateTime? UltimoLogin { get; private set; }
 
-        public Endereco Endereco { get; set; }
-
         public bool SindicoProfissional { get; private set; }
+
 
         //EF
         private readonly List<Mobile> _Mobiles;
@@ -52,8 +47,9 @@ namespace CondominioApp.Usuarios.App.Models
         protected Usuario() { }
 
         public Usuario(string nome, string sobrenome, string rg, Telefone cel, Email email, 
-            Foto foto, TipoDeUsuario tpUsuario, Permissao permissao, DateTime? dataNascimento = null, Cpf cpf = null, string atribuicao = null, string funcao = null, 
-            Telefone telefone = null, Endereco endereco = null, bool sindicoProfissional = false)
+            Foto foto, DateTime? dataNascimento = null,
+            Cpf cpf = null, Telefone telefone = null, Endereco endereco = null,
+            bool sindicoProfissional = false)
         {
             _Mobiles = new List<Mobile>();
             Nome = nome;
@@ -63,11 +59,7 @@ namespace CondominioApp.Usuarios.App.Models
             Cel = cel;
             Telefone = telefone;
             Email = email;
-            Foto = foto;
-            TpUsuario = tpUsuario;
-            Permissao = permissao;
-            Atribuicao = atribuicao;
-            Funcao = funcao;
+            Foto = foto;            
             DataNascimento = dataNascimento;
             Endereco = endereco;
             SindicoProfissional = sindicoProfissional;
@@ -107,16 +99,106 @@ namespace CondominioApp.Usuarios.App.Models
         public void SetEmail(Email email) => Email = email;
 
         public void SetFoto(Foto foto) => Foto = foto;
+               
 
-        public void SetTipoDeUsuario(TipoDeUsuario tipoDeUsuario) => TpUsuario = tipoDeUsuario;
-
-        public void SetPermissao(Permissao permissao) => Permissao = permissao;
+       
 
         public void SetDataNascimento(DateTime? dataNascimento) => DataNascimento = dataNascimento;
+
 
         public void AdicionarMobile(Mobile mobile)
         {
             _Mobiles.Add(mobile);
+        }
+
+
+        public List<string> ObterDispositivosIds()
+        {
+            return _Mobiles.Select(m => m.DeviceKey).ToList();
+        }
+
+        public string ObterCPF()
+        {
+            if (Cpf == null)
+                return "";
+            return Cpf.Numero;
+        }
+
+        public string ObterCelular()
+        {
+            if (Cel == null)
+                return "";
+            return Cel.Numero;
+        }
+
+        public string ObterTelefone()
+        {
+            if (Telefone == null)
+                return "";
+            return Telefone.Numero;
+        }
+
+        public string ObterEmail()
+        {
+            if (Email == null)
+                return "";
+            return Email.Endereco;
+        }
+
+        public string ObterFoto()
+        {
+            if (Foto == null)
+                return "";
+            return Foto.NomeDoArquivo;
+        }
+
+        public string ObterLogradouro()
+        {
+            if (Endereco == null)
+                return "";
+            return Endereco.logradouro;
+        }
+
+        public string ObterComplemento()
+        {
+            if (Endereco == null)
+                return "";
+            return Endereco.complemento;
+        }
+
+        public string ObterNumero()
+        {
+            if (Endereco == null)
+                return "";
+            return Endereco.numero;
+        }
+
+        public string ObterCep()
+        {
+            if (Endereco == null)
+                return "";
+            return Endereco.cep;
+        }
+
+        public string ObterBairro()
+        {
+            if (Endereco == null)
+                return "";
+            return Endereco.bairro;
+        }
+
+        public string ObterCidade()
+        {
+            if (Endereco == null)
+                return "";
+            return Endereco.cidade;
+        }
+
+        public string ObterEstado()
+        {
+            if (Endereco == null)
+                return "";
+            return Endereco.estado;
         }
     }
 }
