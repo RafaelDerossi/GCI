@@ -9,8 +9,10 @@ namespace CondominioApp.Enquetes.App.Models
 {
    public class AlternativaEnquete : Entity
     {
-        public string Descricao { get; private set; }   
-        
+        public string Descricao { get; private set; }
+
+        public int Ordem { get; private set; }
+
         public Guid EnqueteId { get; private set; }
         
         private readonly List<RespostaEnquete> _Respostas;
@@ -21,16 +23,19 @@ namespace CondominioApp.Enquetes.App.Models
         {
             _Respostas = new List<RespostaEnquete>();
         }
-        public AlternativaEnquete(string descricao, Guid enqueteId)
+
+        public AlternativaEnquete(string descricao, int ordem, Guid enqueteId)
         {
             _Respostas = new List<RespostaEnquete>();
             Descricao = descricao;
+            Ordem = ordem;
             EnqueteId = enqueteId;
         }
 
-
         public void SetDescricao(string descricao) => Descricao = descricao;
-                
+
+        public void SetOrdem(int ordem) => Ordem = ordem;
+
         public ValidationResult AdicionarResposta(RespostaEnquete resposta)
         {
             if (_Respostas.Any(g => g.UsuarioId == resposta.UsuarioId))

@@ -1,4 +1,5 @@
 ﻿using CondominioApp.Enquetes.App.Aplication.Commands;
+using CondominioApp.Enquetes.App.ViewModels;
 using System;
 using System.Collections.Generic;
 
@@ -9,20 +10,20 @@ namespace CondominioApp.Enquetes.App.Tests
         public static CadastrarEnqueteCommand CriarComandoCadastroDeEnquete()
         {
             //Arrange            
-            var alternativas = new List<string>();
-            alternativas.Add("SIM");
-            alternativas.Add("NAO");
+            var alternativas = new List<CadastraAlternativaEnqueteViewModel>();
+            alternativas.Add(new CadastraAlternativaEnqueteViewModel("SIM", 1));
+            alternativas.Add(new CadastraAlternativaEnqueteViewModel("NAO", 2));
 
             //Act
             return new CadastrarEnqueteCommand(
                 "SIM ou NAO?", DateTime.Now, DateTime.Now.AddDays(30), Guid.NewGuid(), 
-                "Nome do Condominio", Guid.NewGuid(),"Nome do Usuario", false,alternativas);
+                "Nome do Condominio", Guid.NewGuid(),"Nome do Usuario", false, alternativas);
         }
 
         public static CadastrarEnqueteCommand CriarComandoCadastroDeEnqueteComMenosDeDuasAlternativas()
         {
-            var alternativas = new List<string>();
-            alternativas.Add("SIM");           
+            var alternativas = new List<CadastraAlternativaEnqueteViewModel>();
+            alternativas.Add(new CadastraAlternativaEnqueteViewModel("SIM", 1));
 
             //Act
             return new CadastrarEnqueteCommand(
@@ -42,9 +43,9 @@ namespace CondominioApp.Enquetes.App.Tests
         public static CadastrarEnqueteCommand CriarComandoCadastroDeEnqueteJaTerminada()
         {
             //Arrange            
-            var alternativas = new List<string>();
-            alternativas.Add("SIM");
-            alternativas.Add("NAO");
+            var alternativas = new List<CadastraAlternativaEnqueteViewModel>();
+            alternativas.Add(new CadastraAlternativaEnqueteViewModel("SIM", 1));
+            alternativas.Add(new CadastraAlternativaEnqueteViewModel("NAO", 2));
 
             //Act
             return new CadastrarEnqueteCommand(
@@ -55,9 +56,9 @@ namespace CondominioApp.Enquetes.App.Tests
         public static CadastrarEnqueteCommand CriarComandoCadastroDeEnqueteComDataInicialPosteriorAFinal()
         {
             //Arrange            
-            var alternativas = new List<string>();
-            alternativas.Add("SIM");
-            alternativas.Add("NAO");
+            var alternativas = new List<CadastraAlternativaEnqueteViewModel>();
+            alternativas.Add(new CadastraAlternativaEnqueteViewModel("SIM", 1));
+            alternativas.Add(new CadastraAlternativaEnqueteViewModel("NAO", 2));
 
             //Act
             return new CadastrarEnqueteCommand(
@@ -68,9 +69,9 @@ namespace CondominioApp.Enquetes.App.Tests
         public static CadastrarEnqueteCommand CriarComandoCadastroDeEnqueteSemDescricao()
         {
             //Arrange            
-            var alternativas = new List<string>();
-            alternativas.Add("SIM");
-            alternativas.Add("NAO");
+            var alternativas = new List<CadastraAlternativaEnqueteViewModel>();
+            alternativas.Add(new CadastraAlternativaEnqueteViewModel("SIM", 1));
+            alternativas.Add(new CadastraAlternativaEnqueteViewModel("NAO", 2));
 
             //Act
             return new CadastrarEnqueteCommand(
@@ -81,9 +82,9 @@ namespace CondominioApp.Enquetes.App.Tests
         public static CadastrarEnqueteCommand CriarComandoCadastroDeEnqueteSemCondominioId()
         {
             //Arrange            
-            var alternativas = new List<string>();
-            alternativas.Add("SIM");
-            alternativas.Add("NAO");
+            var alternativas = new List<CadastraAlternativaEnqueteViewModel>();
+            alternativas.Add(new CadastraAlternativaEnqueteViewModel("SIM", 1));
+            alternativas.Add(new CadastraAlternativaEnqueteViewModel("NAO", 2));
 
             //Act
             return new CadastrarEnqueteCommand(
@@ -94,9 +95,9 @@ namespace CondominioApp.Enquetes.App.Tests
         public static CadastrarEnqueteCommand CriarComandoCadastroDeEnqueteSemNomeDoCondominio()
         {
             //Arrange            
-            var alternativas = new List<string>();
-            alternativas.Add("SIM");
-            alternativas.Add("NAO");
+            var alternativas = new List<CadastraAlternativaEnqueteViewModel>();
+            alternativas.Add(new CadastraAlternativaEnqueteViewModel("SIM", 1));
+            alternativas.Add(new CadastraAlternativaEnqueteViewModel("NAO", 2));
 
             //Act
             return new CadastrarEnqueteCommand(
@@ -107,9 +108,9 @@ namespace CondominioApp.Enquetes.App.Tests
         public static CadastrarEnqueteCommand CriarComandoCadastroDeEnqueteSemUsuarioId()
         {
             //Arrange            
-            var alternativas = new List<string>();
-            alternativas.Add("SIM");
-            alternativas.Add("NAO");
+            var alternativas = new List<CadastraAlternativaEnqueteViewModel>();
+            alternativas.Add(new CadastraAlternativaEnqueteViewModel("SIM", 1));
+            alternativas.Add(new CadastraAlternativaEnqueteViewModel("NAO", 2));
 
             //Act
             return new CadastrarEnqueteCommand(
@@ -120,9 +121,9 @@ namespace CondominioApp.Enquetes.App.Tests
         public static CadastrarEnqueteCommand CriarComandoCadastroDeEnqueteSemNomeDoUsuario()
         {
             //Arrange            
-            var alternativas = new List<string>();
-            alternativas.Add("SIM");
-            alternativas.Add("NAO");
+            var alternativas = new List<CadastraAlternativaEnqueteViewModel>();
+            alternativas.Add(new CadastraAlternativaEnqueteViewModel("SIM", 1));
+            alternativas.Add(new CadastraAlternativaEnqueteViewModel("NAO", 2));
 
             //Act
             return new CadastrarEnqueteCommand(

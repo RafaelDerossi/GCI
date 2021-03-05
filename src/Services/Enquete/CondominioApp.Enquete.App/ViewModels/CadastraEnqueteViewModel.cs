@@ -17,6 +17,6 @@ namespace CondominioApp.Enquetes.App.ViewModels
 
         public Guid UsuarioId { get; set; }        
 
-        public IEnumerable<string> Alternativas { get; set; }
+        public IEnumerable<CadastraAlternativaEnqueteViewModel> Alternativas { get; set; }
     }
 }
