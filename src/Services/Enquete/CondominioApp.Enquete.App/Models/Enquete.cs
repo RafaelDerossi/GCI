@@ -41,8 +41,7 @@ namespace CondominioApp.Enquetes.App.Models
                        string condominioNome,
                        bool apenasProprietarios,
                        Guid usuarioId,
-                       string usuarioNome,
-                       IEnumerable<string> alternativas)
+                       string usuarioNome)
         {
             _Alternativas = new List<AlternativaEnquete>();
             ApenasProprietarios = apenasProprietarios;

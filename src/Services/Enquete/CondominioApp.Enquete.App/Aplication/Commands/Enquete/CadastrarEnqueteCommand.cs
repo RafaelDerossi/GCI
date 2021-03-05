@@ -1,4 +1,5 @@
 ﻿using CondominioApp.Enquetes.App.Aplication.Commands.Validations;
+using CondominioApp.Enquetes.App.ViewModels;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace CondominioApp.Enquetes.App.Aplication.Commands
 
         public CadastrarEnqueteCommand(string descricao, DateTime dataInicio, DateTime dataFim,
             Guid condominioId, string condominioNome, Guid usuarioId, string usuarioNome,
-            bool apenasProprietarios, IEnumerable<string> alternativas )
+            bool apenasProprietarios, IEnumerable<CadastraAlternativaEnqueteViewModel> alternativas )
         {            
             Descricao = descricao;
             CondominioId = condominioId;

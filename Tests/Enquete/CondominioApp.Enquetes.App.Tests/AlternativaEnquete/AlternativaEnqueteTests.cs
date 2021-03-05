@@ -12,7 +12,7 @@ namespace CondominioApp.Enquetes.App.Tests
         public void Criar_AlternativaEnquete_Valida()
         {
             //Act
-            var alternativa = new AlternativaEnquete("COM CERTEZA", Guid.NewGuid());
+            var alternativa = new AlternativaEnquete("COM CERTEZA", 1, Guid.NewGuid());
         }
     }
 }

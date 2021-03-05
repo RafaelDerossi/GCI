@@ -31,9 +31,9 @@ namespace CondominioApp.Enquetes.App.Aplication.Commands
 
             var enquete = EnqueteFactory(request);
 
-            foreach (string alternativa_str in request.Alternativas)
+            foreach (var alternativa_str in request.Alternativas)
             {
-                var alternativa = new AlternativaEnquete(alternativa_str, enquete.Id);
+                var alternativa = new AlternativaEnquete(alternativa_str.Descricao, alternativa_str.Ordem, enquete.Id);
                 var resultado = enquete.AdicionarAlternativa(alternativa);
                 if (!resultado.IsValid) return resultado;
             }
@@ -93,8 +93,7 @@ namespace CondominioApp.Enquetes.App.Aplication.Commands
         private Enquete EnqueteFactory(CadastrarEnqueteCommand request)
         {
             var enquete = new Enquete(request.Descricao, request.DataInicio, request.DataFim, request.CondominioId, 
-                request.CondominioNome, request.ApenasProprietarios, request.UsuarioId, request.UsuarioNome,
-                request.Alternativas);
+                request.CondominioNome, request.ApenasProprietarios, request.UsuarioId, request.UsuarioNome);
 
             return enquete;
         }

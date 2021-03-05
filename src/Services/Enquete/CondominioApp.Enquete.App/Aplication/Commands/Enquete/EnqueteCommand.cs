@@ -1,4 +1,5 @@
 ﻿using CondominioApp.Core.Messages;
+using CondominioApp.Enquetes.App.ViewModels;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
@@ -25,7 +26,7 @@ namespace CondominioApp.Enquetes.App.Aplication.Commands
         public Guid UsuarioId { get; protected set; }
         public string UsuarioNome { get; protected set; }
 
-        public IEnumerable<string> Alternativas { get; private set; }
+        public IEnumerable<CadastraAlternativaEnqueteViewModel> Alternativas { get; private set; }
 
         public void SetDataInicio(DateTime data)
         {
@@ -41,9 +42,9 @@ namespace CondominioApp.Enquetes.App.Aplication.Commands
             DataFim = data;
         }
 
-        public void SetAlternativas(IEnumerable<string> alternativas)
+        public void SetAlternativas(IEnumerable<CadastraAlternativaEnqueteViewModel> alternativas)
         {
-            Alternativas = new List<string>();
+            Alternativas = new List<CadastraAlternativaEnqueteViewModel>();
 
             if (alternativas==null || alternativas.Count() < 2) 
                 AdicionarErrosDeProcessamentoDoComando("Uma enquete precisa ter pelo menos duas alternativas!");            
