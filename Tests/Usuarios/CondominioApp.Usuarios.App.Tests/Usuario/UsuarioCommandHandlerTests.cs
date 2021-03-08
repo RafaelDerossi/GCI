@@ -36,7 +36,7 @@ namespace CondominioApp.Usuarios.App.Tests
             //Assert
             Assert.True(result.IsValid);
             _mocker.GetMock<IUsuarioRepository>().Verify(r => r.Adicionar(It.IsAny<Usuario>()), Times.Once);
-            _mocker.GetMock<IUsuarioRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Exactly(2));
+            _mocker.GetMock<IUsuarioRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
         }
     }
 }

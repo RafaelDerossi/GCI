@@ -26,12 +26,12 @@ namespace CondominioApp.Identidade.Api.Configuration
             #endregion
 
             #region Morador
-            services.AddScoped<IRequestHandler<CadastrarMoradorCommand, ValidationResult>, UsuarioCommandHandler>();
-            services.AddScoped<INotificationHandler<MoradorCadastradoEvent>, FuncionarioEventHandler>();
+            services.AddScoped<IRequestHandler<CadastrarMoradorCommand, ValidationResult>, MoradorCommandHandler>();
+            services.AddScoped<INotificationHandler<MoradorCadastradoEvent>, MoradorEventHandler>();
             #endregion
 
             #region Funcionario
-            services.AddScoped<IRequestHandler<CadastrarFuncionarioCommand, ValidationResult>, UsuarioCommandHandler>();
+            services.AddScoped<IRequestHandler<CadastrarFuncionarioCommand, ValidationResult>, FuncionarioCommandHandler>();
             services.AddScoped<INotificationHandler<FuncionarioCadastradoEvent>, FuncionarioEventHandler>();
             #endregion
 
