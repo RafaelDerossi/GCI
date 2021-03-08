@@ -4,7 +4,7 @@ using CondominioApp.Usuarios.App.Aplication.Commands.Validations;
 
 namespace CondominioApp.Usuarios.App.Aplication.Commands
 {
-    public class CadastrarMoradorCommand : UsuarioCommand
+    public class CadastrarMoradorCommand : MoradorCommand
     {
         public CadastrarMoradorCommand(Guid usuarioId, Guid condominioId, string nomeCondominio,
             Guid unidadeId, string numeroUnidade, string andarUnidade, string grupoUnidade, 
@@ -35,7 +35,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
         }
 
 
-        public class CadastrarMoradorCommandValidation : UsuarioValidation<CadastrarMoradorCommand>
+        public class CadastrarMoradorCommandValidation : MoradorValidation<CadastrarMoradorCommand>
         {
             public CadastrarMoradorCommandValidation()
             {

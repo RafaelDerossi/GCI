@@ -15,11 +15,16 @@ namespace CondominioApp.Usuarios.App.Aplication.Query
 
         #region Morador
         Task<MoradorFlat> ObterMoradorPorId(Guid id);
-        Task<MoradorFlat> ObterMoradorPorUsuarioId(Guid usuarioId);
+        Task<IEnumerable<MoradorFlat>> ObterMoradoresPorUsuarioId(Guid usuarioId);
         Task<IEnumerable<MoradorFlat>> ObterMoradoresPorCondominioId(Guid condominioId);
         Task<IEnumerable<MoradorFlat>> ObterMoradoresPorUnidadeId(Guid unidadeId);
         #endregion
 
+        #region Funcionario
+        Task<FuncionarioFlat> ObterFuncionarioPorId(Guid id);
+        Task<IEnumerable<FuncionarioFlat>> ObterFuncionariosPorUsuarioId(Guid usuarioId);
+        Task<IEnumerable<FuncionarioFlat>> ObterFuncionariosPorCondominioId(Guid condominioId);
+        #endregion
 
         #region Veiculo
         Task<VeiculoFlat> ObterVeiculoPorId(Guid id);

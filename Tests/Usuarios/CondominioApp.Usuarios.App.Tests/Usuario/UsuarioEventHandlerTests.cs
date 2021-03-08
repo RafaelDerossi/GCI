@@ -12,12 +12,12 @@ namespace CondominioApp.Usuarios.App.Tests
     public class UsuarioEventHandlerTests
     {
         private readonly AutoMocker _mocker;
-        private readonly UsuarioEventHandler _usuarioEventHandler;
+        private readonly FuncionarioEventHandler _usuarioEventHandler;
 
         public UsuarioEventHandlerTests()
         {
             _mocker = new AutoMocker();
-            _usuarioEventHandler = _mocker.CreateInstance<UsuarioEventHandler>();
+            _usuarioEventHandler = _mocker.CreateInstance<FuncionarioEventHandler>();
         }
 
         [Fact(DisplayName = "Adicionar Usuário Válido")]

@@ -12,16 +12,24 @@ namespace CondominioApp.Usuarios.App.Models
         void Excluir(Usuario entity);
         #endregion
 
-        #region Morador
-        Task<Morador> ObterMoradorPorUsuarioIdEUnidadeId(Guid usuarioId, Guid unidadeId);
-        void AdicionarMorador(Morador morador);
 
+        #region Morador
+        Task<Morador> ObterMoradorPorId(Guid Id);
+        Task<Morador> ObterMoradorPorUsuarioIdEUnidadeId(Guid usuarioId, Guid unidadeId);
+        Task<IEnumerable<Morador>> ObterMoradoresPorUsuarioId(Guid usuarioId);
+        Task<IEnumerable<Morador>> ObterMoradores(Expression<Func<Morador, bool>> expression, bool OrderByDesc = false, int take = 0);
+        void AdicionarMorador(Morador morador);
+        void AtualizarMorador(Morador entity);
         #endregion
 
 
         #region Funcionario
+        Task<Funcionario> ObterFuncionarioPorId(Guid id);
         Task<Funcionario> ObterFuncionarioPorUsuarioIdECondominioId(Guid usuarioId, Guid condominioId);
+        Task<IEnumerable<Funcionario>> ObterFuncionariosPorUsuarioId(Guid usuarioId);
+        Task<IEnumerable<Funcionario>> ObterFuncionarios(Expression<Func<Funcionario, bool>> expression, bool OrderByDesc = false, int take = 0);
         void AdicionarFuncionario(Funcionario funcionario);
+        void AtualizarFuncionario(Funcionario entity);
         #endregion
 
 

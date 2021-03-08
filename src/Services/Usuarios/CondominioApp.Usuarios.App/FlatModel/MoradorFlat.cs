@@ -116,5 +116,13 @@ namespace CondominioApp.Usuarios.App.FlatModel
 
         public void RestaurarDaLixeira() => Lixeira = false;
 
+        public void MarcarComoPrincipal() => Principal = true;
+
+        public void DesmarcarComoPrincipal() => Principal = false;
+
+        public void MarcarComoProprietario() => Proprietario = true;
+
+        public void DesmarcarComoProprietario() => Proprietario = false;
+
     }
 }

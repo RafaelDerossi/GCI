@@ -447,12 +447,8 @@ namespace CondominioApp.Identidade.Api.Controllers
            CondominioFlat condominio, Guid userId)
         {
             return new CadastrarFuncionarioCommand
-                (userId, usuarioRegistro.Nome, usuarioRegistro.Sobrenome, usuarioRegistro.Email,
-                 usuarioRegistro.CondominioId, condominio.Nome, usuarioRegistro.Foto, usuarioRegistro.NomeOriginal,
-                 usuarioRegistro.Rg, usuarioRegistro.Cpf, usuarioRegistro.Celular, usuarioRegistro.Telefone,
-                 usuarioRegistro.Atribuicao, usuarioRegistro.Funcao, usuarioRegistro.Logradouro, usuarioRegistro.Complemento,
-                 usuarioRegistro.Numero, usuarioRegistro.Cep, usuarioRegistro.Bairro, usuarioRegistro.Cidade, usuarioRegistro.Estado,
-                 usuarioRegistro.DataNascimento, usuarioRegistro.Permissao);
+                (userId, usuarioRegistro.CondominioId, condominio.Nome, usuarioRegistro.Atribuicao, usuarioRegistro.Funcao,
+                 usuarioRegistro.Permissao);
         }
        
         private CadastrarUsuarioCommand CadastrarUsuarioCommandFactory(UsuarioRegistro usuarioRegistro, Guid userId)
