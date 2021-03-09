@@ -78,7 +78,7 @@ namespace CondominioApp.Api.Controllers
         }
               
 
-        [HttpPost("marcar-como-unidadePrincipal/{moradorId:Guid}")]
+        [HttpPut("marcar-como-unidadePrincipal/{moradorId:Guid}")]
         public async Task<ActionResult> Post(Guid moradorId)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
@@ -103,7 +103,7 @@ namespace CondominioApp.Api.Controllers
         }
 
 
-        [HttpPost("marcar-como-proprietario/{moradorId:Guid}")]
+        [HttpPut("marcar-como-proprietario/{moradorId:Guid}")]
         public async Task<ActionResult> PostMarcarComoProprietario(Guid moradorId)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
@@ -127,7 +127,7 @@ namespace CondominioApp.Api.Controllers
         }
 
 
-        [HttpPost("desmarcar-como-proprietario/{moradorId:Guid}")]
+        [HttpPut("desmarcar-como-proprietario/{moradorId:Guid}")]
         public async Task<ActionResult> PostDesmarcarComoProprietario(Guid moradorId)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
