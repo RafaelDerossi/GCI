@@ -1,5 +1,4 @@
 ﻿using CondominioApp.Core.Mediator;
-using CondominioApp.Principal.Aplication.Query.Interfaces;
 using CondominioApp.Usuarios.App.Aplication.Query;
 using CondominioApp.WebApi.Core.Controllers;
 using Microsoft.AspNetCore.Mvc;
@@ -9,8 +8,6 @@ using CondominioApp.Usuarios.App.ViewModels;
 using AutoMapper;
 using CondominioApp.Usuarios.App.Aplication.Commands;
 using System.Linq;
-using CondominioApp.Usuarios.App.FlatModel;
-using System.Collections.Generic;
 
 namespace CondominioApp.Api.Controllers
 {
@@ -87,7 +84,7 @@ namespace CondominioApp.Api.Controllers
 
         }
 
-        [HttpPut("{id:Guid}")]
+        [HttpPut]
         public async Task<ActionResult> Put(UsuarioViewModel usuarioVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
