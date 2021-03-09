@@ -70,7 +70,10 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
             _usuarioRepository.Atualizar(usuario);
 
             //Evento
-
+            usuario.AdicionarEvento(
+                new UsuarioEditadoEvent(
+                    usuario.Id, usuario.Nome, usuario.Sobrenome, usuario.Email, usuario.Rg,
+                    usuario.Cpf, usuario.Cel, usuario.Foto, usuario.Endereco, usuario.DataNascimento));
 
             return await PersistirDados(_usuarioRepository.UnitOfWork);
 
