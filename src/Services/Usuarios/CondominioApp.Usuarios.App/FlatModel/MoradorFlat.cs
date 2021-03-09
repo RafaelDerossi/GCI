@@ -1,4 +1,5 @@
 ﻿using CondominioApp.Core.DomainObjects;
+using CondominioApp.Usuarios.App.ValueObjects;
 using System;
 
 namespace CondominioApp.Usuarios.App.FlatModel
@@ -115,6 +116,73 @@ namespace CondominioApp.Usuarios.App.FlatModel
         public void EnviarParaLixeira() => Lixeira = true;
 
         public void RestaurarDaLixeira() => Lixeira = false;
+
+
+        public void Ativar() => Ativo = true;
+
+        public void Desativar() => Ativo = false;        
+
+        
+
+        public void SetNome(string nome) => Nome = nome;
+
+        public void SetSobrenome(string sobrenome) => Sobrenome = sobrenome;
+
+        public void SetRg(string rg) => Rg = rg;
+
+        public void SetCpf(Cpf cpf)
+        {
+            if (cpf != null)
+                Cpf = cpf.Numero;
+            else
+                Cpf = "";
+        }
+        
+
+        public void SetTelefone(Telefone telefone)
+        {
+            if (telefone != null)
+                Telefone = telefone.Numero;
+            else
+                Telefone = "";
+        }
+
+        public void SetCelular(Telefone cel)
+        {
+            if (cel != null)
+                Cel = cel.Numero;
+            else
+                Cel = "";
+        }
+
+        public void SetEmail(Email email)
+        {
+            if (email != null)
+                Email = email.Endereco;
+            else
+                Email = "";
+        }
+
+        public void SetFoto(Foto foto)
+        {
+            if (foto != null)
+                Foto = foto.NomeDoArquivo;
+            else
+                Foto = "";
+        }
+
+        public void SetEndereco(Endereco endereco)
+        {
+            Logradouro = endereco.logradouro;
+            Complemento = endereco.complemento;
+            Numero = endereco.numero;
+            Cep = endereco.cep;
+            Bairro = endereco.bairro;
+            Cidade = endereco.cidade;
+            Estado = endereco.estado;
+        }
+        
+
 
         public void MarcarComoPrincipal() => Principal = true;
 

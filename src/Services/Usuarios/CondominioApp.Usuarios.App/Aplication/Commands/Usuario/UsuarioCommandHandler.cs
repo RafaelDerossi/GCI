@@ -11,7 +11,8 @@ using MediatR;
 namespace CondominioApp.Usuarios.App.Aplication.Commands
 {
     public class UsuarioCommandHandler : CommandHandler,
-        IRequestHandler<CadastrarUsuarioCommand, ValidationResult>,                        
+        IRequestHandler<CadastrarUsuarioCommand, ValidationResult>,
+        IRequestHandler<EditarUsuarioCommand, ValidationResult>,
         IRequestHandler<CadastrarResponsavelDaLojaCommand, ValidationResult>,
         IRequestHandler<ExcluirUsuarioCommand, ValidationResult>,
         IDisposable
@@ -42,7 +43,38 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
 
             return await PersistirDados(_usuarioRepository.UnitOfWork);
 
-        }       
+        }
+
+        public async Task<ValidationResult> Handle(EditarUsuarioCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido()) return request.ValidationResult;
+
+            var usuario = await _usuarioRepository.ObterPorId(request.UsuarioId);
+            if (usuario == null)
+            {
+                AdicionarErro("Usuário não encontrado.");
+                return ValidationResult;
+            }
+
+            usuario.SetNome(request.Nome);
+            usuario.SetSobrenome(request.Sobrenome);
+            usuario.SetRg(request.Rg);
+            usuario.SetCpf(request.Cpf);
+            usuario.SetCelular(request.Cel);
+            usuario.SetTelefone(request.Telefone);
+            usuario.SetEmail(request.Email);
+            usuario.SetFoto(request.Foto);
+            usuario.SetDataNascimento(request.DataNascimento);
+            usuario.SetEndereco(request.Endereco);            
+
+            _usuarioRepository.Atualizar(usuario);
+
+            //Evento
+
+
+            return await PersistirDados(_usuarioRepository.UnitOfWork);
+
+        }
 
         public async Task<ValidationResult> Handle(CadastrarResponsavelDaLojaCommand request, CancellationToken cancellationToken)
         {
