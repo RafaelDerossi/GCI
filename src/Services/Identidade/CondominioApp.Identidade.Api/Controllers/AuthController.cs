@@ -225,7 +225,26 @@ namespace CondominioApp.Identidade.Api.Controllers
             AdicionarErroProcessamento("Usuário ou Senha incorretos");
             return CustomResponse();
         }
-      
+
+        [HttpPost("refresh-token")]
+        public async Task<ActionResult> RefreshToken(string tokenToRefresh)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+
+            var token = tokenHandler.ReadJwtToken(tokenToRefresh);           
+            
+            var user = await _userManager.FindByIdAsync(token.Subject);
+            if (user == null)
+            {
+                AdicionarErroProcessamento("Usuário não encontrado.");
+                return CustomResponse();
+            }
+
+            await _signInManager.RefreshSignInAsync(user);
+
+            return CustomResponse(await GerarJwt(user.UserName));            
+           
+        }
 
 
 
