@@ -7,7 +7,7 @@ namespace CondominioApp.BS.CompiladorDeDados
         static void Main(string[] args)
         {
             const string NovoCaminhoDeEntrada = "/IntegracaoBase/NovaEntrada.txt";
-            const string CaminhoOriginalDeEntrada = "/IntegracaoBase/Icondo/DB/EntDados.txt";
+            const string CaminhoOriginalDeEntrada = "/IntegracaoBase/Icondo_novo/DB/EntDados.txt";
             const string CaminhoDaListaDeCpfs = "/IntegracaoBase/ListaDeCpfs.txt";
             const string CaminhoDoNovoIndiceDeBoletos = "/IntegracaoBase/indiceDeBoletos.txt";
 
