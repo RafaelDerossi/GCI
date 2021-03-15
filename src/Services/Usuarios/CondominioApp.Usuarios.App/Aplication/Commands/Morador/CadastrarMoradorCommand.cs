@@ -39,7 +39,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
         {
             public CadastrarMoradorCommandValidation()
             {
-                ValidateId();
+                ValidateUsuarioId();
                 ValidateCondominioId();
                 ValidateUnidadeId();
             }

@@ -9,6 +9,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Events
 {
     public class FuncionarioEventHandler : EventHandler,        
         INotificationHandler<FuncionarioCadastradoEvent>,
+        INotificationHandler<FuncionarioEditadoEvent>,
         System.IDisposable
     {
         private IUsuarioRepository _usuarioRepository;        
@@ -38,7 +39,18 @@ namespace CondominioApp.Usuarios.App.Aplication.Events
             await PersistirDados(_funcionarioQueryRepository.UnitOfWork);
         }
 
+        public async Task Handle(FuncionarioEditadoEvent notification, CancellationToken cancellationToken)
+        {
+            var funcionarioFlat =await _funcionarioQueryRepository.ObterPorId(notification.Id);
 
+            funcionarioFlat.SetAtribuicao(notification.Atribuicao);
+            funcionarioFlat.SetFuncao(notification.Funcao);
+            funcionarioFlat.SetPermissao(notification.Permissao);
+
+            _funcionarioQueryRepository.Atualizar(funcionarioFlat);
+
+            await PersistirDados(_funcionarioQueryRepository.UnitOfWork);
+        }
 
         public void Dispose()
         {

@@ -14,8 +14,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
         IRequestHandler<CadastrarMoradorCommand, ValidationResult>,        
         IRequestHandler<MarcarComoUnidadePrincipalCommand, ValidationResult>,
         IRequestHandler<MarcarComoProprietarioCommand, ValidationResult>,
-        IRequestHandler<DesmarcarComoProprietarioCommand, ValidationResult>,
-        IRequestHandler<EditarMoradorCommand, ValidationResult>,        
+        IRequestHandler<DesmarcarComoProprietarioCommand, ValidationResult>,           
         IDisposable
     {
         private IUsuarioRepository _usuarioRepository;
@@ -132,27 +131,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
 
         }
 
-        public async Task<ValidationResult> Handle(EditarMoradorCommand request, CancellationToken cancellationToken)
-
-        {
-            if (!request.EstaValido()) return request.ValidationResult;
-
-            var Morador = _usuarioRepository.ObterPorId(request.UsuarioId).Result;
-
-            Morador.SetNome(request.Nome);
-            Morador.SetSobrenome(request.Sobrenome);
-            Morador.SetRg(request.Rg);
-            Morador.SetCpf(request.Cpf);
-            Morador.SetCelular(request.Cel);
-            Morador.SetEmail(request.Email);
-            Morador.SetFoto(request.Foto);            
-            Morador.SetDataNascimento(request.DataNascimento);
-
-            _usuarioRepository.Atualizar(Morador);
-
-            return await PersistirDados(_usuarioRepository.UnitOfWork);
-        }
-
+      
 
               
         private Morador MoradorFactory(MoradorCommand request)

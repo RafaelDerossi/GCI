@@ -11,7 +11,8 @@ using MediatR;
 namespace CondominioApp.Usuarios.App.Aplication.Commands
 {
     public class FuncionarioCommandHandler : CommandHandler,                
-        IRequestHandler<CadastrarFuncionarioCommand, ValidationResult>,        
+        IRequestHandler<CadastrarFuncionarioCommand, ValidationResult>,
+        IRequestHandler<EditarFuncionarioCommand, ValidationResult>,
         IDisposable
     {
         private IUsuarioRepository _usuarioRepository;
@@ -53,7 +54,32 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
             return await PersistirDados(_usuarioRepository.UnitOfWork);
 
         }
-        
+
+        public async Task<ValidationResult> Handle(EditarFuncionarioCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido()) return request.ValidationResult;
+
+            var funcionario = await _usuarioRepository.ObterFuncionarioPorId(request.Id);
+            if (funcionario == null)
+            {
+                AdicionarErro("Funcionário não encontrado.");
+                return ValidationResult;
+            }
+
+            funcionario.SetAtribuicao(request.Atribuicao);
+            funcionario.SetFuncao(request.Funcao);
+            funcionario.SetPermissao(request.Permissao);
+
+            _usuarioRepository.AtualizarFuncionario(funcionario);
+
+            //Evento
+            funcionario.AdicionarEvento(
+               new FuncionarioEditadoEvent(
+                   funcionario.Id, funcionario.Atribuicao, funcionario.Funcao, funcionario.Permissao));
+
+            return await PersistirDados(_usuarioRepository.UnitOfWork);
+
+        }
 
         private Funcionario FuncionarioFactory(FuncionarioCommand request)
         {

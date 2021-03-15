@@ -49,10 +49,10 @@ namespace CondominioApp.Api.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var funcionario = await _usuarioQuery.ObterFuncionarioPorId(vincularViewModel.UsuarioId);
-            if (funcionario == null)
+            var usuario = await _usuarioQuery.ObterPorId(vincularViewModel.UsuarioId);
+            if (usuario == null)
             {
-                AdicionarErroProcessamento("Funcionario não encontrado!");
+                AdicionarErroProcessamento("Usuário não encontrado!");
                 return CustomResponse();
             }
 
@@ -64,7 +64,7 @@ namespace CondominioApp.Api.Controllers
             }
 
             var comando = new CadastrarFuncionarioCommand
-                (funcionario.UsuarioId, condominio.Id, condominio.Nome, vincularViewModel.Atribuicao,
+                (usuario.Id, condominio.Id, condominio.Nome, vincularViewModel.Atribuicao,
                 vincularViewModel.Funcao, vincularViewModel.Permissao);
 
             var resultado = await _mediatorHandler.EnviarComando(comando);
@@ -76,6 +76,30 @@ namespace CondominioApp.Api.Controllers
             return CustomResponse();
 
         }
-     
+
+        [HttpPut("editar-funcionario")]
+        public async Task<ActionResult> Put(EditaFuncionarioViewModel editaViewModel)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            var funcionario = await _usuarioQuery.ObterFuncionarioPorId(editaViewModel.FuncionarioId);
+            if (funcionario == null)
+            {
+                AdicionarErroProcessamento("Funcionario não encontrado!");
+                return CustomResponse();
+            }           
+
+            var comando = new EditarFuncionarioCommand
+                (funcionario.Id, editaViewModel.Atribuicao, editaViewModel.Funcao, editaViewModel.Permissao);
+
+            var resultado = await _mediatorHandler.EnviarComando(comando);
+
+            if (!resultado.IsValid)
+                CustomResponse(resultado);
+
+
+            return CustomResponse();
+
+        }
     }
 }

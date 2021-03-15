@@ -1,4 +1,5 @@
 ﻿using CondominioApp.Core.DomainObjects;
+using CondominioApp.Core.Enumeradores;
 using CondominioApp.Usuarios.App.ValueObjects;
 using System;
 
@@ -167,5 +168,11 @@ namespace CondominioApp.Usuarios.App.FlatModel
             Estado = endereco.estado;
         }
 
+
+        public void SetFuncao(string funcao) => Funcao = funcao;
+
+        public void SetAtribuicao(string atribuicao) => Atribuicao = atribuicao;
+
+        public void SetPermissao(Permissao permissao) => Permissao = permissao.ToString();
     }
 }

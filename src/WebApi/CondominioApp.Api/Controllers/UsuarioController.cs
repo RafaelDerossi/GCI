@@ -91,8 +91,10 @@ namespace CondominioApp.Api.Controllers
 
            var editarComando = new EditarUsuarioCommand
                 (usuarioVM.Id, usuarioVM.Nome, usuarioVM.Sobrenome, usuarioVM.Email,
-                 usuarioVM.Rg, usuarioVM.Cpf, usuarioVM.Cel, usuarioVM.Foto,
-                 usuarioVM.NomeOriginal, usuarioVM.DataNascimento);            
+                 usuarioVM.Rg, usuarioVM.Cpf, usuarioVM.Foto, usuarioVM.NomeOriginal,
+                 usuarioVM.Cel, usuarioVM.Telefone, usuarioVM.Logradouro,
+                 usuarioVM.Complemento, usuarioVM.Numero, usuarioVM.Cep, usuarioVM.Bairro,
+                 usuarioVM.Bairro, usuarioVM.Estado, usuarioVM.DataNascimento);            
 
             return CustomResponse(await _mediatorHandler.EnviarComando(editarComando));
         }
