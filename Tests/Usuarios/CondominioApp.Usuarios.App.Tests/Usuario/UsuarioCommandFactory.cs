@@ -15,6 +15,15 @@ namespace CondominioApp.Usuarios.App.Tests
                  "RJ", new DateTime(1985, 05, 10));
         }
 
+        public static EditarUsuarioCommand EditarUsuarioCommandFactoy()
+        {
+            return new EditarUsuarioCommand
+                (Guid.NewGuid(), "Nome", "Sobrenome", "alexandre@techdog.com.br", "874541213", "689.560.890-78",
+                 "foto.jpg", "original.jpg", "(21) 99988-5241", "(21) 99988-5241", "logradouro", "lt 30", "S/N", "",
+                 "Bairro", "Rio de Janeiro", "RJ", new DateTime(1985, 05, 10));
+        }
+
+
         public static CadastrarUsuarioCommand CriarComandoCadastroDeUsuario()
         {
             return CadastrarUsuarioCommandFactoy();
@@ -76,6 +85,12 @@ namespace CondominioApp.Usuarios.App.Tests
 
             return comando;
            
+        }
+
+
+        public static EditarUsuarioCommand CriarComandoEdicaoDeUsuario()
+        {
+            return EditarUsuarioCommandFactoy();
         }
     }
 }

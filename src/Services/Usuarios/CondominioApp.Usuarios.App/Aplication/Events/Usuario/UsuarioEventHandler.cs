@@ -8,61 +8,62 @@ using System.Threading.Tasks;
 namespace CondominioApp.Usuarios.App.Aplication.Events
 {
     public class UsuarioEventHandler : EventHandler,
-        INotificationHandler<MoradorCadastradoEvent>,
-        INotificationHandler<FuncionarioCadastradoEvent>,
+        INotificationHandler<UsuarioEditadoEvent>,        
         System.IDisposable
     {
-        private IUsuarioRepository _usuarioRepository;
-        private IMoradorQueryRepository _moradorQueryRepository;
-        private IFuncionarioQueryRepository _funcionarioQueryRepository;
+        private IMoradorQueryRepository _moradorRepository;
+        private IFuncionarioQueryRepository _funcionarioRepository;
 
-        public UsuarioEventHandler(IUsuarioRepository usuarioRepository, IMoradorQueryRepository moradorQueryRepository, IFuncionarioQueryRepository funcionarioQueryRepository)
+        public UsuarioEventHandler(IMoradorQueryRepository moradorRepository, IFuncionarioQueryRepository funcionarioRepository)
         {
-            _usuarioRepository = usuarioRepository;
-            _moradorQueryRepository = moradorQueryRepository;
-            _funcionarioQueryRepository = funcionarioQueryRepository;
+            _moradorRepository = moradorRepository;
+            _funcionarioRepository = funcionarioRepository;
         }
                
 
-        public async Task Handle(MoradorCadastradoEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(UsuarioEditadoEvent notification, CancellationToken cancellationToken)
         {
-            var usuario = await _usuarioRepository.ObterPorId(notification.UsuarioId);
+            var moradores = await _moradorRepository.Obter(m=>m.UsuarioId == notification.UsuarioId);
+            foreach (var item in moradores)
+            {
+                item.SetNome(notification.Nome);
+                item.SetSobrenome(notification.Sobrenome);
+                item.SetRg(notification.Rg);
+                item.SetCpf(notification.Cpf);
+                item.SetTelefone(notification.Telefone);
+                item.SetCelular(notification.Cel);
+                item.SetEmail(notification.Email);
+                item.SetFoto(notification.Foto);
+                item.SetEndereco(notification.Endereco);
 
-            var moradorFlat = new MoradorFlat
-                (notification.Id, notification.UsuarioId, notification.UnidadeId, notification.NumeroUnidade, notification.AndarUnidade,
-                notification.GrupoUnidade, notification.CondominioId, notification.NomeCondominio, notification.Proprietario, 
-                notification.Principal, usuario.Nome, usuario.Sobrenome, usuario.Rg, usuario.ObterCPF(),
-                usuario.ObterCelular(), usuario.ObterTelefone(), usuario.ObterEmail(), usuario.ObterFoto(),
-                usuario.DataNascimento, usuario.ObterLogradouro(), usuario.ObterComplemento(), usuario.ObterNumero(),
-                usuario.ObterCep(), usuario.ObterBairro(), usuario.ObterCidade(), usuario.ObterEstado());
+                _moradorRepository.Atualizar(item);
+            }
+            await PersistirDados(_moradorRepository.UnitOfWork);
 
-            _moradorQueryRepository.Adicionar(moradorFlat);
 
-            await PersistirDados(_moradorQueryRepository.UnitOfWork);
-        }
+            var funcionarios = await _funcionarioRepository.Obter(m => m.UsuarioId == notification.UsuarioId);
+            foreach (var item in funcionarios)
+            {
+                item.SetNome(notification.Nome);
+                item.SetSobrenome(notification.Sobrenome);
+                item.SetRg(notification.Rg);
+                item.SetCpf(notification.Cpf);
+                item.SetTelefone(notification.Telefone);
+                item.SetCelular(notification.Cel);
+                item.SetEmail(notification.Email);
+                item.SetFoto(notification.Foto);
+                item.SetEndereco(notification.Endereco);
 
-        public async Task Handle(FuncionarioCadastradoEvent notification, CancellationToken cancellationToken)
-        {
-            var usuario = await _usuarioRepository.ObterPorId(notification.UsuarioId);
+                _funcionarioRepository.Atualizar(item);
+            }
+            await PersistirDados(_funcionarioRepository.UnitOfWork);
             
-            var funcionarioFlat = new FuncionarioFlat
-                (notification.Id, notification.UsuarioId, notification.CondominioId, notification.NomeCondominio,
-                 notification.Atribuicao, notification.Funcao, usuario.SindicoProfissional,
-                 notification.Permissao.ToString(), usuario.Nome, usuario.Sobrenome, usuario.Rg, usuario.ObterCPF(),
-                 usuario.ObterCelular(), usuario.ObterTelefone(), usuario.ObterEmail(), usuario.ObterFoto(), usuario.DataNascimento,
-                 usuario.ObterLogradouro(), usuario.ObterComplemento(), usuario.ObterNumero(), usuario.ObterCep(),
-                 usuario.ObterBairro(), usuario.ObterCidade(), usuario.ObterEstado());
-
-            _funcionarioQueryRepository.Adicionar(funcionarioFlat);
-
-            await PersistirDados(_moradorQueryRepository.UnitOfWork);
         }
 
-
-
+       
         public void Dispose()
         {
-            _moradorQueryRepository.Dispose();
+            _moradorRepository.Dispose();
         }
     }
 }

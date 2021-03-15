@@ -12,13 +12,16 @@ namespace CondominioApp.Usuarios.App.Aplication.Query
         private IUsuarioRepository _usuarioRepository;
         private IVeiculoQueryRepository _veiculoQueryRepository;
         private IMoradorQueryRepository _moradorQueryRepository;
+        private IFuncionarioQueryRepository _funcionarioQueryRepository;
 
-        public UsuarioQuery(IUsuarioRepository usuarioRepository, IVeiculoQueryRepository veiculoQueryRepository, IMoradorQueryRepository moradorQueryRepository)
+        public UsuarioQuery(IUsuarioRepository usuarioRepository, IVeiculoQueryRepository veiculoQueryRepository,
+            IMoradorQueryRepository moradorQueryRepository, IFuncionarioQueryRepository funcionarioQueryRepository)
         {
             _usuarioRepository = usuarioRepository;
             _veiculoQueryRepository = veiculoQueryRepository;
             _moradorQueryRepository = moradorQueryRepository;
-        }
+            _funcionarioQueryRepository = funcionarioQueryRepository;
+    }
 
 
         #region Usuario    
@@ -28,15 +31,17 @@ namespace CondominioApp.Usuarios.App.Aplication.Query
         }
         #endregion
 
+
         #region Morador
         public async Task<MoradorFlat> ObterMoradorPorId(Guid id)
         {
             return await _moradorQueryRepository.ObterPorId(id);
         }
-        public async Task<MoradorFlat> ObterMoradorPorUsuarioId(Guid usuarioId)
+
+        public async Task<IEnumerable<MoradorFlat>> ObterMoradoresPorUsuarioId(Guid usuarioId)
         {
-            var retorno = await _moradorQueryRepository.Obter(m => m.UsuarioId == usuarioId && !m.Lixeira);
-            return retorno.FirstOrDefault();
+            var moradores = await _moradorQueryRepository.Obter(m => m.UsuarioId == usuarioId && !m.Lixeira);
+            return moradores.ToList();
         }
 
         public async Task<IEnumerable<MoradorFlat>> ObterMoradoresPorCondominioId(Guid condominioId)
@@ -52,9 +57,25 @@ namespace CondominioApp.Usuarios.App.Aplication.Query
         }
         #endregion
 
-        #region Funcionario
 
+        #region Funcionario
+        public async Task<FuncionarioFlat> ObterFuncionarioPorId(Guid id)
+        {
+            return await _funcionarioQueryRepository.ObterPorId(id);
+        }
+        public async Task<IEnumerable<FuncionarioFlat>> ObterFuncionariosPorUsuarioId(Guid usuarioId)
+        {
+            var funcionarios = await _funcionarioQueryRepository.Obter(m => m.UsuarioId == usuarioId && !m.Lixeira);
+            return funcionarios.ToList();
+        }
+
+        public async Task<IEnumerable<FuncionarioFlat>> ObterFuncionariosPorCondominioId(Guid condominioId)
+        {
+            var retorno = await _funcionarioQueryRepository.Obter(m => m.CondominioId == condominioId && !m.Lixeira);
+            return retorno.ToList();
+        }       
         #endregion
+
 
         #region Veiculo       
 

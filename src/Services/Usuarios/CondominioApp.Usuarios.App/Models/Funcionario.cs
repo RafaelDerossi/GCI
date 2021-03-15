@@ -36,6 +36,8 @@ namespace CondominioApp.Usuarios.App.Models
 
         public void SetAtribuicao(string atribuicao) => Atribuicao = atribuicao;
 
+        public void SetFuncao(string funcao) => Funcao = funcao;
+
         public void SetPermissao(Permissao permissao) => Permissao = permissao;
         
 

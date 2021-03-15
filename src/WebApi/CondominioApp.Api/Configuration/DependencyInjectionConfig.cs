@@ -154,13 +154,19 @@ namespace CondominioApp.Api.Configuration
             #endregion
 
             #region Morador
-            services.AddScoped<IRequestHandler<CadastrarMoradorCommand, ValidationResult>, UsuarioCommandHandler>();            
-            services.AddScoped<INotificationHandler<MoradorCadastradoEvent>, UsuarioEventHandler>();            
+            services.AddScoped<IRequestHandler<CadastrarMoradorCommand, ValidationResult>, MoradorCommandHandler>();
+            services.AddScoped<IRequestHandler<MarcarComoUnidadePrincipalCommand, ValidationResult>, MoradorCommandHandler>();
+            services.AddScoped<IRequestHandler<MarcarComoProprietarioCommand, ValidationResult>, MoradorCommandHandler>();
+            services.AddScoped<IRequestHandler<DesmarcarComoProprietarioCommand, ValidationResult>, MoradorCommandHandler>();
+            services.AddScoped<INotificationHandler<MoradorCadastradoEvent>, MoradorEventHandler>();
+            services.AddScoped<INotificationHandler<UnidadeMarcadaComoPrincipalEvent>, MoradorEventHandler>();
+            services.AddScoped<INotificationHandler<MarcadoComoProprietarioEvent>, MoradorEventHandler>();
+            services.AddScoped<INotificationHandler<DesmarcadoComoProprietarioEvent>, MoradorEventHandler>();
             #endregion
 
             #region Funcionario           
-            services.AddScoped<IRequestHandler<CadastrarFuncionarioCommand, ValidationResult>, UsuarioCommandHandler>();
-            services.AddScoped<INotificationHandler<FuncionarioCadastradoEvent>, UsuarioEventHandler>();            
+            services.AddScoped<IRequestHandler<CadastrarFuncionarioCommand, ValidationResult>, FuncionarioCommandHandler>();
+            services.AddScoped<INotificationHandler<FuncionarioCadastradoEvent>, FuncionarioEventHandler>();            
             #endregion
 
             #region Veiculo

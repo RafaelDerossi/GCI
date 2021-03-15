@@ -1,10 +1,9 @@
 ﻿using System;
 using CondominioApp.Core.Enumeradores;
-using CondominioApp.Usuarios.App.ValueObjects;
 
 namespace CondominioApp.Usuarios.App.Aplication.Events
 {
-    public class MoradorCadastradoEvent : UsuarioEvent
+    public class MoradorCadastradoEvent : MoradorEvent
     {        
         public MoradorCadastradoEvent(Guid id, Guid usuarioId, Guid condominioId, string nomeCondominio,
             Guid unidadeId, string numeroUnidade, string andarUnidade, string grupoUnidade,
@@ -22,8 +21,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Events
             NomeCondominio = nomeCondominio;
 
             Proprietario = proprietario;
-            Principal = principal;            
-            TpUsuario = TipoDeUsuario.MORADOR;                         
+            Principal = principal;                                     
         }
     }
 }

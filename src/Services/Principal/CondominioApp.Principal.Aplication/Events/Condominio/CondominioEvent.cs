@@ -67,15 +67,15 @@ namespace CondominioApp.Principal.Aplication.Events
 
         public Guid ContratoId { get; protected set; }
 
-        public DateTime DataAssinatura { get; set; }
+        public DateTime DataAssinatura { get; protected set; }
 
-        public TipoDePlano TipoPlano { get; set; }       
+        public TipoDePlano TipoPlano { get; protected set; }       
 
-        public string DescricaoContrato { get; set; }
+        public string DescricaoContrato { get; protected set; }
 
-        public bool ContratoAtivo { get; set; }
+        public bool ContratoAtivo { get; protected set; }
 
-        public string LinkContrato { get; set; }
+        public string LinkContrato { get; protected set; }
 
     }
 }

@@ -93,28 +93,100 @@ namespace CondominioApp.Usuarios.App.Data.Repository
 
 
         #region Morador
-        public async Task<Morador> ObterMoradorPorUsuarioIdEUnidadeId(Guid usuarioId, Guid unidadeId )
+        public async Task<Morador> ObterMoradorPorId(Guid id)
+        {
+            return await _context.Moradores.Where(u => u.Id == id && !u.Lixeira).FirstOrDefaultAsync();
+        }
+
+        public async Task<Morador> ObterMoradorPorUsuarioIdEUnidadeId(Guid usuarioId, Guid unidadeId)
         {
             return await _context.Moradores.Where(u=>u.UsuarioId == usuarioId && u.UnidadeId == unidadeId && !u.Lixeira).FirstOrDefaultAsync();
         }
 
+        public async Task<IEnumerable<Morador>> ObterMoradoresPorUsuarioId(Guid usuarioId)
+        {
+            return await _context.Moradores.Where(u => u.UsuarioId == usuarioId && !u.Lixeira).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Morador>> ObterMoradores(Expression<Func<Morador, bool>> expression, bool OrderByDesc = false, int take = 0)
+        {
+            if (OrderByDesc)
+            {
+                if (take > 0)
+                    return await _context.Moradores.AsNoTracking().Where(expression)
+                                        .OrderByDescending(x => x.DataDeCadastro).Take(take).ToListAsync();
+
+                return await _context.Moradores.AsNoTracking().Where(expression)
+                                        .OrderByDescending(x => x.DataDeCadastro).ToListAsync();
+            }
+
+            if (take > 0)
+                return await _context.Moradores.AsNoTracking().Where(expression)
+                                        .OrderBy(x => x.DataDeCadastro).Take(take).ToListAsync();
+
+            return await _context.Moradores.AsNoTracking().Where(expression)
+                                    .OrderBy(x => x.DataDeCadastro).ToListAsync();
+        }
+
+
+
         public void AdicionarMorador(Morador morador)
         {
             _context.Moradores.Add(morador);
-        }       
+        }
+
+        public void AtualizarMorador(Morador entity)
+        {
+            _context.Moradores.Update(entity);
+        }
 
         #endregion
 
 
         #region Funcionario
+        public async Task<Funcionario> ObterFuncionarioPorId(Guid id)
+        {
+            return await _context.Funcionarios.Where(u => u.Id == id && !u.Lixeira).FirstOrDefaultAsync();
+        }
+
         public async Task<Funcionario> ObterFuncionarioPorUsuarioIdECondominioId(Guid usuarioId, Guid condominioId)
         {
             return await _context.Funcionarios.Where(u => u.UsuarioId == usuarioId && u.CondominioId == condominioId && !u.Lixeira).FirstOrDefaultAsync();
         }
 
+        public async Task<IEnumerable<Funcionario>> ObterFuncionariosPorUsuarioId(Guid usuarioId)
+        {
+            return await _context.Funcionarios.Where(u => u.UsuarioId == usuarioId && !u.Lixeira).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Funcionario>> ObterFuncionarios(Expression<Func<Funcionario, bool>> expression, bool OrderByDesc = false, int take = 0)
+        {
+            if (OrderByDesc)
+            {
+                if (take > 0)
+                    return await _context.Funcionarios.AsNoTracking().Where(expression)
+                                        .OrderByDescending(x => x.DataDeCadastro).Take(take).ToListAsync();
+
+                return await _context.Funcionarios.AsNoTracking().Where(expression)
+                                        .OrderByDescending(x => x.DataDeCadastro).ToListAsync();
+            }
+
+            if (take > 0)
+                return await _context.Funcionarios.AsNoTracking().Where(expression)
+                                        .OrderBy(x => x.DataDeCadastro).Take(take).ToListAsync();
+
+            return await _context.Funcionarios.AsNoTracking().Where(expression)
+                                    .OrderBy(x => x.DataDeCadastro).ToListAsync();
+        }
+
         public void AdicionarFuncionario(Funcionario funcionario)
         {
             _context.Funcionarios.Add(funcionario);
+        }
+
+        public void AtualizarFuncionario(Funcionario entity)
+        {
+            _context.Funcionarios.Update(entity);
         }
 
         #endregion

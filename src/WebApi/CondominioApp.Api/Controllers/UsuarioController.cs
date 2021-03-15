@@ -1,5 +1,4 @@
 ﻿using CondominioApp.Core.Mediator;
-using CondominioApp.Principal.Aplication.Query.Interfaces;
 using CondominioApp.Usuarios.App.Aplication.Query;
 using CondominioApp.WebApi.Core.Controllers;
 using Microsoft.AspNetCore.Mvc;
@@ -15,14 +14,15 @@ namespace CondominioApp.Api.Controllers
     [Route("/api/usuario")]
     public class UsuarioController : MainController
     {
-        private readonly IMediatorHandler _mediatorHandler;        
-        private readonly IUsuarioQuery _usuarioQuery;
+        private readonly IMediatorHandler _mediatorHandler;
+        private readonly IUsuarioQuery _usuarioQuery;        
         private readonly IMapper _mapper;
 
-        public UsuarioController(IMediatorHandler mediatorHandler, IUsuarioQuery usuarioQuery, IMapper mapper)
+        public UsuarioController(IMediatorHandler mediatorHandler, IUsuarioQuery usuarioQuery,
+            IMapper mapper)
         {
             _mediatorHandler = mediatorHandler;            
-            _usuarioQuery = usuarioQuery;
+            _usuarioQuery = usuarioQuery;            
             _mapper = mapper;
         }
 
@@ -39,7 +39,8 @@ namespace CondominioApp.Api.Controllers
             }
 
             return _mapper.Map<UsuarioViewModel>(usuario); ;
-        }
+        }     
+
 
 
         [HttpPost("registrar-dispositivo")]
@@ -83,5 +84,19 @@ namespace CondominioApp.Api.Controllers
 
         }
 
+        [HttpPut]
+        public async Task<ActionResult> Put(UsuarioViewModel usuarioVM)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+           var editarComando = new EditarUsuarioCommand
+                (usuarioVM.Id, usuarioVM.Nome, usuarioVM.Sobrenome, usuarioVM.Email,
+                 usuarioVM.Rg, usuarioVM.Cpf, usuarioVM.Foto, usuarioVM.NomeOriginal,
+                 usuarioVM.Cel, usuarioVM.Telefone, usuarioVM.Logradouro,
+                 usuarioVM.Complemento, usuarioVM.Numero, usuarioVM.Cep, usuarioVM.Bairro,
+                 usuarioVM.Bairro, usuarioVM.Estado, usuarioVM.DataNascimento);            
+
+            return CustomResponse(await _mediatorHandler.EnviarComando(editarComando));
+        }
     }
 }

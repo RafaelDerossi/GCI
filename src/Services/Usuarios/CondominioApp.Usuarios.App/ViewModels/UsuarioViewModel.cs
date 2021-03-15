@@ -31,6 +31,8 @@ namespace CondominioApp.Usuarios.App.ViewModels
 
         public string Foto { get; set; }
 
+        public string NomeOriginal { get; set; }
+
         public string TpUsuario { get; set; }      
 
         public bool Ativo { get; set; }

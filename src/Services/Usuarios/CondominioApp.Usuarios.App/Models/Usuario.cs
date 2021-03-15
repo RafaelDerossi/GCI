@@ -99,9 +99,11 @@ namespace CondominioApp.Usuarios.App.Models
         public void SetEmail(Email email) => Email = email;
 
         public void SetFoto(Foto foto) => Foto = foto;
-               
 
-       
+        public void SetEndereco(Endereco endereco) => Endereco = endereco;
+
+
+
 
         public void SetDataNascimento(DateTime? dataNascimento) => DataNascimento = dataNascimento;
 
@@ -200,5 +202,6 @@ namespace CondominioApp.Usuarios.App.Models
                 return "";
             return Endereco.estado;
         }
+
     }
 }
