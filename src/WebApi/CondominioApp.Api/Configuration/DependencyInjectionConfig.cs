@@ -150,7 +150,9 @@ namespace CondominioApp.Api.Configuration
 
             #region Usuario
             services.AddScoped<IRequestHandler<CadastrarUsuarioCommand, ValidationResult>, UsuarioCommandHandler>();
+            services.AddScoped<IRequestHandler<EditarUsuarioCommand, ValidationResult>, UsuarioCommandHandler>();
             services.AddScoped<IRequestHandler<ExcluirUsuarioCommand, ValidationResult>, UsuarioCommandHandler>();
+            services.AddScoped<INotificationHandler<UsuarioEditadoEvent>, UsuarioEventHandler>();
             #endregion
 
             #region Morador
@@ -166,7 +168,9 @@ namespace CondominioApp.Api.Configuration
 
             #region Funcionario           
             services.AddScoped<IRequestHandler<CadastrarFuncionarioCommand, ValidationResult>, FuncionarioCommandHandler>();
-            services.AddScoped<INotificationHandler<FuncionarioCadastradoEvent>, FuncionarioEventHandler>();            
+            services.AddScoped<INotificationHandler<FuncionarioCadastradoEvent>, FuncionarioEventHandler>();
+            services.AddScoped<IRequestHandler<EditarFuncionarioCommand, ValidationResult>, FuncionarioCommandHandler>();
+            services.AddScoped<INotificationHandler<FuncionarioEditadoEvent>, FuncionarioEventHandler>();
             #endregion
 
             #region Veiculo

@@ -87,7 +87,7 @@ namespace CondominioApp.Api.Controllers
             {
                 AdicionarErroProcessamento("Funcionario não encontrado!");
                 return CustomResponse();
-            }           
+            }
 
             var comando = new EditarFuncionarioCommand
                 (funcionario.Id, editaViewModel.Atribuicao, editaViewModel.Funcao, editaViewModel.Permissao);
