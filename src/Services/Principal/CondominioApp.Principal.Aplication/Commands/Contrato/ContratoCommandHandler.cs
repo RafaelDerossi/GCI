@@ -17,9 +17,9 @@ namespace CondominioApp.Principal.Aplication.Commands
          IDisposable
     {
 
-        private ICondominioRepository _condominioRepository;
+        private IPrincipalRepository _condominioRepository;
 
-        public ContratoCommandHandler(ICondominioRepository condominioRepository)
+        public ContratoCommandHandler(IPrincipalRepository condominioRepository)
         {
             _condominioRepository = condominioRepository;
         }

@@ -11,11 +11,11 @@ using System.Threading.Tasks;
 
 namespace CondominioApp.Portaria.Infra.Data.Repository
 {
-    public class VisitanteRepository : IVisitanteRepository
+    public class PortariaRepository : IPortariaRepository
     {
         private readonly PortariaContextDB _context;
        
-        public VisitanteRepository(PortariaContextDB context)
+        public PortariaRepository(PortariaContextDB context)
         {
             _context = context;
         }

@@ -15,9 +15,9 @@ namespace CondominioApp.Principal.Aplication.Events
         INotificationHandler<ContratoRemovidoEvent>,
         System.IDisposable
     {
-        private ICondominioQueryRepository _condominioQueryRepository;
+        private IPrincipalQueryRepository _condominioQueryRepository;
 
-        public ContratoEventHandler(ICondominioQueryRepository condominioQueryRepository)
+        public ContratoEventHandler(IPrincipalQueryRepository condominioQueryRepository)
         {
             _condominioQueryRepository = condominioQueryRepository;
         }

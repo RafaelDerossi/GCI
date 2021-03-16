@@ -29,13 +29,13 @@ namespace CondominioApp.Identidade.Api.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly AppSettings _appSettings;
         private readonly IMediatorHandler _mediatorHandler;
-        private readonly ICondominioQuery _condominioQuery;
+        private readonly IPrincipalQuery _condominioQuery;
 
         public AuthController(SignInManager<IdentityUser> signInManager,
                               UserManager<IdentityUser> userManager,
                               IOptions<AppSettings> appSettings,
                               IMediatorHandler mediatorHandler,
-                              ICondominioQuery condominioQuery)
+                              IPrincipalQuery condominioQuery)
         {
             _signInManager = signInManager;
             _userManager = userManager;

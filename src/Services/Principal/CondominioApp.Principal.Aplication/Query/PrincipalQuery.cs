@@ -8,12 +8,12 @@ using CondominioApp.Principal.Domain.Interfaces;
 
 namespace CondominioApp.Principal.Aplication.Query
 {
-    public class CondominioQuery : ICondominioQuery
+    public class PrincipalQuery : IPrincipalQuery
     {
-        private ICondominioQueryRepository _condominioQueryRepository;
-        private ICondominioRepository _condominioRepository;
+        private IPrincipalQueryRepository _condominioQueryRepository;
+        private IPrincipalRepository _condominioRepository;
 
-        public CondominioQuery(ICondominioQueryRepository condominioQueryRepository, ICondominioRepository condominioRepository)
+        public PrincipalQuery(IPrincipalQueryRepository condominioQueryRepository, IPrincipalRepository condominioRepository)
         {
             _condominioQueryRepository = condominioQueryRepository;
             _condominioRepository = condominioRepository;

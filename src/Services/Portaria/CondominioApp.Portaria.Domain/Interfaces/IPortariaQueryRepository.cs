@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CondominioApp.Portaria.Domain.Interfaces
 {
-    public interface IVisitanteQueryRepository : IRepository<VisitanteFlat>
+    public interface IPortariaQueryRepository : IRepository<VisitanteFlat>
     {  
 
         void AdicionarVisita(VisitaFlat entity);

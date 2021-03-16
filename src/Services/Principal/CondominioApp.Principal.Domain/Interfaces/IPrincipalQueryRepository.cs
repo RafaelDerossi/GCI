@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CondominioApp.Principal.Domain.Interfaces
 {
-    public interface ICondominioQueryRepository : IRepository<CondominioFlat>
+    public interface IPrincipalQueryRepository : IRepository<CondominioFlat>
     {
         void AdicionarGrupo(GrupoFlat entity);
 

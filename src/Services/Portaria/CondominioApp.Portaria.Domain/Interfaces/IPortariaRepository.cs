@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CondominioApp.Portaria.Domain.Interfaces
 {
-    public interface IVisitanteRepository : IRepository<Visitante>
+    public interface IPortariaRepository : IRepository<Visitante>
     {
         Task<bool> VisitanteJaCadastradoPorDocumento(string documento, Guid visitanteId);
         

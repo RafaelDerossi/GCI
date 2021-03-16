@@ -19,9 +19,9 @@ namespace CondominioApp.Api.Controllers
     public class ContratoController : MainController
     {
         private readonly IMediatorHandler _mediatorHandler;
-        private readonly ICondominioQuery _condominioQuery;
+        private readonly IPrincipalQuery _condominioQuery;
         public readonly IMapper _mapper;
-        public ContratoController(IMediatorHandler mediatorHandler, ICondominioQuery condominioQuery, IMapper mapper)
+        public ContratoController(IMediatorHandler mediatorHandler, IPrincipalQuery condominioQuery, IMapper mapper)
         {
             _mediatorHandler = mediatorHandler;
             _condominioQuery = condominioQuery;

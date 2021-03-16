@@ -7,7 +7,7 @@ using CondominioApp.Principal.Domain.FlatModel;
 
 namespace CondominioApp.Principal.Aplication.Query.Interfaces
 {
-    public interface ICondominioQuery : IDisposable
+    public interface IPrincipalQuery : IDisposable
     {
         Task<CondominioFlat> ObterPorId(Guid Id);
 

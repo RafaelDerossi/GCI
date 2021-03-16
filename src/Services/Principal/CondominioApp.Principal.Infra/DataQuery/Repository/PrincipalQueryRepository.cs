@@ -12,11 +12,11 @@ using CondominioApp.Principal.Domain;
 
 namespace CondominioApp.Principal.Infra.Data.Repository
 {
-    public class CondominioQueryRepository : ICondominioQueryRepository
+    public class PrincipalQueryRepository : IPrincipalQueryRepository
     {
         private readonly PrincipalQueryContextDB _queryContext;      
 
-        public CondominioQueryRepository(PrincipalQueryContextDB queryContext)
+        public PrincipalQueryRepository(PrincipalQueryContextDB queryContext)
         {
             _queryContext = queryContext;            
         }

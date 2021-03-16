@@ -7,9 +7,13 @@ namespace CondominioApp.ArquivoDigital.App.Models
 {
    public class Pasta : Entity, IAggregateRoot
     {
+        public const int Max = 200;
+
         public string Titulo { get; private set; }
 
         public string Descricao { get; private set; }
+
+        public Guid CondominioId { get; private set; }
 
         public bool Publica { get; private set; }
 
@@ -19,12 +23,16 @@ namespace CondominioApp.ArquivoDigital.App.Models
 
         public Pasta()
         {
+            _Arquivo = new List<Arquivo>();
         }
 
-        public Pasta(string titulo, string descricao)
+        public Pasta(string titulo, string descricao, Guid condominioId, bool publica)
         {
+            _Arquivo = new List<Arquivo>();
             Titulo = titulo;
-            Descricao = descricao;            
+            Descricao = descricao;
+            CondominioId = condominioId;
+            Publica = publica;        
         }
 
         public void SetTitulo(string titulo) => Titulo = titulo;

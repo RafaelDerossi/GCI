@@ -18,10 +18,10 @@ namespace CondominioApp.Api.Controllers
     public class VeiculoController : MainController
     {
         private readonly IMediatorHandler _mediatorHandler;
-        private readonly ICondominioQuery _condominioQuery;
+        private readonly IPrincipalQuery _condominioQuery;
         private readonly IUsuarioQuery _usuarioQuery;
 
-        public VeiculoController(IMediatorHandler mediatorHandler, ICondominioQuery condominioQuery, IUsuarioQuery usuarioQuery)
+        public VeiculoController(IMediatorHandler mediatorHandler, IPrincipalQuery condominioQuery, IUsuarioQuery usuarioQuery)
         {
             _mediatorHandler = mediatorHandler;
             _condominioQuery = condominioQuery;

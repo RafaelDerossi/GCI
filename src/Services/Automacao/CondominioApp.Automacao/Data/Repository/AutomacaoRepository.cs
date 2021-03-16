@@ -11,11 +11,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CondominioApp.Automacao.App.Data.Repository
 {
-    public class CondominioCredencialRepository : ICondominioCredencialRepository
+    public class AutomacaoRepository : IAutomacaoRepository
     {
         private readonly AutomacaoContextDB _context;
 
-        public CondominioCredencialRepository(AutomacaoContextDB context)
+        public AutomacaoRepository(AutomacaoContextDB context)
         {
             _context = context;
         }

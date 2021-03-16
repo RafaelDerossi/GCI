@@ -7,11 +7,13 @@ namespace CondominioApp.ArquivoDigital.App.Models
 {
   public class Arquivo : Entity
     {
+        public const int Max = 200;
+
         public string Nome { get; private set; }
 
         public string NomeOriginal { get; private set; }
 
-        public string Extencao { get; private set; }
+        public string Extensao { get; private set; }
 
         public int Tamanho { get; private set; }
 
@@ -41,7 +43,7 @@ namespace CondominioApp.ArquivoDigital.App.Models
 
         public void SetNomeOriginal(string nomeOriginal) => NomeOriginal = nomeOriginal;
 
-        public void SetExtencao(string extencao) => Extencao = extencao;
+        public void SetExtensao(string extencao) => Extencao = extencao;
 
         public void SetTamanho(int tamanho) => Tamanho = tamanho;
 

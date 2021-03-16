@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CondominioApp.Automacao.App.Models
 {
-    public interface ICondominioCredencialRepository : IRepository<CondominioCredencial>
+    public interface IAutomacaoRepository : IRepository<CondominioCredencial>
     {
         Task<bool> VerificaSeJaEstaCadastrado(Guid condominioId, TipoApiAutomacao tipoApiAutomacao);
     }

@@ -19,10 +19,10 @@ namespace CondominioApp.Api.Controllers
     {
         private readonly IMediatorHandler _mediatorHandler;
         private readonly IUsuarioQuery _usuarioQuery;
-        private readonly ICondominioQuery _condominioQuery;       
+        private readonly IPrincipalQuery _condominioQuery;       
 
         public MoradorController(IMediatorHandler mediatorHandler, IUsuarioQuery usuarioQuery,
-            ICondominioQuery condominioQuery)
+            IPrincipalQuery condominioQuery)
         {
             _mediatorHandler = mediatorHandler;            
             _usuarioQuery = usuarioQuery;

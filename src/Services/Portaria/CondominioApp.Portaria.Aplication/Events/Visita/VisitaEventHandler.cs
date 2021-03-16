@@ -18,9 +18,9 @@ namespace CondominioApp.Portaria.Aplication.Events
         System.IDisposable
     {        
 
-        private IVisitanteQueryRepository _visitanteQueryRepository;
+        private IPortariaQueryRepository _visitanteQueryRepository;
         public VisitaEventHandler(
-            IVisitanteQueryRepository visitanteQueryRepository)
+            IPortariaQueryRepository visitanteQueryRepository)
         {
             _visitanteQueryRepository = visitanteQueryRepository;
         }

@@ -28,7 +28,7 @@ namespace CondominioApp.Portaria.Tests
             //Arrange        
             var command = VisitaCommandFactory.CriarComandoCadastroDeVisita_NaPortaria_ComCPF();
 
-            _mocker.GetMock<IVisitanteRepository>().Setup(r => r.UnitOfWork.Commit())
+            _mocker.GetMock<IPortariaRepository>().Setup(r => r.UnitOfWork.Commit())
                .Returns(Task.FromResult(true));
 
             //Act
@@ -36,8 +36,8 @@ namespace CondominioApp.Portaria.Tests
 
             //Assert
             Assert.True(result.IsValid);
-            _mocker.GetMock<IVisitanteRepository>().Verify(r => r.AdicionarVisita(It.IsAny<Visita>()), Times.Once);                       
-            _mocker.GetMock<IVisitanteRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
+            _mocker.GetMock<IPortariaRepository>().Verify(r => r.AdicionarVisita(It.IsAny<Visita>()), Times.Once);                       
+            _mocker.GetMock<IPortariaRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
         }
 
 
@@ -48,7 +48,7 @@ namespace CondominioApp.Portaria.Tests
             //Arrange        
             var command = VisitaCommandFactory.CriarComandoCadastroDeVisita_NaPortaria_VisitanteNovo(); 
 
-            _mocker.GetMock<IVisitanteRepository>().Setup(r => r.UnitOfWork.Commit())
+            _mocker.GetMock<IPortariaRepository>().Setup(r => r.UnitOfWork.Commit())
                .Returns(Task.FromResult(true));
 
             //Act
@@ -56,8 +56,8 @@ namespace CondominioApp.Portaria.Tests
 
             //Assert
             Assert.True(result.IsValid);
-            _mocker.GetMock<IVisitanteRepository>().Verify(r => r.AdicionarVisita(It.IsAny<Visita>()), Times.Once);
-            _mocker.GetMock<IVisitanteRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
+            _mocker.GetMock<IPortariaRepository>().Verify(r => r.AdicionarVisita(It.IsAny<Visita>()), Times.Once);
+            _mocker.GetMock<IPortariaRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
         }
 
     }

@@ -8,11 +8,11 @@ using CondominioApp.Automacao.Models;
 
 namespace CondominioApp.Automacao.App.Aplication.Query
 {
-    public class CondominioCredencialQuery : ICondominioCredencialQuery
+    public class AutomacaoQuery : IAutomacaoQuery
     {
-        private ICondominioCredencialRepository _condominioCredencialRepository;
+        private IAutomacaoRepository _condominioCredencialRepository;
 
-        public CondominioCredencialQuery(ICondominioCredencialRepository condominioCredencialRepository)
+        public AutomacaoQuery(IAutomacaoRepository condominioCredencialRepository)
         {
             _condominioCredencialRepository = condominioCredencialRepository;
         }

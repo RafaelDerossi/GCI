@@ -12,11 +12,11 @@ using System.Threading.Tasks;
 
 namespace CondominioApp.Principal.Infra.Data.Repository
 {
-    public class CondominioRepository : ICondominioRepository
+    public class PrincipalRepository : IPrincipalRepository
     {
         private readonly PrincipalContextDB _context;
        
-        public CondominioRepository(PrincipalContextDB context)
+        public PrincipalRepository(PrincipalContextDB context)
         {
             _context = context;
         }

@@ -14,6 +14,8 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
 
         public string Descricao { get; protected set; }
 
+        public Guid CondominioId { get; protected set; }
+
         public bool Publica { get; protected set; }
 
 
@@ -27,5 +29,7 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
         public void MarcarComoPublica() => Publica = true;
 
         public void MarcarComoPrivada() => Publica = false;
+
+       
     }
 }

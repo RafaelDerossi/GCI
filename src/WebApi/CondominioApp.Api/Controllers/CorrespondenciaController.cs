@@ -25,12 +25,12 @@ namespace CondominioApp.Api.Controllers
         private readonly IMapper _mapper;
         private readonly ICorrespondenciaQuery _correspondenciaQuery;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        private readonly ICondominioQuery _condominioQuery;
+        private readonly IPrincipalQuery _condominioQuery;
         private readonly IUsuarioQuery _usuarioQuery;
 
         public CorrespondenciaController(
             IMediatorHandler mediatorHandler, IMapper mapper, ICorrespondenciaQuery correspondenciaQuery,
-            IWebHostEnvironment webHostEnvironment, ICondominioQuery condominioQuery, IUsuarioQuery usuarioQuery)
+            IWebHostEnvironment webHostEnvironment, IPrincipalQuery condominioQuery, IUsuarioQuery usuarioQuery)
         {
             _mediatorHandler = mediatorHandler;
             _mapper = mapper;

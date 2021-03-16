@@ -30,12 +30,12 @@ namespace CondominioApp.Principal.Tests
             //Arrange
             var command = CondominioCommandFactory.CriarComandoCadastroDeCondominio();
 
-            _mocker.GetMock<ICondominioRepository>().Setup(r => r.CnpjCondominioJaCadastrado(command.Cnpj, command.CondominioId))
+            _mocker.GetMock<IPrincipalRepository>().Setup(r => r.CnpjCondominioJaCadastrado(command.Cnpj, command.CondominioId))
                 .Returns(Task.FromResult(false)); 
                 
 
            
-            _mocker.GetMock<ICondominioRepository>().Setup(r => r.UnitOfWork.Commit())
+            _mocker.GetMock<IPrincipalRepository>().Setup(r => r.UnitOfWork.Commit())
                .Returns(Task.FromResult(true));
 
             //Act
@@ -43,8 +43,8 @@ namespace CondominioApp.Principal.Tests
 
             //Assert
             Assert.True(result.IsValid);
-            _mocker.GetMock<ICondominioRepository>().Verify(r => r.Adicionar(It.IsAny<Condominio>()), Times.Once);
-            _mocker.GetMock<ICondominioRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
+            _mocker.GetMock<IPrincipalRepository>().Verify(r => r.Adicionar(It.IsAny<Condominio>()), Times.Once);
+            _mocker.GetMock<IPrincipalRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
         }
 
 
@@ -62,13 +62,13 @@ namespace CondominioApp.Principal.Tests
 
             condominio.SetEntidadeId(command.CondominioId);
 
-            _mocker.GetMock<ICondominioRepository>().Setup(r => r.ObterPorId(command.CondominioId))
+            _mocker.GetMock<IPrincipalRepository>().Setup(r => r.ObterPorId(command.CondominioId))
                 .Returns(Task.FromResult(condominio));
 
-            _mocker.GetMock<ICondominioRepository>().Setup(r => r.CnpjCondominioJaCadastrado(condominio.Cnpj, command.CondominioId))
+            _mocker.GetMock<IPrincipalRepository>().Setup(r => r.CnpjCondominioJaCadastrado(condominio.Cnpj, command.CondominioId))
                 .Returns(Task.FromResult(false));
 
-            _mocker.GetMock<ICondominioRepository>().Setup(r => r.UnitOfWork.Commit())
+            _mocker.GetMock<IPrincipalRepository>().Setup(r => r.UnitOfWork.Commit())
                .Returns(Task.FromResult(true));
 
             //Act
@@ -76,8 +76,8 @@ namespace CondominioApp.Principal.Tests
 
             //Assert
             Assert.True(result.IsValid);
-            _mocker.GetMock<ICondominioRepository>().Verify(r => r.Atualizar(It.IsAny<Condominio>()), Times.Once);
-            _mocker.GetMock<ICondominioRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
+            _mocker.GetMock<IPrincipalRepository>().Verify(r => r.Atualizar(It.IsAny<Condominio>()), Times.Once);
+            _mocker.GetMock<IPrincipalRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
         }
 
 
@@ -95,13 +95,13 @@ namespace CondominioApp.Principal.Tests
 
             condominio.SetEntidadeId(command.CondominioId);
 
-            _mocker.GetMock<ICondominioRepository>().Setup(r => r.ObterPorId(command.CondominioId))
+            _mocker.GetMock<IPrincipalRepository>().Setup(r => r.ObterPorId(command.CondominioId))
                 .Returns(Task.FromResult(condominio));
 
-            _mocker.GetMock<ICondominioRepository>().Setup(r => r.CnpjCondominioJaCadastrado(condominio.Cnpj, command.CondominioId))
+            _mocker.GetMock<IPrincipalRepository>().Setup(r => r.CnpjCondominioJaCadastrado(condominio.Cnpj, command.CondominioId))
                 .Returns(Task.FromResult(false));
 
-            _mocker.GetMock<ICondominioRepository>().Setup(r => r.UnitOfWork.Commit())
+            _mocker.GetMock<IPrincipalRepository>().Setup(r => r.UnitOfWork.Commit())
                .Returns(Task.FromResult(true));
 
             //Act
@@ -109,8 +109,8 @@ namespace CondominioApp.Principal.Tests
 
             //Assert
             Assert.True(result.IsValid);
-            _mocker.GetMock<ICondominioRepository>().Verify(r => r.Atualizar(It.IsAny<Condominio>()), Times.Once);
-            _mocker.GetMock<ICondominioRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
+            _mocker.GetMock<IPrincipalRepository>().Verify(r => r.Atualizar(It.IsAny<Condominio>()), Times.Once);
+            _mocker.GetMock<IPrincipalRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
         }
     }
 }

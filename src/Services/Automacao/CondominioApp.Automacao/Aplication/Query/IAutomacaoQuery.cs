@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CondominioApp.Automacao.App.Aplication.Query
 {
-    public interface ICondominioCredencialQuery : IDisposable
+    public interface IAutomacaoQuery : IDisposable
     {
         Task<CondominioCredencial> ObterPorId(Guid id);
 
