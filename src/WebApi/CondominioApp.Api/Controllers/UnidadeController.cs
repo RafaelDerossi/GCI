@@ -65,7 +65,7 @@ namespace CondominioApp.Api.Controllers
             return unidades.ToList();
         }
 
-        [HttpGet("por-codigo/{codigo:string}")]
+        [HttpGet("por-codigo/{codigo}")]
         public async Task<ActionResult<UnidadeFlat>> ObterUnidadesPorCodigo(string codigo)
         {
             var unidade = await _condominioQuery.ObterUnidadePorCodigo(codigo);

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace CondominioApp.ArquivoDigital.App.ViewModels
+namespace CondominioApp.ArquivoDigital.App.Models
 {
   public class Arquivo : Entity
     {
@@ -48,6 +48,10 @@ namespace CondominioApp.ArquivoDigital.App.ViewModels
         public void SetCondominioId(Guid condominioId) => CondominioId = condominioId;
 
         public void SetPastaId(Guid pastaId) => PastaId = pastaId;
+
+        public void MarcarComoPublico() => Publico = true;
+
+        public void MarcarComoPrivado() => Publico = false;
 
     }
 }
