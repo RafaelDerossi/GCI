@@ -27,7 +27,7 @@ namespace CondominioApp.ArquivoDigital.App.Models
         }
 
         public Pasta(string titulo, string descricao, Guid condominioId, bool publica)
-        {
+        {            
             _Arquivo = new List<Arquivo>();
             Titulo = titulo;
             Descricao = descricao;
@@ -42,5 +42,6 @@ namespace CondominioApp.ArquivoDigital.App.Models
         public void MarcarComoPublica() => Publica = true;
 
         public void MarcarComoPrivada() => Publica = false;
+
     }
 }

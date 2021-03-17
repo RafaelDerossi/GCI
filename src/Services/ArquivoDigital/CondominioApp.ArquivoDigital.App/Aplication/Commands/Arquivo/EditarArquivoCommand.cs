@@ -11,8 +11,8 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
             (Guid id, string nomeOriginal,  bool publico)
         {
             Id = id;
-            NomeOriginal = nomeOriginal;
             Publico = publico;
+            SetNome(nomeOriginal);            
         }
 
 
@@ -29,8 +29,8 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
         public class EditarArquivoCommandValidation : ArquivoValidation<EditarArquivoCommand>
         {
             public EditarArquivoCommandValidation()
-            {             
-                ValidateNomeOriginal();                
+            {
+                ValidateId();       
                 ValidatePublico();
             }
         }

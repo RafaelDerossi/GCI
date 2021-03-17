@@ -26,6 +26,8 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
 
         public void SetDescricao(string descricao) => Descricao = descricao;
 
+        public void SetCondominioId(Guid condominioid) => CondominioId = condominioid;
+
         public void MarcarComoPublica() => Publica = true;
 
         public void MarcarComoPrivada() => Publica = false;

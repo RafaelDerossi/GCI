@@ -1,7 +1,6 @@
-﻿using CondominioApp.Core.DomainObjects;
+﻿using CondominioApp.ArquivoDigital.App.ValueObjects;
+using CondominioApp.Core.DomainObjects;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CondominioApp.ArquivoDigital.App.Models
 {
@@ -9,11 +8,7 @@ namespace CondominioApp.ArquivoDigital.App.Models
     {
         public const int Max = 200;
 
-        public string Nome { get; private set; }
-
-        public string NomeOriginal { get; private set; }
-
-        public string Extensao { get; private set; }
+        public NomeArquivo Nome { get; private set; }        
 
         public int Tamanho { get; private set; }
 
@@ -28,23 +23,17 @@ namespace CondominioApp.ArquivoDigital.App.Models
         {
         }
 
-        public Arquivo(string nome, string nomeOriginal, string extencao, int tamanho, Guid condominioId, Guid pastaId)
+        public Arquivo(NomeArquivo nome, int tamanho, Guid condominioId, Guid pastaId)
         {
-            Nome = nome;
-            NomeOriginal = nomeOriginal;
-            Extencao = extencao;
+            Nome = nome;            
             Tamanho = tamanho;
             CondominioId = condominioId;
-            PastaId = pastaId;
+            PastaId = pastaId;            
         }
 
 
-        public void SetNome(string nome) => Nome = nome;
-
-        public void SetNomeOriginal(string nomeOriginal) => NomeOriginal = nomeOriginal;
-
-        public void SetExtensao(string extencao) => Extencao = extencao;
-
+        public void SetNome(NomeArquivo nome) => Nome = nome;
+        
         public void SetTamanho(int tamanho) => Tamanho = tamanho;
 
         public void SetCondominioId(Guid condominioId) => CondominioId = condominioId;

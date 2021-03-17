@@ -1,4 +1,5 @@
 ﻿using CondominioApp.ArquivoDigital.App.Models;
+using CondominioApp.ArquivoDigital.App.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -14,11 +15,27 @@ namespace CondominioApp.ArquivoDigital.App.Data.Mapping
 
             builder.ToTable("Arquivos");
 
-            builder.Property(u => u.Nome).IsRequired().HasColumnType($"varchar({Arquivo.Max})");
+            builder.OwnsOne(u => u.Nome, ft =>
+            {
+                ft.Property(u => u.NomeDoArquivo)
+                    .IsRequired()
+                    .HasMaxLength(NomeArquivo.NomeArquivoMaximo)
+                    .HasColumnName("NomeDoArquivo")
+                    .HasColumnType($"varchar({NomeArquivo.NomeArquivoMaximo})");
 
-            builder.Property(u => u.NomeOriginal).IsRequired().HasColumnType($"varchar({Arquivo.Max})");
+                ft.Property(u => u.NomeOriginal)
+                    .IsRequired()
+                    .HasMaxLength(NomeArquivo.NomeArquivoMaximo)
+                    .HasColumnName("NomeOriginal")
+                    .HasColumnType($"varchar({NomeArquivo.NomeArquivoMaximo})");
 
-            builder.Property(u => u.Extensao).IsRequired().HasColumnType($"varchar({Arquivo.Max})");
+                ft.Property(u => u.ExtensaoDoArquivo)
+                    .IsRequired()
+                    .HasMaxLength(NomeArquivo.NomeArquivoMaximo)
+                    .HasColumnName("ExtensaoDoArquivo")
+                    .HasColumnType($"varchar({NomeArquivo.NomeArquivoMaximo})");
+            });
+            
 
             builder.Property(u => u.Tamanho).IsRequired();
 

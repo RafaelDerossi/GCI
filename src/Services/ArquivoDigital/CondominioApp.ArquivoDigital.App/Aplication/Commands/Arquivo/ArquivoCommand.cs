@@ -1,4 +1,5 @@
-﻿using CondominioApp.Core.Messages;
+﻿using CondominioApp.ArquivoDigital.App.ValueObjects;
+using CondominioApp.Core.Messages;
 using System;
 
 namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
@@ -7,11 +8,7 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
     {
         public Guid Id { get; protected set; }
 
-        public string Nome { get; protected set; }
-
-        public string NomeOriginal { get; protected set; }
-
-        public string Extensao { get; protected set; }
+        public NomeArquivo Nome { get; protected set; }
 
         public int Tamanho { get; protected set; }
 
@@ -24,71 +21,17 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
 
 
 
-        public void SetNome(string nome) => Nome = nome;
-
-        public void SetNomeOriginal(string nomeOriginal) => NomeOriginal = nomeOriginal;
-
-        public void SetExtensao(string extensao)
+        public void SetNome(string nomeOriginal)
         {
-            if (String.IsNullOrEmpty(extensao))
+            try
             {
-                Extensao = "";
-                return;
+                Nome = new NomeArquivo(nomeOriginal, Id);
             }
-
-            switch (extensao)
+            catch (Exception e)
             {
-                case "application/pdf":
-                    Extensao = "pdf";
-                    break;
-                case "text/plain":
-                    Extensao = "txt";
-                    break;
-                case "image/bmp":
-                    Extensao = "bmp";
-                    break;
-                case "image/gif":
-                    Extensao = "gif";
-                    break;
-                case "image/png":
-                    Extensao = "png";
-                    break;
-                case "image/jpeg":
-                    Extensao = "jpeg";
-                    break;
-                case "image/jpg":
-                    Extensao = "jpg";
-                    break;
-                case "application/vnd.ms-excel":
-                    Extensao = "xls";
-                    break;
-                case "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
-                    Extensao = "xlsx";
-                    break;
-                case "text/csv":
-                    Extensao = "csv";
-                    break;
-                case "text/html":
-                    Extensao = "html";
-                    break;
-                case "text/xml":
-                    Extensao = "xml";
-                    break;
-                case "application/zip":
-                    Extensao = "zip";
-                    break;
-                case "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
-                    Extensao = "docx";
-                    break;
-                case "application/msword":
-                    Extensao = "word";
-                    break;
-
-                default:
-                    Extensao = extensao;
-                    break;
+                AdicionarErrosDeProcessamentoDoComando(e.Message);
             }
-        }
+        }        
 
         public void SetTamanho(int tamanho) => Tamanho = tamanho;
 

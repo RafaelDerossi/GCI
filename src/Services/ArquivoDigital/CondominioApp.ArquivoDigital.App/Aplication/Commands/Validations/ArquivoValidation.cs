@@ -9,26 +9,7 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands.Validations
         {
             RuleFor(c => c.Id)
                 .NotEqual(Guid.Empty);
-        }
-
-        protected void ValidateNome()
-        {
-            RuleFor(c => c.Nome)
-                .NotEmpty()
-                .Length(1, 200).WithMessage("Nome do arquivo deve ter até 200 caracteres!");
-        }
-
-        protected void ValidateNomeOriginal()
-        {
-            RuleFor(c => c.NomeOriginal)                
-                .Length(1, 200).WithMessage("Nome original do arquivo deve ter até 200 caracteres!");
-        }
-
-        protected void ValidateExtensao()
-        {
-            RuleFor(c => c.Extensao)
-                .Length(2, 200).WithMessage("Extensão do arquivo deve ter entre 2 e 200 caracteres!");
-        }
+        }           
 
         protected void ValidateTamanho()
         {
@@ -40,7 +21,7 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands.Validations
         protected void ValidateCondominioId()
         {
             RuleFor(c => c.CondominioId)
-                .NotEqual(Guid.Empty)
+                .NotEqual(Guid.Empty);
                 
         }
 

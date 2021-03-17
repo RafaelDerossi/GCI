@@ -58,7 +58,7 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
                 return ValidationResult;
             }
 
-            arquivoBd.SetNomeOriginal(request.NomeOriginal);
+            arquivoBd.SetNome(request.Nome);
             arquivoBd.MarcarComoPrivado();
             if (request.Publico)
                 arquivoBd.MarcarComoPublico();
@@ -82,10 +82,7 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
                 return ValidationResult;
             }
 
-            arquivoBd.SetNomeOriginal(request.NomeOriginal);
-            arquivoBd.MarcarComoPrivado();
-            if (request.Publico)
-                arquivoBd.MarcarComoPublico();
+            arquivoBd.SetPastaId(request.PastaId);           
 
             _arquivoDigitalRepository.AtualizarArquivo(arquivoBd);
 
@@ -106,12 +103,10 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
                 return ValidationResult;
             }
 
-            arquivoBd.SetNomeOriginal(request.NomeOriginal);
-            arquivoBd.MarcarComoPrivado();
-            if (request.Publico)
-                arquivoBd.MarcarComoPublico();
+            arquivoBd.MarcarComoPublico();
 
             _arquivoDigitalRepository.AtualizarArquivo(arquivoBd);
+
 
 
             return await PersistirDados(_arquivoDigitalRepository.UnitOfWork);
@@ -129,12 +124,9 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
                 AdicionarErro("Arquivo não encontrado.");
                 return ValidationResult;
             }
-
-            arquivoBd.SetNomeOriginal(request.NomeOriginal);
+                        
             arquivoBd.MarcarComoPrivado();
-            if (request.Publico)
-                arquivoBd.MarcarComoPublico();
-
+            
             _arquivoDigitalRepository.AtualizarArquivo(arquivoBd);
 
 
@@ -147,26 +139,28 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
                 return request.ValidationResult;
 
 
-            var pastaBd = await _pastaRepository.ObterPorId(request.Id);
-            if (pastaBd == null)
+            var arquivoBd = await _arquivoDigitalRepository.ObterArquivoPorId(request.Id);
+            if (arquivoBd == null)
             {
-                AdicionarErro("Pasta não encontrada.");
+                AdicionarErro("Arquivo não encontrado.");
                 return ValidationResult;
             }
 
-            pastaBd.EnviarParaLixeira();
+            arquivoBd.EnviarParaLixeira();
 
-            _pastaRepository.Atualizar(pastaBd);
+            _arquivoDigitalRepository.AtualizarArquivo(arquivoBd);
 
 
-            return await PersistirDados(_pastaRepository.UnitOfWork);
+            return await PersistirDados(_arquivoDigitalRepository.UnitOfWork);
         }
 
 
 
         private Arquivo ArquivoFactory(CadastrarArquivoCommand request)
         {
-            return new Arquivo(request.Nome, request.NomeOriginal, request.Extensao, request.Tamanho, request.CondominioId, request.PastaId);
+            var arquivo = new Arquivo(request.Nome, request.Tamanho, request.CondominioId, request.PastaId);
+            arquivo.SetEntidadeId(request.Id);
+            return arquivo;
         }
 
 
