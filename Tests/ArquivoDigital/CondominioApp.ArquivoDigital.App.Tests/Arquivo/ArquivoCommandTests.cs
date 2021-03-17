@@ -59,21 +59,7 @@ namespace CondominioApp.ArquivoDigital.App.Tests
 
             //Assert
             Assert.False(result);
-        }
-
-        [Fact(DisplayName = "Adicionar Arquivo Sem CondominioId - Inválido")]
-        [Trait("Categoria", "CadastrarArquivoCommand")]
-        public void CadastroDeArquivo_SemCondominioId_CommandoInvalido_NaoDevePassarNaValidacao()
-        {
-            //Arrange
-            var UsuarioCommand = ArquivoCommandFactory.CriarComando_CadastroDeArquivo_SemCondominioId();
-
-            //Act
-            var result = UsuarioCommand.EstaValido();
-
-            //Assert
-            Assert.False(result);
-        }
+        }        
 
         [Fact(DisplayName = "Adicionar Arquivo Sem PastaId - Inválido")]
         [Trait("Categoria", "CadastrarArquivoCommand")]

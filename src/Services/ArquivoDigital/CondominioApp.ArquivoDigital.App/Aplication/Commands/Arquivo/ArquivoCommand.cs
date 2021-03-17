@@ -10,15 +10,19 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
 
         public NomeArquivo Nome { get; protected set; }
 
-        public int Tamanho { get; protected set; }
-
-        public Guid CondominioId { get; protected set; }
+        public int Tamanho { get; protected set; }       
 
         public Guid PastaId { get; protected set; }
 
         public bool Publico { get; protected set; }
 
+        public Guid UsuarioId { get; protected set; }
 
+        public string NomeUsuario { get; protected set; }
+
+        public string Titulo { get; protected set; }
+
+        public string Descricao { get; protected set; }
 
 
         public void SetNome(string nomeOriginal)
@@ -31,11 +35,9 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
             {
                 AdicionarErrosDeProcessamentoDoComando(e.Message);
             }
-        }        
-
-        public void SetTamanho(int tamanho) => Tamanho = tamanho;
-
-        public void SetCondominioId(Guid condominioId) => CondominioId = condominioId;
+        }
+       
+        public void SetTamanho(int tamanho) => Tamanho = tamanho;        
 
         public void SetPastaId(Guid pastaId) => PastaId = pastaId;
 
@@ -43,6 +45,15 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
 
         public void MarcarComoPrivado() => Publico = false;
 
-       
+        public void SetUsuario(Guid id, string nome)
+        {
+            UsuarioId = id;
+            NomeUsuario = nome;
+        }
+
+        public void SetTitulo(string titulo) => Titulo = titulo;
+
+        public void SetDescricao(string descricao) => Descricao = descricao;
+        
     }
 }

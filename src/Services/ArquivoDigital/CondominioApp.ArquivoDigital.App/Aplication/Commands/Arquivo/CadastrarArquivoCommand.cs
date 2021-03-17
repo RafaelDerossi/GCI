@@ -8,13 +8,17 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
     {
 
         public CadastrarArquivoCommand
-            (string nomeOriginal, int tamanho, Guid condominioId, Guid pastaId, bool publico)
+            (string nomeOriginal, int tamanho, Guid pastaId, bool publico, Guid usuarioId,
+             string nomeUsuario, string titulo, string descricao)
         {
-            Id = Guid.NewGuid();
+            Id = Guid.NewGuid();            
             Tamanho = tamanho;
-            CondominioId = condominioId;
             PastaId = pastaId;
             Publico = publico;
+            UsuarioId = usuarioId;
+            NomeUsuario = nomeUsuario;
+            Titulo = titulo;
+            Descricao = descricao;
             SetNome(nomeOriginal);
         }
 
@@ -33,10 +37,13 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
         {
             public CadastrarArquivoCommandValidation()
             {                
-                ValidateTamanho();
-                ValidateCondominioId();
+                ValidateTamanho();                
                 ValidatePastaId();
                 ValidatePublico();
+                ValidateUsuarioId();
+                ValidateNomeUsuario();
+                ValidateTitulo();
+                ValidateDescricao();
             }
         }
 

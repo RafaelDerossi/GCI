@@ -7,12 +7,11 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
     public class EditarPastaCommand : PastaCommand
     {
 
-        public EditarPastaCommand(Guid id, string titulo, string descricao, Guid condominioId, bool publica)
+        public EditarPastaCommand(Guid id, string titulo, string descricao, bool publica)
         {
             Id = id;
             Titulo = titulo;
-            Descricao = descricao;
-            CondominioId = condominioId;
+            Descricao = descricao;            
             Publica = publica;
         }
 
@@ -33,8 +32,7 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
             {
                 ValidateId();
                 ValidateTitulo();
-                ValidateDescricao();                
-                ValidateCondominioId();                
+                ValidateDescricao();                                  
                 ValidatePublica();               
             }
         }

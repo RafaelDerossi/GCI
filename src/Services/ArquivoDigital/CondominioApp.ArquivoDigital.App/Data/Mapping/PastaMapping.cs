@@ -12,7 +12,7 @@ namespace CondominioApp.ArquivoDigital.App.Data.Mapping
 
             builder.ToTable("Pastas");
 
-            builder.Property(u => u.Titulo).IsRequired().HasColumnType($"varchar(25)");
+            builder.Property(u => u.Titulo).IsRequired().HasColumnType($"varchar(50)");
 
             builder.Property(u => u.Descricao).IsRequired().HasColumnType($"varchar({Pasta.Max})");
 

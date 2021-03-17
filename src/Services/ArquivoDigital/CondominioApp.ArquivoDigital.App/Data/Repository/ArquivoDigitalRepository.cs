@@ -106,6 +106,41 @@ namespace CondominioApp.Principal.Infra.Data.Repository
                   .FirstOrDefaultAsync();
         }
 
+        public async Task<IEnumerable<Arquivo>> ObterArquivo(Expression<Func<Arquivo, bool>> expression, bool OrderByDesc = false, int take = 0)
+        {
+            if (OrderByDesc)
+            {
+                if (take > 0)
+                    return await _context.Arquivos
+                          .AsNoTracking()                          
+                          .Where(expression)
+                          .OrderByDescending(x => x.Nome.NomeOriginal)
+                          .Take(take)
+                          .ToListAsync();
+
+                return await _context.Arquivos
+                    .AsNoTracking()
+                    .Where(expression)
+                    .OrderByDescending(x => x.Nome.NomeOriginal)
+                    .ToListAsync();
+            }
+
+            if (take > 0)
+                return await _context.Arquivos
+                    .AsNoTracking()
+                    .Where(expression)
+                    .OrderBy(x => x.Nome.NomeOriginal)
+                    .Take(take)
+                    .ToListAsync();
+
+            return await _context.Arquivos
+                .AsNoTracking()
+                .Where(expression)
+                .OrderBy(x => x.Nome.NomeOriginal)
+                .ToListAsync();
+        }
+
+
 
         public void AdicionarArquivo(Arquivo entity)
         {

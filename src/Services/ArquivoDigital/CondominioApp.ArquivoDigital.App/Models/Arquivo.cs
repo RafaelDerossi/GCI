@@ -18,19 +18,33 @@ namespace CondominioApp.ArquivoDigital.App.Models
 
         public bool Publico { get; private set; }
 
+        public Guid UsuarioId { get; private set; }
+
+        public string NomeUsuario { get; private set; }
+
+        public string Titulo { get; private set; }
+
+        public string Descricao { get; private set; }
+
 
         public Arquivo()
         {
         }
 
-        public Arquivo(NomeArquivo nome, int tamanho, Guid condominioId, Guid pastaId)
+        public Arquivo
+            (NomeArquivo nome, int tamanho, Guid condominioId, Guid pastaId, bool publico,
+            Guid usuarioId, string nomeUsuario, string titulo, string descricao)
         {
-            Nome = nome;            
+            Nome = nome;
             Tamanho = tamanho;
             CondominioId = condominioId;
-            PastaId = pastaId;            
+            PastaId = pastaId;
+            Publico = publico;
+            UsuarioId = usuarioId;
+            NomeUsuario = nomeUsuario;
+            Titulo = titulo;
+            Descricao = descricao;
         }
-
 
         public void SetNome(NomeArquivo nome) => Nome = nome;
         
@@ -44,5 +58,14 @@ namespace CondominioApp.ArquivoDigital.App.Models
 
         public void MarcarComoPrivado() => Publico = false;
 
+        public void SetUsuario(Guid id, string nome) 
+        {
+            UsuarioId = id;
+            NomeUsuario = nome;
+        }
+
+        public void SetTitulo(string titulo) => Titulo = titulo;
+
+        public void SetDescricao(string descricao) => Descricao = descricao;
     }
 }

@@ -10,7 +10,13 @@ namespace CondominioApp.ArquivoDigital.App.AutoMapper
         {
             CreateMap<Pasta, PastaViewModel>();
 
-            CreateMap<Arquivo, ArquivoViewModel>();
+            CreateMap<Arquivo, ArquivoViewModel>()
+                .ForMember(m => m.DataDeCadastro, cfg => cfg.MapFrom(x => x.DataDeCadastroFormatada))
+                .ForMember(m => m.DataDeAlteracao, cfg => cfg.MapFrom(x => x.DataDeAlteracaoFormatada))
+                .ForMember(m => m.NomeOriginal, cfg => cfg.MapFrom(x => x.Nome.NomeOriginal))
+                .ForMember(m => m.Nome, cfg => cfg.MapFrom(x => x.Nome.NomeDoArquivo))
+                .ForMember(m => m.Extensao, cfg => cfg.MapFrom(x => x.Nome.ExtensaoDoArquivo))
+                .ForMember(m => m.Publico, cfg => cfg.MapFrom(x => x.Publico));
             
         }
     }

@@ -40,8 +40,10 @@ namespace CondominioApp.ArquivoDigital.App.ValueObjects
 
             if (Extensao == null || Extensao == "") throw new DomainException("Tipo de arquivo inválido!");
 
-            NomeDoArquivo = $"{arquivoId.ToString()}.{Extensao}";
-            ExtensaoDoArquivo = Extensao;
+            ExtensaoDoArquivo = Extensao.Replace(".", "");
+
+            NomeDoArquivo = $"{arquivoId.ToString()}{Extensao}";
+            
         }
     }
 }

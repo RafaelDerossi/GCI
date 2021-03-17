@@ -57,6 +57,7 @@ using CondominioApp.NotificacaoPush.App.Services.Interfaces;
 using CondominioApp.NotificacaoPush.App.Services;
 using CondominioApp.ArquivoDigital.App.Aplication.Commands;
 using CondominioApp.ArquivoDigital.App.Models;
+using CondominioApp.ArquivoDigital.App.Aplication.Query;
 
 namespace CondominioApp.Api.Configuration
 {
@@ -74,6 +75,14 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<IRequestHandler<MarcarPastaComoPublicaCommand, ValidationResult>, PastaCommandHandler>();
             services.AddScoped<IRequestHandler<MarcarPastaComoPrivadaCommand, ValidationResult>, PastaCommandHandler>();
             services.AddScoped<IRequestHandler<RemoverPastaCommand, ValidationResult>, PastaCommandHandler>();
+
+            //Arquivo
+            services.AddScoped<IRequestHandler<CadastrarArquivoCommand, ValidationResult>, ArquivoCommandHandler>();
+            services.AddScoped<IRequestHandler<EditarArquivoCommand, ValidationResult>, ArquivoCommandHandler>();
+            services.AddScoped<IRequestHandler<AlterarPastaDoArquivoCommand, ValidationResult>, ArquivoCommandHandler>();
+            services.AddScoped<IRequestHandler<MarcarArquivoComoPublicoCommand, ValidationResult>, ArquivoCommandHandler>();
+            services.AddScoped<IRequestHandler<MarcarArquivoComoPrivadoCommand, ValidationResult>, ArquivoCommandHandler>();
+
             #endregion
 
 
@@ -318,39 +327,42 @@ namespace CondominioApp.Api.Configuration
             #region Querys
 
             //Query
-            services.AddScoped<IQueryLead, QueryLead>();
-            services.AddScoped<IPrincipalQuery, PrincipalQuery>();
-            services.AddScoped<IEnqueteQuery, EnqueteQuery>();
-            services.AddScoped<ICorrespondenciaQuery, CorrespondenciaQuery>();
-            services.AddScoped<IComunicadoQuery, ComunicadoQuery>();
-            services.AddScoped<IReservaAreaComumQuery, ReservaAreaComumQuery>();
-            services.AddScoped<IPortariaQuery, PortariaQuery>();
+            services.AddScoped<IArquivoDigitalQuery, ArquivoDigitalQuery>();
             services.AddScoped<IAutomacaoQuery, AutomacaoQuery>();
+            services.AddScoped<IComunicadoQuery, ComunicadoQuery>();
+            services.AddScoped<ICorrespondenciaQuery, CorrespondenciaQuery>();
+            services.AddScoped<IEnqueteQuery, EnqueteQuery>();            
+            services.AddScoped<IPortariaQuery, PortariaQuery>();
+            services.AddScoped<IPrincipalQuery, PrincipalQuery>();
+            services.AddScoped<IQueryLead, QueryLead>();
+            services.AddScoped<IReservaAreaComumQuery, ReservaAreaComumQuery>();            
             services.AddScoped<IUsuarioQuery, UsuarioQuery>();
             #endregion
 
             #region Repositórios
             //Repositórios
-            services.AddScoped<IPrincipalRepository, PrincipalRepository>();
-            services.AddScoped<ILeadRepository, LeadRepository>();            
-            services.AddScoped<IEnqueteRepository, EnqueteRepository>();
-            services.AddScoped<ICorrespondenciaRepository, CorrespondenciaRepository>();
-            services.AddScoped<IComunidadoRepository, ComunicadoRepository>();
-            services.AddScoped<IReservaAreaComumRepository, ReservaAreaComumRepository>();            
-            services.AddScoped<IPortariaRepository, PortariaRepository>();            
-            services.AddScoped<IAutomacaoRepository, AutomacaoRepository>();
-            services.AddScoped<IUsuarioRepository, UsuarioRepository>();
             services.AddScoped<IArquivoDigitalRepository, ArquivoDigitalRepository>();
+            services.AddScoped<IAutomacaoRepository, AutomacaoRepository>();
+            services.AddScoped<IComunidadoRepository, ComunicadoRepository>();
+            services.AddScoped<ICorrespondenciaRepository, CorrespondenciaRepository>();
+            services.AddScoped<IEnqueteRepository, EnqueteRepository>();
+            services.AddScoped<ILeadRepository, LeadRepository>();
+            services.AddScoped<IPortariaRepository, PortariaRepository>();
+            services.AddScoped<IPrincipalRepository, PrincipalRepository>();            
+            services.AddScoped<IReservaAreaComumRepository, ReservaAreaComumRepository>();            
+            services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+
             #endregion
 
             #region Repositórios Query
             //Repositórios Query                     
+            services.AddScoped<IFuncionarioQueryRepository, FuncionarioQueryRepository>();
+            services.AddScoped<IMoradorQueryRepository, MoradorQueryRepository>();
+            services.AddScoped<IPortariaQueryRepository, PortariaQueryRepository>();
             services.AddScoped<IPrincipalQueryRepository, PrincipalQueryRepository>();                        
             services.AddScoped<IReservaAreaComumQueryRepository, ReservaAreaComumQueryRepository>();            
-            services.AddScoped<IPortariaQueryRepository, PortariaQueryRepository>();            
-            services.AddScoped<IVeiculoQueryRepository, VeiculoQueryRepository>();
-            services.AddScoped<IMoradorQueryRepository, MoradorQueryRepository>();
-            services.AddScoped<IFuncionarioQueryRepository, FuncionarioQueryRepository>();
+            services.AddScoped<IVeiculoQueryRepository, VeiculoQueryRepository>();           
+            
             #endregion
 
         }

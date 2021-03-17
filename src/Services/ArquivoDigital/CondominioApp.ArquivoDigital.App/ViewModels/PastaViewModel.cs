@@ -23,7 +23,7 @@ namespace CondominioApp.ArquivoDigital.App.Models
 
         public bool Publica { get; set; }
 
-        public IEnumerable<ArquivoViewModel> Arquivos;
+        public IEnumerable<ArquivoViewModel> Arquivos { get; set; }
 
     }
 }

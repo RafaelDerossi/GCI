@@ -14,7 +14,7 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands.Validations
         {
             RuleFor(c => c.Titulo)
                 .NotEmpty()
-                .Length(1, 25).WithMessage("Titulo da Pasta deve ter entre 1 e 25 caracteres!");
+                .Length(1, 50).WithMessage("Titulo da Pasta deve ter entre 1 e 50 caracteres!");
         }
         protected void ValidateDescricao()
         {

@@ -16,14 +16,7 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands.Validations
             RuleFor(c => c.Tamanho)
                 .NotEmpty()
                 .WithMessage("Tamanho do Arquivo deve ser maior que zero!"); ;
-        }
-
-        protected void ValidateCondominioId()
-        {
-            RuleFor(c => c.CondominioId)
-                .NotEqual(Guid.Empty);
-                
-        }
+        }        
 
         protected void ValidatePastaId()
         {
@@ -33,10 +26,35 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands.Validations
 
         protected void ValidatePublico()
         {
-            RuleFor(c => c.Publico)                
-                .NotNull()        
+            RuleFor(c => c.Publico)
+                .NotNull()
                 .WithMessage("Publico não pode estar vazio!");
-        }            
-     
+        }
+
+        protected void ValidateUsuarioId()
+        {
+            RuleFor(c => c.UsuarioId)
+                .NotEqual(Guid.Empty);
+        }
+
+        protected void ValidateNomeUsuario()
+        {
+            RuleFor(c => c.NomeUsuario)
+                .NotEmpty()
+                .NotNull();
+        }
+
+        protected void ValidateTitulo()
+        {
+            RuleFor(c => c.Titulo)
+                .Length(0, 50).WithMessage("Titulo do arquivo deve ter ate 50 caracteres!");
+        }
+
+        protected void ValidateDescricao()
+        {
+            RuleFor(c => c.Descricao)
+                .Length(0, 200).WithMessage("Descrição do arquivo deve ter até 200 caracteres!");
+        }
+
     }
 }

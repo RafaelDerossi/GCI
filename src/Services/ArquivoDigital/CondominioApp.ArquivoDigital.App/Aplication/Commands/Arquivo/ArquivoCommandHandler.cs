@@ -29,16 +29,16 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
         public async Task<ValidationResult> Handle(CadastrarArquivoCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido())
-                return request.ValidationResult;
+                return request.ValidationResult;           
 
-            var arquivo = ArquivoFactory(request);
-
-            var pasta = _arquivoDigitalRepository.ObterPorId(arquivo.PastaId);
+            var pasta = await _arquivoDigitalRepository.ObterPorId(request.PastaId);
             if (pasta == null)
             {
                 AdicionarErro("Pasta não encontrada!");
                 return ValidationResult;
             }
+
+            var arquivo = ArquivoFactory(request, pasta.CondominioId);
 
             _arquivoDigitalRepository.AdicionarArquivo(arquivo);           
 
@@ -156,9 +156,11 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
 
 
 
-        private Arquivo ArquivoFactory(CadastrarArquivoCommand request)
+        private Arquivo ArquivoFactory(CadastrarArquivoCommand request, Guid condominioId)
         {
-            var arquivo = new Arquivo(request.Nome, request.Tamanho, request.CondominioId, request.PastaId);
+            var arquivo = new Arquivo(request.Nome, request.Tamanho, condominioId, request.PastaId, request.Publico, 
+                                      request.UsuarioId, request.NomeUsuario, request.Titulo, request.Descricao);
+
             arquivo.SetEntidadeId(request.Id);
             return arquivo;
         }

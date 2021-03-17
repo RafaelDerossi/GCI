@@ -9,7 +9,7 @@ namespace CondominioApp.ArquivoDigital.App.Tests
         private static CadastrarArquivoCommand CadastrarArquivoCommandFactoy()
         {
             return new CadastrarArquivoCommand
-                ("NomeOriginal.txt", 10, Guid.NewGuid(), Guid.NewGuid(), true);
+                ("NomeOriginal.txt", 10, Guid.NewGuid(), true);
         }
 
         private static EditarArquivoCommand EditarArquivoCommandFactoy()
@@ -47,15 +47,7 @@ namespace CondominioApp.ArquivoDigital.App.Tests
             commando.SetTamanho(0);
 
             return commando;
-        }
-        public static CadastrarArquivoCommand CriarComando_CadastroDeArquivo_SemCondominioId()
-        {
-            var commando = CadastrarArquivoCommandFactoy();
-
-            commando.SetCondominioId(Guid.Empty);
-
-            return commando;
-        }
+        }       
         public static CadastrarArquivoCommand CriarComando_CadastroDeArquivo_SemPastaId()
         {
             var commando = CadastrarArquivoCommandFactoy();

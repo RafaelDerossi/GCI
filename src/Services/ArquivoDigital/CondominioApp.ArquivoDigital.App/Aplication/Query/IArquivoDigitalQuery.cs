@@ -7,6 +7,7 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Query
 {
     public interface IArquivoDigitalQuery : IDisposable
     {
+        #region Pasta
         Task<Pasta> ObterPorId(Guid Id);
 
         Task<IEnumerable<Pasta>> ObterTodos();
@@ -14,6 +15,16 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Query
         Task<IEnumerable<Pasta>> ObterRemovidos();
 
         Task<IEnumerable<Pasta>> ObterPorCondominio(Guid condominioId);
-        
+        #endregion
+
+        #region Arquivo
+        Task<Arquivo> ObterArquivoPorId(Guid Id);
+
+        Task<IEnumerable<Arquivo>> ObterArquivosPorPasta(Guid pastaId);
+
+        Task<IEnumerable<Arquivo>> ObterArquivosPorCondominio(Guid condominioId);
+
+        #endregion
+
     }
 }

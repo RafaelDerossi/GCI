@@ -15,7 +15,7 @@ namespace CondominioApp.ArquivoDigital.App.Tests
         private static EditarPastaCommand EditarPastaCommandFactoy()
         {
             return new EditarPastaCommand
-                 (Guid.NewGuid(), "Titulo", "Descricao", Guid.NewGuid(), true);
+                 (Guid.NewGuid(), "Titulo", "Descricao", true);
         }
 
 
