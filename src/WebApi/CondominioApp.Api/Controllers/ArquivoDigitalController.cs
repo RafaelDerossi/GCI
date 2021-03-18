@@ -4,6 +4,7 @@ using CondominioApp.ArquivoDigital.App.Aplication.Query;
 using CondominioApp.ArquivoDigital.App.Models;
 using CondominioApp.Core.Mediator;
 using CondominioApp.Principal.Aplication.Query.Interfaces;
+using CondominioApp.Usuarios.App.Aplication.Query;
 using CondominioApp.WebApi.Core.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -19,16 +20,18 @@ namespace CondominioApp.Api.Controllers
         private readonly IMediatorHandler _mediatorHandler;
         private readonly IArquivoDigitalQuery _arquivoDigitalQuery;
         public readonly IMapper _mapper;
-        private readonly IPrincipalQuery _principalQuery;        
+        private readonly IPrincipalQuery _principalQuery;
+        private readonly IUsuarioQuery _usuarioQuery;
 
         public ArquivoDigitalController
             (IMediatorHandler mediatorHandler, IArquivoDigitalQuery arquivoDigitalQuery,
-            IMapper mapper, IPrincipalQuery condominioQuery)
+            IMapper mapper, IPrincipalQuery condominioQuery, IUsuarioQuery usuarioQuery)
         {
             _mediatorHandler = mediatorHandler;
             _arquivoDigitalQuery = arquivoDigitalQuery;
             _mapper = mapper;
             _principalQuery = condominioQuery;
+            _usuarioQuery = usuarioQuery;
         }
 
 
@@ -205,8 +208,16 @@ namespace CondominioApp.Api.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
+            var usuario = await _usuarioQuery.ObterPorId(arquivoVM.UsuarioId);
+            if (usuario == null)
+            {
+                AdicionarErroProcessamento("Usuário não encontrado!");
+                return CustomResponse();
+            }
+
             var comando = new CadastrarArquivoCommand
-                (arquivoVM.NomeOriginal, arquivoVM.Tamanho, arquivoVM.PastaId, arquivoVM.Publico);
+                (arquivoVM.NomeOriginal, arquivoVM.Tamanho, arquivoVM.PastaId, arquivoVM.Publico,
+                arquivoVM.UsuarioId, usuario.NomeCompleto, arquivoVM.Titulo, arquivoVM.Descricao);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
@@ -219,7 +230,8 @@ namespace CondominioApp.Api.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var comando = new EditarArquivoCommand(arquivoVM.Id, arquivoVM.NomeOriginal, arquivoVM.Publico);
+            var comando = new EditarArquivoCommand
+                (arquivoVM.Id, arquivoVM.Titulo, arquivoVM.Descricao, arquivoVM.Publico);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 

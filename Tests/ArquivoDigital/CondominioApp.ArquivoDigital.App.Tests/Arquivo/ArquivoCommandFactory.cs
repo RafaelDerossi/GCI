@@ -9,13 +9,13 @@ namespace CondominioApp.ArquivoDigital.App.Tests
         private static CadastrarArquivoCommand CadastrarArquivoCommandFactoy()
         {
             return new CadastrarArquivoCommand
-                ("NomeOriginal.txt", 10, Guid.NewGuid(), true);
+                ("NomeOriginal.txt", 10, Guid.NewGuid(), true, Guid.NewGuid(), "Nome do Usuario", "Titulo do Arquivo", "Descricao do Arquivo");
         }
 
         private static EditarArquivoCommand EditarArquivoCommandFactoy()
         {
             return new EditarArquivoCommand
-                 (Guid.NewGuid(), "NomeOriginal.txt", true);
+                 (Guid.NewGuid(), "Titulo do Arquivo", "Descricao do Arquivo", true);
         }
 
 
@@ -62,19 +62,7 @@ namespace CondominioApp.ArquivoDigital.App.Tests
         {
             return EditarArquivoCommandFactoy();
         }
-        public static EditarArquivoCommand CriarComando_EdicaoDeArquivo_NomeOriginalSemExtensao()
-        {
-            var comando = EditarArquivoCommandFactoy();
-            comando.SetNome("nomeOriginal");
-            return comando;
-        }
-        public static EditarArquivoCommand CriarComando_EdicaoDeArquivo_SemNomeOriginal()
-        {
-            var comando = EditarArquivoCommandFactoy();
-            comando.SetNome("");
-            return comando;
-        }
-
+        
 
         public static AlterarPastaDoArquivoCommand CriarComando_AlterarPastaDoArquivo()
         {

@@ -29,7 +29,9 @@ namespace CondominioApp.ArquivoDigital.App.Models
 
         public bool Publico { get; set; }
 
-        public Guid UsuarioId { get; set; }       
+        public Guid UsuarioId { get; set; }
+
+        public string NomeUsuario { get; set; }
 
         public string Titulo { get; set; }
 

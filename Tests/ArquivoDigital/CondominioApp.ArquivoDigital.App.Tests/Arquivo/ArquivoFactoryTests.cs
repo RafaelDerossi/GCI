@@ -10,7 +10,8 @@ namespace CondominioApp.ArquivoDigital.App.Tests
         {   
             var id = Guid.NewGuid();
             var nome = new NomeArquivo("nomeOriginal.pdf", id);
-            var arquivo = new Arquivo(nome, 10, Guid.NewGuid(), Guid.NewGuid());
+            var arquivo = new Arquivo
+                (nome, 10, Guid.NewGuid(), Guid.NewGuid(), true, Guid.NewGuid(), "Nome Usuario", "Titulo do Arquivo", "Descricao do Arquivo");
             arquivo.SetEntidadeId(id);
             return arquivo;
         }

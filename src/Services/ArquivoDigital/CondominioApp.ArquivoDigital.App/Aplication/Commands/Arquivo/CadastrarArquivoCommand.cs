@@ -36,8 +36,8 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
         public class CadastrarArquivoCommandValidation : ArquivoValidation<CadastrarArquivoCommand>
         {
             public CadastrarArquivoCommandValidation()
-            {                
-                ValidateTamanho();                
+            {
+                ValidateTamanho();              
                 ValidatePastaId();
                 ValidatePublico();
                 ValidateUsuarioId();

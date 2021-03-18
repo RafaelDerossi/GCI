@@ -91,33 +91,7 @@ namespace CondominioApp.ArquivoDigital.App.Tests
             Assert.True(result);
         }
 
-        [Fact(DisplayName = "Editar Arquivo Com Nome Original Sem Extensao - Inválido")]
-        [Trait("Categoria", "EditarArquivoCommand")]
-        public void EdicaoDeArquivo_ComNomeOriginalSemExtencao_CommandoInvalido_NaoDevePassarNaValidacao()
-        {
-            //Arrange
-            var command = ArquivoCommandFactory.CriarComando_EdicaoDeArquivo_NomeOriginalSemExtensao();
-
-            //Act
-            var result = command.EstaValido();
-
-            //Assert
-            Assert.False(result);
-        }
-
-        [Fact(DisplayName = "Editar Arquivo Sem Nome Original - Inválido")]
-        [Trait("Categoria", "EditarArquivoCommand")]
-        public void EdicaoDeArquivo_SemNomeOriginal_CommandoInvalido_NaoDevePassarNaValidacao()
-        {
-            //Arrange
-            var command = ArquivoCommandFactory.CriarComando_EdicaoDeArquivo_SemNomeOriginal();
-
-            //Act
-            var result = command.EstaValido();
-
-            //Assert
-            Assert.False(result);
-        }
+        
 
 
         [Fact(DisplayName = "Alterar Pasta do Arquivo - Válido")]

@@ -58,7 +58,8 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
                 return ValidationResult;
             }
 
-            arquivoBd.SetNome(request.Nome);
+            arquivoBd.SetTitulo(request.Titulo);
+            arquivoBd.SetDescricao(request.Descricao);
             arquivoBd.MarcarComoPrivado();
             if (request.Publico)
                 arquivoBd.MarcarComoPublico();
