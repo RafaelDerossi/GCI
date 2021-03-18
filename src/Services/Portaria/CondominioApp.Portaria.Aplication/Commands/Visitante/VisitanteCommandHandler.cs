@@ -18,9 +18,9 @@ namespace CondominioApp.Portaria.Aplication.Commands
          IRequestHandler<RemoverVisitanteCommand, ValidationResult>,
          IDisposable
     {
-        private IVisitanteRepository _visitanteRepository;
+        private IPortariaRepository _visitanteRepository;
 
-        public VisitanteCommandHandler(IVisitanteRepository visitanteRepository)
+        public VisitanteCommandHandler(IPortariaRepository visitanteRepository)
         {
             _visitanteRepository = visitanteRepository;
         }

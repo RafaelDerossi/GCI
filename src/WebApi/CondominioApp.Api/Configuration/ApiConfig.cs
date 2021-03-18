@@ -1,4 +1,5 @@
-﻿using CondominioApp.Automacao.App.Models;
+﻿using CondominioApp.ArquivoDigital.App.Data;
+using CondominioApp.Automacao.App.Models;
 using CondominioApp.Comunicados.App.Models;
 using CondominioApp.Correspondencias.App.Data;
 using CondominioApp.Enquetes.App.Data;
@@ -59,6 +60,9 @@ namespace CondominioApp.Api.Configuration
 
             services.AddDbContext<AutomacaoContextDB>(options =>
             options.UseSqlServer(configuration.GetConnectionString("AutomacaoConnection")));
+
+            services.AddDbContext<ArquivoDigitalContextDB>(options =>
+            options.UseSqlServer(configuration.GetConnectionString("ArquivoDigitalConnection")));
 
 
             //Query Contexts

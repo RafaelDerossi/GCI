@@ -39,19 +39,19 @@ namespace CondominioApp.Identidade.Api.Configuration
 
             #region Queries
             services.AddScoped<IUsuarioQuery, UsuarioQuery>();
-            services.AddScoped<ICondominioQuery, CondominioQuery>();
+            services.AddScoped<IPrincipalQuery, PrincipalQuery>();
             #endregion
 
             #region Repositories
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
-            services.AddScoped<ICondominioRepository, CondominioRepository>();
+            services.AddScoped<IPrincipalRepository, PrincipalRepository>();
             #endregion          
 
             #region Query Repositories            
             services.AddScoped<IMoradorQueryRepository, MoradorQueryRepository>();
             services.AddScoped<IFuncionarioQueryRepository, FuncionarioQueryRepository>();
             services.AddScoped<IVeiculoQueryRepository, VeiculoQueryRepository>();
-            services.AddScoped<ICondominioQueryRepository, CondominioQueryRepository>();
+            services.AddScoped<IPrincipalQueryRepository, PrincipalQueryRepository>();
             #endregion
 
             //services.AddScoped(typeof(IMongoRepository<>), typeof(MongoRepository<>));

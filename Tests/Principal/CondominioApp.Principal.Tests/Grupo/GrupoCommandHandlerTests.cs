@@ -43,10 +43,10 @@ namespace CondominioApp.Principal.Tests
             //_mocker.GetMock<ICondominioRepository>().Setup(r => r.GrupoJaExiste(command.Descricao,command.CondominioId,command.GrupoId))
             //    .Returns(Task.FromResult(true));
 
-            _mocker.GetMock<ICondominioRepository>().Setup(r => r.ObterPorId(command.CondominioId))
+            _mocker.GetMock<IPrincipalRepository>().Setup(r => r.ObterPorId(command.CondominioId))
                .Returns(Task.FromResult(condominio));
 
-            _mocker.GetMock<ICondominioRepository>().Setup(r => r.UnitOfWork.Commit())
+            _mocker.GetMock<IPrincipalRepository>().Setup(r => r.UnitOfWork.Commit())
                .Returns(Task.FromResult(true));
 
             //Act
@@ -54,8 +54,8 @@ namespace CondominioApp.Principal.Tests
 
             //Assert
             Assert.True(result.IsValid);
-            _mocker.GetMock<ICondominioRepository>().Verify(r => r.AdicionarGrupo(It.IsAny<Grupo>()), Times.Once);
-            _mocker.GetMock<ICondominioRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
+            _mocker.GetMock<IPrincipalRepository>().Verify(r => r.AdicionarGrupo(It.IsAny<Grupo>()), Times.Once);
+            _mocker.GetMock<IPrincipalRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
         }
 
 
@@ -78,16 +78,16 @@ namespace CondominioApp.Principal.Tests
 
             condominio.SetEntidadeId(command.CondominioId);
 
-            _mocker.GetMock<ICondominioRepository>().Setup(r => r.ObterGrupoPorId(grupo.Id))
+            _mocker.GetMock<IPrincipalRepository>().Setup(r => r.ObterGrupoPorId(grupo.Id))
                 .Returns(Task.FromResult(grupo));
 
-            _mocker.GetMock<ICondominioRepository>().Setup(r => r.ObterPorId(command.CondominioId))
+            _mocker.GetMock<IPrincipalRepository>().Setup(r => r.ObterPorId(command.CondominioId))
                .Returns(Task.FromResult(condominio));
 
             //_mocker.GetMock<ICondominioRepository>().Setup(r => r.GrupoJaExiste(grupo.Descricao, grupo.CondominioId, grupo.Id))
             //  .Returns(Task.FromResult(false));
 
-            _mocker.GetMock<ICondominioRepository>().Setup(r => r.UnitOfWork.Commit())
+            _mocker.GetMock<IPrincipalRepository>().Setup(r => r.UnitOfWork.Commit())
                .Returns(Task.FromResult(true));
 
             //Act
@@ -95,8 +95,8 @@ namespace CondominioApp.Principal.Tests
 
             //Assert
             Assert.True(result.IsValid);
-            _mocker.GetMock<ICondominioRepository>().Verify(r => r.Atualizar(It.IsAny<Condominio>()), Times.Once);
-            _mocker.GetMock<ICondominioRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
+            _mocker.GetMock<IPrincipalRepository>().Verify(r => r.Atualizar(It.IsAny<Condominio>()), Times.Once);
+            _mocker.GetMock<IPrincipalRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
         }
     }
 }

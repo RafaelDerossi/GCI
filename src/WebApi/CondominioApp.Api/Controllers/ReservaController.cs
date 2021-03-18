@@ -22,11 +22,11 @@ namespace CondominioApp.Api.Controllers
     {
         private readonly IMediatorHandler _mediatorHandler;        
         private readonly IReservaAreaComumQuery _reservaAreaComumQuery;
-        private readonly ICondominioQuery _condominioQuery;
+        private readonly IPrincipalQuery _condominioQuery;
         private readonly IUsuarioQuery _usuarioQuery;
 
 
-        public ReservaController(IMediatorHandler mediatorHandler, IReservaAreaComumQuery reservaAreaComumQuery, ICondominioQuery condominioQuery, IUsuarioQuery usuarioQuery) //, IMapper mapper)
+        public ReservaController(IMediatorHandler mediatorHandler, IReservaAreaComumQuery reservaAreaComumQuery, IPrincipalQuery condominioQuery, IUsuarioQuery usuarioQuery) //, IMapper mapper)
         {
             _mediatorHandler = mediatorHandler;
             _reservaAreaComumQuery = reservaAreaComumQuery;
