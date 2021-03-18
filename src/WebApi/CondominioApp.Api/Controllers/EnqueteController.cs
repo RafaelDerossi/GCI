@@ -21,15 +21,17 @@ namespace CondominioApp.Api.Controllers
         private readonly IMediatorHandler _mediatorHandler;
         private readonly IEnqueteQuery _enqueteQuery;
         public readonly IMapper _mapper;
-        private readonly IPrincipalQuery _condominioQuery;
+        private readonly IPrincipalQuery _principalQuery;
         private readonly IUsuarioQuery _usuarioQuery;
 
-        public EnqueteController(IMediatorHandler mediatorHandler, IEnqueteQuery enqueteQuery, IMapper mapper, IPrincipalQuery condominioQuery, IUsuarioQuery usuarioQuery)
+        public EnqueteController
+            (IMediatorHandler mediatorHandler, IEnqueteQuery enqueteQuery, IMapper mapper,
+            IPrincipalQuery principalQuery, IUsuarioQuery usuarioQuery)
         {
             _mediatorHandler = mediatorHandler;
             _enqueteQuery = enqueteQuery;
             _mapper = mapper;
-            _condominioQuery = condominioQuery;
+            _principalQuery = principalQuery;
             _usuarioQuery = usuarioQuery;
         }
 
@@ -123,7 +125,7 @@ namespace CondominioApp.Api.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var condominio = await _condominioQuery.ObterPorId(enqueteVM.CondominioId);
+            var condominio = await _principalQuery.ObterPorId(enqueteVM.CondominioId);
             if (condominio == null)
             {
                 AdicionarErroProcessamento("Condominio não encontrado!");
@@ -211,7 +213,7 @@ namespace CondominioApp.Api.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var unidade = await _condominioQuery.ObterUnidadePorId(votoEnqueteVM.UnidadeId);
+            var unidade = await _principalQuery.ObterUnidadePorId(votoEnqueteVM.UnidadeId);
             if (unidade == null)
             {
                 AdicionarErroProcessamento("Unidade não encontrada!");

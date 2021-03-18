@@ -17,11 +17,11 @@ namespace CondominioApp.Api.Controllers
     {
 
         private readonly IMediatorHandler _mediatorHandler;
-        private readonly IPrincipalQuery _condominioQuery; 
-        public CondominioController(IMediatorHandler mediatorHandler, IPrincipalQuery condominioQuery)
+        private readonly IPrincipalQuery _principalQuery; 
+        public CondominioController(IMediatorHandler mediatorHandler, IPrincipalQuery principalQuery)
         {
             _mediatorHandler = mediatorHandler;
-            _condominioQuery = condominioQuery;
+            _principalQuery = principalQuery;
         }
 
 
@@ -29,7 +29,7 @@ namespace CondominioApp.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CondominioFlat>>> ObterTodos()
         {
-            var condominios = await _condominioQuery.ObterTodos();
+            var condominios = await _principalQuery.ObterTodos();
             if (condominios.Count() == 0)
             {
                 AdicionarErroProcessamento("Nenhum registro encontrado.");
@@ -42,7 +42,7 @@ namespace CondominioApp.Api.Controllers
         [HttpGet("{Id:Guid}")]
         public async Task<ActionResult<CondominioFlat>> ObterPorId(Guid Id)
         {
-            var condominio = await _condominioQuery.ObterPorId(Id);
+            var condominio = await _principalQuery.ObterPorId(Id);
             if (condominio == null)
             {
                 AdicionarErroProcessamento("Condomínio não encontrado.");
@@ -54,7 +54,7 @@ namespace CondominioApp.Api.Controllers
         [HttpGet("Removidos")]
         public async Task<ActionResult<IEnumerable<CondominioFlat>>> ObterRemovidos()
         {            
-            var condominios = await _condominioQuery.ObterRemovidos();
+            var condominios = await _principalQuery.ObterRemovidos();
             if (condominios.Count() == 0)
             {
                 AdicionarErroProcessamento("Nenhum registro encontrado.");

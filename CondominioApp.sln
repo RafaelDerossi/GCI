@@ -119,7 +119,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ArquivoDigital", "ArquivoDi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioApp.ArquivoDigital.App", "src\Services\ArquivoDigital\CondominioApp.ArquivoDigital.App\CondominioApp.ArquivoDigital.App.csproj", "{9A11C6D6-0399-4064-91A1-607F5920B1EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CondominioApp.ArquivoDigital.App.Tests", "Tests\ArquivoDigital\CondominioApp.ArquivoDigital.App.Tests\CondominioApp.ArquivoDigital.App.Tests.csproj", "{919BC37C-DC32-406B-AFF5-791472D7DC65}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioApp.ArquivoDigital.App.Tests", "Tests\ArquivoDigital\CondominioApp.ArquivoDigital.App.Tests\CondominioApp.ArquivoDigital.App.Tests.csproj", "{919BC37C-DC32-406B-AFF5-791472D7DC65}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ocorrencias", "Ocorrencias", "{051643B1-C01E-486C-9D69-EB23705FA284}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioApp.Ocorrencias.App", "src\Services\Ocorrencias\CondominioApp.Ocorrencias.App\CondominioApp.Ocorrencias.App.csproj", "{15AF845C-5E3C-4814-B70E-953DD321757A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -279,6 +283,10 @@ Global
 		{919BC37C-DC32-406B-AFF5-791472D7DC65}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{919BC37C-DC32-406B-AFF5-791472D7DC65}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{919BC37C-DC32-406B-AFF5-791472D7DC65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15AF845C-5E3C-4814-B70E-953DD321757A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15AF845C-5E3C-4814-B70E-953DD321757A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15AF845C-5E3C-4814-B70E-953DD321757A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15AF845C-5E3C-4814-B70E-953DD321757A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -342,6 +350,8 @@ Global
 		{190C09E3-9AEB-45D8-B1D5-9559B79EFDBE} = {27DA6887-B451-4D5D-A232-00FBE20152FB}
 		{9A11C6D6-0399-4064-91A1-607F5920B1EC} = {190C09E3-9AEB-45D8-B1D5-9559B79EFDBE}
 		{919BC37C-DC32-406B-AFF5-791472D7DC65} = {190C09E3-9AEB-45D8-B1D5-9559B79EFDBE}
+		{051643B1-C01E-486C-9D69-EB23705FA284} = {27DA6887-B451-4D5D-A232-00FBE20152FB}
+		{15AF845C-5E3C-4814-B70E-953DD321757A} = {051643B1-C01E-486C-9D69-EB23705FA284}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DA60CBD7-8A6E-436D-B07E-D654D162CE4B}

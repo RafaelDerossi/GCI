@@ -24,15 +24,17 @@ namespace CondominioApp.Api.Controllers
         private readonly IMediatorHandler _mediatorHandler;
         private readonly IMapper _mapper;
         private readonly IComunicadoQuery _comunicadoQuery;
-        private readonly IPrincipalQuery _condominioQuery;
+        private readonly IPrincipalQuery _principalQuery;
         private readonly IUsuarioQuery _usuarioQuery;
 
-        public ComunicadoController(IMediatorHandler mediatorHandler, IMapper mapper, IComunicadoQuery comunicadoQuery, IPrincipalQuery condominioQuery, IUsuarioQuery usuarioQuery)
+        public ComunicadoController
+            (IMediatorHandler mediatorHandler, IMapper mapper, IComunicadoQuery comunicadoQuery,
+            IPrincipalQuery principalQuery, IUsuarioQuery usuarioQuery)
         {
             _mediatorHandler = mediatorHandler;
             _mapper = mapper;
             _comunicadoQuery = comunicadoQuery;
-            _condominioQuery = condominioQuery;
+            _principalQuery = principalQuery;
             _usuarioQuery = usuarioQuery;
         }
 
@@ -141,7 +143,7 @@ namespace CondominioApp.Api.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var condominio = await _condominioQuery.ObterPorId(comunicadoVM.CondominioId);
+            var condominio = await _principalQuery.ObterPorId(comunicadoVM.CondominioId);
             if(condominio == null)
             {
                 AdicionarErroProcessamento("Condominio não encontrado!");
@@ -223,7 +225,7 @@ namespace CondominioApp.Api.Controllers
             {
                 foreach (Guid unidadeId in comunicadoVM.UnidadesId)
                 {
-                    var unidade = _condominioQuery.ObterUnidadePorId(unidadeId).Result;
+                    var unidade = _principalQuery.ObterUnidadePorId(unidadeId).Result;
                     var unidadeComunicado = new UnidadeComunicado(unidade.Id, unidade.Numero, unidade.Andar, unidade.GrupoId, unidade.GrupoDescricao);
                     listaUnidadesComunicado.Add(unidadeComunicado);
                 }
@@ -243,7 +245,7 @@ namespace CondominioApp.Api.Controllers
             {
                 foreach (Guid unidadeId in comunicadoVM.UnidadesId)
                 {
-                    var unidade = _condominioQuery.ObterUnidadePorId(unidadeId).Result;
+                    var unidade = _principalQuery.ObterUnidadePorId(unidadeId).Result;
                     var unidadeComunicado = new UnidadeComunicado(unidade.Id, unidade.Numero, unidade.Andar, unidade.GrupoId, unidade.GrupoDescricao);
                     listaUnidadesComunicado.Add(unidadeComunicado);
                 }

@@ -19,12 +19,12 @@ namespace CondominioApp.Api.Controllers
     {
 
         private readonly IMediatorHandler _mediatorHandler;
-        private readonly IPrincipalQuery _condominioQuery;
+        private readonly IPrincipalQuery _principalQuery;
 
-        public UnidadeController(IMediatorHandler mediatorHandler, IPrincipalQuery condominioQuery)
+        public UnidadeController(IMediatorHandler mediatorHandler, IPrincipalQuery principalQuery)
         {
             _mediatorHandler = mediatorHandler;
-            _condominioQuery = condominioQuery;
+            _principalQuery = principalQuery;
         }
 
 
@@ -32,7 +32,7 @@ namespace CondominioApp.Api.Controllers
         [HttpGet("{id:Guid}")]
         public async Task<ActionResult<UnidadeFlat>> ObterUnidadePorId(Guid id)
         {
-            var unidade = await _condominioQuery.ObterUnidadePorId(id);
+            var unidade = await _principalQuery.ObterUnidadePorId(id);
             if (unidade == null)
             {
                 AdicionarErroProcessamento("Unidade não encontrada.");
@@ -44,7 +44,7 @@ namespace CondominioApp.Api.Controllers
         [HttpGet("por-grupo/{grupoId:Guid}")]
         public async Task<ActionResult<IEnumerable<UnidadeFlat>>> ObterUnidadesPorGrupo(Guid grupoId)
         {            
-            var unidades = await _condominioQuery.ObterUnidadesPorGrupo(grupoId);
+            var unidades = await _principalQuery.ObterUnidadesPorGrupo(grupoId);
             if (unidades.Count() == 0)
             {
                 AdicionarErroProcessamento("Nenhum registro encontrado.");
@@ -56,7 +56,7 @@ namespace CondominioApp.Api.Controllers
         [HttpGet("por-condominio/{condominioId:Guid}")]
         public async Task<ActionResult<IEnumerable<UnidadeFlat>>> ObterUnidadesPorCondominio(Guid condominioId)
         {            
-            var unidades = await _condominioQuery.ObterUnidadesPorCondominio(condominioId);
+            var unidades = await _principalQuery.ObterUnidadesPorCondominio(condominioId);
             if (unidades.Count() == 0)
             {
                 AdicionarErroProcessamento("Nenhum registro encontrado.");
@@ -68,7 +68,7 @@ namespace CondominioApp.Api.Controllers
         [HttpGet("por-codigo/{codigo}")]
         public async Task<ActionResult<UnidadeFlat>> ObterUnidadesPorCodigo(string codigo)
         {
-            var unidade = await _condominioQuery.ObterUnidadePorCodigo(codigo);
+            var unidade = await _principalQuery.ObterUnidadePorCodigo(codigo);
             if (unidade == null)
             {
                 AdicionarErroProcessamento("Unidade não encontrada.");

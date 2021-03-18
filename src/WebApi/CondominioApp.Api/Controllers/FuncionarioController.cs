@@ -19,14 +19,14 @@ namespace CondominioApp.Api.Controllers
     {
         private readonly IMediatorHandler _mediatorHandler;
         private readonly IUsuarioQuery _usuarioQuery;
-        private readonly IPrincipalQuery _condominioQuery;        
+        private readonly IPrincipalQuery _principalQuery;        
 
         public FuncionarioController(IMediatorHandler mediatorHandler, IUsuarioQuery usuarioQuery,
-            IPrincipalQuery condominioQuery)
+            IPrincipalQuery principalQuery)
         {
             _mediatorHandler = mediatorHandler;            
             _usuarioQuery = usuarioQuery;
-            _condominioQuery = condominioQuery;            
+            _principalQuery = principalQuery;            
         }
 
 
@@ -56,7 +56,7 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }
 
-            var condominio = await _condominioQuery.ObterPorId(vincularViewModel.CondominioId);
+            var condominio = await _principalQuery.ObterPorId(vincularViewModel.CondominioId);
             if (condominio == null)
             {
                 AdicionarErroProcessamento("Condomínio não encontrado!");

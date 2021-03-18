@@ -25,12 +25,12 @@ namespace CondominioApp.Api.Controllers
 
         public ArquivoDigitalController
             (IMediatorHandler mediatorHandler, IArquivoDigitalQuery arquivoDigitalQuery,
-            IMapper mapper, IPrincipalQuery condominioQuery, IUsuarioQuery usuarioQuery)
+            IMapper mapper, IPrincipalQuery principalQuery, IUsuarioQuery usuarioQuery)
         {
             _mediatorHandler = mediatorHandler;
             _arquivoDigitalQuery = arquivoDigitalQuery;
             _mapper = mapper;
-            _principalQuery = condominioQuery;
+            _principalQuery = principalQuery;
             _usuarioQuery = usuarioQuery;
         }
 

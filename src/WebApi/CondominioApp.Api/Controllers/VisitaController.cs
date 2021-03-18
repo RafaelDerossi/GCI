@@ -23,14 +23,15 @@ namespace CondominioApp.Api.Controllers
     {
         private readonly IMediatorHandler _mediatorHandler;      
         private readonly IPortariaQuery _portariaQuery;
-        private readonly IPrincipalQuery _condominioQuery;
+        private readonly IPrincipalQuery _principalQuery;
         private readonly IUsuarioQuery _usuarioQuery;
 
-        public VisitaController(IMediatorHandler mediatorHandler, IPortariaQuery portariaQuery, IPrincipalQuery condominioQuery, IUsuarioQuery usuarioQuery)
+        public VisitaController
+            (IMediatorHandler mediatorHandler, IPortariaQuery portariaQuery, IPrincipalQuery principalQuery, IUsuarioQuery usuarioQuery)
         {
             _mediatorHandler = mediatorHandler;           
             _portariaQuery = portariaQuery;
-            _condominioQuery = condominioQuery;
+            _principalQuery = principalQuery;
             _usuarioQuery = usuarioQuery;
         }
 
@@ -111,7 +112,7 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }
 
-            var unidade = await _condominioQuery.ObterUnidadePorId(visitaVM.UnidadeId);
+            var unidade = await _principalQuery.ObterUnidadePorId(visitaVM.UnidadeId);
             if (unidade == null)
             {
                 AdicionarErroProcessamento("Unidade não encontrada!");
@@ -147,7 +148,7 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }
 
-            var unidade = await _condominioQuery.ObterUnidadePorId(visitaVM.UsuarioId);
+            var unidade = await _principalQuery.ObterUnidadePorId(visitaVM.UsuarioId);
             if (unidade == null)
             {
                 AdicionarErroProcessamento("Unidade não encontrada!");
@@ -199,7 +200,7 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }
 
-            var unidade = await _condominioQuery.ObterUnidadePorId(visitaVM.UsuarioId);
+            var unidade = await _principalQuery.ObterUnidadePorId(visitaVM.UsuarioId);
             if (unidade == null)
             {
                 AdicionarErroProcessamento("Unidade não encontrada!");

@@ -25,18 +25,18 @@ namespace CondominioApp.Api.Controllers
         private readonly IMapper _mapper;
         private readonly ICorrespondenciaQuery _correspondenciaQuery;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        private readonly IPrincipalQuery _condominioQuery;
+        private readonly IPrincipalQuery _principalQuery;
         private readonly IUsuarioQuery _usuarioQuery;
 
         public CorrespondenciaController(
             IMediatorHandler mediatorHandler, IMapper mapper, ICorrespondenciaQuery correspondenciaQuery,
-            IWebHostEnvironment webHostEnvironment, IPrincipalQuery condominioQuery, IUsuarioQuery usuarioQuery)
+            IWebHostEnvironment webHostEnvironment, IPrincipalQuery principalQuery, IUsuarioQuery usuarioQuery)
         {
             _mediatorHandler = mediatorHandler;
             _mapper = mapper;
             _correspondenciaQuery = correspondenciaQuery;
             _webHostEnvironment = webHostEnvironment;
-            _condominioQuery = condominioQuery;
+            _principalQuery = principalQuery;
             _usuarioQuery = usuarioQuery;
         }
 
@@ -102,7 +102,7 @@ namespace CondominioApp.Api.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var unidade =await _condominioQuery.ObterUnidadePorId(correspondenciaVM.UnidadeId);
+            var unidade =await _principalQuery.ObterUnidadePorId(correspondenciaVM.UnidadeId);
             if (unidade == null)
             {
                 AdicionarErroProcessamento("Unidade não encontrada!");

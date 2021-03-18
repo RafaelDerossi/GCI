@@ -17,19 +17,19 @@ namespace CondominioApp.Api.Controllers
     {
 
         private readonly IMediatorHandler _mediatorHandler;
-        private readonly IPrincipalQuery _condominioQuery;
+        private readonly IPrincipalQuery _principalQuery;
 
-        public GrupoController(IMediatorHandler mediatorHandler, IPrincipalQuery condominioQuery)
+        public GrupoController(IMediatorHandler mediatorHandler, IPrincipalQuery principalQuery)
         {
             _mediatorHandler = mediatorHandler;
-            _condominioQuery = condominioQuery;
+            _principalQuery = principalQuery;
         }
 
 
         [HttpGet("{id:Guid}")]
         public async Task<ActionResult<GrupoFlat>> ObterGrupoPorId(Guid id)
         {
-            var grupo = await _condominioQuery.ObterGrupoPorId(id);
+            var grupo = await _principalQuery.ObterGrupoPorId(id);
             if (grupo == null)
             {
                 AdicionarErroProcessamento("Grupo não encontrado.");
@@ -41,7 +41,7 @@ namespace CondominioApp.Api.Controllers
         [HttpGet("por-condominio/{condominioId:Guid}")]
         public async Task<ActionResult<IEnumerable<GrupoFlat>>> ObterGruposPorCondominio(Guid condominioId)
         {
-            var grupos = await _condominioQuery.ObterGruposPorCondominio(condominioId);
+            var grupos = await _principalQuery.ObterGruposPorCondominio(condominioId);
             if (grupos.Count() == 0)
             {
                 AdicionarErroProcessamento("Nenhum registro encontrado.");

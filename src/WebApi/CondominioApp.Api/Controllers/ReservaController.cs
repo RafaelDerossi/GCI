@@ -22,15 +22,17 @@ namespace CondominioApp.Api.Controllers
     {
         private readonly IMediatorHandler _mediatorHandler;        
         private readonly IReservaAreaComumQuery _reservaAreaComumQuery;
-        private readonly IPrincipalQuery _condominioQuery;
+        private readonly IPrincipalQuery _principalQuery;
         private readonly IUsuarioQuery _usuarioQuery;
 
 
-        public ReservaController(IMediatorHandler mediatorHandler, IReservaAreaComumQuery reservaAreaComumQuery, IPrincipalQuery condominioQuery, IUsuarioQuery usuarioQuery) //, IMapper mapper)
+        public ReservaController
+            (IMediatorHandler mediatorHandler, IReservaAreaComumQuery reservaAreaComumQuery,
+            IPrincipalQuery principalQuery, IUsuarioQuery usuarioQuery) //, IMapper mapper)
         {
             _mediatorHandler = mediatorHandler;
             _reservaAreaComumQuery = reservaAreaComumQuery;
-            _condominioQuery = condominioQuery;
+            _principalQuery = principalQuery;
             _usuarioQuery = usuarioQuery;
         }
 
@@ -108,7 +110,7 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }
 
-            var unidade = await _condominioQuery.ObterUnidadePorId(reservaVM.UnidadeId);
+            var unidade = await _principalQuery.ObterUnidadePorId(reservaVM.UnidadeId);
             if (unidade == null)
             {
                 AdicionarErroProcessamento("Unidade não encontrada!");

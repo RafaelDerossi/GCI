@@ -18,13 +18,13 @@ namespace CondominioApp.Api.Controllers
     public class VeiculoController : MainController
     {
         private readonly IMediatorHandler _mediatorHandler;
-        private readonly IPrincipalQuery _condominioQuery;
+        private readonly IPrincipalQuery _principalQuery;
         private readonly IUsuarioQuery _usuarioQuery;
 
-        public VeiculoController(IMediatorHandler mediatorHandler, IPrincipalQuery condominioQuery, IUsuarioQuery usuarioQuery)
+        public VeiculoController(IMediatorHandler mediatorHandler, IPrincipalQuery principalQuery, IUsuarioQuery usuarioQuery)
         {
             _mediatorHandler = mediatorHandler;
-            _condominioQuery = condominioQuery;
+            _principalQuery = principalQuery;
             _usuarioQuery = usuarioQuery;
         }
 
@@ -96,7 +96,7 @@ namespace CondominioApp.Api.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var unidade = await _condominioQuery.ObterUnidadePorId(veiculoVM.UnidadeId);
+            var unidade = await _principalQuery.ObterUnidadePorId(veiculoVM.UnidadeId);
             if (unidade == null)
             {
                 AdicionarErroProcessamento("Unidade não encontrada!");

@@ -1,0 +1,60 @@
+﻿using CondominioApp.Core.Enumeradores;
+using CondominioApp.Core.Messages;
+using CondominioApp.Ocorrencias.App.Aplication.Commands;
+using CondominioApp.Ocorrencias.App.Models;
+using FluentValidation.Results;
+using MediatR;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace CondominioApp.Comunicados.App.Aplication.Commands
+{
+    public class OcorrenciaCommandHandler : CommandHandler,
+         IRequestHandler<CadastrarOcorrenciaCommand, ValidationResult>,         
+         IDisposable
+    {
+
+        private IOcorrenciaRepository _ocorrenciaRepository;
+
+        public OcorrenciaCommandHandler(IOcorrenciaRepository ocorrenciaRepository)
+        {
+            _ocorrenciaRepository = ocorrenciaRepository;
+        }
+
+
+        public async Task<ValidationResult> Handle(CadastrarOcorrenciaCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido())
+                return request.ValidationResult;
+
+            var ocorrencia = OcorrenciaFactory(request);           
+           
+            _ocorrenciaRepository.Adicionar(ocorrencia);
+
+            return await PersistirDados(_ocorrenciaRepository.UnitOfWork);
+        }
+
+
+        
+    
+        private Ocorrencia OcorrenciaFactory(CadastrarOcorrenciaCommand request)
+        {
+            var comunicado = new Ocorrencia(
+                request.Descricao, request.Foto, request.Publica, request.UnidadeId, request.UsuarioId,
+                request.CondominioId, request.Panico);
+            
+            return comunicado;
+        }
+
+
+        public void Dispose()
+        {
+            _ocorrenciaRepository?.Dispose();
+        }
+
+
+    }
+}
