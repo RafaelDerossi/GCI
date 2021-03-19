@@ -58,6 +58,9 @@ using CondominioApp.NotificacaoPush.App.Services;
 using CondominioApp.ArquivoDigital.App.Aplication.Commands;
 using CondominioApp.ArquivoDigital.App.Models;
 using CondominioApp.ArquivoDigital.App.Aplication.Query;
+using CondominioApp.Ocorrencias.App.Aplication.Commands;
+using CondominioApp.Ocorrencias.App.Data.Repository;
+using CondominioApp.Ocorrencias.App.Models;
 
 namespace CondominioApp.Api.Configuration
 {
@@ -176,6 +179,11 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<INotificacaoPushService, NotificacaoPushService>();
             #endregion
 
+            #region Ocorrencia -Contexto
+            //Ocorrencia
+            services.AddScoped<IRequestHandler<CadastrarOcorrenciaCommand, ValidationResult>, OcorrenciaCommandHandler>();
+            services.AddScoped<IRequestHandler<RemoverOcorrenciaCommand, ValidationResult>, OcorrenciaCommandHandler>();
+            #endregion
 
             #region Portaria -Contexto
 
@@ -337,6 +345,7 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<IQueryLead, QueryLead>();
             services.AddScoped<IReservaAreaComumQuery, ReservaAreaComumQuery>();            
             services.AddScoped<IUsuarioQuery, UsuarioQuery>();
+            //services.AddScoped<IOcorrenciaQuery, OcorrenciaQuery>();
             #endregion
 
             #region Repositórios
@@ -351,7 +360,7 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<IPrincipalRepository, PrincipalRepository>();            
             services.AddScoped<IReservaAreaComumRepository, ReservaAreaComumRepository>();            
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
-
+            services.AddScoped<IOcorrenciaRepository, OcorrenciaRepository>();
             #endregion
 
             #region Repositórios Query

@@ -7,7 +7,7 @@ namespace CondominioApp.ArquivoDigital.App.Tests
     {        
         public static Pasta Criar_Pasta_Valida()
         {            
-            return new Pasta("Titulo", "Descricao",  Guid.NewGuid(), true);    
+            return new Pasta("Titulo", "Descricao",  Guid.NewGuid(), true, false, 0);    
         }
 
     }

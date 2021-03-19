@@ -1,4 +1,5 @@
 ﻿using CondominioApp.ArquivoDigital.App.Aplication.Commands.Validations;
+using CondominioApp.Core.Enumeradores;
 using FluentValidation;
 using System;
 
@@ -7,12 +8,16 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
     public class CadastrarPastaCommand : PastaCommand
     {
 
-        public CadastrarPastaCommand(string titulo, string descricao, Guid condominioId, bool publica)
-        {            
+        public CadastrarPastaCommand(Guid id, string titulo, string descricao, Guid condominioId, bool publica,
+            bool pastaDoSistema = false, CategoriaDaPastaDeSistema categoriaDaPastaDeSistema = 0)
+        {
+            Id = id;
             Titulo = titulo;
             Descricao = descricao;
             CondominioId = condominioId;
             Publica = publica;
+            PastaDoSistema = pastaDoSistema;
+            CategoriaDaPastaDeSistema = categoriaDaPastaDeSistema;
         }
 
 

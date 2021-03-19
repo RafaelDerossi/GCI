@@ -113,4 +113,18 @@
         MORADOR = 0,
         SINDICO = 1
     }
+
+    public enum CategoriaDaPastaDeSistema
+    {
+        COMUNICADO = 1,
+        ATA = 2,
+        URGENCIA = 3,
+        BALANCETE = 4,
+        COBRANÇA = 5,
+        MANUTENÇÃO = 6,
+        AVISO = 7,
+        OBRA_REFORMA = 8,
+        OUTROS = 9,
+        OCORRENCIA = 10
+    }
 }

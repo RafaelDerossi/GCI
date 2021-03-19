@@ -129,7 +129,13 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
 
         private Pasta PastaFactory(CadastrarPastaCommand request)
         {
-            return new Pasta(request.Titulo, request.Descricao, request.CondominioId, request.Publica);
+            var pasta = new Pasta
+                (request.Titulo, request.Descricao, request.CondominioId, request.Publica,
+                request.PastaDoSistema, request.CategoriaDaPastaDeSistema);
+
+            pasta.SetEntidadeId(request.Id);
+
+            return pasta;
         }
 
 

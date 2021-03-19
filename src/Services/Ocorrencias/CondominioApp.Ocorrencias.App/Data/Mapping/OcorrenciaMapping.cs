@@ -15,10 +15,21 @@ namespace CondominioApp.Ocorrencias.App.Data.Mapping
 
             builder.Property(u => u.Descricao).IsRequired().HasColumnType($"varchar({Ocorrencia.Max})");
 
-            builder.Property(u => u.Foto)
-                   .HasMaxLength(Foto.NomeFotoMaximo)
-                   .HasColumnName("Foto")
-                   .HasColumnType($"varchar({Foto.NomeFotoMaximo})");
+            builder.OwnsOne(u => u.Foto, ft =>
+            {
+                ft.Property(u => u.NomeDoArquivo)
+                    .IsRequired()
+                    .HasMaxLength(Foto.NomeFotoMaximo)
+                    .HasColumnName("NomeDoArquivo")
+                    .HasColumnType($"varchar({Foto.NomeFotoMaximo})");
+
+                ft.Property(u => u.NomeOriginal)
+                    .IsRequired()
+                    .HasMaxLength(Foto.NomeFotoMaximo)
+                    .HasColumnName("NomeOriginal")
+                    .HasColumnType($"varchar({Foto.NomeFotoMaximo})");
+            });
+
 
 
             builder.Property(u => u.Publica).IsRequired();

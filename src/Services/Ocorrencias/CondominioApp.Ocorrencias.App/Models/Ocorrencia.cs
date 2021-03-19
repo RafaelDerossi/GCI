@@ -26,15 +26,12 @@ namespace CondominioApp.Ocorrencias.App.Models
         
         public bool Panico { get; private set; }
 
-        public bool TemAnexo { get; private set; }
-
-
         public Ocorrencia()
         {
         }
         public Ocorrencia
             (string descricao, Foto foto, bool publica, Guid unidadeId,
-            Guid usuarioId, Guid condominioId, bool panico, bool temAnexo)
+            Guid usuarioId, Guid condominioId, bool panico)
         {
             Descricao = descricao;
             Foto = foto;
@@ -43,7 +40,6 @@ namespace CondominioApp.Ocorrencias.App.Models
             UsuarioId = usuarioId;
             CondominioId = condominioId;            
             Panico = panico;
-            TemAnexo = temAnexo;
         }
 
         public void SetDescricao(string descricao) => Descricao = descricao;
@@ -83,11 +79,6 @@ namespace CondominioApp.Ocorrencias.App.Models
             Parecer = parecer;           
             DataResolucao = DataHoraDeBrasilia.Get();
         }
-
-
-        public void MarcarQueTemAnexo() => TemAnexo = true;
-
-        public void MarcarQueNaoTemAnexo() => TemAnexo = false;
-
+              
     }
 }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CondominioApp.ArquivoDigital.App.Aplication.Commands;
 using CondominioApp.Comunicados.App.Aplication.Commands;
 using CondominioApp.Comunicados.App.Aplication.Query;
 using CondominioApp.Comunicados.App.Models;
@@ -163,8 +164,14 @@ namespace CondominioApp.Api.Controllers
 
             //Salva Anexos
             if (Resultado.IsValid && comunicadoVM.TemAnexos)
-            {
-
+            {            
+                //await SalvarAnexos(unidade, ocorrenciaVM, comando);
+                //if (!OperacaoValida())
+                //{
+                //    var comandoExcluirOcorrencia = new RemoverOcorrenciaCommand(comando.Id);
+                //    await _mediatorHandler.EnviarComando(comandoExcluirOcorrencia);
+                //    return CustomResponse();
+                //}
             }
 
             return CustomResponse(Resultado);
@@ -258,6 +265,43 @@ namespace CondominioApp.Api.Controllers
                 comunicadoVM.TemAnexos, listaUnidadesComunicado);
 
         }
+
+
+        //private async Task SalvarAnexos(UnidadeFlat unidade, CadastraCamunicadoViewModel ocorrenciaVM, CadastrarOcorrenciaCommand comando)
+        //{
+        //    var pasta = await _arquivoDigitalQuery.ObterPastaDeSistema
+        //           (CategoriaDaPastaDeSistema.OCORRENCIA, unidade.CondominioId);
+        //    if (pasta == null)
+        //    {
+        //        var comandoCadastrarPasta = CadastrarPastaCommandFactory(ocorrenciaVM, unidade);
+        //        var ResultadoCadastroPasta = await _mediatorHandler.EnviarComando(comandoCadastrarPasta);
+        //        if (!ResultadoCadastroPasta.IsValid)
+        //            CustomResponse(ResultadoCadastroPasta);
+        //    }
+        //    foreach (AnexoComunicadoViewModel anexo in ocorrenciaVM.Anexos)
+        //    {
+        //        var comandoCadastraArquivo = CadastrarArquivoCommandFactory(anexo, comando, pasta.Id);
+        //        var ResultadoCadastroArquivo = await _mediatorHandler.EnviarComando(comandoCadastraArquivo);
+        //        if (!ResultadoCadastroArquivo.IsValid)
+        //            CustomResponse(ResultadoCadastroArquivo);
+        //    }
+        //}
+    
+
+        //private CadastrarPastaCommand CadastrarPastaCommandFactory(CadastraOcorrenciaViewModel ocorrenciaVM, UnidadeFlat unidade)
+        //{
+        //    return new CadastrarPastaCommand
+        //        (Guid.NewGuid(), CategoriaDaPastaDeSistema.OCORRENCIA.ToString(), "Pasta de ocorrências do sistema",
+        //         unidade.CondominioId, false, true, CategoriaDaPastaDeSistema.OCORRENCIA);
+        //}
+
+        //private CadastrarArquivoCommand CadastrarArquivoCommandFactory
+        //    (AnexoComunicadoViewModel anexo, CadastrarOcorrenciaCommand ocorrenciaCommand, Guid pastaId)
+        //{
+        //    return new CadastrarArquivoCommand
+        //        (anexo.NomeOriginal, anexo.Tamanho, pastaId, ocorrenciaCommand.Publica, ocorrenciaCommand.UsuarioId,
+        //        anexo.NomeOriginal, "Anexo de Ocorrencia", "", ocorrenciaCommand.Id);
+        //}
 
     }
 }

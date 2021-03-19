@@ -9,7 +9,7 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
 
         public CadastrarArquivoCommand
             (string nomeOriginal, int tamanho, Guid pastaId, bool publico, Guid usuarioId,
-             string nomeUsuario, string titulo, string descricao)
+             string nomeUsuario, string titulo, string descricao, Guid anexadoId)
         {
             Id = Guid.NewGuid();            
             Tamanho = tamanho;
@@ -19,6 +19,7 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
             NomeUsuario = nomeUsuario;
             Titulo = titulo;
             Descricao = descricao;
+            AnexadoPorId = anexadoId;
             SetNome(nomeOriginal);
         }
 

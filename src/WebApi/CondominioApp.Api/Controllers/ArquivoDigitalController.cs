@@ -85,7 +85,8 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }
 
-            var comando = new CadastrarPastaCommand(pastaVM.Titulo, pastaVM.Descricao, pastaVM.CondominioId, pastaVM.Publica);
+            var comando = new CadastrarPastaCommand
+                (Guid.NewGuid(), pastaVM.Titulo, pastaVM.Descricao, pastaVM.CondominioId, pastaVM.Publica, false);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
@@ -217,7 +218,8 @@ namespace CondominioApp.Api.Controllers
 
             var comando = new CadastrarArquivoCommand
                 (arquivoVM.NomeOriginal, arquivoVM.Tamanho, arquivoVM.PastaId, arquivoVM.Publico,
-                arquivoVM.UsuarioId, usuario.NomeCompleto, arquivoVM.Titulo, arquivoVM.Descricao);
+                arquivoVM.UsuarioId, usuario.NomeCompleto, arquivoVM.Titulo, arquivoVM.Descricao,
+                Guid.Empty);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 

@@ -83,7 +83,12 @@ namespace CondominioApp.Ocorrencias.App.Data.Repository
         }
 
 
-      
+        public void Remover(Ocorrencia entity)
+        {
+            _context.Ocorrencias.Remove(entity);
+        }
+
+
         public void Dispose()
         {
             _context?.Dispose();

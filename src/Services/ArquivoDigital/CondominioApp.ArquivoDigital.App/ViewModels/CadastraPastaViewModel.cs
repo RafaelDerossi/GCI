@@ -1,11 +1,8 @@
-﻿using CondominioApp.Core.DomainObjects;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
 
 namespace CondominioApp.ArquivoDigital.App.Models
 {
-   public class CadastraPastaViewModel
+    public class CadastraPastaViewModel
     {        
         public string Titulo { get; set; }
 
@@ -13,7 +10,7 @@ namespace CondominioApp.ArquivoDigital.App.Models
 
         public Guid CondominioId { get; set; }
 
-        public bool Publica { get; set; }
-     
+        public bool Publica { get; set; }        
+
     }
 }

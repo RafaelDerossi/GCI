@@ -13,7 +13,8 @@ using System.Threading.Tasks;
 namespace CondominioApp.Comunicados.App.Aplication.Commands
 {
     public class OcorrenciaCommandHandler : CommandHandler,
-         IRequestHandler<CadastrarOcorrenciaCommand, ValidationResult>,         
+         IRequestHandler<CadastrarOcorrenciaCommand, ValidationResult>,
+         IRequestHandler<RemoverOcorrenciaCommand, ValidationResult>,
          IDisposable
     {
 
@@ -38,15 +39,32 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
         }
 
 
-        
-    
+        public async Task<ValidationResult> Handle(RemoverOcorrenciaCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido())
+                return request.ValidationResult;
+
+            var ocorrencia = await _ocorrenciaRepository.ObterPorId(request.Id);
+            if (ocorrencia == null)
+            {
+                AdicionarErro("Ocorrência não encontrada!");
+                return ValidationResult;
+            }
+
+            _ocorrenciaRepository.Remover(ocorrencia);            
+
+            return await PersistirDados(_ocorrenciaRepository.UnitOfWork);
+        }
+
+
+
         private Ocorrencia OcorrenciaFactory(CadastrarOcorrenciaCommand request)
         {
-            var comunicado = new Ocorrencia(
+            var ocorrencia = new Ocorrencia(
                 request.Descricao, request.Foto, request.Publica, request.UnidadeId, request.UsuarioId,
                 request.CondominioId, request.Panico);
-            
-            return comunicado;
+           
+            return ocorrencia;
         }
 
 

@@ -1,6 +1,7 @@
 ﻿using CondominioApp.Ocorrencias.App.ValueObjects;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CondominioApp.Ocorrencias.App.Models
 {
@@ -36,20 +37,18 @@ namespace CondominioApp.Ocorrencias.App.Models
         
         public Guid CondominioId { get; set; }       
         
-        public bool Panico { get;  set; }      
+        public bool Panico { get;  set; }              
 
-        public IEnumerable<AnexoOcorrenciaViewModel> Anexos { get; set; }
-
-        public bool TemAnexos
+        public string status
         {
             get
             {
-                bool temAnexos = false;
-                if (Anexos != null)
-                {
-                    temAnexos = Anexos.Count() > 0;
-                }
-                return temAnexos;
+                if (!EmAndamento && !Resolvida)
+                    return "Pendente";
+                else if (Resolvida)
+                    return "Resolvida";
+                else
+                    return "Em andamento";
             }
         }
     }

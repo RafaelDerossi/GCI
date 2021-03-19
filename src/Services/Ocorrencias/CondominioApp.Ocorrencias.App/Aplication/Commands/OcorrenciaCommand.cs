@@ -19,18 +19,37 @@ namespace CondominioApp.Ocorrencias.App.Aplication.Commands
         public string Parecer { get; protected set; }
         public DateTime? DataResolucao { get; protected set; }
 
+
         public Guid UnidadeId { get; protected set; }
-        public Guid UsuarioId { get; protected set; }
+        public string NumeroUnidade { get; protected set; }
+        public string AndarUnidade { get; protected set; }
+        public string GrupoUnidade { get; protected set; }
+
+
         public Guid CondominioId { get; protected set; }
+        public string NomeCondominio { get; protected set; }
+
+
+        public Guid UsuarioId { get; protected set; }
+        public string NomeUsuario { get; protected set; }
 
         public bool Panico { get; protected set; }
 
-        public bool TemAnexo { get; protected set; }
-
+      
 
         public void SetDescricao(string descricao) => Descricao = descricao;
 
-        public void SetFoto(Foto foto) => Foto = foto;
+        public void SetFoto(string nomeOriginalfoto, string nomeFoto)
+        {
+            try
+            {
+                Foto = new Foto(nomeOriginalfoto, nomeFoto);
+            }
+            catch (Exception e)
+            {
+                AdicionarErrosDeProcessamentoDoComando(e.Message);
+            }
+        }
 
         public void SetUsuarioId(Guid id) => UsuarioId = id;
 
@@ -66,9 +85,5 @@ namespace CondominioApp.Ocorrencias.App.Aplication.Commands
             DataResolucao = DataHoraDeBrasilia.Get();
         }
 
-
-        public void MarcarQueTemAnexo() => TemAnexo = true;
-
-        public void MarcarQueNaoTemAnexo() => TemAnexo = false;
     }
 }

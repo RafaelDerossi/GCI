@@ -9,7 +9,8 @@ namespace CondominioApp.ArquivoDigital.App.Tests
         private static CadastrarArquivoCommand CadastrarArquivoCommandFactoy()
         {
             return new CadastrarArquivoCommand
-                ("NomeOriginal.txt", 10, Guid.NewGuid(), true, Guid.NewGuid(), "Nome do Usuario", "Titulo do Arquivo", "Descricao do Arquivo");
+                ("NomeOriginal.txt", 10, Guid.NewGuid(), true, Guid.NewGuid(),
+                "Nome do Usuario", "Titulo do Arquivo", "Descricao do Arquivo", Guid.Empty);
         }
 
         private static EditarArquivoCommand EditarArquivoCommandFactoy()

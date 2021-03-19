@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using CondominioApp.ArquivoDigital.App.Aplication.Commands;
+using CondominioApp.ArquivoDigital.App.Aplication.Query;
+using CondominioApp.Core.Enumeradores;
 using CondominioApp.Core.Mediator;
 using CondominioApp.Ocorrencias.App.Aplication.Commands;
 using CondominioApp.Ocorrencias.App.Models;
@@ -25,27 +27,23 @@ namespace CondominioApp.Api.Controllers
         private readonly IMapper _mapper;        
         private readonly IPrincipalQuery _principalQuery;
         private readonly IUsuarioQuery _usuarioQuery;
+        private readonly IArquivoDigitalQuery _arquivoDigitalQuery;
 
-        public OcorrenciaController(IMediatorHandler mediatorHandler, IMapper mapper, IPrincipalQuery principalQuery, IUsuarioQuery usuarioQuery)
+        public OcorrenciaController(IMediatorHandler mediatorHandler, IMapper mapper, 
+            IPrincipalQuery principalQuery, IUsuarioQuery usuarioQuery, IArquivoDigitalQuery arquivoDigitalQuery)
         {
             _mediatorHandler = mediatorHandler;
             _mapper = mapper;            
             _principalQuery = principalQuery;
             _usuarioQuery = usuarioQuery;
+            _arquivoDigitalQuery = arquivoDigitalQuery;
         }
 
 
         [HttpPost]
         public async Task<ActionResult> Post(CadastraOcorrenciaViewModel ocorrenciaVM)
         {
-            if (!ModelState.IsValid) return CustomResponse(ModelState);
-
-            var condominio = await _principalQuery.ObterPorId(ocorrenciaVM.CondominioId);
-            if(condominio == null)
-            {
-                AdicionarErroProcessamento("Condomínio não encontrado!");
-                return CustomResponse();
-            }
+            if (!ModelState.IsValid) return CustomResponse(ModelState);           
 
             var unidade = await _principalQuery.ObterUnidadePorId(ocorrenciaVM.UnidadeId);
             if (unidade == null)
@@ -61,41 +59,26 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }
 
-            var comando = CadastrarOcorrenciaCommandFactory(ocorrenciaVM, condominio, usuario);
+            var comando = CadastrarOcorrenciaCommandFactory(ocorrenciaVM, usuario, unidade);
 
-            var Resultado = await _mediatorHandler.EnviarComando(comando);
-
-            //Salva Anexos
-            if (Resultado.IsValid && ocorrenciaVM.TemAnexos)
-            {
-                foreach (AnexoOcorrenciaViewModel item in ocorrenciaVM.Anexos)
-                {
-
-                }
-            }
+            var Resultado = await _mediatorHandler.EnviarComando(comando);            
 
             return CustomResponse(Resultado);
 
         }
-
-        
-
-
+                
 
         private CadastrarOcorrenciaCommand CadastrarOcorrenciaCommandFactory
-            (CadastraOcorrenciaViewModel ocorrenciaVM, CondominioFlat condominio, Usuario usuario)
+            (CadastraOcorrenciaViewModel ocorrenciaVM, Usuario usuario, UnidadeFlat unidade)
         {           
            return new CadastrarOcorrenciaCommand
-                (ocorrenciaVM.Descricao, ocorrenciaVM.Foto, ocorrenciaVM.Publica, ocorrenciaVM.UnidadeId,
-                ocorrenciaVM.UsuarioId, ocorrenciaVM.CondominioId, ocorrenciaVM.Panico, ocorrenciaVM.TemAnexos);
+                (ocorrenciaVM.Descricao, ocorrenciaVM.NomeOriginalFoto, ocorrenciaVM.NomeFoto,
+                 ocorrenciaVM.Publica, ocorrenciaVM.UnidadeId, unidade.Numero, unidade.Andar, unidade.GrupoDescricao,
+                 ocorrenciaVM.UsuarioId, usuario.NomeCompleto, unidade.CondominioId, unidade.CondominioNome,
+                 ocorrenciaVM.Panico);
         }
-
-        private CadastrarArquivoCommand CadastrarArquivoCommandFactory(AnexoOcorrenciaViewModel anexo, bool publico, Guid pastaId)
-        {
-            return new CadastrarArquivoCommand
-                (anexo.NomeOriginal, anexo.Tamanho, pastaId, publico, anexo.UsuarioId, anexo.NomeOriginal,
-                anexo.Titulo, anexo.Descricao);
-        }
+            
+       
 
     }
 }

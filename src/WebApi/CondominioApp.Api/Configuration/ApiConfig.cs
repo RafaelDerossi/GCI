@@ -3,6 +3,7 @@ using CondominioApp.Automacao.App.Models;
 using CondominioApp.Comunicados.App.Models;
 using CondominioApp.Correspondencias.App.Data;
 using CondominioApp.Enquetes.App.Data;
+using CondominioApp.Ocorrencias.App.Models;
 using CondominioApp.Portaria.Infra.Data;
 using CondominioApp.Portaria.Infra.DataQuery;
 using CondominioApp.Principal.Infra.Data;
@@ -56,13 +57,16 @@ namespace CondominioApp.Api.Configuration
               options.UseSqlServer(configuration.GetConnectionString("ReservaAreaComumConnection")));           
 
             services.AddDbContext<PortariaContextDB>(options =>
-            options.UseSqlServer(configuration.GetConnectionString("PortariaConnection")));          
+              options.UseSqlServer(configuration.GetConnectionString("PortariaConnection")));          
 
             services.AddDbContext<AutomacaoContextDB>(options =>
-            options.UseSqlServer(configuration.GetConnectionString("AutomacaoConnection")));
+              options.UseSqlServer(configuration.GetConnectionString("AutomacaoConnection")));
 
             services.AddDbContext<ArquivoDigitalContextDB>(options =>
-            options.UseSqlServer(configuration.GetConnectionString("ArquivoDigitalConnection")));
+              options.UseSqlServer(configuration.GetConnectionString("ArquivoDigitalConnection")));
+
+            services.AddDbContext<OcorrenciaContextDB>(options =>
+              options.UseSqlServer(configuration.GetConnectionString("OcorrenciaConnection")));
 
 
             //Query Contexts

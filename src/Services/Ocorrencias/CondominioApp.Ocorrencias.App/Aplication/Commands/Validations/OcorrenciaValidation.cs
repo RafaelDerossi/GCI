@@ -8,7 +8,7 @@ namespace CondominioApp.Ocorrencias.App.Aplication.Commands.Validations
         protected void ValidateId()
         {
             RuleFor(c => c.Id)
-                .NotEqual(Guid.Empty)                
+                .NotEqual(Guid.Empty);            
         }
 
         protected void ValidateDescricao()
@@ -67,11 +67,6 @@ namespace CondominioApp.Ocorrencias.App.Aplication.Commands.Validations
             RuleFor(c => c.Panico)
                   .NotNull();                  
         }
-
-        protected void ValidateTemAnexo()
-        {
-            RuleFor(c => c.TemAnexo)
-                  .NotNull();
-        }
+       
     }
 }

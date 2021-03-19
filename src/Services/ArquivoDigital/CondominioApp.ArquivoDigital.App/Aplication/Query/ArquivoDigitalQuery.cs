@@ -1,7 +1,9 @@
 ﻿using CondominioApp.ArquivoDigital.App.Models;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using CondominioApp.Core.Enumeradores;
 
 namespace CondominioApp.ArquivoDigital.App.Aplication.Query
 {
@@ -36,6 +38,14 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Query
             return await _arquivoDigitalRepository.Obter(e => e.CondominioId == condominioId && !e.Lixeira);
         }
 
+        public async Task<Pasta> ObterPastaDeSistema(CategoriaDaPastaDeSistema categoriaDaPastaDeSistema, Guid condominioId)
+        {
+            var retorno = await _arquivoDigitalRepository
+                .Obter(p => p.CategoriaDaPastaDeSistema == categoriaDaPastaDeSistema &&
+                       p.CondominioId == condominioId && p.PastaDoSistema == true);
+            return retorno.FirstOrDefault();
+        }
+
         #endregion
 
 
@@ -53,6 +63,11 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Query
         public async Task<IEnumerable<Arquivo>> ObterArquivosPorCondominio(Guid condominioId)
         {
             return await _arquivoDigitalRepository.ObterArquivo(e => e.CondominioId == condominioId && !e.Lixeira);
+        }
+
+        public async Task<IEnumerable<Arquivo>> ObterArquivosPorAnexadoPorId(Guid anexadoPorId)
+        {
+            return await _arquivoDigitalRepository.ObterArquivo(e => e.AnexadoPorId == anexadoPorId && !e.Lixeira);
         }
 
         #endregion

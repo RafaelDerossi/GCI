@@ -24,6 +24,9 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
 
         public string Descricao { get; protected set; }
 
+        public Guid AnexadoPorId { get; protected set; }
+
+
 
         public void SetNome(string nomeOriginal)
         {
@@ -54,6 +57,8 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
         public void SetTitulo(string titulo) => Titulo = titulo;
 
         public void SetDescricao(string descricao) => Descricao = descricao;
-        
+
+        public void SetAnexadoPorId(Guid id) => AnexadoPorId = id;
+
     }
 }

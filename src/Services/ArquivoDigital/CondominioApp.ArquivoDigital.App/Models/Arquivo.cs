@@ -26,6 +26,7 @@ namespace CondominioApp.ArquivoDigital.App.Models
 
         public string Descricao { get; private set; }
 
+        public Guid AnexadoPorId { get; private set; }
 
         public Arquivo()
         {
@@ -33,7 +34,7 @@ namespace CondominioApp.ArquivoDigital.App.Models
 
         public Arquivo
             (NomeArquivo nome, int tamanho, Guid condominioId, Guid pastaId, bool publico,
-            Guid usuarioId, string nomeUsuario, string titulo, string descricao)
+            Guid usuarioId, string nomeUsuario, string titulo, string descricao, Guid anexadoPorId)
         {
             Nome = nome;
             Tamanho = tamanho;
@@ -44,6 +45,7 @@ namespace CondominioApp.ArquivoDigital.App.Models
             NomeUsuario = nomeUsuario;
             Titulo = titulo;
             Descricao = descricao;
+            AnexadoPorId = anexadoPorId;
         }
 
         public void SetNome(NomeArquivo nome) => Nome = nome;
@@ -67,5 +69,7 @@ namespace CondominioApp.ArquivoDigital.App.Models
         public void SetTitulo(string titulo) => Titulo = titulo;
 
         public void SetDescricao(string descricao) => Descricao = descricao;
+
+        public void SetAnexadoPorId(Guid id) => AnexadoPorId = id;
     }
 }

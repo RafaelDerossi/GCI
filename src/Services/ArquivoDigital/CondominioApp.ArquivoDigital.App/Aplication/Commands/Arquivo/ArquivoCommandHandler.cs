@@ -160,7 +160,8 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
         private Arquivo ArquivoFactory(CadastrarArquivoCommand request, Guid condominioId)
         {
             var arquivo = new Arquivo(request.Nome, request.Tamanho, condominioId, request.PastaId, request.Publico, 
-                                      request.UsuarioId, request.NomeUsuario, request.Titulo, request.Descricao);
+                                      request.UsuarioId, request.NomeUsuario, request.Titulo, request.Descricao,
+                                      request.AnexadoPorId);
 
             arquivo.SetEntidadeId(request.Id);
             return arquivo;

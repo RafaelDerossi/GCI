@@ -1,4 +1,5 @@
 ﻿using CondominioApp.Core.DomainObjects;
+using CondominioApp.Core.Enumeradores;
 using CondominioApp.Core.Messages;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,10 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
 
         public bool Publica { get; protected set; }
 
+        public bool PastaDoSistema { get; protected set; }
+
+        public CategoriaDaPastaDeSistema CategoriaDaPastaDeSistema { get; protected set; }
+
 
 
         public void SetId(Guid id) => Id = id;
@@ -32,6 +37,8 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
 
         public void MarcarComoPrivada() => Publica = false;
 
-       
+
+        public void MarcarComoPastaDoSistema() => PastaDoSistema = true;
+
     }
 }
