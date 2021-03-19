@@ -124,7 +124,6 @@
         MANUTENÇÃO = 6,
         AVISO = 7,
         OBRA_REFORMA = 8,
-        OUTROS = 9,
-        OCORRENCIA = 10
+        OUTROS = 9        
     }
 }

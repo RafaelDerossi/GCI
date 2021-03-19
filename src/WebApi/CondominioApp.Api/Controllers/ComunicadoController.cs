@@ -5,6 +5,7 @@ using CondominioApp.Comunicados.App.Aplication.Commands;
 using CondominioApp.Comunicados.App.Aplication.Query;
 using CondominioApp.Comunicados.App.Models;
 using CondominioApp.Comunicados.App.ViewModels;
+using CondominioApp.Core.Enumeradores;
 using CondominioApp.Core.Mediator;
 using CondominioApp.Principal.Aplication.Query.Interfaces;
 using CondominioApp.Principal.Domain.FlatModel;
@@ -39,7 +40,7 @@ namespace CondominioApp.Api.Controllers
             _comunicadoQuery = comunicadoQuery;
             _principalQuery = principalQuery;
             _usuarioQuery = usuarioQuery;
-            _arquivoDigitalQuery = arquivoDigitalQuery
+            _arquivoDigitalQuery = arquivoDigitalQuery;
         }
 
 
@@ -167,14 +168,14 @@ namespace CondominioApp.Api.Controllers
 
             //Salva Anexos
             if (Resultado.IsValid && comunicadoVM.TemAnexos)
-            {            
-                //await SalvarAnexos(unidade, ocorrenciaVM, comando);
-                //if (!OperacaoValida())
-                //{
-                //    var comandoExcluirOcorrencia = new RemoverOcorrenciaCommand(comando.Id);
-                //    await _mediatorHandler.EnviarComando(comandoExcluirOcorrencia);
-                //    return CustomResponse();
-                //}
+            {
+                await SalvarAnexos(comunicadoVM, comando);
+                if (!OperacaoValida())
+                {
+                    var comandoExcluirOcorrencia = new RemoverComunicadoCommand(comando.ComunicadoId);
+                    await _mediatorHandler.EnviarComando(comandoExcluirOcorrencia);
+                    return CustomResponse();
+                }
             }
 
             return CustomResponse(Resultado);
@@ -270,41 +271,83 @@ namespace CondominioApp.Api.Controllers
         }
 
 
-        //private async Task SalvarAnexos(UnidadeFlat unidade, CadastraCamunicadoViewModel ocorrenciaVM, CadastrarOcorrenciaCommand comando)
-        //{
-        //    var pasta = await _arquivoDigitalQuery.ObterPastaDeSistema
-        //           (CategoriaDaPastaDeSistema.OCORRENCIA, unidade.CondominioId);
-        //    if (pasta == null)
-        //    {
-        //        var comandoCadastrarPasta = CadastrarPastaCommandFactory(ocorrenciaVM, unidade);
-        //        var ResultadoCadastroPasta = await _mediatorHandler.EnviarComando(comandoCadastrarPasta);
-        //        if (!ResultadoCadastroPasta.IsValid)
-        //            CustomResponse(ResultadoCadastroPasta);
-        //    }
-        //    foreach (AnexoComunicadoViewModel anexo in ocorrenciaVM.Anexos)
-        //    {
-        //        var comandoCadastraArquivo = CadastrarArquivoCommandFactory(anexo, comando, pasta.Id);
-        //        var ResultadoCadastroArquivo = await _mediatorHandler.EnviarComando(comandoCadastraArquivo);
-        //        if (!ResultadoCadastroArquivo.IsValid)
-        //            CustomResponse(ResultadoCadastroArquivo);
-        //    }
-        //}
-    
+        private async Task SalvarAnexos(CadastrarComunicadoViewModel comunicadoVM, CadastrarComunicadoCommand comando)
+        {
+            var categoriaDaPastaDoSistema = ObterCategoriaDePastaDeSistema(comunicadoVM.Categoria);
+            var pasta = await _arquivoDigitalQuery.ObterPastaDeSistema
+                   (categoriaDaPastaDoSistema, comunicadoVM.CondominioId);
 
-        //private CadastrarPastaCommand CadastrarPastaCommandFactory(CadastraOcorrenciaViewModel ocorrenciaVM, UnidadeFlat unidade)
-        //{
-        //    return new CadastrarPastaCommand
-        //        (Guid.NewGuid(), CategoriaDaPastaDeSistema.OCORRENCIA.ToString(), "Pasta de ocorrências do sistema",
-        //         unidade.CondominioId, false, true, CategoriaDaPastaDeSistema.OCORRENCIA);
-        //}
+            if (pasta == null)
+            {
+                var comandoCadastrarPasta = CadastrarPastaCommandFactory(comunicadoVM.CondominioId, categoriaDaPastaDoSistema);
+                var ResultadoCadastroPasta = await _mediatorHandler.EnviarComando(comandoCadastrarPasta);
+                if (!ResultadoCadastroPasta.IsValid)
+                    CustomResponse(ResultadoCadastroPasta);
+            }
+            foreach (AnexoComunicadoViewModel anexo in comunicadoVM.Anexos)
+            {
+                var comandoCadastraArquivo = CadastrarArquivoCommandFactory(anexo, comando, pasta.Id);
+                var ResultadoCadastroArquivo = await _mediatorHandler.EnviarComando(comandoCadastraArquivo);
+                if (!ResultadoCadastroArquivo.IsValid)
+                    CustomResponse(ResultadoCadastroArquivo);
+            }
+        }
 
-        //private CadastrarArquivoCommand CadastrarArquivoCommandFactory
-        //    (AnexoComunicadoViewModel anexo, CadastrarOcorrenciaCommand ocorrenciaCommand, Guid pastaId)
-        //{
-        //    return new CadastrarArquivoCommand
-        //        (anexo.NomeOriginal, anexo.Tamanho, pastaId, ocorrenciaCommand.Publica, ocorrenciaCommand.UsuarioId,
-        //        anexo.NomeOriginal, "Anexo de Ocorrencia", "", ocorrenciaCommand.Id);
-        //}
 
+        private CadastrarPastaCommand CadastrarPastaCommandFactory
+            (Guid condominioId, CategoriaDaPastaDeSistema categoriaDaPastaDeSistema)
+        {
+            return new CadastrarPastaCommand
+                (categoriaDaPastaDeSistema.ToString(), "Pasta de ocorrências do sistema",
+                condominioId, false, true, categoriaDaPastaDeSistema);
+        }
+
+        private CadastrarArquivoCommand CadastrarArquivoCommandFactory
+            (AnexoComunicadoViewModel anexo, CadastrarComunicadoCommand ocorrenciaCommand, Guid pastaId)
+        {
+            var arquivoPublico = false;
+            if (ocorrenciaCommand.Visibilidade == VisibilidadeComunicado.PUBLICO)
+                arquivoPublico = true;
+
+            return new CadastrarArquivoCommand
+                (anexo.NomeOriginal, anexo.Tamanho, pastaId, arquivoPublico, ocorrenciaCommand.UsuarioId,
+                anexo.NomeOriginal, "Anexo de Ocorrencia", "", ocorrenciaCommand.ComunicadoId);
+        }
+
+        private CategoriaDaPastaDeSistema ObterCategoriaDePastaDeSistema(CategoriaComunicado categoriaComunicado)
+        {
+            switch (categoriaComunicado)
+            {
+                case CategoriaComunicado.ATA:
+                    return CategoriaDaPastaDeSistema.ATA;
+
+                case CategoriaComunicado.AVISO:
+                    return CategoriaDaPastaDeSistema.AVISO;
+
+                case CategoriaComunicado.BALANCETE:
+                    return CategoriaDaPastaDeSistema.BALANCETE;
+
+                case CategoriaComunicado.COBRANÇA:
+                    return CategoriaDaPastaDeSistema.COBRANÇA;
+
+                case CategoriaComunicado.COMUNICADO:
+                    return CategoriaDaPastaDeSistema.COMUNICADO;
+
+                case CategoriaComunicado.MANUTENÇÃO:
+                    return CategoriaDaPastaDeSistema.MANUTENÇÃO;
+
+                case CategoriaComunicado.OBRA_REFORMA:
+                    return CategoriaDaPastaDeSistema.OBRA_REFORMA;
+
+                case CategoriaComunicado.OUTROS:
+                    return CategoriaDaPastaDeSistema.OUTROS;
+
+                case CategoriaComunicado.URGENCIA:
+                    return CategoriaDaPastaDeSistema.URGENCIA;
+
+                default:
+                    return 0;                    
+            }
+        }
     }
 }

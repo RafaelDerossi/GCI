@@ -27,7 +27,7 @@ namespace CondominioApp.Comunicados.App.ViewModels
 
         public IEnumerable<Guid> UnidadesId { get; set; }
 
-        public IEnumerable<string> Anexos { get; set; }
+        public IEnumerable<AnexoComunicadoViewModel> Anexos { get; set; }
 
         public bool TemAnexos
         {

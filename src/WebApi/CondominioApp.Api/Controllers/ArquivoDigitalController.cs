@@ -86,7 +86,7 @@ namespace CondominioApp.Api.Controllers
             }
 
             var comando = new CadastrarPastaCommand
-                (Guid.NewGuid(), pastaVM.Titulo, pastaVM.Descricao, pastaVM.CondominioId, pastaVM.Publica, false);
+                (pastaVM.Titulo, pastaVM.Descricao, pastaVM.CondominioId, pastaVM.Publica, false);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 

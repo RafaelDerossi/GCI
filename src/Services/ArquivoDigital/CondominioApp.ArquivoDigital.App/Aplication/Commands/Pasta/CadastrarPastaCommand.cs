@@ -8,10 +8,10 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
     public class CadastrarPastaCommand : PastaCommand
     {
 
-        public CadastrarPastaCommand(Guid id, string titulo, string descricao, Guid condominioId, bool publica,
+        public CadastrarPastaCommand(string titulo, string descricao, Guid condominioId, bool publica,
             bool pastaDoSistema = false, CategoriaDaPastaDeSistema categoriaDaPastaDeSistema = 0)
         {
-            Id = id;
+            Id = Guid.NewGuid();
             Titulo = titulo;
             Descricao = descricao;
             CondominioId = condominioId;
