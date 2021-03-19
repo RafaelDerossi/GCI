@@ -1,10 +1,6 @@
 ﻿using AutoMapper;
-using CondominioApp.ArquivoDigital.App.Aplication.Commands;
-using CondominioApp.ArquivoDigital.App.Aplication.Query;
-using CondominioApp.Core.Enumeradores;
 using CondominioApp.Core.Mediator;
 using CondominioApp.Ocorrencias.App.Aplication.Commands;
-using CondominioApp.Ocorrencias.App.Models;
 using CondominioApp.Ocorrencias.App.ViewModels;
 using CondominioApp.Principal.Aplication.Query.Interfaces;
 using CondominioApp.Principal.Domain.FlatModel;
@@ -12,9 +8,6 @@ using CondominioApp.Usuarios.App.Aplication.Query;
 using CondominioApp.Usuarios.App.Models;
 using CondominioApp.WebApi.Core.Controllers;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace CondominioApp.Api.Controllers
@@ -26,17 +19,15 @@ namespace CondominioApp.Api.Controllers
         private readonly IMediatorHandler _mediatorHandler;
         private readonly IMapper _mapper;        
         private readonly IPrincipalQuery _principalQuery;
-        private readonly IUsuarioQuery _usuarioQuery;
-        private readonly IArquivoDigitalQuery _arquivoDigitalQuery;
+        private readonly IUsuarioQuery _usuarioQuery;       
 
         public OcorrenciaController(IMediatorHandler mediatorHandler, IMapper mapper, 
-            IPrincipalQuery principalQuery, IUsuarioQuery usuarioQuery, IArquivoDigitalQuery arquivoDigitalQuery)
+            IPrincipalQuery principalQuery, IUsuarioQuery usuarioQuery)
         {
             _mediatorHandler = mediatorHandler;
             _mapper = mapper;            
             _principalQuery = principalQuery;
-            _usuarioQuery = usuarioQuery;
-            _arquivoDigitalQuery = arquivoDigitalQuery;
+            _usuarioQuery = usuarioQuery;            
         }
 
 

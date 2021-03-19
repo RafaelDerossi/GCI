@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using CondominioApp.ArquivoDigital.App.Aplication.Commands;
+using CondominioApp.ArquivoDigital.App.Aplication.Query;
 using CondominioApp.Comunicados.App.Aplication.Commands;
 using CondominioApp.Comunicados.App.Aplication.Query;
 using CondominioApp.Comunicados.App.Models;
@@ -27,16 +28,18 @@ namespace CondominioApp.Api.Controllers
         private readonly IComunicadoQuery _comunicadoQuery;
         private readonly IPrincipalQuery _principalQuery;
         private readonly IUsuarioQuery _usuarioQuery;
+        private readonly IArquivoDigitalQuery _arquivoDigitalQuery;
 
         public ComunicadoController
             (IMediatorHandler mediatorHandler, IMapper mapper, IComunicadoQuery comunicadoQuery,
-            IPrincipalQuery principalQuery, IUsuarioQuery usuarioQuery)
+            IPrincipalQuery principalQuery, IUsuarioQuery usuarioQuery, IArquivoDigitalQuery arquivoDigitalQuery)
         {
             _mediatorHandler = mediatorHandler;
             _mapper = mapper;
             _comunicadoQuery = comunicadoQuery;
             _principalQuery = principalQuery;
             _usuarioQuery = usuarioQuery;
+            _arquivoDigitalQuery = arquivoDigitalQuery
         }
 
 
