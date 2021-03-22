@@ -195,7 +195,7 @@ namespace CondominioApp.Api.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> Put(EditarComunicadoViewModel comunicadoVM)
+        public async Task<ActionResult> Put(EditaComunicadoViewModel comunicadoVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
                         
@@ -211,10 +211,14 @@ namespace CondominioApp.Api.Controllers
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
-            //Editar Anexos
-            if (Resultado.IsValid)
+            //Salva Anexos
+            if (Resultado.IsValid && comunicadoVM.TemAnexos)
             {
-
+                await SalvarAnexos(comunicadoVM, comando);
+                if (!OperacaoValida())
+                {                 
+                    return CustomResponse();
+                }
             }
 
             return CustomResponse(Resultado);
@@ -241,7 +245,8 @@ namespace CondominioApp.Api.Controllers
 
 
 
-        private CadastrarComunicadoCommand CadastrarComunicadoCommandFactory(CadastraComunicadoViewModel comunicadoVM, CondominioFlat condominio, Usuario usuario)
+        private CadastrarComunicadoCommand CadastrarComunicadoCommandFactory
+            (CadastraComunicadoViewModel comunicadoVM, CondominioFlat condominio, Usuario usuario)
         {
             var listaUnidadesComunicado = new List<UnidadeComunicado>();
             if (comunicadoVM.UnidadesId != null)
@@ -264,7 +269,7 @@ namespace CondominioApp.Api.Controllers
                 comunicadoVM.TemAnexos, comunicadoVM.CriadoPelaAdministradora, listaUnidadesComunicado);
         }
 
-        private EditarComunicadoCommand EditarComunicadoCommandFactory(EditarComunicadoViewModel comunicadoVM, Usuario usuario)
+        private EditarComunicadoCommand EditarComunicadoCommandFactory(EditaComunicadoViewModel comunicadoVM, Usuario usuario)
         {
             var listaUnidadesComunicado = new List<UnidadeComunicado>();
             if (comunicadoVM.UnidadesId != null)
@@ -286,7 +291,7 @@ namespace CondominioApp.Api.Controllers
         }
 
 
-        private async Task SalvarAnexos(CadastraComunicadoViewModel comunicadoVM, CadastrarComunicadoCommand comando)
+        private async Task SalvarAnexos(ComunicadoViewModelBase comunicadoVM, ComunicadoCommand comando)
         {
             var categoriaDaPastaDoSistema = comunicadoVM.ObterCategoriaDePastaDeSistema();
             var pasta = await _arquivoDigitalQuery.ObterPastaDeSistema
@@ -300,15 +305,18 @@ namespace CondominioApp.Api.Controllers
                     CustomResponse(ResultadoCadastroPasta);
                 pasta = await _arquivoDigitalQuery.ObterPorId(comandoCadastrarPasta.Id);
             }
-            foreach (CadastraAnexoComunicadoViewModel anexo in comunicadoVM.Anexos)
-            {
-                var comandoCadastraArquivo = CadastrarArquivoCommandFactory(anexo, comando, pasta.Id);
-                var ResultadoCadastroArquivo = await _mediatorHandler.EnviarComando(comandoCadastraArquivo);
-                if (!ResultadoCadastroArquivo.IsValid)
-                    CustomResponse(ResultadoCadastroArquivo);
-            }
-        }
 
+            foreach (EditaAnexoComunicadoViewModel anexo in comunicadoVM.Anexos)
+            {
+                if (anexo.ArquivoId == Guid.Empty || anexo.ArquivoId == null)
+                {
+                    var comandoCadastraArquivo = CadastrarArquivoCommandFactory(anexo, comando, pasta.Id);
+                    var ResultadoCadastroArquivo = await _mediatorHandler.EnviarComando(comandoCadastraArquivo);
+                    if (!ResultadoCadastroArquivo.IsValid)
+                        CustomResponse(ResultadoCadastroArquivo);
+                }                
+            }
+        }        
 
         private CadastrarPastaCommand CadastrarPastaCommandFactory
             (Guid condominioId, CategoriaDaPastaDeSistema categoriaDaPastaDeSistema)
@@ -319,15 +327,15 @@ namespace CondominioApp.Api.Controllers
         }
 
         private CadastrarArquivoCommand CadastrarArquivoCommandFactory
-            (CadastraAnexoComunicadoViewModel anexo, CadastrarComunicadoCommand ocorrenciaCommand, Guid pastaId)
+            (AnexoComunicadoViewModelBase anexo, ComunicadoCommand comunicadoCommand, Guid pastaId)
         {
             var arquivoPublico = false;
-            if (ocorrenciaCommand.Visibilidade == VisibilidadeComunicado.PUBLICO)
+            if (comunicadoCommand.Visibilidade == VisibilidadeComunicado.PUBLICO)
                 arquivoPublico = true;
 
             return new CadastrarArquivoCommand
-                (anexo.NomeOriginal, anexo.Tamanho, pastaId, arquivoPublico, ocorrenciaCommand.UsuarioId,
-                 ocorrenciaCommand.NomeUsuario, "Anexo de Comunicado", "", ocorrenciaCommand.ComunicadoId);
+                (anexo.NomeOriginal, anexo.Tamanho, pastaId, arquivoPublico, comunicadoCommand.UsuarioId,
+                 comunicadoCommand.NomeUsuario, "Anexo de Comunicado", "", comunicadoCommand.ComunicadoId);
         }
 
 
@@ -354,7 +362,6 @@ namespace CondominioApp.Api.Controllers
 
             return anexosVM.ToList();
         }
-
 
     }
 }

@@ -9,7 +9,7 @@ namespace CondominioApp.ArquivoDigital.App.Tests
         private static CadastrarPastaCommand CadastrarPastaCommandFactoy()
         {
             return new CadastrarPastaCommand
-                (Guid.NewGuid(), "Titulo", "Descricao", Guid.NewGuid(), true);
+                ("Titulo", "Descricao", Guid.NewGuid(), true);
         }
 
         private static EditarPastaCommand EditarPastaCommandFactoy()
