@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CondominioApp.ArquivoDigital.App.Aplication.Commands;
 using CondominioApp.ArquivoDigital.App.Aplication.Query;
+using CondominioApp.ArquivoDigital.App.Models;
 using CondominioApp.Comunicados.App.Aplication.Commands;
 using CondominioApp.Comunicados.App.Aplication.Query;
 using CondominioApp.Comunicados.App.Models;
@@ -54,13 +55,16 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }
 
+            var comunicadoVM = _mapper.Map<ComunicadoViewModel>(comunicado);
+
             //Obtem Anexos
             if (comunicado.TemAnexos)
             {
-
+                var anexos = await ObterAnexos(comunicado);
+                comunicadoVM.Anexos = anexos;
             }
 
-            return _mapper.Map<ComunicadoViewModel>(comunicado);
+            return comunicadoVM;
         }
 
         [HttpGet("por-condominio-unidade-e-proprietario")]
@@ -77,13 +81,16 @@ namespace CondominioApp.Api.Controllers
 
             var comunicadosVM = new List<ComunicadoViewModel>();
             foreach (Comunicado comunicado in comunicados)
-            {                
+            {
+                var comunicadoVM = _mapper.Map<ComunicadoViewModel>(comunicado);
+
                 //Obtem Anexos
                 if (comunicado.TemAnexos)
                 {
-
+                    var anexos = await ObterAnexos(comunicado);
+                    comunicadoVM.Anexos = anexos;
                 }
-                var comunicadoVM = _mapper.Map<ComunicadoViewModel>(comunicado);
+                
                 comunicadosVM.Add(comunicadoVM);
             }
             return comunicadosVM;
@@ -104,12 +111,15 @@ namespace CondominioApp.Api.Controllers
             var comunicadosVM = new List<ComunicadoViewModel>();
             foreach (Comunicado comunicado in comunicados)
             {
+                var comunicadoVM = _mapper.Map<ComunicadoViewModel>(comunicado);
+
                 //Obtem Anexos
                 if (comunicado.TemAnexos)
                 {
-
+                    var anexos = await ObterAnexos(comunicado);
+                    comunicadoVM.Anexos = anexos;
                 }
-                var comunicadoVM = _mapper.Map<ComunicadoViewModel>(comunicado);
+               
                 comunicadosVM.Add(comunicadoVM);
             }
 
@@ -129,12 +139,14 @@ namespace CondominioApp.Api.Controllers
             var comunicadosVM = new List<ComunicadoViewModel>();
             foreach (Comunicado comunicado in comunicados)
             {
+                var comunicadoVM = _mapper.Map<ComunicadoViewModel>(comunicado);
                 //Obtem Anexos
                 if (comunicado.TemAnexos)
                 {
-
-                }
-                var comunicadoVM = _mapper.Map<ComunicadoViewModel>(comunicado);
+                   var anexos = await ObterAnexos(comunicado);
+                   comunicadoVM.Anexos = anexos;
+                }                
+                
                 comunicadosVM.Add(comunicadoVM);
             }
 
@@ -144,7 +156,7 @@ namespace CondominioApp.Api.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult> Post(CadastrarComunicadoViewModel comunicadoVM)
+        public async Task<ActionResult> Post(CadastraComunicadoViewModel comunicadoVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
@@ -229,7 +241,7 @@ namespace CondominioApp.Api.Controllers
 
 
 
-        private CadastrarComunicadoCommand CadastrarComunicadoCommandFactory(CadastrarComunicadoViewModel comunicadoVM, CondominioFlat condominio, Usuario usuario)
+        private CadastrarComunicadoCommand CadastrarComunicadoCommandFactory(CadastraComunicadoViewModel comunicadoVM, CondominioFlat condominio, Usuario usuario)
         {
             var listaUnidadesComunicado = new List<UnidadeComunicado>();
             if (comunicadoVM.UnidadesId != null)
@@ -274,9 +286,9 @@ namespace CondominioApp.Api.Controllers
         }
 
 
-        private async Task SalvarAnexos(CadastrarComunicadoViewModel comunicadoVM, CadastrarComunicadoCommand comando)
+        private async Task SalvarAnexos(CadastraComunicadoViewModel comunicadoVM, CadastrarComunicadoCommand comando)
         {
-            var categoriaDaPastaDoSistema = ObterCategoriaDePastaDeSistema(comunicadoVM.Categoria);
+            var categoriaDaPastaDoSistema = comunicadoVM.ObterCategoriaDePastaDeSistema();
             var pasta = await _arquivoDigitalQuery.ObterPastaDeSistema
                    (categoriaDaPastaDoSistema, comunicadoVM.CondominioId);
 
@@ -288,7 +300,7 @@ namespace CondominioApp.Api.Controllers
                     CustomResponse(ResultadoCadastroPasta);
                 pasta = await _arquivoDigitalQuery.ObterPorId(comandoCadastrarPasta.Id);
             }
-            foreach (AnexoComunicadoViewModel anexo in comunicadoVM.Anexos)
+            foreach (CadastraAnexoComunicadoViewModel anexo in comunicadoVM.Anexos)
             {
                 var comandoCadastraArquivo = CadastrarArquivoCommandFactory(anexo, comando, pasta.Id);
                 var ResultadoCadastroArquivo = await _mediatorHandler.EnviarComando(comandoCadastraArquivo);
@@ -303,11 +315,11 @@ namespace CondominioApp.Api.Controllers
         {
             return new CadastrarPastaCommand
                 (categoriaDaPastaDeSistema.ToString(), "Pasta de ocorrências do sistema",
-                condominioId, false, true, categoriaDaPastaDeSistema);
+                condominioId, true, true, categoriaDaPastaDeSistema);
         }
 
         private CadastrarArquivoCommand CadastrarArquivoCommandFactory
-            (AnexoComunicadoViewModel anexo, CadastrarComunicadoCommand ocorrenciaCommand, Guid pastaId)
+            (CadastraAnexoComunicadoViewModel anexo, CadastrarComunicadoCommand ocorrenciaCommand, Guid pastaId)
         {
             var arquivoPublico = false;
             if (ocorrenciaCommand.Visibilidade == VisibilidadeComunicado.PUBLICO)
@@ -315,43 +327,34 @@ namespace CondominioApp.Api.Controllers
 
             return new CadastrarArquivoCommand
                 (anexo.NomeOriginal, anexo.Tamanho, pastaId, arquivoPublico, ocorrenciaCommand.UsuarioId,
-                anexo.NomeOriginal, "Anexo de Ocorrencia", "", ocorrenciaCommand.ComunicadoId);
+                 ocorrenciaCommand.NomeUsuario, "Anexo de Comunicado", "", ocorrenciaCommand.ComunicadoId);
         }
 
-        private CategoriaDaPastaDeSistema ObterCategoriaDePastaDeSistema(CategoriaComunicado categoriaComunicado)
+
+        private async Task<IEnumerable<AnexoComunicadoViewModel>> ObterAnexos(Comunicado comunicado)
         {
-            switch (categoriaComunicado)
+            var anexosVM = new List<AnexoComunicadoViewModel>();
+            var anexos = await _arquivoDigitalQuery.ObterArquivosPorAnexadoPorId(comunicado.Id);
+            if (anexos == null)
+                return anexosVM;
+
+            
+            foreach (Arquivo item in anexos)
             {
-                case CategoriaComunicado.ATA:
-                    return CategoriaDaPastaDeSistema.ATA;
-
-                case CategoriaComunicado.AVISO:
-                    return CategoriaDaPastaDeSistema.AVISO;
-
-                case CategoriaComunicado.BALANCETE:
-                    return CategoriaDaPastaDeSistema.BALANCETE;
-
-                case CategoriaComunicado.COBRANÇA:
-                    return CategoriaDaPastaDeSistema.COBRANÇA;
-
-                case CategoriaComunicado.COMUNICADO:
-                    return CategoriaDaPastaDeSistema.COMUNICADO;
-
-                case CategoriaComunicado.MANUTENÇÃO:
-                    return CategoriaDaPastaDeSistema.MANUTENÇÃO;
-
-                case CategoriaComunicado.OBRA_REFORMA:
-                    return CategoriaDaPastaDeSistema.OBRA_REFORMA;
-
-                case CategoriaComunicado.OUTROS:
-                    return CategoriaDaPastaDeSistema.OUTROS;
-
-                case CategoriaComunicado.URGENCIA:
-                    return CategoriaDaPastaDeSistema.URGENCIA;
-
-                default:
-                    return 0;                    
+                var anexoVM = new AnexoComunicadoViewModel()
+                {
+                    ArquivoId = item.Id,
+                    Nome = item.Nome.NomeDoArquivo,
+                    NomeOriginal = item.Nome.NomeOriginal,
+                    Extensao = item.Nome.ExtensaoDoArquivo,
+                    Tamanho = item.Tamanho
+                };
+                anexosVM.Add(anexoVM);
             }
+
+            return anexosVM.ToList();
         }
+
+
     }
 }
