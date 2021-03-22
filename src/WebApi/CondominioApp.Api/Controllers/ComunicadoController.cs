@@ -237,8 +237,11 @@ namespace CondominioApp.Api.Controllers
                 foreach (Guid unidadeId in comunicadoVM.UnidadesId)
                 {
                     var unidade = _principalQuery.ObterUnidadePorId(unidadeId).Result;
-                    var unidadeComunicado = new UnidadeComunicado(unidade.Id, unidade.Numero, unidade.Andar, unidade.GrupoId, unidade.GrupoDescricao);
-                    listaUnidadesComunicado.Add(unidadeComunicado);
+                    if (unidade != null)
+                    {
+                        var unidadeComunicado = new UnidadeComunicado(unidade.Id, unidade.Numero, unidade.Andar, unidade.GrupoId, unidade.GrupoDescricao);
+                        listaUnidadesComunicado.Add(unidadeComunicado);
+                    }                        
                 }
             }
            
@@ -283,6 +286,7 @@ namespace CondominioApp.Api.Controllers
                 var ResultadoCadastroPasta = await _mediatorHandler.EnviarComando(comandoCadastrarPasta);
                 if (!ResultadoCadastroPasta.IsValid)
                     CustomResponse(ResultadoCadastroPasta);
+                pasta = await _arquivoDigitalQuery.ObterPorId(comandoCadastrarPasta.Id);
             }
             foreach (AnexoComunicadoViewModel anexo in comunicadoVM.Anexos)
             {
