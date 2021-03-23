@@ -1,9 +1,8 @@
-﻿using CondominioApp.Ocorrencias.App.ValueObjects;
+﻿using CondominioApp.Core.Enumeradores;
+using CondominioApp.Ocorrencias.App.ValueObjects;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
-namespace CondominioApp.Ocorrencias.App.Models
+namespace CondominioApp.Ocorrencias.App.ViewModels
 {
     public class OcorrenciaViewModel 
     {
@@ -17,15 +16,13 @@ namespace CondominioApp.Ocorrencias.App.Models
 
         public string Descricao { get; set; }
 
-        public Foto Foto { get; set; }
+        public string Foto { get; set; }
 
         public bool Publica { get; set; }
 
-        public bool EmAndamento { get; set; }
+        public StatusDaOcorrencia Status { get; set; }
 
-        public DateTime? DataResposta { get; set; }
-
-        public bool Resolvida { get; set; }        
+        public DateTime? DataResposta { get; set; }        
 
         public string Parecer { get; set; }
 
@@ -39,16 +36,16 @@ namespace CondominioApp.Ocorrencias.App.Models
         
         public bool Panico { get;  set; }              
 
-        public string status
+        public string StatusDescricao
         {
             get
             {
-                if (!EmAndamento && !Resolvida)
-                    return "Pendente";
-                else if (Resolvida)
+                if (Status == StatusDaOcorrencia.RESOLVIDA)
                     return "Resolvida";
-                else
+                else if (Status == StatusDaOcorrencia.EM_ANDAMENTO)
                     return "Em andamento";
+                else
+                    return "Pendente";
             }
         }
     }

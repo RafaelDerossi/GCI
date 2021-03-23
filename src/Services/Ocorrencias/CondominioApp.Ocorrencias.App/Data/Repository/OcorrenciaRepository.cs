@@ -80,13 +80,7 @@ namespace CondominioApp.Ocorrencias.App.Data.Repository
         public void Apagar(Func<Ocorrencia, bool> predicate)
         {
             _context.Ocorrencias.Where(predicate).ToList().ForEach(del => del.EnviarParaLixeira());
-        }
-
-
-        public void Remover(Ocorrencia entity)
-        {
-            _context.Ocorrencias.Remove(entity);
-        }
+        }       
 
 
         public void Dispose()

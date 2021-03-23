@@ -2,7 +2,7 @@
 using CondominioApp.Comunicados.App.Models;
 using CondominioApp.Comunicados.App.ViewModels;
 
-namespace CondominioApp.Correspondencias.App.AutoMapper
+namespace CondominioApp.Comunicados.App.AutoMapper
 {  
     public class EntityToViewModelComunicado : Profile
     {

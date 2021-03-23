@@ -30,15 +30,11 @@ namespace CondominioApp.Ocorrencias.App.Data.Mapping
                     .HasColumnType($"varchar({Foto.NomeFotoMaximo})");
             });
 
-
+            builder.Property(u => u.Parecer).HasColumnType($"varchar({Ocorrencia.Max})");
 
             builder.Property(u => u.Publica).IsRequired();
 
-            builder.Property(u => u.Resolvida).IsRequired();
-
-            builder.Property(u => u.EmAndamento).IsRequired();
-
-            builder.Property(u => u.Parecer).IsRequired();
+            builder.Property(u => u.Status).IsRequired();                        
 
             builder.Property(u => u.UnidadeId).IsRequired();
 

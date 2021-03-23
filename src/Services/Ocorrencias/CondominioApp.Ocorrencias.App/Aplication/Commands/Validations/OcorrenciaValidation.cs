@@ -23,19 +23,7 @@ namespace CondominioApp.Ocorrencias.App.Aplication.Commands.Validations
         {
             RuleFor(c => c.Publica)
                   .NotNull();                  
-        }
-
-        protected void ValidateEmAndamento()
-        {
-            RuleFor(c => c.EmAndamento)
-                  .NotNull();
-        }
-
-        protected void ValidateResolvida()
-        {
-            RuleFor(c => c.Resolvida)
-                  .NotNull();
-        }
+        }              
 
         protected void ValidateParecer()
         {

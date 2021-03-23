@@ -1,9 +1,7 @@
-﻿using CondominioApp.Comunicados.App.Models;
-using CondominioApp.Core.Enumeradores;
+﻿using CondominioApp.Core.Enumeradores;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace CondominioApp.Comunicados.App.ViewModels
 {
@@ -17,7 +15,7 @@ namespace CondominioApp.Comunicados.App.ViewModels
 
         public string Descricao { get; set; }
 
-        public DateTime DataDeRealizacao { get; set; }        
+        public DateTime? DataDeRealizacao { get; set; }        
 
         public Guid UsuarioId { get; set; }
 

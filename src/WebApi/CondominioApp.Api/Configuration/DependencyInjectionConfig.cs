@@ -61,6 +61,7 @@ using CondominioApp.ArquivoDigital.App.Aplication.Query;
 using CondominioApp.Ocorrencias.App.Aplication.Commands;
 using CondominioApp.Ocorrencias.App.Data.Repository;
 using CondominioApp.Ocorrencias.App.Models;
+using CondominioApp.Ocorrencias.App.Aplication.Query;
 
 namespace CondominioApp.Api.Configuration
 {
@@ -184,6 +185,8 @@ namespace CondominioApp.Api.Configuration
             #region Ocorrencia -Contexto
             //Ocorrencia
             services.AddScoped<IRequestHandler<CadastrarOcorrenciaCommand, ValidationResult>, OcorrenciaCommandHandler>();
+            services.AddScoped<IRequestHandler<ColocarOcorrenciaEmAndamentoCommand, ValidationResult>, OcorrenciaCommandHandler>();
+            services.AddScoped<IRequestHandler<MarcarOcorrenciaComoResolvidaCommand, ValidationResult>, OcorrenciaCommandHandler>();
             services.AddScoped<IRequestHandler<RemoverOcorrenciaCommand, ValidationResult>, OcorrenciaCommandHandler>();
             #endregion
 
@@ -342,7 +345,8 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<IAutomacaoQuery, AutomacaoQuery>();
             services.AddScoped<IComunicadoQuery, ComunicadoQuery>();
             services.AddScoped<ICorrespondenciaQuery, CorrespondenciaQuery>();
-            services.AddScoped<IEnqueteQuery, EnqueteQuery>();            
+            services.AddScoped<IEnqueteQuery, EnqueteQuery>();
+            services.AddScoped<IOcorrenciaQuery, OcorrenciaQuery>();
             services.AddScoped<IPortariaQuery, PortariaQuery>();
             services.AddScoped<IPrincipalQuery, PrincipalQuery>();
             services.AddScoped<IQueryLead, QueryLead>();

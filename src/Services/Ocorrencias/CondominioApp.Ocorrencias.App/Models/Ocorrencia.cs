@@ -1,4 +1,5 @@
 ﻿using CondominioApp.Core.DomainObjects;
+using CondominioApp.Core.Enumeradores;
 using CondominioApp.Core.Helpers;
 using CondominioApp.Ocorrencias.App.ValueObjects;
 using System;
@@ -14,9 +15,8 @@ namespace CondominioApp.Ocorrencias.App.Models
         public bool Publica { get; private set; }
 
 
-        public bool EmAndamento { get; private set; }
-        public DateTime? DataResposta { get; private set; }
-        public bool Resolvida { get; private set; }        
+        public StatusDaOcorrencia Status { get; private set; }
+        public DateTime? DataResposta { get; private set; }        
         public string Parecer { get; private set; }
         public DateTime? DataResolucao { get; private set; }
 
@@ -64,18 +64,16 @@ namespace CondominioApp.Ocorrencias.App.Models
         public void DesmarcarComoOcorrenciaDePanico() => Panico = false;
 
 
-        public void ColocarEmAndamento()
+        public void ColocarEmAndamento(string parecer)
         {
-            Resolvida = false;
-            Parecer = "";
-            EmAndamento = true;
+            Status = StatusDaOcorrencia.EM_ANDAMENTO;
+            Parecer = parecer;            
             DataResposta = DataHoraDeBrasilia.Get();
         }
 
         public void MarcarComoResolvida(string parecer)
         {
-            EmAndamento = false;
-            Resolvida = true;
+            Status = StatusDaOcorrencia.RESOLVIDA;            
             Parecer = parecer;           
             DataResolucao = DataHoraDeBrasilia.Get();
         }

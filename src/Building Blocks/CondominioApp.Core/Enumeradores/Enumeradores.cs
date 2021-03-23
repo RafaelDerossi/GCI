@@ -126,4 +126,11 @@
         OBRA_REFORMA = 8,
         OUTROS = 9        
     }
+
+    public enum StatusDaOcorrencia
+    {
+        PENDENTE = 0,
+        EM_ANDAMENTO = 1,
+        RESOLVIDA = 2
+    }
 }
