@@ -2,7 +2,7 @@
 
 namespace CondominioApp.Comunicados.App.ViewModels
 {
-   public class UnidadeComunicadoViewModel : ComunicadoViewModelBase
+   public class UnidadeComunicadoViewModel
     {        
         public Guid UnidadeId { get; set; }
         public string Numero { get; set; }

@@ -47,6 +47,11 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
             NomeCondominio = nome;
         }
 
+        public void SetCondominioId(Guid id)
+        {
+            CondominioId = id;
+        }
+
         public void SetUsuario(Guid id, string nome)
         {
             UsuarioId = id;

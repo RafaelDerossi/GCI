@@ -85,6 +85,7 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<IRequestHandler<AlterarPastaDoArquivoCommand, ValidationResult>, ArquivoCommandHandler>();
             services.AddScoped<IRequestHandler<MarcarArquivoComoPublicoCommand, ValidationResult>, ArquivoCommandHandler>();
             services.AddScoped<IRequestHandler<MarcarArquivoComoPrivadoCommand, ValidationResult>, ArquivoCommandHandler>();
+            services.AddScoped<IRequestHandler<RemoverArquivoCommand, ValidationResult>, ArquivoCommandHandler>();
 
             #endregion
 
@@ -179,11 +180,13 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<INotificacaoPushService, NotificacaoPushService>();
             #endregion
 
+
             #region Ocorrencia -Contexto
             //Ocorrencia
             services.AddScoped<IRequestHandler<CadastrarOcorrenciaCommand, ValidationResult>, OcorrenciaCommandHandler>();
             services.AddScoped<IRequestHandler<RemoverOcorrenciaCommand, ValidationResult>, OcorrenciaCommandHandler>();
             #endregion
+
 
             #region Portaria -Contexto
 
