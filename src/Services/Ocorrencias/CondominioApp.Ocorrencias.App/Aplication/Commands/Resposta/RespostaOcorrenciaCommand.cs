@@ -39,5 +39,8 @@ namespace CondominioApp.Ocorrencias.App.Aplication.Commands
 
         public void MarcarComoVisto() => Visto = true;
 
+        public void SetStatus(StatusDaOcorrencia status) => Status = status;
+
+
     }
 }

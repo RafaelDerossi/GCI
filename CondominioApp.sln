@@ -125,6 +125,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ocorrencias", "Ocorrencias"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioApp.Ocorrencias.App", "src\Services\Ocorrencias\CondominioApp.Ocorrencias.App\CondominioApp.Ocorrencias.App.csproj", "{15AF845C-5E3C-4814-B70E-953DD321757A}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioApp.Ocorrencias.App.Tests", "Tests\Ocorrencia\CondominioApp.Ocorrencias.App.Tests\CondominioApp.Ocorrencias.App.Tests.csproj", "{036E22E6-EE7C-4D4F-816B-498956234503}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -287,6 +289,10 @@ Global
 		{15AF845C-5E3C-4814-B70E-953DD321757A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{15AF845C-5E3C-4814-B70E-953DD321757A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{15AF845C-5E3C-4814-B70E-953DD321757A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{036E22E6-EE7C-4D4F-816B-498956234503}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{036E22E6-EE7C-4D4F-816B-498956234503}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{036E22E6-EE7C-4D4F-816B-498956234503}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{036E22E6-EE7C-4D4F-816B-498956234503}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -352,6 +358,7 @@ Global
 		{919BC37C-DC32-406B-AFF5-791472D7DC65} = {190C09E3-9AEB-45D8-B1D5-9559B79EFDBE}
 		{051643B1-C01E-486C-9D69-EB23705FA284} = {27DA6887-B451-4D5D-A232-00FBE20152FB}
 		{15AF845C-5E3C-4814-B70E-953DD321757A} = {051643B1-C01E-486C-9D69-EB23705FA284}
+		{036E22E6-EE7C-4D4F-816B-498956234503} = {051643B1-C01E-486C-9D69-EB23705FA284}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DA60CBD7-8A6E-436D-B07E-D654D162CE4B}

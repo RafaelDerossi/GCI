@@ -40,5 +40,6 @@ namespace CondominioApp.Ocorrencias.App.Models
 
         public void MarcarComoVisto() => Visto = true;
 
+        public void SetDescricao(string descricao) => Descricao = descricao;
     }
 }
