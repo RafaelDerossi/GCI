@@ -19,5 +19,7 @@ namespace CondominioApp.Ocorrencias.App.Aplication.Query
         Task<IEnumerable<Ocorrencia>> ObterPorCondominioEFiltro(Guid condominioId, string filtro);
 
         Task<IEnumerable<Ocorrencia>> ObterPorCondominioEStatusEFiltro(Guid condominioId, StatusDaOcorrencia status, string filtro);
+
+        Task<IEnumerable<RespostaOcorrencia>> ObterRespostasPorOcorrencia(Guid ocorrenciaId);
     }
 }

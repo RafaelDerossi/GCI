@@ -133,4 +133,10 @@
         EM_ANDAMENTO = 1,
         RESOLVIDA = 2
     }
+
+    public enum TipoDoAutor
+    {
+        SINDICO = 1,
+        MORADOR = 2
+    }
 }

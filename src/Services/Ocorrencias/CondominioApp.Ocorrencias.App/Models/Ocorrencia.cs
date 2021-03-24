@@ -1,8 +1,10 @@
-﻿using CondominioApp.Core.DomainObjects;
+﻿  using CondominioApp.Core.DomainObjects;
 using CondominioApp.Core.Enumeradores;
 using CondominioApp.Core.Helpers;
 using CondominioApp.Ocorrencias.App.ValueObjects;
+using FluentValidation.Results;
 using System;
+using System.Collections.Generic;
 
 namespace CondominioApp.Ocorrencias.App.Models
 {
@@ -15,9 +17,7 @@ namespace CondominioApp.Ocorrencias.App.Models
         public bool Publica { get; private set; }
 
 
-        public StatusDaOcorrencia Status { get; private set; }
-        public DateTime? DataResposta { get; private set; }        
-        public string Parecer { get; private set; }
+        public StatusDaOcorrencia Status { get; private set; }        
         public DateTime? DataResolucao { get; private set; }
 
         public Guid UnidadeId { get; private set; }
@@ -26,16 +26,23 @@ namespace CondominioApp.Ocorrencias.App.Models
         
         public bool Panico { get; private set; }
 
+
+        private readonly List<RespostaOcorrencia> _Respostas;
+        public IReadOnlyCollection<RespostaOcorrencia> Respostas => _Respostas;
+
+
         public Ocorrencia()
         {
+            _Respostas = new List<RespostaOcorrencia>();
         }
         public Ocorrencia
             (string descricao, Foto foto, bool publica, Guid unidadeId,
             Guid usuarioId, Guid condominioId, bool panico)
         {
+            _Respostas = new List<RespostaOcorrencia>();
             Descricao = descricao;
             Foto = foto;
-            Publica = publica;            
+            Publica = publica;
             UnidadeId = unidadeId;
             UsuarioId = usuarioId;
             CondominioId = condominioId;            
@@ -64,19 +71,22 @@ namespace CondominioApp.Ocorrencias.App.Models
         public void DesmarcarComoOcorrenciaDePanico() => Panico = false;
 
 
-        public void ColocarEmAndamento(string parecer)
+        public void ColocarEmAndamento()
         {
-            Status = StatusDaOcorrencia.EM_ANDAMENTO;
-            Parecer = parecer;            
-            DataResposta = DataHoraDeBrasilia.Get();
+            Status = StatusDaOcorrencia.EM_ANDAMENTO;            
         }
 
-        public void MarcarComoResolvida(string parecer)
+        public void MarcarComoResolvida()
         {
-            Status = StatusDaOcorrencia.RESOLVIDA;            
-            Parecer = parecer;           
+            Status = StatusDaOcorrencia.RESOLVIDA;
             DataResolucao = DataHoraDeBrasilia.Get();
         }
-              
+
+        public ValidationResult AdicionarResposta(RespostaOcorrencia resposta)
+        {
+            _Respostas.Add(resposta);
+
+            return ValidationResult;
+        }
     }
 }

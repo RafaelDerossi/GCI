@@ -21,15 +21,16 @@ namespace CondominioApp.Ocorrencias.App.Data.Repository
         public IUnitOfWorks UnitOfWork => _context;
 
 
+        #region Ocorrencia
         public async Task<Ocorrencia> ObterPorId(Guid Id)
         {
-            return await _context.Ocorrencias                
+            return await _context.Ocorrencias
                 .FirstOrDefaultAsync(u => u.Id == Id && !u.Lixeira);
         }
 
         public async Task<IEnumerable<Ocorrencia>> ObterTodos()
         {
-            return await _context.Ocorrencias                
+            return await _context.Ocorrencias
                 .Where(u => !u.Lixeira).ToListAsync();
         }
 
@@ -38,12 +39,12 @@ namespace CondominioApp.Ocorrencias.App.Data.Repository
             if (OrderByDesc)
             {
                 if (take > 0)
-                    return await _context.Ocorrencias                        
-                        .AsNoTracking()  
+                    return await _context.Ocorrencias
+                        .AsNoTracking()
                         .Where(expression)
                         .OrderByDescending(x => x.DataDeCadastro).Take(take).ToListAsync();
 
-                return await _context.Ocorrencias                    
+                return await _context.Ocorrencias
                     .AsNoTracking()
                     .Where(expression)
                     .OrderByDescending(x => x.DataDeCadastro)
@@ -51,20 +52,20 @@ namespace CondominioApp.Ocorrencias.App.Data.Repository
             }
 
             if (take > 0)
-                return await _context.Ocorrencias                    
+                return await _context.Ocorrencias
                     .AsNoTracking()
-                    .Where(expression)                    
+                    .Where(expression)
                     .OrderBy(x => x.DataDeCadastro)
                     .Take(take)
                     .ToListAsync();
 
             return await _context.Ocorrencias
                 .AsNoTracking()
-                .Where(expression)                
+                .Where(expression)
                 .OrderBy(x => x.DataDeCadastro)
                 .ToListAsync();
         }
-        
+
 
 
         public void Adicionar(Ocorrencia entity)
@@ -80,7 +81,42 @@ namespace CondominioApp.Ocorrencias.App.Data.Repository
         public void Apagar(Func<Ocorrencia, bool> predicate)
         {
             _context.Ocorrencias.Where(predicate).ToList().ForEach(del => del.EnviarParaLixeira());
-        }       
+        }
+
+        #endregion
+
+
+        #region Resposta
+
+        public async Task<RespostaOcorrencia> ObterRespostaPorId(Guid Id)
+        {
+            return await _context.RespostasOcorrencias
+                .FirstOrDefaultAsync(u => u.Id == Id && !u.Lixeira);
+        }
+
+        public async Task<IEnumerable<RespostaOcorrencia>> ObterRespostasPorOcorrencia(Guid ocorrenciaId)
+        {
+            return await _context.RespostasOcorrencias
+                        .AsNoTracking()
+                        .Where(r=>r.OcorrenciaId == ocorrenciaId &&
+                                  !r.Lixeira)
+                        .OrderByDescending(x => x.DataDeCadastro)
+                        .ToListAsync();            
+        }
+
+        public void AdicionarResposta(RespostaOcorrencia entity)
+        {
+            _context.RespostasOcorrencias.Add(entity);
+        }
+
+        public void AtualizarResposta(RespostaOcorrencia entity)
+        {
+            _context.RespostasOcorrencias.Update(entity);
+        }
+
+        #endregion
+
+
 
 
         public void Dispose()

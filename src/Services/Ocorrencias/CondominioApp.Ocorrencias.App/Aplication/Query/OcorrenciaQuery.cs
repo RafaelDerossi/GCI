@@ -75,6 +75,10 @@ namespace CondominioApp.Ocorrencias.App.Aplication.Query
                  !c.Lixeira, true, take);
         }
 
+        public async Task<IEnumerable<RespostaOcorrencia>> ObterRespostasPorOcorrencia(Guid ocorrenciaId)
+        {            
+            return await _ocorrenciaRepository.ObterRespostasPorOcorrencia(ocorrenciaId);
+        }
 
         public void Dispose()
         {

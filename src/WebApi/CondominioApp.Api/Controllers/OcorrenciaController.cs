@@ -203,6 +203,19 @@ namespace CondominioApp.Api.Controllers
         }
 
 
+        [HttpGet("respostas-por-ocorrencia/{ocorrenciaId:Guid}")]
+        public async Task<ActionResult<IEnumerable<RespostaOcorrenciaViewModel>>> ObterRespostasPorOcorrencia(Guid ocorrenciaId)
+        {
+            var respostas = await _ocorrenciaQuery.ObterRespostasPorOcorrencia(ocorrenciaId);
+            
+            var respostasVM = new List<RespostaOcorrenciaViewModel>();
+            foreach (RespostaOcorrencia resposta in respostas)
+                respostasVM.Add(_mapper.Map<RespostaOcorrenciaViewModel>(resposta));
+
+            return respostasVM;
+        }
+
+
 
         [HttpPost]
         public async Task<ActionResult> Post(CadastraOcorrenciaViewModel ocorrenciaVM)
@@ -231,32 +244,71 @@ namespace CondominioApp.Api.Controllers
 
         }
 
-        [HttpPut("responder/colocar-em-andamento")]
-        public async Task<ActionResult> PutColocarEmAndamento(RespondeOcorrenciaViewModel respostaVM)
+        [HttpPut]
+        public async Task<ActionResult> Put(EditaOcorrenciaViewModel ocorrenciaVM)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);           
+
+            var comando = EditarOcorrenciaCommandFactory(ocorrenciaVM);
+
+            var Resultado = await _mediatorHandler.EnviarComando(comando);
+
+            return CustomResponse(Resultado);
+
+        }
+
+        [HttpPut("resposta-sindico")]
+        public async Task<ActionResult> PutRespostaSindico(CadastraRespostaOcorrenciaSindicoViewModel respostaVM)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            var usuario = await _usuarioQuery.ObterPorId(respostaVM.UsuarioId);
+            if (usuario == null)
+            {
+                AdicionarErroProcessamento("Usuario não encontrado!");
+                return CustomResponse();
+            }
+
+            var comando = CadastrarRespostaOcorrenciaSindicoCommandFactory(respostaVM, usuario);
+
+            var Resultado = await _mediatorHandler.EnviarComando(comando);
+
+            return CustomResponse(Resultado);
+
+        }
+
+        [HttpPut("resposta-morador")]
+        public async Task<ActionResult> PutRespostaMorador(CadastraRespostaOcorrenciaMoradorViewModel respostaVM)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            var usuario = await _usuarioQuery.ObterPorId(respostaVM.UsuarioId);
+            if (usuario == null)
+            {
+                AdicionarErroProcessamento("Usuario não encontrado!");
+                return CustomResponse();
+            }
+
+            var comando = CadastrarRespostaOcorrenciaMoradorCommandFactory(respostaVM, usuario);
+
+            var Resultado = await _mediatorHandler.EnviarComando(comando);
+
+            return CustomResponse(Resultado);
+
+        }
+
+        [HttpPut("marcar-resposta-vista/{respostaId:Guid}")]
+        public async Task<ActionResult> PutMarcarRespostaVista(Guid respostaId)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
             
-            var comando = new ColocarOcorrenciaEmAndamentoCommand(respostaVM.Id, respostaVM.Parecer);
+            var comando = new MarcarRespostaOcorrenciaComoVistaCommand(respostaId);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
             return CustomResponse(Resultado);
 
         }
-
-        [HttpPut("responder/marcar-como-resolvida")]
-        public async Task<ActionResult> PutMarcarComoResolvida(RespondeOcorrenciaViewModel respostaVM)
-        {
-            if (!ModelState.IsValid) return CustomResponse(ModelState);
-
-            var comando = new MarcarOcorrenciaComoResolvidaCommand(respostaVM.Id, respostaVM.Parecer);
-
-            var Resultado = await _mediatorHandler.EnviarComando(comando);
-
-            return CustomResponse(Resultado);
-
-        }
-
 
 
         private CadastrarOcorrenciaCommand CadastrarOcorrenciaCommandFactory
@@ -268,8 +320,31 @@ namespace CondominioApp.Api.Controllers
                  ocorrenciaVM.UsuarioId, usuario.NomeCompleto, unidade.CondominioId, unidade.CondominioNome,
                  ocorrenciaVM.Panico);
         }
-            
-       
+
+        private EditarOcorrenciaCommand EditarOcorrenciaCommandFactory
+           (EditaOcorrenciaViewModel ocorrenciaVM)
+        {
+            return new EditarOcorrenciaCommand
+                 (ocorrenciaVM.Id, ocorrenciaVM.Descricao, ocorrenciaVM.FotoNomeOriginal, 
+                 ocorrenciaVM.FotoNome, ocorrenciaVM.Publica);
+        }
+
+        private CadastrarRespostaOcorrenciaSindicoCommand CadastrarRespostaOcorrenciaSindicoCommandFactory
+          (CadastraRespostaOcorrenciaSindicoViewModel respostaVM, Usuario usuario)
+        {
+            return new CadastrarRespostaOcorrenciaSindicoCommand
+                 (respostaVM.OcorrenciaId, respostaVM.Descricao, respostaVM.UsuarioId, usuario.NomeCompleto,
+                 respostaVM.FotoNome, respostaVM.FotoNomeOriginal, respostaVM.Status);
+        }
+
+        private CadastrarRespostaOcorrenciaMoradorCommand CadastrarRespostaOcorrenciaMoradorCommandFactory
+            (CadastraRespostaOcorrenciaMoradorViewModel respostaVM, Usuario usuario)
+        {
+            return new CadastrarRespostaOcorrenciaMoradorCommand
+                 (respostaVM.OcorrenciaId, respostaVM.Descricao, respostaVM.UsuarioId, usuario.NomeCompleto,
+                 respostaVM.FotoNome, respostaVM.FotoNomeOriginal);
+        }
+      
 
     }
 }

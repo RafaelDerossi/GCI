@@ -15,7 +15,10 @@ namespace CondominioApp.Ocorrencias.App.Models
     {
         private readonly IMediatorHandler _mediatorHandler;
 
-        public DbSet<Ocorrencia> Ocorrencias { get; set; }        
+        public DbSet<Ocorrencia> Ocorrencias { get; set; }
+
+        public DbSet<RespostaOcorrencia> RespostasOcorrencias { get; set; }
+
 
         public OcorrenciaContextDB(DbContextOptions<OcorrenciaContextDB> options, IMediatorHandler mediatorHandler)
             : base(options)

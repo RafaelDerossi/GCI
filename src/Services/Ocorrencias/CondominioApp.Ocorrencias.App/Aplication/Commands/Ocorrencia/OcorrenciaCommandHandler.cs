@@ -1,12 +1,9 @@
-﻿using CondominioApp.Core.Enumeradores;
-using CondominioApp.Core.Messages;
+﻿using CondominioApp.Core.Messages;
 using CondominioApp.Ocorrencias.App.Aplication.Commands;
 using CondominioApp.Ocorrencias.App.Models;
 using FluentValidation.Results;
 using MediatR;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -14,8 +11,7 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
 {
     public class OcorrenciaCommandHandler : CommandHandler,
          IRequestHandler<CadastrarOcorrenciaCommand, ValidationResult>,
-         IRequestHandler<ColocarOcorrenciaEmAndamentoCommand, ValidationResult>,
-         IRequestHandler<MarcarOcorrenciaComoResolvidaCommand, ValidationResult>,
+         IRequestHandler<EditarOcorrenciaCommand, ValidationResult>,
          IRequestHandler<RemoverOcorrenciaCommand, ValidationResult>,
          IDisposable
     {
@@ -40,7 +36,7 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
             return await PersistirDados(_ocorrenciaRepository.UnitOfWork);
         }
 
-        public async Task<ValidationResult> Handle(ColocarOcorrenciaEmAndamentoCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(EditarOcorrenciaCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido())
                 return request.ValidationResult;
@@ -52,26 +48,17 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
                 return ValidationResult;
             }
 
-            ocorrencia.ColocarEmAndamento(request.Parecer);
-
-            _ocorrenciaRepository.Atualizar(ocorrencia);
-
-            return await PersistirDados(_ocorrenciaRepository.UnitOfWork);
-        }
-
-        public async Task<ValidationResult> Handle(MarcarOcorrenciaComoResolvidaCommand request, CancellationToken cancellationToken)
-        {
-            if (!request.EstaValido())
-                return request.ValidationResult;
-
-            var ocorrencia = await _ocorrenciaRepository.ObterPorId(request.Id);
-            if (ocorrencia == null)
+            if (ocorrencia.Status != Core.Enumeradores.StatusDaOcorrencia.PENDENTE)
             {
-                AdicionarErro("Ocorrência não encontrada!");
+                AdicionarErro("Ocorrência não pode ser editada pois já foi respondida!");
                 return ValidationResult;
             }
 
-            ocorrencia.MarcarComoResolvida(request.Parecer);
+            ocorrencia.SetDescricao(request.Descricao);
+            ocorrencia.SetFoto(request.Foto);
+            ocorrencia.MarcarComoPrivada();
+            if (request.Publica)
+                ocorrencia.MarcarComoPublica();
 
             _ocorrenciaRepository.Atualizar(ocorrencia);
 
@@ -97,8 +84,6 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
             return await PersistirDados(_ocorrenciaRepository.UnitOfWork);
         }
 
-
-
         private Ocorrencia OcorrenciaFactory(CadastrarOcorrenciaCommand request)
         {
             var ocorrencia = new Ocorrencia(
@@ -107,7 +92,6 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
            
             return ocorrencia;
         }
-
 
         public void Dispose()
         {

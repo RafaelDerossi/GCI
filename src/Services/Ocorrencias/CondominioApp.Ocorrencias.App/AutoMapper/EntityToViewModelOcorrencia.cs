@@ -10,6 +10,10 @@ namespace CondominioApp.Ocorrencias.App.AutoMapper
         {
             CreateMap<Ocorrencia, OcorrenciaViewModel>()
                   .ForMember(c => c.Foto, p => p.MapFrom(x => x.Foto.NomeDoArquivo));
+
+            CreateMap<RespostaOcorrencia, RespostaOcorrenciaViewModel>()
+                  .ForMember(c => c.Foto, p => p.MapFrom(x => x.Foto.NomeDoArquivo))
+                  .ForMember(c => c.TipoAutor, p => p.MapFrom(x => x.TipoAutor.ToString()));
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using CondominioApp.Core.Enumeradores;
-using CondominioApp.Ocorrencias.App.ValueObjects;
+using CondominioApp.Ocorrencias.App.Models;
 using System;
+using System.Collections.Generic;
 
 namespace CondominioApp.Ocorrencias.App.ViewModels
 {
@@ -20,11 +21,7 @@ namespace CondominioApp.Ocorrencias.App.ViewModels
 
         public bool Publica { get; set; }
 
-        public StatusDaOcorrencia Status { get; set; }
-
-        public DateTime? DataResposta { get; set; }        
-
-        public string Parecer { get; set; }
+        public StatusDaOcorrencia Status { get; set; }                
 
         public DateTime? DataResolucao { get; set; }
 
@@ -48,5 +45,7 @@ namespace CondominioApp.Ocorrencias.App.ViewModels
                     return "Pendente";
             }
         }
+
+        
     }
 }

@@ -5,15 +5,23 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CondominioApp.Ocorrencias.App.Data.Mapping
 {
-    public class OcorrenciaMapping : IEntityTypeConfiguration<Ocorrencia>
+    public class RespostaOcorrenciaMapping : IEntityTypeConfiguration<RespostaOcorrencia>
     {
-        public void Configure(EntityTypeBuilder<Ocorrencia> builder)
+        public void Configure(EntityTypeBuilder<RespostaOcorrencia> builder)
         {
             builder.HasKey(u => u.Id);
 
-            builder.ToTable("Ocorrencias");           
+            builder.ToTable("RespostasOcorrencias");           
 
             builder.Property(u => u.Descricao).IsRequired().HasColumnType($"varchar({Ocorrencia.Max})");
+            
+            builder.Property(u => u.TipoAutor).IsRequired();
+
+            builder.Property(u => u.UsuarioId).IsRequired();
+
+            builder.Property(u => u.NomeUsuario).HasColumnType($"varchar({Ocorrencia.Max})");
+
+            builder.Property(u => u.Visto).IsRequired();
 
             builder.OwnsOne(u => u.Foto, ft =>
             {
@@ -30,18 +38,7 @@ namespace CondominioApp.Ocorrencias.App.Data.Mapping
                     .HasColumnType($"varchar({Foto.NomeFotoMaximo})");
             });
 
-            builder.Property(u => u.Publica).IsRequired();
 
-            builder.Property(u => u.Status).IsRequired();                        
-
-            builder.Property(u => u.UnidadeId).IsRequired();
-
-            builder.Property(u => u.CondominioId).IsRequired();
-
-            builder.Property(u => u.UsuarioId).IsRequired();
-
-            builder.Property(u => u.Panico).IsRequired();
-            
         }
     }
 }

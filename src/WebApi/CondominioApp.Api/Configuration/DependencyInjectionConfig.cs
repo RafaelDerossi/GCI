@@ -185,9 +185,14 @@ namespace CondominioApp.Api.Configuration
             #region Ocorrencia -Contexto
             //Ocorrencia
             services.AddScoped<IRequestHandler<CadastrarOcorrenciaCommand, ValidationResult>, OcorrenciaCommandHandler>();
-            services.AddScoped<IRequestHandler<ColocarOcorrenciaEmAndamentoCommand, ValidationResult>, OcorrenciaCommandHandler>();
-            services.AddScoped<IRequestHandler<MarcarOcorrenciaComoResolvidaCommand, ValidationResult>, OcorrenciaCommandHandler>();
+            services.AddScoped<IRequestHandler<EditarOcorrenciaCommand, ValidationResult>, OcorrenciaCommandHandler>();
             services.AddScoped<IRequestHandler<RemoverOcorrenciaCommand, ValidationResult>, OcorrenciaCommandHandler>();
+
+            //Resposta
+            services.AddScoped<IRequestHandler<CadastrarRespostaOcorrenciaMoradorCommand, ValidationResult>, RespostaOcorrenciaCommandHandler>();
+            services.AddScoped<IRequestHandler<CadastrarRespostaOcorrenciaSindicoCommand, ValidationResult>, RespostaOcorrenciaCommandHandler>();
+            services.AddScoped<IRequestHandler<MarcarRespostaOcorrenciaComoVistaCommand, ValidationResult>, RespostaOcorrenciaCommandHandler>();
+
             #endregion
 
 
