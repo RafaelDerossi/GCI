@@ -311,6 +311,22 @@ namespace CondominioApp.Api.Controllers
         }
 
 
+        [HttpDelete("remover/{ocorrenciaId:Guid}")]
+        public async Task<ActionResult> RemoverOcorrencia(Guid ocorrenciaId)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            var comando = new RemoverOcorrenciaCommand(ocorrenciaId);
+
+            var Resultado = await _mediatorHandler.EnviarComando(comando);
+
+            return CustomResponse(Resultado);
+
+        }
+
+
+
+
         private CadastrarOcorrenciaCommand CadastrarOcorrenciaCommandFactory
             (CadastraOcorrenciaViewModel ocorrenciaVM, Usuario usuario, UnidadeFlat unidade)
         {           

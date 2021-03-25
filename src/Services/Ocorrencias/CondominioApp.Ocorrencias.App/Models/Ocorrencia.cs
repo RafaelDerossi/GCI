@@ -49,9 +49,13 @@ namespace CondominioApp.Ocorrencias.App.Models
             Panico = panico;
         }
 
-        public void SetDescricao(string descricao) => Descricao = descricao;
+        
+        
+        
+        
+        public void SetDescricao(string descricao) => Descricao = descricao;        
 
-        public void SetFoto(Foto foto) => Foto = foto;        
+        public void SetFoto(Foto foto) => Foto = foto;
 
         public void SetUsuarioId(Guid id) => UsuarioId = id;
 
@@ -100,5 +104,37 @@ namespace CondominioApp.Ocorrencias.App.Models
 
             return ValidationResult;
         }
+
+
+        public ValidationResult Editar(string descricao, Foto foto, bool publica)
+        {
+            if (Status != StatusDaOcorrencia.PENDENTE)
+            {
+                AdicionarErrosDaEntidade("Ocorrência não pode ser editada pois já foi respondida!");
+                return ValidationResult;
+            }               
+
+            SetDescricao(descricao);
+            SetFoto(foto);
+            MarcarComoPrivada();
+            if (publica)
+                MarcarComoPublica();
+
+            return ValidationResult;
+        }
+
+        public ValidationResult Remover()
+        {
+            if (Status != StatusDaOcorrencia.PENDENTE)
+            {
+                AdicionarErrosDaEntidade("Ocorrência não pode ser removida pois já foi respondida!");
+                return ValidationResult;
+            }
+
+            EnviarParaLixeira();
+
+            return ValidationResult;
+        }
+
     }
 }

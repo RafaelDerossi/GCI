@@ -1,4 +1,5 @@
-﻿using CondominioApp.Core.Messages;
+﻿using CondominioApp.Core.Enumeradores;
+using CondominioApp.Core.Messages;
 using CondominioApp.Ocorrencias.App.Aplication.Commands;
 using CondominioApp.Ocorrencias.App.Models;
 using FluentValidation.Results;
@@ -48,17 +49,10 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
                 return ValidationResult;
             }
 
-            if (ocorrencia.Status != Core.Enumeradores.StatusDaOcorrencia.PENDENTE)
-            {
-                AdicionarErro("Ocorrência não pode ser editada pois já foi respondida!");
-                return ValidationResult;
-            }
-
-            ocorrencia.SetDescricao(request.Descricao);
-            ocorrencia.SetFoto(request.Foto);
-            ocorrencia.MarcarComoPrivada();
-            if (request.Publica)
-                ocorrencia.MarcarComoPublica();
+            var retorno = ocorrencia.Editar(request.Descricao, request.Foto, request.Publica);
+            if (!retorno.IsValid)
+                return retorno;
+                       
 
             _ocorrenciaRepository.Atualizar(ocorrencia);
 
@@ -76,8 +70,10 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
                 AdicionarErro("Ocorrência não encontrada!");
                 return ValidationResult;
             }
-
-            ocorrencia.EnviarParaLixeira();
+           
+            var retorno = ocorrencia.Remover();
+            if (!retorno.IsValid)
+                return retorno;
 
             _ocorrenciaRepository.Atualizar(ocorrencia);            
 
