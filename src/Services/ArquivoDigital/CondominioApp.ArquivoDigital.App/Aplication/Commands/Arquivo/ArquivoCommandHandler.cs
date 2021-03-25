@@ -63,6 +63,7 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
             arquivoBd.MarcarComoPrivado();
             if (request.Publico)
                 arquivoBd.MarcarComoPublico();
+            arquivoBd.SetNome(request.Nome);
 
             _arquivoDigitalRepository.AtualizarArquivo(arquivoBd);
 
@@ -80,6 +81,13 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
             if (arquivoBd == null)
             {
                 AdicionarErro("Arquivo não encontrado.");
+                return ValidationResult;
+            }
+
+            var pastaBd = await _arquivoDigitalRepository.ObterPorId(request.PastaId);
+            if (pastaBd == null)
+            {
+                AdicionarErro("Pasta não encontrada.");
                 return ValidationResult;
             }
 

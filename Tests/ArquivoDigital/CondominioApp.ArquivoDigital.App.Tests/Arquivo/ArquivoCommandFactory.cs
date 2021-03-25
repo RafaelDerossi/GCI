@@ -1,5 +1,4 @@
 ﻿using System;
-using CondominioApp.Core.Enumeradores;
 using CondominioApp.ArquivoDigital.App.Aplication.Commands;
 
 namespace CondominioApp.ArquivoDigital.App.Tests
@@ -16,7 +15,8 @@ namespace CondominioApp.ArquivoDigital.App.Tests
         private static EditarArquivoCommand EditarArquivoCommandFactoy()
         {
             return new EditarArquivoCommand
-                 (Guid.NewGuid(), "Titulo do Arquivo", "Descricao do Arquivo", true);
+                 (Guid.NewGuid(), "Titulo do Arquivo", "Descricao do Arquivo", true,
+                 "nomeOriginal.pdf");
         }
 
 

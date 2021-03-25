@@ -233,7 +233,8 @@ namespace CondominioApp.Api.Controllers
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
             var comando = new EditarArquivoCommand
-                (arquivoVM.Id, arquivoVM.Titulo, arquivoVM.Descricao, arquivoVM.Publico);
+                (arquivoVM.Id, arquivoVM.Titulo, arquivoVM.Descricao, arquivoVM.Publico,
+                 arquivoVM.NomeOriginal);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 

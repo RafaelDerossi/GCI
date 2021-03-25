@@ -39,16 +39,14 @@ namespace CondominioApp.Principal.Infra.Data.Repository
             {
                 if (take > 0)
                     return await _context.Pastas
-                          .AsNoTracking()
-                          .Include(e => e.Arquivos)
+                          .AsNoTracking()                          
                           .Where(expression)
                           .OrderByDescending(x => x.Titulo)
                           .Take(take)
                           .ToListAsync();
 
                 return await _context.Pastas
-                    .AsNoTracking()
-                    .Include(e => e.Arquivos)                    
+                    .AsNoTracking()                    
                     .Where(expression)
                     .OrderByDescending(x => x.Titulo)
                     .ToListAsync();
@@ -56,16 +54,14 @@ namespace CondominioApp.Principal.Infra.Data.Repository
 
             if (take > 0)
                 return await _context.Pastas
-                    .AsNoTracking()
-                    .Include(e => e.Arquivos)
+                    .AsNoTracking()                    
                     .Where(expression)
                     .OrderBy(x => x.Titulo)
                     .Take(take)
                     .ToListAsync();
 
             return await _context.Pastas
-                .AsNoTracking()
-                .Include(e => e.Arquivos)                
+                .AsNoTracking()                
                 .Where(expression)
                 .OrderBy(x => x.Titulo)
                 .ToListAsync();
@@ -73,8 +69,7 @@ namespace CondominioApp.Principal.Infra.Data.Repository
 
         public async Task<IEnumerable<Pasta>> ObterTodos()
         {
-            return await _context.Pastas
-                .Include(p => p.Arquivos)
+            return await _context.Pastas                
                 .Where(p => !p.Lixeira)
                 .ToListAsync();
         }

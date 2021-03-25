@@ -8,12 +8,13 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
     {
 
         public EditarArquivoCommand
-            (Guid id, string titulo, string descricao,  bool publico)
+            (Guid id, string titulo, string descricao,  bool publico, string nomeOriginal)
         {
             Id = id;
             Titulo = titulo;
             Descricao = descricao;
-            Publico = publico;            
+            Publico = publico;
+            SetNome(nomeOriginal);
         }
 
 
