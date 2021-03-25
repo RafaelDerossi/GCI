@@ -1,6 +1,7 @@
 ﻿  using CondominioApp.Core.DomainObjects;
 using CondominioApp.Core.Enumeradores;
 using CondominioApp.Core.Helpers;
+using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents;
 using CondominioApp.Ocorrencias.App.ValueObjects;
 using FluentValidation.Results;
 using System;
@@ -134,6 +135,31 @@ namespace CondominioApp.Ocorrencias.App.Models
             EnviarParaLixeira();
 
             return ValidationResult;
+        }
+
+        public void EnviarPushNovaOcorrencia()
+        {
+            var titulo = "";
+            if (Panico)
+            {
+                titulo = "ALERTA";
+
+                AdicionarEvento
+                 (new EnviarPushParaSindicoIntegrationEvent(CondominioId, titulo, Descricao));
+
+                AdicionarEvento
+                (new EnviarPushParaUnidadeIntegrationEvent(UnidadeId, titulo, Descricao));
+
+                return;
+            }
+
+            titulo = "NOVA OCORRÊNCIA";
+
+            //AdicionarEvento
+            //     (new EnviarPushParaSindicoIntegrationEvent(CondominioId, titulo, Descricao));
+
+            AdicionarEvento
+                (new EnviarPushParaMoradorIntegrationEvent(UsuarioId, titulo, Descricao));
         }
 
     }

@@ -27,7 +27,7 @@ namespace CondominioApp.Usuarios.App.Models
         Task<Funcionario> ObterFuncionarioPorId(Guid id);
         Task<Funcionario> ObterFuncionarioPorUsuarioIdECondominioId(Guid usuarioId, Guid condominioId);
         Task<IEnumerable<Funcionario>> ObterFuncionariosPorUsuarioId(Guid usuarioId);
-        Task<IEnumerable<Funcionario>> ObterFuncionarios(Expression<Func<Funcionario, bool>> expression, bool OrderByDesc = false, int take = 0);
+        Task<IEnumerable<Funcionario>> ObterFuncionario(Expression<Func<Funcionario, bool>> expression, bool OrderByDesc = false, int take = 0);
         void AdicionarFuncionario(Funcionario funcionario);
         void AtualizarFuncionario(Funcionario entity);
         #endregion
@@ -36,6 +36,10 @@ namespace CondominioApp.Usuarios.App.Models
         #region Mobile
 
         Task<Mobile> ObterMobilePorId(Guid id);
+
+        Task<IEnumerable<Mobile>> ObterMobile(Expression<Func<Mobile, bool>> expression, bool OrderByDesc = false, int take = 0);
+
+        Task<IEnumerable<Mobile>> ObterTodosOsMobiles();
 
         void AdicionarMobile(Mobile mobile);
 

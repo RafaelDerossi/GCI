@@ -1,5 +1,6 @@
 ﻿using CondominioApp.Core.Enumeradores;
 using CondominioApp.Core.Messages;
+using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents;
 using CondominioApp.Ocorrencias.App.Aplication.Commands;
 using CondominioApp.Ocorrencias.App.Models;
 using FluentValidation.Results;
@@ -33,6 +34,8 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
             var ocorrencia = OcorrenciaFactory(request);           
            
             _ocorrenciaRepository.Adicionar(ocorrencia);
+
+            ocorrencia.EnviarPushNovaOcorrencia();
 
             return await PersistirDados(_ocorrenciaRepository.UnitOfWork);
         }

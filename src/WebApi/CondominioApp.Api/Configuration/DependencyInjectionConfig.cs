@@ -62,6 +62,7 @@ using CondominioApp.Ocorrencias.App.Aplication.Commands;
 using CondominioApp.Ocorrencias.App.Data.Repository;
 using CondominioApp.Ocorrencias.App.Models;
 using CondominioApp.Ocorrencias.App.Aplication.Query;
+using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents;
 
 namespace CondominioApp.Api.Configuration
 {
@@ -179,6 +180,11 @@ namespace CondominioApp.Api.Configuration
 
             #region NotificacaoPush -Contexto
             services.AddScoped<INotificacaoPushService, NotificacaoPushService>();
+            services.AddScoped<INotificationHandler<EnviarPushParaSindicoIntegrationEvent>, NotificacaoPushEventHandler>();
+            services.AddScoped<INotificationHandler<EnviarPushParaMoradorIntegrationEvent>, NotificacaoPushEventHandler>();
+            services.AddScoped<INotificationHandler<EnviarPushParaUnidadeIntegrationEvent>, NotificacaoPushEventHandler>();
+            services.AddScoped<INotificationHandler<EnviarPushParaCondominioIntegrationEvent>, NotificacaoPushEventHandler>();
+            services.AddScoped<INotificationHandler<EnviarPushParaTodosIntegrationEvent>, NotificacaoPushEventHandler>();
             #endregion
 
 
@@ -336,6 +342,10 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<INotificationHandler<VeiculoCadastradoEvent>, VeiculoEventHandler>();
             services.AddScoped<INotificationHandler<UsuarioDoVeiculoNoCondominioEditadoEvent>, VeiculoEventHandler>();
             services.AddScoped<INotificationHandler<VeiculoRemovidoEvent>, VeiculoEventHandler>();
+
+            //Mobile
+            services.AddScoped<IRequestHandler<CadastrarMobileCommand, ValidationResult>, MobileCommandHandler>();
+            services.AddScoped<IRequestHandler<EditarMobileCommand, ValidationResult>, MobileCommandHandler>();
 
             #endregion
 

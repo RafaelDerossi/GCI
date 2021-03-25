@@ -21,9 +21,12 @@ namespace CondominioApp.Usuarios.App.Aplication.Query
         #endregion
 
         #region Funcionario
+
         Task<FuncionarioFlat> ObterFuncionarioPorId(Guid id);
         Task<IEnumerable<FuncionarioFlat>> ObterFuncionariosPorUsuarioId(Guid usuarioId);
         Task<IEnumerable<FuncionarioFlat>> ObterFuncionariosPorCondominioId(Guid condominioId);
+        Task<IEnumerable<Funcionario>> ObterFuncionariosAdminPorCondominioId(Guid condominioId);
+
         #endregion
 
         #region Veiculo
@@ -36,6 +39,13 @@ namespace CondominioApp.Usuarios.App.Aplication.Query
         Task<IEnumerable<VeiculoFlat>> ObterVeiculosPorUsuario(Guid usuarioId);
 
         Task<VeiculoFlat> ObterVeiculoPorPlacaOuModeloECondominio(string pesquisa, Guid condominioId);
+        #endregion
+
+        #region Mobile
+        Task<IEnumerable<Mobile>> ObterMobilesPorUsuario(Guid usuarioId);
+
+        Task<IEnumerable<Mobile>> ObterTodosOsMobiles();
+
         #endregion
 
     }

@@ -52,5 +52,6 @@ namespace CondominioApp.NotificacaoPush.App.Services
             return retorno.ValidationResult;
 
         }
+
     }
 }

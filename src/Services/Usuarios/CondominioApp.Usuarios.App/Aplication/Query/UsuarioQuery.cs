@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
+using CondominioApp.Core.Enumeradores;
 
 namespace CondominioApp.Usuarios.App.Aplication.Query
 {
@@ -21,7 +22,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Query
             _veiculoQueryRepository = veiculoQueryRepository;
             _moradorQueryRepository = moradorQueryRepository;
             _funcionarioQueryRepository = funcionarioQueryRepository;
-    }
+        }
 
 
         #region Usuario    
@@ -59,10 +60,12 @@ namespace CondominioApp.Usuarios.App.Aplication.Query
 
 
         #region Funcionario
+        
         public async Task<FuncionarioFlat> ObterFuncionarioPorId(Guid id)
         {
             return await _funcionarioQueryRepository.ObterPorId(id);
         }
+
         public async Task<IEnumerable<FuncionarioFlat>> ObterFuncionariosPorUsuarioId(Guid usuarioId)
         {
             var funcionarios = await _funcionarioQueryRepository.Obter(m => m.UsuarioId == usuarioId && !m.Lixeira);
@@ -73,7 +76,14 @@ namespace CondominioApp.Usuarios.App.Aplication.Query
         {
             var retorno = await _funcionarioQueryRepository.Obter(m => m.CondominioId == condominioId && !m.Lixeira);
             return retorno.ToList();
-        }       
+        }
+
+        public async Task<IEnumerable<Funcionario>> ObterFuncionariosAdminPorCondominioId(Guid condominioId)
+        {
+            var retorno = await _usuarioRepository.ObterFuncionario(m => m.CondominioId == condominioId && m.Permissao == Permissao.ADMIN && !m.Lixeira);
+            return retorno.ToList();
+        }
+
         #endregion
 
 
@@ -104,6 +114,21 @@ namespace CondominioApp.Usuarios.App.Aplication.Query
         public async Task<IEnumerable<VeiculoFlat>> ObterVeiculosPorUsuario(Guid usuarioId)
         {
             return await _veiculoQueryRepository.Obter(v => v.UsuarioId == usuarioId);
+        }
+
+        #endregion
+
+
+        #region Mobile
+
+        public async Task<IEnumerable<Mobile>> ObterMobilesPorUsuario(Guid usuarioId)
+        {
+            return await _usuarioRepository.ObterMobile(v => v.UsuarioId == usuarioId);             
+        }
+
+        public async Task<IEnumerable<Mobile>> ObterTodosOsMobiles()
+        {
+            return await _usuarioRepository.ObterTodosOsMobiles();
         }
 
         #endregion

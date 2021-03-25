@@ -159,7 +159,7 @@ namespace CondominioApp.Usuarios.App.Data.Repository
             return await _context.Funcionarios.Where(u => u.UsuarioId == usuarioId && !u.Lixeira).ToListAsync();
         }
 
-        public async Task<IEnumerable<Funcionario>> ObterFuncionarios(Expression<Func<Funcionario, bool>> expression, bool OrderByDesc = false, int take = 0)
+        public async Task<IEnumerable<Funcionario>> ObterFuncionario(Expression<Func<Funcionario, bool>> expression, bool OrderByDesc = false, int take = 0)
         {
             if (OrderByDesc)
             {
@@ -254,6 +254,48 @@ namespace CondominioApp.Usuarios.App.Data.Repository
         public async Task<Mobile> ObterMobilePorId(Guid id)
         {
             return await _context.Mobiles.FindAsync(id);
+        }
+
+        public async Task<IEnumerable<Mobile>> ObterMobile(Expression<Func<Mobile, bool>> expression, bool OrderByDesc = false, int take = 0)
+        {
+            if (OrderByDesc)
+            {
+                if (take > 0)
+                    return await _context.Mobiles
+                                         .AsNoTracking()
+                                         .Where(expression)
+                                         .OrderByDescending(x => x.DataDeCadastro)
+                                         .Take(take)
+                                         .ToListAsync();
+
+                return await _context.Mobiles
+                                     .AsNoTracking()
+                                     .Where(expression)
+                                     .OrderByDescending(x => x.DataDeCadastro)
+                                     .ToListAsync();
+            }
+
+            if (take > 0)
+                return await _context.Mobiles
+                                     .AsNoTracking()
+                                     .Where(expression)
+                                     .OrderBy(x => x.DataDeCadastro)
+                                     .Take(take)
+                                     .ToListAsync();
+
+            return await _context.Mobiles
+                                 .AsNoTracking()
+                                 .Where(expression)
+                                 .OrderBy(x => x.DataDeCadastro)
+                                 .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Mobile>> ObterTodosOsMobiles()
+        {
+            return await _context.Mobiles
+                                 .AsNoTracking()
+                                 .OrderByDescending(x => x.DataDeCadastro)
+                                 .ToListAsync();
         }
 
         public void AdicionarMobile(Mobile mobile)
