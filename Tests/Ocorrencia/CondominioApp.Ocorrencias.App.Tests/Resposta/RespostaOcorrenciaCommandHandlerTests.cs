@@ -3,8 +3,6 @@ using Moq.AutoMock;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
-using System;
-using CondominioApp.Core.Enumeradores;
 using CondominioApp.Comunicados.App.Aplication.Commands;
 using CondominioApp.Ocorrencias.App.Models;
 
@@ -42,6 +40,7 @@ namespace CondominioApp.Ocorrencias.App.Tests
             //Assert
             Assert.True(result.IsValid);
             _mocker.GetMock<IOcorrenciaRepository>().Verify(r => r.AdicionarResposta(It.IsAny<RespostaOcorrencia>()), Times.Once);
+            _mocker.GetMock<IOcorrenciaRepository>().Verify(r => r.Atualizar(It.IsAny<Ocorrencia>()), Times.Once);
             _mocker.GetMock<IOcorrenciaRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
         }
 

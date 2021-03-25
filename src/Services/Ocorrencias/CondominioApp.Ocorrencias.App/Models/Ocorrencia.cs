@@ -84,6 +84,18 @@ namespace CondominioApp.Ocorrencias.App.Models
 
         public ValidationResult AdicionarResposta(RespostaOcorrencia resposta)
         {
+            if (Status == StatusDaOcorrencia.RESOLVIDA)
+            {
+                AdicionarErrosDaEntidade("Ocorrência já está resolvida!");
+                return ValidationResult;
+            }
+
+            if (resposta.TipoAutor == TipoDoAutor.MORADOR && !Publica && UsuarioId != resposta.UsuarioId)
+            {
+                AdicionarErrosDaEntidade("Somente o usuário que criou a ocorrência privada pode responder!");
+                return ValidationResult;
+            }
+
             _Respostas.Add(resposta);
 
             return ValidationResult;

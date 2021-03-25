@@ -39,16 +39,14 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
                 return ValidationResult;
             }
 
-            if (ocorrencia.Status == StatusDaOcorrencia.RESOLVIDA)
-            {
-                AdicionarErro("Ocorrência já está resolvida!");
-                return ValidationResult;
-            }
-
-
             var resposta = RespostaOcorrenciaFactory(request);
 
-            ocorrencia.AdicionarResposta(resposta);
+            var retorno = ocorrencia.AdicionarResposta(resposta);
+            if (!retorno.IsValid)
+                return retorno;
+
+            _ocorrenciaRepository.AdicionarResposta(resposta);
+
 
             if (request.Status == StatusDaOcorrencia.EM_ANDAMENTO)
                 ocorrencia.ColocarEmAndamento();
@@ -56,7 +54,8 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
             if (request.Status == StatusDaOcorrencia.RESOLVIDA)
                 ocorrencia.MarcarComoResolvida();
 
-            _ocorrenciaRepository.AdicionarResposta(resposta);
+            _ocorrenciaRepository.Atualizar(ocorrencia);
+
 
             return await PersistirDados(_ocorrenciaRepository.UnitOfWork);
         }
@@ -71,24 +70,14 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
             {
                 AdicionarErro("Ocorrência não encontrada!");
                 return ValidationResult;
-            }
-
-            if (ocorrencia.Status == StatusDaOcorrencia.RESOLVIDA)
-            {
-                AdicionarErro("Ocorrência já está resolvida!");
-                return ValidationResult;
-            }
-
-            if (ocorrencia.UsuarioId != request.UsuarioId && !ocorrencia.Publica)
-            {
-                AdicionarErro("Somente o usuário que criou a ocorrência privada pode responder!");
-                return ValidationResult;
-            }
+            }                     
 
             var resposta = RespostaOcorrenciaFactory(request);
             
-            ocorrencia.AdicionarResposta(resposta);
-            
+            var retorno = ocorrencia.AdicionarResposta(resposta);
+            if (!retorno.IsValid)
+                return retorno;
+
             _ocorrenciaRepository.AdicionarResposta(resposta);
 
             return await PersistirDados(_ocorrenciaRepository.UnitOfWork);
