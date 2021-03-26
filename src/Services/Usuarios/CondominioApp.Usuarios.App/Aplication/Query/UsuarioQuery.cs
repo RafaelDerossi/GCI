@@ -78,10 +78,10 @@ namespace CondominioApp.Usuarios.App.Aplication.Query
             return retorno.ToList();
         }
 
-        public async Task<IEnumerable<Funcionario>> ObterFuncionariosAdminPorCondominioId(Guid condominioId)
+        public async Task<Funcionario> ObterSindicoPorCondominioId(Guid condominioId)
         {
             var retorno = await _usuarioRepository.ObterFuncionario(m => m.CondominioId == condominioId && m.Permissao == Permissao.ADMIN && !m.Lixeira);
-            return retorno.ToList();
+            return retorno.FirstOrDefault();
         }
 
         #endregion

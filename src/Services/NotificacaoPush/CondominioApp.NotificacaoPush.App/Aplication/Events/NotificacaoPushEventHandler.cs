@@ -36,18 +36,9 @@ namespace CondominioApp.Principal.Aplication.Events
 
         public async Task Handle(EnviarPushParaSindicoIntegrationEvent notification, CancellationToken cancellationToken)
         {
-            var funcionarios = await _usuarioQueryRepository.ObterFuncionariosAdminPorCondominioId(notification.CondominioId);
+            var funcionario = await _usuarioQueryRepository.ObterSindicoPorCondominioId(notification.CondominioId);
 
-            var dispositivosIds = new List<string>();
-
-            foreach (Funcionario funcionario in funcionarios)
-            {
-                var dispositivos = await _usuarioQueryRepository.ObterMobilesPorMoradorFuncionarioId(funcionario.Id);
-                foreach (Mobile dispositivo in dispositivos)
-                {
-                    dispositivosIds.Add(dispositivo.DeviceKey.ToString());
-                }
-            }
+            var dispositivosIds = await ObterDispositivosIds(funcionario.Id);           
 
             var notificacaoDTO = new NotificacaoPushDTO();            
             
@@ -66,14 +57,8 @@ namespace CondominioApp.Principal.Aplication.Events
 
         public async Task Handle(EnviarPushParaMoradorIntegrationEvent notification, CancellationToken cancellationToken)
         {
-            var dispositivosIds = new List<string>();
-
-            var dispositivos = await _usuarioQueryRepository.ObterMobilesPorMoradorFuncionarioId(notification.MoradorId);
-            foreach (Mobile dispositivo in dispositivos)
-            {
-                dispositivosIds.Add(dispositivo.DeviceKey.ToString());
-            }
-
+            var dispositivosIds = await ObterDispositivosIds(notification.MoradorId);
+           
             var notificacaoDTO = new NotificacaoPushDTO();
 
             notificacaoDTO.AppOneSignal = new MoradorOneSignalApp();
@@ -89,19 +74,8 @@ namespace CondominioApp.Principal.Aplication.Events
 
         public async Task Handle(EnviarPushParaUnidadeIntegrationEvent notification, CancellationToken cancellationToken)
         {
-            var moradores = await _usuarioQueryRepository.ObterMoradoresPorUnidadeId(notification.UnidadeId);
-
-            var dispositivosIds = new List<string>();
-
-            foreach (MoradorFlat morador in moradores)
-            {
-                var dispositivos = await _usuarioQueryRepository.ObterMobilesPorMoradorFuncionarioId(morador.UsuarioId);
-                foreach (Mobile dispositivo in dispositivos)
-                {
-                    dispositivosIds.Add(dispositivo.DeviceKey.ToString());
-                }
-            }
-
+            var dispositivosIds = await ObterDispositivosIdsPorUnidade(notification.UnidadeId);
+            
             var notificacaoDTO = new NotificacaoPushDTO();
 
             notificacaoDTO.AppOneSignal = new MoradorOneSignalApp();
@@ -172,6 +146,34 @@ namespace CondominioApp.Principal.Aplication.Events
 
         }
 
+
+        private async Task<List<string>> ObterDispositivosIds(System.Guid moradorIdFuncionarioId)
+        {
+            var dispositivosIds = new List<string>();
+            var dispositivos = await _usuarioQueryRepository.ObterMobilesPorMoradorFuncionarioId(moradorIdFuncionarioId);
+            foreach (Mobile dispositivo in dispositivos)
+            {
+                dispositivosIds.Add(dispositivo.DeviceKey.ToString());
+            }
+            return dispositivosIds;
+        }
+
+        private async Task<List<string>> ObterDispositivosIdsPorUnidade(System.Guid unidadeId)
+        {
+            var moradores = await _usuarioQueryRepository.ObterMoradoresPorUnidadeId(unidadeId);
+
+            var dispositivosIds = new List<string>();
+
+            foreach (MoradorFlat morador in moradores)
+            {
+                var dispositivos = await _usuarioQueryRepository.ObterMobilesPorMoradorFuncionarioId(morador.UsuarioId);
+                foreach (Mobile dispositivo in dispositivos)
+                {
+                    dispositivosIds.Add(dispositivo.DeviceKey.ToString());
+                }
+            }
+            return dispositivosIds;
+        }
 
         public void Dispose()
         {
