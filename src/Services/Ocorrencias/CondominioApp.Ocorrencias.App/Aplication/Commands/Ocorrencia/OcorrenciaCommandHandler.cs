@@ -59,6 +59,8 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
 
             _ocorrenciaRepository.Atualizar(ocorrencia);
 
+            ocorrencia.EnviarPushOcorrenciaEditada();
+
             return await PersistirDados(_ocorrenciaRepository.UnitOfWork);
         }
 
@@ -78,7 +80,9 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
             if (!retorno.IsValid)
                 return retorno;
 
-            _ocorrenciaRepository.Atualizar(ocorrencia);            
+            _ocorrenciaRepository.Atualizar(ocorrencia);
+
+            ocorrencia.EnviarPushOcorrenciaRemovida();
 
             return await PersistirDados(_ocorrenciaRepository.UnitOfWork);
         }

@@ -162,5 +162,27 @@ namespace CondominioApp.Ocorrencias.App.Models
                 (new EnviarPushParaMoradorIntegrationEvent(MoradorId, titulo, Descricao));
         }
 
+        public void EnviarPushOcorrenciaEditada()
+        {
+            var titulo = "OCORRÊNCIA EDITADA";
+
+            AdicionarEvento
+                 (new EnviarPushParaSindicoIntegrationEvent(CondominioId, titulo, Descricao));
+
+            AdicionarEvento
+                (new EnviarPushParaMoradorIntegrationEvent(MoradorId, titulo, Descricao));
+        }
+
+        public void EnviarPushOcorrenciaRemovida()
+        {           
+
+            var titulo = "OCORRÊNCIA REMOVIDA";
+
+            AdicionarEvento
+                 (new EnviarPushParaSindicoIntegrationEvent(CondominioId, titulo, Descricao));
+
+            AdicionarEvento
+                (new EnviarPushParaMoradorIntegrationEvent(MoradorId, titulo, Descricao));
+        }
     }
 }
