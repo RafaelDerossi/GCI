@@ -2,7 +2,7 @@
 
 namespace CondominioApp.Usuarios.App.ViewModels
 {
-    public class CadastraMobileViewModel
+    public class CadastraMobileMoradorViewModel
     {
         public string DeviceKey { get; set; }
 
@@ -14,6 +14,6 @@ namespace CondominioApp.Usuarios.App.ViewModels
 
         public string Versao { get; set; }
         
-        public Guid UsuarioId { get; set; }
+        public Guid MoradorId { get; set; }
     }
 }

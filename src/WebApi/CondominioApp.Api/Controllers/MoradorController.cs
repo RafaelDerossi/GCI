@@ -150,5 +150,20 @@ namespace CondominioApp.Api.Controllers
             return CustomResponse();
         }
 
+
+        [HttpPost("registrar-dispositivo")]
+        public async Task<ActionResult> PostRegistrarDispositivo(CadastraMobileMoradorViewModel mobileVM)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            var registrarComando = new RegistrarMoradorMobileCommand
+                (mobileVM.DeviceKey, mobileVM.MobileId, mobileVM.Modelo, mobileVM.Plataforma,
+                mobileVM.Versao, mobileVM.MoradorId);
+
+            var result = await _mediatorHandler.EnviarComando(registrarComando);
+            return CustomResponse(result);
+
+        }
+
     }
 }

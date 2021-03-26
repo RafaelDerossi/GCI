@@ -9,7 +9,7 @@ namespace CondominioApp.Ocorrencias.App.Models
 
         public string Descricao { get; set; }
 
-        public Guid UsuarioId { get; set; }                
+        public Guid FuncionarioId { get; set; }                
 
         public string FotoNome { get; set; }
 

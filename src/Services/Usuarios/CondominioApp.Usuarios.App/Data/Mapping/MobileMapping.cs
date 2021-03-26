@@ -22,7 +22,7 @@ namespace CondominioApp.Usuarios.App.Data.Mapping
 
             builder.Property(u => u.Versao).HasColumnType($"varchar({Mobile.Max})");
 
-            builder.Property(u => u.UsuarioId).IsRequired();
+            builder.Property(u => u.MoradorIdFuncionadioId).IsRequired();
 
         }
     }

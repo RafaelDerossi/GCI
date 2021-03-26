@@ -6,16 +6,16 @@ namespace CondominioApp.Core.Messages.CommonMessages.IntegrationEvents
 {
     public class EnviarPushParaMoradorIntegrationEvent : IntegrationEvent
     {
-        public Guid UsuarioId { get; set; }
+        public Guid MoradorId { get; set; }
 
         public string Titulo { get; set; }
 
         public string Conteudo { get; set; }
 
 
-        public EnviarPushParaMoradorIntegrationEvent(Guid usuarioId, string titulo, string conteudo)
+        public EnviarPushParaMoradorIntegrationEvent(Guid moradorId, string titulo, string conteudo)
         {
-            UsuarioId = usuarioId;            
+            MoradorId = moradorId;            
             Conteudo = conteudo;
             Titulo = titulo;
         }

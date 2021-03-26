@@ -42,7 +42,7 @@ namespace CondominioApp.Correspondencias.App.AutoMapper
                 .ForMember(c => c.Modelo, p => p.MapFrom(x => x.Modelo))
                 .ForMember(c => c.Plataforma, p => p.MapFrom(x => x.Plataforma))
                 .ForMember(c => c.Versao, p => p.MapFrom(x => x.Versao))
-                .ForMember(c => c.UsuarioId, p => p.MapFrom(x => x.UsuarioId));
+                .ForMember(c => c.UsuarioId, p => p.MapFrom(x => x.MoradorIdFuncionadioId));
 
         }
     }

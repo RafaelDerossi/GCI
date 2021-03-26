@@ -39,50 +39,7 @@ namespace CondominioApp.Api.Controllers
             }
 
             return _mapper.Map<UsuarioViewModel>(usuario); ;
-        }     
-
-
-
-        [HttpPost("registrar-dispositivo")]
-        public async Task<ActionResult> Post(CadastraMobileViewModel mobileVM)
-        {
-            if (!ModelState.IsValid) return CustomResponse(ModelState);
-
-            var usuario = await _usuarioQuery.ObterPorId(mobileVM.UsuarioId);
-            if (usuario == null)
-            {
-                AdicionarErroProcessamento("Usuario não encontrado!");
-                return CustomResponse();
-            }
-
-            if (!usuario.Mobiles.Any(m => m.MobileId == mobileVM.MobileId))
-            {
-                var cadastrarComando = new CadastrarMobileCommand
-                (mobileVM.DeviceKey, mobileVM.MobileId, mobileVM.Modelo, mobileVM.Plataforma, mobileVM.Versao, mobileVM.UsuarioId);
-
-                var result = await _mediatorHandler.EnviarComando(cadastrarComando);
-
-                if (!result.IsValid)
-                    CustomResponse(result);
-
-
-                return CustomResponse();
-            }
-
-            var mobileBD = usuario.Mobiles.Where(m => m.MobileId == mobileVM.MobileId).FirstOrDefault();
-
-            var editarComando = new EditarMobileCommand
-                (mobileBD.Id, mobileVM.DeviceKey, mobileVM.MobileId, mobileVM.Modelo, mobileVM.Plataforma, mobileVM.Versao, mobileVM.UsuarioId);
-
-            var resultado = await _mediatorHandler.EnviarComando(editarComando);
-
-            if (!resultado.IsValid)
-                CustomResponse(resultado);
-
-
-            return CustomResponse();
-
-        }
+        }            
 
         [HttpPut]
         public async Task<ActionResult> Put(UsuarioViewModel usuarioVM)

@@ -30,8 +30,8 @@ namespace CondominioApp.Ocorrencias.App.Aplication.Commands
         public string NomeCondominio { get; protected set; }
 
 
-        public Guid UsuarioId { get; protected set; }
-        public string NomeUsuario { get; protected set; }
+        public Guid MoradorId { get; protected set; }
+        public string NomeMorador { get; protected set; }
 
         public bool Panico { get; protected set; }
 
@@ -51,7 +51,7 @@ namespace CondominioApp.Ocorrencias.App.Aplication.Commands
             }
         }
 
-        public void SetUsuarioId(Guid id) => UsuarioId = id;
+        public void SetMoradorId(Guid id) => MoradorId = id;
 
         public void SetUnidadeId(Guid id) => UnidadeId = id;
 

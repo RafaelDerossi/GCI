@@ -38,20 +38,13 @@ namespace CondominioApp.Usuarios.App.Models
 
         public bool SindicoProfissional { get; private set; }
 
-
-        //EF
-        private readonly List<Mobile> _Mobiles;
-
-        public IReadOnlyCollection<Mobile> Mobiles => _Mobiles;
-
         protected Usuario() { }
 
         public Usuario(string nome, string sobrenome, string rg, Telefone cel, Email email, 
             Foto foto, DateTime? dataNascimento = null,
             Cpf cpf = null, Telefone telefone = null, Endereco endereco = null,
             bool sindicoProfissional = false)
-        {
-            _Mobiles = new List<Mobile>();
+        {            
             Nome = nome;
             Sobrenome = sobrenome;
             Rg = rg;
@@ -108,17 +101,7 @@ namespace CondominioApp.Usuarios.App.Models
         public void SetDataNascimento(DateTime? dataNascimento) => DataNascimento = dataNascimento;
 
 
-        public void AdicionarMobile(Mobile mobile)
-        {
-            _Mobiles.Add(mobile);
-        }
-
-
-        public List<string> ObterDispositivosIds()
-        {
-            return _Mobiles.Select(m => m.DeviceKey).ToList();
-        }
-
+        
         public string ObterCPF()
         {
             if (Cpf == null)

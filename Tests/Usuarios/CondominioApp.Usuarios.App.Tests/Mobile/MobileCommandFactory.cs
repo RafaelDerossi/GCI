@@ -5,36 +5,36 @@ namespace CondominioApp.Usuarios.App.Tests
 {
     public class MobileCommandFactory
     {
-        public static CadastrarMobileCommand CadastrarMobileCommandFactory()
+        public static RegistrarMoradorMobileCommand RegistrarMoradorMobileCommandFactory()
         {
-            return new CadastrarMobileCommand
+            return new RegistrarMoradorMobileCommand
                 ("ff94bc73-114f-4470-a0bb-e2864815bbdc", "0b2eb4f89990b6e3", "SM-A307GT (10)", "Android", "10", Guid.NewGuid());
         }
 
-        public static CadastrarMobileCommand CriarComandoCadastroDeMobile()
+        public static RegistrarMoradorMobileCommand CriarComandoCadastroDeMobile()
         {
-            return CadastrarMobileCommandFactory();
+            return RegistrarMoradorMobileCommandFactory();
         }
 
-        public static CadastrarMobileCommand CriarComandoCadastroDeMobile_SemDeviceKey()
+        public static RegistrarMoradorMobileCommand CriarComandoCadastroDeMobile_SemDeviceKey()
         {
-            var comando = CadastrarMobileCommandFactory();
+            var comando = RegistrarMoradorMobileCommandFactory();
             comando.SetDeviceKey("");
 
             return comando;
         }
 
-        public static CadastrarMobileCommand CriarComandoCadastroDeMobile_SemMobileId()
+        public static RegistrarMoradorMobileCommand CriarComandoCadastroDeMobile_SemMobileId()
         {
-            var comando = CadastrarMobileCommandFactory();
+            var comando = RegistrarMoradorMobileCommandFactory();
             comando.SetMobileId("");
 
             return comando;
         }
 
-        public static CadastrarMobileCommand CriarComandoCadastroDeMobile_SemUsuarioId()
+        public static RegistrarMoradorMobileCommand CriarComandoCadastroDeMobile_SemUsuarioId()
         {
-            var comando = CadastrarMobileCommandFactory();
+            var comando = RegistrarMoradorMobileCommandFactory();
             comando.SetUsuarioId(Guid.Empty);
 
             return comando;

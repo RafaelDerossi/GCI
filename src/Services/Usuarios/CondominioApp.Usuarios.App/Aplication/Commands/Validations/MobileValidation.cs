@@ -47,7 +47,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands.Validations
 
         protected void ValidateUsuarioId()
         {
-            RuleFor(c => c.UsuarioId)
+            RuleFor(c => c.MoradorFuncionarioId)
                 .NotEqual(Guid.Empty);
         }
 

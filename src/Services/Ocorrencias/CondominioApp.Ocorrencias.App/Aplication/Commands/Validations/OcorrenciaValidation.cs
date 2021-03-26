@@ -38,9 +38,9 @@ namespace CondominioApp.Ocorrencias.App.Aplication.Commands.Validations
                 .NotEqual(Guid.Empty);
         }
 
-        protected void ValidateUsuarioId()
+        protected void ValidateMoradorId()
         {
-            RuleFor(c => c.UsuarioId)
+            RuleFor(c => c.MoradorId)
                 .NotEqual(Guid.Empty);
         }
 

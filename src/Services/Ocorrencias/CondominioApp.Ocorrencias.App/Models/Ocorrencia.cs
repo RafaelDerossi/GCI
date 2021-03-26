@@ -22,7 +22,7 @@ namespace CondominioApp.Ocorrencias.App.Models
         public DateTime? DataResolucao { get; private set; }
 
         public Guid UnidadeId { get; private set; }
-        public Guid UsuarioId { get; private set; }                
+        public Guid MoradorId { get; private set; }                
         public Guid CondominioId { get; private set; }       
         
         public bool Panico { get; private set; }
@@ -38,14 +38,14 @@ namespace CondominioApp.Ocorrencias.App.Models
         }
         public Ocorrencia
             (string descricao, Foto foto, bool publica, Guid unidadeId,
-            Guid usuarioId, Guid condominioId, bool panico)
+            Guid moradorId, Guid condominioId, bool panico)
         {
             _Respostas = new List<RespostaOcorrencia>();
             Descricao = descricao;
             Foto = foto;
             Publica = publica;
             UnidadeId = unidadeId;
-            UsuarioId = usuarioId;
+            MoradorId = moradorId;
             CondominioId = condominioId;            
             Panico = panico;
         }
@@ -58,7 +58,7 @@ namespace CondominioApp.Ocorrencias.App.Models
 
         public void SetFoto(Foto foto) => Foto = foto;
 
-        public void SetUsuarioId(Guid id) => UsuarioId = id;
+        public void SetMoradorId(Guid id) => MoradorId = id;
 
         public void SetUnidadeId(Guid id) => UnidadeId = id;
 
@@ -95,7 +95,7 @@ namespace CondominioApp.Ocorrencias.App.Models
                 return ValidationResult;
             }
 
-            if (resposta.TipoAutor == TipoDoAutor.MORADOR && !Publica && UsuarioId != resposta.UsuarioId)
+            if (resposta.TipoAutor == TipoDoAutor.MORADOR && !Publica && MoradorId != resposta.UsuarioId)
             {
                 AdicionarErrosDaEntidade("Somente o usuário que criou a ocorrência privada pode responder!");
                 return ValidationResult;
@@ -155,11 +155,11 @@ namespace CondominioApp.Ocorrencias.App.Models
 
             titulo = "NOVA OCORRÊNCIA";
 
-            //AdicionarEvento
-            //     (new EnviarPushParaSindicoIntegrationEvent(CondominioId, titulo, Descricao));
+            AdicionarEvento
+                 (new EnviarPushParaSindicoIntegrationEvent(CondominioId, titulo, Descricao));
 
             AdicionarEvento
-                (new EnviarPushParaMoradorIntegrationEvent(UsuarioId, titulo, Descricao));
+                (new EnviarPushParaMoradorIntegrationEvent(MoradorId, titulo, Descricao));
         }
 
     }

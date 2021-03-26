@@ -8,6 +8,7 @@ using CondominioApp.Ocorrencias.App.ViewModels;
 using CondominioApp.Principal.Aplication.Query.Interfaces;
 using CondominioApp.Principal.Domain.FlatModel;
 using CondominioApp.Usuarios.App.Aplication.Query;
+using CondominioApp.Usuarios.App.FlatModel;
 using CondominioApp.Usuarios.App.Models;
 using CondominioApp.WebApi.Core.Controllers;
 using Microsoft.AspNetCore.Mvc;
@@ -229,14 +230,14 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }
 
-            var usuario = await _usuarioQuery.ObterPorId(ocorrenciaVM.UsuarioId);
-            if (usuario == null)
+            var morador = await _usuarioQuery.ObterMoradorPorId(ocorrenciaVM.MoradorId);
+            if (morador == null)
             {
-                AdicionarErroProcessamento("Usuario não encontrado!");
+                AdicionarErroProcessamento("Morador não encontrado!");
                 return CustomResponse();
             }
 
-            var comando = CadastrarOcorrenciaCommandFactory(ocorrenciaVM, usuario, unidade);
+            var comando = CadastrarOcorrenciaCommandFactory(ocorrenciaVM, morador, unidade);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);            
 
@@ -262,14 +263,14 @@ namespace CondominioApp.Api.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var usuario = await _usuarioQuery.ObterPorId(respostaVM.UsuarioId);
-            if (usuario == null)
+            var funcionario = await _usuarioQuery.ObterFuncionarioPorId(respostaVM.FuncionarioId);
+            if (funcionario == null)
             {
-                AdicionarErroProcessamento("Usuario não encontrado!");
+                AdicionarErroProcessamento("Funcionário não encontrado!");
                 return CustomResponse();
             }
 
-            var comando = CadastrarRespostaOcorrenciaSindicoCommandFactory(respostaVM, usuario);
+            var comando = CadastrarRespostaOcorrenciaSindicoCommandFactory(respostaVM, funcionario);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
@@ -282,14 +283,14 @@ namespace CondominioApp.Api.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var usuario = await _usuarioQuery.ObterPorId(respostaVM.UsuarioId);
-            if (usuario == null)
+            var morador = await _usuarioQuery.ObterMoradorPorId(respostaVM.MoradorId);
+            if (morador == null)
             {
-                AdicionarErroProcessamento("Usuario não encontrado!");
+                AdicionarErroProcessamento("Morador não encontrado!");
                 return CustomResponse();
             }
 
-            var comando = CadastrarRespostaOcorrenciaMoradorCommandFactory(respostaVM, usuario);
+            var comando = CadastrarRespostaOcorrenciaMoradorCommandFactory(respostaVM, morador);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
@@ -328,12 +329,12 @@ namespace CondominioApp.Api.Controllers
 
 
         private CadastrarOcorrenciaCommand CadastrarOcorrenciaCommandFactory
-            (CadastraOcorrenciaViewModel ocorrenciaVM, Usuario usuario, UnidadeFlat unidade)
+            (CadastraOcorrenciaViewModel ocorrenciaVM, MoradorFlat morador, UnidadeFlat unidade)
         {           
            return new CadastrarOcorrenciaCommand
                 (ocorrenciaVM.Descricao, ocorrenciaVM.NomeOriginalFoto, ocorrenciaVM.NomeFoto,
                  ocorrenciaVM.Publica, ocorrenciaVM.UnidadeId, unidade.Numero, unidade.Andar, unidade.GrupoDescricao,
-                 ocorrenciaVM.UsuarioId, usuario.NomeCompleto, unidade.CondominioId, unidade.CondominioNome,
+                 ocorrenciaVM.MoradorId, morador.Nome, unidade.CondominioId, unidade.CondominioNome,
                  ocorrenciaVM.Panico);
         }
 
@@ -346,18 +347,18 @@ namespace CondominioApp.Api.Controllers
         }
 
         private CadastrarRespostaOcorrenciaSindicoCommand CadastrarRespostaOcorrenciaSindicoCommandFactory
-          (CadastraRespostaOcorrenciaSindicoViewModel respostaVM, Usuario usuario)
+          (CadastraRespostaOcorrenciaSindicoViewModel respostaVM, FuncionarioFlat funcionario)
         {
             return new CadastrarRespostaOcorrenciaSindicoCommand
-                 (respostaVM.OcorrenciaId, respostaVM.Descricao, respostaVM.UsuarioId, usuario.NomeCompleto,
+                 (respostaVM.OcorrenciaId, respostaVM.Descricao, respostaVM.FuncionarioId, funcionario.Nome,
                  respostaVM.FotoNome, respostaVM.FotoNomeOriginal, respostaVM.Status);
         }
 
         private CadastrarRespostaOcorrenciaMoradorCommand CadastrarRespostaOcorrenciaMoradorCommandFactory
-            (CadastraRespostaOcorrenciaMoradorViewModel respostaVM, Usuario usuario)
+            (CadastraRespostaOcorrenciaMoradorViewModel respostaVM, MoradorFlat morador)
         {
             return new CadastrarRespostaOcorrenciaMoradorCommand
-                 (respostaVM.OcorrenciaId, respostaVM.Descricao, respostaVM.UsuarioId, usuario.NomeCompleto,
+                 (respostaVM.OcorrenciaId, respostaVM.Descricao, respostaVM.MoradorId, morador.Nome,
                  respostaVM.FotoNome, respostaVM.FotoNomeOriginal);
         }
       

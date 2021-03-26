@@ -121,9 +121,9 @@ namespace CondominioApp.Usuarios.App.Aplication.Query
 
         #region Mobile
 
-        public async Task<IEnumerable<Mobile>> ObterMobilesPorUsuario(Guid usuarioId)
+        public async Task<IEnumerable<Mobile>> ObterMobilesPorMoradorFuncionarioId(Guid moradorIdFuncionarioId)
         {
-            return await _usuarioRepository.ObterMobile(v => v.UsuarioId == usuarioId);             
+            return await _usuarioRepository.ObterMobilePorMoradorIdFuncionarioId(moradorIdFuncionarioId);             
         }
 
         public async Task<IEnumerable<Mobile>> ObterTodosOsMobiles()

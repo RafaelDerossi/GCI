@@ -77,7 +77,7 @@ namespace CondominioApp.Ocorrencias.App.Tests
             var ocorrencia = OcorrenciaFactoryTests.Criar_Ocorrencia_Valida();
             var command = RespostaOcorrenciaCommandFactory.CriarComando_CadastroDeRespostaOcorrenciaMorador();
             ocorrencia.SetEntidadeId(command.OcorrenciaId);
-            ocorrencia.SetUsuarioId(command.UsuarioId);
+            ocorrencia.SetMoradorId(command.UsuarioId);
 
             _mocker.GetMock<IOcorrenciaRepository>().Setup(r => r.ObterPorId(command.OcorrenciaId))
                .Returns(Task.FromResult(ocorrencia));
@@ -127,7 +127,7 @@ namespace CondominioApp.Ocorrencias.App.Tests
             var ocorrencia = OcorrenciaFactoryTests.Criar_Ocorrencia_Resolvida_Valido();
             var command = RespostaOcorrenciaCommandFactory.CriarComando_CadastroDeRespostaOcorrenciaMorador();
             ocorrencia.SetEntidadeId(command.OcorrenciaId);
-            ocorrencia.SetUsuarioId(command.UsuarioId);
+            ocorrencia.SetMoradorId(command.UsuarioId);
 
             _mocker.GetMock<IOcorrenciaRepository>().Setup(r => r.ObterPorId(command.OcorrenciaId))
                .Returns(Task.FromResult(ocorrencia));

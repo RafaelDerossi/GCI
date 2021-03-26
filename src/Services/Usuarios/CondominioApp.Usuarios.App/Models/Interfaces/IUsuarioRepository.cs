@@ -41,6 +41,8 @@ namespace CondominioApp.Usuarios.App.Models
 
         Task<IEnumerable<Mobile>> ObterTodosOsMobiles();
 
+        Task<IEnumerable<Mobile>> ObterMobilePorMoradorIdFuncionarioId(Guid id);
+
         void AdicionarMobile(Mobile mobile);
 
         void AtualizarMobile(Mobile mobile);

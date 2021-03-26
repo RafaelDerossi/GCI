@@ -17,7 +17,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
 
         public string Versao { get; protected set; }
 
-        public Guid UsuarioId { get; protected set; }
+        public Guid MoradorFuncionarioId { get; protected set; }
 
 
         public void SetDeviceKey(string deviceKey) => DeviceKey = deviceKey;
@@ -30,7 +30,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
 
         public void SetVersao(string versao) => Versao = versao;
 
-        public void SetUsuarioId(Guid id) => UsuarioId = id;
+        public void SetUsuarioId(Guid id) => MoradorFuncionarioId = id;
 
        
     }

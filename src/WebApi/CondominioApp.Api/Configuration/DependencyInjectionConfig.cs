@@ -344,8 +344,8 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<INotificationHandler<VeiculoRemovidoEvent>, VeiculoEventHandler>();
 
             //Mobile
-            services.AddScoped<IRequestHandler<CadastrarMobileCommand, ValidationResult>, MobileCommandHandler>();
-            services.AddScoped<IRequestHandler<EditarMobileCommand, ValidationResult>, MobileCommandHandler>();
+            services.AddScoped<IRequestHandler<RegistrarMoradorMobileCommand, ValidationResult>, MobileCommandHandler>();
+            services.AddScoped<IRequestHandler<RegistrarFuncionarioMobileCommand, ValidationResult>, MobileCommandHandler>();
 
             #endregion
 

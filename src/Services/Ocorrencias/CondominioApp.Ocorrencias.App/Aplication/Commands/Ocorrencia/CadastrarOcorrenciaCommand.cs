@@ -8,7 +8,7 @@ namespace CondominioApp.Ocorrencias.App.Aplication.Commands
         public CadastrarOcorrenciaCommand
             (string descricao, string nomeOriginalfoto, string nomefoto,
             bool publica, Guid unidadeId, string numeroUnidade, string andarUnidade,
-            string grupoUnidade, Guid usuarioId, string nomeUsuario, Guid condominioId,
+            string grupoUnidade, Guid moradorId, string nomeMorador, Guid condominioId,
             string nomeCondominio, bool panico)
         {            
             Descricao = descricao;            
@@ -17,8 +17,8 @@ namespace CondominioApp.Ocorrencias.App.Aplication.Commands
             NumeroUnidade = numeroUnidade;
             AndarUnidade = andarUnidade;
             GrupoUnidade = grupoUnidade;
-            UsuarioId = usuarioId;
-            NomeUsuario = nomeUsuario;
+            MoradorId = moradorId;
+            NomeMorador = nomeMorador;
             CondominioId = condominioId;
             NomeCondominio = nomeCondominio;
             Panico = panico;            
@@ -43,7 +43,7 @@ namespace CondominioApp.Ocorrencias.App.Aplication.Commands
                 ValidateDescricao();
                 ValidatePublica();
                 ValidateUnidadeId();
-                ValidateUsuarioId();
+                ValidateMoradorId();
                 ValidateCondominioId();
                 ValidatePanico();             
             }

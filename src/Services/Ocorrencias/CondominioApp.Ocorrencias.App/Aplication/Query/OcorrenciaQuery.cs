@@ -39,7 +39,7 @@ namespace CondominioApp.Ocorrencias.App.Aplication.Query
             var dataAtrasada = DataHoraDeBrasilia.Get().AddMonths(meses);
             return await _ocorrenciaRepository.Obter(
                  c => c.CondominioId == condominioId &&
-                      (c.UsuarioId == usuarioId || c.Publica) &&
+                      (c.MoradorId == usuarioId || c.Publica) &&
                       c.DataDeCadastro >= dataAtrasada &&
                       !c.Lixeira, true, take);
         }

@@ -42,7 +42,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Query
         #endregion
 
         #region Mobile
-        Task<IEnumerable<Mobile>> ObterMobilesPorUsuario(Guid usuarioId);
+        Task<IEnumerable<Mobile>> ObterMobilesPorMoradorFuncionarioId(Guid usuarioId);
 
         Task<IEnumerable<Mobile>> ObterTodosOsMobiles();
 

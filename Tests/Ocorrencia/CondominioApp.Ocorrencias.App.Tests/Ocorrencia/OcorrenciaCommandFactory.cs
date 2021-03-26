@@ -52,7 +52,7 @@ namespace CondominioApp.Ocorrencias.App.Tests
         public static CadastrarOcorrenciaCommand CriarComando_CadastroDeOcorrencia_SemUsuario()
         {
             var comando = CadastrarOcorrenciaCommandFactory();
-            comando.SetUsuarioId(Guid.Empty);
+            comando.SetMoradorId(Guid.Empty);
             return comando;
         }
 

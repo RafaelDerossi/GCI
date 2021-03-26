@@ -86,7 +86,7 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
         private Ocorrencia OcorrenciaFactory(CadastrarOcorrenciaCommand request)
         {
             var ocorrencia = new Ocorrencia(
-                request.Descricao, request.Foto, request.Publica, request.UnidadeId, request.UsuarioId,
+                request.Descricao, request.Foto, request.Publica, request.UnidadeId, request.MoradorId,
                 request.CondominioId, request.Panico);
            
             return ocorrencia;

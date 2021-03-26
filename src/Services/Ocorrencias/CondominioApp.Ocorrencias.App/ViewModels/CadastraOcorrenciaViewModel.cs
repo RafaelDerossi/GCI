@@ -10,7 +10,7 @@ namespace CondominioApp.Ocorrencias.App.ViewModels
         public bool Publica { get; set; }
 
         public Guid UnidadeId { get; set; }
-        public Guid UsuarioId { get; set; }                        
+        public Guid MoradorId { get; set; }                        
         
         public bool Panico { get; set; }       
 

@@ -38,7 +38,7 @@ namespace CondominioApp.Ocorrencias.App.Data.Mapping
 
             builder.Property(u => u.CondominioId).IsRequired();
 
-            builder.Property(u => u.UsuarioId).IsRequired();
+            builder.Property(u => u.MoradorId).IsRequired();
 
             builder.Property(u => u.Panico).IsRequired();
             

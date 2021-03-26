@@ -3,17 +3,16 @@ using CondominioApp.Usuarios.App.Aplication.Commands.Validations;
 
 namespace CondominioApp.Usuarios.App.Aplication.Commands
 {
-    public class EditarMobileCommand : MobileCommand
+    public class RegistrarFuncionarioMobileCommand : MobileCommand
     {
-        public EditarMobileCommand(Guid id, string deviceKey, string mobileId, string modelo, string plataforma, string versao, Guid usuarioId)
+        public RegistrarFuncionarioMobileCommand(string deviceKey, string mobileId, string modelo, string plataforma, string versao, Guid funcionarioId)
         {
-            Id = id;
             DeviceKey = deviceKey;
             MobileId = mobileId;
             Modelo = modelo;
             Plataforma = plataforma;
             Versao = versao;
-            UsuarioId = usuarioId;
+            MoradorFuncionarioId = funcionarioId;
         }
 
         public override bool EstaValido()
@@ -21,16 +20,15 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
             if (!ValidationResult.IsValid)
                 return ValidationResult.IsValid;
 
-            ValidationResult = new EditarMobileCommandValidation().Validate(this);
+            ValidationResult = new RegistrarFuncionarioMobileCommandalidation().Validate(this);
             return ValidationResult.IsValid;
         }
 
 
-        public class EditarMobileCommandValidation : MobileValidation<EditarMobileCommand>
+        public class RegistrarFuncionarioMobileCommandalidation : MobileValidation<RegistrarFuncionarioMobileCommand>
         {
-            public EditarMobileCommandValidation()
+            public RegistrarFuncionarioMobileCommandalidation()
             {
-                ValidateId();
                 ValidateDeviceKey();
                 ValidateMobileId();
                 ValidateModelo();                

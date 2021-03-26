@@ -13,6 +13,10 @@
     <Compile Remove="Migrations\20210302201908_AjustesNosUsuarios.Designer.cs" />
     <Compile Remove="Migrations\20210302202147_AjustesNosUsuarios.cs" />
     <Compile Remove="Migrations\20210302202147_AjustesNosUsuarios.Designer.cs" />
+    <Compile Remove="Migrations\20210326135545_AjusteNoMobile.cs" />
+    <Compile Remove="Migrations\20210326135545_AjusteNoMobile.Designer.cs" />
+    <Compile Remove="Migrations\20210326152359_AjusteNaOcorrencia.cs" />
+    <Compile Remove="Migrations\20210326152359_AjusteNaOcorrencia.Designer.cs" />
     <Compile Remove="Migrations\UsuarioQueryContextDBMigrations\20210208143205_VeiculoInitQuery.cs" />
     <Compile Remove="Migrations\UsuarioQueryContextDBMigrations\20210208143205_VeiculoInitQuery.Designer.cs" />
     <Compile Remove="Migrations\UsuarioQueryContextDBMigrations\20210302202234_MoradorEFuncionario.cs" />

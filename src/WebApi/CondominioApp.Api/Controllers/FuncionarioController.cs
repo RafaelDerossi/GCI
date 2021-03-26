@@ -77,6 +77,7 @@ namespace CondominioApp.Api.Controllers
 
         }
 
+        
         [HttpPut("editar-funcionario")]
         public async Task<ActionResult> Put(EditaFuncionarioViewModel editaViewModel)
         {
@@ -100,6 +101,20 @@ namespace CondominioApp.Api.Controllers
 
             return CustomResponse();
 
+        }
+
+
+        [HttpPost("registrar-dispositivo")]
+        public async Task<ActionResult> PostRegistrarDispositivo(CadastraMobileFuncionarioViewModel mobileVM)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            var registrarComando = new RegistrarFuncionarioMobileCommand
+                (mobileVM.DeviceKey, mobileVM.MobileId, mobileVM.Modelo, mobileVM.Plataforma, mobileVM.Versao,
+                mobileVM.FuncionarioId);
+
+            var result = await _mediatorHandler.EnviarComando(registrarComando);
+            return CustomResponse(result);
         }
     }
 }

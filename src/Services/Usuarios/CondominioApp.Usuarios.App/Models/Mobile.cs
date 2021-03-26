@@ -17,21 +17,18 @@ namespace CondominioApp.Usuarios.App.Models
 
         public string Versao { get; private set; }
 
-        public Guid UsuarioId { get; private set; }
-
-        //EF        
-        public Usuario Usuario { get; set; }
+        public Guid MoradorIdFuncionadioId { get; private set; }        
 
         protected Mobile() { }
 
-        public Mobile(string deviceKey, string mobileId, string modelo, string plataforma, string versao, Guid usuarioId)
+        public Mobile(string deviceKey, string mobileId, string modelo, string plataforma, string versao, Guid moradorIdFuncionarioId)
         {
             DeviceKey = deviceKey;
             MobileId = mobileId;
             Modelo = modelo;
             Plataforma = plataforma;
             Versao = versao;
-            UsuarioId = usuarioId;
+            MoradorIdFuncionadioId = moradorIdFuncionarioId;
         }
 
 
@@ -45,6 +42,6 @@ namespace CondominioApp.Usuarios.App.Models
 
         public void SetVersao(string versao) => Versao = versao;
 
-        public void SetUsuarioId(Guid id) => UsuarioId = id;
+        public void SetMoradorIdFuncionarioId(Guid id) => MoradorIdFuncionadioId = id;
     }
 }

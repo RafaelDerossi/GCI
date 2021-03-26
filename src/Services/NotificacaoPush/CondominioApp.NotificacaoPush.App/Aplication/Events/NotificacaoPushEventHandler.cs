@@ -8,6 +8,8 @@ using CondominioApp.NotificacaoPush.App.OneSignalApps;
 using CondominioApp.NotificacaoPush.App.Services.Interfaces;
 using CondominioApp.OneSignal.Recursos;
 using CondominioApp.Usuarios.App.Aplication.Query;
+using CondominioApp.Usuarios.App.Data;
+using CondominioApp.Usuarios.App.Data.Repository;
 using CondominioApp.Usuarios.App.FlatModel;
 using CondominioApp.Usuarios.App.Models;
 using MediatR;
@@ -40,7 +42,7 @@ namespace CondominioApp.Principal.Aplication.Events
 
             foreach (Funcionario funcionario in funcionarios)
             {
-                var dispositivos = await _usuarioQueryRepository.ObterMobilesPorUsuario(funcionario.UsuarioId);
+                var dispositivos = await _usuarioQueryRepository.ObterMobilesPorMoradorFuncionarioId(funcionario.Id);
                 foreach (Mobile dispositivo in dispositivos)
                 {
                     dispositivosIds.Add(dispositivo.DeviceKey.ToString());
@@ -57,7 +59,7 @@ namespace CondominioApp.Principal.Aplication.Events
 
             notificacaoDTO.DispositivosIds = dispositivosIds;
 
-            var retorno =_notificacaoPushService.CriarNotificacao(notificacaoDTO);
+            var retorno =  _notificacaoPushService.CriarNotificacao(notificacaoDTO);
 
             
         }
@@ -66,7 +68,7 @@ namespace CondominioApp.Principal.Aplication.Events
         {
             var dispositivosIds = new List<string>();
 
-            var dispositivos = await _usuarioQueryRepository.ObterMobilesPorUsuario(notification.UsuarioId);
+            var dispositivos = await _usuarioQueryRepository.ObterMobilesPorMoradorFuncionarioId(notification.MoradorId);
             foreach (Mobile dispositivo in dispositivos)
             {
                 dispositivosIds.Add(dispositivo.DeviceKey.ToString());
@@ -83,8 +85,6 @@ namespace CondominioApp.Principal.Aplication.Events
             notificacaoDTO.DispositivosIds = dispositivosIds;
 
             var retorno = _notificacaoPushService.CriarNotificacao(notificacaoDTO);
-
-
         }
 
         public async Task Handle(EnviarPushParaUnidadeIntegrationEvent notification, CancellationToken cancellationToken)
@@ -95,7 +95,7 @@ namespace CondominioApp.Principal.Aplication.Events
 
             foreach (MoradorFlat morador in moradores)
             {
-                var dispositivos = await _usuarioQueryRepository.ObterMobilesPorUsuario(morador.UsuarioId);
+                var dispositivos = await _usuarioQueryRepository.ObterMobilesPorMoradorFuncionarioId(morador.UsuarioId);
                 foreach (Mobile dispositivo in dispositivos)
                 {
                     dispositivosIds.Add(dispositivo.DeviceKey.ToString());
@@ -125,7 +125,7 @@ namespace CondominioApp.Principal.Aplication.Events
 
             foreach (MoradorFlat morador in moradores)
             {
-                var dispositivos = await _usuarioQueryRepository.ObterMobilesPorUsuario(morador.UsuarioId);
+                var dispositivos = await _usuarioQueryRepository.ObterMobilesPorMoradorFuncionarioId(morador.UsuarioId);
                 foreach (Mobile dispositivo in dispositivos)
                 {
                     dispositivosIds.Add(dispositivo.DeviceKey.ToString());

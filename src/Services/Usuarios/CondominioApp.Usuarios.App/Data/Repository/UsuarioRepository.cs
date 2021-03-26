@@ -26,7 +26,7 @@ namespace CondominioApp.Usuarios.App.Data.Repository
 
         public async Task<Usuario> ObterPorId(Guid Id)
         {
-            return await _context.Usuarios.Include(u=>u.Mobiles).Where(u => u.Id == Id && !u.Lixeira).FirstOrDefaultAsync();
+            return await _context.Usuarios.Where(u => u.Id == Id && !u.Lixeira).FirstOrDefaultAsync();
         }
 
         public async Task<IEnumerable<Usuario>> ObterTodos()
@@ -95,7 +95,7 @@ namespace CondominioApp.Usuarios.App.Data.Repository
         #region Morador
         public async Task<Morador> ObterMoradorPorId(Guid id)
         {
-            return await _context.Moradores.Where(u => u.Id == id && !u.Lixeira).FirstOrDefaultAsync();
+            return await _context.Moradores.Where(u => u.Id == id && !u.Lixeira).FirstOrDefaultAsync();            
         }
 
         public async Task<Morador> ObterMoradorPorUsuarioIdEUnidadeId(Guid usuarioId, Guid unidadeId)
@@ -294,6 +294,15 @@ namespace CondominioApp.Usuarios.App.Data.Repository
         {
             return await _context.Mobiles
                                  .AsNoTracking()
+                                 .OrderByDescending(x => x.DataDeCadastro)
+                                 .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Mobile>> ObterMobilePorMoradorIdFuncionarioId(Guid id)
+        {
+            return await _context.Mobiles
+                                 .AsNoTracking()
+                                 .Where(m => m.MoradorIdFuncionadioId == id)
                                  .OrderByDescending(x => x.DataDeCadastro)
                                  .ToListAsync();
         }
