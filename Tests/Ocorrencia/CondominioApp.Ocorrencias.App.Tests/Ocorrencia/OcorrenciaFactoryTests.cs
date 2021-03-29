@@ -1,4 +1,5 @@
-﻿using CondominioApp.Ocorrencias.App.Models;
+﻿using CondominioApp.Core.Enumeradores;
+using CondominioApp.Ocorrencias.App.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -22,8 +23,9 @@ namespace CondominioApp.Ocorrencias.App.Tests
         public static Ocorrencia Criar_Ocorrencia_EmAndamento_Valido()
         {
             var ocorrencia = Factory();
-            
-            ocorrencia.ColocarEmAndamento();
+
+            var resposta = RespostaOcorrenciaFactoryTests.Criar_RespostaOcorrencia_Sindico_Valida();
+            ocorrencia.AdicionarRespostaDeSindico(resposta, StatusDaOcorrencia.EM_ANDAMENTO);
 
             return ocorrencia;
         }
@@ -32,7 +34,8 @@ namespace CondominioApp.Ocorrencias.App.Tests
         {
             var ocorrencia = Factory();
 
-            ocorrencia.MarcarComoResolvida();
+            var resposta = RespostaOcorrenciaFactoryTests.Criar_RespostaOcorrencia_Sindico_Valida();
+            ocorrencia.AdicionarRespostaDeSindico(resposta, StatusDaOcorrencia.RESOLVIDA);
 
             return ocorrencia;
         }

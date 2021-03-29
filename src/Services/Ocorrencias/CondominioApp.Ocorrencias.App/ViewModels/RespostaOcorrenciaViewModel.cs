@@ -19,7 +19,7 @@ namespace CondominioApp.Ocorrencias.App.Models
 
         public string TipoAutor { get; set; }
 
-        public Guid UsuarioId { get; set; }
+        public Guid MoradorIdFuncionarioId { get; set; }
 
         public string NomeUsuario { get; set; }
 

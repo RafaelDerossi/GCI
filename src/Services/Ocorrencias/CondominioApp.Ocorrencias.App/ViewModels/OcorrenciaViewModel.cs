@@ -27,8 +27,10 @@ namespace CondominioApp.Ocorrencias.App.ViewModels
 
         public Guid UnidadeId { get; set; }
 
-        public Guid UsuarioId { get; set; }    
-        
+        public Guid MoradorId { get; set; }
+
+        public string NomeMorador { get; set; }
+
         public Guid CondominioId { get; set; }       
         
         public bool Panico { get;  set; }              
