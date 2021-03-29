@@ -15,6 +15,7 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
     public class RespostaOcorrenciaCommandHandler : CommandHandler,
          IRequestHandler<CadastrarRespostaOcorrenciaSindicoCommand, ValidationResult>,
          IRequestHandler<CadastrarRespostaOcorrenciaMoradorCommand, ValidationResult>,
+         IRequestHandler<EditarRespostaOcorrenciaCommand, ValidationResult>,
          IRequestHandler<MarcarRespostaOcorrenciaComoVistaCommand, ValidationResult>,
          IDisposable
     {
@@ -46,6 +47,8 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
             if (!retorno.IsValid)
                 return retorno;
 
+            resposta.EnviarPushParaMorador(ocorrencia.MoradorId, request.Status);
+
             _ocorrenciaRepository.AdicionarResposta(resposta);            
 
             _ocorrenciaRepository.Atualizar(ocorrencia);
@@ -71,6 +74,8 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
             if (!retorno.IsValid)
                 return retorno;
 
+            resposta.EnviarPushParaSindico(ocorrencia.CondominioId);
+
             _ocorrenciaRepository.AdicionarResposta(resposta);
 
             return await PersistirDados(_ocorrenciaRepository.UnitOfWork);
@@ -94,6 +99,30 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
 
             return await PersistirDados(_ocorrenciaRepository.UnitOfWork);
         }
+
+
+        public async Task<ValidationResult> Handle(EditarRespostaOcorrenciaCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido())
+                return request.ValidationResult;
+
+            var resposta = await _ocorrenciaRepository.ObterRespostaPorId(request.Id);
+            if (resposta == null)
+            {
+                AdicionarErro("Resposta não encontrada!");
+                return ValidationResult;
+            }
+
+            var retorno = resposta.Editar(request.Descricao, request.Foto, request.MoradorIdFuncionarioId);
+            if (!retorno.IsValid)
+                return retorno;
+
+            _ocorrenciaRepository.AdicionarResposta(resposta);
+
+            return await PersistirDados(_ocorrenciaRepository.UnitOfWork);
+        }
+
+
 
 
         private RespostaOcorrencia RespostaOcorrenciaFactory(RespostaOcorrenciaCommand request)

@@ -198,7 +198,7 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<IRequestHandler<CadastrarRespostaOcorrenciaMoradorCommand, ValidationResult>, RespostaOcorrenciaCommandHandler>();
             services.AddScoped<IRequestHandler<CadastrarRespostaOcorrenciaSindicoCommand, ValidationResult>, RespostaOcorrenciaCommandHandler>();
             services.AddScoped<IRequestHandler<MarcarRespostaOcorrenciaComoVistaCommand, ValidationResult>, RespostaOcorrenciaCommandHandler>();
-
+            services.AddScoped<IRequestHandler<EditarRespostaOcorrenciaCommand, ValidationResult>, RespostaOcorrenciaCommandHandler>();
             #endregion
 
 

@@ -2,6 +2,7 @@
 using CondominioApp.Core.Enumeradores;
 using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents;
 using CondominioApp.Ocorrencias.App.ValueObjects;
+using FluentValidation.Results;
 using System;
 
 namespace CondominioApp.Ocorrencias.App.Models
@@ -41,9 +42,18 @@ namespace CondominioApp.Ocorrencias.App.Models
 
         public void MarcarComoVisto() => Visto = true;
 
-        public void SetDescricao(string descricao) => Descricao = descricao;
 
-        public void EnviarPushOcorrenciaEmAndamento(Guid moradorId)
+
+        public void EnviarPushParaMorador(Guid moradorId, StatusDaOcorrencia statusDaOcorrencia)
+        {
+            if (statusDaOcorrencia == StatusDaOcorrencia.EM_ANDAMENTO)
+                EnviarPushOcorrenciaEmAndamento(moradorId);
+
+            if (statusDaOcorrencia == StatusDaOcorrencia.RESOLVIDA)
+                EnviarPushOcorrenciaResolvida(moradorId);
+        }
+
+        private void EnviarPushOcorrenciaEmAndamento(Guid moradorId)
         {
             var titulo = "OCORRÊNCIA EM ANDAMENTO";
 
@@ -51,7 +61,7 @@ namespace CondominioApp.Ocorrencias.App.Models
                 (new EnviarPushParaMoradorIntegrationEvent(moradorId, titulo, Descricao));
         }
 
-        public void EnviarPushOcorrenciaResolvida(Guid moradorId)
+        private void EnviarPushOcorrenciaResolvida(Guid moradorId)
         {
             var titulo = "OCORRÊNCIA RESOLVIDA";
 
@@ -59,12 +69,33 @@ namespace CondominioApp.Ocorrencias.App.Models
                 (new EnviarPushParaMoradorIntegrationEvent(moradorId, titulo, Descricao));
         }
 
-        public void EnviarPushNovaMsgDeMorador(Guid condominioId)
+        public void EnviarPushParaSindico(Guid condominioId)
         {
             var titulo = "OCORRÊNCIA RESPONDIDA";
 
             AdicionarEvento
                 (new EnviarPushParaSindicoIntegrationEvent(condominioId, titulo, Descricao));
+        }
+
+
+        public ValidationResult Editar(string descricao, Foto foto, Guid moradorIdFuncionarioId)
+        {
+            if (MoradorIdFuncionarioId != moradorIdFuncionarioId)
+            {
+                AdicionarErrosDaEntidade("Usuário não corresponde ao que criou a resposta.");
+                return ValidationResult;
+            }
+
+            if (Visto)
+            {
+                AdicionarErrosDaEntidade("Resposta não pode mais ser editada.");
+                return ValidationResult;
+            }
+
+            Descricao = descricao;
+            Foto = foto;
+
+            return ValidationResult;
         }
 
     }

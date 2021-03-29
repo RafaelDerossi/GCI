@@ -218,6 +218,7 @@ namespace CondominioApp.Api.Controllers
 
 
 
+
         [HttpPost]
         public async Task<ActionResult> Post(CadastraOcorrenciaViewModel ocorrenciaVM)
         {
@@ -258,8 +259,22 @@ namespace CondominioApp.Api.Controllers
 
         }
 
+        [HttpDelete("remover/{ocorrenciaId:Guid}")]
+        public async Task<ActionResult> RemoverOcorrencia(Guid ocorrenciaId)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            var comando = new RemoverOcorrenciaCommand(ocorrenciaId);
+
+            var Resultado = await _mediatorHandler.EnviarComando(comando);
+
+            return CustomResponse(Resultado);
+
+        }
+
+
         [HttpPost("resposta-sindico")]
-        public async Task<ActionResult> PutRespostaSindico(CadastraRespostaOcorrenciaSindicoViewModel respostaVM)
+        public async Task<ActionResult> PostRespostaSindico(CadastraRespostaOcorrenciaSindicoViewModel respostaVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
@@ -279,7 +294,7 @@ namespace CondominioApp.Api.Controllers
         }
 
         [HttpPost("resposta-morador")]
-        public async Task<ActionResult> PutRespostaMorador(CadastraRespostaOcorrenciaMoradorViewModel respostaVM)
+        public async Task<ActionResult> PostRespostaMorador(CadastraRespostaOcorrenciaMoradorViewModel respostaVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
@@ -311,19 +326,21 @@ namespace CondominioApp.Api.Controllers
 
         }
 
-
-        [HttpDelete("remover/{ocorrenciaId:Guid}")]
-        public async Task<ActionResult> RemoverOcorrencia(Guid ocorrenciaId)
+        [HttpPut("resposta")]
+        public async Task<ActionResult> PutResposta(EditarRespostaOcorrenciaViewModel respostaVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var comando = new RemoverOcorrenciaCommand(ocorrenciaId);
+            var comando = new EditarRespostaOcorrenciaCommand
+                (respostaVM.Id, respostaVM.MoradorIdFuncionarioId, respostaVM.Descricao, 
+                respostaVM.NomeFoto, respostaVM.NomeOriginalFoto);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
             return CustomResponse(Resultado);
 
         }
+
 
 
 

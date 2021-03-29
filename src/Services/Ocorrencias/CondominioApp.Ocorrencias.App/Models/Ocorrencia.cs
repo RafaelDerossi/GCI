@@ -100,8 +100,6 @@ namespace CondominioApp.Ocorrencias.App.Models
                 var retornoOcorrencia = ColocarEmAndamento();
                 if (!retornoOcorrencia.IsValid)
                     return retornoOcorrencia;
-
-                resposta.EnviarPushOcorrenciaEmAndamento(MoradorId);
             }
 
             if (novoStatus == StatusDaOcorrencia.RESOLVIDA)
@@ -109,8 +107,6 @@ namespace CondominioApp.Ocorrencias.App.Models
                 var retornoOcorrencia = MarcarComoResolvida();
                 if (!retornoOcorrencia.IsValid)
                     return retornoOcorrencia;
-
-                resposta.EnviarPushOcorrenciaResolvida(MoradorId);
             }           
 
             _Respostas.Add(resposta);
@@ -132,8 +128,6 @@ namespace CondominioApp.Ocorrencias.App.Models
                 AdicionarErrosDaEntidade("Ocorrência já está resolvida!");
                 return ValidationResult;
             }
-
-            resposta.EnviarPushNovaMsgDeMorador(CondominioId);
 
             _Respostas.Add(resposta);
 
