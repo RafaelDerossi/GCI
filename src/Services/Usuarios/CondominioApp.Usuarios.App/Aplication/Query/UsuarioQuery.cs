@@ -56,11 +56,21 @@ namespace CondominioApp.Usuarios.App.Aplication.Query
             var retorno = await _moradorQueryRepository.Obter(m => m.UnidadeId == unidadeId && !m.Lixeira);
             return retorno.ToList();
         }
+
+        public async Task<IEnumerable<MoradorFlat>> ObterProprietariosPorCondominioId(Guid condominioId)
+        {
+            var retorno = await _moradorQueryRepository.Obter
+                (m => m.CondominioId == condominioId &&
+                 m.Proprietario &&
+                !m.Lixeira);
+            return retorno.ToList();
+        }
+
         #endregion
 
 
         #region Funcionario
-        
+
         public async Task<FuncionarioFlat> ObterFuncionarioPorId(Guid id)
         {
             return await _funcionarioQueryRepository.ObterPorId(id);

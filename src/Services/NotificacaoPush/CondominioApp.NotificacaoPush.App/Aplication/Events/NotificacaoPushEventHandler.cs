@@ -8,8 +8,6 @@ using CondominioApp.NotificacaoPush.App.OneSignalApps;
 using CondominioApp.NotificacaoPush.App.Services.Interfaces;
 using CondominioApp.OneSignal.Recursos;
 using CondominioApp.Usuarios.App.Aplication.Query;
-using CondominioApp.Usuarios.App.Data;
-using CondominioApp.Usuarios.App.Data.Repository;
 using CondominioApp.Usuarios.App.FlatModel;
 using CondominioApp.Usuarios.App.Models;
 using MediatR;
@@ -22,6 +20,8 @@ namespace CondominioApp.Principal.Aplication.Events
         INotificationHandler<EnviarPushParaMoradorIntegrationEvent>,
         INotificationHandler<EnviarPushParaUnidadeIntegrationEvent>,
         INotificationHandler<EnviarPushParaCondominioIntegrationEvent>,
+        INotificationHandler<EnviarPushParaProprietariosIntegrationEvent>,
+        INotificationHandler<EnviarPushParaProprietariosPorUnidadeIntegrationEvent>,
         INotificationHandler<EnviarPushParaTodosIntegrationEvent>,
         System.IDisposable
     {
@@ -83,6 +83,28 @@ namespace CondominioApp.Principal.Aplication.Events
 
         }
 
+        public async Task Handle(EnviarPushParaProprietariosIntegrationEvent notification, CancellationToken cancellationToken)
+        {
+            var dispositivosIds = await ObterDispositivosIds(notification.CondominioId);
+
+            var notificacaoDTO = new NotificacaoPushDTO(new MoradorOneSignalApp(), dispositivosIds);
+
+            notificacaoDTO.AdicionarMensagem(CodigosDeLingua.English, notification.Titulo, notification.Conteudo);
+
+            _notificacaoPushService.CriarNotificacao(notificacaoDTO);
+        }
+
+        public async Task Handle(EnviarPushParaProprietariosPorUnidadeIntegrationEvent notification, CancellationToken cancellationToken)
+        {
+            var dispositivosIds = await ObterDispositivosIds(notification.CondominioId);
+
+            var notificacaoDTO = new NotificacaoPushDTO(new MoradorOneSignalApp(), dispositivosIds);
+
+            notificacaoDTO.AdicionarMensagem(CodigosDeLingua.English, notification.Titulo, notification.Conteudo);
+
+            _notificacaoPushService.CriarNotificacao(notificacaoDTO);
+        }
+
         public async Task Handle(EnviarPushParaTodosIntegrationEvent notification, CancellationToken cancellationToken)
         {
             var dispositivosIds = await ObterDispositivosIdsDeTodos();
@@ -131,6 +153,24 @@ namespace CondominioApp.Principal.Aplication.Events
             var dispositivosIds = new List<string>();
 
             foreach (MoradorFlat morador in moradores)
+            {
+                var dispositivos = await _usuarioQueryRepository.ObterMobilesPorMoradorFuncionarioId(morador.UsuarioId);
+                foreach (Mobile dispositivo in dispositivos)
+                {
+                    dispositivosIds.Add(dispositivo.DeviceKey.ToString());
+                }
+            }
+
+            return dispositivosIds;
+        }
+
+        private async Task<List<string>> ObterDispositivosIdsDosProprietarios(System.Guid condominioId)
+        {
+            var proprietarios = await _usuarioQueryRepository.ObterProprietariosPorCondominioId(condominioId);
+
+            var dispositivosIds = new List<string>();
+
+            foreach (MoradorFlat morador in proprietarios)
             {
                 var dispositivos = await _usuarioQueryRepository.ObterMobilesPorMoradorFuncionarioId(morador.UsuarioId);
                 foreach (Mobile dispositivo in dispositivos)
