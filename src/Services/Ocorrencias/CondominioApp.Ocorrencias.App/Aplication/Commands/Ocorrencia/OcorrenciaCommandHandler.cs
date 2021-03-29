@@ -87,6 +87,8 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
             return await PersistirDados(_ocorrenciaRepository.UnitOfWork);
         }
 
+
+
         private Ocorrencia OcorrenciaFactory(CadastrarOcorrenciaCommand request)
         {
             var ocorrencia = new Ocorrencia(
@@ -95,6 +97,7 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
            
             return ocorrencia;
         }
+
 
         public void Dispose()
         {

@@ -38,111 +38,60 @@ namespace CondominioApp.Principal.Aplication.Events
         {
             var funcionario = await _usuarioQueryRepository.ObterSindicoPorCondominioId(notification.CondominioId);
 
-            var dispositivosIds = await ObterDispositivosIds(funcionario.Id);           
+            var dispositivosIds = await ObterDispositivosIds(funcionario.Id);
 
-            var notificacaoDTO = new NotificacaoPushDTO();            
-            
-            notificacaoDTO.AppOneSignal = new SindicoOneSignalApp();                                       
+            var notificacaoDTO = new NotificacaoPushDTO(new SindicoOneSignalApp(), dispositivosIds);
 
-            notificacaoDTO.Titulos.Add(CodigosDeLingua.English, notification.Titulo);
+            notificacaoDTO.AdicionarMensagem(CodigosDeLingua.English, notification.Titulo, notification.Conteudo);
 
-            notificacaoDTO.Conteudo.Add(CodigosDeLingua.English, notification.Conteudo);
-
-            notificacaoDTO.DispositivosIds = dispositivosIds;
-
-            var retorno =  _notificacaoPushService.CriarNotificacao(notificacaoDTO);
-
+            _notificacaoPushService.CriarNotificacao(notificacaoDTO);
             
         }
 
         public async Task Handle(EnviarPushParaMoradorIntegrationEvent notification, CancellationToken cancellationToken)
         {
             var dispositivosIds = await ObterDispositivosIds(notification.MoradorId);
-           
-            var notificacaoDTO = new NotificacaoPushDTO();
 
-            notificacaoDTO.AppOneSignal = new MoradorOneSignalApp();
+            var notificacaoDTO = new NotificacaoPushDTO(new MoradorOneSignalApp(), dispositivosIds);
 
-            notificacaoDTO.Titulos.Add(CodigosDeLingua.English, notification.Titulo);
+            notificacaoDTO.AdicionarMensagem(CodigosDeLingua.English, notification.Titulo, notification.Conteudo);
 
-            notificacaoDTO.Conteudo.Add(CodigosDeLingua.English, notification.Conteudo);
-
-            notificacaoDTO.DispositivosIds = dispositivosIds;
-
-            var retorno = _notificacaoPushService.CriarNotificacao(notificacaoDTO);
+            _notificacaoPushService.CriarNotificacao(notificacaoDTO);
         }
 
         public async Task Handle(EnviarPushParaUnidadeIntegrationEvent notification, CancellationToken cancellationToken)
         {
             var dispositivosIds = await ObterDispositivosIdsPorUnidade(notification.UnidadeId);
-            
-            var notificacaoDTO = new NotificacaoPushDTO();
 
-            notificacaoDTO.AppOneSignal = new MoradorOneSignalApp();
+            var notificacaoDTO = new NotificacaoPushDTO(new MoradorOneSignalApp(), dispositivosIds);
 
-            notificacaoDTO.Titulos.Add(CodigosDeLingua.English, notification.Titulo);
+            notificacaoDTO.AdicionarMensagem(CodigosDeLingua.English, notification.Titulo, notification.Conteudo);                       
 
-            notificacaoDTO.Conteudo.Add(CodigosDeLingua.English, notification.Conteudo);
-
-            notificacaoDTO.DispositivosIds = dispositivosIds;
-
-            var retorno = _notificacaoPushService.CriarNotificacao(notificacaoDTO);
-
+            _notificacaoPushService.CriarNotificacao(notificacaoDTO);
 
         }
 
         public async Task Handle(EnviarPushParaCondominioIntegrationEvent notification, CancellationToken cancellationToken)
         {
-            var moradores = await _usuarioQueryRepository.ObterMoradoresPorCondominioId(notification.CondominioId);
+            var dispositivosIds = await ObterDispositivosIdsPorCondominio(notification.CondominioId);          
 
-            var dispositivosIds = new List<string>();
+            var notificacaoDTO = new NotificacaoPushDTO(new MoradorOneSignalApp(), dispositivosIds);
 
-            foreach (MoradorFlat morador in moradores)
-            {
-                var dispositivos = await _usuarioQueryRepository.ObterMobilesPorMoradorFuncionarioId(morador.UsuarioId);
-                foreach (Mobile dispositivo in dispositivos)
-                {
-                    dispositivosIds.Add(dispositivo.DeviceKey.ToString());
-                }
-            }
+            notificacaoDTO.AdicionarMensagem(CodigosDeLingua.English, notification.Titulo, notification.Conteudo);
 
-            var notificacaoDTO = new NotificacaoPushDTO();
-
-            notificacaoDTO.AppOneSignal = new MoradorOneSignalApp();
-
-            notificacaoDTO.Titulos.Add(CodigosDeLingua.English, notification.Titulo);
-
-            notificacaoDTO.Conteudo.Add(CodigosDeLingua.English, notification.Conteudo);
-
-            notificacaoDTO.DispositivosIds = dispositivosIds;
-
-            var retorno = _notificacaoPushService.CriarNotificacao(notificacaoDTO);
-
+            _notificacaoPushService.CriarNotificacao(notificacaoDTO);
 
         }
 
         public async Task Handle(EnviarPushParaTodosIntegrationEvent notification, CancellationToken cancellationToken)
         {
-            var dispositivosIds = new List<string>();
+            var dispositivosIds = await ObterDispositivosIdsDeTodos();
 
-            var dispositivos = await _usuarioQueryRepository.ObterTodosOsMobiles();
-            foreach (Mobile dispositivo in dispositivos)
-            {
-                dispositivosIds.Add(dispositivo.DeviceKey.ToString());
-            }
+            var notificacaoDTO = new NotificacaoPushDTO(new MoradorOneSignalApp(), dispositivosIds);
 
-            var notificacaoDTO = new NotificacaoPushDTO();
+            notificacaoDTO.AdicionarMensagem(CodigosDeLingua.English, notification.Titulo, notification.Conteudo);
 
-            notificacaoDTO.AppOneSignal = new MoradorOneSignalApp();
-
-            notificacaoDTO.Titulos.Add(CodigosDeLingua.English, notification.Titulo);
-
-            notificacaoDTO.Conteudo.Add(CodigosDeLingua.English, notification.Conteudo);
-
-            notificacaoDTO.DispositivosIds = dispositivosIds;
-
-            var retorno = _notificacaoPushService.CriarNotificacao(notificacaoDTO);
-
+            _notificacaoPushService.CriarNotificacao(notificacaoDTO);
 
         }
 
@@ -174,6 +123,36 @@ namespace CondominioApp.Principal.Aplication.Events
             }
             return dispositivosIds;
         }
+
+        private async Task<List<string>> ObterDispositivosIdsPorCondominio(System.Guid condominioId)
+        {
+            var moradores = await _usuarioQueryRepository.ObterMoradoresPorCondominioId(condominioId);
+
+            var dispositivosIds = new List<string>();
+
+            foreach (MoradorFlat morador in moradores)
+            {
+                var dispositivos = await _usuarioQueryRepository.ObterMobilesPorMoradorFuncionarioId(morador.UsuarioId);
+                foreach (Mobile dispositivo in dispositivos)
+                {
+                    dispositivosIds.Add(dispositivo.DeviceKey.ToString());
+                }
+            }
+
+            return dispositivosIds;
+        }
+
+        private async Task<List<string>> ObterDispositivosIdsDeTodos()
+        {
+            var dispositivosIds = new List<string>();
+            var dispositivos = await _usuarioQueryRepository.ObterTodosOsMobiles();
+            foreach (Mobile dispositivo in dispositivos)
+            {
+                dispositivosIds.Add(dispositivo.DeviceKey.ToString());
+            }
+            return dispositivosIds;
+        }
+
 
         public void Dispose()
         {
