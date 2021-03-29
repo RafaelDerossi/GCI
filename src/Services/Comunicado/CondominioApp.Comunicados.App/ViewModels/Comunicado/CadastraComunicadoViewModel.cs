@@ -17,7 +17,7 @@ namespace CondominioApp.Comunicados.App.ViewModels
 
         public Guid CondominioId { get; set; }
 
-        public Guid UsuarioId { get; set; }
+        public Guid FuncionarioId { get; set; }
 
         public VisibilidadeComunicado Visibilidade { get; set; }
 

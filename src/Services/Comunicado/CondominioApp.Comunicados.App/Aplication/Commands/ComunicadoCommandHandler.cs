@@ -65,8 +65,8 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
             }
 
             var retornotoEdicao = comunicado.Editar
-                (request.Titulo, request.Descricao, request.DataDeRealizacao, request.UsuarioId,
-                 request.NomeUsuario, request.Visibilidade, request.Categoria, request.Unidades);
+                (request.Titulo, request.Descricao, request.DataDeRealizacao, request.FuncionarioId,
+                 request.NomeFuncionario, request.Visibilidade, request.Categoria, request.Unidades);
             if (!retornotoEdicao.IsValid)
                 return retornotoEdicao;
 
@@ -111,7 +111,7 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
         {
             var comunicado = new Comunicado(
                 request.Titulo, request.Descricao, request.DataDeRealizacao, request.CondominioId, 
-                request.NomeCondominio, request.UsuarioId, request.NomeUsuario, request.Visibilidade,
+                request.NomeCondominio, request.FuncionarioId, request.NomeFuncionario, request.Visibilidade,
                 request.Categoria, request.TemAnexos, request.CriadoPelaAdministradora);
 
             comunicado.SetEntidadeId(request.ComunicadoId);

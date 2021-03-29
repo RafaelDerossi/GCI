@@ -22,6 +22,7 @@ namespace CondominioApp.Principal.Aplication.Events
         INotificationHandler<EnviarPushParaCondominioIntegrationEvent>,
         INotificationHandler<EnviarPushParaProprietariosIntegrationEvent>,
         INotificationHandler<EnviarPushParaProprietariosPorUnidadeIntegrationEvent>,
+        INotificationHandler<EnviarPushParaUnidadesIntegrationEvent>,
         INotificationHandler<EnviarPushParaTodosIntegrationEvent>,
         System.IDisposable
     {
@@ -85,7 +86,7 @@ namespace CondominioApp.Principal.Aplication.Events
 
         public async Task Handle(EnviarPushParaProprietariosIntegrationEvent notification, CancellationToken cancellationToken)
         {
-            var dispositivosIds = await ObterDispositivosIds(notification.CondominioId);
+            var dispositivosIds = await ObterDispositivosIdsDosProprietarios(notification.CondominioId);
 
             var notificacaoDTO = new NotificacaoPushDTO(new MoradorOneSignalApp(), dispositivosIds);
 
@@ -96,7 +97,18 @@ namespace CondominioApp.Principal.Aplication.Events
 
         public async Task Handle(EnviarPushParaProprietariosPorUnidadeIntegrationEvent notification, CancellationToken cancellationToken)
         {
-            var dispositivosIds = await ObterDispositivosIds(notification.CondominioId);
+            var dispositivosIds = await ObterDispositivosIdsDeProprietariosPorUnidade(notification.UnidadeIds);
+
+            var notificacaoDTO = new NotificacaoPushDTO(new MoradorOneSignalApp(), dispositivosIds);
+
+            notificacaoDTO.AdicionarMensagem(CodigosDeLingua.English, notification.Titulo, notification.Conteudo);
+
+            _notificacaoPushService.CriarNotificacao(notificacaoDTO);
+        }
+
+        public async Task Handle(EnviarPushParaUnidadesIntegrationEvent notification, CancellationToken cancellationToken)
+        {
+            var dispositivosIds = await ObterDispositivosIdsPorUnidades(notification.UnidadeIds);
 
             var notificacaoDTO = new NotificacaoPushDTO(new MoradorOneSignalApp(), dispositivosIds);
 
@@ -116,6 +128,8 @@ namespace CondominioApp.Principal.Aplication.Events
             _notificacaoPushService.CriarNotificacao(notificacaoDTO);
 
         }
+
+
 
 
         private async Task<List<string>> ObterDispositivosIds(System.Guid moradorIdFuncionarioId)
@@ -176,6 +190,48 @@ namespace CondominioApp.Principal.Aplication.Events
                 foreach (Mobile dispositivo in dispositivos)
                 {
                     dispositivosIds.Add(dispositivo.DeviceKey.ToString());
+                }
+            }
+
+            return dispositivosIds;
+        }
+
+        private async Task<List<string>> ObterDispositivosIdsDeProprietariosPorUnidade(IEnumerable<System.Guid> unidadeIds)
+        {
+            var dispositivosIds = new List<string>();
+
+            foreach (var item in unidadeIds)
+            {
+                var moradores = await _usuarioQueryRepository.ObterProprietariosPorUnidadeId(item);               
+
+                foreach (MoradorFlat morador in moradores)
+                {
+                    var dispositivos = await _usuarioQueryRepository.ObterMobilesPorMoradorFuncionarioId(morador.UsuarioId);
+                    foreach (Mobile dispositivo in dispositivos)
+                    {
+                        dispositivosIds.Add(dispositivo.DeviceKey.ToString());
+                    }
+                }
+            }
+            
+            return dispositivosIds;
+        }
+
+        private async Task<List<string>> ObterDispositivosIdsPorUnidades(IEnumerable<System.Guid> unidadeIds)
+        {
+            var dispositivosIds = new List<string>();
+
+            foreach (var item in unidadeIds)
+            {
+                var moradores = await _usuarioQueryRepository.ObterMoradoresPorUnidadeId(item);
+
+                foreach (MoradorFlat morador in moradores)
+                {
+                    var dispositivos = await _usuarioQueryRepository.ObterMobilesPorMoradorFuncionarioId(morador.UsuarioId);
+                    foreach (Mobile dispositivo in dispositivos)
+                    {
+                        dispositivosIds.Add(dispositivo.DeviceKey.ToString());
+                    }
                 }
             }
 

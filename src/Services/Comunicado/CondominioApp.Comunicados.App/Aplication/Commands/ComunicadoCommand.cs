@@ -21,9 +21,9 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
 
         public string NomeCondominio { get; protected set; }
 
-        public Guid UsuarioId { get; protected set; }
+        public Guid FuncionarioId { get; protected set; }
 
-        public string NomeUsuario { get; protected set; }
+        public string NomeFuncionario { get; protected set; }
 
         public VisibilidadeComunicado Visibilidade { get; protected set; }
 
@@ -54,8 +54,8 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
 
         public void SetUsuario(Guid id, string nome)
         {
-            UsuarioId = id;
-            NomeUsuario = nome;
+            FuncionarioId = id;
+            NomeFuncionario = nome;
         }
 
         public void SetVisibilidade(VisibilidadeComunicado visibilidade) => Visibilidade = visibilidade;

@@ -19,6 +19,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Query
         Task<IEnumerable<MoradorFlat>> ObterMoradoresPorCondominioId(Guid condominioId);
         Task<IEnumerable<MoradorFlat>> ObterMoradoresPorUnidadeId(Guid unidadeId);
         Task<IEnumerable<MoradorFlat>> ObterProprietariosPorCondominioId(Guid condominioId);
+        Task<IEnumerable<MoradorFlat>> ObterProprietariosPorUnidadeId(Guid unidadeId);
         #endregion
 
         #region Funcionario

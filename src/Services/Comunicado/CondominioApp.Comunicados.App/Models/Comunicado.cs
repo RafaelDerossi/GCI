@@ -23,9 +23,9 @@ namespace CondominioApp.Comunicados.App.Models
         public string NomeCondominio { get; private set; }
 
 
-        public Guid UsuarioId { get; private set; }
+        public Guid FuncionarioId { get; private set; }
 
-        public string NomeUsuario { get; private set; }
+        public string NomeFuncionario { get; private set; }
 
         public VisibilidadeComunicado  Visibilidade { get; private set; }
 
@@ -48,8 +48,8 @@ namespace CondominioApp.Comunicados.App.Models
 
         public Comunicado
             (string titulo, string descricao, DateTime? dataDeRealizacao, Guid condominioId, string nomeCondominio,
-            Guid usuarioId, string nomeUsuario, VisibilidadeComunicado visibilidade, CategoriaComunicado categoria,
-            bool temAnexos, bool criadoPelaAdministradora)
+            Guid funcionarioId, string nomeFuncionario, VisibilidadeComunicado visibilidade,
+            CategoriaComunicado categoria, bool temAnexos, bool criadoPelaAdministradora)
         {
             _Unidades = new List<UnidadeComunicado>();
 
@@ -58,8 +58,8 @@ namespace CondominioApp.Comunicados.App.Models
             DataDeRealizacao = dataDeRealizacao;
             CondominioId = condominioId;
             NomeCondominio = nomeCondominio;
-            UsuarioId = usuarioId;
-            NomeUsuario = nomeUsuario;
+            FuncionarioId = funcionarioId;
+            NomeFuncionario = nomeFuncionario;
             Visibilidade = visibilidade;
             Categoria = categoria;
             TemAnexos = temAnexos;
@@ -76,10 +76,10 @@ namespace CondominioApp.Comunicados.App.Models
 
         public void SetDataDeRealizacao(DateTime? dataDeRealizacao) => DataDeRealizacao = dataDeRealizacao;
 
-        public void SetUsuario(Guid usuarioId, string nomeUsuario)
+        public void SetFuncionario(Guid funcionarioId, string nomeFuncionario)
         {
-            UsuarioId = usuarioId;
-            NomeUsuario = nomeUsuario;
+            FuncionarioId = funcionarioId;
+            NomeFuncionario = nomeFuncionario;
         }
 
         public void SetVisibilidade(VisibilidadeComunicado visibilidade) => Visibilidade = visibilidade;
@@ -129,14 +129,14 @@ namespace CondominioApp.Comunicados.App.Models
         }
 
 
-        public ValidationResult Editar(string titulo, string descricao, DateTime? dataDeRealizacao, Guid usuarioId,
-            string nomeUsuario, VisibilidadeComunicado visibilidade, CategoriaComunicado categoria,
+        public ValidationResult Editar(string titulo, string descricao, DateTime? dataDeRealizacao, Guid funcionarioId,
+            string nomeFuncionario, VisibilidadeComunicado visibilidade, CategoriaComunicado categoria,
             IEnumerable<UnidadeComunicado> unidades)
         {
             SetTitulo(titulo);
             SetDescricao(descricao);
             SetDataDeRealizacao(dataDeRealizacao);
-            SetUsuario(usuarioId, nomeUsuario);          
+            SetFuncionario(funcionarioId, nomeFuncionario);          
             SetVisibilidade(visibilidade);
             SetCategoria(categoria);
 
@@ -153,33 +153,51 @@ namespace CondominioApp.Comunicados.App.Models
             var titulo = "NOVO COMUNICADO";
             var descricao = $"{Titulo} - {Descricao}";
 
+
             if (Visibilidade == VisibilidadeComunicado.PUBLICO)
+            {
                 AdicionarEvento
-                    (new EnviarPushParaCondominioIntegrationEvent(CondominioId, titulo, descricao));
+                   (new EnviarPushParaCondominioIntegrationEvent(CondominioId, titulo, descricao));
+                return;
+            }               
+
 
             if (Visibilidade == VisibilidadeComunicado.UNIDADES)
             {
-                foreach (var item in Unidades)
-                {
-                    AdicionarEvento
-                        (new EnviarPushParaUnidadeIntegrationEvent(item.UnidadeId, titulo, descricao));
-                }
+                var lista = ObterIdsDasUnidades();
+                AdicionarEvento
+                        (new EnviarPushParaUnidadesIntegrationEvent(lista, titulo, descricao));
+                return;
             }
 
+
             if (Visibilidade == VisibilidadeComunicado.PROPRIETARIOS)
+            {
                 AdicionarEvento
                     (new EnviarPushParaProprietariosIntegrationEvent(CondominioId, titulo, descricao));
+                return;
+            }                
            
 
             if (Visibilidade == VisibilidadeComunicado.PROPRIETARIOS_UNIDADES)
             {
-                foreach (var item in Unidades)
-                {
-                    AdicionarEvento
-                        (new EnviarPushParaProprietariosPorUnidadeIntegrationEvent(item.UnidadeId, titulo, descricao));
-                }
+                var lista = ObterIdsDasUnidades();
+                AdicionarEvento
+                   (new EnviarPushParaProprietariosPorUnidadeIntegrationEvent(lista, titulo, descricao));
             }
+               
+         
 
+        }
+
+        private IEnumerable<Guid> ObterIdsDasUnidades()
+        {
+            var lista = new List<Guid>();
+            foreach (var item in Unidades)
+            {
+                lista.Add(item.UnidadeId);
+            }
+            return lista;
         }
     }
 }

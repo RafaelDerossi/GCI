@@ -11,6 +11,7 @@ using CondominioApp.Core.Mediator;
 using CondominioApp.Principal.Aplication.Query.Interfaces;
 using CondominioApp.Principal.Domain.FlatModel;
 using CondominioApp.Usuarios.App.Aplication.Query;
+using CondominioApp.Usuarios.App.FlatModel;
 using CondominioApp.Usuarios.App.Models;
 using CondominioApp.WebApi.Core.Controllers;
 using Microsoft.AspNetCore.Mvc;
@@ -167,14 +168,14 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }
 
-            var usuario = await _usuarioQuery.ObterPorId(comunicadoVM.UsuarioId);
-            if (usuario == null)
+            var funcionario = await _usuarioQuery.ObterFuncionarioPorId(comunicadoVM.FuncionarioId);
+            if (funcionario == null)
             {
-                AdicionarErroProcessamento("Usuario não encontrado!");
+                AdicionarErroProcessamento("Funcionário não encontrado!");
                 return CustomResponse();
             }
 
-            var comando = CadastrarComunicadoCommandFactory(comunicadoVM, condominio, usuario);
+            var comando = CadastrarComunicadoCommandFactory(comunicadoVM, condominio, funcionario);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
@@ -200,10 +201,10 @@ namespace CondominioApp.Api.Controllers
             if (!ModelState.IsValid) return CustomResponse(ModelState);
                         
 
-            var usuario = await _usuarioQuery.ObterPorId(comunicadoVM.UsuarioId);
-            if (usuario == null)
+            var funcionario = await _usuarioQuery.ObterFuncionarioPorId(comunicadoVM.FuncionarioId);
+            if (funcionario == null)
             {
-                AdicionarErroProcessamento("Usuario não encontrado!");
+                AdicionarErroProcessamento("Funcionário não encontrado!");
                 return CustomResponse();
             }
 
@@ -214,7 +215,7 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }
 
-            var comando = EditarComunicadoCommandFactory(comunicadoVM, usuario);
+            var comando = EditarComunicadoCommandFactory(comunicadoVM, funcionario);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
@@ -267,7 +268,7 @@ namespace CondominioApp.Api.Controllers
         #region Metodos Auxiliares
 
         private CadastrarComunicadoCommand CadastrarComunicadoCommandFactory
-            (CadastraComunicadoViewModel comunicadoVM, CondominioFlat condominio, Usuario usuario)
+            (CadastraComunicadoViewModel comunicadoVM, CondominioFlat condominio, FuncionarioFlat funcionario)
         {
             var listaUnidadesComunicado = new List<UnidadeComunicado>();
             if (comunicadoVM.UnidadesId != null)
@@ -277,7 +278,8 @@ namespace CondominioApp.Api.Controllers
                     var unidade = _principalQuery.ObterUnidadePorId(unidadeId).Result;
                     if (unidade != null)
                     {
-                        var unidadeComunicado = new UnidadeComunicado(unidade.Id, unidade.Numero, unidade.Andar, unidade.GrupoId, unidade.GrupoDescricao);
+                        var unidadeComunicado = new UnidadeComunicado
+                            (unidade.Id, unidade.Numero, unidade.Andar, unidade.GrupoId, unidade.GrupoDescricao);
                         listaUnidadesComunicado.Add(unidadeComunicado);
                     }                        
                 }
@@ -285,12 +287,13 @@ namespace CondominioApp.Api.Controllers
            
            return new CadastrarComunicadoCommand(
                 comunicadoVM.Titulo, comunicadoVM.Descricao, comunicadoVM.DataDeRealizacao,
-                comunicadoVM.CondominioId, condominio.Nome, usuario.Id,
-                usuario.NomeCompleto, comunicadoVM.Visibilidade, comunicadoVM.Categoria,
+                comunicadoVM.CondominioId, condominio.Nome, funcionario.Id,
+                funcionario.Nome, comunicadoVM.Visibilidade, comunicadoVM.Categoria,
                 comunicadoVM.TemAnexos, comunicadoVM.CriadoPelaAdministradora, listaUnidadesComunicado);
         }
 
-        private EditarComunicadoCommand EditarComunicadoCommandFactory(EditaComunicadoViewModel comunicadoVM, Usuario usuario)
+        private EditarComunicadoCommand EditarComunicadoCommandFactory
+            (EditaComunicadoViewModel comunicadoVM, FuncionarioFlat funcionario)
         {
             var listaUnidadesComunicado = new List<UnidadeComunicado>();
             if (comunicadoVM.UnidadesId != null)
@@ -310,7 +313,7 @@ namespace CondominioApp.Api.Controllers
             //Edita Comunicado
             return new EditarComunicadoCommand(
                 comunicadoVM.ComunicadoId, comunicadoVM.Titulo, comunicadoVM.Descricao, comunicadoVM.DataDeRealizacao,
-                usuario.Id, usuario.NomeCompleto, comunicadoVM.Visibilidade, comunicadoVM.Categoria,
+                funcionario.Id, funcionario.Nome, comunicadoVM.Visibilidade, comunicadoVM.Categoria,
                 comunicadoVM.TemAnexos, listaUnidadesComunicado);
 
         }
@@ -350,8 +353,8 @@ namespace CondominioApp.Api.Controllers
                 arquivoPublico = true;
 
             return new CadastrarArquivoCommand
-                (anexo.NomeOriginal, anexo.Tamanho, pastaId, arquivoPublico, comunicadoCommand.UsuarioId,
-                 comunicadoCommand.NomeUsuario, "Anexo de Comunicado", "", comunicadoCommand.ComunicadoId);
+                (anexo.NomeOriginal, anexo.Tamanho, pastaId, arquivoPublico, comunicadoCommand.FuncionarioId,
+                 comunicadoCommand.NomeFuncionario, "Anexo de Comunicado", "", comunicadoCommand.ComunicadoId);
         }
 
 

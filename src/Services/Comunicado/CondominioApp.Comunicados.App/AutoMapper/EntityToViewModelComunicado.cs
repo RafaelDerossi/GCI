@@ -17,8 +17,8 @@ namespace CondominioApp.Comunicados.App.AutoMapper
                 .ForMember(c => c.DataDeRealizacao, p => p.MapFrom(x => x.DataDeRealizacao))
                 .ForMember(c => c.CondominioId, p => p.MapFrom(x => x.CondominioId))
                 .ForMember(c => c.NomeCondominio, p => p.MapFrom(x => x.NomeCondominio))
-                .ForMember(c => c.UsuarioId, p => p.MapFrom(x => x.UsuarioId))
-                .ForMember(c => c.NomeUsuario, p => p.MapFrom(x => x.NomeUsuario))
+                .ForMember(c => c.FuncionarioId, p => p.MapFrom(x => x.FuncionarioId))
+                .ForMember(c => c.NomeFuncionario, p => p.MapFrom(x => x.NomeFuncionario))
                 .ForMember(c => c.Visibilidade, p => p.MapFrom(x => x.Visibilidade))
                 .ForMember(c => c.Categoria, p => p.MapFrom(x => x.Categoria))
                 .ForMember(c => c.CriadoPelaAdministradora, p => p.MapFrom(x => x.CriadoPelaAdministradora));

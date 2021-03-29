@@ -15,7 +15,7 @@ namespace CondominioApp.Comunicados.App.ViewModels
 
         public string NomeCondominio { get; set; }       
 
-        public string NomeUsuario { get; set; }        
+        public string NomeFuncionario { get; set; }        
 
         public IEnumerable<UnidadeComunicadoViewModel> Unidades { get; set; }
 
@@ -28,7 +28,7 @@ namespace CondominioApp.Comunicados.App.ViewModels
 
         public Guid CondominioId { get; set; }
 
-        public Guid UsuarioId { get; set; }
+        public Guid FuncionarioId { get; set; }
 
         public VisibilidadeComunicado Visibilidade { get; set; }
 

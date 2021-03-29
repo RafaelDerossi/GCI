@@ -10,8 +10,8 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
     public class EditarComunicadoCommand : ComunicadoCommand
     {
         public EditarComunicadoCommand
-            (Guid comunicadoId, string titulo, string descricao, DateTime? dataDeRealizacao, Guid usuarioId,
-            string nomeUsuario, VisibilidadeComunicado visibilidade, CategoriaComunicado categoria,
+            (Guid comunicadoId, string titulo, string descricao, DateTime? dataDeRealizacao, Guid funcionarioId,
+            string nomeFuncionario, VisibilidadeComunicado visibilidade, CategoriaComunicado categoria,
             bool temAnexos, IEnumerable<UnidadeComunicado> unidades)
         {
             Unidades = new List<UnidadeComunicado>();
@@ -19,8 +19,8 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
             Titulo = titulo;
             Descricao = descricao;
             DataDeRealizacao = dataDeRealizacao;
-            UsuarioId = usuarioId;
-            NomeUsuario = nomeUsuario;
+            FuncionarioId = funcionarioId;
+            NomeFuncionario = nomeFuncionario;
             Visibilidade = visibilidade;
             Categoria = categoria;
             TemAnexos = temAnexos;
@@ -45,8 +45,8 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
                 ValidateId();                
                 ValidateTitulo();
                 ValidateDescricao();
-                ValidateUsuarioId();
-                ValidateNomeUsuario();
+                ValidateFuncionarioId();
+                ValidateNomeFuncionario();
                 ValidateVisibilidade();
                 ValidateCategoria();
                 ValidateTemAnexos();

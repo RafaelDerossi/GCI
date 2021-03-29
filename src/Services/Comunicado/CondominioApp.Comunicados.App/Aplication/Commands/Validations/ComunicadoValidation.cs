@@ -41,16 +41,16 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands.Validations
                   .Length(2, 200).WithMessage("Descricao do comunicado deve ter entre 2 e 200 caracteres!");
         }
         
-        protected void ValidateUsuarioId()
+        protected void ValidateFuncionarioId()
         {
-            RuleFor(c => c.UsuarioId)
+            RuleFor(c => c.FuncionarioId)
                 .NotEqual(Guid.Empty)
                 .WithMessage("Usuario não pode estar vazio!");
         }
 
-        protected void ValidateNomeUsuario()
+        protected void ValidateNomeFuncionario()
         {
-            RuleFor(c => c.NomeUsuario)
+            RuleFor(c => c.NomeFuncionario)
                   .NotNull()
                   .NotEmpty();
         }
