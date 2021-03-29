@@ -37,25 +37,18 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
             {
                 AdicionarErro("Ocorrência não encontrada!");
                 return ValidationResult;
-            }
+            }              
 
+           
             var resposta = RespostaOcorrenciaFactory(request);
 
-            var retorno = ocorrencia.AdicionarResposta(resposta);
+            var retorno = ocorrencia.AdicionarRespostaDeSindico(resposta, request.Status);
             if (!retorno.IsValid)
                 return retorno;
 
-            _ocorrenciaRepository.AdicionarResposta(resposta);
-
-
-            if (request.Status == StatusDaOcorrencia.EM_ANDAMENTO)
-                ocorrencia.ColocarEmAndamento();
-
-            if (request.Status == StatusDaOcorrencia.RESOLVIDA)
-                ocorrencia.MarcarComoResolvida();
+            _ocorrenciaRepository.AdicionarResposta(resposta);            
 
             _ocorrenciaRepository.Atualizar(ocorrencia);
-
 
             return await PersistirDados(_ocorrenciaRepository.UnitOfWork);
         }
@@ -74,7 +67,7 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
 
             var resposta = RespostaOcorrenciaFactory(request);
             
-            var retorno = ocorrencia.AdicionarResposta(resposta);
+            var retorno = ocorrencia.AdicionarRespostaDeMorador(resposta);
             if (!retorno.IsValid)
                 return retorno;
 
@@ -106,7 +99,7 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
         private RespostaOcorrencia RespostaOcorrenciaFactory(RespostaOcorrenciaCommand request)
         {
             var ocorrencia = new RespostaOcorrencia(
-                request.OcorrenciaId, request.Descricao, request.TipoAutor, request.UsuarioId,
+                request.OcorrenciaId, request.Descricao, request.TipoAutor, request.MoradorIdFuncionarioId,
                 request.NomeUsuario, request.Visto, request.Foto);
            
             return ocorrencia;

@@ -12,7 +12,7 @@ namespace CondominioApp.Ocorrencias.App.Aplication.Commands
         public Guid OcorrenciaId { get; protected set; }
         public string Descricao { get; protected set; }
         public TipoDoAutor TipoAutor { get; protected set; }
-        public Guid UsuarioId { get; protected set; }
+        public Guid MoradorIdFuncionarioId { get; protected set; }
         public string NomeUsuario { get; protected set; }
         public bool Visto { get; protected set; }
         public Foto Foto { get; protected set; }       
@@ -35,7 +35,7 @@ namespace CondominioApp.Ocorrencias.App.Aplication.Commands
             }
         }
 
-        public void SetUsuarioId(Guid id) => UsuarioId = id;
+        public void SetUsuarioId(Guid id) => MoradorIdFuncionarioId = id;
 
         public void MarcarComoVisto() => Visto = true;
 

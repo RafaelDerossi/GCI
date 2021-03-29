@@ -7,13 +7,13 @@ namespace CondominioApp.Ocorrencias.App.Aplication.Commands
     public class CadastrarRespostaOcorrenciaMoradorCommand : RespostaOcorrenciaCommand
     {
         public CadastrarRespostaOcorrenciaMoradorCommand
-            (Guid ocorrenciaId, string descricao, Guid usuarioId, string nomeUsuario,
+            (Guid ocorrenciaId, string descricao, Guid moradorIdFuncionarioId, string nomeUsuario,
              string fotoNome, string fotoNomeOriginal)
         {
             OcorrenciaId = ocorrenciaId;
             Descricao = descricao;
             TipoAutor = TipoDoAutor.MORADOR;
-            UsuarioId = usuarioId;
+            MoradorIdFuncionarioId = moradorIdFuncionarioId;
             NomeUsuario = nomeUsuario;
             SetFoto(fotoNomeOriginal, fotoNome);            
         }
@@ -35,7 +35,7 @@ namespace CondominioApp.Ocorrencias.App.Aplication.Commands
             {
                 ValidateOcorrenciaId();
                 ValidateDescricao();
-                ValidateUsuarioId();
+                ValidateMoradorIdFuncionarioId();
 
             }
         }

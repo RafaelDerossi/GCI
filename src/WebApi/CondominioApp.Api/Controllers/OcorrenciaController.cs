@@ -258,7 +258,7 @@ namespace CondominioApp.Api.Controllers
 
         }
 
-        [HttpPut("resposta-sindico")]
+        [HttpPost("resposta-sindico")]
         public async Task<ActionResult> PutRespostaSindico(CadastraRespostaOcorrenciaSindicoViewModel respostaVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
@@ -278,7 +278,7 @@ namespace CondominioApp.Api.Controllers
 
         }
 
-        [HttpPut("resposta-morador")]
+        [HttpPost("resposta-morador")]
         public async Task<ActionResult> PutRespostaMorador(CadastraRespostaOcorrenciaMoradorViewModel respostaVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
@@ -351,7 +351,7 @@ namespace CondominioApp.Api.Controllers
         {
             return new CadastrarRespostaOcorrenciaSindicoCommand
                  (respostaVM.OcorrenciaId, respostaVM.Descricao, respostaVM.FuncionarioId, funcionario.Nome,
-                 respostaVM.FotoNome, respostaVM.FotoNomeOriginal, respostaVM.Status);
+                 respostaVM.FotoNome, respostaVM.FotoNomeOriginal, respostaVM.StatusDaOcorrencia);
         }
 
         private CadastrarRespostaOcorrenciaMoradorCommand CadastrarRespostaOcorrenciaMoradorCommandFactory

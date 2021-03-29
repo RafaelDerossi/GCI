@@ -40,6 +40,8 @@ namespace CondominioApp.Ocorrencias.App.Data.Mapping
 
             builder.Property(u => u.MoradorId).IsRequired();
 
+            builder.Property(u => u.NomeMorador).IsRequired().HasColumnType($"varchar({Ocorrencia.Max})");
+
             builder.Property(u => u.Panico).IsRequired();
             
         }

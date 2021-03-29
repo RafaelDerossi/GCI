@@ -44,6 +44,7 @@ namespace CondominioApp.Ocorrencias.App.Aplication.Commands
                 ValidatePublica();
                 ValidateUnidadeId();
                 ValidateMoradorId();
+                ValidateNomeMorador();
                 ValidateCondominioId();
                 ValidatePanico();             
             }

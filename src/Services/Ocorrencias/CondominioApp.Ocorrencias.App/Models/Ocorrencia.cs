@@ -22,8 +22,9 @@ namespace CondominioApp.Ocorrencias.App.Models
         public DateTime? DataResolucao { get; private set; }
 
         public Guid UnidadeId { get; private set; }
-        public Guid MoradorId { get; private set; }                
-        public Guid CondominioId { get; private set; }       
+        public Guid MoradorId { get; private set; }
+        public string NomeMorador { get; set; }
+        public Guid CondominioId { get; private set; }
         
         public bool Panico { get; private set; }
 
@@ -38,7 +39,7 @@ namespace CondominioApp.Ocorrencias.App.Models
         }
         public Ocorrencia
             (string descricao, Foto foto, bool publica, Guid unidadeId,
-            Guid moradorId, Guid condominioId, bool panico)
+            Guid moradorId, string nomeMorador, Guid condominioId, bool panico)
         {
             _Respostas = new List<RespostaOcorrencia>();
             Descricao = descricao;
@@ -46,6 +47,7 @@ namespace CondominioApp.Ocorrencias.App.Models
             Publica = publica;
             UnidadeId = unidadeId;
             MoradorId = moradorId;
+            NomeMorador = nomeMorador;
             CondominioId = condominioId;            
             Panico = panico;
         }
@@ -76,33 +78,88 @@ namespace CondominioApp.Ocorrencias.App.Models
         public void DesmarcarComoOcorrenciaDePanico() => Panico = false;
 
 
-        public void ColocarEmAndamento()
+       
+
+
+        public ValidationResult AdicionarRespostaDeSindico(RespostaOcorrencia resposta, StatusDaOcorrencia novoStatus)
         {
-            Status = StatusDaOcorrencia.EM_ANDAMENTO;            
+            if (resposta.TipoAutor == TipoDoAutor.MORADOR)
+            {
+                AdicionarErrosDaEntidade("Autor da resposta inválido!");
+                return ValidationResult;
+            }
+
+            if (novoStatus == StatusDaOcorrencia.PENDENTE)
+            {
+                AdicionarErrosDaEntidade("Novo Status da Ocorrência deve ser 'Em Andamento' ou  'Resolvida'!");
+                return ValidationResult;
+            }
+
+            if (novoStatus == StatusDaOcorrencia.EM_ANDAMENTO)
+            {
+                var retornoOcorrencia = ColocarEmAndamento();
+                if (!retornoOcorrencia.IsValid)
+                    return retornoOcorrencia;
+
+                resposta.EnviarPushOcorrenciaEmAndamento(MoradorId);
+            }
+
+            if (novoStatus == StatusDaOcorrencia.RESOLVIDA)
+            {
+                var retornoOcorrencia = MarcarComoResolvida();
+                if (!retornoOcorrencia.IsValid)
+                    return retornoOcorrencia;
+
+                resposta.EnviarPushOcorrenciaResolvida(MoradorId);
+            }           
+
+            _Respostas.Add(resposta);
+
+            return ValidationResult;
         }
 
-        public void MarcarComoResolvida()
+        public ValidationResult AdicionarRespostaDeMorador(RespostaOcorrencia resposta)
         {
-            Status = StatusDaOcorrencia.RESOLVIDA;
-            DataResolucao = DataHoraDeBrasilia.Get();
-        }
 
-        public ValidationResult AdicionarResposta(RespostaOcorrencia resposta)
-        {
+            if (resposta.TipoAutor == TipoDoAutor.MORADOR && !Publica && MoradorId != resposta.MoradorIdFuncionarioId)
+            {
+                AdicionarErrosDaEntidade("Somente o usuário que criou a ocorrência privada pode responder!");
+                return ValidationResult;
+            }
+
             if (Status == StatusDaOcorrencia.RESOLVIDA)
             {
                 AdicionarErrosDaEntidade("Ocorrência já está resolvida!");
                 return ValidationResult;
             }
 
-            if (resposta.TipoAutor == TipoDoAutor.MORADOR && !Publica && MoradorId != resposta.UsuarioId)
-            {
-                AdicionarErrosDaEntidade("Somente o usuário que criou a ocorrência privada pode responder!");
-                return ValidationResult;
-            }
+            resposta.EnviarPushNovaMsgDeMorador(CondominioId);
 
             _Respostas.Add(resposta);
 
+            return ValidationResult;
+        }
+
+        private ValidationResult ColocarEmAndamento()
+        {
+            if (Status == StatusDaOcorrencia.RESOLVIDA)
+            {
+                AdicionarErrosDaEntidade("Ocorrência já está resolvida!");
+                return ValidationResult;
+            }
+            Status = StatusDaOcorrencia.EM_ANDAMENTO;
+            return ValidationResult;
+        }
+
+        private ValidationResult MarcarComoResolvida()
+        {
+            if (Status == StatusDaOcorrencia.RESOLVIDA)
+            {
+                AdicionarErrosDaEntidade("Ocorrência já está resolvida!");
+                return ValidationResult;
+            }
+            Status = StatusDaOcorrencia.RESOLVIDA;
+            DataResolucao = DataHoraDeBrasilia.Get();
             return ValidationResult;
         }
 
@@ -136,6 +193,7 @@ namespace CondominioApp.Ocorrencias.App.Models
 
             return ValidationResult;
         }
+
 
         public void EnviarPushNovaOcorrencia()
         {
@@ -184,5 +242,6 @@ namespace CondominioApp.Ocorrencias.App.Models
             AdicionarEvento
                 (new EnviarPushParaMoradorIntegrationEvent(MoradorId, titulo, Descricao));
         }
+       
     }
 }

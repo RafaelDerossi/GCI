@@ -15,7 +15,7 @@ namespace CondominioApp.Ocorrencias.App.Models
 
         public string FotoNomeOriginal { get; set; }
 
-        public StatusDaOcorrencia Status { get; set; }
+        public StatusDaOcorrencia StatusDaOcorrencia { get; set; }
 
     }
 }

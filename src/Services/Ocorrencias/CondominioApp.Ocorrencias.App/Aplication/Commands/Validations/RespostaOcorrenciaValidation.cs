@@ -23,9 +23,9 @@ namespace CondominioApp.Ocorrencias.App.Aplication.Commands.Validations
                   .Length(2, 200).WithMessage("Descricao da resposta deve ter entre 2 e 200 caracteres!");
         }        
 
-        protected void ValidateUsuarioId()
+        protected void ValidateMoradorIdFuncionarioId()
         {
-            RuleFor(c => c.UsuarioId)
+            RuleFor(c => c.MoradorIdFuncionarioId)
                 .NotEqual(Guid.Empty);
         }       
        

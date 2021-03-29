@@ -44,6 +44,14 @@ namespace CondominioApp.Ocorrencias.App.Aplication.Commands.Validations
                 .NotEqual(Guid.Empty);
         }
 
+        protected void ValidateNomeMorador()
+        {
+            RuleFor(c => c.Descricao)
+                  .NotNull()
+                  .NotEmpty().WithMessage("Nome do Morador não pode estar vazio!")
+                  .Length(2, 200).WithMessage("Nome do Morador deve ter entre 2 e 200 caracteres!");
+        }
+
         protected void ValidateCondominioId()
         {
             RuleFor(c => c.CondominioId)

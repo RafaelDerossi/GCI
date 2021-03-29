@@ -93,7 +93,7 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
         {
             var ocorrencia = new Ocorrencia(
                 request.Descricao, request.Foto, request.Publica, request.UnidadeId, request.MoradorId,
-                request.CondominioId, request.Panico);
+                request.NomeMorador, request.CondominioId, request.Panico);
            
             return ocorrencia;
         }

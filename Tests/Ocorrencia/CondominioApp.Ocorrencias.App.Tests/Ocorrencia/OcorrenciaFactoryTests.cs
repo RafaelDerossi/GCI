@@ -11,7 +11,7 @@ namespace CondominioApp.Ocorrencias.App.Tests
         {
             return new Ocorrencia
                 ("Descrição da ocorrencia", new App.ValueObjects.Foto("foto.jpg", "foto.jpg"),
-                false, Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(), false);
+                false, Guid.NewGuid(), Guid.NewGuid(), "Nome do Morador", Guid.NewGuid(), false);
         }
 
         public static Ocorrencia Criar_Ocorrencia_Valida()
