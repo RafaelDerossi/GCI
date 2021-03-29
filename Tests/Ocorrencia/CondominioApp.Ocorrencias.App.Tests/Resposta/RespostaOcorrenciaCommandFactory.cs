@@ -19,7 +19,14 @@ namespace CondominioApp.Ocorrencias.App.Tests
             return new CadastrarRespostaOcorrenciaMoradorCommand(
                 Guid.NewGuid(), "Descricao da Ocorrencia", Guid.NewGuid(), "Nome do Usuario", "fotonome.jpg",
                 "fotoNome.jpg");
-        }       
+        }
+
+        private static EditarRespostaOcorrenciaCommand EditarRespostaOcorrenciaCommandFactory()
+        {
+            return new EditarRespostaOcorrenciaCommand(
+                Guid.NewGuid(), Guid.NewGuid(), "Nova Descricao", "fotonome.jpg",
+                "fotoNome.jpg");
+        }
 
 
 
@@ -97,5 +104,11 @@ namespace CondominioApp.Ocorrencias.App.Tests
             return comando;
         }
 
+
+
+        public static EditarRespostaOcorrenciaCommand CriarComando_EdicaoDeRespostaOcorrencia()
+        {
+            return EditarRespostaOcorrenciaCommandFactory();
+        }
     }
 }

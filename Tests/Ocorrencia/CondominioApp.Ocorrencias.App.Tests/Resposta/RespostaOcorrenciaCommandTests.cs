@@ -133,5 +133,20 @@ namespace CondominioApp.Ocorrencias.App.Tests
             //Assert
             Assert.True(result);
         }
+
+        [Fact(DisplayName = "Editar RespostaOcorrencia - Válido")]
+        [Trait("Categoria", "EditarRespostaOcorrenciaCommand")]
+        public void EdicaoDeRespostaOcorrencia_CommandoValido_DevePassarNaValidacao()
+        {
+            //Arrange
+            var comando = RespostaOcorrenciaCommandFactory.CriarComando_EdicaoDeRespostaOcorrencia();
+
+            //Act
+            var result = comando.EstaValido();
+
+            //Assert
+            Assert.True(result);
+        }
+
     }
 }

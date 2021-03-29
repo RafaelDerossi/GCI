@@ -143,6 +143,54 @@ namespace CondominioApp.Ocorrencias.App.Tests
 
         }
 
+        [Fact(DisplayName = "Editar RespostaOcorrencia Válido")]
+        [Trait("Categoria", "RespostasOcorrencias - RespostaOcorrenciaCommandHandler")]
+        public async Task EditarRespostaOcorrencia_CommandoValido_DevePassarNaValidacao()
+        {
+            //Arrange
+            var resposta = RespostaOcorrenciaFactoryTests.Criar_RespostaOcorrencia_Morador_Valido();
+            var command = RespostaOcorrenciaCommandFactory.CriarComando_EdicaoDeRespostaOcorrencia();
+            resposta.SetEntidadeId(command.OcorrenciaId);
+            resposta.SetMoradorIdFuncionarioId(command.MoradorIdFuncionarioId);
 
+            _mocker.GetMock<IOcorrenciaRepository>().Setup(r => r.ObterRespostaPorId(command.Id))
+               .Returns(Task.FromResult(resposta));
+
+            _mocker.GetMock<IOcorrenciaRepository>().Setup(r => r.UnitOfWork.Commit())
+               .Returns(Task.FromResult(true));
+
+            //Act
+            var result = await _respostaOcorrenciaCommandCommandHandler.Handle(command, CancellationToken.None);
+
+            //Assert
+            Assert.True(result.IsValid);
+            _mocker.GetMock<IOcorrenciaRepository>().Verify(r => r.AtualizarResposta(It.IsAny<RespostaOcorrencia>()), Times.Once);
+            _mocker.GetMock<IOcorrenciaRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
+        }
+
+        [Fact(DisplayName = "Editar RespostaOcorrencia ja vista - Inválido")]
+        [Trait("Categoria", "RespostasOcorrencias - RespostaOcorrenciaCommandHandler")]
+        public async Task EditarRespostaOcorrencia_JaVista_CommandoInvalido_NaoDevePassarNaValidacao()
+        {
+            //Arrange
+            var resposta = RespostaOcorrenciaFactoryTests.Criar_RespostaOcorrencia_Morador_Valido();
+            var command = RespostaOcorrenciaCommandFactory.CriarComando_EdicaoDeRespostaOcorrencia();
+            resposta.SetEntidadeId(command.OcorrenciaId);
+            resposta.SetMoradorIdFuncionarioId(command.MoradorIdFuncionarioId);
+            resposta.MarcarComoVisto();
+
+            _mocker.GetMock<IOcorrenciaRepository>().Setup(r => r.ObterRespostaPorId(command.Id))
+               .Returns(Task.FromResult(resposta));
+
+            _mocker.GetMock<IOcorrenciaRepository>().Setup(r => r.UnitOfWork.Commit())
+               .Returns(Task.FromResult(true));
+
+            //Act
+            var result = await _respostaOcorrenciaCommandCommandHandler.Handle(command, CancellationToken.None);
+
+            //Assert
+            Assert.False(result.IsValid);
+            
+        }
     }
 }

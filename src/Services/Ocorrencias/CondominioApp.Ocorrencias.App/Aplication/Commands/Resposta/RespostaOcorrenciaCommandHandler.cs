@@ -100,7 +100,6 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
             return await PersistirDados(_ocorrenciaRepository.UnitOfWork);
         }
 
-
         public async Task<ValidationResult> Handle(EditarRespostaOcorrenciaCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido())
@@ -117,7 +116,7 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
             if (!retorno.IsValid)
                 return retorno;
 
-            _ocorrenciaRepository.AdicionarResposta(resposta);
+            _ocorrenciaRepository.AtualizarResposta(resposta);
 
             return await PersistirDados(_ocorrenciaRepository.UnitOfWork);
         }

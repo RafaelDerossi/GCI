@@ -42,8 +42,7 @@ namespace CondominioApp.Ocorrencias.App.Models
 
         public void MarcarComoVisto() => Visto = true;
 
-
-
+        public void SetMoradorIdFuncionarioId(Guid id) => MoradorIdFuncionarioId = id;
         public void EnviarPushParaMorador(Guid moradorId, StatusDaOcorrencia statusDaOcorrencia)
         {
             if (statusDaOcorrencia == StatusDaOcorrencia.EM_ANDAMENTO)
