@@ -151,7 +151,7 @@ namespace CondominioApp.Principal.Aplication.Events
 
             foreach (MoradorFlat morador in moradores)
             {
-                var dispositivos = await _usuarioQueryRepository.ObterMobilesPorMoradorFuncionarioId(morador.UsuarioId);
+                var dispositivos = await _usuarioQueryRepository.ObterMobilesPorMoradorFuncionarioId(morador.Id);
                 foreach (Mobile dispositivo in dispositivos)
                 {
                     dispositivosIds.Add(dispositivo.DeviceKey.ToString());
@@ -168,7 +168,7 @@ namespace CondominioApp.Principal.Aplication.Events
 
             foreach (MoradorFlat morador in moradores)
             {
-                var dispositivos = await _usuarioQueryRepository.ObterMobilesPorMoradorFuncionarioId(morador.UsuarioId);
+                var dispositivos = await _usuarioQueryRepository.ObterMobilesPorMoradorFuncionarioId(morador.Id);
                 foreach (Mobile dispositivo in dispositivos)
                 {
                     dispositivosIds.Add(dispositivo.DeviceKey.ToString());
@@ -186,7 +186,7 @@ namespace CondominioApp.Principal.Aplication.Events
 
             foreach (MoradorFlat morador in proprietarios)
             {
-                var dispositivos = await _usuarioQueryRepository.ObterMobilesPorMoradorFuncionarioId(morador.UsuarioId);
+                var dispositivos = await _usuarioQueryRepository.ObterMobilesPorMoradorFuncionarioId(morador.Id);
                 foreach (Mobile dispositivo in dispositivos)
                 {
                     dispositivosIds.Add(dispositivo.DeviceKey.ToString());
@@ -206,7 +206,7 @@ namespace CondominioApp.Principal.Aplication.Events
 
                 foreach (MoradorFlat morador in moradores)
                 {
-                    var dispositivos = await _usuarioQueryRepository.ObterMobilesPorMoradorFuncionarioId(morador.UsuarioId);
+                    var dispositivos = await _usuarioQueryRepository.ObterMobilesPorMoradorFuncionarioId(morador.Id);
                     foreach (Mobile dispositivo in dispositivos)
                     {
                         dispositivosIds.Add(dispositivo.DeviceKey.ToString());
@@ -227,7 +227,7 @@ namespace CondominioApp.Principal.Aplication.Events
 
                 foreach (MoradorFlat morador in moradores)
                 {
-                    var dispositivos = await _usuarioQueryRepository.ObterMobilesPorMoradorFuncionarioId(morador.UsuarioId);
+                    var dispositivos = await _usuarioQueryRepository.ObterMobilesPorMoradorFuncionarioId(morador.Id);
                     foreach (Mobile dispositivo in dispositivos)
                     {
                         dispositivosIds.Add(dispositivo.DeviceKey.ToString());
