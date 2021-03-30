@@ -222,7 +222,7 @@ namespace CondominioApp.Correspondencias.App.Models
         }
         private string ObterDescricaoDoPushParaNovaCorrespondencia()
         {
-            var descricao = $"Chegou uma correspondência para você.  Recebido por:{NomeFuncionario}.";
+            var descricao = $"Chegou uma correspondência para você.  Recebido por {NomeFuncionario}.";
 
             if (TipoDeCorrespondencia != null && TipoDeCorrespondencia != "")
                 descricao = $"{descricao}   Tipo: {TipoDeCorrespondencia}.";
@@ -245,7 +245,7 @@ namespace CondominioApp.Correspondencias.App.Models
         }
         private string ObterDescricaoDoPushParaCorrespondenciaRetirada()
         {
-            var descricao = $"Correspondência retirada por:{NomeRetirante} em {DataDaRetirada.Value.ToLongDateString()} as {DataDaRetirada.Value.ToLongTimeString()}.";
+            var descricao = $"Correspondência retirada por {NomeRetirante} em {DataDaRetirada.Value.ToLongDateString()} as {DataDaRetirada.Value.ToLongTimeString()}.";
 
             if (TipoDeCorrespondencia != null && TipoDeCorrespondencia != "")
                 descricao = $"{descricao}   Tipo da Corrêspondencia: {TipoDeCorrespondencia}.";
@@ -268,7 +268,7 @@ namespace CondominioApp.Correspondencias.App.Models
         }
         private string ObterDescricaoDoPushParaCorrespondenciaDevolvida()
         {
-            var descricao = $"Correspondência devolvida por:{NomeFuncionario}.";
+            var descricao = $"Correspondência devolvida por {NomeFuncionario}.";
 
             if (TipoDeCorrespondencia != null && TipoDeCorrespondencia != "")
                 descricao = $"{descricao}   Tipo da Corrêspondencia: {TipoDeCorrespondencia}.";

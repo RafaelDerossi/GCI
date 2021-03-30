@@ -4,14 +4,16 @@ using CondominioApp.Correspondencias.App.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CondominioApp.Correspondencias.App.Migrations
 {
     [DbContext(typeof(CorrespondenciaContextDB))]
-    partial class CorrespondenciaContextDBModelSnapshot : ModelSnapshot
+    [Migration("20210330204952_AjusteNaCorrespondencia")]
+    partial class AjusteNaCorrespondencia
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
