@@ -35,7 +35,7 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands.Validations
 
         protected void ValidateBloco()
         {
-            RuleFor(c => c.Bloco)
+            RuleFor(c => c.Grupo)
                   .NotNull()
                   .NotEmpty()
                   .WithMessage("Bloco da Unidade não pode estar vazio!");

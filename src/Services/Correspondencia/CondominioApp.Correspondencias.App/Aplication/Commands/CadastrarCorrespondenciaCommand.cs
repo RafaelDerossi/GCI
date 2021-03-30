@@ -16,7 +16,7 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
             CondominioId = condominioId;
             UnidadeId = unidadeId;
             NumeroUnidade = numeroUnidade;
-            Bloco = bloco;            
+            Grupo = bloco;            
             Observacao = observacao;
             FuncionarioId = funcionarioId;
             NomeFuncionario = nomeFuncionario;

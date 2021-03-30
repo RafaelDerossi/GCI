@@ -80,7 +80,7 @@ namespace CondominioApp.Correspondencias.App.Tests
         public void CadastroDeCorrespondenciaSemUsuarioId_CommandoInvalido_NaoDevePassarNaValidacao()
         {
             //Arrange
-            var command = CorrespondenciaCommandFactory.CriarComandoCadastroDeCorrespondenciaSemUsuarioId();
+            var command = CorrespondenciaCommandFactory.CriarComandoCadastroDeCorrespondenciaSemFuncionarioId();
 
             //Act
             var result = command.EstaValido();
@@ -94,7 +94,7 @@ namespace CondominioApp.Correspondencias.App.Tests
         public void CadastroDeCorrespondenciaSemNomeUsuario_CommandoInvalido_NaoDevePassarNaValidacao()
         {
             //Arrange
-            var command = CorrespondenciaCommandFactory.CriarComandoCadastroDeCorrespondenciaSemNomeUsuario();
+            var command = CorrespondenciaCommandFactory.CriarComandoCadastroDeCorrespondenciaSemNomeFuncionario();
 
             //Act
             var result = command.EstaValido();

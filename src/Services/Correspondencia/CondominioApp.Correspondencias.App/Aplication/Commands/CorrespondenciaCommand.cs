@@ -17,7 +17,7 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
 
         public string NumeroUnidade { get; protected set; }
 
-        public string Bloco { get; protected set; }
+        public string Grupo { get; protected set; }
 
         public bool Visto { get; private set; }
 
@@ -81,5 +81,22 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
 
         public void SetDevolvido() => Status = StatusCorrespondencia.DEVOLVIDO;
 
+        public void SetCondominio(Guid id)
+        {
+            CondominioId = id;
+        }
+
+        public void SetUnidade(Guid id, string numero, string grupo)
+        {
+            UnidadeId = id;
+            NumeroUnidade = numero;
+            Grupo = grupo;
+        }
+
+        public void SetFuncionario(Guid id, string nomeFuncionario)
+        {
+            FuncionarioId = id;
+            NomeFuncionario = nomeFuncionario;
+        }
     }
 }
