@@ -117,7 +117,7 @@ namespace CondominioApp.Api.Controllers
             }
 
             var comando = new CadastrarCorrespondenciaCommand(
-                 correspondenciaVM.CondominioId, unidade.Id, unidade.Numero, unidade.GrupoDescricao,
+                 unidade.CondominioId, unidade.Id, unidade.Numero, unidade.GrupoDescricao,
                  correspondenciaVM.Observacao, funcionario.Id, funcionario.Nome,
                  correspondenciaVM.Foto, correspondenciaVM.NomeOriginal, correspondenciaVM.NumeroRastreamentoCorreio,
                  correspondenciaVM.DataDeChegada, correspondenciaVM.TipoDeCorrespondencia, correspondenciaVM.Status);           

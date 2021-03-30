@@ -190,7 +190,25 @@ namespace CondominioApp.Correspondencias.App.Models
             return ValidationResult;
         }
 
-        public void EnviarPushNovaCorrespondencia()
+        public void EnviarPush()
+        {
+            switch (Status)
+            {
+                case StatusCorrespondencia.PENDENTE:
+                    EnviarPushNovaCorrespondencia();
+                    break;
+                case StatusCorrespondencia.RETIRADO:
+                    EnviarPushCorrespondenciaRetirada();
+                    break;
+                case StatusCorrespondencia.DEVOLVIDO:
+                    EnviarPushCorrespondenciaDevolvida();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void EnviarPushNovaCorrespondencia()
         {
             var titulo = "NOVA CORRESPONDÊNCIA";
             var descricao = ObterDescricaoDoPushParaNovaCorrespondencia();
@@ -213,7 +231,7 @@ namespace CondominioApp.Correspondencias.App.Models
         }
 
 
-        public void EnviarPushCorrespondenciaRetirada()
+        private void EnviarPushCorrespondenciaRetirada()
         {
             var titulo = "CORRESPONDÊNCIA RETIRADA";
             var descricao = ObterDescricaoDoPushParaCorrespondenciaRetirada();
@@ -236,7 +254,7 @@ namespace CondominioApp.Correspondencias.App.Models
         }
 
 
-        public void EnviarPushCorrespondenciaDevolvida()
+        private void EnviarPushCorrespondenciaDevolvida()
         {
             var titulo = "CORRESPONDÊNCIA DEVOLVIDA";
             var descricao = ObterDescricaoDoPushParaCorrespondenciaDevolvida();

@@ -7,8 +7,6 @@ namespace CondominioApp.Correspondencias.App.ViewModels
 {
    public class CadastraCorrespondenciaViewModel
     {
-        public Guid CondominioId { get; set; }
-
         public Guid UnidadeId { get; set; }        
 
         public string Observacao { get; set; }

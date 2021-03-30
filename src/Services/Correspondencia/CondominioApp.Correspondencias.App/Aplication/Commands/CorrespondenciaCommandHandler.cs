@@ -41,7 +41,7 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
 
             _CorrespondenciaRepository.Adicionar(correspondencia);
 
-            correspondencia.EnviarPushNovaCorrespondencia();
+            correspondencia.EnviarPush();
 
             return await PersistirDados(_CorrespondenciaRepository.UnitOfWork);
         }
@@ -82,7 +82,7 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
             if (!retorno.IsValid)
                 return retorno;
 
-            correspondenciaBd.EnviarPushCorrespondenciaRetirada();
+            correspondenciaBd.EnviarPush();
 
             _CorrespondenciaRepository.Atualizar(correspondenciaBd);
 
@@ -106,7 +106,7 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
             if (!retorno.IsValid)
                 return retorno;
 
-            correspondenciaBd.EnviarPushCorrespondenciaDevolvida();
+            correspondenciaBd.EnviarPush();
 
             _CorrespondenciaRepository.Atualizar(correspondenciaBd);
 
