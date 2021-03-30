@@ -8,13 +8,20 @@ namespace CondominioApp.Correspondencias.App.Tests
 {
     public class CorrespondenciaCommandFactory
     {
-        public static CadastrarCorrespondenciaCommand CriarComandoCadastroDeCorrespondencia()
+        public static CadastrarCorrespondenciaCommand CriarComandoCadastroDeCorrespondenciaFactory()
         {
             //Act
             return new CadastrarCorrespondenciaCommand(
                 Guid.NewGuid(), Guid.NewGuid(), "101", "Bloco", null, Guid.NewGuid(),
                 "Rafael", null, null, null, DataHoraDeBrasilia.Get(), "Caixa",
-                StatusCorrespondencia.PENDENTE);
+                StatusCorrespondencia.PENDENTE, "", null);
+        }
+
+        public static CadastrarCorrespondenciaCommand CriarComandoCadastroDeCorrespondencia()
+        {
+            var comando = CriarComandoCadastroDeCorrespondenciaFactory();
+
+            return comando;
         }
 
         public static CadastrarCorrespondenciaCommand CriarComandoCadastroDeCorrespondenciaSemCondominio()
@@ -23,7 +30,11 @@ namespace CondominioApp.Correspondencias.App.Tests
             return new CadastrarCorrespondenciaCommand(
                 Guid.Empty, Guid.NewGuid(), "101", "Bloco", null, Guid.NewGuid(),
                 "Rafael", null, null, null, DataHoraDeBrasilia.Get(), "Caixa",
-                StatusCorrespondencia.PENDENTE);
+                StatusCorrespondencia.PENDENTE, "", null);
+            var comando = CriarComandoCadastroDeCorrespondenciaFactory();
+
+            return comando;
+
         }
 
         public static CadastrarCorrespondenciaCommand CriarComandoCadastroDeCorrespondenciaSemUnidadeId()
