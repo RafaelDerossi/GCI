@@ -381,18 +381,9 @@ namespace CondominioApp.Correspondencias.App.Tests
         public async Task EditarComunicadoProprietarioUnidade_CommandoValido_DevePassarNaValidacao()
         {
             //Arrange
-
             var command = ComunicadoCommandFactory.CriarComando_EdicaoDeComunicado_ProprietarioUnidade();
-
-            var grupoId = Guid.NewGuid();
-            var comunicado = new Comunicado(
-               "Titulo do Comunicado", "Descrição do Comunicado", null, Guid.NewGuid(), "Nome do Condominio",
-               Guid.NewGuid(), "Nome do Usuario", VisibilidadeComunicado.PROPRIETARIOS_UNIDADES,
-               CategoriaComunicado.COMUNICADO, false, false);
-
-            comunicado.AdicionarUnidade(new UnidadeComunicado(Guid.NewGuid(), "101", "1", grupoId, "Bloco 1"));
-            comunicado.AdicionarUnidade(new UnidadeComunicado(Guid.NewGuid(), "102", "1", grupoId, "Bloco 1"));
-
+           
+            var comunicado = ComunicadoFactoryTests.Criar_Comunicado_ProprietarioUnidade_Valido();
 
             _mocker.GetMock<IComunidadoRepository>().Setup(r => r.ObterPorId(command.ComunicadoId))
                 .Returns(Task.FromResult(comunicado));
