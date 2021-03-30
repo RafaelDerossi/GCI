@@ -150,8 +150,8 @@ namespace CondominioApp.Comunicados.App.Models
 
         public void EnviarPushNovoComunicado()
         {
-            var titulo = "NOVO COMUNICADO";
-            var descricao = $"{Titulo} - {Descricao}";
+            var titulo = ObterTituloDoPush();
+            var descricao = ObterDescricaoDoPush();
 
 
             if (Visibilidade == VisibilidadeComunicado.PUBLICO)
@@ -190,6 +190,40 @@ namespace CondominioApp.Comunicados.App.Models
 
         }
 
+        private string ObterTituloDoPush()
+        {
+            switch (Categoria)
+            {
+                case CategoriaComunicado.COMUNICADO:
+                    return "COMUNICADO";
+                case CategoriaComunicado.ATA:
+                    return "ATA";
+                case CategoriaComunicado.URGENCIA:
+                    return "URGÊNCIA";
+                case CategoriaComunicado.BALANCETE:
+                    return "BALANCETE";
+                case CategoriaComunicado.COBRANÇA:
+                    return "COBRANÇA";
+                case CategoriaComunicado.MANUTENÇÃO:
+                    return "MANUTENÇÃO";
+                case CategoriaComunicado.AVISO:
+                    return "AVISO";
+                case CategoriaComunicado.OBRA_REFORMA:
+                    return "OBRA/REFORMA";                    
+                default:
+                    return Titulo;
+            }
+        }
+        private string ObterDescricaoDoPush()
+        {
+            switch (Categoria)
+            {   
+                case CategoriaComunicado.OUTROS:
+                    return Descricao;
+                default:
+                    return $"{Titulo} - {Descricao}";
+            }
+        }
         private IEnumerable<Guid> ObterIdsDasUnidades()
         {
             var lista = new List<Guid>();
