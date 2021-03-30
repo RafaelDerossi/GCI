@@ -109,16 +109,16 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }
 
-            var usuario = await _usuarioQuery.ObterPorId(correspondenciaVM.UsuarioId);
-            if (usuario == null)
+            var funcionario = await _usuarioQuery.ObterFuncionarioPorId(correspondenciaVM.FuncionarioId);
+            if (funcionario == null)
             {
-                AdicionarErroProcessamento("Usuário não encontrado!");
+                AdicionarErroProcessamento("Funcionário não encontrado!");
                 return CustomResponse();
             }
 
             var comando = new CadastrarCorrespondenciaCommand(
                  correspondenciaVM.CondominioId, unidade.Id, unidade.Numero, unidade.GrupoDescricao,
-                 correspondenciaVM.Observacao, usuario.Id, usuario.NomeCompleto,
+                 correspondenciaVM.Observacao, funcionario.Id, funcionario.Nome,
                  correspondenciaVM.Foto, correspondenciaVM.NomeOriginal, correspondenciaVM.NumeroRastreamentoCorreio,
                  correspondenciaVM.DataDeChegada, correspondenciaVM.TipoDeCorrespondencia, correspondenciaVM.Status);           
 
@@ -142,9 +142,16 @@ namespace CondominioApp.Api.Controllers
         [HttpPut("marcar-correspondencia-retirada")]
         public async Task<ActionResult> PutRetirada(MarcaCorrespondenciaRetiradaViewModel viewModel)
         {
+            var funcionario = await _usuarioQuery.ObterFuncionarioPorId(viewModel.FuncionarioId);
+            if (funcionario == null)
+            {
+                AdicionarErroProcessamento("Funcionário não encontrado!");
+                return CustomResponse();
+            }
+
             var comando = new MarcarCorrespondenciaRetiradaCommand(
                 viewModel.Id,viewModel.NomeRetirante, viewModel.Observacao,
-                viewModel.UsuarioId, viewModel.NomeUsuario);
+                viewModel.FuncionarioId, funcionario.Nome);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
@@ -154,9 +161,16 @@ namespace CondominioApp.Api.Controllers
         [HttpPut("marcar-correspondencia-devolvida")]
         public async Task<ActionResult> PutDevolvida(MarcaCorrespondenciaDevolvidaViewModel viewModel)
         {
+            var funcionario = await _usuarioQuery.ObterFuncionarioPorId(viewModel.FuncionarioId);
+            if (funcionario == null)
+            {
+                AdicionarErroProcessamento("Funcionário não encontrado!");
+                return CustomResponse();
+            }
+
             var comando = new MarcarCorrespondenciaDevolvidaCommand(
                 viewModel.Id, viewModel.Observacao,
-                viewModel.UsuarioId, viewModel.NomeUsuario);
+                viewModel.FuncionarioId, funcionario.Nome);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 

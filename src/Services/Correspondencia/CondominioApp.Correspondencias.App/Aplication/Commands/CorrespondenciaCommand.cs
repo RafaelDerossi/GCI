@@ -27,9 +27,9 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
 
         public DateTime DataDaRetirada { get; protected set; }
 
-        public Guid UsuarioId { get; protected set; }
+        public Guid FuncionarioId { get; protected set; }
 
-        public string NomeUsuario { get; protected set; }
+        public string NomeFuncionario { get; protected set; }
 
         public Foto Foto { get; protected set; }
 

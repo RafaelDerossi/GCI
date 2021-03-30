@@ -39,7 +39,9 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
 
             var correspondencia = CorrespondenciaFactory(request);           
 
-            _CorrespondenciaRepository.Adicionar(correspondencia);           
+            _CorrespondenciaRepository.Adicionar(correspondencia);
+
+            correspondencia.EnviarPushNovaCorrespondencia();
 
             return await PersistirDados(_CorrespondenciaRepository.UnitOfWork);
         }
@@ -75,26 +77,12 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
                 return ValidationResult;
             }
 
-            if (correspondenciaBd.Status == StatusCorrespondencia.DEVOLVIDO)
-            {
-                AdicionarErro("Essa Correspondência consta como DEVOLVIDA.");
-                return ValidationResult;
-            }
+            var retorno = correspondenciaBd.MarcarComRetirada
+                (request.NomeRetirante, request.Observacao, request.FuncionarioId, request.NomeFuncionario);
+            if (!retorno.IsValid)
+                return retorno;
 
-            if (correspondenciaBd.Status == StatusCorrespondencia.RETIRADO)
-            {
-                AdicionarErro("Essa Correspondência ja consta como RETIRADA.");
-                return ValidationResult;
-            }
-
-            correspondenciaBd.SetNomeRetirante(request.NomeRetirante);            
-            correspondenciaBd.SetObservacao(request.Observacao);
-            correspondenciaBd.SetUsuarioId(request.UsuarioId);
-            correspondenciaBd.SetNomeUsuario(request.NomeUsuario);
-
-            correspondenciaBd.SetRetirado();
-            correspondenciaBd.SetDataRetirada(DataHoraDeBrasilia.Get());
-            correspondenciaBd.SetVisto();
+            correspondenciaBd.EnviarPushCorrespondenciaRetirada();
 
             _CorrespondenciaRepository.Atualizar(correspondenciaBd);
 
@@ -112,23 +100,13 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
                 AdicionarErro("Correspondência não encontrada.");
                 return ValidationResult;
             }
-            if (correspondenciaBd.Status == StatusCorrespondencia.DEVOLVIDO)
-            {
-                AdicionarErro("Essa Correspondência ja consta como DEVOLVIDA.");
-                return ValidationResult;
-            }
 
-            if (correspondenciaBd.Status == StatusCorrespondencia.RETIRADO)
-            {
-                AdicionarErro("Essa Correspondência consta como RETIRADA.");
-                return ValidationResult;
-            }
-            correspondenciaBd.SetDevolvido();
-            correspondenciaBd.SetObservacao(request.Observacao);
-            correspondenciaBd.SetUsuarioId(request.UsuarioId);
-            correspondenciaBd.SetNomeUsuario(request.NomeUsuario);
+            var retorno = correspondenciaBd.MarcarComDevolvida
+               (request.Observacao, request.FuncionarioId, request.NomeFuncionario);
+            if (!retorno.IsValid)
+                return retorno;
 
-            _CorrespondenciaRepository.Atualizar(correspondenciaBd);
+            correspondenciaBd.EnviarPushCorrespondenciaDevolvida();
 
             return await PersistirDados(_CorrespondenciaRepository.UnitOfWork);
         }
@@ -144,21 +122,14 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
                 AdicionarErro("Correspondência não encontrada.");
                 return ValidationResult;
             }
-
-            if (correspondenciaBd.Status == StatusCorrespondencia.DEVOLVIDO)
-            {
-                AdicionarErro("Essa Correspondência consta como DEVOLVIDA.");
-                return ValidationResult;
-            }
-
-            if (correspondenciaBd.Status == StatusCorrespondencia.RETIRADO)
-            {
-                AdicionarErro("Essa Correspondência consta como RETIRADA.");
-                return ValidationResult;
-            }
+                       
            
-            correspondenciaBd.SomarAlerta();
-            
+            var retorno = correspondenciaBd.SomarAlerta();
+            if (!retorno.IsValid)
+                return retorno;
+
+            correspondenciaBd.EnviarPushDeAlerta();
+
             _CorrespondenciaRepository.Atualizar(correspondenciaBd);
 
             return await PersistirDados(_CorrespondenciaRepository.UnitOfWork);
@@ -199,7 +170,7 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
                     var CorrespondenciaDTO = new CorrespondenciaExcelDTO
                     {
                         DataDaChegada = correspondencia.DataDeCadastroFormatada,
-                        EntreguePor = correspondencia.NomeUsuario,
+                        EntreguePor = correspondencia.NomeFuncionario,
                         DataDaRetirada = correspondencia.DataDaRetirada.ToString(),
                         RetiradoPor = correspondencia.NomeRetirante,
                         Observacao = correspondencia.Observacao
@@ -228,7 +199,7 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
         {
             var correspondencia = new Correspondencia(
                 request.CondominioId, request.UnidadeId, request.NumeroUnidade, request.Bloco, request.Visto, request.NomeRetirante,
-                request.Observacao, request.DataDaRetirada, request.UsuarioId, request.NomeUsuario, request.Foto,
+                request.Observacao, request.DataDaRetirada, request.FuncionarioId, request.NomeFuncionario, request.Foto,
                 request.NumeroRastreamentoCorreio, request.DataDeChegada, request.QuantidadeDeAlertasFeitos,
                 request.TipoDeCorrespondencia, request.Status);
 

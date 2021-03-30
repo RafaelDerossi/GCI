@@ -8,8 +8,8 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
     public class CadastrarCorrespondenciaCommand : CorrespondenciaCommand
     {
         public CadastrarCorrespondenciaCommand(
-            Guid condominioId, Guid unidadeId, string numeroUnidade, string bloco, string observacao, Guid usuarioId, 
-            string nomeUsuario, string foto, string nomeOriginal, string numeroRastreamentoCorreio,
+            Guid condominioId, Guid unidadeId, string numeroUnidade, string bloco, string observacao, Guid funcionarioId, 
+            string nomeFuncionario, string foto, string nomeOriginal, string numeroRastreamentoCorreio,
             DateTime dataDeChegada, string tipoDeCorrespondencia, StatusCorrespondencia status)
         {
             CondominioId = condominioId;
@@ -17,8 +17,8 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
             NumeroUnidade = numeroUnidade;
             Bloco = bloco;            
             Observacao = observacao;
-            UsuarioId = usuarioId;
-            NomeUsuario = nomeUsuario;
+            FuncionarioId = funcionarioId;
+            NomeFuncionario = nomeFuncionario;
             NumeroRastreamentoCorreio = numeroRastreamentoCorreio;
             DataDeChegada = dataDeChegada;
             TipoDeCorrespondencia = tipoDeCorrespondencia;

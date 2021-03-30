@@ -13,7 +13,7 @@ namespace CondominioApp.Correspondencias.App.ViewModels
 
         public string Observacao { get; set; }
 
-        public Guid UsuarioId { get; set; }
+        public Guid FuncionarioId { get; set; }
 
         public string Foto { get;  set; }
 
