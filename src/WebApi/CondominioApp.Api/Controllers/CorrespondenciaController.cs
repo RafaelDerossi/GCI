@@ -119,8 +119,10 @@ namespace CondominioApp.Api.Controllers
             var comando = new CadastrarCorrespondenciaCommand(
                  unidade.CondominioId, unidade.Id, unidade.Numero, unidade.GrupoDescricao,
                  correspondenciaVM.Observacao, funcionario.Id, funcionario.Nome,
-                 correspondenciaVM.Foto, correspondenciaVM.NomeOriginal, correspondenciaVM.NumeroRastreamentoCorreio,
-                 correspondenciaVM.DataDeChegada, correspondenciaVM.TipoDeCorrespondencia, correspondenciaVM.Status);           
+                 correspondenciaVM.Foto, correspondenciaVM.NomeOriginal,
+                 correspondenciaVM.NumeroRastreamentoCorreio, correspondenciaVM.DataDeChegada,
+                 correspondenciaVM.TipoDeCorrespondencia, correspondenciaVM.Status,
+                 correspondenciaVM.NomeRetirante, correspondenciaVM.DataDaRetirada);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 

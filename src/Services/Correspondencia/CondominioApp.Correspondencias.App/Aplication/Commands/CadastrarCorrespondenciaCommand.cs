@@ -10,7 +10,8 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
         public CadastrarCorrespondenciaCommand(
             Guid condominioId, Guid unidadeId, string numeroUnidade, string bloco, string observacao, Guid funcionarioId, 
             string nomeFuncionario, string foto, string nomeOriginal, string numeroRastreamentoCorreio,
-            DateTime dataDeChegada, string tipoDeCorrespondencia, StatusCorrespondencia status)
+            DateTime dataDeChegada, string tipoDeCorrespondencia, StatusCorrespondencia status,
+            string nomeRetirante, DateTime? dataDaRetirada)
         {
             CondominioId = condominioId;
             UnidadeId = unidadeId;
@@ -22,8 +23,9 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
             NumeroRastreamentoCorreio = numeroRastreamentoCorreio;
             DataDeChegada = dataDeChegada;
             TipoDeCorrespondencia = tipoDeCorrespondencia;
-            
-            DataDaRetirada = DataHoraDeBrasilia.Get();         
+
+            NomeRetirante = nomeRetirante;
+
             QuantidadeDeAlertasFeitos = 1;
 
             SetFoto(foto, nomeOriginal);

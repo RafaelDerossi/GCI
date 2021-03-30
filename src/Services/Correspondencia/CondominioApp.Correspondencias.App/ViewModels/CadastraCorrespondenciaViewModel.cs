@@ -25,5 +25,9 @@ namespace CondominioApp.Correspondencias.App.ViewModels
 
         public StatusCorrespondencia Status { get; set; }
 
+        public string NomeRetirante { get; set; }
+
+        public DateTime? DataDaRetirada { get; set; }
+
     }
 }

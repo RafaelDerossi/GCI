@@ -26,7 +26,7 @@ namespace CondominioApp.Correspondencias.App.Models
         
         public string Observacao { get; private set; }
 
-        public DateTime DataDaRetirada { get; private set; }
+        public DateTime? DataDaRetirada { get; private set; }
 
         public Guid FuncionarioId { get; private set; }
 
@@ -171,6 +171,7 @@ namespace CondominioApp.Correspondencias.App.Models
             return ValidationResult;
         }
 
+
         public ValidationResult SomarAlerta()
         {
             if (Status == StatusCorrespondencia.DEVOLVIDO)
@@ -190,6 +191,7 @@ namespace CondominioApp.Correspondencias.App.Models
             return ValidationResult;
         }
 
+
         public void EnviarPush()
         {
             switch (Status)
@@ -207,6 +209,7 @@ namespace CondominioApp.Correspondencias.App.Models
                     break;
             }
         }
+
 
         private void EnviarPushNovaCorrespondencia()
         {
@@ -242,7 +245,7 @@ namespace CondominioApp.Correspondencias.App.Models
         }
         private string ObterDescricaoDoPushParaCorrespondenciaRetirada()
         {
-            var descricao = $"Correspondência retirada por:{NomeRetirante} em {DataDaRetirada.ToLongDateString()} as {DataDaRetirada.ToLongTimeString()}.";
+            var descricao = $"Correspondência retirada por:{NomeRetirante} em {DataDaRetirada.Value.ToLongDateString()} as {DataDaRetirada.Value.ToLongTimeString()}.";
 
             if (TipoDeCorrespondencia != null && TipoDeCorrespondencia != "")
                 descricao = $"{descricao}   Tipo da Corrêspondencia: {TipoDeCorrespondencia}.";
@@ -275,6 +278,7 @@ namespace CondominioApp.Correspondencias.App.Models
 
             return descricao;
         }
+
 
         public void EnviarPushDeAlerta()
         {
