@@ -183,7 +183,10 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<INotificationHandler<EnviarPushParaSindicoIntegrationEvent>, NotificacaoPushEventHandler>();
             services.AddScoped<INotificationHandler<EnviarPushParaMoradorIntegrationEvent>, NotificacaoPushEventHandler>();
             services.AddScoped<INotificationHandler<EnviarPushParaUnidadeIntegrationEvent>, NotificacaoPushEventHandler>();
+            services.AddScoped<INotificationHandler<EnviarPushParaUnidadesIntegrationEvent>, NotificacaoPushEventHandler>();
             services.AddScoped<INotificationHandler<EnviarPushParaCondominioIntegrationEvent>, NotificacaoPushEventHandler>();
+            services.AddScoped<INotificationHandler<EnviarPushParaProprietariosIntegrationEvent>, NotificacaoPushEventHandler>();
+            services.AddScoped<INotificationHandler<EnviarPushParaProprietariosPorUnidadeIntegrationEvent>, NotificacaoPushEventHandler>();
             services.AddScoped<INotificationHandler<EnviarPushParaTodosIntegrationEvent>, NotificacaoPushEventHandler>();
             #endregion
 
