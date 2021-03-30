@@ -108,6 +108,8 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
 
             correspondenciaBd.EnviarPushCorrespondenciaDevolvida();
 
+            _CorrespondenciaRepository.Atualizar(correspondenciaBd);
+
             return await PersistirDados(_CorrespondenciaRepository.UnitOfWork);
         }
 
