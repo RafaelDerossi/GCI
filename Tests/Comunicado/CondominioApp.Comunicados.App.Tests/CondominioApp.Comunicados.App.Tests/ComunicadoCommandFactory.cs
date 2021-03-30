@@ -190,7 +190,7 @@ namespace CondominioApp.Comunicados.App.Tests
         {
             //Arrange
             var comando = CadastrarCondominioCommandFactory();
-            comando.SetUsuario(Guid.Empty, "");
+            comando.SetFuncionario(Guid.Empty, "");
 
             //Act
             return comando;
@@ -200,7 +200,7 @@ namespace CondominioApp.Comunicados.App.Tests
         {
             //Arrange
             var comando = CadastrarCondominioCommandFactory();
-            comando.SetUsuario(Guid.NewGuid(), "");
+            comando.SetFuncionario(Guid.NewGuid(), "");
 
             //Act
             return comando;
@@ -346,21 +346,21 @@ namespace CondominioApp.Comunicados.App.Tests
             return comando;
         }
 
-        public static EditarComunicadoCommand CriarComando_EdicaoDeComunicado_SemUsuarioId()
+        public static EditarComunicadoCommand CriarComando_EdicaoDeComunicado_SemFuncionarioId()
         {
             //Arrange
             var comando = EditarComunicadoCommandFactory();
-            comando.SetUsuario(Guid.Empty, "");
+            comando.SetFuncionario(Guid.Empty, "");
 
             //Act
             return comando;
         }
 
-        public static EditarComunicadoCommand CriarComando_EdicaoDeComunicado_SemNomeDoUsuario()
+        public static EditarComunicadoCommand CriarComando_EdicaoDeComunicado_SemNomeDoFuncionario()
         {
             //Arrange
             var comando = EditarComunicadoCommandFactory();
-            comando.SetUsuario(Guid.NewGuid(), "");
+            comando.SetFuncionario(Guid.NewGuid(), "");
 
             //Act
             return comando;

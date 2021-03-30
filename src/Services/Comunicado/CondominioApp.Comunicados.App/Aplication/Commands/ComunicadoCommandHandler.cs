@@ -33,7 +33,9 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
 
             var comunicado = ComunicadoFactory(request);
 
-            comunicado.AdicionarUnidades(request.Unidades);
+            var retorno = comunicado.AdicionarUnidades(request.Unidades);
+            if (!retorno.IsValid)
+                return retorno;
                        
             _ComunicadoRepository.Adicionar(comunicado);
 

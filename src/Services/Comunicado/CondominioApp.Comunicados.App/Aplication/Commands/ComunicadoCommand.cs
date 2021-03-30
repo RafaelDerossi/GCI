@@ -52,7 +52,7 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
             CondominioId = id;
         }
 
-        public void SetUsuario(Guid id, string nome)
+        public void SetFuncionario(Guid id, string nome)
         {
             FuncionarioId = id;
             NomeFuncionario = nome;
