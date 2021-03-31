@@ -20,9 +20,9 @@ namespace CondominioApp.Enquetes.App.Data.Mapping
 
             builder.Property(u => u.ApenasProprietarios).IsRequired();
 
-            builder.Property(u => u.UsuarioId).IsRequired();
+            builder.Property(u => u.FuncionarioId).IsRequired();
 
-            builder.Property(u => u.UsuarioNome).HasColumnType($"varchar({Enquete.Max})");
+            builder.Property(u => u.FuncionarioNome).HasColumnType($"varchar({Enquete.Max})");
            
         }
     }

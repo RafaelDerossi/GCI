@@ -24,13 +24,14 @@ namespace CondominioApp.Enquetes.App.Models
             _Respostas = new List<RespostaEnquete>();
         }
 
-        public AlternativaEnquete(string descricao, int ordem, Guid enqueteId)
+        public AlternativaEnquete(string descricao, int ordem)
         {
             _Respostas = new List<RespostaEnquete>();
             Descricao = descricao;
             Ordem = ordem;
-            EnqueteId = enqueteId;
         }
+
+        public void SetEnqueteId(Guid id) => EnqueteId = id;
 
         public void SetDescricao(string descricao) => Descricao = descricao;
 

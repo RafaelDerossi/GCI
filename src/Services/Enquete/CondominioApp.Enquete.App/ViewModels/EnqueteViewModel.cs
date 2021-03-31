@@ -24,8 +24,8 @@ namespace CondominioApp.Enquetes.App.ViewModels
 
         public bool ApenasProprietarios { get; set; }
 
-        public Guid UsuarioId { get; set; }
-        public string UsuarioNome { get; set; }
+        public Guid FuncionarioId { get; set; }
+        public string FuncionarioNome { get; set; }
 
         public int QuantidadeDeVotos { get; set; }
 

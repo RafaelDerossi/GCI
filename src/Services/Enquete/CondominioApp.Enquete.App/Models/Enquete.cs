@@ -22,8 +22,8 @@ namespace CondominioApp.Enquetes.App.Models
 
         public bool ApenasProprietarios { get; set; }
                 
-        public Guid UsuarioId { get; private set; }
-        public string UsuarioNome { get; set; }
+        public Guid FuncionarioId { get; private set; }
+        public string FuncionarioNome { get; set; }
 
 
         private readonly List<AlternativaEnquete> _Alternativas;
@@ -40,8 +40,8 @@ namespace CondominioApp.Enquetes.App.Models
                        Guid condominioId,
                        string condominioNome,
                        bool apenasProprietarios,
-                       Guid usuarioId,
-                       string usuarioNome)
+                       Guid funcionarioId,
+                       string funcionarioNome)
         {
             _Alternativas = new List<AlternativaEnquete>();
             ApenasProprietarios = apenasProprietarios;
@@ -50,8 +50,8 @@ namespace CondominioApp.Enquetes.App.Models
             DataFim = dataFim;
             CondominioId = condominioId;
             CondominioNome = condominioNome;
-            UsuarioId = usuarioId;
-            UsuarioNome = usuarioNome;           
+            FuncionarioId = funcionarioId;
+            FuncionarioNome = funcionarioNome;           
         }
 
         public void SetDataInicial(DateTime data) => DataInicio = data;
@@ -60,9 +60,9 @@ namespace CondominioApp.Enquetes.App.Models
 
         public void SetDescricao(string descricao) => Descricao = descricao;
 
-        public void SetUsuarioId(Guid usuarioId) => UsuarioId = usuarioId;
+        public void SetFuncionarioId(Guid id) => FuncionarioId = id;
 
-        public void SetUsuarioNome(string usuarioNome) => UsuarioNome = usuarioNome;
+        public void SetFuncionarioNome(string nome) => FuncionarioNome = nome;
 
         public void SetCondominioId(Guid condominioId) => CondominioId = condominioId;
 
@@ -90,12 +90,24 @@ namespace CondominioApp.Enquetes.App.Models
                 return ValidationResult;
             }
             
-            _Alternativas.Remove(alternativa);
+            _Alternativas.RemoveAll(a=>a.Id == alternativa.Id);
             _Alternativas.Add(alternativa);
 
             return ValidationResult;
         }
 
+        public ValidationResult RemoverAlternativa(AlternativaEnquete alternativa)
+        {
+            if (Alternativas.Where(a => !a.Lixeira).Count() < 3)
+            {
+                AdicionarErrosDaEntidade("Uma enquete precisa ter pelo menos duas alternativas.");
+                return ValidationResult;
+            }             
+
+            _Alternativas.Remove(alternativa);          
+
+            return ValidationResult;
+        }
 
         public int ObterQuantidadeDeVotos
         {
@@ -133,6 +145,20 @@ namespace CondominioApp.Enquetes.App.Models
                     return true;
             }
             return false;
+        }
+
+        public ValidationResult Editar
+            (string descricao, DateTime dataInicio, DateTime dataFim, bool apenasProprietarios)
+        {
+            if (ObterQuantidadeDeVotos > 0)
+                AdicionarErrosDaEntidade("Enquete não pode mais ser edita pois já tem voto(s)!");
+
+            SetDescricao(descricao);
+            SetDataInicial(dataInicio);
+            SetDataFim(dataFim);
+            SetApenasProprietarios(apenasProprietarios);            
+
+            return ValidationResult;
         }
     }
 }

@@ -29,13 +29,13 @@ namespace CondominioApp.Enquetes.App.Aplication.Commands
             if (!request.EstaValido())
                 return request.ValidationResult;
 
-            var enquete = EnqueteFactory(request);
+            var enquete = EnqueteFactory(request);           
 
-            foreach (var alternativa_str in request.Alternativas)
-            {
-                var alternativa = new AlternativaEnquete(alternativa_str.Descricao, alternativa_str.Ordem, enquete.Id);
+            foreach (var alternativa in request.Alternativas)
+            {                
                 var resultado = enquete.AdicionarAlternativa(alternativa);
-                if (!resultado.IsValid) return resultado;
+                if (!resultado.IsValid)
+                    return resultado;
             }
 
             _EnqueteRepository.Adicionar(enquete);           
@@ -48,21 +48,33 @@ namespace CondominioApp.Enquetes.App.Aplication.Commands
             if (!request.EstaValido())
                 return request.ValidationResult;
 
-
             var enqueteBd = await _EnqueteRepository.ObterPorId(request.Id);
             if (enqueteBd == null)
             {
                 AdicionarErro("Enquete não encontrada.");
                 return ValidationResult;
             }
-           
-            enqueteBd.SetDescricao(request.Descricao);
-            enqueteBd.SetDataInicial(request.DataInicio);
-            enqueteBd.SetDataFim(request.DataFim);
-            enqueteBd.SetApenasProprietarios(request.ApenasProprietarios);
-           
-            _EnqueteRepository.Atualizar(enqueteBd);
 
+            var retorno = enqueteBd.Editar
+               (request.Descricao, request.DataInicio, request.DataFim, request.ApenasProprietarios);
+            if (!retorno.IsValid)
+                return retorno;
+
+
+            foreach (var item in enqueteBd.Alternativas)
+            {
+                _EnqueteRepository.RemoverAlternativa(item);
+            }                 
+
+            foreach (var alternativa in request.Alternativas)
+            {                
+                var resultado = enqueteBd.AdicionarAlternativa(alternativa);
+                if (!resultado.IsValid)
+                    return resultado;
+                _EnqueteRepository.AdicionarAlternativa(alternativa);
+            }
+
+            _EnqueteRepository.Atualizar(enqueteBd);
 
             return await PersistirDados(_EnqueteRepository.UnitOfWork);
         }
@@ -71,7 +83,6 @@ namespace CondominioApp.Enquetes.App.Aplication.Commands
         {
             if (!request.EstaValido())
                 return request.ValidationResult;
-
 
             var enqueteBd = await _EnqueteRepository.ObterPorId(request.Id);
             if (enqueteBd == null)
@@ -93,7 +104,7 @@ namespace CondominioApp.Enquetes.App.Aplication.Commands
         private Enquete EnqueteFactory(CadastrarEnqueteCommand request)
         {
             var enquete = new Enquete(request.Descricao, request.DataInicio, request.DataFim, request.CondominioId, 
-                request.CondominioNome, request.ApenasProprietarios, request.UsuarioId, request.UsuarioNome);
+                request.CondominioNome, request.ApenasProprietarios, request.FuncionarioId, request.FuncionarioNome);
 
             return enquete;
         }

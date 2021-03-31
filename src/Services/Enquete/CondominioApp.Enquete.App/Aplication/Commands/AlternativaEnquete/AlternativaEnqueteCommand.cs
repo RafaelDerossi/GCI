@@ -13,6 +13,9 @@ namespace CondominioApp.Enquetes.App.Aplication.Commands
         public string Descricao { get; protected set; }
 
         public Guid EnqueteId { get; protected set; }
-       
+
+        public void SetId(Guid id) => Id = id;
+
+        public void SetEnqueteId(Guid id) => EnqueteId = id;
     }
 }

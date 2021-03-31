@@ -5,7 +5,9 @@ using CondominioApp.Enquetes.App.Aplication.Query;
 using CondominioApp.Enquetes.App.Models;
 using CondominioApp.Enquetes.App.ViewModels;
 using CondominioApp.Principal.Aplication.Query.Interfaces;
+using CondominioApp.Principal.Domain.FlatModel;
 using CondominioApp.Usuarios.App.Aplication.Query;
+using CondominioApp.Usuarios.App.FlatModel;
 using CondominioApp.WebApi.Core.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -132,18 +134,14 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }
 
-            var usuario = await _usuarioQuery.ObterPorId(enqueteVM.UsuarioId);
-            if (usuario == null)
+            var funcionario = await _usuarioQuery.ObterFuncionarioPorId(enqueteVM.FuncionarioId);
+            if (funcionario == null)
             {
                 AdicionarErroProcessamento("Usuario não encontrado!");
                 return CustomResponse();
             }
 
-            var comando = new CadastrarEnqueteCommand(
-                 enqueteVM.Descricao, enqueteVM.DataInicio, enqueteVM.DataFim,
-                 condominio.Id, condominio.Nome,
-                 usuario.Id, usuario.NomeCompleto,
-                 enqueteVM.ApenasProprietarios, enqueteVM.Alternativas);           
+            var comando = CadastrarEnqueteCommandFactory(enqueteVM, funcionario, condominio);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
@@ -152,14 +150,11 @@ namespace CondominioApp.Api.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> Put(AlteraEnqueteViewModel enqueteVM)
+        public async Task<ActionResult> Put(EditaEnqueteViewModel enqueteVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var comando = new EditarEnqueteCommand(
-                enqueteVM.Id, enqueteVM.Descricao, enqueteVM.DataInicio, 
-                enqueteVM.DataFim, enqueteVM.ApenasProprietarios);
-
+            var comando = EditarEnqueteCommandFactory(enqueteVM);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
@@ -180,7 +175,7 @@ namespace CondominioApp.Api.Controllers
 
 
         [HttpPut("alterar-alternativa")]
-        public async Task<ActionResult> Put(AlterarAlternativaViewModel alternativaVM)
+        public async Task<ActionResult> Put(AlteraAlternativaViewModel alternativaVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
@@ -239,5 +234,41 @@ namespace CondominioApp.Api.Controllers
 
         }
 
+
+        private CadastrarEnqueteCommand CadastrarEnqueteCommandFactory
+            (CadastraEnqueteViewModel enqueteVM, FuncionarioFlat funcionario, CondominioFlat condominio)
+        {
+            var alternativas = new List<AlternativaEnquete>();
+            if(enqueteVM.Alternativas != null)
+            {
+                foreach (var alternativaVM in enqueteVM.Alternativas)
+                {
+                    var alternativa = new AlternativaEnquete(alternativaVM.Descricao, alternativaVM.Ordem);
+                    alternativas.Add(alternativa);
+                }
+            }            
+
+            return new CadastrarEnqueteCommand(
+                 enqueteVM.Descricao, enqueteVM.DataInicio, enqueteVM.DataFim,
+                 condominio.Id, condominio.Nome, funcionario.Id, funcionario.Nome,
+                 enqueteVM.ApenasProprietarios, alternativas);
+        }
+
+        private EditarEnqueteCommand EditarEnqueteCommandFactory(EditaEnqueteViewModel enqueteVM)
+        {
+            var alternativas = new List<AlternativaEnquete>();
+            if (enqueteVM.Alternativas != null)
+            {
+                foreach (var alternativaVM in enqueteVM.Alternativas)
+                {
+                    var alternativa = new AlternativaEnquete(alternativaVM.Descricao, alternativaVM.Ordem);
+                    alternativas.Add(alternativa);
+                }
+            }
+
+            return new EditarEnqueteCommand(
+                 enqueteVM.Id, enqueteVM.Descricao, enqueteVM.DataInicio, enqueteVM.DataFim,
+                 enqueteVM.ApenasProprietarios, alternativas);
+        }
     }
 }

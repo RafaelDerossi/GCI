@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CondominioApp.Enquetes.App.ViewModels
 {
-   public class AlteraEnqueteViewModel
+   public class EditaEnqueteViewModel
     {
         public Guid Id { get; set; }
         public string Descricao { get; set; }
@@ -14,6 +14,8 @@ namespace CondominioApp.Enquetes.App.ViewModels
         public DateTime DataFim { get; set; }      
 
         public bool ApenasProprietarios { get; set; }
-       
+
+        public IEnumerable<CadastraAlternativaEnqueteViewModel> Alternativas { get; set; }
+
     }
 }

@@ -6,15 +6,11 @@ using Xunit;
 namespace CondominioApp.Enquetes.App.Tests
 {
     
-    public class EnqueteTests
-    {
-        [Fact(DisplayName = "Criar uma Enquete")]       
-        public void Criar_Enquete_Valida()
+    public class EnqueteFactoryTests
+    {        
+        public static Enquete Criar_Enquete_Valida()
         {
-            //Arrange            
-           
-            //Act
-            var enquete = new Enquete(
+            return new Enquete(
                 "Sim ou Nao", DateTime.Now,DateTime.Now.AddDays(30),Guid.NewGuid(),
                 "Nome do Condominio",false, Guid.NewGuid(), "Nome do Usuario");
         }

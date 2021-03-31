@@ -11,8 +11,8 @@ namespace CondominioApp.Enquetes.App.ViewModels
 
         public CadastraAlternativaEnqueteViewModel()
         {
-
         }
+
         public CadastraAlternativaEnqueteViewModel(string descricao, int ordem)
         {
             Descricao = descricao;

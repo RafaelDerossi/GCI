@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CondominioApp.Enquetes.App.ViewModels
 {
-   public class AlterarAlternativaViewModel
+   public class AlteraAlternativaViewModel
     {
         public Guid Id { get; set; }
 

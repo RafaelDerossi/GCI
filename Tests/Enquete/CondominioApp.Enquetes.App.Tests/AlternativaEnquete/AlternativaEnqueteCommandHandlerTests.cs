@@ -29,15 +29,13 @@ namespace CondominioApp.Enquetes.App.Tests
             //Arrange
             var command = AlternativaEnqueteCommandFactory.CriarComandoEdicaoDeAlternativaEnquete();
 
-            var alternativa = new AlternativaEnquete("COM CERTEZA",1, Guid.NewGuid());
-            
+            var alternativa = AlternativaEnqueteFactoryTests.Criar_AlternativaEnquete_Valida();
 
-            var alternativas = new List<string>();
-            alternativas.Add("SIM");
-            alternativas.Add("NAO");
-            var enquete = new Enquete(
-                "Sim ou Nao", DateTime.Now, DateTime.Now.AddDays(30), Guid.NewGuid(),
-                "Nome do Condominio", false, Guid.NewGuid(), "Nome do Usuario");
+            var enquete = EnqueteFactoryTests.Criar_Enquete_Valida();
+            enquete.SetEntidadeId(alternativa.EnqueteId);
+
+            command.SetId(alternativa.Id);
+            command.SetEnqueteId(enquete.Id);
 
             _mocker.GetMock<IEnqueteRepository>().Setup(r => r.ObterAlternativaPorId(command.Id))
                .Returns(Task.FromResult(alternativa));

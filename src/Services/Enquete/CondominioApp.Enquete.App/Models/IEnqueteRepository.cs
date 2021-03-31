@@ -10,5 +10,8 @@ namespace CondominioApp.Enquetes.App.Models
         Task<AlternativaEnquete> ObterAlternativaPorId(Guid Id);
 
         void AdicionarResposta(RespostaEnquete entity);
+
+        void AdicionarAlternativa(AlternativaEnquete entity);
+        void RemoverAlternativa(AlternativaEnquete entity);
     }
 }

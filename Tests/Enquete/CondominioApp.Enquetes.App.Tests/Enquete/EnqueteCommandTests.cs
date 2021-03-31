@@ -102,49 +102,21 @@ namespace CondominioApp.Enquetes.App.Tests
             //Assert
             Assert.False(result);
         }
-
-
-        [Fact(DisplayName = "Adicionar Enquete - Sem Nome do Condominio")]
-        [Trait("Categoria", "Enquete - CadastrarEnqueteCommand")]
-        public void CadastroDeEnqueteSemNomeDoCondominio_CommandoInvalido_NaoDevePassarNaValidacao()
-        {
-            //Arrange
-            var command = EnqueteCommandFactory.CriarComandoCadastroDeEnqueteSemNomeDoCondominio();
-
-            //Act
-            var result = command.EstaValido();
-
-            //Assert
-            Assert.False(result);
-        }
+       
 
         [Fact(DisplayName = "Adicionar Enquete - Sem UsuarioId")]
         [Trait("Categoria", "Enquete - CadastrarEnqueteCommand")]
         public void CadastroDeEnqueteSemUsuarioId_CommandoInvalido_NaoDevePassarNaValidacao()
         {
             //Arrange
-            var command = EnqueteCommandFactory.CriarComandoCadastroDeEnqueteSemUsuarioId();
+            var command = EnqueteCommandFactory.CriarComandoCadastroDeEnqueteSemFuncionarioId();
 
             //Act
             var result = command.EstaValido();
 
             //Assert
             Assert.False(result);
-        }
-
-        [Fact(DisplayName = "Adicionar Enquete - Sem Nome do Usuario")]
-        [Trait("Categoria", "Enquete - CadastrarEnqueteCommand")]
-        public void CadastroDeEnqueteSemNomeDoUsuario_CommandoInvalido_NaoDevePassarNaValidacao()
-        {
-            //Arrange
-            var command = EnqueteCommandFactory.CriarComandoCadastroDeEnqueteSemNomeDoUsuario();
-
-            //Act
-            var result = command.EstaValido();
-
-            //Assert
-            Assert.False(result);
-        }
+        }       
 
         [Fact(DisplayName = "Editar Enquete Valido")]
         [Trait("Categoria", "Enquete - EditarEnqueteCommand")]
