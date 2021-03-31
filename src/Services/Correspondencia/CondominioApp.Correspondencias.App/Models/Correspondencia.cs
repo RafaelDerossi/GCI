@@ -53,7 +53,7 @@ namespace CondominioApp.Correspondencias.App.Models
         {
         }
         public Correspondencia(Guid condominioId, Guid unidadeId, string numeroUnidade, string bloco, bool visto, 
-            string nomeRetirante, string observacao, DateTime dataDaRetirada, Guid funcionarioId, 
+            string nomeRetirante, string observacao, DateTime? dataDaRetirada, Guid funcionarioId, 
             string nomeFuncionario, Foto foto, string numeroRastreamentoCorreio, DateTime dataDeChegada, 
             int quantidadeDeAlertasFeitos, string tipoDeCorrespondencia, StatusCorrespondencia status)
         {

@@ -1,4 +1,5 @@
 ﻿using CondominioApp.Core.Enumeradores;
+using CondominioApp.Core.Helpers;
 using CondominioApp.Core.Messages;
 using CondominioApp.Correspondencias.App.ValueObjects;
 using System;
@@ -25,7 +26,7 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
 
         public string Observacao { get; protected set; }
 
-        public DateTime DataDaRetirada { get; protected set; }
+        public DateTime? DataDaRetirada { get; protected set; }
 
         public Guid FuncionarioId { get; protected set; }
 
@@ -97,6 +98,28 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
         {
             FuncionarioId = id;
             NomeFuncionario = nomeFuncionario;
+        }
+
+        public void SetDataDeChegada(DateTime data)
+        {
+            if (data > DataHoraDeBrasilia.Get())
+            {
+                AdicionarErrosDeProcessamentoDoComando("Data de Chegada deve ser anterior a data-hora atual.");
+                return;
+            }               
+
+            DataDeChegada = data;
+        }
+
+        public void SetDataDeRetirada(DateTime? data)
+        {
+            if (data != null && data > DataHoraDeBrasilia.Get())
+            {
+                AdicionarErrosDeProcessamentoDoComando("Data de Retirada deve ser anterior a data-hora atual.");
+                return;
+            }
+
+            DataDaRetirada = data;
         }
     }
 }

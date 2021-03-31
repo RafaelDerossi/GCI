@@ -20,17 +20,16 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
             Observacao = observacao;
             FuncionarioId = funcionarioId;
             NomeFuncionario = nomeFuncionario;
-            NumeroRastreamentoCorreio = numeroRastreamentoCorreio;
-            DataDeChegada = dataDeChegada;
+            NumeroRastreamentoCorreio = numeroRastreamentoCorreio;           
             TipoDeCorrespondencia = tipoDeCorrespondencia;
-
-            NomeRetirante = nomeRetirante;
-
+            NomeRetirante = nomeRetirante;         
             QuantidadeDeAlertasFeitos = 1;
 
             SetFoto(foto, nomeOriginal);
             SetNaoVisto();
             SetStatus(status);
+            SetDataDeChegada(dataDeChegada);
+            SetDataDeRetirada(dataDaRetirada);
         }
 
 
