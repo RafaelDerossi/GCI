@@ -8,8 +8,7 @@ namespace CondominioApp.Portaria.Aplication.ViewModels
    public class CadastraVisitaPorteiroViewModel
     {
         public DateTime DataDeEntrada { get; set; }       
-        public string Observacao { get; set; }     
-        
+        public string Observacao { get; set; }        
 
         public Guid VisitanteId { get; set; }
         public string NomeVisitante { get; set; }
@@ -30,7 +29,7 @@ namespace CondominioApp.Portaria.Aplication.ViewModels
         public string ModeloVeiculo { get; set; }
         public string CorVeiculo { get; set; }
 
-        public Guid UsuarioId { get; set; }       
+        public Guid MoradorId { get; set; }       
 
     }
 }

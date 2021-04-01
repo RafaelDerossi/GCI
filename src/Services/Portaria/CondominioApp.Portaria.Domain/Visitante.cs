@@ -17,12 +17,8 @@ namespace CondominioApp.Portaria.Domain
         public Foto Foto { get; private set; }
 
         public Guid CondominioId { get; private set; }
-        public string NomeCondominio { get; private set; }
-
         public Guid UnidadeId { get; private set; }
-        public string NumeroUnidade { get; private set; }
-        public string AndarUnidade { get; private set; }
-        public string GrupoUnidade { get; private set; }
+       
 
         public bool VisitantePermanente { get; private set; }
         public string QrCode { get; private set; }
@@ -31,7 +27,6 @@ namespace CondominioApp.Portaria.Domain
 
 
         public bool TemVeiculo { get; private set; }
-
 
 
         private readonly List<Visita> _Visitas;
@@ -48,20 +43,15 @@ namespace CondominioApp.Portaria.Domain
         }
 
         public Visitante(string nome, TipoDeDocumento tipoDeDocumento, string documento,
-            Email email, Foto foto, Guid condominioId, string nomeCondominio, Guid unidadeId, string numeroUnidade,
-            string andarUnidade, string grupoUnidade, bool visitantePermanente, string qrCode,
-            TipoDeVisitante tipoDeVisitante, string nomeEmpresa, bool temVeiculo)
+            Email email, Foto foto, Guid condominioId, Guid unidadeId, bool visitantePermanente,
+            string qrCode, TipoDeVisitante tipoDeVisitante, string nomeEmpresa, bool temVeiculo)
         {
             _Visitas = new List<Visita>();
             Nome = nome;                      
             Email = email;
             Foto = foto;
             CondominioId = condominioId;
-            NomeCondominio = nomeCondominio;
             UnidadeId = unidadeId;
-            NumeroUnidade = numeroUnidade;
-            AndarUnidade = andarUnidade;
-            GrupoUnidade = grupoUnidade;
             VisitantePermanente = visitantePermanente;
             QrCode = qrCode;
             TipoDeVisitante = tipoDeVisitante;

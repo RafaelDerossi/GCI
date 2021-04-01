@@ -11,7 +11,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
             Guid visitanteId, Guid condominioId, string nomeCondominio, Guid unidadeId,
             string numeroUnidade, string andarUnidade, string grupoUnidade,
             bool temVeiculo, string placa, string modelo, string cor,
-            Guid usuarioId, string nomeUsuario)
+            Guid moradorId, string nomeMorador)
         {
             SetDataDeEntrada(dataDeEntrada);            
             Observacao = observacao;
@@ -28,7 +28,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
                         
             SetVeiculoPeloMorador(temVeiculo, placa, modelo, cor);
 
-            SetUsuario(usuarioId, nomeUsuario);
+            SetMorador(moradorId, nomeMorador);
 
         }
 

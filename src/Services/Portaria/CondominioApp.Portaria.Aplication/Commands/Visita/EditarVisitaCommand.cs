@@ -12,7 +12,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
             string emailVisitante, string fotoVisitante, string nomeOriginalFotoVisitante, TipoDeVisitante tipoDeVisitante,
             string nomeEmpresaVisitante, Guid unidadeId, string numeroUnidade, string andarUnidade,
             string grupoUnidade, bool temVeiculo, string placaVeiculo, string modeloVeiculo, string corVeiculo,
-            Guid usuarioId, string nomeUsuario)
+            Guid moradorId, string nomeMorador)
         {
             Id = id;
             Observacao = observacao;
@@ -30,7 +30,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
                            
             SetVeiculoPeloPorteiro(temVeiculo, placaVeiculo, modeloVeiculo, corVeiculo);
 
-            SetUsuario(usuarioId, nomeUsuario);
+            SetMorador(moradorId, nomeMorador);
         }
 
 

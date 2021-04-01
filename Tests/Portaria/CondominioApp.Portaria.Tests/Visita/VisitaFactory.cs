@@ -13,8 +13,8 @@ namespace CondominioApp.Portaria.Tests
                 (DateTime.Today, "OBS", StatusVisita.PENDENTE, Guid.NewGuid(),
                 "Nome do Visitante",TipoDeDocumento.CPF, "143.026.417-97",
                  new Email("rafael@condominioapp.com"), new Foto("nomeOriginal.jpg", "foto.jpg"),
-                TipoDeVisitante.PARTICULAR, "", Guid.NewGuid(),"Nome Condominio",
-                Guid.NewGuid(),"101","1º","Bloco 1", true, new Veiculo("LMG8888","Modelo","Prata"),
+                TipoDeVisitante.PARTICULAR, "", Guid.NewGuid(), Guid.NewGuid(),
+                true, new Veiculo("LMG8888","Modelo","Prata"),
                  Guid.NewGuid(), "Nome usuario");
         }
 

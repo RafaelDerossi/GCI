@@ -39,8 +39,8 @@ namespace CondominioApp.Portaria.Aplication.Commands
         public bool TemVeiculo { get; protected set; }
         public Veiculo Veiculo { get; protected set; }
 
-        public Guid UsuarioId { get; protected set; }
-        public string NomeUsuario { get; protected set; }
+        public Guid MoradorId { get; protected set; }
+        public string NomeMorador { get; protected set; }
 
 
         public void SetDocumentoVisitante(string documento, TipoDeDocumento tipoDeDocumento)
@@ -68,7 +68,6 @@ namespace CondominioApp.Portaria.Aplication.Commands
 
             DocumentoVisitante = documento;
         }
-
         private void SetRg(string rg)
         {
             try
@@ -93,8 +92,6 @@ namespace CondominioApp.Portaria.Aplication.Commands
                 AdicionarErrosDeProcessamentoDoComando(e.Message);
             }
         }
-
-
         public void SetEmailVisitante(string email)
         {
             try
@@ -106,7 +103,6 @@ namespace CondominioApp.Portaria.Aplication.Commands
                 AdicionarErrosDeProcessamentoDoComando(e.Message);
             }
         }
-
         public void SetFotoVisitante(string nomeOriginal, string nome)
         {
             try
@@ -117,10 +113,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
             {
                 AdicionarErrosDeProcessamentoDoComando(e.Message);
             }
-        }
-
-        
-        
+        }                
         public void SetVeiculoPeloPorteiro(bool temVeiculo, string placa, string modelo, string cor)
         {
             TemVeiculo = temVeiculo;
@@ -167,7 +160,6 @@ namespace CondominioApp.Portaria.Aplication.Commands
 
             Veiculo = new Veiculo("", "", "");
         }
-
         public void SetDataDeEntrada(DateTime dataDeEntrada)
         {
             if (dataDeEntrada.Date < DataHoraDeBrasilia.Get().Date)
@@ -199,10 +191,10 @@ namespace CondominioApp.Portaria.Aplication.Commands
 
         public void SetGrupoUnidade(string grupoUnidade) => GrupoUnidade = grupoUnidade;
 
-        public void SetUsuario(Guid usuarioId, string nome)
+        public void SetMorador(Guid moradorId, string nome)
         {
-            UsuarioId = usuarioId;
-            NomeUsuario = nome;
+            MoradorId = moradorId;
+            NomeMorador = nome;
         }
     }
 }
