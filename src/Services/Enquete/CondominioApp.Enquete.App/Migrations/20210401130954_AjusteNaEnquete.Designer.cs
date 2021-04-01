@@ -4,14 +4,16 @@ using CondominioApp.Enquetes.App.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CondominioApp.Enquetes.App.Migrations
 {
     [DbContext(typeof(EnqueteContextDB))]
-    partial class EnqueteContextDBModelSnapshot : ModelSnapshot
+    [Migration("20210401130954_AjusteNaEnquete")]
+    partial class AjusteNaEnquete
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

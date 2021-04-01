@@ -137,7 +137,7 @@ namespace CondominioApp.Api.Controllers
             var funcionario = await _usuarioQuery.ObterFuncionarioPorId(enqueteVM.FuncionarioId);
             if (funcionario == null)
             {
-                AdicionarErroProcessamento("Usuario não encontrado!");
+                AdicionarErroProcessamento("Funcionário não encontrado!");
                 return CustomResponse();
             }
 
