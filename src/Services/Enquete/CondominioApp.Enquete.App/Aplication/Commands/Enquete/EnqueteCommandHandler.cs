@@ -64,8 +64,9 @@ namespace CondominioApp.Enquetes.App.Aplication.Commands
             foreach (var item in enqueteBd.Alternativas)
             {
                 _EnqueteRepository.RemoverAlternativa(item);
-            }                 
+            }
 
+            enqueteBd.RemoverTodasAsAlternativa();
             foreach (var alternativa in request.Alternativas)
             {                
                 var resultado = enqueteBd.AdicionarAlternativa(alternativa);
@@ -73,8 +74,7 @@ namespace CondominioApp.Enquetes.App.Aplication.Commands
                     return resultado;
                 _EnqueteRepository.AdicionarAlternativa(alternativa);
             }
-
-            _EnqueteRepository.Atualizar(enqueteBd);
+           
 
             return await PersistirDados(_EnqueteRepository.UnitOfWork);
         }

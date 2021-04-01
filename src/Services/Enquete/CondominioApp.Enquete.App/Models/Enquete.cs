@@ -109,6 +109,11 @@ namespace CondominioApp.Enquetes.App.Models
             return ValidationResult;
         }
 
+        public void RemoverTodasAsAlternativa()
+        {           
+            _Alternativas.Clear();
+        }
+
         public int ObterQuantidadeDeVotos
         {
             get{

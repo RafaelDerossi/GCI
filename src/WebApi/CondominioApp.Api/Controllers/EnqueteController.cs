@@ -53,6 +53,8 @@ namespace CondominioApp.Api.Controllers
 
             enqueteVM.CalcularPorcentagem();
 
+            enqueteVM.OrdenarAlternativas();
+
             return enqueteVM;
         }
 
@@ -71,8 +73,10 @@ namespace CondominioApp.Api.Controllers
             {
                 var enqueteVM = _mapper.Map<EnqueteViewModel>(item);
                 enqueteVM.CalcularPorcentagem();
+                enqueteVM.OrdenarAlternativas();
                 enquetesVM.Add(enqueteVM);
-            }
+            }           
+
             return enquetesVM;
         }
                
@@ -93,6 +97,7 @@ namespace CondominioApp.Api.Controllers
                 {
                     var enqueteVM = _mapper.Map<EnqueteViewModel>(enquete);
                     enqueteVM.CalcularPorcentagem();
+                    enqueteVM.OrdenarAlternativas();
                     enquetesVM.Add(enqueteVM);
                 }               
             }
@@ -116,6 +121,7 @@ namespace CondominioApp.Api.Controllers
                 var enqueteVM = _mapper.Map<EnqueteViewModel>(enquete);
                 enqueteVM.EnqueteVotada = enquete.UsuarioJaVotou(usuarioId);
                 enqueteVM.CalcularPorcentagem();
+                enqueteVM.OrdenarAlternativas();
                 enquetesVM.Add(enqueteVM);
             }
             return enquetesVM;

@@ -45,6 +45,11 @@ namespace CondominioApp.Enquetes.App.ViewModels
                item.Porcentagem = (item.Respostas.Count() * 100) / QuantidadeDeVotos;
             }
         }
-                
+
+        public void OrdenarAlternativas()
+        {
+            Alternativas = Alternativas.OrderBy(a => a.Ordem);
+        }
+
     }
 }
