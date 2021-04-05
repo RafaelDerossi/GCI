@@ -1,6 +1,7 @@
 ﻿using CondominioApp.Core.DomainObjects;
 using CondominioApp.Core.Enumeradores;
 using CondominioApp.Core.Helpers;
+using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents;
 using CondominioApp.Portaria.ValueObjects;
 using FluentValidation.Results;
 using System;
@@ -230,5 +231,59 @@ namespace CondominioApp.Portaria.Domain
             return ValidationResult;
         }
 
+
+        public void EnviarPushAvisoDeVisitaNaPortaria()
+        {
+            var titulo = "VISITA PARA VOCÊ";
+            var descricao = ObterDescricaoParaAvisoDeVisitaNaPortaria();           
+
+            AdicionarEvento
+                (new EnviarPushParaMoradorIntegrationEvent(MoradorId, titulo, descricao));
+        }
+        private string ObterDescricaoParaAvisoDeVisitaNaPortaria()
+        {
+            if (TipoDeVisitante == TipoDeVisitante.PARTICULAR)
+            {
+                return $"Deseja liberar a entrada do(a) {NomeVisitante}, da empresa {NomeEmpresaVisitante}?";
+            }
+
+            return $"Deseja liberar a entrada do(a) {NomeVisitante}?";
+        }
+
+        public void EnviarPushAvisoDeVisitaIniciada()
+        {
+            var titulo = "VISITA INICIADA";
+            var descricao = ObterDescricaoParaAvisoDeVisitaIniciada();
+
+            AdicionarEvento
+                (new EnviarPushParaMoradorIntegrationEvent(MoradorId, titulo, descricao));
+        }
+        private string ObterDescricaoParaAvisoDeVisitaIniciada()
+        {
+            if (TipoDeVisitante == TipoDeVisitante.PARTICULAR)
+            {
+                return $"{NomeVisitante}, da empresa {NomeEmpresaVisitante}, entrou no condomínio.";
+            }
+
+            return $"{NomeVisitante} entrou no condomínio.";
+        }
+
+        public void EnviarPushAvisoDeVisitaTerminada()
+        {
+            var titulo = "VISITA TERMINADA";
+            var descricao = ObterDescricaoParaAvisoDeVisitaTerminada();
+
+            AdicionarEvento
+                (new EnviarPushParaMoradorIntegrationEvent(MoradorId, titulo, descricao));
+        }
+        private string ObterDescricaoParaAvisoDeVisitaTerminada()
+        {
+            if (TipoDeVisitante == TipoDeVisitante.PARTICULAR)
+            {
+                return $"{NomeVisitante}, da empresa {NomeEmpresaVisitante}, saiu no condomínio.";
+            }
+
+            return $"{NomeVisitante} saiu no condomínio.";
+        }
     }
 }

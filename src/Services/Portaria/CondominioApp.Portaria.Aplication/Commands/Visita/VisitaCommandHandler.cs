@@ -49,6 +49,8 @@ namespace CondominioApp.Portaria.Aplication.Commands
                   request.NumeroUnidade, request.AndarUnidade, request.GrupoUnidade, visita.TemVeiculo,
                   visita.Veiculo, visita.MoradorId, request.NomeMorador));
 
+            visita.EnviarPushAvisoDeVisitaNaPortaria();
+
             return await PersistirDados(_visitanteRepository.UnitOfWork);
         }
 
@@ -110,6 +112,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
                      request.TipoDeVisitante, request.NomeEmpresaVisitante, request.UnidadeId,
                      request.NumeroUnidade, request.AndarUnidade, request.GrupoUnidade, request.TemVeiculo,
                      request.Veiculo, request.MoradorId, request.NomeMorador));
+
 
             return await PersistirDados(_visitanteRepository.UnitOfWork);
         }
@@ -207,6 +210,8 @@ namespace CondominioApp.Portaria.Aplication.Commands
             //Evento
             visitaBd.AdicionarEvento(new VisitaIniciadaEvent(request.Id, request.DataDeEntrada));
 
+            visitaBd.EnviarPushAvisoDeVisitaIniciada();
+
             return await PersistirDados(_visitanteRepository.UnitOfWork);
         }
 
@@ -229,6 +234,8 @@ namespace CondominioApp.Portaria.Aplication.Commands
 
             //Evento
             visitaBd.AdicionarEvento(new VisitaTerminadaEvent(request.Id, request.DataDeSaida));
+
+            visitaBd.EnviarPushAvisoDeVisitaTerminada();
 
             return await PersistirDados(_visitanteRepository.UnitOfWork);
         }
