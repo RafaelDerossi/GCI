@@ -22,5 +22,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
 
         public Permissao Permissao { get; protected set; }
 
+        public string LinkDeRedirecionamento { get; protected set; }
+
     }
 }

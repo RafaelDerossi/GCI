@@ -48,15 +48,19 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
 
         public bool Proprietario { get; protected set; }
 
-        public bool Principal { get; protected set; }
-
+        public bool Principal { get; protected set; }       
 
         public Endereco Endereco { get; protected set; }
     
         public bool SindicoProfissional { get; protected set; }
 
-
         public TipoDeUsuario TipoDeUsuario { get; protected set; }
+
+
+        public bool EnviarEmailDeConfirmacao { get; protected set; }
+
+        public string LinkDeRedirecionamento { get; protected set; }
+
 
         public void SetNome(string nome) => Nome = nome;
 

@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace CondominioApp.Identidade.Api.Email
+namespace CondominioApp.NotificacaoEmail.App.Service
 {
     public class DisparadorDeEmails
     {

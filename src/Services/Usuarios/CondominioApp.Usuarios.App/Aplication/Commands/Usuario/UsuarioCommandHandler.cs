@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using CondominioApp.Core.Enumeradores;
+using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents;
 using CondominioApp.Core.Messages;
 using CondominioApp.Usuarios.App.Aplication.Events;
 using CondominioApp.Usuarios.App.Models;
@@ -40,6 +40,11 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
             usuario.SetEntidadeId(request.UsuarioId);
 
             _usuarioRepository.Adicionar(usuario);
+
+            if (request.EnviarEmailDeConfirmacao)
+                usuario.AdicionarEvento
+                    (new EnviarEmailConfirmacaoDeCadastroDeUsuarioIntegrationEvent
+                    (usuario.Id, request.LinkDeRedirecionamento));
 
             return await PersistirDados(_usuarioRepository.UnitOfWork);
 

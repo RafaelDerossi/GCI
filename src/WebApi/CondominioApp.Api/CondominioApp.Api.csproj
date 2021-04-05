@@ -13,7 +13,6 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\Download\Temp\" />
-    <Folder Include="wwwroot\Email\" />
   </ItemGroup>
 
 

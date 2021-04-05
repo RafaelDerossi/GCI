@@ -7,7 +7,8 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
     public class CadastrarFuncionarioCommand : FuncionarioCommand
     {
         public CadastrarFuncionarioCommand(Guid usuarioId, Guid condominioId, string nomeCondominio,
-            string atribuicao = null, string funcao = null, Permissao permissao = Permissao.USUARIO)
+            string atribuicao = null, string funcao = null, Permissao permissao = Permissao.USUARIO,
+            string linkDeRedirecionamento = "")
         {
             UsuarioId = usuarioId;            
             Permissao = permissao;
@@ -15,6 +16,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
             NomeCondominio = nomeCondominio;
             Atribuicao = atribuicao;
             Funcao = funcao;
+            LinkDeRedirecionamento = linkDeRedirecionamento;
         }
 
         public override bool EstaValido()

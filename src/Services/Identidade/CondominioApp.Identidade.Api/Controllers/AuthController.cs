@@ -7,8 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 using CondominioApp.Core.Enumeradores;
 using CondominioApp.Core.Mediator;
-using CondominioApp.Identidade.Api.Email;
 using CondominioApp.Identidade.Api.Models;
+using CondominioApp.NotificacaoEmail.Api.Email;
+using CondominioApp.NotificacaoEmail.App.Service;
 using CondominioApp.Principal.Aplication.Query.Interfaces;
 using CondominioApp.Principal.Domain.FlatModel;
 using CondominioApp.Usuarios.App.Aplication.Commands;
@@ -72,8 +73,8 @@ namespace CondominioApp.Identidade.Api.Controllers
                 return CustomResponse("Email não encontrado");
 
             var token = await _userManager.GeneratePasswordResetTokenAsync(user);
-
-            var disparadorEmail = new DisparadorDeEmails(new EmailRecuperarSenha(user, token, _appSettings.LinkRedefinirSenha));
+            
+            var disparadorEmail = new DisparadorDeEmails(new EmailRecuperarSenha(user.UserName, user.Email, token, _appSettings.LinkRedefinirSenha));
             await disparadorEmail.Disparar();
 
             return CustomResponse();
@@ -119,13 +120,11 @@ namespace CondominioApp.Identidade.Api.Controllers
                 return CustomResponse();
             }
 
-            await RegistrarUsuario(usuarioRegistroVM);
+            await RegistrarUsuario(usuarioRegistroVM, true);
             if (!OperacaoValida())
                 return CustomResponse();
 
-            await AddClaimAsync(user, usuarioRegistroVM.TpUsuario);
-
-            await EnviarEmailDeConfirmacaoDeCadastro(user, usuarioRegistroVM.Nome);
+            await AddClaimAsync(user, usuarioRegistroVM.TpUsuario);           
 
             return CustomResponse();            
         }       
@@ -145,7 +144,7 @@ namespace CondominioApp.Identidade.Api.Controllers
                 return await RegistrarMorador(moradorVM, user);
             }
 
-            user = await RegistrarUsuario(moradorVM);
+            user = await RegistrarUsuario(moradorVM, false);
             if (!OperacaoValida())
                 return CustomResponse();          
 
@@ -168,7 +167,7 @@ namespace CondominioApp.Identidade.Api.Controllers
                 return await RegistrarFuncionario(funcionarioVM, user);
             }
 
-            user = await RegistrarUsuario(funcionarioVM);
+            user = await RegistrarUsuario(funcionarioVM, false);
             if (!OperacaoValida())
                 return CustomResponse();
 
@@ -340,7 +339,7 @@ namespace CondominioApp.Identidade.Api.Controllers
         }
 
 
-        private async Task<IdentityUser> RegistrarUsuario(UsuarioRegistro usuarioRegistroVM)
+        private async Task<IdentityUser> RegistrarUsuario(UsuarioRegistro usuarioRegistroVM, bool enviarEmailDeConfirmacao)
         {
             var user = IdentityUserFactory(usuarioRegistroVM.Email);
             var result = await _userManager.CreateAsync(user, usuarioRegistroVM.Senha);
@@ -352,7 +351,7 @@ namespace CondominioApp.Identidade.Api.Controllers
                 return null;
             }
 
-            await CadastrarUsuario(usuarioRegistroVM, user);
+            await CadastrarUsuario(usuarioRegistroVM, user, enviarEmailDeConfirmacao);
 
             return user;
         }
@@ -395,9 +394,10 @@ namespace CondominioApp.Identidade.Api.Controllers
         }
 
 
-        private async Task CadastrarUsuario(UsuarioRegistro usuarioRegistro, IdentityUser user)
+        private async Task CadastrarUsuario(UsuarioRegistro usuarioRegistro, IdentityUser user, bool enviarEmailDeConfirmacao)
         {
-            var comando = CadastrarUsuarioCommandFactory(usuarioRegistro, Guid.Parse(user.Id));
+            var comando = CadastrarUsuarioCommandFactory
+                (usuarioRegistro, Guid.Parse(user.Id), enviarEmailDeConfirmacao);
             var resultado = await _mediatorHandler.EnviarComando(comando);
             if (!resultado.IsValid)
             {
@@ -470,7 +470,8 @@ namespace CondominioApp.Identidade.Api.Controllers
                  usuarioRegistro.Permissao);
         }
        
-        private CadastrarUsuarioCommand CadastrarUsuarioCommandFactory(UsuarioRegistro usuarioRegistro, Guid userId)
+        private CadastrarUsuarioCommand CadastrarUsuarioCommandFactory
+            (UsuarioRegistro usuarioRegistro, Guid userId, bool enviarEmailDeConfirmacao)
         {
             return new CadastrarUsuarioCommand
                 (userId, usuarioRegistro.Nome, usuarioRegistro.Sobrenome, usuarioRegistro.Email,
@@ -478,7 +479,7 @@ namespace CondominioApp.Identidade.Api.Controllers
                  usuarioRegistro.Telefone, usuarioRegistro.Celular, 
                  usuarioRegistro.Logradouro, usuarioRegistro.Complemento, usuarioRegistro.Numero,
                  usuarioRegistro.Cep, usuarioRegistro.Bairro, usuarioRegistro.Cidade, usuarioRegistro.Estado,
-                 usuarioRegistro.DataNascimento);
+                 usuarioRegistro.DataNascimento, enviarEmailDeConfirmacao, _appSettings.LinkConfirmacaoDeCadastro);
         }
 
 
@@ -489,7 +490,7 @@ namespace CondominioApp.Identidade.Api.Controllers
         }
         private async Task EnviarEmailDeConfirmacaoDeCadastro(IdentityUser user, string nomeUsuario)
         {
-            var DisparadorDeEmail = new DisparadorDeEmails(new EmailConfirmacaoDeCadastro(user, _appSettings.LinkConfirmacaoDeCadastro, nomeUsuario));
+            var DisparadorDeEmail = new DisparadorDeEmails(new EmailConfirmacaoDeCadastroDeUser(user.UserName,user.Email, _appSettings.LinkConfirmacaoDeCadastro));
             await DisparadorDeEmail.Disparar();
         }
         

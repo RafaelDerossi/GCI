@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using System.Net.Mail;
 
-namespace CondominioApp.Identidade.Api.Email
+namespace CondominioApp.NotificacaoEmail.App.Service
 {
     public class SmtpAmazonService : SmtpClient
     {

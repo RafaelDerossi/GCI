@@ -1,7 +1,7 @@
 ﻿using System.Net.Mail;
 using System.Threading.Tasks;
 
-namespace CondominioApp.Identidade.Api.Email
+namespace CondominioApp.NotificacaoEmail.App.Service
 {
     public abstract class ServicoDeEmail : SmtpAmazonService
     {
@@ -13,7 +13,7 @@ namespace CondominioApp.Identidade.Api.Email
 
         public void ConstruirEmail(string Assunto, string ConteudoDoEmail)
         {
-            _Email.From = new MailAddress("info@conect.studio", "Conect Studio");
+            _Email.From = new MailAddress("info@condominioapp.com", "Condominioapp.com");
             _Email.Subject = Assunto;
             _Email.IsBodyHtml = true;
             _Email.Body = ConteudoDoEmail;
