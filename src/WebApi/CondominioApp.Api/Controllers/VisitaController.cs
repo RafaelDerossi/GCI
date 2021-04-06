@@ -148,7 +148,7 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }
 
-            var unidade = await _principalQuery.ObterUnidadePorId(visitaVM.MoradorId);
+            var unidade = await _principalQuery.ObterUnidadePorId(visitaVM.UnidadeId);
             if (unidade == null)
             {
                 AdicionarErroProcessamento("Unidade não encontrada!");
@@ -278,7 +278,7 @@ namespace CondominioApp.Api.Controllers
             (CadastraVisitaPorteiroViewModel viewModel, UnidadeFlat unidade, MoradorFlat morador)
         {
             return new CadastrarVisitaPorPorteiroCommand(
-                  viewModel.DataDeEntrada,viewModel.Observacao, StatusVisita.PENDENTE, viewModel.VisitanteId,
+                  viewModel.Observacao, StatusVisita.PENDENTE, viewModel.VisitanteId,
                   viewModel.NomeVisitante, viewModel.TipoDoDocumento, viewModel.Documento, viewModel.EmailVisitante,
                   viewModel.FotoVisitante, viewModel.NomeOriginalFotoVisitante, viewModel.TipoDeVisitante,
                   viewModel.NomeEmpresaVisitante, unidade.CondominioId, unidade.CondominioNome, unidade.Id,
