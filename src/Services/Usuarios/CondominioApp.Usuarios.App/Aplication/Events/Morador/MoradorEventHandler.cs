@@ -9,6 +9,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Events
 {
     public class MoradorEventHandler : EventHandler,
         INotificationHandler<MoradorCadastradoEvent>,
+        INotificationHandler<MoradorExcluidoEvent>,
         INotificationHandler<UnidadeMarcadaComoPrincipalEvent>,
         INotificationHandler<MarcadoComoProprietarioEvent>,
         INotificationHandler<DesmarcadoComoProprietarioEvent>,
@@ -39,6 +40,17 @@ namespace CondominioApp.Usuarios.App.Aplication.Events
             _moradorQueryRepository.Adicionar(moradorFlat);
 
             await PersistirDados(_moradorQueryRepository.UnitOfWork);
+        }
+
+        public async Task Handle(MoradorExcluidoEvent notification, CancellationToken cancellationToken)
+        {
+            var moradorFlat = await _moradorQueryRepository.ObterPorId(notification.Id);            
+            if (moradorFlat != null)
+            {
+                _moradorQueryRepository.Excluir(moradorFlat);
+
+                await PersistirDados(_moradorQueryRepository.UnitOfWork);
+            }            
         }
 
         public async Task Handle(UnidadeMarcadaComoPrincipalEvent notification, CancellationToken cancellationToken)

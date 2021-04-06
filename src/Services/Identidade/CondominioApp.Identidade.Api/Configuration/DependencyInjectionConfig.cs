@@ -29,7 +29,9 @@ namespace CondominioApp.Identidade.Api.Configuration
 
             #region Morador
             services.AddScoped<IRequestHandler<CadastrarMoradorCommand, ValidationResult>, MoradorCommandHandler>();
+            services.AddScoped<IRequestHandler<ExcluirMoradorCommand, ValidationResult>, MoradorCommandHandler>();
             services.AddScoped<INotificationHandler<MoradorCadastradoEvent>, MoradorEventHandler>();
+            services.AddScoped<INotificationHandler<MoradorExcluidoEvent>, MoradorEventHandler>();
             #endregion
 
             #region Funcionario

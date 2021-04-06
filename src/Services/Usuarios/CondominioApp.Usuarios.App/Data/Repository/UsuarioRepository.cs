@@ -140,6 +140,11 @@ namespace CondominioApp.Usuarios.App.Data.Repository
             _context.Moradores.Update(entity);
         }
 
+        public void ExcluirMorador(Morador entity)
+        {
+            _context.Moradores.Remove(entity);
+        }
+
         #endregion
 
 

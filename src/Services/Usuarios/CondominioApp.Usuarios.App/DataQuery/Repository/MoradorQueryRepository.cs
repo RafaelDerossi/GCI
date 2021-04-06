@@ -66,9 +66,7 @@ namespace CondominioApp.Usuarios.App.Data.Repository
             _context.MoradoresFlat.Where(predicate).ToList().ForEach(del => del.EnviarParaLixeira());
         }
 
-   
-      
-        public void Remover(MoradorFlat entity)
+        public void Excluir(MoradorFlat entity)
         {
             _context.MoradoresFlat.Remove(entity);
         }

@@ -20,6 +20,8 @@ namespace CondominioApp.Usuarios.App.Models
         Task<IEnumerable<Morador>> ObterMoradores(Expression<Func<Morador, bool>> expression, bool OrderByDesc = false, int take = 0);
         void AdicionarMorador(Morador morador);
         void AtualizarMorador(Morador entity);
+
+        void ExcluirMorador(Morador entity);
         #endregion
 
 

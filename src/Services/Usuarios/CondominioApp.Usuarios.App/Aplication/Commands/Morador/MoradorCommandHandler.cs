@@ -12,10 +12,11 @@ using MediatR;
 namespace CondominioApp.Usuarios.App.Aplication.Commands
 {
     public class MoradorCommandHandler : CommandHandler,        
-        IRequestHandler<CadastrarMoradorCommand, ValidationResult>,        
+        IRequestHandler<CadastrarMoradorCommand, ValidationResult>,
+        IRequestHandler<ExcluirMoradorCommand, ValidationResult>,
         IRequestHandler<MarcarComoUnidadePrincipalCommand, ValidationResult>,
         IRequestHandler<MarcarComoProprietarioCommand, ValidationResult>,
-        IRequestHandler<DesmarcarComoProprietarioCommand, ValidationResult>,           
+        IRequestHandler<DesmarcarComoProprietarioCommand, ValidationResult>,
         IDisposable
     {
         private IUsuarioRepository _usuarioRepository;
@@ -60,7 +61,27 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
                     (new EnviarEmailConfirmacaoDeCadastroDeMoradorIntegrationEvent(moradorNovo.Id));
 
             return await PersistirDados(_usuarioRepository.UnitOfWork);
-        }        
+        }
+
+        public async Task<ValidationResult> Handle(ExcluirMoradorCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido()) return request.ValidationResult;
+
+            var morador = await _usuarioRepository.ObterMoradorPorId(request.Id);
+            if (morador == null)
+            {
+                AdicionarErro("Morador não encontrado.");
+                return ValidationResult;
+            }            
+
+            _usuarioRepository.ExcluirMorador(morador);
+
+            //Evento
+            morador.AdicionarEvento(new MoradorExcluidoEvent(morador.Id));
+
+            return await PersistirDados(_usuarioRepository.UnitOfWork);
+
+        }
 
         public async Task<ValidationResult> Handle(MarcarComoUnidadePrincipalCommand request, CancellationToken cancellationToken)
         {

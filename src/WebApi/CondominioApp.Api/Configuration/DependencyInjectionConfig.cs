@@ -324,6 +324,7 @@ namespace CondominioApp.Api.Configuration
             #region Usuarios -Context
             //Morador
             services.AddScoped<IRequestHandler<CadastrarMoradorCommand, ValidationResult>, MoradorCommandHandler>();
+            services.AddScoped<IRequestHandler<ExcluirMoradorCommand, ValidationResult>, MoradorCommandHandler>();
             services.AddScoped<IRequestHandler<MarcarComoUnidadePrincipalCommand, ValidationResult>, MoradorCommandHandler>();
             services.AddScoped<IRequestHandler<MarcarComoProprietarioCommand, ValidationResult>, MoradorCommandHandler>();
             services.AddScoped<IRequestHandler<DesmarcarComoProprietarioCommand, ValidationResult>, MoradorCommandHandler>();
@@ -331,6 +332,7 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<INotificationHandler<UnidadeMarcadaComoPrincipalEvent>, MoradorEventHandler>();
             services.AddScoped<INotificationHandler<MarcadoComoProprietarioEvent>, MoradorEventHandler>();
             services.AddScoped<INotificationHandler<DesmarcadoComoProprietarioEvent>, MoradorEventHandler>();
+            services.AddScoped<INotificationHandler<MoradorExcluidoEvent>, MoradorEventHandler>();
 
             //Funcionario
             services.AddScoped<IRequestHandler<CadastrarFuncionarioCommand, ValidationResult>, FuncionarioCommandHandler>();

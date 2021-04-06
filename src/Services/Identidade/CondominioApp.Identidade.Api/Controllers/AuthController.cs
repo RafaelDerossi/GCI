@@ -13,6 +13,7 @@ using CondominioApp.NotificacaoEmail.App.Service;
 using CondominioApp.Principal.Aplication.Query.Interfaces;
 using CondominioApp.Principal.Domain.FlatModel;
 using CondominioApp.Usuarios.App.Aplication.Commands;
+using CondominioApp.Usuarios.App.Aplication.Query;
 using CondominioApp.WebApi.Core.Controllers;
 using CondominioApp.WebApi.Core.Identidade;
 using FluentValidation.Results;
@@ -31,18 +32,21 @@ namespace CondominioApp.Identidade.Api.Controllers
         private readonly AppSettings _appSettings;
         private readonly IMediatorHandler _mediatorHandler;
         private readonly IPrincipalQuery _condominioQuery;
+        private readonly IUsuarioQuery _usuarioQuery;
 
         public AuthController(SignInManager<IdentityUser> signInManager,
                               UserManager<IdentityUser> userManager,
                               IOptions<AppSettings> appSettings,
                               IMediatorHandler mediatorHandler,
-                              IPrincipalQuery condominioQuery)
+                              IPrincipalQuery condominioQuery,
+                              IUsuarioQuery usuarioQuery)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _appSettings = appSettings.Value;
             _mediatorHandler = mediatorHandler;
             _condominioQuery = condominioQuery;
+            _usuarioQuery = usuarioQuery;
         }
 
 
@@ -360,8 +364,18 @@ namespace CondominioApp.Identidade.Api.Controllers
             await CadastrarMorador(moradorVM, user);
             if (!OperacaoValida())
             {
-                var comandoExcluir = new ExcluirUsuarioCommand(Guid.Parse(user.Id));
-                await _mediatorHandler.EnviarComando(comandoExcluir);
+                var moradoresBd = await _usuarioQuery.ObterMoradoresPorUsuarioId(Guid.Parse(user.Id));
+                if (moradoresBd.Count() > 0 )
+                {
+                    moradoresBd = moradoresBd.OrderByDescending(m => m.DataDeCadastro);
+                    var moradorBd = moradoresBd.FirstOrDefault();
+                    var comandoExcluirMorador = new ExcluirMoradorCommand(moradorBd.Id);
+                    await _mediatorHandler.EnviarComando(comandoExcluirMorador);
+                    await _userManager.DeleteAsync(user);
+                }
+
+                var comandoExcluirUsuario = new ExcluirUsuarioCommand(Guid.Parse(user.Id));
+                await _mediatorHandler.EnviarComando(comandoExcluirUsuario);
                 await _userManager.DeleteAsync(user);
                 return CustomResponse();
             }
