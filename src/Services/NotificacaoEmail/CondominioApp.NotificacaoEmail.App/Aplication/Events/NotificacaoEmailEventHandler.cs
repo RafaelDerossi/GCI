@@ -29,7 +29,7 @@ namespace CondominioApp.NotificacaoEmail.Aplication.Events
         {
             var usuario = await _usuarioQueryRepository.ObterPorId(notification.UsuarioId);
 
-            var DisparadorDeEmail = new DisparadorDeEmails(new EmailConfirmacaoDeCadastroDeUsuario(usuario, notification.LinkDeRedirecionamento));
+            var DisparadorDeEmail = new DisparadorDeEmails(new EmailConfirmacaoDeCadastroDeUsuario(usuario));
             await DisparadorDeEmail.Disparar();
         }
 

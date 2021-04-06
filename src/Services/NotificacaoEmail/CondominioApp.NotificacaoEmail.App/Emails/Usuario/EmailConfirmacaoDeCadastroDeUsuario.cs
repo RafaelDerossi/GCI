@@ -8,14 +8,11 @@ namespace CondominioApp.NotificacaoEmail.Api.Email
     public class EmailConfirmacaoDeCadastroDeUsuario : ServicoDeEmail
     {
         private readonly string Assunto = "Confirmação de cadastro";
-        private Usuario Usuario;
-        private string CaminhoUrl;
+        private Usuario Usuario;       
 
-        public EmailConfirmacaoDeCadastroDeUsuario(Usuario usuario, string linkDeRedirecionamento)
+        public EmailConfirmacaoDeCadastroDeUsuario(Usuario usuario)
         {
-            Usuario = usuario;
-
-            CaminhoUrl = linkDeRedirecionamento;
+            Usuario = usuario;            
 
             var conteudo = SubstituirValores();
 
@@ -28,8 +25,7 @@ namespace CondominioApp.NotificacaoEmail.Api.Email
 
             var conteudoDoHtmlDoEmail = File.ReadAllText(CaminhoDoHtml);
 
-            conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_NomeDoUsuario_", Usuario.NomeCompleto);
-            conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_urlDeRedirecionamento_", $"{CaminhoUrl}");
+            conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_NomeDoUsuario_", Usuario.NomeCompleto);            
 
             return conteudoDoHtmlDoEmail;
         }
