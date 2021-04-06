@@ -368,8 +368,6 @@ namespace CondominioApp.Identidade.Api.Controllers
 
             await AddClaimAsync(user, TipoDeUsuario.MORADOR);
 
-            await EnviarEmailDeConfirmacaoDeCadastro(user, moradorVM.Nome);
-
             return CustomResponse();
 
         }
@@ -385,9 +383,7 @@ namespace CondominioApp.Identidade.Api.Controllers
             }                
 
 
-            await AddClaimAsync(user, TipoDeUsuario.FUNCIONARIO);
-
-            await EnviarEmailDeConfirmacaoDeCadastro(user, funcionarioVM.Nome);
+            await AddClaimAsync(user, TipoDeUsuario.FUNCIONARIO);           
 
             return CustomResponse();
 
@@ -488,9 +484,10 @@ namespace CondominioApp.Identidade.Api.Controllers
             await _userManager.AddClaimAsync(user, new Claim("TipoUsuario",
                  Enum.GetName(typeof(TipoDeUsuario), tipoDeUsuario)));
         }
+
         private async Task EnviarEmailDeConfirmacaoDeCadastro(IdentityUser user, string nomeUsuario)
         {
-            var DisparadorDeEmail = new DisparadorDeEmails(new EmailConfirmacaoDeCadastroDeUser(user.UserName,user.Email, _appSettings.LinkConfirmacaoDeCadastro));
+            var DisparadorDeEmail = new DisparadorDeEmails(new EmailConfirmacaoDeCadastroDeUser(nomeUsuario, user.Email, _appSettings.LinkConfirmacaoDeCadastro));
             await DisparadorDeEmail.Disparar();
         }
         

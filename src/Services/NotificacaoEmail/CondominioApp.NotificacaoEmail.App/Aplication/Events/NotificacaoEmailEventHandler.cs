@@ -3,6 +3,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using CondominioApp.Core.Messages;
 using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents;
+using CondominioApp.NotificacaoEmail.Api.Email;
+using CondominioApp.NotificacaoEmail.App.Service;
 using CondominioApp.Usuarios.App.Aplication.Query;
 using CondominioApp.Usuarios.App.FlatModel;
 using CondominioApp.Usuarios.App.Models;
@@ -12,7 +14,7 @@ using MediatR;
 namespace CondominioApp.NotificacaoEmail.Aplication.Events
 {
     public class NotificacaoEmailEventHandler : EventHandler, 
-        INotificationHandler<EnviarPushParaSindicoIntegrationEvent>,       
+        INotificationHandler<EnviarEmailConfirmacaoDeCadastroDeUsuarioIntegrationEvent>,       
         System.IDisposable
     {
         private IUsuarioQuery _usuarioQueryRepository;       
@@ -22,18 +24,12 @@ namespace CondominioApp.NotificacaoEmail.Aplication.Events
             _usuarioQueryRepository = usuarioQueryRepository;            
         }
 
-        public async Task Handle(EnviarPushParaSindicoIntegrationEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(EnviarEmailConfirmacaoDeCadastroDeUsuarioIntegrationEvent notification, CancellationToken cancellationToken)
         {
-            var funcionario = await _usuarioQueryRepository.ObterSindicoPorCondominioId(notification.CondominioId);
+            var usuario = await _usuarioQueryRepository.ObterPorId(notification.UsuarioId);
 
-            //var dispositivosIds = await ObterDispositivosIds(funcionario.Id);
-
-            //var notificacaoDTO = new NotificacaoPushDTO(new SindicoOneSignalApp(), dispositivosIds);
-
-            //notificacaoDTO.AdicionarMensagem(CodigosDeLingua.English, notification.Titulo, notification.Conteudo);
-
-            //_notificacaoPushService.CriarNotificacao(notificacaoDTO);
-            
+            var DisparadorDeEmail = new DisparadorDeEmails(new EmailConfirmacaoDeCadastroDeUsuario(usuario, notification.LinkDeRedirecionamento));
+            await DisparadorDeEmail.Disparar();
         }
    
 
