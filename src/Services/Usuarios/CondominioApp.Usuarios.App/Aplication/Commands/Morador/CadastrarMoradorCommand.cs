@@ -8,7 +8,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
     {
         public CadastrarMoradorCommand(Guid usuarioId, Guid condominioId, string nomeCondominio,
             Guid unidadeId, string numeroUnidade, string andarUnidade, string grupoUnidade, 
-            bool proprietario = false, bool principal = false,  string linkDeRedirecionamento = "")
+            bool proprietario = false, bool principal = false)
         {
             UsuarioId = usuarioId;            
 
@@ -22,8 +22,6 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
             
             Proprietario = proprietario;
             Principal = principal;
-
-            LinkDeRedirecionamento = linkDeRedirecionamento;
         }
 
         public override bool EstaValido()

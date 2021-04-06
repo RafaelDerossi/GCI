@@ -23,9 +23,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
 
         public bool Proprietario { get; protected set; }
 
-        public bool Principal { get; protected set; }
-
-        public string LinkDeRedirecionamento { get; protected set; }
+        public bool Principal { get; protected set; }        
 
     }
 }

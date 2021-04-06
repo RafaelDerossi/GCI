@@ -43,8 +43,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
 
             if (request.EnviarEmailDeConfirmacao)
                 usuario.AdicionarEvento
-                    (new EnviarEmailConfirmacaoDeCadastroDeUsuarioIntegrationEvent
-                    (usuario.Id, request.LinkDeRedirecionamento));
+                    (new EnviarEmailConfirmacaoDeCadastroDeUsuarioIntegrationEvent(usuario.Id));
 
             return await PersistirDados(_usuarioRepository.UnitOfWork);
 

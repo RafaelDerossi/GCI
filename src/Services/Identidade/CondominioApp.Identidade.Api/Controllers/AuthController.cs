@@ -475,7 +475,7 @@ namespace CondominioApp.Identidade.Api.Controllers
                  usuarioRegistro.Telefone, usuarioRegistro.Celular, 
                  usuarioRegistro.Logradouro, usuarioRegistro.Complemento, usuarioRegistro.Numero,
                  usuarioRegistro.Cep, usuarioRegistro.Bairro, usuarioRegistro.Cidade, usuarioRegistro.Estado,
-                 usuarioRegistro.DataNascimento, enviarEmailDeConfirmacao, _appSettings.LinkConfirmacaoDeCadastro);
+                 usuarioRegistro.DataNascimento, enviarEmailDeConfirmacao);
         }
 
 

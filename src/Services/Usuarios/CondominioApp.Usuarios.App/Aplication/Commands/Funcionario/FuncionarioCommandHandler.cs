@@ -53,8 +53,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
                    funcionarioNovo.Atribuicao, funcionarioNovo.Funcao, funcionarioNovo.Permissao));
             
             funcionarioNovo.AdicionarEvento
-                   (new EnviarEmailConfirmacaoDeCadastroDeUsuarioIntegrationEvent
-                   (usuario.Id, request.LinkDeRedirecionamento));
+                   (new EnviarEmailConfirmacaoDeCadastroDeUsuarioIntegrationEvent(usuario.Id));
 
             return await PersistirDados(_usuarioRepository.UnitOfWork);
 

@@ -14,7 +14,8 @@ using MediatR;
 namespace CondominioApp.NotificacaoEmail.Aplication.Events
 {
     public class NotificacaoEmailEventHandler : EventHandler, 
-        INotificationHandler<EnviarEmailConfirmacaoDeCadastroDeUsuarioIntegrationEvent>,       
+        INotificationHandler<EnviarEmailConfirmacaoDeCadastroDeUsuarioIntegrationEvent>,
+        INotificationHandler<EnviarEmailConfirmacaoDeCadastroDeMoradorIntegrationEvent>,
         System.IDisposable
     {
         private IUsuarioQuery _usuarioQueryRepository;       
@@ -31,7 +32,14 @@ namespace CondominioApp.NotificacaoEmail.Aplication.Events
             var DisparadorDeEmail = new DisparadorDeEmails(new EmailConfirmacaoDeCadastroDeUsuario(usuario, notification.LinkDeRedirecionamento));
             await DisparadorDeEmail.Disparar();
         }
-   
+
+        public async Task Handle(EnviarEmailConfirmacaoDeCadastroDeMoradorIntegrationEvent notification, CancellationToken cancellationToken)
+        {
+            var usuario = await _usuarioQueryRepository.ObterPorId(notification.UsuarioId);
+
+            var DisparadorDeEmail = new DisparadorDeEmails(new EmailConfirmacaoDeCadastroDeMorador(usuario));
+            await DisparadorDeEmail.Disparar();
+        }
 
         public void Dispose()
         {

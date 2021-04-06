@@ -57,9 +57,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
         public TipoDeUsuario TipoDeUsuario { get; protected set; }
 
 
-        public bool EnviarEmailDeConfirmacao { get; protected set; }
-
-        public string LinkDeRedirecionamento { get; protected set; }
+        public bool EnviarEmailDeConfirmacao { get; protected set; }       
 
 
         public void SetNome(string nome) => Nome = nome;

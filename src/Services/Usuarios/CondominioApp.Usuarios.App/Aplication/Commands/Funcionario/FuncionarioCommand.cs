@@ -20,9 +20,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
 
         public string Funcao { get; protected set; }
 
-        public Permissao Permissao { get; protected set; }
-
-        public string LinkDeRedirecionamento { get; protected set; }
+        public Permissao Permissao { get; protected set; }        
 
     }
 }

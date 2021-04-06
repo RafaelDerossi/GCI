@@ -10,7 +10,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
             string foto, string nomeOriginal, string rg, string cpf, string tel = null,
             string cel = null, string logradouro = null, string complemento = null, string numeroEndereco = null,
             string cep = null, string bairro = null, string cidade = null, string estado = null,
-            DateTime? dataNascimento = null, bool enviarEmailDeConfirmacao = true, string linkDeRedirecionamento = "")
+            DateTime? dataNascimento = null, bool enviarEmailDeConfirmacao = true)
         {
             UsuarioId = usuarioId;
             Nome = nome;
@@ -18,7 +18,6 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
             Rg = rg;
             DataNascimento = dataNascimento;
             EnviarEmailDeConfirmacao = enviarEmailDeConfirmacao;
-            LinkDeRedirecionamento = linkDeRedirecionamento;
 
             SetCpf(cpf);
             SetCelular(cel);

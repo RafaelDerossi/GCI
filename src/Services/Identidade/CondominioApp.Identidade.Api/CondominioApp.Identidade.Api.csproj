@@ -44,5 +44,12 @@
     <ProjectReference Include="..\..\Usuarios\CondominioApp.Usuarios.App\CondominioApp.Usuarios.App.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="wwwroot\Emails\EmailConfirmacaoDeCadastro.html">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
 
 </Project>

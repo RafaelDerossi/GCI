@@ -4,13 +4,14 @@ using System.Collections.Generic;
 
 namespace CondominioApp.Core.Messages.CommonMessages.IntegrationEvents
 {
-    public class EnviarEmailConfirmacaoDeCadastroDeUsuarioIntegrationEvent : IntegrationEvent
+    public class EnviarEmailConfirmacaoDeCadastroDeMoradorIntegrationEvent : IntegrationEvent
     {
         public Guid UsuarioId { get; set; }        
 
-        public EnviarEmailConfirmacaoDeCadastroDeUsuarioIntegrationEvent(Guid usuarioId)
+        public EnviarEmailConfirmacaoDeCadastroDeMoradorIntegrationEvent
+            (Guid usuarioId)
         {
-            UsuarioId = usuarioId;
+            UsuarioId = usuarioId;            
         }
     }
 }
