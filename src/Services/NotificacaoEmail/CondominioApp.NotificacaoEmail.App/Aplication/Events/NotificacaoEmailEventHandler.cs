@@ -35,9 +35,11 @@ namespace CondominioApp.NotificacaoEmail.Aplication.Events
 
         public async Task Handle(EnviarEmailConfirmacaoDeCadastroDeMoradorIntegrationEvent notification, CancellationToken cancellationToken)
         {
-            var usuario = await _usuarioQueryRepository.ObterPorId(notification.UsuarioId);
+            var morador = await _usuarioQueryRepository.ObterMoradorPorId(notification.MoradorId);
 
-            var DisparadorDeEmail = new DisparadorDeEmails(new EmailConfirmacaoDeCadastroDeMorador(usuario));
+            var logoCondominio = "https://condominioappstorage.blob.core.windows.net/condominioapp/Uploads/usuario/572d0886-11c4-4fb3-b806-0d7cf6695bc8.png";
+
+            var DisparadorDeEmail = new DisparadorDeEmails(new EmailConfirmacaoDeCadastroDeMorador(morador, logoCondominio));
             await DisparadorDeEmail.Disparar();
         }
 

@@ -6,12 +6,12 @@ namespace CondominioApp.Core.Messages.CommonMessages.IntegrationEvents
 {
     public class EnviarEmailConfirmacaoDeCadastroDeMoradorIntegrationEvent : IntegrationEvent
     {
-        public Guid UsuarioId { get; set; }        
+        public Guid MoradorId { get; set; }        
 
         public EnviarEmailConfirmacaoDeCadastroDeMoradorIntegrationEvent
-            (Guid usuarioId)
+            (Guid moradorId)
         {
-            UsuarioId = usuarioId;            
+            MoradorId = moradorId;            
         }
     }
 }
