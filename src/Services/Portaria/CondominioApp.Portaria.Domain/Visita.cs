@@ -242,7 +242,7 @@ namespace CondominioApp.Portaria.Domain
         }
         private string ObterDescricaoParaAvisoDeVisitaNaPortaria()
         {
-            if (TipoDeVisitante == TipoDeVisitante.PARTICULAR)
+            if (TipoDeVisitante == TipoDeVisitante.SERVICO)
             {
                 return $"Deseja liberar a entrada do(a) {NomeVisitante}, da empresa {NomeEmpresaVisitante}?";
             }
@@ -260,7 +260,7 @@ namespace CondominioApp.Portaria.Domain
         }
         private string ObterDescricaoParaAvisoDeVisitaIniciada()
         {
-            if (TipoDeVisitante == TipoDeVisitante.PARTICULAR)
+            if (TipoDeVisitante == TipoDeVisitante.SERVICO)
             {
                 return $"{NomeVisitante}, da empresa {NomeEmpresaVisitante}, entrou no condomínio.";
             }
@@ -278,7 +278,7 @@ namespace CondominioApp.Portaria.Domain
         }
         private string ObterDescricaoParaAvisoDeVisitaTerminada()
         {
-            if (TipoDeVisitante == TipoDeVisitante.PARTICULAR)
+            if (TipoDeVisitante == TipoDeVisitante.SERVICO)
             {
                 return $"{NomeVisitante}, da empresa {NomeEmpresaVisitante}, saiu no condomínio.";
             }

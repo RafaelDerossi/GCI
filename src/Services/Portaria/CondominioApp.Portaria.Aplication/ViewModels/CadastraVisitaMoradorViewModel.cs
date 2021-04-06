@@ -8,8 +8,7 @@ namespace CondominioApp.Portaria.Aplication.ViewModels
         public DateTime DataDeEntradaFim { get; set; }
         public string Observacao { get; set; }               
 
-        public Guid VisitanteId { get; set; }
-        public Guid CondominioId { get; set; }        
+        public Guid VisitanteId { get; set; }      
         public Guid UnidadeId { get; set; }
         
         public bool TemVeiculo { get; set; }

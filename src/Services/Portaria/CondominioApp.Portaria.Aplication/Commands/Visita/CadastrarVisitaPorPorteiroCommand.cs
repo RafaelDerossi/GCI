@@ -1,4 +1,5 @@
 ﻿using CondominioApp.Core.Enumeradores;
+using CondominioApp.Core.Helpers;
 using CondominioApp.Portaria.Aplication.Commands.Validations;
 using System;
 
@@ -7,15 +8,15 @@ namespace CondominioApp.Portaria.Aplication.Commands
    public class CadastrarVisitaPorPorteiroCommand : VisitaCommand
     {
         public CadastrarVisitaPorPorteiroCommand
-            (DateTime dataDeEntrada, string observacao, StatusVisita status,
-            Guid visitanteId, string nomeVisitante, TipoDeDocumento tipoDeDocumentoVisitante,
-            string documentoVisitante, string emailVisitante,
-            string fotoVisitante, string nomeOriginalFotoVisitante,TipoDeVisitante tipoDeVisitante,
-            string nomeEmpresaVisitante, Guid condominioId, string nomeCondominio, Guid unidadeId,
-            string numeroUnidade, string andarUnidade, string grupoUnidade, bool temVeiculo,
-            string placaVeiculo, string modeloVeiculo, string corVeiculo, Guid moradorId, string nomeMorador)
+            (string observacao, StatusVisita status,
+             Guid visitanteId, string nomeVisitante, TipoDeDocumento tipoDeDocumentoVisitante,
+             string documentoVisitante, string emailVisitante,
+             string fotoVisitante, string nomeOriginalFotoVisitante,TipoDeVisitante tipoDeVisitante,
+             string nomeEmpresaVisitante, Guid condominioId, string nomeCondominio, Guid unidadeId,
+             string numeroUnidade, string andarUnidade, string grupoUnidade, bool temVeiculo,
+             string placaVeiculo, string modeloVeiculo, string corVeiculo, Guid moradorId, string nomeMorador)
         {
-            SetDataDeEntrada(dataDeEntrada);            
+            SetDataDeEntrada(DataHoraDeBrasilia.Get());            
             Observacao = observacao;
             Status = status;
 

@@ -10,7 +10,7 @@ namespace CondominioApp.Portaria.Tests
         public static CadastrarVisitaPorPorteiroCommand CadastrarVisitaCommandFactory()
         {
             return new CadastrarVisitaPorPorteiroCommand
-                (DateTime.Today, "OBS", StatusVisita.PENDENTE, Guid.NewGuid(),
+                ("OBS", StatusVisita.PENDENTE, Guid.NewGuid(),
                 "Nome do Visitante",TipoDeDocumento.CPF, "143.026.417-97", "rafael@condominioapp.com",
                 "foto.jpg", "nomeOriginal.jpg", TipoDeVisitante.PARTICULAR, "", Guid.NewGuid(),
                 "Nome Condominio", Guid.NewGuid(), "101", "1º", "Bloco 1", 
