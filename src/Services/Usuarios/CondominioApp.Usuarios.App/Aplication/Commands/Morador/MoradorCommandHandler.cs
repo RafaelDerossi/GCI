@@ -57,7 +57,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
                     moradorNovo.Proprietario, moradorNovo.Principal));
 
             moradorNovo.AdicionarEvento
-                    (new EnviarEmailConfirmacaoDeCadastroDeMoradorIntegrationEvent(morador.Id));
+                    (new EnviarEmailConfirmacaoDeCadastroDeMoradorIntegrationEvent(moradorNovo.Id));
 
             return await PersistirDados(_usuarioRepository.UnitOfWork);
         }        

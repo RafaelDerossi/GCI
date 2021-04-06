@@ -63,6 +63,7 @@ using CondominioApp.Ocorrencias.App.Data.Repository;
 using CondominioApp.Ocorrencias.App.Models;
 using CondominioApp.Ocorrencias.App.Aplication.Query;
 using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents;
+using CondominioApp.NotificacaoEmail.Aplication.Events;
 
 namespace CondominioApp.Api.Configuration
 {
@@ -177,6 +178,10 @@ namespace CondominioApp.Api.Configuration
 
             #endregion
 
+            #region NotificacaoEmail -Contexto            
+            services.AddScoped<INotificationHandler<EnviarEmailConfirmacaoDeCadastroDeMoradorIntegrationEvent>, NotificacaoEmailEventHandler>();
+            services.AddScoped<INotificationHandler<EnviarEmailConfirmacaoDeCadastroDeUsuarioIntegrationEvent>, NotificacaoEmailEventHandler>();
+            #endregion
 
             #region NotificacaoPush -Contexto
             services.AddScoped<INotificacaoPushService, NotificacaoPushService>();
