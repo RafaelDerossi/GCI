@@ -33,7 +33,7 @@ namespace CondominioAppMarketplace.Infra.EmailServices
 
         public string SubstituirValores(IAggregateRoot Aggregate)
         {
-            var CaminhoDoHtml = "Emails\\EmailDoVendedor.html";
+            var CaminhoDoHtml = "wwwroot\\Emails\\Marketplace\\EmailDoVendedor.html";
 
             var conteudoDoHtmlDoEmail = File.ReadAllText(CaminhoDoHtml);
 

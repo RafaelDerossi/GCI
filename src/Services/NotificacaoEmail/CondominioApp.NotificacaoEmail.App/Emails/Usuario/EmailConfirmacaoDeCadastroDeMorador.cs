@@ -24,7 +24,7 @@ namespace CondominioApp.NotificacaoEmail.Api.Email
 
         public override string SubstituirValores()
         {
-            var CaminhoDoHtml = "wwwroot\\Emails\\EmailConfirmacaoDeCadastroDeMorador.html";
+            var CaminhoDoHtml = "wwwroot\\Emails\\Usuario\\EmailConfirmacaoDeCadastroDeMorador.html";
 
             var conteudoDoHtmlDoEmail = File.ReadAllText(CaminhoDoHtml);
 
