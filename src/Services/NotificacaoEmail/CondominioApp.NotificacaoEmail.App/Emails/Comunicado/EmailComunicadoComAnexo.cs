@@ -82,10 +82,14 @@ namespace CondominioApp.NotificacaoEmail.Api.Email
 
         public override async Task EnviarEmail()
         {
+            if (_comunicado.ListaDeEmails.Count() == 0)
+                return;
+
             foreach (var email in _comunicado.ListaDeEmails)
             {
-                _Email.To.Add(email);
-            }            
+                _Email.CC.Add(email);                
+            }      
+            
             await Task.Run(() => base.Send(_Email));
         }
     }
