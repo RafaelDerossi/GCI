@@ -17,9 +17,7 @@ using System.Linq;
 
 namespace CondominioApp.NotificacaoEmail.Aplication.Events
 {
-    public class NotificacaoEmailEventHandler : EventHandler, 
-        INotificationHandler<EnviarEmailConfirmacaoDeCadastroDeUsuarioIntegrationEvent>,
-        INotificationHandler<EnviarEmailConfirmacaoDeCadastroDeMoradorIntegrationEvent>,
+    public class NotificacaoEmailComunicadoEventHandler : EventHandler,         
         INotificationHandler<EnviarEmailComunicadoIntegrationEvent>,
         System.IDisposable
     {
@@ -27,7 +25,7 @@ namespace CondominioApp.NotificacaoEmail.Aplication.Events
         private IPrincipalQuery _principalQuery;
         private IArquivoDigitalQuery _arquivoDigitalQuery;
 
-        public NotificacaoEmailEventHandler
+        public NotificacaoEmailComunicadoEventHandler
             (IUsuarioQuery usuarioQuery, IPrincipalQuery principalQuery, IArquivoDigitalQuery arquivoDigitalQuery)
         {
             _usuarioQuery = usuarioQuery;
@@ -35,34 +33,7 @@ namespace CondominioApp.NotificacaoEmail.Aplication.Events
             _arquivoDigitalQuery = arquivoDigitalQuery;
         }
 
-
-
-        #region Usuario
-        public async Task Handle(EnviarEmailConfirmacaoDeCadastroDeUsuarioIntegrationEvent notification, CancellationToken cancellationToken)
-        {
-            var usuario = await _usuarioQuery.ObterPorId(notification.UsuarioId);
-
-            var DisparadorDeEmail = new DisparadorDeEmails(new EmailConfirmacaoDeCadastroDeUsuario(usuario));
-            await DisparadorDeEmail.Disparar();
-        }
-
-        public async Task Handle(EnviarEmailConfirmacaoDeCadastroDeMoradorIntegrationEvent notification, CancellationToken cancellationToken)
-        {
-            var morador = await _usuarioQuery.ObterMoradorPorId(notification.MoradorId);
-
-            var condominio = await _principalQuery.ObterPorId(morador.CondominioId);
-
-            var logoCondominio = condominio.LogoMarca; //"https://condominioappstorage.blob.core.windows.net/condominioapp/Uploads/usuario/572d0886-11c4-4fb3-b806-0d7cf6695bc8.png";
-
-            var DisparadorDeEmail = new DisparadorDeEmails(new EmailConfirmacaoDeCadastroDeMorador(morador, logoCondominio));
-            await DisparadorDeEmail.Disparar();
-        }
-
-        #endregion
-
-
-
-        #region Comunicado
+              
         public async Task Handle(EnviarEmailComunicadoIntegrationEvent notification, CancellationToken cancellationToken)
         {
             var condominioDTO = await CondominioDTOFactory(notification.CondominioId);
@@ -76,6 +47,7 @@ namespace CondominioApp.NotificacaoEmail.Aplication.Events
             var DisparadorDeEmail = new DisparadorDeEmails(new EmailComunicadoComAnexo(comunicadoDTO));
             await DisparadorDeEmail.Disparar();
         }
+
 
 
         private async Task<CondominioDTO> CondominioDTOFactory(System.Guid condominioId)
@@ -190,8 +162,7 @@ namespace CondominioApp.NotificacaoEmail.Aplication.Events
                 condominioDTO, anexos, listaDeEmails);
         }
 
-        #endregion
-
+      
         public void Dispose()
         {
             _usuarioQuery?.Dispose();

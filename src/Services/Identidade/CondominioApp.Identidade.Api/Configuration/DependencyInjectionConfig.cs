@@ -1,4 +1,5 @@
-﻿using CondominioApp.Core.Mediator;
+﻿using CondominioApp.ArquivoDigital.App.Aplication.Commands;
+using CondominioApp.Core.Mediator;
 using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents;
 using CondominioApp.NotificacaoEmail.Aplication.Events;
 using CondominioApp.Principal.Aplication.Query;
@@ -40,8 +41,8 @@ namespace CondominioApp.Identidade.Api.Configuration
             #endregion
 
             #region NotificacaoEmail -Contexto            
-            services.AddScoped<INotificationHandler<EnviarEmailConfirmacaoDeCadastroDeMoradorIntegrationEvent>, NotificacaoEmailEventHandler>();
-            services.AddScoped<INotificationHandler<EnviarEmailConfirmacaoDeCadastroDeUsuarioIntegrationEvent>, NotificacaoEmailEventHandler>();
+            services.AddScoped<INotificationHandler<EnviarEmailConfirmacaoDeCadastroDeMoradorIntegrationEvent>, NotificacaoEmailUsuarioEventHandler>();
+            services.AddScoped<INotificationHandler<EnviarEmailConfirmacaoDeCadastroDeUsuarioIntegrationEvent>, NotificacaoEmailUsuarioEventHandler>();
             #endregion
 
 
