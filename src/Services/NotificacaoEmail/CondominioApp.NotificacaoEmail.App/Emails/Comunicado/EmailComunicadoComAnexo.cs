@@ -87,7 +87,7 @@ namespace CondominioApp.NotificacaoEmail.Api.Email
 
             foreach (var email in _comunicado.ListaDeEmails)
             {
-                _Email.CC.Add(email);                
+                _Email.Bcc.Add(email);                
             }      
             
             await Task.Run(() => base.Send(_Email));
