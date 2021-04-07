@@ -233,5 +233,29 @@ namespace CondominioApp.Comunicados.App.Models
             }
             return lista;
         }
+
+
+        public void EnviarEmailNovoComunicado()
+        {            
+            AdicionarEvento(new EnviarEmailComunicadoIntegrationEvent
+                (Id, DataDeCadastro, Titulo, Descricao,
+                 DataDeRealizacao, FuncionarioId, NomeFuncionario,
+                 Visibilidade, Categoria, TemAnexos,
+                 CondominioId, ObterListaDeUnidadesIds()));
+        }
+
+        private IEnumerable<Guid> ObterListaDeUnidadesIds()
+        {
+            List<Guid> lista = new List<Guid>();
+
+            if (Unidades.Count() == 0)
+                return lista;
+
+            foreach (var unidade in Unidades)
+            {
+                lista.Add(unidade.UnidadeId);
+            }
+            return lista;
+        }
     }
 }

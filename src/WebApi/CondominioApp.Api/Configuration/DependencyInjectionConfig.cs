@@ -178,10 +178,13 @@ namespace CondominioApp.Api.Configuration
 
             #endregion
 
+
             #region NotificacaoEmail -Contexto            
             services.AddScoped<INotificationHandler<EnviarEmailConfirmacaoDeCadastroDeMoradorIntegrationEvent>, NotificacaoEmailEventHandler>();
             services.AddScoped<INotificationHandler<EnviarEmailConfirmacaoDeCadastroDeUsuarioIntegrationEvent>, NotificacaoEmailEventHandler>();
+            services.AddScoped<INotificationHandler<EnviarEmailComunicadoIntegrationEvent>, NotificacaoEmailEventHandler>();            
             #endregion
+
 
             #region NotificacaoPush -Contexto
             services.AddScoped<INotificacaoPushService, NotificacaoPushService>();

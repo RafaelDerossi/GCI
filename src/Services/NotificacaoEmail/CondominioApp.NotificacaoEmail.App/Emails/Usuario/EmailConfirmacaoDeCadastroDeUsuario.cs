@@ -7,16 +7,16 @@ namespace CondominioApp.NotificacaoEmail.Api.Email
 {
     public class EmailConfirmacaoDeCadastroDeUsuario : ServicoDeEmail
     {
-        private readonly string Assunto = "Confirmação de cadastro";
-        private Usuario Usuario;       
+        private readonly string _assunto = "Confirmação de cadastro";
+        private Usuario _usuario;       
 
         public EmailConfirmacaoDeCadastroDeUsuario(Usuario usuario)
         {
-            Usuario = usuario;            
+            _usuario = usuario;            
 
             var conteudo = SubstituirValores();
 
-            ConstruirEmail(Assunto, conteudo);
+            ConstruirEmail(_assunto, conteudo);
         }
 
         public override string SubstituirValores()
@@ -25,14 +25,14 @@ namespace CondominioApp.NotificacaoEmail.Api.Email
 
             var conteudoDoHtmlDoEmail = File.ReadAllText(CaminhoDoHtml);
 
-            conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_NomeDoUsuario_", Usuario.NomeCompleto);            
+            conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_NomeDoUsuario_", _usuario.NomeCompleto);            
 
             return conteudoDoHtmlDoEmail;
         }
 
         public override async Task EnviarEmail()
         {
-            _Email.To.Add(Usuario.Email.Endereco);
+            _Email.To.Add(_usuario.Email.Endereco);
             await Task.Run(() => base.Send(_Email));
         }
     }

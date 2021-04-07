@@ -9,27 +9,27 @@ namespace CondominioApp.NotificacaoEmail.Api.Email
 {
     public class EmailRecuperarSenha : ServicoDeEmail
     {
-        private readonly string Assunto = "Recuperar senha - CondomínioApp";
-        private string CaminhoUrl = string.Empty;
-        private string NomeUsuario;
-        private string EmailUsuario;
+        private readonly string _assunto = "Recuperar senha - CondomínioApp";
+        private string _caminhoUrl = string.Empty;
+        private string _nomeUsuario;
+        private string _emailUsuario;
 
         public EmailRecuperarSenha(string nomeUsuario, string emailUsuario, string token, string linkDeRedirecionamento)
         {
-            NomeUsuario = nomeUsuario;
+            _nomeUsuario = nomeUsuario;
 
-            EmailUsuario = emailUsuario; ;            
+            _emailUsuario = emailUsuario; ;            
 
-            CaminhoUrl = $"{linkDeRedirecionamento}/{HttpUtility.UrlEncode(token)}/{EmailUsuario}";
+            _caminhoUrl = $"{linkDeRedirecionamento}/{HttpUtility.UrlEncode(token)}/{_emailUsuario}";
 
             var conteudo = SubstituirValores();
 
-            ConstruirEmail(Assunto, conteudo);
+            ConstruirEmail(_assunto, conteudo);
         }
 
         public override async Task EnviarEmail()
         {
-            _Email.To.Add(EmailUsuario);
+            _Email.To.Add(_emailUsuario);
             await Task.Run(() => base.Send(_Email));
         }
 
@@ -39,8 +39,8 @@ namespace CondominioApp.NotificacaoEmail.Api.Email
 
             var conteudoDoHtmlDoEmail = File.ReadAllText(CaminhoDoHtml);
 
-            conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_NomeDoUsuario_", NomeUsuario);
-            conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_urlDeRedirecionamento_", $"{CaminhoUrl}");
+            conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_NomeDoUsuario_", _nomeUsuario);
+            conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_urlDeRedirecionamento_", $"{_caminhoUrl}");
 
             return conteudoDoHtmlDoEmail;
         }

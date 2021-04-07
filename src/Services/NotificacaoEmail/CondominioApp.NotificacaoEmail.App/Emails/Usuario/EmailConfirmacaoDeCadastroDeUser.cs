@@ -7,22 +7,22 @@ namespace CondominioApp.NotificacaoEmail.Api.Email
 {
     public class EmailConfirmacaoDeCadastroDeUser : ServicoDeEmail
     {
-        private readonly string Assunto = "Confirmação de cadastro";
-        private string NomeUsuario;
-        private string EmailUsuario;
-        private string CaminhoUrl;
+        private readonly string _assunto = "Confirmação de cadastro";
+        private string _nomeUsuario;
+        private string _emailUsuario;
+        private string _caminhoUrl;
 
         public EmailConfirmacaoDeCadastroDeUser(string nomeUsuario, string emailUsuario, string linkDeRedirecionamento)
         {
-            NomeUsuario = nomeUsuario;
+            _nomeUsuario = nomeUsuario;
 
-            EmailUsuario = emailUsuario;
+            _emailUsuario = emailUsuario;
 
-            CaminhoUrl = linkDeRedirecionamento;
+            _caminhoUrl = linkDeRedirecionamento;
 
             var conteudo = SubstituirValores();
 
-            ConstruirEmail(Assunto, conteudo);
+            ConstruirEmail(_assunto, conteudo);
         }
 
         public override string SubstituirValores()
@@ -31,15 +31,15 @@ namespace CondominioApp.NotificacaoEmail.Api.Email
 
             var conteudoDoHtmlDoEmail = File.ReadAllText(CaminhoDoHtml);
 
-            conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_NomeDoUsuario_", NomeUsuario);
-            conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_urlDeRedirecionamento_", $"{CaminhoUrl}");
+            conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_NomeDoUsuario_", _nomeUsuario);
+            conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_urlDeRedirecionamento_", $"{_caminhoUrl}");
 
             return conteudoDoHtmlDoEmail;
         }
 
         public override async Task EnviarEmail()
         {
-            _Email.To.Add(EmailUsuario);
+            _Email.To.Add(_emailUsuario);
             await Task.Run(() => base.Send(_Email));
         }
     }

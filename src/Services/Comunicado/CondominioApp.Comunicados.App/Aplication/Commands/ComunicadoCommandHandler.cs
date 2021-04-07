@@ -1,6 +1,7 @@
 ﻿using CondominioApp.Comunicados.App.Models;
 using CondominioApp.Core.Enumeradores;
 using CondominioApp.Core.Messages;
+using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents;
 using FluentValidation.Results;
 using MediatR;
 using System;
@@ -40,6 +41,8 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
             _ComunicadoRepository.Adicionar(comunicado);
 
             comunicado.EnviarPushNovoComunicado();
+            
+            comunicado.EnviarEmailNovoComunicado();
 
             return await PersistirDados(_ComunicadoRepository.UnitOfWork);
         }
@@ -121,6 +124,7 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
             return comunicado;
         }
 
+     
 
         public void Dispose()
         {
