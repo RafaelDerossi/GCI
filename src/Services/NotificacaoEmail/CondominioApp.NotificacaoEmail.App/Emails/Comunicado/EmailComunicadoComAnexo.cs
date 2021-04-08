@@ -29,6 +29,9 @@ namespace CondominioApp.NotificacaoEmail.Api.Email
 
             var conteudoDoHtmlDoEmail = File.ReadAllText(CaminhoDoHtml);
 
+            if (!string.IsNullOrEmpty(_comunicado.Condominio.LogoMarca))
+                _comunicado.Condominio.LogoMarca = _logoCondominioApp;
+
             conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_LogoCondominio_", _comunicado.Condominio.LogoMarca);
             conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_dataCadastro_", _comunicado.DataDeCadastro.ToString("dd/MM/yyyy"));
 
