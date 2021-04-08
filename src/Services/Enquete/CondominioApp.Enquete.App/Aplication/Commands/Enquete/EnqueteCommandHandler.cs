@@ -38,7 +38,9 @@ namespace CondominioApp.Enquetes.App.Aplication.Commands
                     return resultado;
             }
 
-            _EnqueteRepository.Adicionar(enquete);           
+            _EnqueteRepository.Adicionar(enquete);
+
+            enquete.EnviarEmailNovaEnquete();
 
             return await PersistirDados(_EnqueteRepository.UnitOfWork);
         }

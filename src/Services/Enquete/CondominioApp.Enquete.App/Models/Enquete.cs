@@ -1,5 +1,6 @@
 ﻿using CondominioApp.Core.DomainObjects;
 using CondominioApp.Core.Helpers;
+using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents;
 using FluentValidation.Results;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ namespace CondominioApp.Enquetes.App.Models
    public class Enquete : Entity, IAggregateRoot
     {
         public const int Max = 200;
+
         public string Descricao { get; private set; }
 
         public DateTime DataInicio { get; private set; }
@@ -164,6 +166,16 @@ namespace CondominioApp.Enquetes.App.Models
             SetApenasProprietarios(apenasProprietarios);            
 
             return ValidationResult;
+        }
+
+
+        public void EnviarEmailNovaEnquete()
+        {
+            AdicionarEvento
+                (new EnviarEmailEnqueteIntegrationEvent
+                (Descricao, DataInicio.ToString(), DataFim.ToString(), CondominioId,
+                 FuncionarioNome, ApenasProprietarios));
+            return;
         }
     }
 }

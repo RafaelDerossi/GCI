@@ -20,6 +20,7 @@ namespace CondominioApp.NotificacaoEmail.Aplication.Events
     public class NotificacaoEmailCondominioAppApiEventHandler : EventHandler,         
         INotificationHandler<EnviarEmailComunicadoIntegrationEvent>,
         INotificationHandler<EnviarEmailCorrespondenciaIntegrationEvent>,
+        INotificationHandler<EnviarEmailEnqueteIntegrationEvent>,
         System.IDisposable
     {
         private IUsuarioQuery _usuarioQuery;
@@ -34,7 +35,7 @@ namespace CondominioApp.NotificacaoEmail.Aplication.Events
             _arquivoDigitalQuery = arquivoDigitalQuery;
         }
 
-              
+         
         public async Task Handle(EnviarEmailComunicadoIntegrationEvent notification, CancellationToken cancellationToken)
         {            
             var anexos = await ObterAnexosDoComunicado(notification);
@@ -56,6 +57,17 @@ namespace CondominioApp.NotificacaoEmail.Aplication.Events
             var DisparadorDeEmail = new DisparadorDeEmails(new EmailCorrespondencia(correspondenciaDTO));
             await DisparadorDeEmail.Disparar();
         }
+
+        public async Task Handle(EnviarEmailEnqueteIntegrationEvent notification, CancellationToken cancellationToken)
+        {            
+            var listaDeEmails = await ObterListaDeEmailsDaEnquete(notification);
+
+            var enqueteDTO = EnqueteDTOFactory(notification, listaDeEmails);
+
+            var DisparadorDeEmail = new DisparadorDeEmails(new EmailEnquete(enqueteDTO));
+            await DisparadorDeEmail.Disparar();
+        }
+
 
 
 
@@ -106,6 +118,19 @@ namespace CondominioApp.NotificacaoEmail.Aplication.Events
                 {
                     if (!string.IsNullOrEmpty(morador.Email))
                         listaDeEmails.Add(morador.Email);
+                }
+            }
+            return listaDeEmails;
+        }
+        private List<string> ObterEmailsDaLista(IEnumerable<FuncionarioFlat> funcionarios)
+        {
+            var listaDeEmails = new List<string>();
+            if (funcionarios != null)
+            {
+                foreach (var funcionario in funcionarios)
+                {
+                    if (!string.IsNullOrEmpty(funcionario.Email))
+                        listaDeEmails.Add(funcionario.Email);
                 }
             }
             return listaDeEmails;
@@ -180,6 +205,37 @@ namespace CondominioApp.NotificacaoEmail.Aplication.Events
         }
 
 
+
+
+        private async Task<List<string>> ObterListaDeEmailsDaEnquete(EnviarEmailEnqueteIntegrationEvent notification)
+        {
+            IEnumerable<MoradorFlat> moradores = new List<MoradorFlat>();
+            if (notification.ApenasProprietarios)
+                moradores = await _usuarioQuery.ObterProprietariosPorCondominioId(notification.CondominioId);
+
+            if (!notification.ApenasProprietarios)
+                moradores = await _usuarioQuery.ObterMoradoresPorCondominioId(notification.CondominioId);
+
+            var listaDeEmails = ObterEmailsDaLista(moradores);
+
+            var sindico = await _usuarioQuery.ObterSindicoPorCondominioId(notification.CondominioId);
+            if (sindico != null)
+            {
+                var usuario = await _usuarioQuery.ObterPorId(sindico.UsuarioId);
+                listaDeEmails.Add(usuario.Email.Endereco);
+            }
+
+            return listaDeEmails;
+        }
+        private EnqueteDTO EnqueteDTOFactory
+          (EnviarEmailEnqueteIntegrationEvent notification, List<string> listaDeEmails)
+        {
+            var condominio = _principalQuery.ObterPorId(notification.CondominioId).Result;
+
+            return new EnqueteDTO
+                (notification.Descricao, notification.DataInicio, notification.DataFim, condominio.Nome, 
+                 condominio.LogoMarca, notification.NomeFuncionario, listaDeEmails);
+        }
 
         public void Dispose()
         {

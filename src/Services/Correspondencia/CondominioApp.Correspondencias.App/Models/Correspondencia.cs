@@ -213,7 +213,7 @@ namespace CondominioApp.Correspondencias.App.Models
 
         private void EnviarPushNovaCorrespondencia()
         {
-            var titulo = "NOVA CORRESPONDÊNCIA";
+            var titulo = "Nova Correspondência";
             var descricao = ObterDescricaoDoPushEdoEmailParaNovaCorrespondencia();
 
             AdicionarEvento
@@ -236,7 +236,7 @@ namespace CondominioApp.Correspondencias.App.Models
 
         private void EnviarPushCorrespondenciaRetirada()
         {
-            var titulo = "CORRESPONDÊNCIA RETIRADA";
+            var titulo = "Correspondência Retirada";
             var descricao = ObterDescricaoDoPushParaCorrespondenciaRetirada();
 
             AdicionarEvento
@@ -259,7 +259,7 @@ namespace CondominioApp.Correspondencias.App.Models
 
         private void EnviarPushCorrespondenciaDevolvida()
         {
-            var titulo = "CORRESPONDÊNCIA DEVOLVIDA";
+            var titulo = "Correspondência Devolvida";
             var descricao = ObterDescricaoDoPushParaCorrespondenciaDevolvida();
 
             AdicionarEvento
@@ -282,7 +282,7 @@ namespace CondominioApp.Correspondencias.App.Models
 
         public void EnviarPushDeAlerta()
         {
-            var titulo = "CORRESPONDÊNCIA";
+            var titulo = "Correspondência";
             var descricao = ObterDescricaoDoPushDeAlerta();
 
             AdicionarEvento
@@ -323,8 +323,8 @@ namespace CondominioApp.Correspondencias.App.Models
 
         private void EnviarEmailNovaCorrespondencia()
         {
-            var assunto = "CORRESPONDÊNCIA";
-            var titulo = "NOVA CORRESPONDÊNCIA";
+            var assunto = "Correspondência";
+            var titulo = "Nova Correspondência";
             var descricao = ObterDescricaoDoPushEdoEmailParaNovaCorrespondencia();
 
             AdicionarEvento
@@ -334,8 +334,8 @@ namespace CondominioApp.Correspondencias.App.Models
 
         private void EnviarEmailCorrespondenciaRetirada()
         {
-            var assunto = "CORRESPONDÊNCIA";
-            var titulo = "CORRESPONDÊNCIA RETIRADA";
+            var assunto = "Correspondência";
+            var titulo = "Correspondência Retirada";
             var descricao = ObterDescricaoDoPushParaCorrespondenciaRetirada();
 
             AdicionarEvento
@@ -345,8 +345,8 @@ namespace CondominioApp.Correspondencias.App.Models
 
         private void EnviarEmailCorrespondenciaDevolvida()
         {
-            var assunto = "CORRESPONDÊNCIA";
-            var titulo = "CORRESPONDÊNCIA DEVOLVIDA";
+            var assunto = "Correspondência";
+            var titulo = "Correspondência Devolvida";
             var descricao = ObterDescricaoDoPushParaCorrespondenciaDevolvida();
 
             AdicionarEvento
