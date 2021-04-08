@@ -214,13 +214,13 @@ namespace CondominioApp.Correspondencias.App.Models
         private void EnviarPushNovaCorrespondencia()
         {
             var titulo = "NOVA CORRESPONDÊNCIA";
-            var descricao = ObterDescricaoDoPushParaNovaCorrespondencia();
+            var descricao = ObterDescricaoDoPushEdoEmailParaNovaCorrespondencia();
 
             AdicionarEvento
                 (new EnviarPushParaUnidadeIntegrationEvent(UnidadeId, titulo, descricao));
             return;
         }
-        private string ObterDescricaoDoPushParaNovaCorrespondencia()
+        private string ObterDescricaoDoPushEdoEmailParaNovaCorrespondencia()
         {
             var descricao = $"Chegou uma correspondência para você.  Recebido por {NomeFuncionario}.";
 
@@ -302,6 +302,57 @@ namespace CondominioApp.Correspondencias.App.Models
             return descricao;
         }
 
+
+        public void EnviarEmail()
+        {
+            switch (Status)
+            {
+                case StatusCorrespondencia.PENDENTE:
+                    EnviarEmailNovaCorrespondencia();
+                    break;
+                case StatusCorrespondencia.RETIRADO:
+                    EnviarEmailCorrespondenciaRetirada();
+                    break;
+                case StatusCorrespondencia.DEVOLVIDO:
+                    EnviarEmailCorrespondenciaDevolvida();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void EnviarEmailNovaCorrespondencia()
+        {
+            var assunto = "CORRESPONDÊNCIA";
+            var titulo = "NOVA CORRESPONDÊNCIA";
+            var descricao = ObterDescricaoDoPushEdoEmailParaNovaCorrespondencia();
+
+            AdicionarEvento
+                (new EnviarEmailCorrespondenciaIntegrationEvent(assunto, titulo, descricao, UnidadeId));
+            return;
+        }
+
+        private void EnviarEmailCorrespondenciaRetirada()
+        {
+            var assunto = "CORRESPONDÊNCIA";
+            var titulo = "CORRESPONDÊNCIA RETIRADA";
+            var descricao = ObterDescricaoDoPushParaCorrespondenciaRetirada();
+
+            AdicionarEvento
+                (new EnviarEmailCorrespondenciaIntegrationEvent(assunto, titulo, descricao, UnidadeId));
+            return;
+        }
+
+        private void EnviarEmailCorrespondenciaDevolvida()
+        {
+            var assunto = "CORRESPONDÊNCIA";
+            var titulo = "CORRESPONDÊNCIA DEVOLVIDA";
+            var descricao = ObterDescricaoDoPushParaCorrespondenciaDevolvida();
+
+            AdicionarEvento
+                (new EnviarEmailCorrespondenciaIntegrationEvent(assunto, titulo, descricao, UnidadeId));
+            return;
+        }
 
     }
 }

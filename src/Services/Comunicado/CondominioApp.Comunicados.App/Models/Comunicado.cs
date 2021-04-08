@@ -238,10 +238,8 @@ namespace CondominioApp.Comunicados.App.Models
         public void EnviarEmailNovoComunicado()
         {            
             AdicionarEvento(new EnviarEmailComunicadoIntegrationEvent
-                (Id, DataDeCadastro, Titulo, Descricao,
-                 DataDeRealizacao, FuncionarioId, NomeFuncionario,
-                 Visibilidade, Categoria, TemAnexos,
-                 CondominioId, ObterListaDeUnidadesIds()));
+                (Id, Titulo, Descricao, FuncionarioId, Visibilidade,
+                 Categoria, TemAnexos, CondominioId, ObterListaDeUnidadesIds()));
         }
 
         private IEnumerable<Guid> ObterListaDeUnidadesIds()

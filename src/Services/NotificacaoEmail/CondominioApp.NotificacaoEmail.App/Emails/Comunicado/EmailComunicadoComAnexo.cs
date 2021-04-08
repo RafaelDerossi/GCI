@@ -29,28 +29,14 @@ namespace CondominioApp.NotificacaoEmail.Api.Email
 
             var conteudoDoHtmlDoEmail = File.ReadAllText(CaminhoDoHtml);
 
-            if (string.IsNullOrEmpty(_comunicado.Condominio.LogoMarca) || _comunicado.Condominio.LogoMarca == "https://i.imgur.com/gxXxUm7.png")
-                _comunicado.Condominio.LogoMarca = _logoCondominioApp;
+            if (string.IsNullOrEmpty(_comunicado.LogoDoCondominio) || _comunicado.LogoDoCondominio == "https://i.imgur.com/gxXxUm7.png")
+                _comunicado.LogoDoCondominio = _logoCondominioApp;            
 
-            conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_LogoCondominio_", _comunicado.Condominio.LogoMarca);
-            conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_dataCadastro_", _comunicado.DataDeCadastro.ToString("dd/MM/yyyy"));
-
-            conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_anexo_", RetornaAnexosHtml());
-            conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_nomeCondominio_", _comunicado.Condominio.Nome);
-            conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_usuario_", _comunicado.NomeFuncionario);
+            conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_anexo_", RetornaAnexosHtml());            
             conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_titulo_", _comunicado.Titulo);
             conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_mensagem_", _comunicado.Descricao);
-            conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_logoCondominio_", _comunicado.Condominio.LogoMarca);
-            conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_logoCondominioApp_", _logoCondominioApp);
-
-            if (_comunicado.DataDeRealizacao == null)
-            {
-                conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_dataRealizacao_", "");
-            }
-            else
-            {
-                conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_dataRealizacao_", _comunicado.DataDeRealizacao.Value.ToString("dd/MM/yyyy"));
-            }
+            conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_logoCondominio_", _comunicado.LogoDoCondominio);
+            conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_logoCondominioApp_", _logoCondominioApp);            
 
             return conteudoDoHtmlDoEmail;
         }
@@ -66,7 +52,7 @@ namespace CondominioApp.NotificacaoEmail.Api.Email
 
             foreach (var item in arquivos)
             {
-                var caminho = $"{_caminhoAnexo}{_comunicado.Condominio.Id}/{_comunicado.Categoria}/{item.Nome}";
+                var caminho = $"{_caminhoAnexo}{_comunicado.CondominioId}/{_comunicado.Categoria}/{item.Nome}";
                 if (item.Extensao == "image/jpg" || item.Extensao == "image/jpeg" || item.Extensao == "image/png")
                 {
                     var html = @$"<a download={item.Nome} href=""{caminho} target=""_blank""><img src={caminho} width = ""80"" nosend = ""1"" /></a>";

@@ -16,7 +16,7 @@ using System.Linq;
 
 namespace CondominioApp.NotificacaoEmail.Aplication.Events
 {
-    public class NotificacaoEmailUsuarioEventHandler : EventHandler, 
+    public class NotificacaoEmailIdentidadeApiEventHandler : EventHandler, 
         INotificationHandler<EnviarEmailConfirmacaoDeCadastroDeUsuarioIntegrationEvent>,
         INotificationHandler<EnviarEmailConfirmacaoDeCadastroDeMoradorIntegrationEvent>,        
         System.IDisposable
@@ -24,7 +24,7 @@ namespace CondominioApp.NotificacaoEmail.Aplication.Events
         private IUsuarioQuery _usuarioQuery;
         private IPrincipalQuery _principalQuery;        
 
-        public NotificacaoEmailUsuarioEventHandler
+        public NotificacaoEmailIdentidadeApiEventHandler
             (IUsuarioQuery usuarioQuery, IPrincipalQuery principalQuery)
         {
             _usuarioQuery = usuarioQuery;
