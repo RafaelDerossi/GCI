@@ -173,7 +173,7 @@ namespace CondominioApp.Enquetes.App.Models
         {
             AdicionarEvento
                 (new EnviarEmailEnqueteIntegrationEvent
-                (Descricao, DataInicio.ToString(), DataFim.ToString(), CondominioId,
+                (Descricao, DataInicio.ToShortDateString(), DataFim.ToShortDateString(), CondominioId,
                  FuncionarioNome, ApenasProprietarios));
             return;
         }

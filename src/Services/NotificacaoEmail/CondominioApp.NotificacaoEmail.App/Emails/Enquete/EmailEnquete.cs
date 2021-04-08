@@ -34,6 +34,7 @@ namespace CondominioApp.NotificacaoEmail.Api.Email
             conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_titulo_", _assunto);
             conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_nomeCondominio_", _enquete.NomeCondominio);
             conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_previaDaEnquete_", _enquete.Descricao);
+            conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_usuarioPostou_", _enquete.NomeFuncionario);
             conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_dataPublicacao_", _enquete.DataInicio);
             conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_dataLimite_", _enquete.DataFim);
             conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_logoCondominio_", _enquete.LogoDoCondominio);
