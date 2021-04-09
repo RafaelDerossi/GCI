@@ -18,7 +18,7 @@ namespace CondominioApp.NotificacaoEmail.Api.Email
 
             var conteudo = SubstituirValores();
 
-            ConstruirEmail(_ocorrencia.Assunto, conteudo);
+            ConstruirEmail(_ocorrencia.Titulo, conteudo);
         }
 
         public override string SubstituirValores()

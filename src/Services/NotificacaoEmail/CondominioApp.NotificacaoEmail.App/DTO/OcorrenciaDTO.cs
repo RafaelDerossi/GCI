@@ -7,8 +7,6 @@ namespace CondominioApp.NotificacaoEmail.App.DTO
 {
     public class OcorrenciaDTO
     {
-        public string Assunto { get; set; }
-
         public string Titulo { get; set; }        
 
         public string Descricao { get; set; }
@@ -32,12 +30,11 @@ namespace CondominioApp.NotificacaoEmail.App.DTO
         public IEnumerable<string> ListaDeEmails { get; set; }
 
         public OcorrenciaDTO
-            (string assunto, string titulo, string descricao, string nomeMorador,
+            (string titulo, string descricao, string nomeMorador,
              string unidadeDescricao, string statusPrivacidade, string statusOcorrencia,
              string dataDeCadastro, string foto, string nomeCondominio, string logoDoCondominio,
              IEnumerable<string> listaDeEmails)
         {
-            Assunto = assunto;
             Titulo = titulo;
             Descricao = descricao;
             NomeMorador = nomeMorador;

@@ -37,6 +37,8 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
 
             ocorrencia.EnviarPushNovaOcorrencia();
 
+            ocorrencia.EnviarEmailNovaOcorrencia();
+
             return await PersistirDados(_ocorrenciaRepository.UnitOfWork);
         }
 
@@ -61,6 +63,8 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
 
             ocorrencia.EnviarPushOcorrenciaEditada();
 
+            ocorrencia.EnviarEmailOcorrenciaEditada();
+
             return await PersistirDados(_ocorrenciaRepository.UnitOfWork);
         }
 
@@ -83,6 +87,8 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
             _ocorrenciaRepository.Atualizar(ocorrencia);
 
             ocorrencia.EnviarPushOcorrenciaRemovida();
+
+            ocorrencia.EnviarEmailOcorrenciaRemovida();
 
             return await PersistirDados(_ocorrenciaRepository.UnitOfWork);
         }

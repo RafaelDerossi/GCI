@@ -270,7 +270,7 @@ namespace CondominioApp.NotificacaoEmail.Aplication.Events
             var unidade = _principalQuery.ObterUnidadePorId(notification.UnidadeId).Result;
 
             return new OcorrenciaDTO
-                (notification.Assunto, notification.Titulo, notification.Descricao, notification.NomeMorador,
+                (notification.Titulo, notification.Descricao, notification.NomeMorador,
                  unidade.ObterDescricaoUnidade(), notification.StatusPrivacidade, notification.StatusOcorrencia,
                  notification.DataDeCadastro, notification.Foto, unidade.CondominioNome, unidade.CondominioLogoMarca,
                  listaDeEmails);

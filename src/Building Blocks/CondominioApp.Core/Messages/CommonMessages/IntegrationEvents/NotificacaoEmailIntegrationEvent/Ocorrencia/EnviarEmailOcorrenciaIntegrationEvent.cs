@@ -6,15 +6,11 @@ namespace CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.Notificac
 {
     public class EnviarEmailOcorrenciaIntegrationEvent : IntegrationEvent
     {
-        public string Assunto { get; set; }
-
         public string Titulo { get; set; }
 
         public string Descricao { get; set; }
 
         public string NomeMorador { get; set; }
-
-        public string UnidadeDescricao { get; set; }
 
         public string StatusPrivacidade { get; set; }
 
@@ -27,15 +23,13 @@ namespace CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.Notificac
         public Guid UnidadeId { get; set; }
 
         public EnviarEmailOcorrenciaIntegrationEvent
-            (string assunto, string titulo, string descricao, string nomeMorador,
-             string unidadeDescricao, string statusPrivacidade, string statusOcorrencia,
+            (string titulo, string descricao, string nomeMorador,
+             string statusPrivacidade, string statusOcorrencia,
              string dataDeCadastro, string foto, Guid unidadeId)
         {
-            Assunto = assunto;
             Titulo = titulo;
             Descricao = descricao;
-            NomeMorador = nomeMorador;
-            UnidadeDescricao = unidadeDescricao;
+            NomeMorador = nomeMorador;            
             StatusPrivacidade = statusPrivacidade;
             StatusOcorrencia = statusOcorrencia;
             DataDeCadastro = dataDeCadastro;
