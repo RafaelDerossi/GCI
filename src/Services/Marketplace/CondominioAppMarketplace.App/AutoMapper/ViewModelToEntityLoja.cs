@@ -10,7 +10,7 @@ namespace CondominioAppMarketplace.App.AutoMapper
         public ViewModelToEntityLoja()
         {
             CreateMap<VendedorViewModel, Vendedor>()
-                    .ConstructUsing(vendedor => new Vendedor(vendedor.Nome, new Email(vendedor.EmailDoVendedor), new Cpf(vendedor.CpfDoVendedor), new Telefone(vendedor.TelefoneDoVendedor, vendedor.Whatsapp),
+                    .ConstructUsing(vendedor => new Vendedor(vendedor.Nome, vendedor.ParceiroId, new Email(vendedor.EmailDoVendedor), new Cpf(vendedor.CpfDoVendedor), new Telefone(vendedor.TelefoneDoVendedor, vendedor.Whatsapp),
                                   new Endereco(vendedor.logradouro, vendedor.complemento, vendedor.numero, vendedor.cep, vendedor.bairro, vendedor.cidade, vendedor.estado)));
 
 

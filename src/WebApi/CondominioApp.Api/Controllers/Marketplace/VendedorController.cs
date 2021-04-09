@@ -21,6 +21,8 @@ namespace CondominioApp.Api.Controllers.Marketplace
             _AppServiceParceiro = AppServiceParceiro;
         }
 
+
+
         [HttpGet]
         public async Task<IEnumerable<VendedorViewModel>> Listar()
         {
