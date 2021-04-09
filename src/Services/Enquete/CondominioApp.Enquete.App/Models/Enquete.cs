@@ -1,6 +1,6 @@
 ﻿using CondominioApp.Core.DomainObjects;
 using CondominioApp.Core.Helpers;
-using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents;
+using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.NotificacaoEmailIntegrationEvent.Enquete;
 using FluentValidation.Results;
 using System;
 using System.Collections.Generic;

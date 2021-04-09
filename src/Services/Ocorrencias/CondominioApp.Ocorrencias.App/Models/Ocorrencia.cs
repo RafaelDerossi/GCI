@@ -1,7 +1,7 @@
-﻿  using CondominioApp.Core.DomainObjects;
+﻿using CondominioApp.Core.DomainObjects;
 using CondominioApp.Core.Enumeradores;
 using CondominioApp.Core.Helpers;
-using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents;
+using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.NotificacaoPushIntegrationEvents;
 using CondominioApp.Ocorrencias.App.ValueObjects;
 using FluentValidation.Results;
 using System;

@@ -4,7 +4,8 @@ using System;
 using System.Collections.Generic;
 using FluentValidation.Results;
 using System.Linq;
-using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents;
+using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.NotificacaoEmailIntegrationEvent.Comunicado;
+using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.NotificacaoPushIntegrationEvents;
 
 namespace CondominioApp.Comunicados.App.Models
 {

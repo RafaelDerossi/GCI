@@ -1,18 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
-using CondominioApp.Core.Enumeradores;
 using CondominioApp.Core.Messages;
-using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents;
 using CondominioApp.NotificacaoEmail.Api.Email;
-using CondominioApp.NotificacaoEmail.App.DTO;
 using CondominioApp.NotificacaoEmail.App.Service;
 using CondominioApp.Principal.Aplication.Query.Interfaces;
 using CondominioApp.Usuarios.App.Aplication.Query;
-using CondominioApp.Usuarios.App.FlatModel;
 using MediatR;
-using System.Linq;
-
+using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.NotificacaoEmailIntegrationEvent.Usuario;
 
 namespace CondominioApp.NotificacaoEmail.Aplication.Events
 {

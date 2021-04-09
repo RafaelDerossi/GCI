@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using CondominioApp.ArquivoDigital.App.Aplication.Query;
 using CondominioApp.Core.Enumeradores;
 using CondominioApp.Core.Messages;
-using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents;
 using CondominioApp.NotificacaoEmail.Api.Email;
 using CondominioApp.NotificacaoEmail.App.DTO;
 using CondominioApp.NotificacaoEmail.App.Service;
@@ -13,7 +12,10 @@ using CondominioApp.Usuarios.App.Aplication.Query;
 using CondominioApp.Usuarios.App.FlatModel;
 using MediatR;
 using System.Linq;
-
+using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.NotificacaoEmailIntegrationEvent.Comunicado;
+using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.NotificacaoEmailIntegrationEvent.Correspondencia;
+using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.NotificacaoEmailIntegrationEvent.Enquete;
+using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.NotificacaoEmailIntegrationEvent.Ocorrencia;
 
 namespace CondominioApp.NotificacaoEmail.Aplication.Events
 {
@@ -21,6 +23,7 @@ namespace CondominioApp.NotificacaoEmail.Aplication.Events
         INotificationHandler<EnviarEmailComunicadoIntegrationEvent>,
         INotificationHandler<EnviarEmailCorrespondenciaIntegrationEvent>,
         INotificationHandler<EnviarEmailEnqueteIntegrationEvent>,
+        INotificationHandler<EnviarEmailOcorrenciaIntegrationEvent>,
         System.IDisposable
     {
         private IUsuarioQuery _usuarioQuery;
@@ -65,6 +68,16 @@ namespace CondominioApp.NotificacaoEmail.Aplication.Events
             var enqueteDTO = EnqueteDTOFactory(notification, listaDeEmails);
 
             var DisparadorDeEmail = new DisparadorDeEmails(new EmailEnquete(enqueteDTO));
+            await DisparadorDeEmail.Disparar();
+        }
+
+        public async Task Handle(EnviarEmailOcorrenciaIntegrationEvent notification, CancellationToken cancellationToken)
+        {
+            var listaDeEmails = await ObterListaDeEmailsDaOcorrencia(notification);
+
+            var ocorrenciaDTO = OcorrenciaDTOFactory(notification, listaDeEmails);
+
+            var DisparadorDeEmail = new DisparadorDeEmails(new EmailOcorrencia(ocorrenciaDTO));
             await DisparadorDeEmail.Disparar();
         }
 
@@ -190,6 +203,7 @@ namespace CondominioApp.NotificacaoEmail.Aplication.Events
 
 
 
+
         private async Task<List<string>> ObterListaDeEmailsDaCorrespondencia(EnviarEmailCorrespondenciaIntegrationEvent notification)
         {
             var moradores = await _usuarioQuery.ObterMoradoresPorUnidadeId(notification.UnidadeId);
@@ -203,7 +217,6 @@ namespace CondominioApp.NotificacaoEmail.Aplication.Events
             return new CorrespondenciaDTO
                 (notification.Assunto, notification.Titulo, notification.Descricao, unidade.CondominioLogoMarca, listaDeEmails);
         }
-
 
 
 
@@ -237,9 +250,36 @@ namespace CondominioApp.NotificacaoEmail.Aplication.Events
                  condominio.LogoMarca, notification.NomeFuncionario, listaDeEmails);
         }
 
+
+        private async Task<List<string>> ObterListaDeEmailsDaOcorrencia(EnviarEmailOcorrenciaIntegrationEvent notification)
+        {
+           var listaDeEmails = new List<string>();
+
+            var sindico = await _usuarioQuery.ObterSindicoPorCondominioId(notification.UnidadeId);
+            if (sindico != null)
+            {
+                var usuario = await _usuarioQuery.ObterPorId(sindico.UsuarioId);
+                listaDeEmails.Add(usuario.Email.Endereco);
+            }
+
+            return listaDeEmails;
+        }
+        private OcorrenciaDTO OcorrenciaDTOFactory
+         (EnviarEmailOcorrenciaIntegrationEvent notification, List<string> listaDeEmails)
+        {
+            var unidade = _principalQuery.ObterUnidadePorId(notification.UnidadeId).Result;
+
+            return new OcorrenciaDTO
+                (notification.Assunto, notification.Titulo, notification.Descricao, notification.NomeMorador,
+                 unidade.ObterDescricaoUnidade(), notification.StatusPrivacidade, notification.StatusOcorrencia,
+                 notification.DataDeCadastro, notification.Foto, unidade.CondominioNome, unidade.CondominioLogoMarca,
+                 listaDeEmails);
+        }
+
         public void Dispose()
         {
             _usuarioQuery?.Dispose();
         }        
+
     }
 }

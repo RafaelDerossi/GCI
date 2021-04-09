@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents;
 using CondominioApp.Core.Messages;
 using CondominioApp.Usuarios.App.Aplication.Events;
 using CondominioApp.Usuarios.App.Models;
 using FluentValidation.Results;
 using MediatR;
+using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.NotificacaoEmailIntegrationEvent.Usuario;
 
 namespace CondominioApp.Usuarios.App.Aplication.Commands
 {

@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace CondominioApp.Core.Messages.CommonMessages.IntegrationEvents
+namespace CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.NotificacaoEmailIntegrationEvent.Correspondencia
 {
     public class EnviarEmailCorrespondenciaIntegrationEvent : IntegrationEvent
     {

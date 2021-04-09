@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using CondominioApp.Core.Messages;
-using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents;
+using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.NotificacaoPushIntegrationEvents;
 using CondominioApp.NotificacaoPush.App.DTO;
 using CondominioApp.NotificacaoPush.App.OneSignalApps;
 using CondominioApp.NotificacaoPush.App.Services.Interfaces;

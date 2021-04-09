@@ -62,8 +62,11 @@ using CondominioApp.Ocorrencias.App.Aplication.Commands;
 using CondominioApp.Ocorrencias.App.Data.Repository;
 using CondominioApp.Ocorrencias.App.Models;
 using CondominioApp.Ocorrencias.App.Aplication.Query;
-using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents;
 using CondominioApp.NotificacaoEmail.Aplication.Events;
+using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.NotificacaoEmailIntegrationEvent.Comunicado;
+using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.NotificacaoEmailIntegrationEvent.Correspondencia;
+using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.NotificacaoEmailIntegrationEvent.Enquete;
+using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.NotificacaoPushIntegrationEvents;
 
 namespace CondominioApp.Api.Configuration
 {
