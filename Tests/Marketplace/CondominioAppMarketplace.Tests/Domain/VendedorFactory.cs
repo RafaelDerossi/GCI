@@ -1,6 +1,7 @@
 ﻿using CondominioAppMarketplace.Domain;
 using CondominioAppMarketplace.Domain.ValueObjects;
 using Microsoft.VisualBasic.CompilerServices;
+using System;
 
 namespace CondominioAppMarketplace.Tests.Domain
 {
@@ -9,11 +10,12 @@ namespace CondominioAppMarketplace.Tests.Domain
         public static Vendedor CriarVendedorValido()
         {
             return new Vendedor("Alexandre Nascimento",
-                new Email("alexandre@techdog.com.br"),
-                new Cpf("117.128.950-28"),
-                new Telefone("(21) 99796-7038", true),
-                new Endereco("Rua Teste","Complemento Teste","5214",
-                    "22770-190","Pechincha","Rio de Janeiro","RJ"));
+                                Guid.NewGuid(),
+                                new Email("alexandre@techdog.com.br"),
+                                new Cpf("117.128.950-28"),
+                                new Telefone("(21) 99796-7038", true),
+                                new Endereco("Rua Teste","Complemento Teste","5214",
+                                "22770-190","Pechincha","Rio de Janeiro","RJ"));
         }
     }
 }
