@@ -49,6 +49,8 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
 
             resposta.EnviarPushParaMorador(ocorrencia.MoradorId, request.Status);
 
+            resposta.EnviarEmailParaMorador(ocorrencia.MoradorId, request.Status, ocorrencia.Descricao);
+
             _ocorrenciaRepository.AdicionarResposta(resposta);            
 
             _ocorrenciaRepository.Atualizar(ocorrencia);
@@ -75,6 +77,8 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
                 return retorno;
 
             resposta.EnviarPushParaSindico(ocorrencia.CondominioId);
+
+            resposta.EnviarEmailParaSindico(ocorrencia.MoradorId, request.Status, ocorrencia.Descricao);
 
             _ocorrenciaRepository.AdicionarResposta(resposta);
 

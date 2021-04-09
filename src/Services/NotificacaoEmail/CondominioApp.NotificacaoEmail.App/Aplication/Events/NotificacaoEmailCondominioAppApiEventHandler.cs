@@ -24,6 +24,8 @@ namespace CondominioApp.NotificacaoEmail.Aplication.Events
         INotificationHandler<EnviarEmailCorrespondenciaIntegrationEvent>,
         INotificationHandler<EnviarEmailEnqueteIntegrationEvent>,
         INotificationHandler<EnviarEmailOcorrenciaIntegrationEvent>,
+        INotificationHandler<EnviarEmailRespostaOcorrenciaParaMoradorIntegrationEvent>,
+        INotificationHandler<EnviarEmailRespostaOcorrenciaParaSindicoIntegrationEvent>,
         System.IDisposable
     {
         private IUsuarioQuery _usuarioQuery;
@@ -78,6 +80,29 @@ namespace CondominioApp.NotificacaoEmail.Aplication.Events
             var ocorrenciaDTO = OcorrenciaDTOFactory(notification, listaDeEmails);
 
             var DisparadorDeEmail = new DisparadorDeEmails(new EmailOcorrencia(ocorrenciaDTO));
+            await DisparadorDeEmail.Disparar();
+        }
+
+        public async Task Handle(EnviarEmailRespostaOcorrenciaParaMoradorIntegrationEvent notification, CancellationToken cancellationToken)
+        {
+            
+            var morador = await _usuarioQuery.ObterMoradorPorId(notification.moradorId);
+            var listaDeEmails = new List<string>();
+            listaDeEmails.Add(morador.Email);                        
+
+            var respostaOcorrenciaDTO = RespostaOcorrenciaDTOFactory(notification, listaDeEmails, morador.CondominioId);
+
+            var DisparadorDeEmail = new DisparadorDeEmails(new EmailRespostaOcorrencia(respostaOcorrenciaDTO));
+            await DisparadorDeEmail.Disparar();
+        }
+
+        public async Task Handle(EnviarEmailRespostaOcorrenciaParaSindicoIntegrationEvent notification, CancellationToken cancellationToken)
+        {
+            var listaDeEmails = await ObterListaDeEmailsDaRespostaOcorrenciaParaSindico(notification);
+
+            var respostaOcorrenciaDTO = RespostaOcorrenciaDTOFactory(notification, listaDeEmails, notification.CondominioId);
+
+            var DisparadorDeEmail = new DisparadorDeEmails(new EmailRespostaOcorrencia(respostaOcorrenciaDTO));
             await DisparadorDeEmail.Disparar();
         }
 
@@ -255,7 +280,9 @@ namespace CondominioApp.NotificacaoEmail.Aplication.Events
         {
            var listaDeEmails = new List<string>();
 
-            var sindico = await _usuarioQuery.ObterSindicoPorCondominioId(notification.UnidadeId);
+            var unidade = await _principalQuery.ObterUnidadePorId(notification.UnidadeId);
+
+            var sindico = await _usuarioQuery.ObterSindicoPorCondominioId(unidade.CondominioId);
             if (sindico != null)
             {
                 var usuario = await _usuarioQuery.ObterPorId(sindico.UsuarioId);
@@ -275,6 +302,44 @@ namespace CondominioApp.NotificacaoEmail.Aplication.Events
                  notification.DataDeCadastro, notification.Foto, unidade.CondominioNome, unidade.CondominioLogoMarca,
                  listaDeEmails);
         }
+
+
+
+        private RespostaOcorrenciaDTO RespostaOcorrenciaDTOFactory
+       (EnviarEmailRespostaOcorrenciaParaMoradorIntegrationEvent notification, List<string> listaDeEmails, System.Guid condominioId)
+        {
+            var condominio = _principalQuery.ObterPorId(condominioId).Result;
+
+            return new RespostaOcorrenciaDTO
+                (notification.Titulo, notification.DescricaoDaOcorrencia, notification.Resposta,
+                 notification.NomeSindico, notification.DataDaResposta,
+                 notification.Foto, condominio.Nome, condominio.LogoMarca, listaDeEmails);
+        }
+        private RespostaOcorrenciaDTO RespostaOcorrenciaDTOFactory
+       (EnviarEmailRespostaOcorrenciaParaSindicoIntegrationEvent notification, List<string> listaDeEmails, System.Guid condominioId)
+        {
+            var condominio = _principalQuery.ObterPorId(condominioId).Result;
+
+            return new RespostaOcorrenciaDTO
+                (notification.Titulo, notification.DescricaoDaOcorrencia, notification.Resposta,
+                 notification.NomeMorador, notification.DataDaResposta,
+                 notification.Foto, condominio.Nome, condominio.LogoMarca, listaDeEmails);
+        }
+
+        private async Task<List<string>> ObterListaDeEmailsDaRespostaOcorrenciaParaSindico(EnviarEmailRespostaOcorrenciaParaSindicoIntegrationEvent notification)
+        {
+            var listaDeEmails = new List<string>();            
+
+            var sindico = await _usuarioQuery.ObterSindicoPorCondominioId(notification.CondominioId);
+            if (sindico != null)
+            {
+                var usuario = await _usuarioQuery.ObterPorId(sindico.UsuarioId);
+                listaDeEmails.Add(usuario.Email.Endereco);
+            }
+
+            return listaDeEmails;
+        }
+
 
         public void Dispose()
         {
