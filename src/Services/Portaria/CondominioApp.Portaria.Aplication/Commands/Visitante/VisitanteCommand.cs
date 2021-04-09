@@ -57,7 +57,6 @@ namespace CondominioApp.Portaria.Aplication.Commands
 
             Documento = documento;            
         }
-
         private void SetRg(string rg)
         {
             try
@@ -82,7 +81,6 @@ namespace CondominioApp.Portaria.Aplication.Commands
                 AdicionarErrosDeProcessamentoDoComando(e.Message);
             }
         }
-
         public void SetEmail(string email)
         {
             try
@@ -94,7 +92,6 @@ namespace CondominioApp.Portaria.Aplication.Commands
                 AdicionarErrosDeProcessamentoDoComando(e.Message);
             }
         }
-
         public void SetFoto(string nomeOriginal, string nome)
         {
             try
@@ -106,13 +103,9 @@ namespace CondominioApp.Portaria.Aplication.Commands
                 AdicionarErrosDeProcessamentoDoComando(e.Message);
             }
         }
-      
-
         public void SetNome(string nome) => Nome = nome;
-
         public void SetCondominioId(Guid condominioId) => CondominioId = condominioId;
         public void SetNomeCondominio(string nomeCondominio) => NomeCondominio = nomeCondominio;
-
         public void SetUnidadeId(Guid unidadeId) => UnidadeId = unidadeId;
         public void SetNumeroUnidade(string numero) => NumeroUnidade = numero;
         public void SetAndarDaUnidade(string andar) => AndarUnidade = andar;

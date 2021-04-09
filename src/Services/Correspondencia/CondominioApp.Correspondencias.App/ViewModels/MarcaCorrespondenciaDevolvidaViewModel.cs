@@ -9,9 +9,7 @@ namespace CondominioApp.Correspondencias.App.ViewModels
     {
         public Guid Id { get; set; }
       
-        public Guid UsuarioId { get; set; }
-
-        public string NomeUsuario { get; set; }
+        public Guid FuncionarioId { get; set; }
 
         public string Observacao { get; set; }    
     }

@@ -1,4 +1,5 @@
 ﻿using CondominioApp.Core.Messages;
+using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents;
 using CondominioApp.ReservaAreaComum.Aplication.Events;
 using CondominioApp.ReservaAreaComum.Domain;
 using CondominioApp.ReservaAreaComum.Domain.Interfaces;
@@ -58,6 +59,8 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
                 reserva.DescricaoGrupoUnidade, reserva.UsuarioId, reserva.NomeUsuario, reserva.DataDeRealizacao,
                 reserva.HoraInicio, reserva.HoraFim, reserva.Ativa, reserva.Preco, reserva.EstaNaFila,
                 reserva.Origem, reserva.ReservadoPelaAdministracao));
+
+            //reserva.AdicionarEvento(new PushNotificationIntegrationEvent(request.us)
 
             return await PersistirDados(_reservaAreaComumRepository.UnitOfWork);
         }

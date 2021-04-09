@@ -1,51 +1,75 @@
 ﻿using System;
+using CondominioApp.Core.Enumeradores;
 using CondominioApp.Usuarios.App.Aplication.Commands;
 
 namespace CondominioApp.Usuarios.App.Tests
 {
     public class UsuarioCommandFactory
     {
-        public static CadastrarMoradorCommand CriarComandoCadastroDeMorador()
+        public static CadastrarUsuarioCommand CadastrarUsuarioCommandFactoy()
         {
-            return new CadastrarMoradorCommand(Guid.NewGuid(), "Alexandre", "Nascimento", "alexandre@techdog.com.br",
-                "874541213", "689.560.890-78", "(21) 99988-5241", "foto2.jpg", "fotoOriginal.jpg",
-                new DateTime(1985, 05, 10));
+            return new CadastrarUsuarioCommand
+                (Guid.NewGuid(), "Nome", "Sobrenome", "alexandre@techdog.com.br", "foto2.jpg", "fotoOriginal.jpg",
+                 "874541213", "689.560.890-78", "(21) 99988-5241",
+                 "(21) 99988-5241", "logradouro", "lt 30","S/N","","Bairro","Rio de Janeiro",
+                 "RJ", new DateTime(1985, 05, 10));
         }
 
-        public static CadastrarMoradorCommand CriarComandoCadastroDeMoradorSemFoto()
+        public static EditarUsuarioCommand EditarUsuarioCommandFactoy()
         {
-            return new CadastrarMoradorCommand(Guid.NewGuid(), "Alexandre", "Nascimento", "alexandre@techdog.com.br",
-                "874541213", "689.560.890-78", "(21) 99988-5241", "", "",
-                new DateTime(1985, 05, 10));
+            return new EditarUsuarioCommand
+                (Guid.NewGuid(), "Nome", "Sobrenome", "alexandre@techdog.com.br", "874541213", "689.560.890-78",
+                 "foto.jpg", "original.jpg", "(21) 99988-5241", "(21) 99988-5241", "logradouro", "lt 30", "S/N", "",
+                 "Bairro", "Rio de Janeiro", "RJ", new DateTime(1985, 05, 10));
         }
 
-        public static CadastrarMoradorCommand CriarComandoCadastroDeMoradorSemNome()
+
+        public static CadastrarUsuarioCommand CriarComandoCadastroDeUsuario()
         {
-            return new CadastrarMoradorCommand(Guid.NewGuid(), "", "Nascimento", "alexandre@techdog.com.br",
-                "874541213", "689.560.890-78", "(21) 99988-5241", "", "",
-                new DateTime(1985, 05, 10));
+            return CadastrarUsuarioCommandFactoy();
         }
 
-        public static CadastrarMoradorCommand CriarComandoCadastroDeMoradorSemEmail()
+        public static CadastrarUsuarioCommand CriarComandoCadastroDeUsuarioSemFoto()
         {
-            return new CadastrarMoradorCommand(Guid.NewGuid(), "Alexandre", "Nascimento", "",
-                "874541213", "689.560.890-78", "(21) 99988-5241", "", "",
-                new DateTime(1985, 05, 10));
+            var comando = CadastrarUsuarioCommandFactoy();
+            comando.SetFoto("", "");
+
+            return comando;
         }
 
-        public static CadastrarMoradorCommand CriarComandoCadastroDeMoradorComEmailInvalido()
+        public static CadastrarUsuarioCommand CriarComandoCadastroDeUsuarioSemNome()
         {
-            return new CadastrarMoradorCommand(Guid.NewGuid(), "Alexandre", "Nascimento", "alexandre@techdog",
-                "874541213", "689.560.890-78", "(21) 99988-5241", "", "",
-                new DateTime(1985, 05, 10));
+            var comando = CadastrarUsuarioCommandFactoy();
+            comando.SetNome("");
+
+            return comando;
         }
 
-        public static CadastrarMoradorCommand CriarComandoCadastroDeMoradorSemDataDeNascimento()
+        public static CadastrarUsuarioCommand CriarComandoCadastroDeUsuarioSemEmail()
+        {
+            var comando = CadastrarUsuarioCommandFactoy();
+            comando.SetEmail("");
+
+            return comando;
+        }
+
+        public static CadastrarUsuarioCommand CriarComandoCadastroDeUsuarioComEmailInvalido()
+        {
+            var comando = CadastrarUsuarioCommandFactoy();
+            comando.SetEmail("alexandre@techdog");
+
+            return comando;
+            
+        }
+
+        public static CadastrarUsuarioCommand CriarComandoCadastroDeUsuarioSemDataDeNascimento()
         {
             try
             {
-                return new CadastrarMoradorCommand(Guid.NewGuid(), "Alexandre", "Nascimento", "alexandre@techdog.com.br",
-              "874541213", "689.560.890-78", "(21) 99988-5241", "", "");
+                return new CadastrarUsuarioCommand
+                 (Guid.NewGuid(), "Nome", "Sobrenome", "alexandre@techdog.com.br", "foto2.jpg",
+                 "fotoOriginal.jpg", "874541213", "689.560.890-78", "(21) 99988-5241", "(21) 99988-5241", "logradouro", "lt 30", "S/N", "", "Bairro",
+                 "Rio de Janeiro", "RJ");
             }
             catch (Exception)
             {
@@ -54,19 +78,19 @@ namespace CondominioApp.Usuarios.App.Tests
           
         }
 
-        public static CadastrarMoradorCommand CriarComandoCadastroDeMoradorCPFInvalido()
+        public static CadastrarUsuarioCommand CriarComandoCadastroDeUsuarioCPFInvalido()
         {
-            try
-            {
-                return new CadastrarMoradorCommand(Guid.NewGuid(), "Alexandre", "Nascimento", "alexandre@techdog.com.br",
-                               "874541213", "689.560.890-77", "(21) 99988-5241", "foto2.jpg", "fotoOriginal.jpg",
-                               new DateTime(1985, 05, 10));
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            var comando = CadastrarUsuarioCommandFactoy();
+            comando.SetCpf("689.560.890-77");
+
+            return comando;
            
+        }
+
+
+        public static EditarUsuarioCommand CriarComandoEdicaoDeUsuario()
+        {
+            return EditarUsuarioCommandFactoy();
         }
     }
 }

@@ -8,67 +8,74 @@ namespace CondominioApp.Correspondencias.App.Tests
 {
     public class CorrespondenciaCommandFactory
     {
-        public static CadastrarCorrespondenciaCommand CriarComandoCadastroDeCorrespondencia()
+        public static CadastrarCorrespondenciaCommand CriarComandoCadastroDeCorrespondenciaFactory()
         {
             //Act
             return new CadastrarCorrespondenciaCommand(
                 Guid.NewGuid(), Guid.NewGuid(), "101", "Bloco", null, Guid.NewGuid(),
                 "Rafael", null, null, null, DataHoraDeBrasilia.Get(), "Caixa",
-                StatusCorrespondencia.PENDENTE);
+                StatusCorrespondencia.PENDENTE, "", null);
+        }
+
+        public static CadastrarCorrespondenciaCommand CriarComandoCadastroDeCorrespondencia()
+        {
+            var comando = CriarComandoCadastroDeCorrespondenciaFactory();
+
+            return comando;
         }
 
         public static CadastrarCorrespondenciaCommand CriarComandoCadastroDeCorrespondenciaSemCondominio()
         {
-            //Act
-            return new CadastrarCorrespondenciaCommand(
-                Guid.Empty, Guid.NewGuid(), "101", "Bloco", null, Guid.NewGuid(),
-                "Rafael", null, null, null, DataHoraDeBrasilia.Get(), "Caixa",
-                StatusCorrespondencia.PENDENTE);
+            var comando = CriarComandoCadastroDeCorrespondenciaFactory();
+
+            comando.SetCondominio(Guid.Empty);
+
+            return comando;
         }
 
         public static CadastrarCorrespondenciaCommand CriarComandoCadastroDeCorrespondenciaSemUnidadeId()
         {
-            //Act
-            return new CadastrarCorrespondenciaCommand(
-                Guid.NewGuid(), Guid.Empty, "101", "Bloco", null, Guid.NewGuid(),
-                "Rafael", null, null, null, DataHoraDeBrasilia.Get(), "Caixa",
-                StatusCorrespondencia.PENDENTE);
+            var comando = CriarComandoCadastroDeCorrespondenciaFactory();
+
+            comando.SetUnidade(Guid.Empty, "101", "Grupo");
+
+            return comando;
         }
 
         public static CadastrarCorrespondenciaCommand CriarComandoCadastroDeCorrespondenciaSemNumeroUnidade()
         {
-            //Act
-            return new CadastrarCorrespondenciaCommand(
-                Guid.NewGuid(), Guid.NewGuid(), null, "Bloco", null, Guid.NewGuid(),
-                "Rafael", null, null, null, DataHoraDeBrasilia.Get(), "Caixa",
-                StatusCorrespondencia.PENDENTE);
+            var comando = CriarComandoCadastroDeCorrespondenciaFactory();
+            
+            comando.SetUnidade(Guid.NewGuid(), "", "Grupo");
+
+            return comando;
         }
 
         public static CadastrarCorrespondenciaCommand CriarComandoCadastroDeCorrespondenciaSemBloco()
         {
-            //Act
-            return new CadastrarCorrespondenciaCommand(
-                Guid.NewGuid(), Guid.NewGuid(), "101", null, null, Guid.NewGuid(),
-                "Rafael", null, null, null, DataHoraDeBrasilia.Get(), "Caixa",
-                StatusCorrespondencia.PENDENTE);
+            var comando = CriarComandoCadastroDeCorrespondenciaFactory();
+
+            comando.SetUnidade(Guid.NewGuid(), "101", "");
+
+            return comando;
         }
 
-        public static CadastrarCorrespondenciaCommand CriarComandoCadastroDeCorrespondenciaSemUsuarioId()
+        public static CadastrarCorrespondenciaCommand CriarComandoCadastroDeCorrespondenciaSemFuncionarioId()
         {
-            //Act
-            return new CadastrarCorrespondenciaCommand(
-                Guid.NewGuid(), Guid.NewGuid(), "101", "Bloco", null, Guid.Empty,
-                "Rafael", null, null, null, DataHoraDeBrasilia.Get(), "Caixa",
-                StatusCorrespondencia.PENDENTE);
+            var comando = CriarComandoCadastroDeCorrespondenciaFactory();
+
+            comando.SetFuncionario(Guid.Empty, "Nome");
+
+            return comando;
         }
 
-        public static CadastrarCorrespondenciaCommand CriarComandoCadastroDeCorrespondenciaSemNomeUsuario()
+        public static CadastrarCorrespondenciaCommand CriarComandoCadastroDeCorrespondenciaSemNomeFuncionario()
         {
-            //Act
-            return new CadastrarCorrespondenciaCommand(
-                Guid.NewGuid(), Guid.NewGuid(), "101", "Bloco", null, Guid.NewGuid(),
-                null, null, null, null, DataHoraDeBrasilia.Get(), "Caixa",
-                StatusCorrespondencia.PENDENTE);
+            var comando = CriarComandoCadastroDeCorrespondenciaFactory();
+
+            comando.SetFuncionario(Guid.NewGuid(), "");
+
+            return comando;
         }
 
         public static MarcarCorrespondenciaVistaCommand CriarComandoMarcarCorrespondenciaVista()

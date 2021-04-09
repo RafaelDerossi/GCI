@@ -36,14 +36,14 @@ namespace CondominioApp.Enquetes.App.Aplication.Commands.Validations
 
         protected void ValidateUsuarioId()
         {
-            RuleFor(c => c.UsuarioId)
+            RuleFor(c => c.FuncionarioId)
                 .NotEqual(Guid.Empty)
                 .WithMessage("Usuario não pode estar vazio!");
         }
 
         protected void ValidateUsuarioNome()
         {
-            RuleFor(c => c.UsuarioNome)
+            RuleFor(c => c.FuncionarioNome)
                 .NotEmpty()
                 .Length(2, 200).WithMessage("Nome do usuario deve ter mais de 2 caracteres!");
         }

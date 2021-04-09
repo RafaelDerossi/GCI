@@ -21,9 +21,9 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
 
         public string NomeCondominio { get; protected set; }
 
-        public Guid UsuarioId { get; protected set; }
+        public Guid FuncionarioId { get; protected set; }
 
-        public string NomeUsuario { get; protected set; }
+        public string NomeFuncionario { get; protected set; }
 
         public VisibilidadeComunicado Visibilidade { get; protected set; }
 
@@ -34,6 +34,37 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
         public bool CriadoPelaAdministradora { get; protected set; }
 
         public IEnumerable<UnidadeComunicado> Unidades { get; protected set; }
+
+
+
+        public void SetTitulo(string titulo) => Titulo = titulo;
+
+        public void SetDescricao(string descricao) => Descricao = descricao;
+
+        public void SetCondominio(Guid id, string nome)
+        {
+            CondominioId = id;
+            NomeCondominio = nome;
+        }
+
+        public void SetCondominioId(Guid id)
+        {
+            CondominioId = id;
+        }
+
+        public void SetFuncionario(Guid id, string nome)
+        {
+            FuncionarioId = id;
+            NomeFuncionario = nome;
+        }
+
+        public void SetVisibilidade(VisibilidadeComunicado visibilidade) => Visibilidade = visibilidade;
+
+        public void SetUnidades(IEnumerable<UnidadeComunicado> unidades)
+        {
+            Unidades = unidades;
+        }
+        
 
     }
 }

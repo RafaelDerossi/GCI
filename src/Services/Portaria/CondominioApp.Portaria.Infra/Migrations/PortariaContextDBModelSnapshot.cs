@@ -25,10 +25,6 @@ namespace CondominioApp.Portaria.Infra.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("AndarUnidade")
-                        .IsRequired()
-                        .HasColumnType("varchar(200)");
-
                     b.Property<Guid>("CondominioId")
                         .HasColumnType("uniqueidentifier");
 
@@ -49,29 +45,16 @@ namespace CondominioApp.Portaria.Infra.Migrations
                         .HasColumnType("varchar(20)")
                         .HasMaxLength(20);
 
-                    b.Property<string>("GrupoUnidade")
-                        .IsRequired()
-                        .HasColumnType("varchar(200)");
-
                     b.Property<bool>("Lixeira")
                         .HasColumnType("bit");
 
-                    b.Property<string>("NomeCondominio")
-                        .IsRequired()
-                        .HasColumnType("varchar(200)");
+                    b.Property<Guid>("MoradorId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("NomeEmpresaVisitante")
                         .HasColumnType("varchar(200)");
 
-                    b.Property<string>("NomeUsuario")
-                        .IsRequired()
-                        .HasColumnType("varchar(200)");
-
                     b.Property<string>("NomeVisitante")
-                        .IsRequired()
-                        .HasColumnType("varchar(200)");
-
-                    b.Property<string>("NumeroUnidade")
                         .IsRequired()
                         .HasColumnType("varchar(200)");
 
@@ -94,9 +77,6 @@ namespace CondominioApp.Portaria.Infra.Migrations
                     b.Property<Guid>("UnidadeId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("UsuarioId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid>("VisitanteId")
                         .HasColumnType("uniqueidentifier");
 
@@ -113,10 +93,6 @@ namespace CondominioApp.Portaria.Infra.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("AndarUnidade")
-                        .IsRequired()
-                        .HasColumnType("varchar(200)");
-
                     b.Property<Guid>("CondominioId")
                         .HasColumnType("uniqueidentifier");
 
@@ -131,10 +107,6 @@ namespace CondominioApp.Portaria.Infra.Migrations
                         .HasColumnType("varchar(20)")
                         .HasMaxLength(20);
 
-                    b.Property<string>("GrupoUnidade")
-                        .IsRequired()
-                        .HasColumnType("varchar(200)");
-
                     b.Property<bool>("Lixeira")
                         .HasColumnType("bit");
 
@@ -142,15 +114,7 @@ namespace CondominioApp.Portaria.Infra.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(200)");
 
-                    b.Property<string>("NomeCondominio")
-                        .IsRequired()
-                        .HasColumnType("varchar(200)");
-
                     b.Property<string>("NomeEmpresa")
-                        .HasColumnType("varchar(200)");
-
-                    b.Property<string>("NumeroUnidade")
-                        .IsRequired()
                         .HasColumnType("varchar(200)");
 
                     b.Property<string>("QrCode")

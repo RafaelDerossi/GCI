@@ -19,12 +19,12 @@ namespace CondominioApp.Api.Controllers
     public class ContratoController : MainController
     {
         private readonly IMediatorHandler _mediatorHandler;
-        private readonly ICondominioQuery _condominioQuery;
+        private readonly IPrincipalQuery _principalQuery;
         public readonly IMapper _mapper;
-        public ContratoController(IMediatorHandler mediatorHandler, ICondominioQuery condominioQuery, IMapper mapper)
+        public ContratoController(IMediatorHandler mediatorHandler, IPrincipalQuery principalQuery, IMapper mapper)
         {
             _mediatorHandler = mediatorHandler;
-            _condominioQuery = condominioQuery;
+            _principalQuery = principalQuery;
             _mapper = mapper;
         }
 
@@ -33,7 +33,7 @@ namespace CondominioApp.Api.Controllers
         [HttpGet("{Id:Guid}")]
         public async Task<ActionResult<ContratoViewModel>> ObterPorId(Guid Id)
         {
-            var contrato = await _condominioQuery.ObterContratoPorId(Id);
+            var contrato = await _principalQuery.ObterContratoPorId(Id);
             if (contrato == null)
             {
                 AdicionarErroProcessamento("Contrato não encontrado.");
@@ -45,7 +45,7 @@ namespace CondominioApp.Api.Controllers
         [HttpGet("por-condominio/{condominioId:Guid}")]
         public async Task<ActionResult<IEnumerable<ContratoViewModel>>> ObterPorCondominio(Guid condominioId)
         {
-            var contratos = await _condominioQuery.ObterContratosPorCondominio(condominioId);
+            var contratos = await _principalQuery.ObterContratosPorCondominio(condominioId);
             if (contratos.Count() == 0)
             {
                 AdicionarErroProcessamento("Nenhum registro encontrado.");

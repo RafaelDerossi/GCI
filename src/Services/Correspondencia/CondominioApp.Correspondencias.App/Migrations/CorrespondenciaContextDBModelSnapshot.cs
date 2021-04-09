@@ -32,7 +32,7 @@ namespace CondominioApp.Correspondencias.App.Migrations
                     b.Property<Guid>("CondominioId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("DataDaRetirada")
+                    b.Property<DateTime?>("DataDaRetirada")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DataDeAlteracao")
@@ -44,13 +44,16 @@ namespace CondominioApp.Correspondencias.App.Migrations
                     b.Property<DateTime>("DataDeChegada")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid>("FuncionarioId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<bool>("Lixeira")
                         .HasColumnType("bit");
 
-                    b.Property<string>("NomeRetirante")
+                    b.Property<string>("NomeFuncionario")
                         .HasColumnType("varchar(200)");
 
-                    b.Property<string>("NomeUsuario")
+                    b.Property<string>("NomeRetirante")
                         .HasColumnType("varchar(200)");
 
                     b.Property<string>("NumeroRastreamentoCorreio")
@@ -73,9 +76,6 @@ namespace CondominioApp.Correspondencias.App.Migrations
                         .HasColumnType("varchar(200)");
 
                     b.Property<Guid>("UnidadeId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("UsuarioId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("Visto")

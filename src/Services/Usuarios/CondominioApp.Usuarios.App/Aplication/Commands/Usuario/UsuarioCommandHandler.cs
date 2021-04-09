@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents;
 using CondominioApp.Core.Messages;
+using CondominioApp.Usuarios.App.Aplication.Events;
 using CondominioApp.Usuarios.App.Models;
 using FluentValidation.Results;
 using MediatR;
@@ -9,9 +11,10 @@ using MediatR;
 namespace CondominioApp.Usuarios.App.Aplication.Commands
 {
     public class UsuarioCommandHandler : CommandHandler,
-        IRequestHandler<CadastrarMoradorCommand, ValidationResult>,
-        IRequestHandler<EditarMoradorCommand, ValidationResult>,
+        IRequestHandler<CadastrarUsuarioCommand, ValidationResult>,
+        IRequestHandler<EditarUsuarioCommand, ValidationResult>,
         IRequestHandler<CadastrarResponsavelDaLojaCommand, ValidationResult>,
+        IRequestHandler<ExcluirUsuarioCommand, ValidationResult>,
         IDisposable
     {
         private IUsuarioRepository _usuarioRepository;
@@ -21,41 +24,63 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
             _usuarioRepository = usuarioRepository;
         }
 
-        public async Task<ValidationResult> Handle(CadastrarMoradorCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(CadastrarUsuarioCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido()) return request.ValidationResult;
 
-            var Morador = UsuarioFactory(request);
+            var usuario = await _usuarioRepository.ObterPorId(request.UsuarioId);
+            if (usuario != null)
+            {
+                AdicionarErro("Usuário já cadastrado.");
+                return ValidationResult;
+            }
 
-            Morador.SetEntidadeId(request.UsuarioId);
+            usuario = UsuarioFactory(request);
 
-            _usuarioRepository.Adicionar(Morador);
+            usuario.SetEntidadeId(request.UsuarioId);
+
+            _usuarioRepository.Adicionar(usuario);
+
+            if (request.EnviarEmailDeConfirmacao)
+                usuario.AdicionarEvento
+                    (new EnviarEmailConfirmacaoDeCadastroDeUsuarioIntegrationEvent(usuario.Id));
 
             return await PersistirDados(_usuarioRepository.UnitOfWork);
+
         }
-        
 
-        public async Task<ValidationResult> Handle(EditarMoradorCommand request, CancellationToken cancellationToken)
-
+        public async Task<ValidationResult> Handle(EditarUsuarioCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido()) return request.ValidationResult;
 
-            var Morador = _usuarioRepository.ObterPorId(request.UsuarioId).Result;
+            var usuario = await _usuarioRepository.ObterPorId(request.UsuarioId);
+            if (usuario == null)
+            {
+                AdicionarErro("Usuário não encontrado.");
+                return ValidationResult;
+            }
 
-            Morador.SetNome(request.Nome);
-            Morador.SetSobrenome(request.Sobrenome);
-            Morador.SetRg(request.Rg);
-            Morador.SetCpf(request.Cpf);
-            Morador.SetCelular(request.Cel);
-            Morador.SetEmail(request.Email);
-            Morador.SetFoto(request.Foto);
-            Morador.SetTipoDeUsuario(request.TpUsuario);
-            Morador.SetPermissao(request.Permissao);
-            Morador.SetDataNascimento(request.DataNascimento);
+            usuario.SetNome(request.Nome);
+            usuario.SetSobrenome(request.Sobrenome);
+            usuario.SetRg(request.Rg);
+            usuario.SetCpf(request.Cpf);
+            usuario.SetCelular(request.Cel);
+            usuario.SetTelefone(request.Telefone);
+            usuario.SetEmail(request.Email);
+            usuario.SetFoto(request.Foto);
+            usuario.SetDataNascimento(request.DataNascimento);
+            usuario.SetEndereco(request.Endereco);            
 
-            _usuarioRepository.Atualizar(Morador);
+            _usuarioRepository.Atualizar(usuario);
+
+            //Evento
+            usuario.AdicionarEvento(
+                new UsuarioEditadoEvent(
+                    usuario.Id, usuario.Nome, usuario.Sobrenome, usuario.Email, usuario.Rg,
+                    usuario.Cpf, usuario.Cel, usuario.Foto, usuario.Endereco, usuario.DataNascimento));
 
             return await PersistirDados(_usuarioRepository.UnitOfWork);
+
         }
 
         public async Task<ValidationResult> Handle(CadastrarResponsavelDaLojaCommand request, CancellationToken cancellationToken)
@@ -71,17 +96,38 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
             return await PersistirDados(_usuarioRepository.UnitOfWork);
         }
 
+        public async Task<ValidationResult> Handle(ExcluirUsuarioCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido()) return request.ValidationResult;
+
+            var usuario = await _usuarioRepository.ObterPorId(request.UsuarioId);
+            if (usuario == null)
+            {
+                AdicionarErro("Usuário não encontrado.");
+                return ValidationResult;
+            }
+
+            _usuarioRepository.Excluir(usuario);
+
+            return await PersistirDados(_usuarioRepository.UnitOfWork);
+        }
+
+
+
         private Usuario UsuarioFactory(UsuarioCommand request)
         {
-            var usuario = new Usuario(request.Nome, request.Sobrenome, request.Rg,
-                 request.Cel, request.Email, request.Foto, request.TpUsuario, request.Permissao, request.DataNascimento, request.Cpf);
+            var usuario = new Usuario
+                (request.Nome, request.Sobrenome, request.Rg, request.Cel, request.Email, request.Foto, 
+                 request.DataNascimento, request.Cpf, request.Telefone, request.Endereco,
+                 request.SindicoProfissional);
 
             return usuario;
         }
-        
+
         public void Dispose()
         {
             _usuarioRepository?.Dispose();
         }
+
     }
 }

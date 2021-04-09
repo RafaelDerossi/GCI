@@ -29,8 +29,8 @@ namespace CondominioApp.Enquetes.App.Tests
             //Arrange
             var command = RespostaEnqueteCommandFactory.CriarComandoCadastrarRespostaEnquete();
 
-            var alternativa = new AlternativaEnquete("COM CERTEZA", command.AlternativaId);
-            
+            var alternativa = new AlternativaEnquete("COM CERTEZA", 1);
+            alternativa.SetEntidadeId(command.AlternativaId);
             
             _mocker.GetMock<IEnqueteRepository>().Setup(r => r.ObterAlternativaPorId(command.AlternativaId))
                .Returns(Task.FromResult(alternativa));

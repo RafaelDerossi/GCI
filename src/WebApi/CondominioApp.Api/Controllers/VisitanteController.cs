@@ -19,13 +19,13 @@ namespace CondominioApp.Api.Controllers
     {
         private readonly IMediatorHandler _mediatorHandler;      
         private readonly IPortariaQuery _portariaQuery;
-        private readonly ICondominioQuery _condominioQuery;
+        private readonly IPrincipalQuery _principalQuery;
 
-        public VisitanteController(IMediatorHandler mediatorHandler, IPortariaQuery portariaQuery, ICondominioQuery condominioQuery)
+        public VisitanteController(IMediatorHandler mediatorHandler, IPortariaQuery portariaQuery, IPrincipalQuery principalQuery)
         {
             _mediatorHandler = mediatorHandler;           
             _portariaQuery = portariaQuery;
-            _condominioQuery = condominioQuery;            
+            _principalQuery = principalQuery;            
         }
 
 
@@ -84,7 +84,7 @@ namespace CondominioApp.Api.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var unidade = await _condominioQuery.ObterUnidadePorId(visitanteVM.UnidadeId);
+            var unidade = await _principalQuery.ObterUnidadePorId(visitanteVM.UnidadeId);
             if (unidade == null)
             {
                 AdicionarErroProcessamento("Unidade não encontrada!");

@@ -9,9 +9,9 @@ namespace CondominioApp.Automacao.App.Factory
 {
    public class DispositivoServiceFactory : IDispositivosServiceFactory
     {
-        private readonly ICondominioCredencialQuery _condominioCredencialQuery;
+        private readonly IAutomacaoQuery _condominioCredencialQuery;
 
-        public DispositivoServiceFactory(ICondominioCredencialQuery condominioCredencialQuery)
+        public DispositivoServiceFactory(IAutomacaoQuery condominioCredencialQuery)
         {
             _condominioCredencialQuery = condominioCredencialQuery;            
         }

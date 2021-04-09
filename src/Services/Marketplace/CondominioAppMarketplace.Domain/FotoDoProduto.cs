@@ -27,6 +27,7 @@ namespace CondominioAppMarketplace.Domain
         public FotoDoProduto(string nomeOriginal, bool principal, string nomeDoArquivo = null)
         {
             NomeOriginal = nomeOriginal;
+            NomeArquivo = nomeDoArquivo;
             Principal = principal;
 
             setExtensao();
@@ -58,7 +59,7 @@ namespace CondominioAppMarketplace.Domain
 
         public void setExtensao()
         {
-            if (string.IsNullOrEmpty(NomeArquivo) && NomeArquivo.Contains("http:")) return;
+            if (string.IsNullOrEmpty(NomeArquivo) || NomeArquivo.Contains("http:")) return;
 
             string[] arrExt = { ".jpg", ".jpeg", ".png", ".gif" };
 

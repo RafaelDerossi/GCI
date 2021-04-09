@@ -10,7 +10,7 @@ namespace CondominioApp.Comunicados.App.Tests
         public void CadastroDeComunicadoPublico_CommandoValido_DevePassarNaValidacao()
         {
             //Arrange
-            var command = ComunicadoCommandFactory.CriarComandoCadastroDeComunicadoPublico();
+            var command = ComunicadoCommandFactory.CriarComando_CadastroDeComunicado_Publico();
 
             //Act
             var result = command.EstaValido();
@@ -24,7 +24,7 @@ namespace CondominioApp.Comunicados.App.Tests
         public void CadastroDeComunicadoProprietario_CommandoValido_DevePassarNaValidacao()
         {
             //Arrange
-            var command = ComunicadoCommandFactory.CriarComandoCadastroDeComunicadoProprietario();
+            var command = ComunicadoCommandFactory.CriarComando_CadastroDeComunicado_Proprietario();
 
             //Act
             var result = command.EstaValido();
@@ -38,7 +38,7 @@ namespace CondominioApp.Comunicados.App.Tests
         public void CadastroDeComunicadoUnidade_CommandoValido_DevePassarNaValidacao()
         {
             //Arrange
-            var command = ComunicadoCommandFactory.CriarComandoCadastroDeComunicadoUnidade();
+            var command = ComunicadoCommandFactory.CriarComando_CadastroDeComunicado_Unidade();
 
             //Act
             var result = command.EstaValido();
@@ -52,7 +52,7 @@ namespace CondominioApp.Comunicados.App.Tests
         public void CadastroDeComunicadoProprietarioUnidade_CommandoValido_DevePassarNaValidacao()
         {
             //Arrange
-            var command = ComunicadoCommandFactory.CriarComandoCadastroDeComunicadoProprietarioUnidade();
+            var command = ComunicadoCommandFactory.CriarComando_CadastroDeComunicado_ProprietarioUnidade();
 
             //Act
             var result = command.EstaValido();
@@ -61,6 +61,19 @@ namespace CondominioApp.Comunicados.App.Tests
             Assert.True(result);
         }
 
+        [Fact(DisplayName = "Adicionar Comunicado Publico com descricao grande demais Inválido")]
+        [Trait("Categoria", "Comunicado - CadastrarComunicadoCommand")]
+        public void CadastroDeComunicadoPublico_DescricaoGrandeDemais_CommandoInvalido_NaoDevePassarNaValidacao()
+        {
+            //Arrange
+            var command = ComunicadoCommandFactory.CriarComando_CadastroDeComunicado_ComDescricaoGrandeDemais();
+
+            //Act
+            var result = command.EstaValido();
+
+            //Assert
+            Assert.False(result);
+        }
 
 
 
@@ -69,7 +82,7 @@ namespace CondominioApp.Comunicados.App.Tests
         public void EdicaoDeComunicadoPublico_CommandoValido_DevePassarNaValidacao()
         {
             //Arrange
-            var command = ComunicadoCommandFactory.CriarComandoEdicaoDeComunicadoPublico();
+            var command = ComunicadoCommandFactory.CriarComando_EdicaoDeComunicado_Publico();
 
             //Act
             var result = command.EstaValido();
@@ -83,7 +96,7 @@ namespace CondominioApp.Comunicados.App.Tests
         public void EdicaoDeComunicadoProprietario_CommandoValido_DevePassarNaValidacao()
         {
             //Arrange
-            var command = ComunicadoCommandFactory.CriarComandoEdicaoDeComunicadoProprietario();
+            var command = ComunicadoCommandFactory.CriarComando_EdicaoDeComunicado_Proprietario();
 
             //Act
             var result = command.EstaValido();
@@ -97,7 +110,7 @@ namespace CondominioApp.Comunicados.App.Tests
         public void EdicaoDeComunicadoUnidade_CommandoValido_DevePassarNaValidacao()
         {
             //Arrange
-            var command = ComunicadoCommandFactory.CriarComandoEdicaoDeComunicadoUnidade();
+            var command = ComunicadoCommandFactory.CriarComando_EdicaoDeComunicado_Unidade();
 
             //Act
             var result = command.EstaValido();
@@ -111,7 +124,7 @@ namespace CondominioApp.Comunicados.App.Tests
         public void EdicaoDeComunicadoProprietarioUnidade_CommandoValido_DevePassarNaValidacao()
         {
             //Arrange
-            var command = ComunicadoCommandFactory.CriarComandoEdicaoDeComunicadoProprietarioUnidade();
+            var command = ComunicadoCommandFactory.CriarComando_EdicaoDeComunicado_ProprietarioUnidade();
 
             //Act
             var result = command.EstaValido();
@@ -120,7 +133,19 @@ namespace CondominioApp.Comunicados.App.Tests
             Assert.True(result);
         }
 
+        [Fact(DisplayName = "Editar Comunicado Publico com descricao grande demais Inválido")]
+        [Trait("Categoria", "Comunicado - EditarComunicadoCommand")]
+        public void EdicaoDeComunicadoPublico_DescricaoGrandeDemais_CommandoInvalido_NaoDevePassarNaValidacao()
+        {
+            //Arrange
+            var command = ComunicadoCommandFactory.CriarComando_EdicaoDeComunicado_ComDescricaoGrandeDemais();
 
+            //Act
+            var result = command.EstaValido();
+
+            //Assert
+            Assert.False(result);
+        }
     }
 
 }

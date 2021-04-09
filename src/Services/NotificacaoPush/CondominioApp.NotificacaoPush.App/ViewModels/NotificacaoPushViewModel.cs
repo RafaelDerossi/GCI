@@ -10,5 +10,6 @@ namespace CondominioApp.NotificacaoPush.App.ViewModel
 
         public string Conteudo { get; set; }
 
+        public string ApiKey { get; set; }
     }
 }

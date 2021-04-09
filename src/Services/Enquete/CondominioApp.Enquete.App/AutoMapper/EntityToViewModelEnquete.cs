@@ -19,8 +19,8 @@ namespace CondominioApp.Enquetes.App.AutoMapper
                 .ForMember(c => c.CondominioId, p => p.MapFrom(x => x.CondominioId))
                 .ForMember(c => c.CondominioNome, p => p.MapFrom(x => x.CondominioNome))
                 .ForMember(c => c.ApenasProprietarios, p => p.MapFrom(x => x.ApenasProprietarios))
-                .ForMember(c => c.UsuarioId, p => p.MapFrom(x => x.UsuarioId))
-                .ForMember(c => c.UsuarioNome, p => p.MapFrom(x => x.UsuarioNome))
+                .ForMember(c => c.FuncionarioId, p => p.MapFrom(x => x.FuncionarioId))
+                .ForMember(c => c.FuncionarioNome, p => p.MapFrom(x => x.FuncionarioNome))
                 .ForMember(c => c.Alternativas, p => p.MapFrom(x => x.Alternativas.Where(a=>!a.Lixeira)))
                 .ForMember(c => c.QuantidadeDeVotos, p => p.MapFrom(x => x.ObterQuantidadeDeVotos))
                 .ForMember(c => c.EnqueteAtiva, p => p.MapFrom(x => x.EnqueteAtiva));

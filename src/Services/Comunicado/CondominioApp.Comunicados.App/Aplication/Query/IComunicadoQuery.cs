@@ -1,5 +1,4 @@
 ﻿using CondominioApp.Comunicados.App.Models;
-using CondominioApp.Core.Enumeradores;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -14,6 +13,6 @@ namespace CondominioApp.Comunicados.App.Aplication.Query
 
         Task<IEnumerable<Comunicado>> ObterPorCondominioEUsuario(Guid condominioId, Guid usuarioId);
 
-      
+        Task<IEnumerable<Comunicado>> ObterPorCondominio(Guid condominioId);
     }
 }

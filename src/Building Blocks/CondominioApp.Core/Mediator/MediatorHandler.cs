@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using CondominioApp.Core.Messages;
 using FluentValidation.Results;
 using MediatR;
@@ -21,7 +22,7 @@ namespace CondominioApp.Core.Mediator
 
         public async Task PublicarEvento<T>(T evento) where T : Event
         {
-            await _mediator.Publish(evento);
+          await _mediator.Publish(evento);
         }
     }
 }

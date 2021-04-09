@@ -18,17 +18,28 @@ namespace CondominioApp.Api.Controllers
     public class VeiculoController : MainController
     {
         private readonly IMediatorHandler _mediatorHandler;
-        private readonly ICondominioQuery _condominioQuery;
+        private readonly IPrincipalQuery _principalQuery;
         private readonly IUsuarioQuery _usuarioQuery;
 
-        public VeiculoController(IMediatorHandler mediatorHandler, ICondominioQuery condominioQuery, IUsuarioQuery usuarioQuery)
+        public VeiculoController(IMediatorHandler mediatorHandler, IPrincipalQuery principalQuery, IUsuarioQuery usuarioQuery)
         {
             _mediatorHandler = mediatorHandler;
-            _condominioQuery = condominioQuery;
+            _principalQuery = principalQuery;
             _usuarioQuery = usuarioQuery;
         }
 
 
+        [HttpGet("{id:Guid}")]
+        public async Task<ActionResult<VeiculoFlat>> ObterPorId(Guid id)
+        {
+            var veiculo = await _usuarioQuery.ObterVeiculoPorId(id);
+            if (veiculo == null)
+            {
+                AdicionarErroProcessamento("Veiculo não encontrado.");
+                return CustomResponse();
+            }
+            return veiculo;
+        }
 
         [HttpGet("por-placa-e-condominio")]
         public async Task<ActionResult<VeiculoFlat>> ObterPorPlacaECondominio(string placa, Guid condominioId)
@@ -85,7 +96,7 @@ namespace CondominioApp.Api.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var unidade = await _condominioQuery.ObterUnidadePorId(veiculoVM.UnidadeId);
+            var unidade = await _principalQuery.ObterUnidadePorId(veiculoVM.UnidadeId);
             if (unidade == null)
             {
                 AdicionarErroProcessamento("Unidade não encontrada!");

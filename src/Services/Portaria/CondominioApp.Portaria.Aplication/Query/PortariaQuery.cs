@@ -10,9 +10,9 @@ namespace CondominioApp.Portaria.Aplication.Query
 {
     public class PortariaQuery : IPortariaQuery
     {        
-        private IVisitanteQueryRepository _visitanteQueryRepository;
+        private IPortariaQueryRepository _visitanteQueryRepository;
 
-        public PortariaQuery(IVisitanteQueryRepository visitanteQueryRepository)
+        public PortariaQuery(IPortariaQueryRepository visitanteQueryRepository)
         {
             _visitanteQueryRepository = visitanteQueryRepository;
         }

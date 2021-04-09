@@ -26,7 +26,7 @@ namespace CondominioApp.BS.CompiladorDeDados
 
         private string CaminhoDoBoletoHtml;
 
-        const string CaminhoBase = "/IntegracaoBase/Icondo";
+        const string CaminhoBase = "/IntegracaoBase/Icondo_novo";
 
         public IndiceDeBoletos(string caminhoParaListaDeCpfs, string caminhoDoNovoIndiceDeEntrada, string caminhoNovoIndiceDeBoletos)
         {
@@ -105,6 +105,7 @@ namespace CondominioApp.BS.CompiladorDeDados
             }
         }
         
+
         #region MétodosAuxiliares
 
         private void DefragmentarArquivosHtmls(List<string> RegistrosDoCpf, ItemBoleto ItemBoleto)
@@ -141,9 +142,9 @@ namespace CondominioApp.BS.CompiladorDeDados
             for (int idx = indiceInicial; idx < LinhaDoArquivoHtml.Length; idx++)
                 CaminhoDoHml += LinhaDoArquivoHtml[idx].ToString();
 
-            CaminhoDoHml = CaminhoDoHml.Replace("C:\\Filtro\\Icondo", "").Replace("\\", "/");
+            CaminhoDoHml = CaminhoDoHml.Replace("C:\\Filtro\\Icondo_novo", "").Replace("\\", "/");
 
-            CaminhoDoBoletoHtml = CaminhoDoBoletoHtml + CaminhoDoHml;
+            CaminhoDoBoletoHtml = CaminhoBase + CaminhoDoHml;
         }
 
         private string ExtrairLinkDoBoleto()
@@ -245,6 +246,8 @@ namespace CondominioApp.BS.CompiladorDeDados
             {
                 string ConteudoDoArquivo = st.ReadToEnd();
                 _ListaDeBoletos = JsonConvert.DeserializeObject<List<ItemBoleto>>(ConteudoDoArquivo);
+                if (_ListaDeBoletos == null)
+                    _ListaDeBoletos = new List<ItemBoleto>();
             }
         }
 

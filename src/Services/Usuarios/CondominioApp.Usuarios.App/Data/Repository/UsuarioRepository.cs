@@ -21,6 +21,9 @@ namespace CondominioApp.Usuarios.App.Data.Repository
         public IUnitOfWorks UnitOfWork => _context;
 
 
+
+        #region Usuario      
+
         public async Task<Usuario> ObterPorId(Guid Id)
         {
             return await _context.Usuarios.Where(u => u.Id == Id && !u.Lixeira).FirstOrDefaultAsync();
@@ -52,6 +55,7 @@ namespace CondominioApp.Usuarios.App.Data.Repository
         }
 
 
+
         public void Adicionar(Usuario entity)
         {
             _context.Usuarios.Add(entity);
@@ -80,14 +84,124 @@ namespace CondominioApp.Usuarios.App.Data.Repository
                                               !u.Lixeira);
         }
 
+        public void Excluir(Usuario entity)
+        {
+            _context.Usuarios.Remove(entity);
+        }
+
+        #endregion
+
+
+        #region Morador
+        public async Task<Morador> ObterMoradorPorId(Guid id)
+        {
+            return await _context.Moradores.Where(u => u.Id == id && !u.Lixeira).FirstOrDefaultAsync();            
+        }
+
+        public async Task<Morador> ObterMoradorPorUsuarioIdEUnidadeId(Guid usuarioId, Guid unidadeId)
+        {
+            return await _context.Moradores.Where(u=>u.UsuarioId == usuarioId && u.UnidadeId == unidadeId && !u.Lixeira).FirstOrDefaultAsync();
+        }
+
+        public async Task<IEnumerable<Morador>> ObterMoradoresPorUsuarioId(Guid usuarioId)
+        {
+            return await _context.Moradores.Where(u => u.UsuarioId == usuarioId && !u.Lixeira).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Morador>> ObterMoradores(Expression<Func<Morador, bool>> expression, bool OrderByDesc = false, int take = 0)
+        {
+            if (OrderByDesc)
+            {
+                if (take > 0)
+                    return await _context.Moradores.AsNoTracking().Where(expression)
+                                        .OrderByDescending(x => x.DataDeCadastro).Take(take).ToListAsync();
+
+                return await _context.Moradores.AsNoTracking().Where(expression)
+                                        .OrderByDescending(x => x.DataDeCadastro).ToListAsync();
+            }
+
+            if (take > 0)
+                return await _context.Moradores.AsNoTracking().Where(expression)
+                                        .OrderBy(x => x.DataDeCadastro).Take(take).ToListAsync();
+
+            return await _context.Moradores.AsNoTracking().Where(expression)
+                                    .OrderBy(x => x.DataDeCadastro).ToListAsync();
+        }
 
 
 
+        public void AdicionarMorador(Morador morador)
+        {
+            _context.Moradores.Add(morador);
+        }
 
+        public void AtualizarMorador(Morador entity)
+        {
+            _context.Moradores.Update(entity);
+        }
+
+        public void ExcluirMorador(Morador entity)
+        {
+            _context.Moradores.Remove(entity);
+        }
+
+        #endregion
+
+
+        #region Funcionario
+        public async Task<Funcionario> ObterFuncionarioPorId(Guid id)
+        {
+            return await _context.Funcionarios.Where(u => u.Id == id && !u.Lixeira).FirstOrDefaultAsync();
+        }
+
+        public async Task<Funcionario> ObterFuncionarioPorUsuarioIdECondominioId(Guid usuarioId, Guid condominioId)
+        {
+            return await _context.Funcionarios.Where(u => u.UsuarioId == usuarioId && u.CondominioId == condominioId && !u.Lixeira).FirstOrDefaultAsync();
+        }
+
+        public async Task<IEnumerable<Funcionario>> ObterFuncionariosPorUsuarioId(Guid usuarioId)
+        {
+            return await _context.Funcionarios.Where(u => u.UsuarioId == usuarioId && !u.Lixeira).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Funcionario>> ObterFuncionario(Expression<Func<Funcionario, bool>> expression, bool OrderByDesc = false, int take = 0)
+        {
+            if (OrderByDesc)
+            {
+                if (take > 0)
+                    return await _context.Funcionarios.AsNoTracking().Where(expression)
+                                        .OrderByDescending(x => x.DataDeCadastro).Take(take).ToListAsync();
+
+                return await _context.Funcionarios.AsNoTracking().Where(expression)
+                                        .OrderByDescending(x => x.DataDeCadastro).ToListAsync();
+            }
+
+            if (take > 0)
+                return await _context.Funcionarios.AsNoTracking().Where(expression)
+                                        .OrderBy(x => x.DataDeCadastro).Take(take).ToListAsync();
+
+            return await _context.Funcionarios.AsNoTracking().Where(expression)
+                                    .OrderBy(x => x.DataDeCadastro).ToListAsync();
+        }
+
+        public void AdicionarFuncionario(Funcionario funcionario)
+        {
+            _context.Funcionarios.Add(funcionario);
+        }
+
+        public void AtualizarFuncionario(Funcionario entity)
+        {
+            _context.Funcionarios.Update(entity);
+        }
+
+        #endregion
+
+
+        #region Veiculo
         public async Task<Veiculo> ObterVeiculoPorId(Guid Id)
         {
             return await _context.Veiculos
-                    .Include(u=>u.VeiculoCondominios)
+                    .Include(u => u.VeiculoCondominios)
                     .Where(u => u.Id == Id && !u.Lixeira)
                     .FirstOrDefaultAsync();
         }
@@ -97,7 +211,7 @@ namespace CondominioApp.Usuarios.App.Data.Repository
             if (OrderByDesc)
             {
                 if (take > 0)
-                    return await _context.Veiculos.AsNoTracking().Where(expression).Include(x=>x.VeiculoCondominios)
+                    return await _context.Veiculos.AsNoTracking().Where(expression).Include(x => x.VeiculoCondominios)
                                         .OrderByDescending(x => x.DataDeCadastro).Take(take).ToListAsync();
 
                 return await _context.Veiculos.AsNoTracking().Where(expression).Include(x => x.VeiculoCondominios)
@@ -117,7 +231,7 @@ namespace CondominioApp.Usuarios.App.Data.Repository
             return await _context.Veiculos.Include(x => x.VeiculoCondominios).FirstOrDefaultAsync(v => v.Placa == placa);
         }
 
-       
+
 
         public void AdicionarVeiculo(Veiculo veiculo)
         {
@@ -138,7 +252,78 @@ namespace CondominioApp.Usuarios.App.Data.Repository
         {
             _context.VeiculosCondominios.Remove(unidade);
         }
+        #endregion
 
+
+        #region Mobile
+        public async Task<Mobile> ObterMobilePorId(Guid id)
+        {
+            return await _context.Mobiles.FindAsync(id);
+        }
+
+        public async Task<IEnumerable<Mobile>> ObterMobile(Expression<Func<Mobile, bool>> expression, bool OrderByDesc = false, int take = 0)
+        {
+            if (OrderByDesc)
+            {
+                if (take > 0)
+                    return await _context.Mobiles
+                                         .AsNoTracking()
+                                         .Where(expression)
+                                         .OrderByDescending(x => x.DataDeCadastro)
+                                         .Take(take)
+                                         .ToListAsync();
+
+                return await _context.Mobiles
+                                     .AsNoTracking()
+                                     .Where(expression)
+                                     .OrderByDescending(x => x.DataDeCadastro)
+                                     .ToListAsync();
+            }
+
+            if (take > 0)
+                return await _context.Mobiles
+                                     .AsNoTracking()
+                                     .Where(expression)
+                                     .OrderBy(x => x.DataDeCadastro)
+                                     .Take(take)
+                                     .ToListAsync();
+
+            return await _context.Mobiles
+                                 .AsNoTracking()
+                                 .Where(expression)
+                                 .OrderBy(x => x.DataDeCadastro)
+                                 .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Mobile>> ObterTodosOsMobiles()
+        {
+            return await _context.Mobiles
+                                 .AsNoTracking()
+                                 .OrderByDescending(x => x.DataDeCadastro)
+                                 .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Mobile>> ObterMobilePorMoradorIdFuncionarioId(Guid id)
+        {
+            return await _context.Mobiles
+                                 .AsNoTracking()
+                                 .Where(m => m.MoradorIdFuncionadioId == id)
+                                 .OrderByDescending(x => x.DataDeCadastro)
+                                 .ToListAsync();
+        }
+
+        public void AdicionarMobile(Mobile mobile)
+        {
+            _context.Mobiles.Add(mobile);
+        }
+
+        public void AtualizarMobile(Mobile mobile)
+        {
+            _context.Mobiles.Update(mobile);
+        }
+        #endregion
+
+        
 
 
         public void Dispose()

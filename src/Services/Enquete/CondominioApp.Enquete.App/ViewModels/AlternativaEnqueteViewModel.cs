@@ -14,7 +14,10 @@ namespace CondominioApp.Enquetes.App.ViewModels
 
         public string Descricao { get; set; }
 
+        public int Ordem { get; set; }
+
         public IEnumerable<RespostaEnqueteViewModel> Respostas { get; set; }
-       
+
+        public double Porcentagem { get; set; }
     }
 }

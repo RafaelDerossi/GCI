@@ -1,5 +1,8 @@
-﻿using CondominioApp.Correspondencias.App.AutoMapper;
+﻿using CondominioApp.ArquivoDigital.App.AutoMapper;
+using CondominioApp.Comunicados.App.AutoMapper;
+using CondominioApp.Correspondencias.App.AutoMapper;
 using CondominioApp.Enquetes.App.AutoMapper;
+using CondominioApp.Ocorrencias.App.AutoMapper;
 using CondominioApp.Principal.Aplication.AutoMapper;
 using CondominioApp.ReservaAreaComum.Aplication.AutoMapper;
 using CondominioAppMarketplace.App.AutoMapper;
@@ -24,8 +27,10 @@ namespace CondominioApp.Api.Configuration
                 cfg.AddProfile(new ViewModelToEntityAreaComum());
                 cfg.AddProfile(new EntityToViewModelAreaComum());
                 cfg.AddProfile(new EntityToViewModelContrato());
-                //cfg.AddProfile(new EntityToViewModelEstatistica());
-                //cfg.AddProfile(new ViewModelToEntityEstatistica());
+                cfg.AddProfile(new EntityToViewModelUsuario());
+                cfg.AddProfile(new EntityToViewModelArquivoDigital());
+                cfg.AddProfile(new EntityToViewModelOcorrencia());   
+                
             });
 
             var mapper = config.CreateMapper();

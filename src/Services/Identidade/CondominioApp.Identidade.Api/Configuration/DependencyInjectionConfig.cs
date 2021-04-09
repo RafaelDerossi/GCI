@@ -1,6 +1,13 @@
 ﻿using CondominioApp.Core.Mediator;
+using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents;
+using CondominioApp.NotificacaoEmail.Aplication.Events;
+using CondominioApp.Principal.Aplication.Query;
+using CondominioApp.Principal.Aplication.Query.Interfaces;
+using CondominioApp.Principal.Domain.Interfaces;
+using CondominioApp.Principal.Infra.Data.Repository;
 using CondominioApp.Usuarios.App.Aplication.Commands;
 using CondominioApp.Usuarios.App.Aplication.Events;
+using CondominioApp.Usuarios.App.Aplication.Query;
 using CondominioApp.Usuarios.App.Data.Repository;
 using CondominioApp.Usuarios.App.Models;
 using FluentValidation.Results;
@@ -13,13 +20,47 @@ namespace CondominioApp.Identidade.Api.Configuration
     {
         public static void RegisterServices(this IServiceCollection services)
         {
-            services.AddScoped<IMediatorHandler, MediatorHandler>();            
+            services.AddScoped<IMediatorHandler, MediatorHandler>();
 
-            services.AddScoped<IRequestHandler<CadastrarMoradorCommand, ValidationResult>, UsuarioCommandHandler>();
+            #region Usuario
+            services.AddScoped<IRequestHandler<CadastrarUsuarioCommand, ValidationResult>, UsuarioCommandHandler>();
+            services.AddScoped<IRequestHandler<ExcluirUsuarioCommand, ValidationResult>, UsuarioCommandHandler>();
+            #endregion
 
-            services.AddScoped<INotificationHandler<MoradorCadastradoEvent>, UsuarioEventHandler>();
-                       
+            #region Morador
+            services.AddScoped<IRequestHandler<CadastrarMoradorCommand, ValidationResult>, MoradorCommandHandler>();
+            services.AddScoped<IRequestHandler<ExcluirMoradorCommand, ValidationResult>, MoradorCommandHandler>();
+            services.AddScoped<INotificationHandler<MoradorCadastradoEvent>, MoradorEventHandler>();
+            services.AddScoped<INotificationHandler<MoradorExcluidoEvent>, MoradorEventHandler>();
+            #endregion
+
+            #region Funcionario
+            services.AddScoped<IRequestHandler<CadastrarFuncionarioCommand, ValidationResult>, FuncionarioCommandHandler>();
+            services.AddScoped<INotificationHandler<FuncionarioCadastradoEvent>, FuncionarioEventHandler>();
+            #endregion
+
+            #region NotificacaoEmail -Contexto            
+            services.AddScoped<INotificationHandler<EnviarEmailConfirmacaoDeCadastroDeMoradorIntegrationEvent>, NotificacaoEmailEventHandler>();
+            services.AddScoped<INotificationHandler<EnviarEmailConfirmacaoDeCadastroDeUsuarioIntegrationEvent>, NotificacaoEmailEventHandler>();
+            #endregion
+
+
+            #region Queries
+            services.AddScoped<IUsuarioQuery, UsuarioQuery>();
+            services.AddScoped<IPrincipalQuery, PrincipalQuery>();
+            #endregion
+
+            #region Repositories
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+            services.AddScoped<IPrincipalRepository, PrincipalRepository>();
+            #endregion          
+
+            #region Query Repositories            
+            services.AddScoped<IMoradorQueryRepository, MoradorQueryRepository>();
+            services.AddScoped<IFuncionarioQueryRepository, FuncionarioQueryRepository>();
+            services.AddScoped<IVeiculoQueryRepository, VeiculoQueryRepository>();
+            services.AddScoped<IPrincipalQueryRepository, PrincipalQueryRepository>();
+            #endregion
 
             //services.AddScoped(typeof(IMongoRepository<>), typeof(MongoRepository<>));
         }

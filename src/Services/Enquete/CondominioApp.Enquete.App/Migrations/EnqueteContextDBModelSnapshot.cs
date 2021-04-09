@@ -41,6 +41,9 @@ namespace CondominioApp.Enquetes.App.Migrations
                     b.Property<bool>("Lixeira")
                         .HasColumnType("bit");
 
+                    b.Property<int>("Ordem")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("EnqueteId");
@@ -79,14 +82,14 @@ namespace CondominioApp.Enquetes.App.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(200)");
 
-                    b.Property<bool>("Lixeira")
-                        .HasColumnType("bit");
-
-                    b.Property<Guid>("UsuarioId")
+                    b.Property<Guid>("FuncionarioId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("UsuarioNome")
+                    b.Property<string>("FuncionarioNome")
                         .HasColumnType("varchar(200)");
+
+                    b.Property<bool>("Lixeira")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 

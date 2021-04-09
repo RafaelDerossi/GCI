@@ -12,7 +12,7 @@
         ADMINISTRADORA = 0,
         ADM = 1,
         FUNCIONARIO = 2,
-        CLIENTE = 3,
+        MORADOR = 3,
         SUPERADMIN = 4,
         LOJISTA = 5
     }
@@ -106,5 +106,37 @@
     public enum TipoApiAutomacao
     {
         EWELINK = 1
+    }
+
+    public enum TipoDePush
+    {
+        MORADOR = 0,
+        SINDICO = 1
+    }
+
+    public enum CategoriaDaPastaDeSistema
+    {
+        COMUNICADO = 1,
+        ATA = 2,
+        URGENCIA = 3,
+        BALANCETE = 4,
+        COBRANÇA = 5,
+        MANUTENÇÃO = 6,
+        AVISO = 7,
+        OBRA_REFORMA = 8,
+        OUTROS = 9        
+    }
+
+    public enum StatusDaOcorrencia
+    {
+        PENDENTE = 0,
+        EM_ANDAMENTO = 1,
+        RESOLVIDA = 2
+    }
+
+    public enum TipoDoAutor
+    {
+        SINDICO = 1,
+        MORADOR = 2
     }
 }

@@ -18,9 +18,9 @@ namespace CondominioApp.Comunicados.App.Data.Mapping
 
             builder.Property(u => u.CondominioId).IsRequired();
 
-            builder.Property(u => u.UsuarioId).IsRequired();
+            builder.Property(u => u.FuncionarioId).IsRequired();
 
-            builder.Property(u => u.NomeUsuario).HasColumnType($"varchar({Comunicado.Max})");          
+            builder.Property(u => u.NomeFuncionario).HasColumnType($"varchar({Comunicado.Max})");          
 
             builder.Property(u => u.Visibilidade).IsRequired();
 

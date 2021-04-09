@@ -15,6 +15,7 @@ using CondominioApp.Principal.Aplication.Query.Interfaces;
 using CondominioApp.Usuarios.App.Aplication.Query;
 using CondominioApp.Principal.Domain.FlatModel;
 using CondominioApp.Usuarios.App.Models;
+using CondominioApp.Usuarios.App.FlatModel;
 
 namespace CondominioApp.Api.Controllers
 {
@@ -23,14 +24,15 @@ namespace CondominioApp.Api.Controllers
     {
         private readonly IMediatorHandler _mediatorHandler;      
         private readonly IPortariaQuery _portariaQuery;
-        private readonly ICondominioQuery _condominioQuery;
+        private readonly IPrincipalQuery _principalQuery;
         private readonly IUsuarioQuery _usuarioQuery;
 
-        public VisitaController(IMediatorHandler mediatorHandler, IPortariaQuery portariaQuery, ICondominioQuery condominioQuery, IUsuarioQuery usuarioQuery)
+        public VisitaController
+            (IMediatorHandler mediatorHandler, IPortariaQuery portariaQuery, IPrincipalQuery principalQuery, IUsuarioQuery usuarioQuery)
         {
             _mediatorHandler = mediatorHandler;           
             _portariaQuery = portariaQuery;
-            _condominioQuery = condominioQuery;
+            _principalQuery = principalQuery;
             _usuarioQuery = usuarioQuery;
         }
 
@@ -104,14 +106,14 @@ namespace CondominioApp.Api.Controllers
 
             var dias = (visitaVM.DataDeEntradaFim.Date - visitaVM.DataDeEntradaInicio.Date).Days + 1;
 
-            var usuario = await _usuarioQuery.ObterPorId(visitaVM.UsuarioId);
-            if (usuario == null)
+            var morador = await _usuarioQuery.ObterMoradorPorId(visitaVM.MoradorId);
+            if (morador == null)
             {
-                AdicionarErroProcessamento("Usuario não encontrado!");
+                AdicionarErroProcessamento("Morador não encontrado!");
                 return CustomResponse();
             }
 
-            var unidade = await _condominioQuery.ObterUnidadePorId(visitaVM.UnidadeId);
+            var unidade = await _principalQuery.ObterUnidadePorId(visitaVM.UnidadeId);
             if (unidade == null)
             {
                 AdicionarErroProcessamento("Unidade não encontrada!");
@@ -119,11 +121,10 @@ namespace CondominioApp.Api.Controllers
             }
 
             for (int i = 0; i < dias; i++)
-            {               
-
+            {
                 var cadastrarVisitaComando = 
                     CadastrarVisitaPorMoradorCommandFactory
-                    (visitaVM, visitaVM.DataDeEntradaInicio.AddDays(i).Date, unidade, usuario);
+                    (visitaVM, visitaVM.DataDeEntradaInicio.AddDays(i).Date, unidade, morador);
 
                 var resultado = await _mediatorHandler.EnviarComando(cadastrarVisitaComando);
 
@@ -140,14 +141,14 @@ namespace CondominioApp.Api.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var usuario = await _usuarioQuery.ObterPorId(visitaVM.UsuarioId);
-            if (usuario == null)
+            var morador = await _usuarioQuery.ObterMoradorPorId(visitaVM.MoradorId);
+            if (morador == null)
             {
-                AdicionarErroProcessamento("Usuario não encontrado!");
+                AdicionarErroProcessamento("Morador não encontrado!");
                 return CustomResponse();
             }
 
-            var unidade = await _condominioQuery.ObterUnidadePorId(visitaVM.UsuarioId);
+            var unidade = await _principalQuery.ObterUnidadePorId(visitaVM.UnidadeId);
             if (unidade == null)
             {
                 AdicionarErroProcessamento("Unidade não encontrada!");
@@ -162,11 +163,10 @@ namespace CondominioApp.Api.Controllers
                     CadastrarVisitantePorPorteiroCommandFactory(visitaVM, unidade);
 
                 var retorno = await _mediatorHandler.EnviarComando(cadastrarVisitanteComando);
-
                 if (!retorno.IsValid)
                     return CustomResponse(retorno);
 
-                var comando = CadastrarVisitaPorPorteiroCommandFactory(visitaVM, unidade, usuario);
+                var comando = CadastrarVisitaPorPorteiroCommandFactory(visitaVM, unidade, morador);
 
                 retorno = await _mediatorHandler.EnviarComando(comando);
 
@@ -179,7 +179,7 @@ namespace CondominioApp.Api.Controllers
             if (!result.IsValid)
                 return CustomResponse(result);
 
-            var cadastrarVisitaComando = CadastrarVisitaPorPorteiroCommandFactory(visitaVM, unidade, usuario);
+            var cadastrarVisitaComando = CadastrarVisitaPorPorteiroCommandFactory(visitaVM, unidade, morador);
             result = await _mediatorHandler.EnviarComando(cadastrarVisitaComando);
           
 
@@ -192,21 +192,21 @@ namespace CondominioApp.Api.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var usuario = await _usuarioQuery.ObterPorId(visitaVM.UsuarioId);
-            if (usuario == null)
+            var morador = await _usuarioQuery.ObterMoradorPorId(visitaVM.MoradorId);
+            if (morador == null)
             {
-                AdicionarErroProcessamento("Usuario não encontrado!");
+                AdicionarErroProcessamento("Morador não encontrado!");
                 return CustomResponse();
             }
 
-            var unidade = await _condominioQuery.ObterUnidadePorId(visitaVM.UsuarioId);
+            var unidade = await _principalQuery.ObterUnidadePorId(visitaVM.MoradorId);
             if (unidade == null)
             {
                 AdicionarErroProcessamento("Unidade não encontrada!");
                 return CustomResponse();
             }
 
-            var comando = EditarVisitaCommandFactory(visitaVM, unidade, usuario);
+            var comando = EditarVisitaCommandFactory(visitaVM, unidade, morador);
 
             var resultado = await _mediatorHandler.EnviarComando(comando);
 
@@ -275,35 +275,35 @@ namespace CondominioApp.Api.Controllers
 
 
         private CadastrarVisitaPorPorteiroCommand CadastrarVisitaPorPorteiroCommandFactory
-            (CadastraVisitaPorteiroViewModel viewModel, UnidadeFlat unidade, Usuario usuario)
+            (CadastraVisitaPorteiroViewModel viewModel, UnidadeFlat unidade, MoradorFlat morador)
         {
             return new CadastrarVisitaPorPorteiroCommand(
-                  viewModel.DataDeEntrada,viewModel.Observacao, StatusVisita.PENDENTE, viewModel.VisitanteId,
-                  viewModel.NomeVisitante, viewModel.TipoDoDocumento, viewModel.Documento, viewModel.EmailVisitante, viewModel.FotoVisitante,
-                  viewModel.NomeOriginalFotoVisitante, viewModel.TipoDeVisitante, viewModel.NomeEmpresaVisitante,
-                  unidade.CondominioId, unidade.CondominioNome, unidade.Id, unidade.Numero,
-                  unidade.Andar, unidade.GrupoDescricao, viewModel.TemVeiculo, viewModel.PlacaVeiculo, 
-                  viewModel.ModeloVeiculo, viewModel.CorVeiculo, usuario.Id, usuario.NomeCompleto);
+                  viewModel.Observacao, StatusVisita.PENDENTE, viewModel.VisitanteId,
+                  viewModel.NomeVisitante, viewModel.TipoDoDocumento, viewModel.Documento, viewModel.EmailVisitante,
+                  viewModel.FotoVisitante, viewModel.NomeOriginalFotoVisitante, viewModel.TipoDeVisitante,
+                  viewModel.NomeEmpresaVisitante, unidade.CondominioId, unidade.CondominioNome, unidade.Id,
+                  unidade.Numero, unidade.Andar, unidade.GrupoDescricao, viewModel.TemVeiculo, viewModel.PlacaVeiculo, 
+                  viewModel.ModeloVeiculo, viewModel.CorVeiculo, morador.Id, morador.Nome);
         }
 
         private CadastrarVisitaPorMoradorCommand CadastrarVisitaPorMoradorCommandFactory
-            (CadastraVisitaMoradorViewModel viewModel, DateTime dataDeEntrada, UnidadeFlat unidade, Usuario usuario)
+            (CadastraVisitaMoradorViewModel viewModel, DateTime dataDeEntrada, UnidadeFlat unidade, MoradorFlat morador)
         {
             return new CadastrarVisitaPorMoradorCommand(
                   dataDeEntrada, viewModel.Observacao, StatusVisita.APROVADA, viewModel.VisitanteId,
                   unidade.CondominioId, unidade.CondominioNome, unidade.Id, unidade.Numero,
                   unidade.Andar, unidade.GrupoDescricao, viewModel.TemVeiculo,viewModel.PlacaVeiculo,
-                  viewModel.ModeloVeiculo,viewModel.CorVeiculo, usuario.Id, usuario.NomeCompleto);
+                  viewModel.ModeloVeiculo,viewModel.CorVeiculo, morador.Id, morador.Nome);
         }
 
-        private EditarVisitaCommand EditarVisitaCommandFactory(EditaVisitaViewModel viewModel, UnidadeFlat unidade, Usuario usuario)
+        private EditarVisitaCommand EditarVisitaCommandFactory(EditaVisitaViewModel viewModel, UnidadeFlat unidade, MoradorFlat morador)
         {
             return new EditarVisitaCommand(
                    viewModel.Id,viewModel.Observacao, viewModel.NomeVisitante,viewModel.TipoDoDocumento, viewModel.Documento,
                    viewModel.EmailVisitante, viewModel.FotoVisitante, viewModel.NomeOriginalFotoVisitante,
                    viewModel.TipoDeVisitante, viewModel.NomeEmpresaVisitante, unidade.Id, unidade.Numero,
                    unidade.Andar, unidade.GrupoDescricao, viewModel.TemVeiculo, viewModel.PlacaVeiculo,
-                   viewModel.ModeloVeiculo, viewModel.CorVeiculo, usuario.Id, usuario.NomeCompleto);
+                   viewModel.ModeloVeiculo, viewModel.CorVeiculo, morador.Id, morador.Nome);
         }
 
 

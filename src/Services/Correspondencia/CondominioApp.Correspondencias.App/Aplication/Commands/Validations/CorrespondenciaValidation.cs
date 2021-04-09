@@ -35,7 +35,7 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands.Validations
 
         protected void ValidateBloco()
         {
-            RuleFor(c => c.Bloco)
+            RuleFor(c => c.Grupo)
                   .NotNull()
                   .NotEmpty()
                   .WithMessage("Bloco da Unidade não pode estar vazio!");
@@ -64,14 +64,14 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands.Validations
 
         protected void ValidateUsuarioId()
         {
-            RuleFor(c => c.UsuarioId)
+            RuleFor(c => c.FuncionarioId)
                 .NotEqual(Guid.Empty)
                 .WithMessage("Usuario não pode estar vazio!"); ;
         }
 
         protected void ValidateNomeUsuario()
         {
-            RuleFor(c => c.NomeUsuario)
+            RuleFor(c => c.NomeFuncionario)
                   .NotNull()
                   .NotEmpty()
                   .WithMessage("Nome do Usuario não pode estar vazio!");

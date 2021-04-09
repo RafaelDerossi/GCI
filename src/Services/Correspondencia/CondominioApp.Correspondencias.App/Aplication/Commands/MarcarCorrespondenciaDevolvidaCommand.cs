@@ -12,8 +12,8 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
         {
             CorrespondenciaId = correspondenciaId;
             Observacao = observacao;
-            UsuarioId = usuarioId;
-            NomeUsuario = nomeUsuario;
+            FuncionarioId = usuarioId;
+            NomeFuncionario = nomeUsuario;
         }
 
 

@@ -27,7 +27,7 @@ namespace CondominioApp.Portaria.Aplication.ViewModels
         public string ModeloVeiculo { get; set; }
         public string CorVeiculo { get; set; }
 
-        public Guid UsuarioId { get; set; }
+        public Guid MoradorId { get; set; }
 
     }
 }

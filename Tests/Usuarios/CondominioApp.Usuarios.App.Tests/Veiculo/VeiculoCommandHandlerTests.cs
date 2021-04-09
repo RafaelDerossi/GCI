@@ -27,7 +27,7 @@ namespace CondominioApp.Usuarios.App.Tests
         {
             //Arrange
             var command = VeiculoCommandFactory.CriarComandoCadastroDeVeiculo();
-            var usuario = new Usuario("usuario", "sobrenome", "", null, null, null, TipoDeUsuario.CLIENTE, Permissao.USUARIO);
+            var usuario = new Usuario("usuario", "sobrenome", "", null, null, null);
             usuario.SetEntidadeId(command.UsuarioId);
             Veiculo veiculo = null;
 
@@ -55,7 +55,7 @@ namespace CondominioApp.Usuarios.App.Tests
         {
             //Arrange
             var command = VeiculoCommandFactory.CriarComandoCadastroDeVeiculo();
-            var usuario = new Usuario("usuario", "sobrenome", "", null, null, null, TipoDeUsuario.CLIENTE, Permissao.USUARIO);
+            var usuario = new Usuario("usuario", "sobrenome", "", null, null, null);
             usuario.SetEntidadeId(command.UsuarioId);
             Veiculo veiculo = new Veiculo(command.Placa, command.Modelo, command.Cor);
             veiculo.AdicionarVeiculoCondominio(new VeiculoCondominio(veiculo.Id, command.UnidadeId, command.CondominioId, command.UsuarioId));
@@ -85,7 +85,7 @@ namespace CondominioApp.Usuarios.App.Tests
         {
             //Arrange
             var command = VeiculoCommandFactory.CriarComandoCadastroDeVeiculo();
-            var usuario = new Usuario("usuario", "sobrenome", "", null, null, null, TipoDeUsuario.CLIENTE, Permissao.USUARIO);
+            var usuario = new Usuario("usuario", "sobrenome", "", null, null, null);
             usuario.SetEntidadeId(command.UsuarioId);
             Veiculo veiculo = new Veiculo(command.Placa, command.Modelo, command.Cor);
             veiculo.AdicionarVeiculoCondominio(new VeiculoCondominio(veiculo.Id, Guid.NewGuid(), command.CondominioId, command.UsuarioId));
@@ -115,7 +115,7 @@ namespace CondominioApp.Usuarios.App.Tests
         {
             //Arrange
             var command = VeiculoCommandFactory.CriarComandoCadastroDeVeiculo();
-            var usuario = new Usuario("usuario", "sobrenome", "", null, null, null, TipoDeUsuario.CLIENTE, Permissao.USUARIO);
+            var usuario = new Usuario("usuario", "sobrenome", "", null, null, null);
             usuario.SetEntidadeId(command.UsuarioId);
             Veiculo veiculo = new Veiculo(command.Placa, command.Modelo, command.Cor);
             veiculo.AdicionarVeiculoCondominio(new VeiculoCondominio(veiculo.Id, Guid.NewGuid(), Guid.NewGuid(), command.UsuarioId));
@@ -146,7 +146,7 @@ namespace CondominioApp.Usuarios.App.Tests
         {
             //Arrange
             var command = VeiculoCommandFactory.CriarComandoCadastroDeVeiculo();
-            var usuario = new Usuario("usuario", "sobrenome", "", null, null, null, TipoDeUsuario.CLIENTE, Permissao.USUARIO);
+            var usuario = new Usuario("usuario", "sobrenome", "", null, null, null);
             usuario.SetEntidadeId(command.UsuarioId);
             Veiculo veiculo = new Veiculo(command.Placa, command.Modelo, command.Cor);
             veiculo.AdicionarVeiculoCondominio(new VeiculoCondominio(veiculo.Id, command.UnidadeId, command.CondominioId, Guid.NewGuid()));

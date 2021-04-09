@@ -47,13 +47,16 @@ namespace CondominioApp.Comunicados.App.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(200)");
 
+                    b.Property<Guid>("FuncionarioId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<bool>("Lixeira")
                         .HasColumnType("bit");
 
                     b.Property<string>("NomeCondominio")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("NomeUsuario")
+                    b.Property<string>("NomeFuncionario")
                         .HasColumnType("varchar(200)");
 
                     b.Property<bool>("TemAnexos")
@@ -62,9 +65,6 @@ namespace CondominioApp.Comunicados.App.Migrations
                     b.Property<string>("Titulo")
                         .IsRequired()
                         .HasColumnType("varchar(200)");
-
-                    b.Property<Guid>("UsuarioId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Visibilidade")
                         .HasColumnType("int");

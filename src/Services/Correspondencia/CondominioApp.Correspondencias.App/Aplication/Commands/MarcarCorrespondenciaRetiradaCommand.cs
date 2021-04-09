@@ -13,8 +13,8 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
             CorrespondenciaId = correspondenciaId;
             NomeRetirante = nomeRetirante;
             Observacao = observacao;
-            UsuarioId = usuarioId;
-            NomeUsuario = nomeUsuario;           
+            FuncionarioId = usuarioId;
+            NomeFuncionario = nomeUsuario;           
         }
 
 

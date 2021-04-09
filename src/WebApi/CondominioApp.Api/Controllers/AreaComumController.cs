@@ -22,15 +22,15 @@ namespace CondominioApp.Api.Controllers
         private readonly IMediatorHandler _mediatorHandler;
         private readonly IMapper _mapper;
         private readonly IReservaAreaComumQuery _areaComumQuery;
-        private readonly ICondominioQuery _condominioQuery;
+        private readonly IPrincipalQuery _principalQuery;
 
         public AreaComumController(IMediatorHandler mediatorHandler, IMapper mapper,
-                                   IReservaAreaComumQuery areaComumQuery, ICondominioQuery condominioQuery)
+                                   IReservaAreaComumQuery areaComumQuery, IPrincipalQuery principalQuery)
         {
             _mediatorHandler = mediatorHandler;
             _mapper = mapper;
             _areaComumQuery = areaComumQuery;
-            _condominioQuery = condominioQuery;
+            _principalQuery = principalQuery;
         }
 
 
@@ -65,7 +65,7 @@ namespace CondominioApp.Api.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var condominio = await _condominioQuery.ObterPorId(areaComumVM.CondominioId);
+            var condominio = await _principalQuery.ObterPorId(areaComumVM.CondominioId);
             if (condominio == null)
             {
                 AdicionarErroProcessamento("Condominio não encontrado!");

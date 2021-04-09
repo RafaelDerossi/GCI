@@ -12,8 +12,7 @@ namespace CondominioApp.Portaria.Tests
             return new Visitante
                 ("Nome Visitante", TipoDeDocumento.CPF, "143.026.417-97",
                  new Email("rafael@condominioapp.com"), new Foto("nomeOriginal.jpg", "foto.jpg"),
-                 Guid.NewGuid(),"Nome Condominio", Guid.NewGuid(), "101", "1º", "Bloco 1",
-                 false, "",TipoDeVisitante.PARTICULAR,"", true);
+                 Guid.NewGuid(), Guid.NewGuid(), false, "",TipoDeVisitante.PARTICULAR,"", true);
         }
 
         public static Visitante CriarVisitanteValido_ComCPF()

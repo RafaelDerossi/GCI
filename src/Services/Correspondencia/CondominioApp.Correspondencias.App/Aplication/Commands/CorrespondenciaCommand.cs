@@ -1,4 +1,5 @@
 ﻿using CondominioApp.Core.Enumeradores;
+using CondominioApp.Core.Helpers;
 using CondominioApp.Core.Messages;
 using CondominioApp.Correspondencias.App.ValueObjects;
 using System;
@@ -17,7 +18,7 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
 
         public string NumeroUnidade { get; protected set; }
 
-        public string Bloco { get; protected set; }
+        public string Grupo { get; protected set; }
 
         public bool Visto { get; private set; }
 
@@ -25,11 +26,11 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
 
         public string Observacao { get; protected set; }
 
-        public DateTime DataDaRetirada { get; protected set; }
+        public DateTime? DataDaRetirada { get; protected set; }
 
-        public Guid UsuarioId { get; protected set; }
+        public Guid FuncionarioId { get; protected set; }
 
-        public string NomeUsuario { get; protected set; }
+        public string NomeFuncionario { get; protected set; }
 
         public Foto Foto { get; protected set; }
 
@@ -81,5 +82,44 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
 
         public void SetDevolvido() => Status = StatusCorrespondencia.DEVOLVIDO;
 
+        public void SetCondominio(Guid id)
+        {
+            CondominioId = id;
+        }
+
+        public void SetUnidade(Guid id, string numero, string grupo)
+        {
+            UnidadeId = id;
+            NumeroUnidade = numero;
+            Grupo = grupo;
+        }
+
+        public void SetFuncionario(Guid id, string nomeFuncionario)
+        {
+            FuncionarioId = id;
+            NomeFuncionario = nomeFuncionario;
+        }
+
+        public void SetDataDeChegada(DateTime data)
+        {
+            if (data > DataHoraDeBrasilia.Get())
+            {
+                AdicionarErrosDeProcessamentoDoComando("Data de Chegada deve ser anterior a data-hora atual.");
+                return;
+            }               
+
+            DataDeChegada = data;
+        }
+
+        public void SetDataDeRetirada(DateTime? data)
+        {
+            if (data != null && data > DataHoraDeBrasilia.Get())
+            {
+                AdicionarErrosDeProcessamentoDoComando("Data de Retirada deve ser anterior a data-hora atual.");
+                return;
+            }
+
+            DataDaRetirada = data;
+        }
     }
 }

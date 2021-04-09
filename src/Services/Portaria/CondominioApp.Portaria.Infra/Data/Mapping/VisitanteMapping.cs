@@ -44,17 +44,9 @@ namespace CondominioApp.Principal.Infra.Data.Mapping
                     .HasColumnType($"varchar({Foto.NomeFotoMaximo})");
             });
 
-            builder.Property(u => u.CondominioId).IsRequired();
+            builder.Property(u => u.CondominioId).IsRequired();           
 
-            builder.Property(u => u.NomeCondominio).IsRequired().HasColumnType($"varchar({Visitante.Max})");
-
-            builder.Property(u => u.UnidadeId).IsRequired();
-
-            builder.Property(u => u.NumeroUnidade).IsRequired().HasColumnType($"varchar({Visitante.Max})");
-
-            builder.Property(u => u.AndarUnidade).IsRequired().HasColumnType($"varchar({Visitante.Max})");
-
-            builder.Property(u => u.GrupoUnidade).IsRequired().HasColumnType($"varchar({Visitante.Max})");
+            builder.Property(u => u.UnidadeId).IsRequired();           
 
             builder.Property(u => u.VisitantePermanente).IsRequired();
 

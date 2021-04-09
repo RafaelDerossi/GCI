@@ -52,19 +52,9 @@ namespace CondominioApp.Principal.Infra.Data.Mapping
 
             builder.Property(u => u.NomeEmpresaVisitante).HasColumnType($"varchar({Visita.Max})");
 
-            builder.Property(u => u.CondominioId).IsRequired();
+            builder.Property(u => u.CondominioId).IsRequired();            
 
-            builder.Property(u => u.NomeCondominio).IsRequired().HasColumnType($"varchar({Visita.Max})");
-
-            builder.Property(u => u.UnidadeId).IsRequired();
-
-            builder.Property(u => u.NumeroUnidade).IsRequired().HasColumnType($"varchar({Visita.Max})");
-
-            builder.Property(u => u.AndarUnidade).IsRequired().HasColumnType($"varchar({Visita.Max})");
-
-            builder.Property(u => u.GrupoUnidade).IsRequired().HasColumnType($"varchar({Visita.Max})");
-
-                     
+            builder.Property(u => u.UnidadeId).IsRequired();                                
 
             builder.OwnsOne(u => u.Veiculo, ft =>
             {
@@ -84,8 +74,7 @@ namespace CondominioApp.Principal.Infra.Data.Mapping
                     .HasColumnType($"varchar({Veiculo.CorMaxlength})");
             });
 
-            builder.Property(u => u.UsuarioId).IsRequired();
-            builder.Property(u => u.NomeUsuario).IsRequired().HasColumnType($"varchar({Visita.Max})");
+            builder.Property(u => u.MoradorId).IsRequired();
         }
     }
 }

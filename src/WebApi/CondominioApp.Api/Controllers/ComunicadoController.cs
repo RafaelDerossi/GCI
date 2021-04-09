@@ -1,12 +1,17 @@
 ﻿using AutoMapper;
+using CondominioApp.ArquivoDigital.App.Aplication.Commands;
+using CondominioApp.ArquivoDigital.App.Aplication.Query;
+using CondominioApp.ArquivoDigital.App.Models;
 using CondominioApp.Comunicados.App.Aplication.Commands;
 using CondominioApp.Comunicados.App.Aplication.Query;
 using CondominioApp.Comunicados.App.Models;
 using CondominioApp.Comunicados.App.ViewModels;
+using CondominioApp.Core.Enumeradores;
 using CondominioApp.Core.Mediator;
 using CondominioApp.Principal.Aplication.Query.Interfaces;
 using CondominioApp.Principal.Domain.FlatModel;
 using CondominioApp.Usuarios.App.Aplication.Query;
+using CondominioApp.Usuarios.App.FlatModel;
 using CondominioApp.Usuarios.App.Models;
 using CondominioApp.WebApi.Core.Controllers;
 using Microsoft.AspNetCore.Mvc;
@@ -24,16 +29,20 @@ namespace CondominioApp.Api.Controllers
         private readonly IMediatorHandler _mediatorHandler;
         private readonly IMapper _mapper;
         private readonly IComunicadoQuery _comunicadoQuery;
-        private readonly ICondominioQuery _condominioQuery;
+        private readonly IPrincipalQuery _principalQuery;
         private readonly IUsuarioQuery _usuarioQuery;
+        private readonly IArquivoDigitalQuery _arquivoDigitalQuery;
 
-        public ComunicadoController(IMediatorHandler mediatorHandler, IMapper mapper, IComunicadoQuery comunicadoQuery, ICondominioQuery condominioQuery, IUsuarioQuery usuarioQuery)
+        public ComunicadoController
+            (IMediatorHandler mediatorHandler, IMapper mapper, IComunicadoQuery comunicadoQuery,
+            IPrincipalQuery principalQuery, IUsuarioQuery usuarioQuery, IArquivoDigitalQuery arquivoDigitalQuery)
         {
             _mediatorHandler = mediatorHandler;
             _mapper = mapper;
             _comunicadoQuery = comunicadoQuery;
-            _condominioQuery = condominioQuery;
+            _principalQuery = principalQuery;
             _usuarioQuery = usuarioQuery;
+            _arquivoDigitalQuery = arquivoDigitalQuery;
         }
 
 
@@ -47,13 +56,16 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }
 
+            var comunicadoVM = _mapper.Map<ComunicadoViewModel>(comunicado);
+
             //Obtem Anexos
             if (comunicado.TemAnexos)
             {
-
+                var anexos = await ObterAnexos(comunicado);
+                comunicadoVM.Anexos = anexos;
             }
 
-            return _mapper.Map<ComunicadoViewModel>(comunicado);
+            return comunicadoVM;
         }
 
         [HttpGet("por-condominio-unidade-e-proprietario")]
@@ -70,13 +82,16 @@ namespace CondominioApp.Api.Controllers
 
             var comunicadosVM = new List<ComunicadoViewModel>();
             foreach (Comunicado comunicado in comunicados)
-            {                
+            {
+                var comunicadoVM = _mapper.Map<ComunicadoViewModel>(comunicado);
+
                 //Obtem Anexos
                 if (comunicado.TemAnexos)
                 {
-
+                    var anexos = await ObterAnexos(comunicado);
+                    comunicadoVM.Anexos = anexos;
                 }
-                var comunicadoVM = _mapper.Map<ComunicadoViewModel>(comunicado);
+                
                 comunicadosVM.Add(comunicadoVM);
             }
             return comunicadosVM;
@@ -97,12 +112,42 @@ namespace CondominioApp.Api.Controllers
             var comunicadosVM = new List<ComunicadoViewModel>();
             foreach (Comunicado comunicado in comunicados)
             {
+                var comunicadoVM = _mapper.Map<ComunicadoViewModel>(comunicado);
+
                 //Obtem Anexos
                 if (comunicado.TemAnexos)
                 {
-
+                    var anexos = await ObterAnexos(comunicado);
+                    comunicadoVM.Anexos = anexos;
                 }
+               
+                comunicadosVM.Add(comunicadoVM);
+            }
+
+            return comunicadosVM;
+        }
+
+        [HttpGet("por-condominio/{condominioId:Guid}")]
+        public async Task<ActionResult<IEnumerable<ComunicadoViewModel>>> ObterPorCondominio(Guid condominioId)
+        {
+            var comunicados = await _comunicadoQuery.ObterPorCondominio(condominioId);
+            if (comunicados.Count() == 0)
+            {
+                AdicionarErroProcessamento("Nenhum registro encontrado.");
+                return CustomResponse();
+            }
+
+            var comunicadosVM = new List<ComunicadoViewModel>();
+            foreach (Comunicado comunicado in comunicados)
+            {
                 var comunicadoVM = _mapper.Map<ComunicadoViewModel>(comunicado);
+                //Obtem Anexos
+                if (comunicado.TemAnexos)
+                {
+                   var anexos = await ObterAnexos(comunicado);
+                   comunicadoVM.Anexos = anexos;
+                }                
+                
                 comunicadosVM.Add(comunicadoVM);
             }
 
@@ -111,34 +156,39 @@ namespace CondominioApp.Api.Controllers
 
 
 
-
         [HttpPost]
-        public async Task<ActionResult> Post(CadastrarComunicadoViewModel comunicadoVM)
+        public async Task<ActionResult> Post(CadastraComunicadoViewModel comunicadoVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var condominio = await _condominioQuery.ObterPorId(comunicadoVM.CondominioId);
+            var condominio = await _principalQuery.ObterPorId(comunicadoVM.CondominioId);
             if(condominio == null)
             {
                 AdicionarErroProcessamento("Condominio não encontrado!");
                 return CustomResponse();
             }
 
-            var usuario = await _usuarioQuery.ObterPorId(comunicadoVM.UsuarioId);
-            if (usuario == null)
+            var funcionario = await _usuarioQuery.ObterFuncionarioPorId(comunicadoVM.FuncionarioId);
+            if (funcionario == null)
             {
-                AdicionarErroProcessamento("Usuario não encontrado!");
+                AdicionarErroProcessamento("Funcionário não encontrado!");
                 return CustomResponse();
             }
 
-            var comando = CadastrarComunicadoCommandFactory(comunicadoVM, condominio, usuario);
+            var comando = CadastrarComunicadoCommandFactory(comunicadoVM, condominio, funcionario);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
             //Salva Anexos
             if (Resultado.IsValid && comunicadoVM.TemAnexos)
             {
-
+                await SalvarAnexos(comunicadoVM.Anexos.ToList(), comando, comando.ComunicadoId);
+                if (!OperacaoValida())
+                {
+                    var comandoExcluirOcorrencia = new RemoverComunicadoCommand(comando.ComunicadoId);
+                    await _mediatorHandler.EnviarComando(comandoExcluirOcorrencia);
+                    return CustomResponse();
+                }
             }
 
             return CustomResponse(Resultado);
@@ -146,26 +196,37 @@ namespace CondominioApp.Api.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> Put(EditarComunicadoViewModel comunicadoVM)
+        public async Task<ActionResult> Put(EditaComunicadoViewModel comunicadoVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
                         
 
-            var usuario = await _usuarioQuery.ObterPorId(comunicadoVM.UsuarioId);
-            if (usuario == null)
+            var funcionario = await _usuarioQuery.ObterFuncionarioPorId(comunicadoVM.FuncionarioId);
+            if (funcionario == null)
             {
-                AdicionarErroProcessamento("Usuario não encontrado!");
+                AdicionarErroProcessamento("Funcionário não encontrado!");
                 return CustomResponse();
             }
 
-            var comando = EditarComunicadoCommandFactory(comunicadoVM, usuario);
+            var comunicado = await _comunicadoQuery.ObterPorId(comunicadoVM.ComunicadoId);
+            if (comunicado == null)
+            {
+                AdicionarErroProcessamento("Comunicado não encontrado!");
+                return CustomResponse();
+            }
+
+            var comando = EditarComunicadoCommandFactory(comunicadoVM, funcionario);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
-            //Editar Anexos
-            if (Resultado.IsValid)
+            //Salva Anexos
+            if (Resultado.IsValid && comunicadoVM.TemAnexos)
             {
-
+                await SalvarAnexos(comunicadoVM.Anexos.ToList(), comando, comunicado.CondominioId);
+                if (!OperacaoValida())
+                {                 
+                    return CustomResponse();
+                }
             }
 
             return CustomResponse(Resultado);
@@ -183,8 +244,19 @@ namespace CondominioApp.Api.Controllers
             //Remover Anexos
             if (Resultado.IsValid)
             {
-
+               await ExcluirAnexos(comando);
             }
+
+            return CustomResponse(Resultado);
+        }
+
+
+        [HttpDelete("anexo/{arquivoId:Guid}")]
+        public async Task<ActionResult> DeleteAnexo(Guid arquivoId)
+        {
+            var comando = new RemoverArquivoCommand(arquivoId);
+
+            var Resultado = await _mediatorHandler.EnviarComando(comando);            
 
             return CustomResponse(Resultado);
         }
@@ -192,46 +264,187 @@ namespace CondominioApp.Api.Controllers
 
 
 
-        private CadastrarComunicadoCommand CadastrarComunicadoCommandFactory(CadastrarComunicadoViewModel comunicadoVM, CondominioFlat condominio, Usuario usuario)
+
+        #region Metodos Auxiliares
+
+        private CadastrarComunicadoCommand CadastrarComunicadoCommandFactory
+            (CadastraComunicadoViewModel comunicadoVM, CondominioFlat condominio, FuncionarioFlat funcionario)
         {
             var listaUnidadesComunicado = new List<UnidadeComunicado>();
             if (comunicadoVM.UnidadesId != null)
             {
                 foreach (Guid unidadeId in comunicadoVM.UnidadesId)
                 {
-                    var unidade = _condominioQuery.ObterUnidadePorId(unidadeId).Result;
-                    var unidadeComunicado = new UnidadeComunicado(unidade.Id, unidade.Numero, unidade.Andar, unidade.GrupoId, unidade.GrupoDescricao);
-                    listaUnidadesComunicado.Add(unidadeComunicado);
+                    var unidade = _principalQuery.ObterUnidadePorId(unidadeId).Result;
+                    if (unidade != null)
+                    {
+                        var unidadeComunicado = new UnidadeComunicado
+                            (unidade.Id, unidade.Numero, unidade.Andar, unidade.GrupoId, unidade.GrupoDescricao);
+                        listaUnidadesComunicado.Add(unidadeComunicado);
+                    }                        
                 }
             }
            
            return new CadastrarComunicadoCommand(
                 comunicadoVM.Titulo, comunicadoVM.Descricao, comunicadoVM.DataDeRealizacao,
-                comunicadoVM.CondominioId, condominio.Nome, usuario.Id,
-                usuario.NomeCompleto, comunicadoVM.Visibilidade, comunicadoVM.Categoria,
+                comunicadoVM.CondominioId, condominio.Nome, funcionario.Id,
+                funcionario.Nome, comunicadoVM.Visibilidade, comunicadoVM.Categoria,
                 comunicadoVM.TemAnexos, comunicadoVM.CriadoPelaAdministradora, listaUnidadesComunicado);
         }
 
-        private EditarComunicadoCommand EditarComunicadoCommandFactory(EditarComunicadoViewModel comunicadoVM, Usuario usuario)
+        private EditarComunicadoCommand EditarComunicadoCommandFactory
+            (EditaComunicadoViewModel comunicadoVM, FuncionarioFlat funcionario)
         {
             var listaUnidadesComunicado = new List<UnidadeComunicado>();
             if (comunicadoVM.UnidadesId != null)
             {
                 foreach (Guid unidadeId in comunicadoVM.UnidadesId)
                 {
-                    var unidade = _condominioQuery.ObterUnidadePorId(unidadeId).Result;
-                    var unidadeComunicado = new UnidadeComunicado(unidade.Id, unidade.Numero, unidade.Andar, unidade.GrupoId, unidade.GrupoDescricao);
-                    listaUnidadesComunicado.Add(unidadeComunicado);
+                    var unidade = _principalQuery.ObterUnidadePorId(unidadeId).Result;
+                    if (unidade!=null)
+                    {
+                        var unidadeComunicado = new UnidadeComunicado
+                            (unidade.Id, unidade.Numero, unidade.Andar, unidade.GrupoId, unidade.GrupoDescricao);
+                        listaUnidadesComunicado.Add(unidadeComunicado);
+                    }                    
                 }
             }
 
             //Edita Comunicado
             return new EditarComunicadoCommand(
                 comunicadoVM.ComunicadoId, comunicadoVM.Titulo, comunicadoVM.Descricao, comunicadoVM.DataDeRealizacao,
-                usuario.Id, usuario.NomeCompleto, comunicadoVM.Visibilidade, comunicadoVM.Categoria,
+                funcionario.Id, funcionario.Nome, comunicadoVM.Visibilidade, comunicadoVM.Categoria,
                 comunicadoVM.TemAnexos, listaUnidadesComunicado);
 
         }
+
+
+        private async Task SalvarAnexos
+            (List<CadastraAnexoComunicadoViewModel> anexos, ComunicadoCommand comando, Guid condominioId)
+        {
+            comando.SetCondominioId(condominioId);
+
+            var pasta = await ObterPastaDoSistema(comando);
+
+            await ExcluirAnexos(comando);
+
+            foreach (CadastraAnexoComunicadoViewModel anexo in anexos)
+            {
+                var comandoCadastraArquivo = CadastrarArquivoCommandFactory(anexo, comando, pasta.Id);
+                var ResultadoCadastroArquivo = await _mediatorHandler.EnviarComando(comandoCadastraArquivo);
+                if (!ResultadoCadastroArquivo.IsValid)
+                    CustomResponse(ResultadoCadastroArquivo);
+            }
+        }        
+
+        private CadastrarPastaCommand CadastrarPastaCommandFactory
+            (Guid condominioId, CategoriaDaPastaDeSistema categoriaDaPastaDeSistema)
+        {
+            return new CadastrarPastaCommand
+                (categoriaDaPastaDeSistema.ToString(), "Pasta de ocorrências do sistema",
+                condominioId, true, true, categoriaDaPastaDeSistema);
+        }
+
+        private CadastrarArquivoCommand CadastrarArquivoCommandFactory
+            (CadastraAnexoComunicadoViewModel anexo, ComunicadoCommand comunicadoCommand, Guid pastaId)
+        {
+            var arquivoPublico = false;
+            if (comunicadoCommand.Visibilidade == VisibilidadeComunicado.PUBLICO)
+                arquivoPublico = true;
+
+            return new CadastrarArquivoCommand
+                (anexo.NomeOriginal, anexo.Tamanho, pastaId, arquivoPublico, comunicadoCommand.FuncionarioId,
+                 comunicadoCommand.NomeFuncionario, "Anexo de Comunicado", "", comunicadoCommand.ComunicadoId);
+        }
+
+
+        private async Task<IEnumerable<AnexoComunicadoViewModel>> ObterAnexos(Comunicado comunicado)
+        {
+            var anexosVM = new List<AnexoComunicadoViewModel>();
+            var anexos = await _arquivoDigitalQuery.ObterArquivosPorAnexadoPorId(comunicado.Id);
+            if (anexos == null)
+                return anexosVM;
+
+            
+            foreach (Arquivo item in anexos)
+            {
+                var anexoVM = new AnexoComunicadoViewModel
+                    (item.Id, item.Nome.NomeDoArquivo, item.Nome.NomeOriginal,
+                     item.Nome.ExtensaoDoArquivo, item.Tamanho);                
+                anexosVM.Add(anexoVM);
+            }
+
+            return anexosVM.ToList();
+        }
+
+        private async Task<Pasta> ObterPastaDoSistema(ComunicadoCommand comando)
+        {
+            var categoriaDaPastaDoSistema = ObterCategoriaDePastaDeSistema(comando.Categoria);
+
+            var pasta = await _arquivoDigitalQuery.ObterPastaDeSistema
+                   (categoriaDaPastaDoSistema, comando.CondominioId);
+
+            if (pasta == null)
+            {
+                var comandoCadastrarPasta = CadastrarPastaCommandFactory(comando.CondominioId, categoriaDaPastaDoSistema);
+                var ResultadoCadastroPasta = await _mediatorHandler.EnviarComando(comandoCadastrarPasta);
+                if (!ResultadoCadastroPasta.IsValid)
+                    CustomResponse(ResultadoCadastroPasta);
+                pasta = await _arquivoDigitalQuery.ObterPorId(comandoCadastrarPasta.Id);
+            }
+
+            return pasta;
+
+        }
+
+        private CategoriaDaPastaDeSistema ObterCategoriaDePastaDeSistema(CategoriaComunicado categoria)
+        {
+            switch (categoria)
+            {
+                case CategoriaComunicado.ATA:
+                    return CategoriaDaPastaDeSistema.ATA;
+
+                case CategoriaComunicado.AVISO:
+                    return CategoriaDaPastaDeSistema.AVISO;
+
+                case CategoriaComunicado.BALANCETE:
+                    return CategoriaDaPastaDeSistema.BALANCETE;
+
+                case CategoriaComunicado.COBRANÇA:
+                    return CategoriaDaPastaDeSistema.COBRANÇA;
+
+                case CategoriaComunicado.COMUNICADO:
+                    return CategoriaDaPastaDeSistema.COMUNICADO;
+
+                case CategoriaComunicado.MANUTENÇÃO:
+                    return CategoriaDaPastaDeSistema.MANUTENÇÃO;
+
+                case CategoriaComunicado.OBRA_REFORMA:
+                    return CategoriaDaPastaDeSistema.OBRA_REFORMA;
+
+                case CategoriaComunicado.OUTROS:
+                    return CategoriaDaPastaDeSistema.OUTROS;
+
+                case CategoriaComunicado.URGENCIA:
+                    return CategoriaDaPastaDeSistema.URGENCIA;
+
+                default:
+                    return 0;
+            }
+        }
+
+        private async Task ExcluirAnexos(ComunicadoCommand comando)
+        {
+            var anexosExistentes = await _arquivoDigitalQuery.ObterArquivosPorAnexadoPorId(comando.ComunicadoId);
+            foreach (Arquivo item in anexosExistentes)
+            {
+                var comandoExcluiArquivo = new RemoverArquivoCommand(item.Id);
+                await _mediatorHandler.EnviarComando(comandoExcluiArquivo);
+            }
+        }
+
+        #endregion
+
 
     }
 }

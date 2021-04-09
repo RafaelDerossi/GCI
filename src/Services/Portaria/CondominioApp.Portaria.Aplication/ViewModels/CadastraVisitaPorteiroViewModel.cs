@@ -6,10 +6,8 @@ using System.Text;
 namespace CondominioApp.Portaria.Aplication.ViewModels
 {
    public class CadastraVisitaPorteiroViewModel
-    {
-        public DateTime DataDeEntrada { get; set; }       
-        public string Observacao { get; set; }     
-        
+    {      
+        public string Observacao { get; set; }        
 
         public Guid VisitanteId { get; set; }
         public string NomeVisitante { get; set; }
@@ -20,9 +18,7 @@ namespace CondominioApp.Portaria.Aplication.ViewModels
         public string NomeOriginalFotoVisitante { get; set; }
         public TipoDeVisitante TipoDeVisitante { get; set; }
         public string NomeEmpresaVisitante { get; set; }
-
-
-        public Guid CondominioId { get; set; }        
+       
         public Guid UnidadeId { get; set; }        
 
         public bool TemVeiculo { get; set; }
@@ -30,7 +26,7 @@ namespace CondominioApp.Portaria.Aplication.ViewModels
         public string ModeloVeiculo { get; set; }
         public string CorVeiculo { get; set; }
 
-        public Guid UsuarioId { get; set; }       
+        public Guid MoradorId { get; set; }       
 
     }
 }

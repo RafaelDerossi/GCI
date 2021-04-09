@@ -40,13 +40,13 @@ namespace CondominioApp.Principal.Tests
                false, false, false, false);
             condominio.SetEntidadeId(grupo.CondominioId);
 
-            _mocker.GetMock<ICondominioRepository>().Setup(r => r.ObterGrupoPorId(command.GrupoId))
+            _mocker.GetMock<IPrincipalRepository>().Setup(r => r.ObterGrupoPorId(command.GrupoId))
               .Returns(Task.FromResult(grupo));
 
-            _mocker.GetMock<ICondominioRepository>().Setup(r => r.ObterPorId(grupo.CondominioId))
+            _mocker.GetMock<IPrincipalRepository>().Setup(r => r.ObterPorId(grupo.CondominioId))
               .Returns(Task.FromResult(condominio));
 
-            _mocker.GetMock<ICondominioRepository>().Setup(r => r.UnitOfWork.Commit())
+            _mocker.GetMock<IPrincipalRepository>().Setup(r => r.UnitOfWork.Commit())
                .Returns(Task.FromResult(true));
 
             //Act
@@ -54,8 +54,8 @@ namespace CondominioApp.Principal.Tests
 
             //Assert
             Assert.True(result.IsValid);
-            _mocker.GetMock<ICondominioRepository>().Verify(r => r.AdicionarUnidade(It.IsAny<Unidade>()), Times.Once);
-            _mocker.GetMock<ICondominioRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
+            _mocker.GetMock<IPrincipalRepository>().Verify(r => r.AdicionarUnidade(It.IsAny<Unidade>()), Times.Once);
+            _mocker.GetMock<IPrincipalRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
         }
 
         [Fact(DisplayName = "Editar Unidade Válido")]
@@ -73,13 +73,13 @@ namespace CondominioApp.Principal.Tests
             unidade.SetEntidadeId(command.UnidadeId);
             unidade.ResetCodigo();
 
-            _mocker.GetMock<ICondominioRepository>().Setup(r => r.ObterUnidadePorId(unidade.Id))
+            _mocker.GetMock<IPrincipalRepository>().Setup(r => r.ObterUnidadePorId(unidade.Id))
              .Returns(Task.FromResult(unidade));
 
-            _mocker.GetMock<ICondominioRepository>().Setup(r => r.ObterGrupoPorId(unidade.GrupoId))
+            _mocker.GetMock<IPrincipalRepository>().Setup(r => r.ObterGrupoPorId(unidade.GrupoId))
               .Returns(Task.FromResult(grupo));           
 
-            _mocker.GetMock<ICondominioRepository>().Setup(r => r.UnitOfWork.Commit())
+            _mocker.GetMock<IPrincipalRepository>().Setup(r => r.UnitOfWork.Commit())
                .Returns(Task.FromResult(true));
 
             //Act
@@ -87,7 +87,7 @@ namespace CondominioApp.Principal.Tests
 
             //Assert
             Assert.True(result.IsValid);           
-            _mocker.GetMock<ICondominioRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
+            _mocker.GetMock<IPrincipalRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
         }
 
         [Fact(DisplayName = "Reset Codigo da Unidade Válido")]
@@ -103,10 +103,10 @@ namespace CondominioApp.Principal.Tests
             unidade.SetEntidadeId(command.UnidadeId);
             unidade.ResetCodigo();
 
-            _mocker.GetMock<ICondominioRepository>().Setup(r => r.ObterUnidadePorId(unidade.Id))
+            _mocker.GetMock<IPrincipalRepository>().Setup(r => r.ObterUnidadePorId(unidade.Id))
              .Returns(Task.FromResult(unidade));            
 
-            _mocker.GetMock<ICondominioRepository>().Setup(r => r.UnitOfWork.Commit())
+            _mocker.GetMock<IPrincipalRepository>().Setup(r => r.UnitOfWork.Commit())
                .Returns(Task.FromResult(true));
 
             //Act
@@ -114,7 +114,7 @@ namespace CondominioApp.Principal.Tests
 
             //Assert
             Assert.True(result.IsValid);
-            _mocker.GetMock<ICondominioRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
+            _mocker.GetMock<IPrincipalRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
         }
     }
 }

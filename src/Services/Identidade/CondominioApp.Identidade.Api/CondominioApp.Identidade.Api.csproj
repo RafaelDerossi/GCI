@@ -33,13 +33,21 @@
 
   <ItemGroup>
     <Folder Include="Extensions\" />
-    <Folder Include="wwwroot\" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Building Blocks\CondominioApp.Core\CondominioApp.Core.csproj" />
     <ProjectReference Include="..\..\..\Building Blocks\CondominioApp.WebApi.Core\CondominioApp.WebApi.Core.csproj" />
+    <ProjectReference Include="..\..\NotificacaoEmail\CondominioApp.NotificacaoEmail.App\CondominioApp.NotificacaoEmail.App.csproj" />
+    <ProjectReference Include="..\..\Principal\CondominioApp.Principal.Aplication\CondominioApp.Principal.Aplication.csproj" />
     <ProjectReference Include="..\..\Usuarios\CondominioApp.Usuarios.App\CondominioApp.Usuarios.App.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\Emails\EmailConfirmacaoDeCadastro.html">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 
 

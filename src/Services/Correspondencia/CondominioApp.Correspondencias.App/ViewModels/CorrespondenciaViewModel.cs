@@ -29,9 +29,9 @@ namespace CondominioApp.Correspondencias.App.ViewModels
 
         public string DataDaRetirada { get; private set; }
 
-        public Guid UsuarioId { get; set; }
+        public Guid FuncionarioId { get; set; }
 
-        public string NomeUsuario { get; set; }
+        public string NomeFuncionario { get; set; }
 
         public string Foto { get;  set; }
 

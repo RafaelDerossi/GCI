@@ -95,11 +95,16 @@ namespace CondominioApp.Comunicados.App.Aplication.Query
         {           
             return await _comunicadoRepository.Obter(
                  c => c.CondominioId == condominioId &&
-                 c.UsuarioId == usuarioId &&
+                 c.FuncionarioId == usuarioId &&
                  !c.Lixeira);
-        }        
-                
+        }
 
+        public async Task<IEnumerable<Comunicado>> ObterPorCondominio(Guid condominioId)
+        {
+            return await _comunicadoRepository.Obter(
+                 c => c.CondominioId == condominioId &&
+                 !c.Lixeira);
+        }
 
 
         public void Dispose()

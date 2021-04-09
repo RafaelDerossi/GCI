@@ -55,6 +55,15 @@ using CondominioApp.Usuarios.App.Aplication.Commands;
 using CondominioApp.Automacao.App.Factory;
 using CondominioApp.NotificacaoPush.App.Services.Interfaces;
 using CondominioApp.NotificacaoPush.App.Services;
+using CondominioApp.ArquivoDigital.App.Aplication.Commands;
+using CondominioApp.ArquivoDigital.App.Models;
+using CondominioApp.ArquivoDigital.App.Aplication.Query;
+using CondominioApp.Ocorrencias.App.Aplication.Commands;
+using CondominioApp.Ocorrencias.App.Data.Repository;
+using CondominioApp.Ocorrencias.App.Models;
+using CondominioApp.Ocorrencias.App.Aplication.Query;
+using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents;
+using CondominioApp.NotificacaoEmail.Aplication.Events;
 
 namespace CondominioApp.Api.Configuration
 {
@@ -65,14 +74,84 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<IMediatorHandler, MediatorHandler>();
 
 
-            #region Pre-Cadastro -Contexto
+            #region ArquivoDigital -Contexto
+            //Pasta
+            services.AddScoped<IRequestHandler<CadastrarPastaCommand, ValidationResult>, PastaCommandHandler>();
+            services.AddScoped<IRequestHandler<EditarPastaCommand, ValidationResult>, PastaCommandHandler>();
+            services.AddScoped<IRequestHandler<MarcarPastaComoPublicaCommand, ValidationResult>, PastaCommandHandler>();
+            services.AddScoped<IRequestHandler<MarcarPastaComoPrivadaCommand, ValidationResult>, PastaCommandHandler>();
+            services.AddScoped<IRequestHandler<RemoverPastaCommand, ValidationResult>, PastaCommandHandler>();
 
-            //Pre Cadastro
-            services.AddScoped<IRequestHandler<InserirNovoLeadCommand, ValidationResult>, LeadCommandHandler>();
-            services.AddScoped<IRequestHandler<TransferirCondominioCommand, ValidationResult>, LeadCommandHandler>();
-            services.AddScoped<INotificationHandler<LeadCadastradoEvent>, LeadEventHandler>();
+            //Arquivo
+            services.AddScoped<IRequestHandler<CadastrarArquivoCommand, ValidationResult>, ArquivoCommandHandler>();
+            services.AddScoped<IRequestHandler<EditarArquivoCommand, ValidationResult>, ArquivoCommandHandler>();
+            services.AddScoped<IRequestHandler<AlterarPastaDoArquivoCommand, ValidationResult>, ArquivoCommandHandler>();
+            services.AddScoped<IRequestHandler<MarcarArquivoComoPublicoCommand, ValidationResult>, ArquivoCommandHandler>();
+            services.AddScoped<IRequestHandler<MarcarArquivoComoPrivadoCommand, ValidationResult>, ArquivoCommandHandler>();
+            services.AddScoped<IRequestHandler<RemoverArquivoCommand, ValidationResult>, ArquivoCommandHandler>();
 
             #endregion
+
+
+            #region Automacao -Contexto
+
+            services.AddScoped<IDispositivosServiceFactory, DispositivoServiceFactory>();
+            services.AddScoped<IRequestHandler<CadastrarCondominioCredencialCommand, ValidationResult>, CondominioCredencialCommandHandler>();
+            services.AddScoped<IRequestHandler<EditarCondominioCredencialCommand, ValidationResult>, CondominioCredencialCommandHandler>();
+            services.AddScoped<IRequestHandler<RemoverCondominioCredencialCommand, ValidationResult>, CondominioCredencialCommandHandler>();
+
+            #endregion
+
+
+            #region Base Software -Contexto
+
+            //Base software
+            services.AddScoped<IBoletoService, BoletoService>();
+
+            #endregion
+
+
+            #region Comunicado -Contexto
+
+            //Comunicado
+            services.AddScoped<IRequestHandler<CadastrarComunicadoCommand, ValidationResult>, ComunicadoCommandHandler>();
+            services.AddScoped<IRequestHandler<EditarComunicadoCommand, ValidationResult>, ComunicadoCommandHandler>();
+            services.AddScoped<IRequestHandler<RemoverComunicadoCommand, ValidationResult>, ComunicadoCommandHandler>();
+
+            #endregion
+
+
+            #region Correspondencia -Contexto
+
+            //Correspondencia
+            services.AddScoped<IRequestHandler<CadastrarCorrespondenciaCommand, ValidationResult>, CorrespondenciaCommandHandler>();
+            services.AddScoped<IRequestHandler<MarcarCorrespondenciaVistaCommand, ValidationResult>, CorrespondenciaCommandHandler>();
+            services.AddScoped<IRequestHandler<MarcarCorrespondenciaRetiradaCommand, ValidationResult>, CorrespondenciaCommandHandler>();
+            services.AddScoped<IRequestHandler<MarcarCorrespondenciaDevolvidaCommand, ValidationResult>, CorrespondenciaCommandHandler>();
+            services.AddScoped<IRequestHandler<DispararAlertaDeCorrespondenciaCommand, ValidationResult>, CorrespondenciaCommandHandler>();
+            services.AddScoped<IRequestHandler<RemoverCorrespondenciaCommand, ValidationResult>, CorrespondenciaCommandHandler>();
+            services.AddScoped<IRequestHandler<GerarExcelCorrespondenciaCommand, ValidationResult>, CorrespondenciaCommandHandler>();
+
+            #endregion
+
+
+            #region Enquete -Contexto
+
+            //Enquete
+            services.AddScoped<IRequestHandler<CadastrarEnqueteCommand, ValidationResult>, EnqueteCommandHandler>();
+            services.AddScoped<IRequestHandler<EditarEnqueteCommand, ValidationResult>, EnqueteCommandHandler>();
+            services.AddScoped<IRequestHandler<RemoverEnqueteCommand, ValidationResult>, EnqueteCommandHandler>();
+            services.AddScoped<INotificationHandler<EnqueteCadastradaEvent>, EnqueteEventHandler>();
+
+            //AlternativasEnquete
+            services.AddScoped<IRequestHandler<EditarAlternativaCommand, ValidationResult>, AlternativaEnqueteCommandHandler>();
+            services.AddScoped<IRequestHandler<RemoverAlternativaCommand, ValidationResult>, AlternativaEnqueteCommandHandler>();
+
+            //RespostaEnquete
+            services.AddScoped<IRequestHandler<CadastrarRespostaCommand, ValidationResult>, RespostaEnqueteCommandHandler>();
+
+            #endregion
+            
 
             #region Marketplace -Contexto
 
@@ -99,129 +178,37 @@ namespace CondominioApp.Api.Configuration
 
             #endregion
 
-            #region Base Software -Contexto
+            #region NotificacaoEmail -Contexto            
+            services.AddScoped<INotificationHandler<EnviarEmailConfirmacaoDeCadastroDeMoradorIntegrationEvent>, NotificacaoEmailEventHandler>();
+            services.AddScoped<INotificationHandler<EnviarEmailConfirmacaoDeCadastroDeUsuarioIntegrationEvent>, NotificacaoEmailEventHandler>();
+            #endregion
 
-            //Base software
-            services.AddScoped<IBoletoService, BoletoService>();
-
+            #region NotificacaoPush -Contexto
+            services.AddScoped<INotificacaoPushService, NotificacaoPushService>();
+            services.AddScoped<INotificationHandler<EnviarPushParaSindicoIntegrationEvent>, NotificacaoPushEventHandler>();
+            services.AddScoped<INotificationHandler<EnviarPushParaMoradorIntegrationEvent>, NotificacaoPushEventHandler>();
+            services.AddScoped<INotificationHandler<EnviarPushParaUnidadeIntegrationEvent>, NotificacaoPushEventHandler>();
+            services.AddScoped<INotificationHandler<EnviarPushParaUnidadesIntegrationEvent>, NotificacaoPushEventHandler>();
+            services.AddScoped<INotificationHandler<EnviarPushParaCondominioIntegrationEvent>, NotificacaoPushEventHandler>();
+            services.AddScoped<INotificationHandler<EnviarPushParaProprietariosIntegrationEvent>, NotificacaoPushEventHandler>();
+            services.AddScoped<INotificationHandler<EnviarPushParaProprietariosPorUnidadeIntegrationEvent>, NotificacaoPushEventHandler>();
+            services.AddScoped<INotificationHandler<EnviarPushParaTodosIntegrationEvent>, NotificacaoPushEventHandler>();
             #endregion
 
 
+            #region Ocorrencia -Contexto
+            //Ocorrencia
+            services.AddScoped<IRequestHandler<CadastrarOcorrenciaCommand, ValidationResult>, OcorrenciaCommandHandler>();
+            services.AddScoped<IRequestHandler<EditarOcorrenciaCommand, ValidationResult>, OcorrenciaCommandHandler>();
+            services.AddScoped<IRequestHandler<RemoverOcorrenciaCommand, ValidationResult>, OcorrenciaCommandHandler>();
 
-            #region Principal -Contexto
-
-            //Condominio
-            services.AddScoped<IRequestHandler<CadastrarCondominioCommand, ValidationResult>, CondominioCommandHandler>();
-            services.AddScoped<IRequestHandler<EditarCondominioCommand, ValidationResult>, CondominioCommandHandler>();
-            services.AddScoped<IRequestHandler<EditarConfiguracaoCondominioCommand, ValidationResult>, CondominioCommandHandler>();
-            services.AddScoped<IRequestHandler<RemoverCondominioCommand, ValidationResult>, CondominioCommandHandler>();
-            services.AddScoped<INotificationHandler<CondominioCadastradoEvent>,CondominioEventHandler>();
-            services.AddScoped<INotificationHandler<CondominioEditadoEvent>, CondominioEventHandler>();
-            services.AddScoped<INotificationHandler<CondominioConfiguracaoEditadoEvent>, CondominioEventHandler>();
-            services.AddScoped<INotificationHandler<CondominioRemovidoEvent>, CondominioEventHandler>();
-
-            //Grupo
-            services.AddScoped<IRequestHandler<CadastrarGrupoCommand, ValidationResult>, GrupoCommandHandler>();
-            services.AddScoped<IRequestHandler<EditarGrupoCommand, ValidationResult>, GrupoCommandHandler>();
-            services.AddScoped<IRequestHandler<RemoverGrupoCommand, ValidationResult>, GrupoCommandHandler>();
-            services.AddScoped<INotificationHandler<GrupoCadastradoEvent>, GrupoEventHandler>();
-            services.AddScoped<INotificationHandler<GrupoEditadoEvent>, GrupoEventHandler>();
-            services.AddScoped<INotificationHandler<GrupoRemovidoEvent>, GrupoEventHandler>();
-
-            //Unidades
-            services.AddScoped<IRequestHandler<CadastrarUnidadeCommand, ValidationResult>, UnidadeCommandHandler>();
-            services.AddScoped<IRequestHandler<EditarUnidadeCommand, ValidationResult>, UnidadeCommandHandler>();
-            services.AddScoped<IRequestHandler<ResetCodigoUnidadeCommand, ValidationResult>, UnidadeCommandHandler>();
-            services.AddScoped<IRequestHandler<RemoverUnidadeCommand, ValidationResult>, UnidadeCommandHandler>();
-            services.AddScoped<INotificationHandler<UnidadeCadastradaEvent>, UnidadeEventHandler>();
-            services.AddScoped<INotificationHandler<UnidadeEditadaEvent>, UnidadeEventHandler>();
-            services.AddScoped<INotificationHandler<CodigoUnidadeResetadoEvent>, UnidadeEventHandler>();
-            services.AddScoped<INotificationHandler<UnidadeRemovidaEvent>, UnidadeEventHandler>();           
-
-            //Contratos
-            services.AddScoped<IRequestHandler<CadastrarContratoCommand, ValidationResult>, ContratoCommandHandler>();
-            services.AddScoped<IRequestHandler<EditarContratoCommand, ValidationResult>, ContratoCommandHandler>();
-            services.AddScoped<IRequestHandler<RemoverContratoCommand, ValidationResult>, ContratoCommandHandler>();
-            services.AddScoped<INotificationHandler<ContratoCadastradoEvent>, ContratoEventHandler>();
-            services.AddScoped<INotificationHandler<ContratoEditadoEvent>, ContratoEventHandler>();
-            services.AddScoped<INotificationHandler<ContratoRemovidoEvent>, ContratoEventHandler>();
-
+            //Resposta
+            services.AddScoped<IRequestHandler<CadastrarRespostaOcorrenciaMoradorCommand, ValidationResult>, RespostaOcorrenciaCommandHandler>();
+            services.AddScoped<IRequestHandler<CadastrarRespostaOcorrenciaSindicoCommand, ValidationResult>, RespostaOcorrenciaCommandHandler>();
+            services.AddScoped<IRequestHandler<MarcarRespostaOcorrenciaComoVistaCommand, ValidationResult>, RespostaOcorrenciaCommandHandler>();
+            services.AddScoped<IRequestHandler<EditarRespostaOcorrenciaCommand, ValidationResult>, RespostaOcorrenciaCommandHandler>();
             #endregion
 
-            #region Usuario
-            services.AddScoped<IRequestHandler<CadastrarVeiculoCommand, ValidationResult>, VeiculoCommandHandler>();
-            services.AddScoped<IRequestHandler<RemoverVeiculoCommand, ValidationResult>, VeiculoCommandHandler>();
-            services.AddScoped<INotificationHandler<VeiculoCadastradoEvent>, VeiculoEventHandler>();
-            services.AddScoped<INotificationHandler<UsuarioDoVeiculoNoCondominioEditadoEvent>, VeiculoEventHandler>();
-            services.AddScoped<INotificationHandler<VeiculoRemovidoEvent>, VeiculoEventHandler>();
-
-            #endregion
-
-            #region Enquete -Contexto
-
-            //Enquete
-            services.AddScoped<IRequestHandler<CadastrarEnqueteCommand, ValidationResult>, EnqueteCommandHandler>();
-            services.AddScoped<IRequestHandler<EditarEnqueteCommand, ValidationResult>, EnqueteCommandHandler>();
-            services.AddScoped<IRequestHandler<RemoverEnqueteCommand, ValidationResult>, EnqueteCommandHandler>();
-            services.AddScoped<INotificationHandler<EnqueteCadastradaEvent>, EnqueteEventHandler>();
-
-            //AlternativasEnquete
-            services.AddScoped<IRequestHandler<EditarAlternativaCommand, ValidationResult>, AlternativaEnqueteCommandHandler>();
-            services.AddScoped<IRequestHandler<RemoverAlternativaCommand, ValidationResult>, AlternativaEnqueteCommandHandler>();
-
-            //RespostaEnquete
-            services.AddScoped<IRequestHandler<CadastrarRespostaCommand, ValidationResult>, RespostaEnqueteCommandHandler>();
-
-            #endregion
-
-            #region Correspondencia -Contexto
-
-            //Correspondencia
-            services.AddScoped<IRequestHandler<CadastrarCorrespondenciaCommand, ValidationResult>, CorrespondenciaCommandHandler>();
-            services.AddScoped<IRequestHandler<MarcarCorrespondenciaVistaCommand, ValidationResult>, CorrespondenciaCommandHandler>();
-            services.AddScoped<IRequestHandler<MarcarCorrespondenciaRetiradaCommand, ValidationResult>, CorrespondenciaCommandHandler>();
-            services.AddScoped<IRequestHandler<MarcarCorrespondenciaDevolvidaCommand, ValidationResult>, CorrespondenciaCommandHandler>();
-            services.AddScoped<IRequestHandler<DispararAlertaDeCorrespondenciaCommand, ValidationResult>, CorrespondenciaCommandHandler>();
-            services.AddScoped<IRequestHandler<RemoverCorrespondenciaCommand, ValidationResult>, CorrespondenciaCommandHandler>();
-            services.AddScoped<IRequestHandler<GerarExcelCorrespondenciaCommand, ValidationResult>, CorrespondenciaCommandHandler>();
-
-            #endregion
-
-            #region Comunicado -Contexto
-
-            //Comunicado
-            services.AddScoped<IRequestHandler<CadastrarComunicadoCommand, ValidationResult>, ComunicadoCommandHandler>();
-            services.AddScoped<IRequestHandler<EditarComunicadoCommand, ValidationResult>, ComunicadoCommandHandler>();
-            services.AddScoped<IRequestHandler<RemoverComunicadoCommand, ValidationResult>, ComunicadoCommandHandler>();
-
-            #endregion
-
-            #region ReservaAreaComum -Contexto
-
-            //Area Comum
-            services.AddScoped<IRequestHandler<CadastrarAreaComumCommand, ValidationResult>, AreaComumCommandHandler>();
-            services.AddScoped<IRequestHandler<EditarAreaComumCommand, ValidationResult>, AreaComumCommandHandler>();
-            services.AddScoped<IRequestHandler<RemoverAreaComumCommand, ValidationResult>, AreaComumCommandHandler>();
-            services.AddScoped<IRequestHandler<AtivarAreaComumCommand, ValidationResult>, AreaComumCommandHandler>();
-            services.AddScoped<IRequestHandler<DesativarAreaComumCommand, ValidationResult>, AreaComumCommandHandler>();
-            services.AddScoped<INotificationHandler<AreaComumCadastradaEvent>, AreaComumEventHandler>();
-            services.AddScoped<INotificationHandler<AreaComumEditadaEvent>, AreaComumEventHandler>();
-            services.AddScoped<INotificationHandler<AreaComumAtivadaEvent>, AreaComumEventHandler>();
-            services.AddScoped<INotificationHandler<AreaComumDesativadaEvent>, AreaComumEventHandler>();
-            services.AddScoped<INotificationHandler<AreaComumRemovidaEvent>, AreaComumEventHandler>();
-
-            //Reserva
-            services.AddScoped<IRequestHandler<CadastrarReservaCommand, ValidationResult>, ReservaCommandHandler>();
-            services.AddScoped<IRequestHandler<AprovarReservaCommand, ValidationResult>, ReservaCommandHandler>();
-            services.AddScoped<IRequestHandler<CancelarReservaComoUsuarioCommand, ValidationResult>, ReservaCommandHandler>();
-            services.AddScoped<IRequestHandler<CancelarReservaComoAdministradorCommand, ValidationResult>, ReservaCommandHandler>();
-            services.AddScoped<IRequestHandler<RetirarReservaDaFilaCommand, ValidationResult>, ReservaCommandHandler>();
-            services.AddScoped<INotificationHandler<ReservaCadastradaEvent>, ReservaEventHandler>();
-            services.AddScoped<INotificationHandler<ReservaAprovadaEvent>, ReservaEventHandler>();
-            services.AddScoped<INotificationHandler<ReservaCanceladaEvent>, ReservaEventHandler>();
-            services.AddScoped<INotificationHandler<ReservaRetiradaDaFilaEvent>, ReservaEventHandler>();
-
-            #endregion
 
             #region Portaria -Contexto
 
@@ -253,51 +240,170 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<INotificationHandler<VisitaTerminadaEvent>, VisitaEventHandler>();
 
             #endregion
+            
 
-            #region Automacao -Contexto
+            #region Pre-Cadastro -Contexto
 
-            services.AddScoped<IDispositivosServiceFactory, DispositivoServiceFactory>();
-            services.AddScoped<IRequestHandler<CadastrarCondominioCredencialCommand, ValidationResult>, CondominioCredencialCommandHandler>();
-            services.AddScoped<IRequestHandler<EditarCondominioCredencialCommand, ValidationResult>, CondominioCredencialCommandHandler>();
-            services.AddScoped<IRequestHandler<RemoverCondominioCredencialCommand, ValidationResult>, CondominioCredencialCommandHandler>();
+            //Pre Cadastro
+            services.AddScoped<IRequestHandler<InserirNovoLeadCommand, ValidationResult>, LeadCommandHandler>();
+            services.AddScoped<IRequestHandler<TransferirCondominioCommand, ValidationResult>, LeadCommandHandler>();
+            services.AddScoped<INotificationHandler<LeadCadastradoEvent>, LeadEventHandler>();
 
             #endregion
 
-            #region NotificacaoPush -Contexto
-            services.AddScoped<INotificacaoPushService, NotificacaoPushService>();
+
+            #region Principal -Contexto
+
+            //Condominio
+            services.AddScoped<IRequestHandler<CadastrarCondominioCommand, ValidationResult>, CondominioCommandHandler>();
+            services.AddScoped<IRequestHandler<EditarCondominioCommand, ValidationResult>, CondominioCommandHandler>();
+            services.AddScoped<IRequestHandler<EditarConfiguracaoCondominioCommand, ValidationResult>, CondominioCommandHandler>();
+            services.AddScoped<IRequestHandler<RemoverCondominioCommand, ValidationResult>, CondominioCommandHandler>();
+            services.AddScoped<INotificationHandler<CondominioCadastradoEvent>, CondominioEventHandler>();
+            services.AddScoped<INotificationHandler<CondominioEditadoEvent>, CondominioEventHandler>();
+            services.AddScoped<INotificationHandler<CondominioConfiguracaoEditadoEvent>, CondominioEventHandler>();
+            services.AddScoped<INotificationHandler<CondominioRemovidoEvent>, CondominioEventHandler>();
+
+            //Grupo
+            services.AddScoped<IRequestHandler<CadastrarGrupoCommand, ValidationResult>, GrupoCommandHandler>();
+            services.AddScoped<IRequestHandler<EditarGrupoCommand, ValidationResult>, GrupoCommandHandler>();
+            services.AddScoped<IRequestHandler<RemoverGrupoCommand, ValidationResult>, GrupoCommandHandler>();
+            services.AddScoped<INotificationHandler<GrupoCadastradoEvent>, GrupoEventHandler>();
+            services.AddScoped<INotificationHandler<GrupoEditadoEvent>, GrupoEventHandler>();
+            services.AddScoped<INotificationHandler<GrupoRemovidoEvent>, GrupoEventHandler>();
+
+            //Unidades
+            services.AddScoped<IRequestHandler<CadastrarUnidadeCommand, ValidationResult>, UnidadeCommandHandler>();
+            services.AddScoped<IRequestHandler<EditarUnidadeCommand, ValidationResult>, UnidadeCommandHandler>();
+            services.AddScoped<IRequestHandler<ResetCodigoUnidadeCommand, ValidationResult>, UnidadeCommandHandler>();
+            services.AddScoped<IRequestHandler<RemoverUnidadeCommand, ValidationResult>, UnidadeCommandHandler>();
+            services.AddScoped<INotificationHandler<UnidadeCadastradaEvent>, UnidadeEventHandler>();
+            services.AddScoped<INotificationHandler<UnidadeEditadaEvent>, UnidadeEventHandler>();
+            services.AddScoped<INotificationHandler<CodigoUnidadeResetadoEvent>, UnidadeEventHandler>();
+            services.AddScoped<INotificationHandler<UnidadeRemovidaEvent>, UnidadeEventHandler>();
+
+            //Contratos
+            services.AddScoped<IRequestHandler<CadastrarContratoCommand, ValidationResult>, ContratoCommandHandler>();
+            services.AddScoped<IRequestHandler<EditarContratoCommand, ValidationResult>, ContratoCommandHandler>();
+            services.AddScoped<IRequestHandler<RemoverContratoCommand, ValidationResult>, ContratoCommandHandler>();
+            services.AddScoped<INotificationHandler<ContratoCadastradoEvent>, ContratoEventHandler>();
+            services.AddScoped<INotificationHandler<ContratoEditadoEvent>, ContratoEventHandler>();
+            services.AddScoped<INotificationHandler<ContratoRemovidoEvent>, ContratoEventHandler>();
+
             #endregion
+
+
+            #region ReservaAreaComum -Contexto
+
+            //Area Comum
+            services.AddScoped<IRequestHandler<CadastrarAreaComumCommand, ValidationResult>, AreaComumCommandHandler>();
+            services.AddScoped<IRequestHandler<EditarAreaComumCommand, ValidationResult>, AreaComumCommandHandler>();
+            services.AddScoped<IRequestHandler<RemoverAreaComumCommand, ValidationResult>, AreaComumCommandHandler>();
+            services.AddScoped<IRequestHandler<AtivarAreaComumCommand, ValidationResult>, AreaComumCommandHandler>();
+            services.AddScoped<IRequestHandler<DesativarAreaComumCommand, ValidationResult>, AreaComumCommandHandler>();
+            services.AddScoped<INotificationHandler<AreaComumCadastradaEvent>, AreaComumEventHandler>();
+            services.AddScoped<INotificationHandler<AreaComumEditadaEvent>, AreaComumEventHandler>();
+            services.AddScoped<INotificationHandler<AreaComumAtivadaEvent>, AreaComumEventHandler>();
+            services.AddScoped<INotificationHandler<AreaComumDesativadaEvent>, AreaComumEventHandler>();
+            services.AddScoped<INotificationHandler<AreaComumRemovidaEvent>, AreaComumEventHandler>();
+
+            //Reserva
+            services.AddScoped<IRequestHandler<CadastrarReservaCommand, ValidationResult>, ReservaCommandHandler>();
+            services.AddScoped<IRequestHandler<AprovarReservaCommand, ValidationResult>, ReservaCommandHandler>();
+            services.AddScoped<IRequestHandler<CancelarReservaComoUsuarioCommand, ValidationResult>, ReservaCommandHandler>();
+            services.AddScoped<IRequestHandler<CancelarReservaComoAdministradorCommand, ValidationResult>, ReservaCommandHandler>();
+            services.AddScoped<IRequestHandler<RetirarReservaDaFilaCommand, ValidationResult>, ReservaCommandHandler>();
+            services.AddScoped<INotificationHandler<ReservaCadastradaEvent>, ReservaEventHandler>();
+            services.AddScoped<INotificationHandler<ReservaAprovadaEvent>, ReservaEventHandler>();
+            services.AddScoped<INotificationHandler<ReservaCanceladaEvent>, ReservaEventHandler>();
+            services.AddScoped<INotificationHandler<ReservaRetiradaDaFilaEvent>, ReservaEventHandler>();
+
+            #endregion
+
+
+            #region Usuarios -Context
+            //Morador
+            services.AddScoped<IRequestHandler<CadastrarMoradorCommand, ValidationResult>, MoradorCommandHandler>();
+            services.AddScoped<IRequestHandler<ExcluirMoradorCommand, ValidationResult>, MoradorCommandHandler>();
+            services.AddScoped<IRequestHandler<MarcarComoUnidadePrincipalCommand, ValidationResult>, MoradorCommandHandler>();
+            services.AddScoped<IRequestHandler<MarcarComoProprietarioCommand, ValidationResult>, MoradorCommandHandler>();
+            services.AddScoped<IRequestHandler<DesmarcarComoProprietarioCommand, ValidationResult>, MoradorCommandHandler>();
+            services.AddScoped<INotificationHandler<MoradorCadastradoEvent>, MoradorEventHandler>();
+            services.AddScoped<INotificationHandler<UnidadeMarcadaComoPrincipalEvent>, MoradorEventHandler>();
+            services.AddScoped<INotificationHandler<MarcadoComoProprietarioEvent>, MoradorEventHandler>();
+            services.AddScoped<INotificationHandler<DesmarcadoComoProprietarioEvent>, MoradorEventHandler>();
+            services.AddScoped<INotificationHandler<MoradorExcluidoEvent>, MoradorEventHandler>();
+
+            //Funcionario
+            services.AddScoped<IRequestHandler<CadastrarFuncionarioCommand, ValidationResult>, FuncionarioCommandHandler>();
+            services.AddScoped<INotificationHandler<FuncionarioCadastradoEvent>, FuncionarioEventHandler>();
+            services.AddScoped<IRequestHandler<EditarFuncionarioCommand, ValidationResult>, FuncionarioCommandHandler>();
+            services.AddScoped<INotificationHandler<FuncionarioEditadoEvent>, FuncionarioEventHandler>();
+
+            //Usuario
+            services.AddScoped<IRequestHandler<CadastrarUsuarioCommand, ValidationResult>, UsuarioCommandHandler>();
+            services.AddScoped<IRequestHandler<EditarUsuarioCommand, ValidationResult>, UsuarioCommandHandler>();
+            services.AddScoped<IRequestHandler<ExcluirUsuarioCommand, ValidationResult>, UsuarioCommandHandler>();
+            services.AddScoped<INotificationHandler<UsuarioEditadoEvent>, UsuarioEventHandler>();
+
+            //Veiculo
+            services.AddScoped<IRequestHandler<CadastrarVeiculoCommand, ValidationResult>, VeiculoCommandHandler>();
+            services.AddScoped<IRequestHandler<RemoverVeiculoCommand, ValidationResult>, VeiculoCommandHandler>();
+            services.AddScoped<INotificationHandler<VeiculoCadastradoEvent>, VeiculoEventHandler>();
+            services.AddScoped<INotificationHandler<UsuarioDoVeiculoNoCondominioEditadoEvent>, VeiculoEventHandler>();
+            services.AddScoped<INotificationHandler<VeiculoRemovidoEvent>, VeiculoEventHandler>();
+
+            //Mobile
+            services.AddScoped<IRequestHandler<RegistrarMoradorMobileCommand, ValidationResult>, MobileCommandHandler>();
+            services.AddScoped<IRequestHandler<RegistrarFuncionarioMobileCommand, ValidationResult>, MobileCommandHandler>();
+
+            #endregion
+
+
+
 
 
             #region Querys
 
             //Query
-            services.AddScoped<IQueryLead, QueryLead>();
-            services.AddScoped<ICondominioQuery, CondominioQuery>();
-            services.AddScoped<IEnqueteQuery, EnqueteQuery>();
-            services.AddScoped<ICorrespondenciaQuery, CorrespondenciaQuery>();
+            services.AddScoped<IArquivoDigitalQuery, ArquivoDigitalQuery>();
+            services.AddScoped<IAutomacaoQuery, AutomacaoQuery>();
             services.AddScoped<IComunicadoQuery, ComunicadoQuery>();
-            services.AddScoped<IReservaAreaComumQuery, ReservaAreaComumQuery>();
+            services.AddScoped<ICorrespondenciaQuery, CorrespondenciaQuery>();
+            services.AddScoped<IEnqueteQuery, EnqueteQuery>();
+            services.AddScoped<IOcorrenciaQuery, OcorrenciaQuery>();
             services.AddScoped<IPortariaQuery, PortariaQuery>();
-            services.AddScoped<ICondominioCredencialQuery, CondominioCredencialQuery>();
+            services.AddScoped<IPrincipalQuery, PrincipalQuery>();
+            services.AddScoped<IQueryLead, QueryLead>();
+            services.AddScoped<IReservaAreaComumQuery, ReservaAreaComumQuery>();            
             services.AddScoped<IUsuarioQuery, UsuarioQuery>();
+            //services.AddScoped<IOcorrenciaQuery, OcorrenciaQuery>();
             #endregion
 
             #region Repositórios
-
             //Repositórios
-            services.AddScoped<ICondominioRepository, CondominioRepository>();
-            services.AddScoped<ILeadRepository, LeadRepository>();
-            services.AddScoped<ICondominioQueryRepository, CondominioQueryRepository>();
-            services.AddScoped<IEnqueteRepository, EnqueteRepository>();
-            services.AddScoped<ICorrespondenciaRepository, CorrespondenciaRepository>();
+            services.AddScoped<IArquivoDigitalRepository, ArquivoDigitalRepository>();
+            services.AddScoped<IAutomacaoRepository, AutomacaoRepository>();
             services.AddScoped<IComunidadoRepository, ComunicadoRepository>();
-            services.AddScoped<IReservaAreaComumRepository, ReservaAreaComumRepository>();
-            services.AddScoped<IReservaAreaComumQueryRepository, ReservaAreaComumQueryRepository>();
-            services.AddScoped<IVisitanteRepository, VisitanteRepository>();
-            services.AddScoped<IVisitanteQueryRepository, VisitanteQueryRepository>();
-            services.AddScoped<ICondominioCredencialRepository, CondominioCredencialRepository>();
+            services.AddScoped<ICorrespondenciaRepository, CorrespondenciaRepository>();
+            services.AddScoped<IEnqueteRepository, EnqueteRepository>();
+            services.AddScoped<ILeadRepository, LeadRepository>();
+            services.AddScoped<IPortariaRepository, PortariaRepository>();
+            services.AddScoped<IPrincipalRepository, PrincipalRepository>();            
+            services.AddScoped<IReservaAreaComumRepository, ReservaAreaComumRepository>();            
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
-            services.AddScoped<IVeiculoQueryRepository, VeiculoQueryRepository>();
+            services.AddScoped<IOcorrenciaRepository, OcorrenciaRepository>();
+            #endregion
+
+            #region Repositórios Query
+            //Repositórios Query                     
+            services.AddScoped<IFuncionarioQueryRepository, FuncionarioQueryRepository>();
+            services.AddScoped<IMoradorQueryRepository, MoradorQueryRepository>();
+            services.AddScoped<IPortariaQueryRepository, PortariaQueryRepository>();
+            services.AddScoped<IPrincipalQueryRepository, PrincipalQueryRepository>();                        
+            services.AddScoped<IReservaAreaComumQueryRepository, ReservaAreaComumQueryRepository>();            
+            services.AddScoped<IVeiculoQueryRepository, VeiculoQueryRepository>();           
+            
             #endregion
 
         }

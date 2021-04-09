@@ -1,25 +1,27 @@
 ﻿using CondominioApp.Core.DomainObjects;
 using CondominioApp.Core.Enumeradores;
 using CondominioApp.Core.Helpers;
+using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents;
 using CondominioApp.Portaria.ValueObjects;
+using FluentValidation.Results;
 using System;
 
 namespace CondominioApp.Portaria.Domain
 {
     public class Visita : Entity
     {
-        public const int Max = 200;       
+        public const int Max = 200;
 
-        public DateTime DataDeEntrada { get; private set; }      
+        public DateTime DataDeEntrada { get; private set; }
         public DateTime DataDeSaida { get; private set; }
         public StatusVisita Status { get; private set; }
         public string Observacao { get; private set; }
-      
+
 
         public Guid VisitanteId { get; private set; }
         public string NomeVisitante { get; private set; }
         public TipoDeDocumento TipoDeDocumentoVisitante { get; private set; }
-        public string Documento { get; private set; }       
+        public string Documento { get; private set; }
         public Email EmailVisitante { get; private set; }
         public Foto FotoVisitante { get; private set; }
         public TipoDeVisitante TipoDeVisitante { get; private set; }
@@ -27,35 +29,27 @@ namespace CondominioApp.Portaria.Domain
 
 
         public Guid CondominioId { get; private set; }
-        public string NomeCondominio { get; private set; }
-
         public Guid UnidadeId { get; private set; }
-        public string NumeroUnidade { get; private set; }
-        public string AndarUnidade { get; private set; }
-        public string GrupoUnidade { get; private set; }
 
         public bool TemVeiculo { get; private set; }
         public Veiculo Veiculo { get; private set; }
 
-
-        public Guid UsuarioId { get; private set; }
-        public string NomeUsuario { get; private set; }
+        public Guid MoradorId { get; private set; }
 
 
         /// Construtores       
         protected Visita()
-        {                  
+        {
         }
 
         public Visita(
             DateTime dataDeEntrada, string observacao, StatusVisita status, Guid visitanteId,
             string nomeVisitante, TipoDeDocumento tipoDeDocumentoVisitante, string documento,
-            Email emailVisitante, Foto fotoVisitante,TipoDeVisitante tipoDeVisitante,
-            string nomeEmpresaVisitante, Guid condominioId, string nomeCondominio, Guid unidadeId,
-            string numeroUnidade, string andarUnidade, string descricaoGrupoUnidade,
-            bool temVeiculo, Veiculo veiculo, Guid usuarioId, string nomeUsuario)
+            Email emailVisitante, Foto fotoVisitante, TipoDeVisitante tipoDeVisitante,
+            string nomeEmpresaVisitante, Guid condominioId, Guid unidadeId, bool temVeiculo,
+            Veiculo veiculo, Guid usuarioId, string nomeUsuario)
         {
-            DataDeEntrada = dataDeEntrada;            
+            DataDeEntrada = dataDeEntrada;
             Observacao = observacao;
             Status = status;
             VisitanteId = visitanteId;
@@ -65,35 +59,94 @@ namespace CondominioApp.Portaria.Domain
             TipoDeVisitante = tipoDeVisitante;
             NomeEmpresaVisitante = nomeEmpresaVisitante;
             CondominioId = condominioId;
-            NomeCondominio = nomeCondominio;
             UnidadeId = unidadeId;
-            NumeroUnidade = numeroUnidade;
-            AndarUnidade = andarUnidade;
-            GrupoUnidade = descricaoGrupoUnidade;
             TemVeiculo = temVeiculo;
             Veiculo = veiculo;
-            UsuarioId = usuarioId;
-            NomeUsuario = nomeUsuario;
+            MoradorId = usuarioId;
             SetDocumentoVisitante(documento, tipoDeDocumentoVisitante);
         }
 
 
-
-
         /// Metodos Set      
-        public void AprovarVisita() => Status = StatusVisita.APROVADA;
-        public void ReprovarVisita() => Status = StatusVisita.REPROVADA;
-
-
-        public void IniciarVisita()
+        public ValidationResult AprovarVisita()
         {
+            if (ObterStatus() == StatusVisita.APROVADA)
+            {
+                AdicionarErrosDaEntidade("Visita já esta aprovada.");
+                return ValidationResult;
+            }
+            if (ObterStatus() != StatusVisita.PENDENTE)
+            {
+                AdicionarErrosDaEntidade("Visita não pode ser aprovada pois esta " + ObterStatus().ToString().ToLower());
+                return ValidationResult;
+            }
+
+            Status = StatusVisita.APROVADA;
+
+            return ValidationResult;
+        }
+
+        public ValidationResult ReprovarVisita()
+        {
+
+            if (ObterStatus() == StatusVisita.REPROVADA)
+            {
+                AdicionarErrosDaEntidade("Visita já esta reprovada.");
+                return ValidationResult;
+            }
+            if (ObterStatus() != StatusVisita.PENDENTE && ObterStatus() != StatusVisita.APROVADA)
+            {
+                AdicionarErrosDaEntidade("Visita não pode ser reprovada pois esta " + ObterStatus().ToString().ToLower());
+                return ValidationResult;
+            }
+
+
+            Status = StatusVisita.REPROVADA;
+
+            return ValidationResult;
+        }
+
+
+        public ValidationResult IniciarVisita()
+        {
+            if (ObterStatus() == StatusVisita.PENDENTE)
+            {
+                AdicionarErrosDaEntidade("Visita não pode ser iniciada pois ainda esta pendente de aprovação.");
+                return ValidationResult;
+            }
+            if (ObterStatus() == StatusVisita.INICIADA)
+            {
+                AdicionarErrosDaEntidade("Visita já esta iniciada.");
+                return ValidationResult;
+            }
+            if (ObterStatus() != StatusVisita.APROVADA)
+            {
+                AdicionarErrosDaEntidade("Visita não pode ser iniciada pois esta " + ObterStatus().ToString().ToLower());
+                return ValidationResult;
+            }
+
             Status = StatusVisita.INICIADA;
             DataDeEntrada = DataHoraDeBrasilia.Get();
+
+            return ValidationResult;
         }
-        public void TerminarVisita()
-        { 
+        public ValidationResult TerminarVisita()
+        {
+            if (ObterStatus() == StatusVisita.TERMINADA)
+            {
+                AdicionarErrosDaEntidade("Visita já esta terminada.");
+                return ValidationResult;
+            }
+            if (ObterStatus() != StatusVisita.INICIADA)
+            {
+                AdicionarErrosDaEntidade("Visita não pode ser terminada pois não esta iniciada.");
+                return ValidationResult;
+            }
+
             Status = StatusVisita.TERMINADA;
             DataDeSaida = DataHoraDeBrasilia.Get();
+
+            return ValidationResult;
         }
 
 
@@ -105,7 +158,7 @@ namespace CondominioApp.Portaria.Domain
         {
             TipoDeDocumentoVisitante = tipoDeDocumento;
             Documento = documento;
-        }       
+        }
         public void SetEmailVisitante(Email email) => EmailVisitante = email;
         public void SetFotoVisitante(Foto foto) => FotoVisitante = foto;
         public void SetTipoDeVisitante(TipoDeVisitante tipoDeVisitante) => TipoDeVisitante = tipoDeVisitante;
@@ -116,29 +169,121 @@ namespace CondominioApp.Portaria.Domain
         public void SetVeiculo(Veiculo veiculo) => Veiculo = veiculo;
 
         public void SetUnidadeId(Guid id) => UnidadeId = id;
-        public void SetNumeroUnidade(string numero) => NumeroUnidade = numero;
-        public void SetAndarUnidade(string andar) => AndarUnidade = andar;
-        public void SetGrupoUnidade(string grupo) => GrupoUnidade = grupo;
 
-        public void SetUsuario(Guid usuarioId, string nome)
+        public void SetMorador(Guid moradorId)
         {
-            UsuarioId = usuarioId;
-            NomeUsuario = nome;
+            MoradorId = moradorId;
         }
 
-        /// Outros Metodos 
-       
+        /// Outros Metodos
+
 
 
         public StatusVisita ObterStatus()
         {
-            if (Status == StatusVisita.PENDENTE && DataDeEntrada.Date<DataHoraDeBrasilia.Get().Date)
-                    return StatusVisita.EXPIRADA;
+            if (Status == StatusVisita.PENDENTE && DataDeEntrada.Date < DataHoraDeBrasilia.Get().Date)
+                return StatusVisita.EXPIRADA;
 
-                if (Status == StatusVisita.APROVADA && DataDeEntrada.Date<DataHoraDeBrasilia.Get().Date)
-                    return StatusVisita.EXPIRADA;
+            if (Status == StatusVisita.APROVADA && DataDeEntrada.Date < DataHoraDeBrasilia.Get().Date)
+                return StatusVisita.EXPIRADA;
 
-                return Status;
+            return Status;
+        }
+
+
+        public ValidationResult Editar
+            (string observacao, string nomeVisitante, TipoDeVisitante tipoDeVisitante,
+            string nomeEmpresaVisitante, Guid unidadeId, bool temVeiculo, Veiculo veiculo)
+        {
+            if (ObterStatus() != StatusVisita.PENDENTE)
+            {
+                AdicionarErrosDaEntidade("Visita não pode ser editada pois esta " + ObterStatus().ToString());
+                return ValidationResult;
+            }
+
+            SetObservacao(observacao);
+            SetNomeVisitante(nomeVisitante);
+            SetTipoDeVisitante(tipoDeVisitante);
+            SetNomeEmpresaVisitante(nomeEmpresaVisitante);
+            SetUnidadeId(unidadeId);
+
+            MarcarNaoTemVeiculo();
+            if (temVeiculo)
+                MarcarTemVeiculo();
+
+            SetVeiculo(veiculo);
+
+            return ValidationResult;
+        }
+
+
+        public ValidationResult Remover()
+        {
+            if (ObterStatus() != StatusVisita.PENDENTE &&
+               ObterStatus() != StatusVisita.APROVADA)
+            {
+                AdicionarErrosDaEntidade("Visita não pode ser removida pois ja esta " + ObterStatus().ToString().ToLower());
+                return ValidationResult;
+            }
+
+            EnviarParaLixeira();
+
+            return ValidationResult;
+        }
+
+
+        public void EnviarPushAvisoDeVisitaNaPortaria()
+        {
+            var titulo = "VISITA PARA VOCÊ";
+            var descricao = ObterDescricaoParaAvisoDeVisitaNaPortaria();           
+
+            AdicionarEvento
+                (new EnviarPushParaMoradorIntegrationEvent(MoradorId, titulo, descricao));
+        }
+        private string ObterDescricaoParaAvisoDeVisitaNaPortaria()
+        {
+            if (TipoDeVisitante == TipoDeVisitante.SERVICO)
+            {
+                return $"Deseja liberar a entrada do(a) {NomeVisitante}, da empresa {NomeEmpresaVisitante}?";
+            }
+
+            return $"Deseja liberar a entrada do(a) {NomeVisitante}?";
+        }
+
+        public void EnviarPushAvisoDeVisitaIniciada()
+        {
+            var titulo = "VISITA INICIADA";
+            var descricao = ObterDescricaoParaAvisoDeVisitaIniciada();
+
+            AdicionarEvento
+                (new EnviarPushParaMoradorIntegrationEvent(MoradorId, titulo, descricao));
+        }
+        private string ObterDescricaoParaAvisoDeVisitaIniciada()
+        {
+            if (TipoDeVisitante == TipoDeVisitante.SERVICO)
+            {
+                return $"{NomeVisitante}, da empresa {NomeEmpresaVisitante}, entrou no condomínio.";
+            }
+
+            return $"{NomeVisitante} entrou no condomínio.";
+        }
+
+        public void EnviarPushAvisoDeVisitaTerminada()
+        {
+            var titulo = "VISITA TERMINADA";
+            var descricao = ObterDescricaoParaAvisoDeVisitaTerminada();
+
+            AdicionarEvento
+                (new EnviarPushParaMoradorIntegrationEvent(MoradorId, titulo, descricao));
+        }
+        private string ObterDescricaoParaAvisoDeVisitaTerminada()
+        {
+            if (TipoDeVisitante == TipoDeVisitante.SERVICO)
+            {
+                return $"{NomeVisitante}, da empresa {NomeEmpresaVisitante}, saiu no condomínio.";
+            }
+
+            return $"{NomeVisitante} saiu no condomínio.";
         }
     }
 }

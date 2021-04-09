@@ -18,9 +18,9 @@ namespace CondominioApp.Portaria.Aplication.Commands
          IRequestHandler<RemoverVisitanteCommand, ValidationResult>,
          IDisposable
     {
-        private IVisitanteRepository _visitanteRepository;
+        private IPortariaRepository _visitanteRepository;
 
-        public VisitanteCommandHandler(IVisitanteRepository visitanteRepository)
+        public VisitanteCommandHandler(IPortariaRepository visitanteRepository)
         {
             _visitanteRepository = visitanteRepository;
         }
@@ -44,7 +44,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
 
             _visitanteRepository.Adicionar(visitante);
 
-            AdicionarEventoVisitanteCadastrado(visitante);
+            AdicionarEventoVisitanteCadastrado(visitante, request);
 
             return await PersistirDados(_visitanteRepository.UnitOfWork);
         }
@@ -70,13 +70,11 @@ namespace CondominioApp.Portaria.Aplication.Commands
             _visitanteRepository.Adicionar(visitante);
 
 
-            AdicionarEventoVisitanteCadastrado(visitante);
+            AdicionarEventoVisitanteCadastrado(visitante, request);
 
 
             return await PersistirDados(_visitanteRepository.UnitOfWork);
         }
-
-
         public async Task<ValidationResult> Handle(EditarVisitantePorMoradorCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido()) return request.ValidationResult;
@@ -88,6 +86,21 @@ namespace CondominioApp.Portaria.Aplication.Commands
                 return ValidationResult;
             }
 
+
+            visitante.SetNome(request.Nome);
+            visitante.SetDocumento(request.Documento, request.TipoDeDocumento);
+            visitante.SetEmail(request.Email);
+            visitante.SetFoto(request.Foto);
+            visitante.SetTipoDeVisitante(request.TipoDeVisitante);
+            visitante.SetNomeEmpresa(request.NomeEmpresa);
+            visitante.MarcarVisitanteComoPermanente();
+            if (!request.VisitantePermanente)
+                visitante.MarcarVisitanteComoTemporario();
+            visitante.MarcarNaoTemVeiculo();
+            if (!request.TemVeiculo)
+                visitante.MarcarTemVeiculo();
+
+
             if (visitante.Documento != "")
             {
                 if (_visitanteRepository.VisitanteJaCadastradoPorDocumento(visitante.Documento, visitante.Id).Result)
@@ -95,23 +108,9 @@ namespace CondominioApp.Portaria.Aplication.Commands
                     AdicionarErro("Documento informado ja consta no sistema.");
                     return ValidationResult;
                 }
-            }
+            }           
 
-            visitante.SetNome(request.Nome);
-            visitante.SetDocumento(request.Documento, request.TipoDeDocumento);
-            visitante.SetEmail(request.Email);
-            visitante.SetFoto(request.Foto);           
-            visitante.SetTipoDeVisitante(request.TipoDeVisitante);
-            visitante.SetNomeEmpresa(request.NomeEmpresa);
             
-
-            visitante.MarcarVisitanteComoPermanente();
-            if (!request.VisitantePermanente)
-                visitante.MarcarVisitanteComoTemporario();
-
-            visitante.MarcarNaoTemVeiculo();
-            if (!request.TemVeiculo)
-                visitante.MarcarTemVeiculo();
 
             _visitanteRepository.Atualizar(visitante);
 
@@ -129,6 +128,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
                 AdicionarErro("Visitante não encontrado.");
                 return ValidationResult;
             }
+
 
             if (visitante.Documento != "")
             {
@@ -148,7 +148,6 @@ namespace CondominioApp.Portaria.Aplication.Commands
                 visitante.SetNomeEmpresa(request.NomeEmpresa);
             }
             visitante.SetFoto(request.Foto);
-
             visitante.MarcarNaoTemVeiculo();
             if (!request.TemVeiculo)
                 visitante.MarcarTemVeiculo();
@@ -159,8 +158,6 @@ namespace CondominioApp.Portaria.Aplication.Commands
 
             return await PersistirDados(_visitanteRepository.UnitOfWork);
         }
-
-
         public async Task<ValidationResult> Handle(RemoverVisitanteCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido()) return request.ValidationResult;
@@ -189,19 +186,18 @@ namespace CondominioApp.Portaria.Aplication.Commands
         {
             return new Visitante
                 (request.Nome, request.TipoDeDocumento, request.Documento, request.Email,
-                 request.Foto, request.CondominioId, request.NomeCondominio, request.UnidadeId,
-                 request.NumeroUnidade, request.AndarUnidade, request.GrupoUnidade, request.VisitantePermanente,
+                 request.Foto, request.CondominioId, request.UnidadeId, request.VisitantePermanente,
                  request.QrCode, request.TipoDeVisitante, request.NomeEmpresa, request.TemVeiculo);
         }
 
-        private void AdicionarEventoVisitanteCadastrado(Visitante visitante)
+        private void AdicionarEventoVisitanteCadastrado(Visitante visitante, VisitanteCommand request)
         {
             visitante.AdicionarEvento(
                 new VisitanteCadastradoEvent(
-                    visitante.Id, visitante.Nome, visitante.TipoDeDocumento, visitante.Documento, visitante.Email, visitante.Foto,
-                    visitante.CondominioId, visitante.NomeCondominio, visitante.UnidadeId, visitante.NumeroUnidade,
-                    visitante.AndarUnidade, visitante.GrupoUnidade, visitante.VisitantePermanente, visitante.QrCode,
-                    visitante.TipoDeVisitante, visitante.NomeEmpresa, visitante.TemVeiculo));
+                    visitante.Id, visitante.Nome, visitante.TipoDeDocumento, visitante.Documento, visitante.Email,
+                    visitante.Foto, visitante.CondominioId, request.NomeCondominio, visitante.UnidadeId,
+                    request.NumeroUnidade, request.AndarUnidade, request.GrupoUnidade, visitante.VisitantePermanente,
+                    visitante.QrCode, visitante.TipoDeVisitante, visitante.NomeEmpresa, visitante.TemVeiculo));
         }
 
         private void AdicionarEventoVisitanteEditado(Visitante visitante)

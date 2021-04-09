@@ -29,13 +29,24 @@ namespace CondominioApp.Enquetes.App.Aplication.Commands
                 return request.ValidationResult;
 
             var alternativa = await _EnqueteRepository.ObterAlternativaPorId(request.Id);
+            if (alternativa == null)
+            {
+                AdicionarErro("Alternativa não encontrada!");
+                return ValidationResult;
+            }
 
-            alternativa.SetDescricao(request.Descricao);
+            var enquete = await _EnqueteRepository.ObterPorId(request.EnqueteId);
+            if (enquete == null)
+            {
+                AdicionarErro("Enquete não encontrada!");
+                return ValidationResult;
+            }
 
-            var enquete = await _EnqueteRepository.ObterPorId(alternativa.EnqueteId);
+            alternativa.SetDescricao(request.Descricao);           
 
             var resultado = enquete.AlterarAlternativa(alternativa);
-            if (!resultado.IsValid) return resultado;
+            if (!resultado.IsValid)
+                return resultado;
                        
             _EnqueteRepository.Atualizar(enquete);           
 
@@ -45,23 +56,27 @@ namespace CondominioApp.Enquetes.App.Aplication.Commands
         public async Task<ValidationResult> Handle(RemoverAlternativaCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido())
-                return request.ValidationResult;
+                return request.ValidationResult;           
 
-            var alternativa = await _EnqueteRepository.ObterAlternativaPorId(request.Id);
-            
-            var enquete = await _EnqueteRepository.ObterPorId(alternativa.EnqueteId);
-
-            if (enquete.Alternativas.Where(a =>!a.Lixeira).Count()<3)
+            var alternativa = await _EnqueteRepository.ObterAlternativaPorId(request.Id);          
+            if (alternativa == null)
             {
-                AdicionarErro("Uma enquete precisa ter pelo menos duas alternativas.");
+                AdicionarErro("Alternativa não encontrada!");
                 return ValidationResult;
             }
 
-            alternativa.EnviarParaLixeira();
+            var enquete = await _EnqueteRepository.ObterPorId(alternativa.EnqueteId);
+            if (enquete == null)
+            {
+                AdicionarErro("Enquete não encontrada!");
+                return ValidationResult;
+            }
 
-            var resultado = enquete.AlterarAlternativa(alternativa);
+            var resultado = enquete.RemoverAlternativa(alternativa);
+            if (!resultado.IsValid)
+                return resultado;
 
-            if (!resultado.IsValid) return resultado;
+            _EnqueteRepository.RemoverAlternativa(alternativa);
 
             _EnqueteRepository.Atualizar(enquete);
 

@@ -76,12 +76,12 @@ namespace CondominioApp.Portaria.Aplication.Commands.Validations
 
         protected void ValidateUsuarioId()
         {
-            RuleFor(c => c.UsuarioId)
+            RuleFor(c => c.MoradorId)
                 .NotEqual(Guid.Empty);
         }
         protected void ValidateNomeUsuario()
         {
-            RuleFor(c => c.NomeUsuario)
+            RuleFor(c => c.NomeMorador)
                 .NotNull().WithMessage("Nome do usuário não pode estar vazio!")
                 .NotEmpty().WithMessage("Nome do usuário não pode estar vazio!")
                 .Length(2, 200).WithMessage("Nome do usuário deve ter mais de 2 caracteres!"); ;

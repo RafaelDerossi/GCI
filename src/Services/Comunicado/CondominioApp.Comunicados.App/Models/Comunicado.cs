@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using FluentValidation.Results;
 using System.Linq;
+using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents;
 
 namespace CondominioApp.Comunicados.App.Models
 {
@@ -22,9 +23,9 @@ namespace CondominioApp.Comunicados.App.Models
         public string NomeCondominio { get; private set; }
 
 
-        public Guid UsuarioId { get; private set; }
+        public Guid FuncionarioId { get; private set; }
 
-        public string NomeUsuario { get; private set; }
+        public string NomeFuncionario { get; private set; }
 
         public VisibilidadeComunicado  Visibilidade { get; private set; }
 
@@ -47,8 +48,8 @@ namespace CondominioApp.Comunicados.App.Models
 
         public Comunicado
             (string titulo, string descricao, DateTime? dataDeRealizacao, Guid condominioId, string nomeCondominio,
-            Guid usuarioId, string nomeUsuario, VisibilidadeComunicado visibilidade, CategoriaComunicado categoria,
-            bool temAnexos, bool criadoPelaAdministradora)
+            Guid funcionarioId, string nomeFuncionario, VisibilidadeComunicado visibilidade,
+            CategoriaComunicado categoria, bool temAnexos, bool criadoPelaAdministradora)
         {
             _Unidades = new List<UnidadeComunicado>();
 
@@ -57,8 +58,8 @@ namespace CondominioApp.Comunicados.App.Models
             DataDeRealizacao = dataDeRealizacao;
             CondominioId = condominioId;
             NomeCondominio = nomeCondominio;
-            UsuarioId = usuarioId;
-            NomeUsuario = nomeUsuario;
+            FuncionarioId = funcionarioId;
+            NomeFuncionario = nomeFuncionario;
             Visibilidade = visibilidade;
             Categoria = categoria;
             TemAnexos = temAnexos;
@@ -75,19 +76,40 @@ namespace CondominioApp.Comunicados.App.Models
 
         public void SetDataDeRealizacao(DateTime? dataDeRealizacao) => DataDeRealizacao = dataDeRealizacao;
 
-        public void SetUsuarioId(Guid usuarioId) => UsuarioId = usuarioId;
-
-        public void SetNomeUsuario(string nomeUsuario) => NomeUsuario = nomeUsuario;
+        public void SetFuncionario(Guid funcionarioId, string nomeFuncionario)
+        {
+            FuncionarioId = funcionarioId;
+            NomeFuncionario = nomeFuncionario;
+        }
 
         public void SetVisibilidade(VisibilidadeComunicado visibilidade) => Visibilidade = visibilidade;
 
         public void SetCategoria(CategoriaComunicado categoria) => Categoria = categoria;
 
-
         public void SetCriadoPelaAdministradora() => CriadoPelaAdministradora = true;
 
 
-        public ValidationResult AdicionarUnidade(UnidadeComunicado unidade)
+        public ValidationResult AdicionarUnidades(IEnumerable<UnidadeComunicado> unidades)
+        {
+            if (Visibilidade == VisibilidadeComunicado.UNIDADES || Visibilidade == VisibilidadeComunicado.PROPRIETARIOS_UNIDADES)
+            {
+                if (unidades == null || unidades.Count() == 0)
+                {
+                    AdicionarErrosDaEntidade("Informe uma ou mais unidades.");
+                    return ValidationResult;
+                }
+
+                foreach (UnidadeComunicado unidade in unidades)
+                {
+                    var resultado = AdicionarUnidade(unidade);
+                    if (!resultado.IsValid)
+                        return resultado;
+                }
+            }
+            return ValidationResult;
+        }
+
+        private ValidationResult AdicionarUnidade(UnidadeComunicado unidade)
         {
 
             if (_Unidades.Any(u => u.UnidadeId == unidade.UnidadeId))
@@ -101,10 +123,115 @@ namespace CondominioApp.Comunicados.App.Models
             return ValidationResult;
         }
 
-        public void RemoverTodasUnidade()
+        private void RemoverTodasUnidade()
         {
             _Unidades.Clear();
         }
 
+
+        public ValidationResult Editar(string titulo, string descricao, DateTime? dataDeRealizacao, Guid funcionarioId,
+            string nomeFuncionario, VisibilidadeComunicado visibilidade, CategoriaComunicado categoria,
+            IEnumerable<UnidadeComunicado> unidades)
+        {
+            SetTitulo(titulo);
+            SetDescricao(descricao);
+            SetDataDeRealizacao(dataDeRealizacao);
+            SetFuncionario(funcionarioId, nomeFuncionario);          
+            SetVisibilidade(visibilidade);
+            SetCategoria(categoria);
+
+            RemoverTodasUnidade();
+
+            AdicionarUnidades(unidades);
+            
+            return ValidationResult;
+        }
+
+
+        public void EnviarPushNovoComunicado()
+        {
+            var titulo = ObterTituloDoPush();
+            var descricao = ObterDescricaoDoPush();
+
+
+            if (Visibilidade == VisibilidadeComunicado.PUBLICO)
+            {
+                AdicionarEvento
+                   (new EnviarPushParaCondominioIntegrationEvent(CondominioId, titulo, descricao));
+                return;
+            }               
+
+
+            if (Visibilidade == VisibilidadeComunicado.UNIDADES)
+            {
+                var lista = ObterIdsDasUnidades();
+                AdicionarEvento
+                        (new EnviarPushParaUnidadesIntegrationEvent(lista, titulo, descricao));
+                return;
+            }
+
+
+            if (Visibilidade == VisibilidadeComunicado.PROPRIETARIOS)
+            {
+                AdicionarEvento
+                    (new EnviarPushParaProprietariosIntegrationEvent(CondominioId, titulo, descricao));
+                return;
+            }                
+           
+
+            if (Visibilidade == VisibilidadeComunicado.PROPRIETARIOS_UNIDADES)
+            {
+                var lista = ObterIdsDasUnidades();
+                AdicionarEvento
+                   (new EnviarPushParaProprietariosPorUnidadeIntegrationEvent(lista, titulo, descricao));
+            }
+               
+         
+
+        }
+
+        private string ObterTituloDoPush()
+        {
+            switch (Categoria)
+            {
+                case CategoriaComunicado.COMUNICADO:
+                    return "COMUNICADO";
+                case CategoriaComunicado.ATA:
+                    return "ATA";
+                case CategoriaComunicado.URGENCIA:
+                    return "URGÊNCIA";
+                case CategoriaComunicado.BALANCETE:
+                    return "BALANCETE";
+                case CategoriaComunicado.COBRANÇA:
+                    return "COBRANÇA";
+                case CategoriaComunicado.MANUTENÇÃO:
+                    return "MANUTENÇÃO";
+                case CategoriaComunicado.AVISO:
+                    return "AVISO";
+                case CategoriaComunicado.OBRA_REFORMA:
+                    return "OBRA/REFORMA";                    
+                default:
+                    return Titulo;
+            }
+        }
+        private string ObterDescricaoDoPush()
+        {
+            switch (Categoria)
+            {   
+                case CategoriaComunicado.OUTROS:
+                    return Descricao;
+                default:
+                    return $"{Titulo} - {Descricao}";
+            }
+        }
+        private IEnumerable<Guid> ObterIdsDasUnidades()
+        {
+            var lista = new List<Guid>();
+            foreach (var item in Unidades)
+            {
+                lista.Add(item.UnidadeId);
+            }
+            return lista;
+        }
     }
 }

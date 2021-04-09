@@ -95,7 +95,14 @@ namespace CondominioApp.Enquetes.App.Data.Repository
         }
 
 
-
+        public void AdicionarAlternativa(AlternativaEnquete entity)
+        {
+            _context.AlternativasEnquete.Add(entity);
+        }
+        public void RemoverAlternativa(AlternativaEnquete entity)
+        {
+            _context.AlternativasEnquete.Remove(entity);
+        }
         public async Task<AlternativaEnquete> ObterAlternativaPorId(Guid Id)
         {
             return await _context.AlternativasEnquete
@@ -109,6 +116,7 @@ namespace CondominioApp.Enquetes.App.Data.Repository
             _context.RespostasEnquete.Add(entity);
         }
 
+       
 
         public void Dispose()
         {

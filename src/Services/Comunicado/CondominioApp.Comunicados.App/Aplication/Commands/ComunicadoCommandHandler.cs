@@ -33,22 +33,13 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
 
             var comunicado = ComunicadoFactory(request);
 
-            if (comunicado.Visibilidade == VisibilidadeComunicado.UNIDADES || comunicado.Visibilidade == VisibilidadeComunicado.PROPRIETARIOS_UNIDADES)
-            {
-                if (request.Unidades==null || request.Unidades.Count() == 0)
-                {
-                    AdicionarErro("Informe uma ou mais unidades.");
-                    return ValidationResult;
-                }
-
-                foreach (UnidadeComunicado unidade in request.Unidades)
-                {
-                    var resultado = comunicado.AdicionarUnidade(unidade);
-                    if (!resultado.IsValid) return resultado;
-                }
-            }
-           
+            var retorno = comunicado.AdicionarUnidades(request.Unidades);
+            if (!retorno.IsValid)
+                return retorno;
+                       
             _ComunicadoRepository.Adicionar(comunicado);
+
+            comunicado.EnviarPushNovoComunicado();
 
             return await PersistirDados(_ComunicadoRepository.UnitOfWork);
         }
@@ -66,13 +57,6 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
                 return ValidationResult;
             }
 
-            comunicado.SetTitulo(request.Titulo);
-            comunicado.SetDescricao(request.Descricao);
-            comunicado.SetDataDeRealizacao(request.DataDeRealizacao);
-            comunicado.SetUsuarioId(request.UsuarioId);
-            comunicado.SetNomeUsuario(request.NomeUsuario);
-            comunicado.SetVisibilidade(request.Visibilidade);
-            comunicado.SetCategoria(request.Categoria);
 
             if (comunicado.Unidades != null)
             {
@@ -81,25 +65,23 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
                     _ComunicadoRepository.RemoverUnidade(unidade);
                 }
             }
-            comunicado.RemoverTodasUnidade();
 
-            if (comunicado.Visibilidade == VisibilidadeComunicado.UNIDADES || comunicado.Visibilidade == VisibilidadeComunicado.PROPRIETARIOS_UNIDADES)
+            var retornotoEdicao = comunicado.Editar
+                (request.Titulo, request.Descricao, request.DataDeRealizacao, request.FuncionarioId,
+                 request.NomeFuncionario, request.Visibilidade, request.Categoria, request.Unidades);
+            if (!retornotoEdicao.IsValid)
+                return retornotoEdicao;
+
+
+            if (comunicado.Unidades != null)
             {
-                if (request.Unidades == null || request.Unidades.Count() == 0)
+                foreach (UnidadeComunicado unidade in comunicado.Unidades)
                 {
-                    AdicionarErro("Informe uma ou mais unidades.");
-                    return ValidationResult;
-                }
-
-                foreach (UnidadeComunicado unidade in request.Unidades)
-                {
-                    var resultado = comunicado.AdicionarUnidade(unidade);
-                    if (!resultado.IsValid) return resultado;
                     _ComunicadoRepository.AdicionarUnidade(unidade);
                 }
-            }           
+            }
 
-
+           
             _ComunicadoRepository.Atualizar(comunicado);
 
             return await PersistirDados(_ComunicadoRepository.UnitOfWork);
@@ -131,7 +113,7 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
         {
             var comunicado = new Comunicado(
                 request.Titulo, request.Descricao, request.DataDeRealizacao, request.CondominioId, 
-                request.NomeCondominio, request.UsuarioId, request.NomeUsuario, request.Visibilidade,
+                request.NomeCondominio, request.FuncionarioId, request.NomeFuncionario, request.Visibilidade,
                 request.Categoria, request.TemAnexos, request.CriadoPelaAdministradora);
 
             comunicado.SetEntidadeId(request.ComunicadoId);
