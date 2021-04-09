@@ -21,6 +21,7 @@ namespace CondominioAppMarketplace.Domain
 
         public Endereco Endereco { get; private set; }
 
+        public Guid ParceiroId { get; private set; }
         public Parceiro Parceiro { get; private set; }
         
         private readonly List<ItemDeVenda> _ItensDeVenda;
@@ -29,10 +30,11 @@ namespace CondominioAppMarketplace.Domain
 
         protected Vendedor(){}
 
-        public Vendedor(string nome, Email email, Cpf cpf, Telefone telefone, 
+        public Vendedor(string nome, Guid parceiroId, Email email, Cpf cpf, Telefone telefone, 
             Endereco endereco)
         {
             Nome = nome;
+            ParceiroId = parceiroId;
             Email = email;
             Cpf = cpf;
             Telefone = telefone;
