@@ -4,7 +4,8 @@ using System;
 using System.Collections.Generic;
 using FluentValidation.Results;
 using System.Linq;
-using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents;
+using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.NotificacaoEmailIntegrationEvent.Comunicado;
+using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.NotificacaoPushIntegrationEvents;
 
 namespace CondominioApp.Comunicados.App.Models
 {
@@ -230,6 +231,28 @@ namespace CondominioApp.Comunicados.App.Models
             foreach (var item in Unidades)
             {
                 lista.Add(item.UnidadeId);
+            }
+            return lista;
+        }
+
+
+        public void EnviarEmailNovoComunicado()
+        {            
+            AdicionarEvento(new EnviarEmailComunicadoIntegrationEvent
+                (Id, Titulo, Descricao, FuncionarioId, Visibilidade,
+                 Categoria, TemAnexos, CondominioId, ObterListaDeUnidadesIds()));
+        }
+
+        private IEnumerable<Guid> ObterListaDeUnidadesIds()
+        {
+            List<Guid> lista = new List<Guid>();
+
+            if (Unidades.Count() == 0)
+                return lista;
+
+            foreach (var unidade in Unidades)
+            {
+                lista.Add(unidade.UnidadeId);
             }
             return lista;
         }

@@ -43,6 +43,8 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
 
             correspondencia.EnviarPush();
 
+            correspondencia.EnviarEmail();
+
             return await PersistirDados(_CorrespondenciaRepository.UnitOfWork);
         }
 
@@ -84,6 +86,8 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
 
             correspondenciaBd.EnviarPush();
 
+            correspondenciaBd.EnviarEmail();
+
             _CorrespondenciaRepository.Atualizar(correspondenciaBd);
 
             return await PersistirDados(_CorrespondenciaRepository.UnitOfWork);
@@ -107,6 +111,8 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
                 return retorno;
 
             correspondenciaBd.EnviarPush();
+
+            correspondenciaBd.EnviarEmail();
 
             _CorrespondenciaRepository.Atualizar(correspondenciaBd);
 

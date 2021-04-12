@@ -44,7 +44,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="wwwroot\Emails\EmailConfirmacaoDeCadastro.html">
+    <Content Update="wwwroot\Emails\Usuario\EmailConfirmacaoDeCadastro.html">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>

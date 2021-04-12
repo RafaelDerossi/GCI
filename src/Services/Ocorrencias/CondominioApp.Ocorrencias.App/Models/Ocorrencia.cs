@@ -1,7 +1,8 @@
-﻿  using CondominioApp.Core.DomainObjects;
+﻿using CondominioApp.Core.DomainObjects;
 using CondominioApp.Core.Enumeradores;
 using CondominioApp.Core.Helpers;
-using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents;
+using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.NotificacaoEmailIntegrationEvent.Ocorrencia;
+using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.NotificacaoPushIntegrationEvents;
 using CondominioApp.Ocorrencias.App.ValueObjects;
 using FluentValidation.Results;
 using System;
@@ -191,32 +192,20 @@ namespace CondominioApp.Ocorrencias.App.Models
 
         public void EnviarPushNovaOcorrencia()
         {
-            var titulo = "";
-            if (Panico)
-            {
-                titulo = "ALERTA";
-
-                AdicionarEvento
-                 (new EnviarPushParaSindicoIntegrationEvent(CondominioId, titulo, Descricao));
-
-                AdicionarEvento
-                (new EnviarPushParaUnidadeIntegrationEvent(UnidadeId, titulo, Descricao));
-
-                return;
-            }
-
-            titulo = "NOVA OCORRÊNCIA";
+            var titulo = ObterTituloParaNovoPushEEmail();
 
             AdicionarEvento
-                 (new EnviarPushParaSindicoIntegrationEvent(CondominioId, titulo, Descricao));
+              (new EnviarPushParaSindicoIntegrationEvent(CondominioId, titulo, Descricao));
 
             AdicionarEvento
-                (new EnviarPushParaMoradorIntegrationEvent(MoradorId, titulo, Descricao));
+            (new EnviarPushParaUnidadeIntegrationEvent(UnidadeId, titulo, Descricao));
+
+            return;
         }
 
         public void EnviarPushOcorrenciaEditada()
         {
-            var titulo = "OCORRÊNCIA EDITADA";
+            var titulo = "Ocorrência Editada";
 
             AdicionarEvento
                  (new EnviarPushParaSindicoIntegrationEvent(CondominioId, titulo, Descricao));
@@ -226,9 +215,8 @@ namespace CondominioApp.Ocorrencias.App.Models
         }
 
         public void EnviarPushOcorrenciaRemovida()
-        {           
-
-            var titulo = "OCORRÊNCIA REMOVIDA";
+        {
+            var titulo = "Ocorrência Removida";
 
             AdicionarEvento
                  (new EnviarPushParaSindicoIntegrationEvent(CondominioId, titulo, Descricao));
@@ -236,6 +224,61 @@ namespace CondominioApp.Ocorrencias.App.Models
             AdicionarEvento
                 (new EnviarPushParaMoradorIntegrationEvent(MoradorId, titulo, Descricao));
         }
-       
+
+
+
+        public void EnviarEmailNovaOcorrencia()
+        {         
+            var titulo = ObterTituloParaNovoPushEEmail();
+            
+            AdicionarEvento
+                 (new EnviarEmailOcorrenciaIntegrationEvent
+                 (titulo, Descricao, NomeMorador, ObterStatusPrivacidade(),
+                  Status.ToString(), DataDeCadastroFormatada, Foto.NomeDoArquivo,
+                  UnidadeId));
+
+            return;
+        }
+
+        public void EnviarEmailOcorrenciaEditada()
+        {
+            var titulo = "Ocorrência Editada";
+
+            AdicionarEvento
+                 (new EnviarEmailOcorrenciaIntegrationEvent
+                 (titulo, Descricao, NomeMorador, ObterStatusPrivacidade(),
+                  Status.ToString(), DataDeAlteracaoFormatada, Foto.NomeDoArquivo,
+                  UnidadeId));
+
+            return;
+        }
+
+        public void EnviarEmailOcorrenciaRemovida()
+        {
+            var titulo = "Ocorrência Removida";
+
+            AdicionarEvento
+                 (new EnviarEmailOcorrenciaIntegrationEvent
+                 (titulo, Descricao, NomeMorador, ObterStatusPrivacidade(),
+                  Status.ToString(), DataDeAlteracaoFormatada, Foto.NomeDoArquivo,
+                  UnidadeId));
+
+            return;
+        }
+
+
+        public string ObterStatusPrivacidade()
+        {
+            if (Publica)
+                return "Pública";
+            return "Privada";
+        }
+
+        public string ObterTituloParaNovoPushEEmail()
+        {
+            if (Panico)
+                return "EMERGÊNCIA"; ;
+            return "Nova Ocorrência";
+        }
     }
 }
