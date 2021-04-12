@@ -11,7 +11,7 @@ namespace CondominioApp.NotificacaoEmail.Api.Email
     {   
         private RespostaOcorrenciaDTO _respostaOcorrencia;        
         private string _logoCondominioApp = "https://condominioappstorage.blob.core.windows.net/condominioapp/Uploads/usuario/572d0886-11c4-4fb3-b806-0d7cf6695bc8.png";
-        private string _caminhoFoto = "https://condominioappstorage.blob.core.windows.net/condominioapp/Uploads/usuario/";
+        private string _caminhoFoto = "https://condominioappstorage.blob.core.windows.net/condominioapp/Uploads/ocorrencias/";
 
         public EmailRespostaOcorrencia(RespostaOcorrenciaDTO respostaOcorrenciaDTO)
         {
