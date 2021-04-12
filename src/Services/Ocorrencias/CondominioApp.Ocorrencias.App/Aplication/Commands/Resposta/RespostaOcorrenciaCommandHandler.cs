@@ -78,7 +78,7 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
 
             resposta.EnviarPushParaSindico(ocorrencia.CondominioId);
 
-            resposta.EnviarEmailParaSindico(ocorrencia.MoradorId, request.Status, ocorrencia.Descricao);
+            resposta.EnviarEmailParaSindico(ocorrencia.CondominioId, request.Status, ocorrencia.Descricao);
 
             _ocorrenciaRepository.AdicionarResposta(resposta);
 
