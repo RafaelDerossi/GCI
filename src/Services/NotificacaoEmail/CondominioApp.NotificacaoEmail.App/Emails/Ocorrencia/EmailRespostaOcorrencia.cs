@@ -11,6 +11,7 @@ namespace CondominioApp.NotificacaoEmail.Api.Email
     {   
         private RespostaOcorrenciaDTO _respostaOcorrencia;        
         private string _logoCondominioApp = "https://condominioappstorage.blob.core.windows.net/condominioapp/Uploads/usuario/572d0886-11c4-4fb3-b806-0d7cf6695bc8.png";
+        private string _caminhoFoto = "https://condominioappstorage.blob.core.windows.net/condominioapp/Uploads/usuario/";
 
         public EmailRespostaOcorrencia(RespostaOcorrenciaDTO respostaOcorrenciaDTO)
         {
@@ -50,10 +51,12 @@ namespace CondominioApp.NotificacaoEmail.Api.Email
             if (string.IsNullOrEmpty(_respostaOcorrencia.Foto))
                 return sb.ToString();
 
+            var caminho = $"{_caminhoFoto}{_respostaOcorrencia.Foto}";
+
             var html =$@"<br /><br /><table cellpadding = ""0"" cellspacing = ""0"" width = ""100%"" role = ""presentation"" style = ""mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"">
                             <tr style = ""border-collapse:collapse"">
                                 <td align=""center"" style=""padding: 0; Margin: 0; font - size:0px"">
-                                    <img class=""adapt - img"" src = ""{_respostaOcorrencia.Foto}"" alt style = ""display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic"" width = ""100%"">
+                                    <img class=""adapt - img"" src = ""{caminho}"" alt style = ""display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic"" width = ""100%"">
                                 </td>
                             </tr>
                           </table>";
