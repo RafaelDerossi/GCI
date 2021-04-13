@@ -1,6 +1,7 @@
 ﻿using CondominioApp.Core.DomainObjects;
 using CondominioApp.Core.Enumeradores;
 using CondominioApp.Core.Helpers;
+using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.NotificacaoPushIntegrationEvents;
 using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy;
 using System;
 using System.Collections.Generic;
@@ -12,22 +13,37 @@ namespace CondominioApp.ReservaAreaComum.Domain
    public class Reserva : Entity, IHorario
     {
         public Guid AreaComumId { get; private set; }
+
         public string Observacao { get; private set; }
+
         public Guid UnidadeId { get; private set; }
+
         public string NumeroUnidade { get; private set; }
+
         public string AndarUnidade { get; private set; }
+
         public string DescricaoGrupoUnidade { get; private set; }
-        public Guid UsuarioId { get; private set; }
-        public string NomeUsuario { get; private set; }
+
+        public Guid MoradorId { get; private set; }
+
+        public string NomeMorador { get; private set; }
+
         public DateTime DataDeRealizacao { get; private set; }
+
         public string HoraInicio { get; private set; }
+
         public string HoraFim { get; private set; }        
+
         public decimal Preco { get; private set; }
 
         public StatusReserva Status { get; private set; }
+
         public string Justificativa { get; private set; }
         
         public string Origem { get; private set; }
+
+        public bool CriadaPelaAdministracao { get; private set; }
+
         public bool ReservadoPelaAdministracao { get; private set; }
 
         public string StatusDescricao
@@ -70,9 +86,9 @@ namespace CondominioApp.ReservaAreaComum.Domain
         protected Reserva() { }
 
         public Reserva(Guid areaComumId, string observacao, Guid unidadeId, string numeroUnidade, 
-            string andarUnidade, string descricaoGrupoUnidade, Guid usuarioId, string nomeUsuario,
+            string andarUnidade, string descricaoGrupoUnidade, Guid moradorId, string nomeMorador,
             DateTime dataDeRealizacao, string horaInicio, string horaFim, decimal preco,
-            string origem, bool reservadoPelaAdministracao)
+            string origem, bool criadaPelaAdministracao, bool reservadoPelaAdministracao)
         {
             AreaComumId = areaComumId;
             Observacao = observacao;
@@ -80,13 +96,14 @@ namespace CondominioApp.ReservaAreaComum.Domain
             NumeroUnidade = numeroUnidade;
             AndarUnidade = andarUnidade;
             DescricaoGrupoUnidade = descricaoGrupoUnidade;
-            UsuarioId = usuarioId;
-            NomeUsuario = nomeUsuario;
+            MoradorId = moradorId;
+            NomeMorador = nomeMorador;
             DataDeRealizacao = dataDeRealizacao;
             HoraInicio = horaInicio;
             HoraFim = horaFim;
             Preco = preco;            
             Origem = origem;
+            CriadaPelaAdministracao = criadaPelaAdministracao;
             ReservadoPelaAdministracao = reservadoPelaAdministracao;
         }
 
@@ -165,10 +182,10 @@ namespace CondominioApp.ReservaAreaComum.Domain
             DescricaoGrupoUnidade = descricaoGrupoUnidade;
         }
 
-        public void SetUsuario(Guid usuarioId, string nomeUsuario)
+        public void SetMorador(Guid id, string nome)
         {
-            UsuarioId = usuarioId;
-            NomeUsuario = nomeUsuario;            
+            MoradorId = id;
+            NomeMorador = nome;            
         }
 
 
@@ -267,5 +284,82 @@ namespace CondominioApp.ReservaAreaComum.Domain
             }
         }
 
+
+
+        public void EnviarPushReservaAprovada(string nomeAreaComum)
+        {
+            var titulo = "Reserva APROVADA";
+            var conteudo = $"Sua solicitação de reserva da(o) {nomeAreaComum} para o dia: {DataDeRealizacao.ToShortDateString()}, no horário: {HoraInicio}-{HoraFim} foi aprovada.";
+            
+            AdicionarEvento
+            (new EnviarPushParaMoradorIntegrationEvent(MoradorId, titulo, conteudo));
+
+            return;
+        }
+
+        public void EnviarPushReservaAguardandoAprovacao(string nomeAreaComum)
+        {
+            var titulo = "Reserva Aguardando Aprovação";
+            var conteudo = $"Sua solicitação de reserva da(o) {nomeAreaComum} para o dia: {DataDeRealizacao.ToShortDateString()}, no horário: {HoraInicio}-{HoraFim} esta aguardando aprovação pela administração do condomínio.";
+
+            AdicionarEvento
+            (new EnviarPushParaMoradorIntegrationEvent(MoradorId, titulo, conteudo));
+
+            return;
+        }
+
+        public void EnviarPushReservaReprovada(string nomeAreaComum)
+        {
+            var titulo = "Reserva REPROVADA";
+            var conteudo = $"Sua solicitação de reserva da(o) {nomeAreaComum} para o dia: {DataDeRealizacao.ToShortDateString()}, no horário: {HoraInicio}-{HoraFim} NÃO foi aprovada! {Justificativa}";
+
+            AdicionarEvento
+            (new EnviarPushParaMoradorIntegrationEvent(MoradorId, titulo, conteudo));
+
+            return;
+        }
+
+        public void EnviarPushReservaNaFila(string nomeAreaComum)
+        {
+            var titulo = "Reserva na FILA";
+            var conteudo = $"Sua solicitação de reserva da(o) {nomeAreaComum} para o dia: {DataDeRealizacao.ToShortDateString()}, no horário: {HoraInicio}-{HoraFim} foi encaminhada para a fila de espera!";
+
+            AdicionarEvento
+            (new EnviarPushParaMoradorIntegrationEvent(MoradorId, titulo, conteudo));
+
+            return;
+        }
+
+        public void EnviarPushReservaCancelada(string nomeAreaComum)
+        {
+            var titulo = "Reserva CANCELADA";
+            var conteudo = $"Sua solicitação de reserva da(o) {nomeAreaComum} para o dia: {DataDeRealizacao.ToShortDateString()}, no horário: {HoraInicio}-{HoraFim} foi CANCELADA! {Justificativa}";
+
+            AdicionarEvento
+            (new EnviarPushParaMoradorIntegrationEvent(MoradorId, titulo, conteudo));
+
+            return;
+        }
+
+        public void EnviarPushReservaRetiradaDaFila(string nomeAreaComum)
+        {
+            switch (Status)
+            {
+                case StatusReserva.APROVADA:
+                    EnviarPushReservaAprovada(nomeAreaComum);
+                    break;
+
+                case StatusReserva.REPROVADA:
+                    EnviarPushReservaReprovada(nomeAreaComum);
+                    break;
+
+                case StatusReserva.AGUARDANDO_APROVACAO:
+                    EnviarPushReservaAguardandoAprovacao(nomeAreaComum);
+                    break;               
+             
+                default:
+                    break;
+            }            
+        }
     }
 }

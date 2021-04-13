@@ -11,10 +11,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Events
 {
     public class ReservaEventHandler : EventHandler,
         INotificationHandler<ReservaCadastradaEvent>,
-        INotificationHandler<ReservaAprovadaEvent>,
-        INotificationHandler<ReservaCanceladaEvent>,
-        INotificationHandler<ReservaRetiradaDaFilaEvent>,
-        INotificationHandler<ReservaAguardandoAprovacaoEvent>,
+        INotificationHandler<StatusDaReservaAlteradoEvent>,
         System.IDisposable
     {
        
@@ -37,77 +34,31 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Events
                 notification.AreaComumId, notification.NomeAreaComum, notification.CondominioId,
                 notification.NomeCondominio, notification.Capacidade, notification.Observacao,
                 notification.UnidadeId, notification.NumeroUnidade, notification.AndarUnidade,
-                notification.DescricaoGrupoUnidade, notification.UsuarioId, notification.NomeUsuario,
+                notification.DescricaoGrupoUnidade, notification.MoradorId, notification.NomeMorador,
                 notification.DataDeRealizacao, notification.HoraInicio, notification.HoraFim,
                 notification.Preco, notification.Status, notification.Justificativa, notification.Origem,
-                notification.ReservadoPelaAdministracao);
+                notification.CriadaPelaAdministracao, notification.ReservadoPelaAdministracao);
 
             _reservaAreaComumQueryRepository.AdicionarReserva(reservaFlat);
 
             await PersistirDados(_reservaAreaComumQueryRepository.UnitOfWork);
         }
 
-        public async Task Handle(ReservaAprovadaEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(StatusDaReservaAlteradoEvent notification, CancellationToken cancellationToken)
         {
             var reservaFlat = await _reservaAreaComumQueryRepository.ObterReservaPorId(notification.Id);
             if (reservaFlat == null)
-            {
                 return;
-            }
             
-            reservaFlat.Aprovar(notification.Justificativa);
+            reservaFlat.SetStatus(notification.Status, notification.Justificativa);
+            reservaFlat.SetObservacao(notification.Observacao);
 
             _reservaAreaComumQueryRepository.AtualizarReserva(reservaFlat);
 
             await PersistirDados(_reservaAreaComumQueryRepository.UnitOfWork);
                      
         }
-
-        public async Task Handle(ReservaCanceladaEvent notification, CancellationToken cancellationToken)
-        {           
-            var reservaFlat = await _reservaAreaComumQueryRepository.ObterReservaPorId(notification.Id);
-            if (reservaFlat == null)
-            {
-                return;
-            }
-
-            reservaFlat.Cancelar(notification.Justificativa);
-
-            _reservaAreaComumQueryRepository.AtualizarReserva(reservaFlat);
-
-            await PersistirDados(_reservaAreaComumQueryRepository.UnitOfWork);
-            
-        }
-
-        public async Task Handle(ReservaAguardandoAprovacaoEvent notification, CancellationToken cancellationToken)
-        {
-            var reservaFlat = await _reservaAreaComumQueryRepository.ObterReservaPorId(notification.Id);
-            if (reservaFlat == null)
-                return;
-
-            reservaFlat.SetObservacao(notification.Observacao);
-
-            reservaFlat.SetStatus(notification.Status, notification.Justificativa);
-
-            _reservaAreaComumQueryRepository.AtualizarReserva(reservaFlat);
-
-            await PersistirDados(_reservaAreaComumQueryRepository.UnitOfWork);
-
-        }
-
-        public async Task Handle(ReservaRetiradaDaFilaEvent notification, CancellationToken cancellationToken)
-        {
-            var reservaFlat = await _reservaAreaComumQueryRepository.ObterReservaPorId(notification.Id);
-            if (reservaFlat == null)
-                return;
-
-            reservaFlat.AguardarAprovacao(notification.Justificativa);
-
-            _reservaAreaComumQueryRepository.AtualizarReserva(reservaFlat);
-
-            await PersistirDados(_reservaAreaComumQueryRepository.UnitOfWork);
-
-        }
+      
 
 
         public void Dispose()

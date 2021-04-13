@@ -32,7 +32,8 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
         {
             public AguardarAprovacaoDaReservaPelaAdmCommandValidation()
             {
-                ValidateId();                
+                ValidateId();
+                ValidateJustificativa();
             }
         }
 

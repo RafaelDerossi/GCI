@@ -226,38 +226,62 @@ namespace CondominioApp.ReservaAreaComum.Domain
         }
 
 
+
         public ValidationResult ValidarReserva(Reserva reserva)
         {
-            GerenciadorDeReserva Gerenciador;
+            if (reserva.CriadaPelaAdministracao)
+                return ValidarReservaCriadaPelaAdministracao(reserva);
 
-            if (reserva.Origem != "Sistema Web")
-            {
-                Gerenciador = new GerenciadorDeReserva(new RegrasDeClienteParaReservar(reserva, this));
-
-                var resultado = Gerenciador.Validar();
-
-                if (!resultado.IsValid) return resultado;
-            }
-            else
-            {
-                Gerenciador = new GerenciadorDeReserva(new RegrasDeAdministradorParaReservar(reserva, this));
-
-                var resultado = Gerenciador.Validar();
-
-                if (!resultado.IsValid) return resultado;
-            }
-
-            if (PermiteReservaSobreposta && TemHorariosEspecificos)
-                Gerenciador = new GerenciadorDeReserva(
-                    new RegrasGlobaisParaReservar(reserva, this, new RegraDeReservaSobreposta(this, reserva)));
-            else
-                Gerenciador = new GerenciadorDeReserva(
-                    new RegrasGlobaisParaReservar(reserva, this, new RegrasDeReservaLimiteDeVagasPorHorario(reserva, this)));
-
-
-            return Gerenciador.Validar();
+            
+            return ValidarReservaCriadaPorMorador(reserva);            
         }
       
+        private ValidationResult ValidarReservaCriadaPelaAdministracao(Reserva reserva)
+        {
+            var Gerenciador = new GerenciadorDeReserva(new RegrasDeAdministradorParaReservar(reserva, this));
+            var resultado = Gerenciador.Validar();
+            if (!resultado.IsValid)
+                return resultado;
+
+            
+            return ValidarReservaRegrasGlobais(reserva);
+            
+        }
+
+        private ValidationResult ValidarReservaCriadaPorMorador(Reserva reserva)
+        {
+            var Gerenciador = new GerenciadorDeReserva(new RegrasDeClienteParaReservar(reserva, this));
+            var resultado = Gerenciador.Validar();
+            if (!resultado.IsValid)
+                return resultado;
+
+            return ValidarReservaRegrasGlobais(reserva);
+        }
+
+        private ValidationResult ValidarReservaRegrasGlobais(Reserva reserva)
+        {
+            if (PermiteReservaSobreposta && TemHorariosEspecificos)
+                return ValidarReservaComSobreposicao(reserva);
+
+
+            return ValidarReservaSemSobreposicao(reserva);
+        }
+
+        private ValidationResult ValidarReservaComSobreposicao(Reserva reserva)
+        {
+            var Gerenciador = new GerenciadorDeReserva(
+                   new RegrasGlobaisParaReservar(reserva, this, new RegraDeReservaSobreposta(this, reserva)));
+            return Gerenciador.Validar();
+        }
+
+        private ValidationResult ValidarReservaSemSobreposicao(Reserva reserva)
+        {
+            var Gerenciador = new GerenciadorDeReserva(
+                    new RegrasGlobaisParaReservar(reserva, this, new RegrasDeReservaLimiteDeVagasPorHorario(reserva, this)));
+            return Gerenciador.Validar();
+        }
+
+
 
         public Reserva RetirarProximaReservaDaFila(Reserva reservaCancelada)
         {
@@ -284,8 +308,10 @@ namespace CondominioApp.ReservaAreaComum.Domain
                     if (!RequerAprovacaoDeReserva)
                         reserva.Aprovar("Reserva restaurada da fila");
 
-                    return reserva;
-                }               
+                    AdicionarReserva(reserva);
+                }
+
+                return reserva;
             }
             return null;
         }
@@ -368,6 +394,7 @@ namespace CondominioApp.ReservaAreaComum.Domain
 
             return ValidationResult;
         }
+
 
         public Reserva ObterReserva(Guid reservaId)
         {

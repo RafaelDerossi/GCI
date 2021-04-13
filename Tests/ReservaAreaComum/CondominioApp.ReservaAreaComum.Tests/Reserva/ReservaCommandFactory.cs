@@ -74,7 +74,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
         {
             var comando = CadastrarReservaCommandFactory();
 
-            comando.SetUsuarioId(Guid.Empty);
+            comando.SetMoradorId(Guid.Empty);
 
             return comando;
         }
@@ -83,7 +83,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
         {
             var comando = CadastrarReservaCommandFactory();
 
-            comando.SetNomeUsuario("");
+            comando.SetNomeMorador("");
 
             return comando;
         }

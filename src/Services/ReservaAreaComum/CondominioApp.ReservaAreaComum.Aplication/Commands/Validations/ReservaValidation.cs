@@ -51,15 +51,15 @@ namespace CondominioApp.Principal.Aplication.Commands.Validations
                 .Length(2, 200).WithMessage("Descrição do Grupo da Unidade deve ter mais de 2 caracteres!");
         }
 
-        protected void ValidateUsuarioId()
+        protected void ValidateMoradorId()
         {
-            RuleFor(c => c.UsuarioId)
+            RuleFor(c => c.MoradorId)
                 .NotEqual(Guid.Empty);
         }
 
-        protected void ValidateNomeUsuario()
+        protected void ValidateNomeMorador()
         {
-            RuleFor(c => c.NomeUsuario)
+            RuleFor(c => c.NomeMorador)
                 .NotEmpty().WithMessage("Nome do Usuario não pode estar vazio!")
                 .Length(2, 200).WithMessage("Nome do Usuario deve ter mais de 2 caracteres!");
         }
@@ -88,28 +88,16 @@ namespace CondominioApp.Principal.Aplication.Commands.Validations
                 .Matches("[012][0-9]:[0-5][0-9]").WithMessage("Hora Fim inválida!");
         }
 
-        protected void ValidateAtiva()
-        {
-            RuleFor(c => c.Ativa)
-                .NotNull().WithMessage("'Ativa' não pode estar vazio!");
-        }
-
         protected void ValidatePreco()
         {
             RuleFor(c => c.Preco)
                 .NotNull().WithMessage("Preço não pode estar vazio!");
-        }
-
-        protected void ValidateEstaNaFila()
-        {
-            RuleFor(c => c.EstaNaFila)
-                .NotNull().WithMessage("'Esta na Fila' não pode estar vazio!");
-        }
+        }     
 
         protected void ValidateJustificativa()
         {
             RuleFor(c => c.Justificativa)
-                .Length(0, 200).WithMessage("Justificativa deve ter no máximo 200 caracteres!");
+                .Length(0, 500).WithMessage("Justificativa deve ter no máximo 500 caracteres!");
         }
 
         protected void ValidateOrigem()
@@ -118,10 +106,17 @@ namespace CondominioApp.Principal.Aplication.Commands.Validations
                 .Length(0, 200).WithMessage("Origem deve ter no máximo 200 caracteres!");
         }
 
+        protected void ValidateCriadoPelaAdministracao()
+        {
+            RuleFor(c => c.CriadaPelaAdministracao)
+                .NotNull().WithMessage("'Criado pela Administracao' não pode estar vazio!");
+        }
+
         protected void ValidateReservadoPelaAdministracao()
         {
             RuleFor(c => c.ReservadoPelaAdministracao)
                 .NotNull().WithMessage("'Reservado pela Administracao' não pode estar vazio!");
         }
+
     }
 }

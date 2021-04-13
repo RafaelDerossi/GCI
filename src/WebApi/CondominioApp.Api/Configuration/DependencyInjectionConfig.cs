@@ -320,15 +320,17 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<INotificationHandler<AreaComumRemovidaEvent>, AreaComumEventHandler>();
 
             //Reserva
-            services.AddScoped<IRequestHandler<CadastrarReservaCommand, ValidationResult>, ReservaCommandHandler>();
+            services.AddTransient<IRequestHandler<CadastrarReservaCommand, ValidationResult>, ReservaCommandHandler>();
+            services.AddTransient<IRequestHandler<AprovarReservaAutomaticamenteCommand, ValidationResult>, ReservaCommandHandler>();
+            services.AddTransient<IRequestHandler<ReprovarReservaCommand, ValidationResult>, ReservaCommandHandler>();
+            services.AddTransient<IRequestHandler<AguardarAprovacaoDaReservaPelaAdmCommand, ValidationResult>, ReservaCommandHandler>();
+            services.AddTransient<IRequestHandler<EnviarReservaParaFilaCommand, ValidationResult>, ReservaCommandHandler>();
             services.AddTransient<IRequestHandler<AprovarReservaPelaAdministracaoCommand, ValidationResult>, ReservaCommandHandler>();
-            services.AddScoped<IRequestHandler<CancelarReservaComoUsuarioCommand, ValidationResult>, ReservaCommandHandler>();
-            services.AddScoped<IRequestHandler<CancelarReservaComoAdministradorCommand, ValidationResult>, ReservaCommandHandler>();
-            services.AddScoped<IRequestHandler<RetirarReservaDaFilaCommand, ValidationResult>, ReservaCommandHandler>();
-            services.AddScoped<INotificationHandler<ReservaCadastradaEvent>, ReservaEventHandler>();
-            services.AddScoped<INotificationHandler<ReservaAprovadaEvent>, ReservaEventHandler>();
-            services.AddScoped<INotificationHandler<ReservaCanceladaEvent>, ReservaEventHandler>();
-            services.AddScoped<INotificationHandler<ReservaRetiradaDaFilaEvent>, ReservaEventHandler>();
+            services.AddTransient<IRequestHandler<CancelarReservaComoUsuarioCommand, ValidationResult>, ReservaCommandHandler>();
+            services.AddTransient<IRequestHandler<CancelarReservaComoAdministradorCommand, ValidationResult>, ReservaCommandHandler>();
+            services.AddTransient<IRequestHandler<RetirarReservaDaFilaCommand, ValidationResult>, ReservaCommandHandler>();
+            services.AddTransient<INotificationHandler<ReservaCadastradaEvent>, ReservaEventHandler>();
+            services.AddTransient<INotificationHandler<StatusDaReservaAlteradoEvent>, ReservaEventHandler>();            
 
             #endregion
 

@@ -8,29 +8,53 @@ namespace CondominioApp.ReservaAreaComum.Domain.FlatModel
         public const int Max = 200;
 
         public Guid Id { get; private set; }
+
         public DateTime DataDeCadastro { get; private set; }
+
         public DateTime DataDeAlteracao { get; private set; }
+
         public bool Lixeira { get; private set; }
 
         public Guid AreaComumId { get; private set; }
+
         public string NomeAreaComum { get; private set; }       
+
         public Guid CondominioId { get; private set; }
+
         public string NomeCondominio { get; private set; }
+
         public int Capacidade { get; private set; }        
+
         public string Observacao { get; private set; }
+
         public Guid UnidadeId { get; private set; }
+
         public string NumeroUnidade { get; private set; }
+
         public string AndarUnidade { get; private set; }
+
         public string DescricaoGrupoUnidade { get; private set; }
-        public Guid UsuarioId { get; private set; }
-        public string NomeUsuario { get; private set; }
+
+        public Guid MoradorId { get; private set; }
+
+        public string NomeMorador { get; private set; }
+
         public DateTime DataDeRealizacao { get; private set; }
+
         public string HoraInicio { get; private set; }
+
         public string HoraFim { get; private set; }        
+
         public decimal Preco { get; private set; }
+
         public StatusReserva Status { get; private set; }        
+
         public string Justificativa { get; private set; }
+
         public string Origem { get; private set; }
+
+        public bool CriadaPelaAdministracao { get; private set; }
+
         public bool ReservadoPelaAdministracao { get; private set; }
 
         public string StatusDescricao
@@ -75,9 +99,10 @@ namespace CondominioApp.ReservaAreaComum.Domain.FlatModel
 
         public ReservaFlat(Guid id, Guid areaComumId,
             string nomeAreaComum, Guid condominioId, string nomeCondominio,int capacidade, string observacao,
-            Guid unidadeId, string numeroUnidade, string andarUnidade, string descricaoGrupoUnidade, Guid usuarioId,
-            string nomeUsuario, DateTime dataDeRealizacao, string horaInicio, string horaFim, decimal preco,
-            StatusReserva status, string justificatica, string origem, bool reservadoPelaAdministracao)
+            Guid unidadeId, string numeroUnidade, string andarUnidade, string descricaoGrupoUnidade, Guid moradorId,
+            string nomeMorador, DateTime dataDeRealizacao, string horaInicio, string horaFim, decimal preco,
+            StatusReserva status, string justificatica, string origem, bool criadaPelaAdministracao,
+            bool reservadoPelaAdministracao)
         {
             Id = id;           
             AreaComumId = areaComumId;
@@ -90,8 +115,8 @@ namespace CondominioApp.ReservaAreaComum.Domain.FlatModel
             NumeroUnidade = numeroUnidade;
             AndarUnidade = andarUnidade;
             DescricaoGrupoUnidade = descricaoGrupoUnidade;
-            UsuarioId = usuarioId;
-            NomeUsuario = nomeUsuario;
+            MoradorId = moradorId;
+            NomeMorador = nomeMorador;
             DataDeRealizacao = dataDeRealizacao;
             HoraInicio = horaInicio;
             HoraFim = horaFim;
@@ -99,6 +124,7 @@ namespace CondominioApp.ReservaAreaComum.Domain.FlatModel
             Status = status;
             Justificativa = justificatica;
             Origem = origem;
+            CriadaPelaAdministracao = criadaPelaAdministracao;
             ReservadoPelaAdministracao = reservadoPelaAdministracao;           
         }
              

@@ -30,9 +30,9 @@ namespace CondominioApp.Principal.Infra.Data.Mapping
 
             builder.Property(u => u.DescricaoGrupoUnidade).IsRequired();
 
-            builder.Property(u => u.UsuarioId).IsRequired();
+            builder.Property(u => u.MoradorId).IsRequired();
 
-            builder.Property(u => u.NomeUsuario).IsRequired();
+            builder.Property(u => u.NomeMorador).IsRequired();
 
             builder.Property(u => u.HoraInicio).IsRequired().HasColumnType($"varchar({ReservaFlat.Max})");
 

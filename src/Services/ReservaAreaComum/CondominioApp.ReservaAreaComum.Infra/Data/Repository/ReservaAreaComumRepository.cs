@@ -52,7 +52,12 @@ namespace CondominioApp.Principal.Infra.Data.Repository
         {
             _context.Reservas.Add(entity);
         }
-       
+
+        public void AtualizarReserva(Reserva entity)
+        {
+            _context.Reservas.Update(entity);
+        }
+
 
 
         public async Task<IEnumerable<AreaComum>> Obter(Expression<Func<AreaComum, bool>> expression, bool OrderByDesc = false, int take = 0)
@@ -136,6 +141,8 @@ namespace CondominioApp.Principal.Infra.Data.Repository
                                           .OrderByDescending(r => r.DataDeCadastro)
                                           .FirstOrDefaultAsync();
         }
+
+        
 
         public void Dispose()
         {

@@ -66,7 +66,7 @@ namespace CondominioApp.ReservaAreaComum.App.Aplication.Query
 
         public async Task<IEnumerable<ReservaFlat>> ObterReservasPorUsuario(Guid usuarioId)
         {
-            return await _reservaAreaComumQueryRepository.ObterReserva(r => r.UsuarioId == usuarioId && !r.Lixeira);
+            return await _reservaAreaComumQueryRepository.ObterReserva(r => r.MoradorId == usuarioId && !r.Lixeira);
         }
 
         public async Task<IEnumerable<ReservaFlat>> ObterReservasPorAreaComum(Guid areaComumId)

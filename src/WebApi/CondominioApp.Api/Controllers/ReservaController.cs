@@ -7,6 +7,7 @@ using CondominioApp.ReservaAreaComum.Aplication.ViewModels;
 using CondominioApp.ReservaAreaComum.App.Aplication.Query;
 using CondominioApp.ReservaAreaComum.Domain.FlatModel;
 using CondominioApp.Usuarios.App.Aplication.Query;
+using CondominioApp.Usuarios.App.FlatModel;
 using CondominioApp.Usuarios.App.Models;
 using CondominioApp.WebApi.Core.Controllers;
 using Microsoft.AspNetCore.Mvc;
@@ -103,10 +104,10 @@ namespace CondominioApp.Api.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var usuario = await _usuarioQuery.ObterPorId(reservaVM.UsuarioId);
-            if (usuario == null)
+            var morador = await _usuarioQuery.ObterMoradorPorId(reservaVM.MoradorId);
+            if (morador == null)
             {
-                AdicionarErroProcessamento("Usuario não encontrado!");
+                AdicionarErroProcessamento("Morador não encontrado!");
                 return CustomResponse();
             }
 
@@ -117,7 +118,7 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }
 
-            var comando = CadastrarReservaCommandFactory(reservaVM, unidade, usuario);
+            var comando = CadastrarReservaCommandFactory(reservaVM, unidade, morador);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
@@ -170,13 +171,15 @@ namespace CondominioApp.Api.Controllers
 
 
 
-        private CadastrarReservaCommand CadastrarReservaCommandFactory(CadastraReservaViewModel reservaVM, UnidadeFlat unidade, Usuario usuario)
+        private CadastrarReservaCommand CadastrarReservaCommandFactory
+            (CadastraReservaViewModel reservaVM, UnidadeFlat unidade, MoradorFlat morador)
         {            
             return new CadastrarReservaCommand(
                   reservaVM.AreaComumId, reservaVM.Observacao, unidade.Id, unidade.Numero,
-                  unidade.Andar, unidade.GrupoDescricao, usuario.Id,
-                  usuario.NomeCompleto, reservaVM.DataDeRealizacao, reservaVM.HoraInicio, reservaVM.HoraFim,
-                  reservaVM.Preco, reservaVM.Origem, reservaVM.ReservadoPelaAdministracao);
+                  unidade.Andar, unidade.GrupoDescricao, morador.Id,
+                  morador.Nome, reservaVM.DataDeRealizacao, reservaVM.HoraInicio, reservaVM.HoraFim,
+                  reservaVM.Preco, reservaVM.Origem,reservaVM.CriadaPelaAdministracao,
+                  reservaVM.ReservadoPelaAdministracao);
         }
 
     }

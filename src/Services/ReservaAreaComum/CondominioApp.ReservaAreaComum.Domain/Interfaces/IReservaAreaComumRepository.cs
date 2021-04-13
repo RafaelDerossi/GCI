@@ -20,5 +20,7 @@ namespace CondominioApp.ReservaAreaComum.Domain.Interfaces
         void RemoverPeriodo(Periodo entity);
 
         void AdicionarReserva(Reserva entity);
+
+        void AtualizarReserva(Reserva entity);
     }
 }

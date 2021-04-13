@@ -32,7 +32,8 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
         {
             public EnviarReservaParaFilaCommandValidation()
             {
-                ValidateId();                
+                ValidateId();
+                ValidateJustificativa();
             }
         }
 

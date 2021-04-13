@@ -1,4 +1,5 @@
-﻿using CondominioApp.Core.Mediator;
+﻿using CondominioApp.Core.Enumeradores;
+using CondominioApp.Core.Mediator;
 using CondominioApp.ReservaAreaComum.Aplication.Commands;
 using CondominioApp.ReservaAreaComum.Domain.Interfaces;
 using Microsoft.Extensions.Hosting;
@@ -57,26 +58,17 @@ namespace CondominioApp.Api.FilaDeReservas
                 
                 if (!retorno.IsValid)
                 {
-                    switch (reserva.Status)
+                    if (reserva.Status == StatusReserva.NA_FILA)
                     {
-                        case Core.Enumeradores.StatusReserva.PROCESSANDO:
-                            break;
-                        case Core.Enumeradores.StatusReserva.APROVADA:
-                            break;
-                        case Core.Enumeradores.StatusReserva.REPROVADA:
-                            break;
-                        case Core.Enumeradores.StatusReserva.AGUARDANDO_APROVACAO:
-                            break;
-                        case Core.Enumeradores.StatusReserva.NA_FILA:
-                            break;
-                        case Core.Enumeradores.StatusReserva.CANCELADA:
-                            break;
-                        case Core.Enumeradores.StatusReserva.EXPIRADA:
-                            break;
-                        case Core.Enumeradores.StatusReserva.REMOVIDA:
-                            break;
-                        default:
-                            break;
+                        var comando = new EnviarReservaParaFilaCommand(reserva.Id, reserva.Justificativa);
+                        var Resultado = _mediatorHandler.EnviarComando(comando).Result;
+                    }
+
+
+                    if (reserva.Status == StatusReserva.REPROVADA)
+                    {
+                        var comando = new ReprovarReservaCommand(reserva.Id, reserva.Justificativa);
+                        var Resultado = _mediatorHandler.EnviarComando(comando).Result;
                     }
                 }
             }
