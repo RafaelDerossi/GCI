@@ -1,4 +1,5 @@
-﻿using FluentValidation.Results;
+﻿using CondominioApp.Core.Enumeradores;
+using FluentValidation.Results;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -19,10 +20,8 @@ namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.ReservaSobrepost
         public override ValidationResult Validar()
         {
             List<Reserva> ReservasAprovadas = _areaComum.Reservas
-                .Where(x => x.Ativa &&
-                            x.DataDeRealizacao == _reserva.DataDeRealizacao &&
-                            !x.EstaNaFila &&
-                            !x.Cancelada &&
+                .Where(x => x.Status == StatusReserva.APROVADA &&
+                            x.DataDeRealizacao == _reserva.DataDeRealizacao &&                            
                             !x.Lixeira)
                 .ToList();
             
@@ -44,12 +43,14 @@ namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.ReservaSobrepost
 
                 if (overlap && reserva.ReservadoPelaAdministracao)
                 {
-                    AdicionarErros("Este período foi reservado pela administração de seu condomínio!");
+                    _reserva.Reprovar("Este período foi reservado pela administração de seu condomínio!");
+                    AdicionarErros(_reserva.Justificativa);
                     return ValidationResult;
                 }
                 else if(overlap)
                 {
-                    AdicionarErros("O horário que você deseja esta comprometido, deseja ficar em uma fila de espera?");
+                    _reserva.EnviarParaFila("O horário que você deseja esta comprometido, sua solicitação de reserva foi encaminhada para a fila de espera.");
+                    AdicionarErros(_reserva.Justificativa);
                     return ValidationResult;
                 }
             }

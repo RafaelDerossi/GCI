@@ -1,4 +1,5 @@
-﻿using CondominioApp.Core.Helpers;
+﻿using CondominioApp.Core.Enumeradores;
+using CondominioApp.Core.Helpers;
 using CondominioApp.ReservaAreaComum.Domain.ValueObject;
 using FluentValidation.Results;
 using System;
@@ -30,7 +31,8 @@ namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy
             //Regra para não permitir Reserva Retroativa
             if (_reserva.DataDeRealizacao.Date < DateTime.Today.Date)
             {
-                AdicionarErros("A data de realização da reserva deve ser maior ou igual a de hoje");
+                _reserva.Reprovar("A data de realização da reserva deve ser maior ou igual a de hoje");                
+                AdicionarErros(_reserva.Justificativa);
                 return ValidationResult;
             }
 
@@ -40,7 +42,8 @@ namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy
                 BloqueioDeArea bloqueioDeAreaComum = new BloqueioDeArea(_areaComum.DataInicioBloqueio.Value, _areaComum.DataFimBloqueio.Value);
                 if (bloqueioDeAreaComum.EstaBloqueada(_reserva.DataDeRealizacao))
                 {
-                    AdicionarErros(bloqueioDeAreaComum.ToString());
+                    _reserva.Reprovar(bloqueioDeAreaComum.ToString());                    
+                    AdicionarErros(_reserva.Justificativa);
                     return ValidationResult;
                 }
             }
@@ -54,7 +57,8 @@ namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy
 
                 if (dataRealizacaoSubtraida.Date > DataHoraDeBrasilia.Get().Date)
                 {
-                    AdicionarErros($"Esta reserva é permitida no máximo até dia {string.Format("{0:d }", dataHojeSomada)}!");
+                    _reserva.Reprovar($"Esta reserva é permitida no máximo até dia {string.Format("{0:d }", dataHojeSomada)}!");                    
+                    AdicionarErros(_reserva.Justificativa);
                     return ValidationResult;
                 }                   
             }
@@ -66,7 +70,8 @@ namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy
 
                 if (dataRealizacaoSubtraida.Date < DataHoraDeBrasilia.Get().Date)
                 {
-                    AdicionarErros($"Esta reserva apenas é permitida com {_areaComum.AntecedenciaMinimaEmDias} dia(s) de antecedência!");
+                    _reserva.Reprovar($"Esta reserva apenas é permitida com {_areaComum.AntecedenciaMinimaEmDias} dia(s) de antecedência!");                    
+                    AdicionarErros(_reserva.Justificativa);
                     return ValidationResult;
                 }
             }
@@ -75,7 +80,8 @@ namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy
             string[] arrayDias = _areaComum.DiasPermitidos.ToUpper().Split('|');
             if (!arrayDias.Any(x => x.Equals(_reserva.DataDeRealizacao.DayOfWeek.ToString().ToUpper())))
             {
-                AdicionarErros("Não é possível efetuar uma reserva desta área para o dia da semana selecionado.");
+                _reserva.Reprovar("Não é possível efetuar uma reserva desta área para o dia da semana selecionado.");                
+                AdicionarErros(_reserva.Justificativa);
                 return ValidationResult;
             }
 
@@ -85,11 +91,12 @@ namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy
                 if (_areaComum.Reservas
                     .Where(x => x.UnidadeId == _reserva.UnidadeId &&
                            x.DataDeRealizacao == _reserva.DataDeRealizacao &&
-                           !x.Cancelada && 
+                           x.Status == StatusReserva.APROVADA && 
                            !x.Lixeira)
                     .Count() >= _areaComum.NumeroLimiteDeReservaPorUnidade)
                 {
-                    AdicionarErros("Limite de reservas diárias desta unidade alcançado!");
+                    _reserva.Reprovar("Limite de reservas diárias desta unidade alcançado!");                    
+                    AdicionarErros(_reserva.Justificativa);
                     return ValidationResult;
                 }
             }           
@@ -119,7 +126,8 @@ namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy
                     HoraFimReserva > HoraFimPermitido ||
                     HoraFimReserva <= HoraInicioPermitido)
                 {
-                    AdicionarErros("Horário não permitido.");
+                    _reserva.Reprovar("Horário não permitido.");                    
+                    AdicionarErros(_reserva.Justificativa);
                     return ValidationResult;
                 }
             }
@@ -128,7 +136,8 @@ namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy
                 if ((HoraInicioReversa < HoraInicioPermitido && HoraInicioReversa >= HoraFimPermitido) ||
                     (HoraFimReserva > HoraFimPermitido && HoraFimReserva <= HoraInicioPermitido))
                 {
-                    AdicionarErros("Horário não permitido.");
+                    _reserva.Reprovar("Horário não permitido.");                    
+                    AdicionarErros(_reserva.Justificativa);
                     return ValidationResult;
                 }
             }           
@@ -145,26 +154,56 @@ namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy
             if (_areaComum.ObterHorasDeIntervaloDeReservaPorUnidade == 0 && _areaComum.ObterMinutosDeIntervaloDeReservaPorUnidade == 0)
                 return ValidationResult;
 
-            Reserva ultimaReserva = _areaComum.Reservas
-                .Where(r => r.UnidadeId == _reserva.UnidadeId && !r.Lixeira && !r.Cancelada)
-                .OrderByDescending(r => r.DataDeRealizacao)
-                .FirstOrDefault();
+            if (_areaComum.Reservas.Any(r => r.UnidadeId == _reserva.UnidadeId &&
+                                             r.DataDeRealizacao == _reserva.DataDeRealizacao &&
+                                             r.HoraInicio == _reserva.HoraInicio &&
+                                             r.HoraFim == _reserva.HoraFim &&
+                                            !r.Lixeira &&
+                                             r.Status == StatusReserva.APROVADA))
+                return ValidationResult;          
 
-            if (ultimaReserva == null)
+
+            var dataHJ = DataHoraDeBrasilia.Get().Date;
+            
+            List<Reserva> ultimasReserva = _areaComum.Reservas
+                                            .Where(r => r.UnidadeId == _reserva.UnidadeId && r.DataDeRealizacao >= dataHJ)
+                                            .OrderByDescending(r => r.DataDeRealizacao)
+                                            .ToList();
+
+            if (ultimasReserva.Count() == 0)
                 return ValidationResult;
 
-            DateTime dataPermitidaParaAProximaReserva = ultimaReserva
-                                                        .ObterDataHoraFimDaRealizacao()
-                                                        .AddHours(_areaComum.ObterHorasDeIntervaloDeReservaPorUnidade)
-                                                        .AddMinutes(_areaComum.ObterMinutosDeIntervaloDeReservaPorUnidade); ;
+            DateTime dataHoraInicioDaRealizacao = _reserva.ObterDataHoraInicioDaRealizacao();
+            DateTime dataHoraFimDaRealizacao = _reserva.ObterDataHoraFimDaRealizacao();
+            var horasDeIntervalo = _areaComum.ObterHorasDeIntervaloDeReservaPorUnidade;
+            var minutosDeIntervalo = _areaComum.ObterMinutosDeIntervaloDeReservaPorUnidade;
 
-            DateTime dataDaRealizacao = _reserva.ObterDataHoraInicioDaRealizacao();
-
-            if (dataPermitidaParaAProximaReserva > dataDaRealizacao)
+            foreach (var reserva in ultimasReserva)
             {
-                AdicionarErros("A sua unidade só poderá realizar uma nova reserva nesta área comum para " +
-                    dataPermitidaParaAProximaReserva.ToLongDateString() + " as " + dataPermitidaParaAProximaReserva.ToLongTimeString());                
+                DateTime dataPermitidaParaAProximaReservaAntes = reserva.ObterDataHoraInicioDaRealizacao()
+                                                                         .AddHours(-horasDeIntervalo)
+                                                                         .AddMinutes(-minutosDeIntervalo);
+
+                DateTime dataPermitidaParaAProximaReservaDepois = reserva.ObterDataHoraFimDaRealizacao()
+                                                                         .AddHours(horasDeIntervalo)
+                                                                         .AddMinutes(minutosDeIntervalo);
+
+
+
+
+                if (dataHoraFimDaRealizacao > dataPermitidaParaAProximaReservaAntes && dataHoraInicioDaRealizacao < dataPermitidaParaAProximaReservaDepois)
+                {
+                    _reserva.Reprovar(@$"Você não pode realizar uma nova reserva nesta área comum entre
+                                      {dataPermitidaParaAProximaReservaAntes.ToLongDateString()} as 
+                                      {dataPermitidaParaAProximaReservaAntes.ToLongTimeString()} e 
+                                      {dataPermitidaParaAProximaReservaDepois.ToLongDateString()} as 
+                                      {dataPermitidaParaAProximaReservaDepois.ToLongTimeString()}.");
+                    AdicionarErros(_reserva.Justificativa);
+                    return ValidationResult;
+                }
             }
+
+
             return ValidationResult;
         }
     }

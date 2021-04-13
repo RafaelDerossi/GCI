@@ -14,6 +14,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Events
         INotificationHandler<ReservaAprovadaEvent>,
         INotificationHandler<ReservaCanceladaEvent>,
         INotificationHandler<ReservaRetiradaDaFilaEvent>,
+        INotificationHandler<ReservaAguardandoAprovacaoEvent>,
         System.IDisposable
     {
        
@@ -38,7 +39,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Events
                 notification.UnidadeId, notification.NumeroUnidade, notification.AndarUnidade,
                 notification.DescricaoGrupoUnidade, notification.UsuarioId, notification.NomeUsuario,
                 notification.DataDeRealizacao, notification.HoraInicio, notification.HoraFim,
-                notification.Preco, notification.EstaNaFila, notification.Origem,
+                notification.Preco, notification.Status, notification.Justificativa, notification.Origem,
                 notification.ReservadoPelaAdministracao);
 
             _reservaAreaComumQueryRepository.AdicionarReserva(reservaFlat);
@@ -54,8 +55,10 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Events
                 return;
             }
             
-            reservaFlat.Aprovar();
+            reservaFlat.Aprovar(notification.Justificativa);
+
             _reservaAreaComumQueryRepository.AtualizarReserva(reservaFlat);
+
             await PersistirDados(_reservaAreaComumQueryRepository.UnitOfWork);
                      
         }
@@ -76,21 +79,36 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Events
             
         }
 
-        public async Task Handle(ReservaRetiradaDaFilaEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(ReservaAguardandoAprovacaoEvent notification, CancellationToken cancellationToken)
         {
             var reservaFlat = await _reservaAreaComumQueryRepository.ObterReservaPorId(notification.Id);
             if (reservaFlat == null)
-            {
                 return;
-            }
 
-            reservaFlat.RemoverDaFila();
+            reservaFlat.SetObservacao(notification.Observacao);
+
+            reservaFlat.SetStatus(notification.Status, notification.Justificativa);
 
             _reservaAreaComumQueryRepository.AtualizarReserva(reservaFlat);
 
             await PersistirDados(_reservaAreaComumQueryRepository.UnitOfWork);
 
         }
+
+        public async Task Handle(ReservaRetiradaDaFilaEvent notification, CancellationToken cancellationToken)
+        {
+            var reservaFlat = await _reservaAreaComumQueryRepository.ObterReservaPorId(notification.Id);
+            if (reservaFlat == null)
+                return;
+
+            reservaFlat.AguardarAprovacao(notification.Justificativa);
+
+            _reservaAreaComumQueryRepository.AtualizarReserva(reservaFlat);
+
+            await PersistirDados(_reservaAreaComumQueryRepository.UnitOfWork);
+
+        }
+
 
         public void Dispose()
         {

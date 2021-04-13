@@ -1,4 +1,5 @@
 ﻿using CondominioApp.Core.DomainObjects;
+using CondominioApp.Core.Enumeradores;
 using CondominioApp.Core.Helpers;
 using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy;
 using System;
@@ -20,38 +21,49 @@ namespace CondominioApp.ReservaAreaComum.Domain
         public string NomeUsuario { get; private set; }
         public DateTime DataDeRealizacao { get; private set; }
         public string HoraInicio { get; private set; }
-        public string HoraFim { get; private set; }
-        public bool Ativa { get; private set; }        
+        public string HoraFim { get; private set; }        
         public decimal Preco { get; private set; }
-        public bool EstaNaFila { get; private set; }
-        public bool Cancelada { get; private set; }
+
+        public StatusReserva Status { get; private set; }
         public string Justificativa { get; private set; }
+        
         public string Origem { get; private set; }
         public bool ReservadoPelaAdministracao { get; private set; }
 
-        public string Status
+        public string StatusDescricao
         {
             get
             {
-                if (Cancelada && !Lixeira)
-                    return "Cancelada";
+                switch (Status)
+                {
+                    case StatusReserva.PROCESSANDO:
+                        return "PROCESSANDO";
 
-                if (!Ativa && DataDeRealizacao < DataHoraDeBrasilia.Get() && !Lixeira)
-                    return "Expirada";
+                    case StatusReserva.APROVADA:
+                        return "APROVADA";
 
-                if (Ativa && !EstaNaFila && !Lixeira)
-                    return "Aprovada";
+                    case StatusReserva.REPROVADA:
+                        return "REPROVADA";
 
-                if (!Ativa && !EstaNaFila && !Lixeira)
-                    return "Pendente";
+                    case StatusReserva.AGUARDANDO_APROVACAO:
+                        return "AGUARDANDO APROVAÇÃO";
 
-                if (EstaNaFila && !Lixeira)
-                    return "Fila de espera";
+                    case StatusReserva.NA_FILA:
+                        return "FILA DE ESPERA";
 
-                if (Lixeira)
-                    return "Removida";
+                    case StatusReserva.CANCELADA:
+                        return "CANCELADA";
 
-                return "Nova";
+                    case StatusReserva.EXPIRADA:
+                        return "EXPIRADA";
+
+                    case StatusReserva.REMOVIDA:
+                        return "REMOVIDA";
+
+                    default:
+                        return "INDEFINIDO";
+                }                                  
+
             }
         }
 
@@ -60,7 +72,7 @@ namespace CondominioApp.ReservaAreaComum.Domain
         public Reserva(Guid areaComumId, string observacao, Guid unidadeId, string numeroUnidade, 
             string andarUnidade, string descricaoGrupoUnidade, Guid usuarioId, string nomeUsuario,
             DateTime dataDeRealizacao, string horaInicio, string horaFim, decimal preco,
-            bool estaNaFila, string origem, bool reservadoPelaAdministracao)
+            string origem, bool reservadoPelaAdministracao)
         {
             AreaComumId = areaComumId;
             Observacao = observacao;
@@ -73,8 +85,7 @@ namespace CondominioApp.ReservaAreaComum.Domain
             DataDeRealizacao = dataDeRealizacao;
             HoraInicio = horaInicio;
             HoraFim = horaFim;
-            Preco = preco;
-            EstaNaFila = estaNaFila;
+            Preco = preco;            
             Origem = origem;
             ReservadoPelaAdministracao = reservadoPelaAdministracao;
         }
@@ -90,22 +101,59 @@ namespace CondominioApp.ReservaAreaComum.Domain
             HoraFim = horaFim;
         }
 
-        public void Aprovar() => Ativa = true;
-
-        public void Reprovar() => Ativa = false;
-
         public void SetPreco(decimal preco) => Preco = preco;
 
-        public void EnviarParaFila() => EstaNaFila = true;
+        public void ColocarEmProcessamento()
+        {
+            Status = StatusReserva.PROCESSANDO;
+            Justificativa = "Sua solicitação de reserva esta sendo processada.";
+        }
 
-        public void RemoverDaFila() => EstaNaFila = false;
+        public void Aprovar(string justificativa)
+        {
+            Status = StatusReserva.APROVADA;
+            if (justificativa == "")
+                justificativa = "Sua reserva foi aprovada.";
+            Justificativa = justificativa;
+        }        
+
+        public void Reprovar(string justificativa)
+        {
+            Status = StatusReserva.REPROVADA;
+            Justificativa = justificativa;
+        }
+
+        public void EnviarParaFila(string justificativa)
+        {
+            Status = StatusReserva.NA_FILA;
+            Justificativa = justificativa;
+        }                
 
         public void Cancelar(string justificativa)
         {
+            Status = StatusReserva.CANCELADA;
             Justificativa = justificativa;
-            Cancelada = true;
         }
-        
+       
+        public void AguardarAprovacao(string justificativa)
+        {
+            Status = StatusReserva.AGUARDANDO_APROVACAO;
+            if (justificativa == "")
+                justificativa = "Sua reserva está aguardando ser aprovada pela administração do condomínio.";
+            Justificativa = justificativa;
+        }
+
+        public void MarcarComoExpirada(string justificativa)
+        {
+            Status = StatusReserva.EXPIRADA;
+            Justificativa = justificativa;
+        }
+
+        public void Remover(string justificativa)
+        {
+            Status = StatusReserva.REMOVIDA;
+            Justificativa = justificativa;
+        }
 
         public void SetOrigem(string origem) => Origem = origem;
 
@@ -218,5 +266,6 @@ namespace CondominioApp.ReservaAreaComum.Domain
                 return 0;
             }
         }
+
     }
 }

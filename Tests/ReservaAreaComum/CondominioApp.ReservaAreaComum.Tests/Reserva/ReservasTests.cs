@@ -658,7 +658,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             var result = areacomum.AdicionarReserva(reserva2);
             if (!result.IsValid)
             {
-                reserva2.EnviarParaFila();
+                reserva2.EnviarParaFila("");
                 result = areacomum.AdicionarReserva(reserva2);
 
                 //assert
@@ -685,7 +685,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             areacomum.AdicionarReserva(reserva1);
                         
             //act
-            var result = areacomum.AprovarReservaPendente(reserva1.Id);
+            var result = areacomum.AprovarReservaPelaAdministracao(reserva1.Id);
 
             //assert
             Assert.True(result.IsValid);
@@ -796,10 +796,10 @@ namespace CondominioApp.ReservaAreaComum.Tests
 
             areacomum.AdicionarReserva(reserva1);
 
-            reserva2.EnviarParaFila();
+            reserva2.EnviarParaFila("");
             areacomum.AdicionarReserva(reserva2);
 
-            reserva3.EnviarParaFila();
+            reserva3.EnviarParaFila("");
             areacomum.AdicionarReserva(reserva3);
 
             //act
@@ -824,10 +824,10 @@ namespace CondominioApp.ReservaAreaComum.Tests
             areacomum.AdicionarReserva(reserva1);            
             areacomum.AdicionarReserva(reserva2);
 
-            reserva3.EnviarParaFila();
+            reserva3.EnviarParaFila("");
             areacomum.AdicionarReserva(reserva3);
 
-            reserva4.EnviarParaFila();
+            reserva4.EnviarParaFila("");
             areacomum.AdicionarReserva(reserva4);
 
             //act

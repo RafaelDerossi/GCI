@@ -1,4 +1,5 @@
-﻿using CondominioApp.ReservaAreaComum.Domain.FlatModel;
+﻿using CondominioApp.Core.Enumeradores;
+using CondominioApp.ReservaAreaComum.Domain.FlatModel;
 using CondominioApp.ReservaAreaComum.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -48,7 +49,6 @@ namespace CondominioApp.ReservaAreaComum.App.Aplication.Query
             }            
         }
 
-
         public async Task<ReservaFlat> ObterReservaPorId(Guid id)
         {
             return await _reservaAreaComumQueryRepository.ObterReservaPorId(id);
@@ -73,8 +73,6 @@ namespace CondominioApp.ReservaAreaComum.App.Aplication.Query
         {
             return await _reservaAreaComumQueryRepository.ObterReserva(r => r.AreaComumId == areaComumId && !r.Lixeira);
         }
-
-
 
         public void Dispose()
         {           

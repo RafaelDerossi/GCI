@@ -129,7 +129,7 @@ namespace CondominioApp.Api.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var comando = new AprovarReservaCommand(id);
+            var comando = new AprovarReservaPelaAdministracaoCommand(id);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
@@ -176,7 +176,7 @@ namespace CondominioApp.Api.Controllers
                   reservaVM.AreaComumId, reservaVM.Observacao, unidade.Id, unidade.Numero,
                   unidade.Andar, unidade.GrupoDescricao, usuario.Id,
                   usuario.NomeCompleto, reservaVM.DataDeRealizacao, reservaVM.HoraInicio, reservaVM.HoraFim,
-                  reservaVM.Preco, reservaVM.EstaNaFila, reservaVM.Origem, reservaVM.ReservadoPelaAdministracao);
+                  reservaVM.Preco, reservaVM.Origem, reservaVM.ReservadoPelaAdministracao);
         }
 
     }

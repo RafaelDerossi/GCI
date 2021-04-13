@@ -38,13 +38,13 @@ namespace CondominioApp.Principal.Infra.Data.Mapping
 
             builder.Property(u => u.HoraFim).IsRequired().HasColumnType($"varchar({ReservaFlat.Max})");
 
-            builder.Property(u => u.Ativa).IsRequired();
-
             builder.Property(u => u.Preco).IsRequired().HasColumnType($"decimal(14,2)"); 
 
-            builder.Property(u => u.EstaNaFila).IsRequired();           
+            builder.Property(u => u.Status).IsRequired();
 
-            builder.Property(u => u.Justificativa).HasColumnType($"varchar({ReservaFlat.Max})");
+            builder.Property(u => u.StatusDescricao).IsRequired();
+
+            builder.Property(u => u.Justificativa).HasColumnType($"varchar(500)");
 
             builder.Property(u => u.Origem).HasColumnType($"varchar({ReservaFlat.Max})");
 

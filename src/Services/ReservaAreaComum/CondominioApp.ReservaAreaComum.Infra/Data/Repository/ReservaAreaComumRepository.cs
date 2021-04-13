@@ -1,4 +1,5 @@
 ﻿using CondominioApp.Core.Data;
+using CondominioApp.Core.Enumeradores;
 using CondominioApp.ReservaAreaComum.Domain;
 using CondominioApp.ReservaAreaComum.Domain.Interfaces;
 using CondominioApp.ReservaAreaComum.Infra.Data;
@@ -78,7 +79,10 @@ namespace CondominioApp.Principal.Infra.Data.Repository
         {
             var reservas = _context.Reservas.Where(r => r.AreaComumId == id &&
                                                    r.DataDeCadastro > DateTime.Today.AddMonths(-6) && 
-                                                   !r.Cancelada &&
+                                                   (r.Status == StatusReserva.PROCESSANDO ||
+                                                    r.Status == StatusReserva.APROVADA ||
+                                                    r.Status == StatusReserva.NA_FILA ||
+                                                    r.Status == StatusReserva.AGUARDANDO_APROVACAO) &&
                                                    !r.Lixeira).ToList();
             if (reservas == null)
                 reservas = new List<Reserva>();
@@ -118,6 +122,19 @@ namespace CondominioApp.Principal.Infra.Data.Repository
         public async Task<IEnumerable<AreaComum>> ObterTodos()
         {
             return await _context.AreasComuns.Where(u => !u.Lixeira).Include(a => a.Periodos).ToListAsync();
+        }
+
+
+        public async Task<int> ObterQtdDeReservasProcessando()
+        {
+            return await _context.Reservas.Where(c => c.Status == StatusReserva.PROCESSANDO && !c.Lixeira).CountAsync();
+        }
+
+        public async Task<Reserva> ObterPrimeiraNaFilaParaSerProcessada()
+        {
+            return await _context.Reservas.Where(r => r.Status == StatusReserva.PROCESSANDO && !r.Lixeira)
+                                          .OrderByDescending(r => r.DataDeCadastro)
+                                          .FirstOrDefaultAsync();
         }
 
         public void Dispose()

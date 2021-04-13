@@ -2,10 +2,10 @@
 
 namespace CondominioApp.ReservaAreaComum.Aplication.Events
 {
-   public class ReservaAprovadaEvent : ReservaEvent
+   public class ReservaAguardandoAprovacaoEvent : ReservaEvent
     {
 
-        public ReservaAprovadaEvent
+        public ReservaAguardandoAprovacaoEvent
             (Guid reservaId, string justificativa)
         {            
             Id = reservaId;

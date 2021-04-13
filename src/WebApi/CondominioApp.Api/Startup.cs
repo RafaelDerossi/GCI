@@ -1,4 +1,6 @@
 using CondominioApp.Api.Configuration;
+using CondominioApp.Api.FilaDeReservas;
+using CondominioApp.ReservaAreaComum.Aplication.FilaDeReservas;
 using CondominioApp.WebApi.Core.Identidade;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -12,7 +14,7 @@ namespace CondominioApp.Api
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            Configuration = configuration;          
         }
 
         public IConfiguration Configuration { get; }
@@ -30,7 +32,8 @@ namespace CondominioApp.Api
             services.AddMediatR(typeof(Startup));
 
             services.RegisterServices();
-           
+
+            services.AddHostedService<FilaDeReservaHostedService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

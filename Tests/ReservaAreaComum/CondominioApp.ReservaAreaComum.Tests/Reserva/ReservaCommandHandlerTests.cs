@@ -7,6 +7,7 @@ using System;
 using CondominioApp.ReservaAreaComum.Aplication.Commands;
 using CondominioApp.ReservaAreaComum.Domain;
 using CondominioApp.ReservaAreaComum.Domain.Interfaces;
+using CondominioApp.Core.Enumeradores;
 
 namespace CondominioApp.ReservaAreaComum.Tests
 {
@@ -51,7 +52,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
         public async Task AprovarReserva_CommandoValido_DevePassarNaValidacao()
         {
             //Arrange
-            var command = new AprovarReservaCommand(Guid.NewGuid());
+            var command = new AprovarReservaPelaAdministracaoCommand(Guid.NewGuid());
 
             _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.ObterReservaPorId(command.Id))
                .Returns(Task.FromResult(ReservaFactory.CriarReservaValidaMobile()));
@@ -135,7 +136,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             reserva1.Cancelar("Justificativa");
 
             var reserva2 = ReservaFactory.CriarReservaValidaMobile();
-            reserva2.EnviarParaFila();
+            reserva2.EnviarParaFila("");
 
             areaComum.AdicionarReserva(reserva1);
             areaComum.AdicionarReserva(reserva2);
@@ -155,7 +156,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             var result = await _reservaCommandHandler.Handle(command, CancellationToken.None);
 
             //Assert
-            Assert.True(result.IsValid && !reserva2.EstaNaFila);
+            Assert.True(result.IsValid && reserva2.Status != StatusReserva.NA_FILA);
             _mocker.GetMock<IReservaAreaComumRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
         }
 

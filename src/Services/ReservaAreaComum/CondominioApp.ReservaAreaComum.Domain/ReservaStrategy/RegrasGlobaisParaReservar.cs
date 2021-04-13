@@ -1,4 +1,5 @@
-﻿using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.ReservaSobrepostaStrategy;
+﻿using CondominioApp.Core.Enumeradores;
+using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.ReservaSobrepostaStrategy;
 using FluentValidation.Results;
 using System;
 using System.Linq;
@@ -28,7 +29,7 @@ namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy
             result = ValidarDuracaoLimiteDaReserva();
             if (!result.IsValid) return result;
 
-            if (!_reserva.EstaNaFila)
+            if (_reserva.Status != StatusReserva.NA_FILA)
                 return _strategyReservaSobreposta.Validar();
 
             return result;
@@ -71,9 +72,9 @@ namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy
 
             if (_areaComum.TemHorariosEspecificos) return ValidationResult;
 
-            if (_areaComum.Reservas.Any(x => !x.Cancelada && !x.Lixeira && x.DataDeRealizacao == _reserva.DataDeRealizacao))
+            if (_areaComum.Reservas.Any(x => x.Status == StatusReserva.APROVADA && !x.Lixeira && x.DataDeRealizacao == _reserva.DataDeRealizacao))
             {
-                var reservasDoDia = _areaComum.Reservas.Where(x => !x.Cancelada && !x.Lixeira && x.DataDeRealizacao == _reserva.DataDeRealizacao).ToList();
+                var reservasDoDia = _areaComum.Reservas.Where(x => x.Status == StatusReserva.APROVADA && !x.Lixeira && x.DataDeRealizacao == _reserva.DataDeRealizacao).ToList();
                 foreach (Reserva reserva in reservasDoDia)
                 {                   
                     if (reserva.ObterHoraInicio < _reserva.ObterHoraInicio)

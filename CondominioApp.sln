@@ -129,7 +129,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioApp.Ocorrencias.A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NotificacaoEmail", "NotificacaoEmail", "{B712E1B4-1A20-403E-8280-6F97CA5968BD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CondominioApp.NotificacaoEmail.App", "src\Services\NotificacaoEmail\CondominioApp.NotificacaoEmail.App\CondominioApp.NotificacaoEmail.App.csproj", "{C442FA1B-6236-4B58-9B57-A5E5944BBA54}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioApp.NotificacaoEmail.App", "src\Services\NotificacaoEmail\CondominioApp.NotificacaoEmail.App\CondominioApp.NotificacaoEmail.App.csproj", "{C442FA1B-6236-4B58-9B57-A5E5944BBA54}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -13,8 +13,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.ViewModels
         public DateTime DataDeRealizacao { get; set; }
         public string HoraInicio { get; set; }
         public string HoraFim { get; set; }
-        public decimal Preco { get; set; }
-        public bool EstaNaFila { get; set; }
+        public decimal Preco { get; set; }        
         public string Origem { get; set; }
         public bool ReservadoPelaAdministracao { get; set; }
     }

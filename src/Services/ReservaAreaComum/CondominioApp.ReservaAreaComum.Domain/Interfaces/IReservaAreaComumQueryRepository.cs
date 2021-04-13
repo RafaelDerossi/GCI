@@ -20,7 +20,6 @@ namespace CondominioApp.ReservaAreaComum.Domain.Interfaces
         Task<ReservaFlat> ObterReservaPorId(Guid Id);
 
 
-
         void AdicionarPeriodo(PeriodoFlat entity);
 
         void RemoverPeriodo(PeriodoFlat entity);

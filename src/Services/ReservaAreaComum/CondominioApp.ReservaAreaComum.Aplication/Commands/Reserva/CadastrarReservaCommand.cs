@@ -14,7 +14,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
             (Guid areaComumId, string observacao, Guid unidadeId, string numeroUnidade,
             string andarUnidade, string descricaoGrupoUnidade, Guid usuarioId, string nomeUsuario,
             DateTime dataDeRealizacao, string horaInicio, string horaFim, decimal preco,
-            bool estaNaFila, string origem, bool reservadoPelaAdministracao)
+            string origem, bool reservadoPelaAdministracao)
         {            
             SetAreaComumId(areaComumId);
             Observacao = observacao;
@@ -27,8 +27,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
             DataDeRealizacao = dataDeRealizacao;
             SetHoraInicio(horaInicio);
             SetHoraFim(horaFim);
-            Preco = preco;
-            EstaNaFila = estaNaFila;
+            Preco = preco;            
             Origem = origem;
             ReservadoPelaAdministracao = reservadoPelaAdministracao;
         }
@@ -59,8 +58,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
                 ValidateDataDeRealizacao();
                 ValidateHoraInicio();
                 ValidateHoraFim();               
-                ValidatePreco();
-                ValidateEstaNaFila();
+                ValidatePreco();                
                 ValidateOrigem();
                 ValidateReservadoPelaAdministracao();
             }

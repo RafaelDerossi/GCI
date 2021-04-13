@@ -10,6 +10,11 @@ namespace CondominioApp.ReservaAreaComum.Domain.Interfaces
 
         Task<Guid> Obter_AreaComumId_Por_ReservaId(Guid reservaId);
 
+        Task<int> ObterQtdDeReservasProcessando();
+
+        Task<Reserva> ObterPrimeiraNaFilaParaSerProcessada();
+
+
         void AdicionarPeriodo(Periodo entity);
 
         void RemoverPeriodo(Periodo entity);

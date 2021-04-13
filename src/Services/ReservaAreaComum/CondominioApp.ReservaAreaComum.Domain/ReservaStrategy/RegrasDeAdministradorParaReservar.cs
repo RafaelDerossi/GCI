@@ -25,14 +25,16 @@ namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy
             //Regra para Data de realizacao da Reserva Retroativa
             if (_reserva.DataDeRealizacao.Date < DateTime.Today.Date.AddYears(-5))
             {
-                AdicionarErros("Data de realização da reserva retroativa deve ser menor que 5 anos!");
+                _reserva.Reprovar("Data de realização da reserva retroativa deve ser menor que 5 anos!");
+                AdicionarErros(_reserva.Justificativa);
                 return ValidationResult;
             }
 
             //Regra para Data de realizacao da Reserva
             if (_reserva.DataDeRealizacao.Date > DateTime.Today.Date.AddYears(5))
             {
-                AdicionarErros("Data de realização da reserva deve ser menor que 5 anos!");
+                _reserva.Reprovar("Data de realização da reserva deve ser menor que 5 anos!");
+                AdicionarErros(_reserva.Justificativa);
                 return ValidationResult;
             }
 

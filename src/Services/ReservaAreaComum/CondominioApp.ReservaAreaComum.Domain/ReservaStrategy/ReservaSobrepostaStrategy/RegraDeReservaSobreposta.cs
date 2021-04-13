@@ -1,4 +1,5 @@
-﻿using FluentValidation.Results;
+﻿using CondominioApp.Core.Enumeradores;
+using FluentValidation.Results;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -26,7 +27,7 @@ namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.ReservaSobrepost
 
         private ValidationResult ValidarQuantidadeDeVagas()
         {
-            int quantidadeReservaMesmoHorario = _areaComum.Reservas.Count(x => x.Ativa && !x.EstaNaFila && !x.Cancelada && !x.Lixeira &&
+            int quantidadeReservaMesmoHorario = _areaComum.Reservas.Count(x => x.Status == StatusReserva.APROVADA && !x.Lixeira &&
                                                                                x.ObterHoraInicio == _reserva.ObterHoraInicio &&
                                                                                x.ObterHoraFim == _reserva.ObterHoraFim &&
                                                                                x.DataDeRealizacao == _reserva.DataDeRealizacao);
@@ -34,7 +35,8 @@ namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.ReservaSobrepost
             if (quantidadeReservaMesmoHorario > 0 && _areaComum.NumeroLimiteDeReservaSobreposta > 0 && 
                 quantidadeReservaMesmoHorario >= _areaComum.NumeroLimiteDeReservaSobreposta)
             {
-                AdicionarErros("Não ha mais vagas para o período selecionado!");
+                _reserva.EnviarParaFila("Não ha mais vagas para o período selecionado! Sua Solicitação de reserva foi encaminhada para a fila de espera.");
+                AdicionarErros(_reserva.Justificativa);
                 return ValidationResult;
             }
 
@@ -42,7 +44,7 @@ namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.ReservaSobrepost
         }
         private ValidationResult ValidarQuantidadeDeVagasPorUnidade()
         {
-            int quantidadeReservaMesmoHorarioPorUnidade = _areaComum.Reservas.Count(x => x.Ativa && !x.EstaNaFila && !x.Cancelada && !x.Lixeira &&
+            int quantidadeReservaMesmoHorarioPorUnidade = _areaComum.Reservas.Count(x => x.Status == StatusReserva.APROVADA && !x.Lixeira &&
                                                                                          x.ObterHoraInicio == _reserva.ObterHoraInicio &&
                                                                                          x.ObterHoraFim == _reserva.ObterHoraFim &&
                                                                                          x.UnidadeId == _reserva.UnidadeId &&
@@ -51,7 +53,8 @@ namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.ReservaSobrepost
             if (quantidadeReservaMesmoHorarioPorUnidade > 0 && _areaComum.NumeroLimiteDeReservaSobrepostaPorUnidade > 0 &&
                 quantidadeReservaMesmoHorarioPorUnidade >= _areaComum.NumeroLimiteDeReservaSobrepostaPorUnidade)
             {
-                AdicionarErros("Não ha mais vagas no período selecionado para sua unidade!");
+                _reserva.Reprovar("Não ha mais vagas no período selecionado para sua unidade!");
+                AdicionarErros(_reserva.Justificativa);
                 return ValidationResult;
             }
 

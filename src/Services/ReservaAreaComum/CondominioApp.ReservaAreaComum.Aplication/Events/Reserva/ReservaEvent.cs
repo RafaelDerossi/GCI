@@ -1,4 +1,5 @@
-﻿using CondominioApp.Core.Messages;
+﻿using CondominioApp.Core.Enumeradores;
+using CondominioApp.Core.Messages;
 using CondominioApp.ReservaAreaComum.Domain;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Events
 {
     public abstract class ReservaEvent : Event
     {
-        public Guid Id { get; protected set; }       
+        public Guid Id { get; protected set; }
         public Guid AreaComumId { get; protected set; }
         public string NomeAreaComum { get; protected set; }
         public Guid CondominioId { get; protected set; }
@@ -23,10 +24,9 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Events
         public string NomeUsuario { get; protected set; }
         public DateTime DataDeRealizacao { get; protected set; }
         public string HoraInicio { get; protected set; }
-        public string HoraFim { get; protected set; }
-        public bool Ativa { get; protected set; }
+        public string HoraFim { get; protected set; }        
         public decimal Preco { get; protected set; }
-        public bool EstaNaFila { get; protected set; }
+        public StatusReserva Status { get; protected set; }        
         public string Justificativa { get; protected set; }
         public string Origem { get; protected set; }
         public bool ReservadoPelaAdministracao { get; protected set; }
