@@ -56,44 +56,8 @@ namespace CondominioApp.ReservaAreaComum.Domain.FlatModel
         public bool CriadaPelaAdministracao { get; private set; }
 
         public bool ReservadoPelaAdministracao { get; private set; }
-
-        public string StatusDescricao
-        {
-            get
-            {
-                switch (Status)
-                {
-                    case StatusReserva.PROCESSANDO:
-                        return "PROCESSANDO";
-
-                    case StatusReserva.APROVADA:
-                        return "APROVADA";
-
-                    case StatusReserva.REPROVADA:
-                        return "REPROVADA";
-
-                    case StatusReserva.AGUARDANDO_APROVACAO:
-                        return "AGUARDANDO APROVAÇÃO";
-
-                    case StatusReserva.NA_FILA:
-                        return "FILA DE ESPERA";
-
-                    case StatusReserva.CANCELADA:
-                        return "CANCELADA";
-
-                    case StatusReserva.EXPIRADA:
-                        return "EXPIRADA";
-
-                    case StatusReserva.REMOVIDA:
-                        return "REMOVIDA";
-
-                    default:
-                        return "INDEFINIDO";
-                }
-
-            }
-        }
-
+        
+        public string StatusDescricao { get; private set; }
 
         protected ReservaFlat() { }
 
@@ -125,9 +89,44 @@ namespace CondominioApp.ReservaAreaComum.Domain.FlatModel
             Justificativa = justificatica;
             Origem = origem;
             CriadaPelaAdministracao = criadaPelaAdministracao;
-            ReservadoPelaAdministracao = reservadoPelaAdministracao;           
+            ReservadoPelaAdministracao = reservadoPelaAdministracao;
+            StatusDescricao = ObterStatusDescricao();
         }
-             
+
+        public string ObterStatusDescricao()
+        {
+            switch (Status)
+            {
+                case StatusReserva.PROCESSANDO:
+                    return "PROCESSANDO";
+
+                case StatusReserva.APROVADA:
+                    return "APROVADA";
+
+                case StatusReserva.REPROVADA:
+                    return "REPROVADA";
+
+                case StatusReserva.AGUARDANDO_APROVACAO:
+                    return "AGUARDANDO APROVAÇÃO";
+
+                case StatusReserva.NA_FILA:
+                    return "FILA DE ESPERA";
+
+                case StatusReserva.CANCELADA:
+                    return "CANCELADA";
+
+                case StatusReserva.EXPIRADA:
+                    return "EXPIRADA";
+
+                case StatusReserva.REMOVIDA:
+                    return "REMOVIDA";
+
+                default:
+                    return "INDEFINIDO";
+            }
+        }
+
+
 
         public void SetObservacao(string observacao) => Observacao = observacao;
 

@@ -163,10 +163,7 @@ namespace CondominioApp.ReservaAreaComum.Infra.Migrations
                     b.Property<Guid>("AreaComumId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool>("Ativa")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("Cancelada")
+                    b.Property<bool>("CriadaPelaAdministracao")
                         .HasColumnType("bit");
 
                     b.Property<DateTime>("DataDeAlteracao")
@@ -182,9 +179,6 @@ namespace CondominioApp.ReservaAreaComum.Infra.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("EstaNaFila")
-                        .HasColumnType("bit");
-
                     b.Property<string>("HoraFim")
                         .IsRequired()
                         .HasColumnType("varchar(200)");
@@ -194,12 +188,15 @@ namespace CondominioApp.ReservaAreaComum.Infra.Migrations
                         .HasColumnType("varchar(200)");
 
                     b.Property<string>("Justificativa")
-                        .HasColumnType("varchar(200)");
+                        .HasColumnType("varchar(500)");
 
                     b.Property<bool>("Lixeira")
                         .HasColumnType("bit");
 
-                    b.Property<string>("NomeUsuario")
+                    b.Property<Guid>("MoradorId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("NomeMorador")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -219,10 +216,10 @@ namespace CondominioApp.ReservaAreaComum.Infra.Migrations
                     b.Property<bool>("ReservadoPelaAdministracao")
                         .HasColumnType("bit");
 
-                    b.Property<Guid>("UnidadeId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
-                    b.Property<Guid>("UsuarioId")
+                    b.Property<Guid>("UnidadeId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
