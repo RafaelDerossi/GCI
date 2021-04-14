@@ -51,7 +51,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Events
                 return;
             
             reservaFlat.SetStatus(notification.Status, notification.Justificativa);
-            reservaFlat.SetObservacao(notification.Observacao);
+            reservaFlat.SetObservacao(notification.Observacao);            
 
             _reservaAreaComumQueryRepository.AtualizarReserva(reservaFlat);
 

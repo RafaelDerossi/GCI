@@ -1,7 +1,7 @@
 ﻿using CondominioApp.Core.Enumeradores;
 using CondominioApp.Core.Mediator;
 using CondominioApp.ReservaAreaComum.Aplication.Commands;
-using CondominioApp.ReservaAreaComum.Domain.Interfaces;
+using CondominioApp.ReservaAreaComum.App.Aplication.Query;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
@@ -14,27 +14,28 @@ namespace CondominioApp.Api.FilaDeReservas
     public class FilaDeReservaHostedService : IHostedService
     {
         private readonly IMediatorHandler _mediatorHandler;
-        private readonly IReservaAreaComumRepository _reservaAreaComumRepository;
+        private readonly IReservaAreaComumQuery _reservaAreaComumQuery;
+        private Timer timer;
 
-        public FilaDeReservaHostedService(IMediatorHandler mediatorHandler, IReservaAreaComumRepository reservaAreaComumRepository)
+        public FilaDeReservaHostedService(IMediatorHandler mediatorHandler, IReservaAreaComumQuery reservaAreaComumQuery)
         {
             _mediatorHandler = mediatorHandler;
-            _reservaAreaComumRepository = reservaAreaComumRepository;
+            _reservaAreaComumQuery = reservaAreaComumQuery;
         }
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            new Timer(ExecuteProcess, null, TimeSpan.Zero, TimeSpan.FromSeconds(30));
+            timer = new Timer(ExecuteProcess, null, TimeSpan.Zero, TimeSpan.FromSeconds(30));
             return Task.CompletedTask;
         }
 
         private void ExecuteProcess(object state)
         {
-            if (_reservaAreaComumRepository.ObterQtdDeReservasProcessando().Result > 0)
+            if (_reservaAreaComumQuery.ObterQtdDeReservasProcessando().Result > 0)
             {
-                var reserva = _reservaAreaComumRepository.ObterPrimeiraNaFilaParaSerProcessada().Result;
+                var reserva = _reservaAreaComumQuery.ObterPrimeiraNaFilaParaSerProcessada().Result;
 
-                var areaComum = _reservaAreaComumRepository.ObterPorId(reserva.AreaComumId).Result;
+                var areaComum = _reservaAreaComumQuery.ObterPorId(reserva.AreaComumId).Result;
 
                 var retorno = areaComum.ValidarReserva(reserva);
 

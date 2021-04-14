@@ -89,7 +89,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
             }
 
 
-            reserva.Aprovar(reserva.Justificativa);
+            reserva.Aprovar(request.Justificativa);
 
             _reservaAreaComumRepository.AtualizarReserva(reserva);            
 
@@ -122,7 +122,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
                 return ValidationResult;
             }
 
-            reserva.Reprovar(reserva.Justificativa);
+            reserva.Reprovar(request.Justificativa);
 
 
             _reservaAreaComumRepository.AtualizarReserva(reserva);
@@ -157,7 +157,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
                 return ValidationResult;
             }
 
-            reserva.AguardarAprovacao(reserva.Justificativa);
+            reserva.AguardarAprovacao(request.Justificativa);
 
 
             _reservaAreaComumRepository.AtualizarReserva(reserva);
@@ -193,7 +193,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
                 return ValidationResult;
             }
 
-            reserva.EnviarParaFila(reserva.Justificativa);
+            reserva.EnviarParaFila(request.Justificativa);
 
 
             _reservaAreaComumRepository.AtualizarReserva(reserva);

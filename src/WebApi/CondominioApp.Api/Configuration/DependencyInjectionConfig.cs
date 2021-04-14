@@ -77,7 +77,7 @@ namespace CondominioApp.Api.Configuration
     {
         public static void RegisterServices(this IServiceCollection services)
         {            
-            services.AddTransient<IMediatorHandler, MediatorHandler>();
+            services.AddSingleton<IMediatorHandler, MediatorHandler>();
             
             
 
@@ -187,27 +187,27 @@ namespace CondominioApp.Api.Configuration
 
 
             #region NotificacaoEmail -Contexto            
-            services.AddScoped<INotificationHandler<EnviarEmailComunicadoIntegrationEvent>, NotificacaoEmailCondominioAppApiEventHandler>();
-            services.AddScoped<INotificationHandler<EnviarEmailCorrespondenciaIntegrationEvent>, NotificacaoEmailCondominioAppApiEventHandler>();
-            services.AddScoped<INotificationHandler<EnviarEmailEnqueteIntegrationEvent>, NotificacaoEmailCondominioAppApiEventHandler>();
-            services.AddScoped<INotificationHandler<EnviarEmailOcorrenciaIntegrationEvent>, NotificacaoEmailCondominioAppApiEventHandler>();
-            services.AddScoped<INotificationHandler<EnviarEmailRespostaOcorrenciaParaMoradorIntegrationEvent>, NotificacaoEmailCondominioAppApiEventHandler>();
-            services.AddScoped<INotificationHandler<EnviarEmailRespostaOcorrenciaParaSindicoIntegrationEvent>, NotificacaoEmailCondominioAppApiEventHandler>();
-            services.AddScoped<INotificationHandler<EnviarEmailReservaParaMoradorIntegrationEvent>, NotificacaoEmailCondominioAppApiEventHandler>();
-            services.AddScoped<INotificationHandler<EnviarEmailReservaParaSindicoIntegrationEvent>, NotificacaoEmailCondominioAppApiEventHandler>();
+            services.AddTransient<INotificationHandler<EnviarEmailComunicadoIntegrationEvent>, NotificacaoEmailCondominioAppApiEventHandler>();
+            services.AddTransient<INotificationHandler<EnviarEmailCorrespondenciaIntegrationEvent>, NotificacaoEmailCondominioAppApiEventHandler>();
+            services.AddTransient<INotificationHandler<EnviarEmailEnqueteIntegrationEvent>, NotificacaoEmailCondominioAppApiEventHandler>();
+            services.AddTransient<INotificationHandler<EnviarEmailOcorrenciaIntegrationEvent>, NotificacaoEmailCondominioAppApiEventHandler>();
+            services.AddTransient<INotificationHandler<EnviarEmailRespostaOcorrenciaParaMoradorIntegrationEvent>, NotificacaoEmailCondominioAppApiEventHandler>();
+            services.AddTransient<INotificationHandler<EnviarEmailRespostaOcorrenciaParaSindicoIntegrationEvent>, NotificacaoEmailCondominioAppApiEventHandler>();
+            services.AddTransient<INotificationHandler<EnviarEmailReservaParaMoradorIntegrationEvent>, NotificacaoEmailCondominioAppApiEventHandler>();
+            services.AddTransient<INotificationHandler<EnviarEmailReservaParaSindicoIntegrationEvent>, NotificacaoEmailCondominioAppApiEventHandler>();
             #endregion
 
 
             #region NotificacaoPush -Contexto
-            services.AddScoped<INotificacaoPushService, NotificacaoPushService>();
-            services.AddScoped<INotificationHandler<EnviarPushParaSindicoIntegrationEvent>, NotificacaoPushEventHandler>();
-            services.AddScoped<INotificationHandler<EnviarPushParaMoradorIntegrationEvent>, NotificacaoPushEventHandler>();
-            services.AddScoped<INotificationHandler<EnviarPushParaUnidadeIntegrationEvent>, NotificacaoPushEventHandler>();
-            services.AddScoped<INotificationHandler<EnviarPushParaUnidadesIntegrationEvent>, NotificacaoPushEventHandler>();
-            services.AddScoped<INotificationHandler<EnviarPushParaCondominioIntegrationEvent>, NotificacaoPushEventHandler>();
-            services.AddScoped<INotificationHandler<EnviarPushParaProprietariosIntegrationEvent>, NotificacaoPushEventHandler>();
-            services.AddScoped<INotificationHandler<EnviarPushParaProprietariosPorUnidadeIntegrationEvent>, NotificacaoPushEventHandler>();
-            services.AddScoped<INotificationHandler<EnviarPushParaTodosIntegrationEvent>, NotificacaoPushEventHandler>();
+            services.AddTransient<INotificacaoPushService, NotificacaoPushService>();
+            services.AddTransient<INotificationHandler<EnviarPushParaSindicoIntegrationEvent>, NotificacaoPushEventHandler>();
+            services.AddTransient<INotificationHandler<EnviarPushParaMoradorIntegrationEvent>, NotificacaoPushEventHandler>();
+            services.AddTransient<INotificationHandler<EnviarPushParaUnidadeIntegrationEvent>, NotificacaoPushEventHandler>();
+            services.AddTransient<INotificationHandler<EnviarPushParaUnidadesIntegrationEvent>, NotificacaoPushEventHandler>();
+            services.AddTransient<INotificationHandler<EnviarPushParaCondominioIntegrationEvent>, NotificacaoPushEventHandler>();
+            services.AddTransient<INotificationHandler<EnviarPushParaProprietariosIntegrationEvent>, NotificacaoPushEventHandler>();
+            services.AddTransient<INotificationHandler<EnviarPushParaProprietariosPorUnidadeIntegrationEvent>, NotificacaoPushEventHandler>();
+            services.AddTransient<INotificationHandler<EnviarPushParaTodosIntegrationEvent>, NotificacaoPushEventHandler>();
             #endregion
 
 
@@ -332,7 +332,7 @@ namespace CondominioApp.Api.Configuration
             services.AddTransient<IRequestHandler<CancelarReservaComoUsuarioCommand, ValidationResult>, ReservaCommandHandler>();
             services.AddTransient<IRequestHandler<CancelarReservaComoAdministradorCommand, ValidationResult>, ReservaCommandHandler>();
             services.AddTransient<IRequestHandler<RetirarReservaDaFilaCommand, ValidationResult>, ReservaCommandHandler>();
-            services.AddTransient<INotificationHandler<ReservaCadastradaEvent>, ReservaEventHandler>();
+            services.AddTransient<INotificationHandler<ReservaCadastradaEvent>, ReservaEventHandler>();            
             services.AddTransient<INotificationHandler<StatusDaReservaAlteradoEvent>, ReservaEventHandler>();            
 
             #endregion
@@ -390,11 +390,12 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<IEnqueteQuery, EnqueteQuery>();
             services.AddScoped<IOcorrenciaQuery, OcorrenciaQuery>();
             services.AddScoped<IPortariaQuery, PortariaQuery>();
-            services.AddScoped<IPrincipalQuery, PrincipalQuery>();
             services.AddScoped<IQueryLead, QueryLead>();
-            services.AddScoped<IReservaAreaComumQuery, ReservaAreaComumQuery>();            
-            services.AddScoped<IUsuarioQuery, UsuarioQuery>();
-            //services.AddScoped<IOcorrenciaQuery, OcorrenciaQuery>();
+
+            services.AddTransient<IPrincipalQuery, PrincipalQuery>();
+            services.AddTransient<IReservaAreaComumQuery, ReservaAreaComumQuery>();            
+            services.AddTransient<IUsuarioQuery, UsuarioQuery>();
+
             #endregion
 
             #region Repositórios
@@ -408,20 +409,20 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<IPortariaRepository, PortariaRepository>();
             services.AddScoped<IPrincipalRepository, PrincipalRepository>();
             
-            services.AddTransient<IReservaAreaComumRepository, ReservaAreaComumRepository>();            
+            services.AddTransient<IReservaAreaComumRepository, ReservaAreaComumRepository>();
+            services.AddTransient<IUsuarioRepository, UsuarioRepository>();
 
-            services.AddScoped<IUsuarioRepository, UsuarioRepository>();
             services.AddScoped<IOcorrenciaRepository, OcorrenciaRepository>();
             #endregion
 
             #region Repositórios Query
             //Repositórios Query                     
-            services.AddScoped<IFuncionarioQueryRepository, FuncionarioQueryRepository>();
-            services.AddScoped<IMoradorQueryRepository, MoradorQueryRepository>();
+            services.AddTransient<IFuncionarioQueryRepository, FuncionarioQueryRepository>();
+            services.AddTransient<IMoradorQueryRepository, MoradorQueryRepository>();
             services.AddScoped<IPortariaQueryRepository, PortariaQueryRepository>();
-            services.AddScoped<IPrincipalQueryRepository, PrincipalQueryRepository>();                        
-            services.AddScoped<IReservaAreaComumQueryRepository, ReservaAreaComumQueryRepository>();            
-            services.AddScoped<IVeiculoQueryRepository, VeiculoQueryRepository>();
+            services.AddTransient<IPrincipalQueryRepository, PrincipalQueryRepository>();                        
+            services.AddTransient<IReservaAreaComumQueryRepository, ReservaAreaComumQueryRepository>();            
+            services.AddTransient<IVeiculoQueryRepository, VeiculoQueryRepository>();
 
             #endregion
 

@@ -33,7 +33,7 @@ namespace CondominioApp.Api.Configuration
 
             //Contexts
             services.AddDbContext<UsuarioContextDB>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("UsuariosConnection")));
+                options.UseSqlServer(configuration.GetConnectionString("UsuariosConnection")), ServiceLifetime.Transient, ServiceLifetime.Transient);
 
             services.AddDbContext<PrincipalContextDB>(options =>
                options.UseSqlServer(configuration.GetConnectionString("PrincipalConnection")));
@@ -51,18 +51,10 @@ namespace CondominioApp.Api.Configuration
               options.UseSqlServer(configuration.GetConnectionString("CorrespondenciaConnection")));
 
             services.AddDbContext<ComunicadoContextDB>(options =>
-              options.UseSqlServer(configuration.GetConnectionString("ComunicadoConnection")));
-
-
-
-            //services.AddDbContext<ReservaAreaComumContextDB>(options =>
-            //  options.UseSqlServer(configuration.GetConnectionString("ReservaAreaComumConnection")));
+              options.UseSqlServer(configuration.GetConnectionString("ComunicadoConnection")));                       
 
             services.AddDbContext<ReservaAreaComumContextDB>(options =>
              options.UseSqlServer(configuration.GetConnectionString("ReservaAreaComumConnection")), ServiceLifetime.Transient, ServiceLifetime.Transient);
-
-
-
 
             services.AddDbContext<PortariaContextDB>(options =>
               options.UseSqlServer(configuration.GetConnectionString("PortariaConnection")));          
@@ -79,13 +71,13 @@ namespace CondominioApp.Api.Configuration
 
             //Query Contexts
             services.AddDbContext<UsuarioQueryContextDB>(options =>
-              options.UseSqlServer(configuration.GetConnectionString("QueryConnection")));
+              options.UseSqlServer(configuration.GetConnectionString("QueryConnection")), ServiceLifetime.Transient, ServiceLifetime.Transient);
             
             services.AddDbContext<PrincipalQueryContextDB>(options =>
-              options.UseSqlServer(configuration.GetConnectionString("QueryConnection")));
+              options.UseSqlServer(configuration.GetConnectionString("QueryConnection")), ServiceLifetime.Transient, ServiceLifetime.Transient);
 
             services.AddDbContext<ReservaAreaComumQueryContextDB>(options =>
-              options.UseSqlServer(configuration.GetConnectionString("QueryConnection")));
+              options.UseSqlServer(configuration.GetConnectionString("QueryConnection")), ServiceLifetime.Transient, ServiceLifetime.Transient);
 
             services.AddDbContext<PortariaQueryContextDB>(options =>
               options.UseSqlServer(configuration.GetConnectionString("QueryConnection")));

@@ -144,6 +144,7 @@ namespace CondominioApp.ReservaAreaComum.Domain.FlatModel
         {
             Status = status;
             Justificativa = justificativa;
+            StatusDescricao = ObterStatusDescricao();
         }
 
         public void ColocarEmProcessamento()
