@@ -332,6 +332,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
 
             reservaRetiradaDaFila.EnviarPushReservaRetiradaDaFila(areaComum.Nome, areaComum.CondominioId);
 
+            reservaRetiradaDaFila.EnviarEmailReservaRetiradaDaFila(areaComum.Nome, areaComum.CondominioId);
 
             return await PersistirDados(_reservaAreaComumRepository.UnitOfWork);
         }
