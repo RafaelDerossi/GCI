@@ -157,6 +157,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
                 return ValidationResult;
             }
 
+            
             reserva.AguardarAprovacao(request.Justificativa);
 
 

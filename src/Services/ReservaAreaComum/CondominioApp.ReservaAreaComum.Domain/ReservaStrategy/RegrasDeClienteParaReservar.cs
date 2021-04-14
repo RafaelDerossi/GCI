@@ -166,7 +166,9 @@ namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy
             var dataHJ = DataHoraDeBrasilia.Get().Date;
             
             List<Reserva> ultimasReserva = _areaComum.Reservas
-                                            .Where(r => r.UnidadeId == _reserva.UnidadeId && r.DataDeRealizacao >= dataHJ)
+                                            .Where(r => r.UnidadeId == _reserva.UnidadeId &&
+                                                        r.DataDeRealizacao >= dataHJ &&
+                                                        r.Status == StatusReserva.APROVADA)
                                             .OrderByDescending(r => r.DataDeRealizacao)
                                             .ToList();
 

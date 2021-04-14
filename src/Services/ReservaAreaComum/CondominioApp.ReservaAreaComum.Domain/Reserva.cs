@@ -329,7 +329,7 @@ namespace CondominioApp.ReservaAreaComum.Domain
             EnviarPushParaMorador(titulo, conteudo);
 
             if (Preco > 0)
-                EnviarPushParaSindico(titulo, nomeAreaComum, condominioId);
+                EnviarPushParaSindico(titulo, conteudo, condominioId);
 
             return;
         }
@@ -341,7 +341,7 @@ namespace CondominioApp.ReservaAreaComum.Domain
 
             EnviarPushParaMorador(titulo, conteudo);
 
-            EnviarPushParaSindico(titulo, nomeAreaComum, condominioId);
+            EnviarPushParaSindico(titulo, conteudo, condominioId);
 
             return;
         }
@@ -354,7 +354,7 @@ namespace CondominioApp.ReservaAreaComum.Domain
             EnviarPushParaMorador(titulo, conteudo);
 
             if (Preco > 0)
-                EnviarPushParaSindico(titulo, nomeAreaComum, condominioId);
+                EnviarPushParaSindico(titulo, conteudo, condominioId);
 
             return;
         }
@@ -367,7 +367,7 @@ namespace CondominioApp.ReservaAreaComum.Domain
             EnviarPushParaMorador(titulo, conteudo);
 
             if (Preco > 0)
-                EnviarPushParaSindico(titulo, nomeAreaComum, condominioId);
+                EnviarPushParaSindico(titulo, conteudo, condominioId);
 
             return;
         }
@@ -380,7 +380,7 @@ namespace CondominioApp.ReservaAreaComum.Domain
             EnviarPushParaMorador(titulo, conteudo);
 
             if (Preco > 0)
-                EnviarPushParaSindico(titulo, nomeAreaComum, condominioId);
+                EnviarPushParaSindico(titulo, conteudo, condominioId);
 
             return;
         }

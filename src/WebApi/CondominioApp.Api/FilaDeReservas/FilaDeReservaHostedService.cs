@@ -44,14 +44,14 @@ namespace CondominioApp.Api.FilaDeReservas
 
                     if (areaComum.RequerAprovacaoDeReserva)
                     {
-                        var comando = new AguardarAprovacaoDaReservaPelaAdmCommand(reserva.Id, reserva.Justificativa);
+                        var comando = new AguardarAprovacaoDaReservaPelaAdmCommand(reserva.Id, "");
                         var Resultado = _mediatorHandler.EnviarComando(comando).Result;                        
                     }
                         
 
                     if (!areaComum.RequerAprovacaoDeReserva)
                     {
-                        var comando = new AprovarReservaAutomaticamenteCommand(reserva.Id, reserva.Justificativa);
+                        var comando = new AprovarReservaAutomaticamenteCommand(reserva.Id, "");
                         var Resultado = _mediatorHandler.EnviarComando(comando).Result;
                     }                        
 
