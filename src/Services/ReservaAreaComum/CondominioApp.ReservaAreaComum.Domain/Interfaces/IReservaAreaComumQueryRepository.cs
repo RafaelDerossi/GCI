@@ -19,6 +19,10 @@ namespace CondominioApp.ReservaAreaComum.Domain.Interfaces
 
         Task<ReservaFlat> ObterReservaPorId(Guid Id);
 
+        Task<int> ObterQtdDeReservasProcessando();
+
+        Task<ReservaFlat> ObterPrimeiraNaFilaParaSerProcessada();
+
 
         void AdicionarPeriodo(PeriodoFlat entity);
 

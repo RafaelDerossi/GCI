@@ -1,7 +1,7 @@
 ﻿using CondominioApp.Core.Enumeradores;
 using CondominioApp.Core.Mediator;
 using CondominioApp.ReservaAreaComum.Aplication.Commands;
-using CondominioApp.ReservaAreaComum.App.Aplication.Query;
+using CondominioApp.ReservaAreaComum.Domain.Interfaces;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
@@ -14,13 +14,13 @@ namespace CondominioApp.Api.FilaDeReservas
     public class FilaDeReservaHostedService : IHostedService
     {
         private readonly IMediatorHandler _mediatorHandler;
-        private readonly IReservaAreaComumQuery _reservaAreaComumQuery;
+        private readonly IReservaAreaComumRepository _reservaAreaComumRepository;
         private Timer timer;
 
-        public FilaDeReservaHostedService(IMediatorHandler mediatorHandler, IReservaAreaComumQuery reservaAreaComumQuery)
+        public FilaDeReservaHostedService(IMediatorHandler mediatorHandler, IReservaAreaComumRepository reservaAreaComumRepository)
         {
             _mediatorHandler = mediatorHandler;
-            _reservaAreaComumQuery = reservaAreaComumQuery;
+            _reservaAreaComumRepository = reservaAreaComumRepository;
         }
 
         public Task StartAsync(CancellationToken cancellationToken)
@@ -31,11 +31,11 @@ namespace CondominioApp.Api.FilaDeReservas
 
         private void ExecuteProcess(object state)
         {
-            if (_reservaAreaComumQuery.ObterQtdDeReservasProcessando().Result > 0)
+            if (_reservaAreaComumRepository.ObterQtdDeReservasProcessando().Result > 0)
             {
-                var reserva = _reservaAreaComumQuery.ObterPrimeiraNaFilaParaSerProcessada().Result;
+                var reserva = _reservaAreaComumRepository.ObterPrimeiraNaFilaParaSerProcessada().Result;
 
-                var areaComum = _reservaAreaComumQuery.ObterPorId(reserva.AreaComumId).Result;
+                var areaComum = _reservaAreaComumRepository.ObterPorId(reserva.AreaComumId).Result;
 
                 var retorno = areaComum.ValidarReserva(reserva);
 

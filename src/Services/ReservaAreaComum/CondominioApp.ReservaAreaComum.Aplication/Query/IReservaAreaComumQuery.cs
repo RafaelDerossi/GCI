@@ -25,5 +25,9 @@ namespace CondominioApp.ReservaAreaComum.App.Aplication.Query
 
         Task<IEnumerable<ReservaFlat>> ObterReservasPorAreaComum(Guid areaComumId);
 
+        Task<int> ObterQtdDeReservasProcessando();
+
+        Task<ReservaFlat> ObterPrimeiraNaFilaParaSerProcessada();
+
     }
 }

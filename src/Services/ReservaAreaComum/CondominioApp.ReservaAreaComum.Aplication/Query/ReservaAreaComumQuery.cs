@@ -74,6 +74,16 @@ namespace CondominioApp.ReservaAreaComum.App.Aplication.Query
             return await _reservaAreaComumQueryRepository.ObterReserva(r => r.AreaComumId == areaComumId && !r.Lixeira);
         }
 
+        public async Task<int> ObterQtdDeReservasProcessando()
+        {
+            return await _reservaAreaComumQueryRepository.ObterQtdDeReservasProcessando();
+        }
+
+        public async Task<ReservaFlat> ObterPrimeiraNaFilaParaSerProcessada()
+        {
+            return await _reservaAreaComumQueryRepository.ObterPrimeiraNaFilaParaSerProcessada();
+        }
+
         public void Dispose()
         {           
             _reservaAreaComumQueryRepository?.Dispose();
