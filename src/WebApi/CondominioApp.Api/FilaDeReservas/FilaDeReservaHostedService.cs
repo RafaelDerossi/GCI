@@ -34,7 +34,7 @@ namespace CondominioApp.Api.FilaDeReservas
             {
                 var reserva = _reservaAreaComumRepository.ObterPrimeiraNaFilaParaSerProcessada().Result;
 
-                var areaComum = _reservaAreaComumRepository.ObterPorId(reserva.Id).Result;
+                var areaComum = _reservaAreaComumRepository.ObterPorId(reserva.AreaComumId).Result;
 
                 var retorno = areaComum.ValidarReserva(reserva);
 

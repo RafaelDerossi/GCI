@@ -96,18 +96,19 @@ namespace CondominioApp.Principal.Infra.Data.Repository
                 .AsNoTracking()
                 .Include(a => a.Periodos)
                 .FirstOrDefaultAsync(a => a.Id == id && !a.Lixeira);
-            
-            var areaComum = new AreaComum(aC.Nome, aC.Descricao, aC.TermoDeUso, aC.CondominioId,
-            aC.NomeCondominio, aC.Capacidade, aC.DiasPermitidos, aC.AntecedenciaMaximaEmMeses,
-            aC.AntecedenciaMaximaEmDias,aC.AntecedenciaMinimaEmDias, aC.AntecedenciaMinimaParaCancelamentoEmDias,
-            aC.RequerAprovacaoDeReserva, aC.TemHorariosEspecificos, aC.TempoDeIntervaloEntreReservas, aC.Ativa,
-            aC.TempoDeDuracaoDeReserva, aC.NumeroLimiteDeReservaPorUnidade, aC.PermiteReservaSobreposta,
-            aC.NumeroLimiteDeReservaSobreposta, aC.NumeroLimiteDeReservaSobrepostaPorUnidade,
-            aC.TempoDeIntervaloEntreReservasPorUnidade, aC.Periodos.ToList(), reservas.ToList());
-
-            areaComum.SetEntidadeId(aC.Id);
-
-            return areaComum;
+            if (aC != null)
+            {
+                var areaComum = new AreaComum(aC.Nome, aC.Descricao, aC.TermoDeUso, aC.CondominioId,
+                    aC.NomeCondominio, aC.Capacidade, aC.DiasPermitidos, aC.AntecedenciaMaximaEmMeses,
+                    aC.AntecedenciaMaximaEmDias, aC.AntecedenciaMinimaEmDias, aC.AntecedenciaMinimaParaCancelamentoEmDias,
+                    aC.RequerAprovacaoDeReserva, aC.TemHorariosEspecificos, aC.TempoDeIntervaloEntreReservas, aC.Ativa,
+                    aC.TempoDeDuracaoDeReserva, aC.NumeroLimiteDeReservaPorUnidade, aC.PermiteReservaSobreposta,
+                    aC.NumeroLimiteDeReservaSobreposta, aC.NumeroLimiteDeReservaSobrepostaPorUnidade,
+                    aC.TempoDeIntervaloEntreReservasPorUnidade, aC.Periodos.ToList(), reservas.ToList());
+                    areaComum.SetEntidadeId(aC.Id);
+                return areaComum;
+            }
+            return null;
         }
 
         public async Task<Reserva> ObterReservaPorId(Guid Id)
