@@ -7,7 +7,7 @@ namespace CondominioApp.NotificacaoEmail.App.DTO
 {
     public class OcorrenciaDTO
     {
-        public string Titulo { get; set; }        
+        public string Titulo { get; set; }
 
         public string Descricao { get; set; }
 

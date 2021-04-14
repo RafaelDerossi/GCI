@@ -69,6 +69,7 @@ using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.NotificacaoEm
 using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.NotificacaoEmailIntegrationEvent.Ocorrencia;
 using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.NotificacaoPushIntegrationEvents;
 using CondominioApp.Core.Data;
+using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.NotificacaoEmailIntegrationEvent.Reserva;
 
 namespace CondominioApp.Api.Configuration
 {
@@ -192,6 +193,8 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<INotificationHandler<EnviarEmailOcorrenciaIntegrationEvent>, NotificacaoEmailCondominioAppApiEventHandler>();
             services.AddScoped<INotificationHandler<EnviarEmailRespostaOcorrenciaParaMoradorIntegrationEvent>, NotificacaoEmailCondominioAppApiEventHandler>();
             services.AddScoped<INotificationHandler<EnviarEmailRespostaOcorrenciaParaSindicoIntegrationEvent>, NotificacaoEmailCondominioAppApiEventHandler>();
+            services.AddScoped<INotificationHandler<EnviarEmailReservaParaMoradorIntegrationEvent>, NotificacaoEmailCondominioAppApiEventHandler>();
+            services.AddScoped<INotificationHandler<EnviarEmailReservaParaSindicoIntegrationEvent>, NotificacaoEmailCondominioAppApiEventHandler>();
             #endregion
 
 

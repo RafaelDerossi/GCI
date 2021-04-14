@@ -1,6 +1,7 @@
 ﻿using CondominioApp.Core.DomainObjects;
 using CondominioApp.Core.Enumeradores;
 using CondominioApp.Core.Helpers;
+using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.NotificacaoEmailIntegrationEvent.Reserva;
 using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.NotificacaoPushIntegrationEvents;
 using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy;
 using System;
@@ -286,80 +287,261 @@ namespace CondominioApp.ReservaAreaComum.Domain
 
 
 
-        public void EnviarPushReservaAprovada(string nomeAreaComum)
+        public void EnviarPush(string nomeAreaComum, Guid condominioId)
+        {
+            switch (Status)
+            {               
+                case StatusReserva.APROVADA:
+                    EnviarPushReservaAprovada(nomeAreaComum, condominioId);
+                    break;
+
+                case StatusReserva.REPROVADA:
+                    EnviarPushReservaReprovada(nomeAreaComum, condominioId);
+                    break;
+
+                case StatusReserva.AGUARDANDO_APROVACAO:
+                    EnviarPushReservaAguardandoAprovacao(nomeAreaComum, condominioId);
+                    break;
+
+                case StatusReserva.NA_FILA:
+                    EnviarPushReservaNaFila(nomeAreaComum, condominioId);
+                    break;
+
+                case StatusReserva.CANCELADA:
+                    EnviarPushReservaCancelada(nomeAreaComum, condominioId);
+                    break;
+                    
+                default:
+                    break;
+            }
+        }
+        
+        private void EnviarPushReservaAprovada(string nomeAreaComum, Guid condominioId)
         {
             var titulo = "Reserva APROVADA";
             var conteudo = $"Sua solicitação de reserva da(o) {nomeAreaComum} para o dia: {DataDeRealizacao.ToShortDateString()}, no horário: {HoraInicio}-{HoraFim} foi aprovada.";
-            
-            AdicionarEvento
-            (new EnviarPushParaMoradorIntegrationEvent(MoradorId, titulo, conteudo));
+
+            EnviarPushParaMorador(titulo, conteudo);
+
+            if (Preco > 0)
+                EnviarPushParaSindico(titulo, nomeAreaComum, condominioId);
 
             return;
         }
 
-        public void EnviarPushReservaAguardandoAprovacao(string nomeAreaComum)
+        private void EnviarPushReservaAguardandoAprovacao(string nomeAreaComum, Guid condominioId)
         {
             var titulo = "Reserva Aguardando Aprovação";
             var conteudo = $"Sua solicitação de reserva da(o) {nomeAreaComum} para o dia: {DataDeRealizacao.ToShortDateString()}, no horário: {HoraInicio}-{HoraFim} esta aguardando aprovação pela administração do condomínio.";
 
-            AdicionarEvento
-            (new EnviarPushParaMoradorIntegrationEvent(MoradorId, titulo, conteudo));
+            EnviarPushParaMorador(titulo, conteudo);
+
+            EnviarPushParaSindico(titulo, nomeAreaComum, condominioId);
 
             return;
         }
 
-        public void EnviarPushReservaReprovada(string nomeAreaComum)
+        private void EnviarPushReservaReprovada(string nomeAreaComum, Guid condominioId)
         {
             var titulo = "Reserva REPROVADA";
             var conteudo = $"Sua solicitação de reserva da(o) {nomeAreaComum} para o dia: {DataDeRealizacao.ToShortDateString()}, no horário: {HoraInicio}-{HoraFim} NÃO foi aprovada! {Justificativa}";
 
-            AdicionarEvento
-            (new EnviarPushParaMoradorIntegrationEvent(MoradorId, titulo, conteudo));
+            EnviarPushParaMorador(titulo, conteudo);
+
+            if (Preco > 0)
+                EnviarPushParaSindico(titulo, nomeAreaComum, condominioId);
 
             return;
         }
 
-        public void EnviarPushReservaNaFila(string nomeAreaComum)
+        private void EnviarPushReservaNaFila(string nomeAreaComum, Guid condominioId)
         {
             var titulo = "Reserva na FILA";
             var conteudo = $"Sua solicitação de reserva da(o) {nomeAreaComum} para o dia: {DataDeRealizacao.ToShortDateString()}, no horário: {HoraInicio}-{HoraFim} foi encaminhada para a fila de espera!";
 
-            AdicionarEvento
-            (new EnviarPushParaMoradorIntegrationEvent(MoradorId, titulo, conteudo));
+            EnviarPushParaMorador(titulo, conteudo);
+
+            if (Preco > 0)
+                EnviarPushParaSindico(titulo, nomeAreaComum, condominioId);
 
             return;
         }
 
-        public void EnviarPushReservaCancelada(string nomeAreaComum)
+        private void EnviarPushReservaCancelada(string nomeAreaComum, Guid condominioId)
         {
             var titulo = "Reserva CANCELADA";
             var conteudo = $"Sua solicitação de reserva da(o) {nomeAreaComum} para o dia: {DataDeRealizacao.ToShortDateString()}, no horário: {HoraInicio}-{HoraFim} foi CANCELADA! {Justificativa}";
 
-            AdicionarEvento
-            (new EnviarPushParaMoradorIntegrationEvent(MoradorId, titulo, conteudo));
+            EnviarPushParaMorador(titulo, conteudo);
+
+            if (Preco > 0)
+                EnviarPushParaSindico(titulo, nomeAreaComum, condominioId);
 
             return;
         }
 
-        public void EnviarPushReservaRetiradaDaFila(string nomeAreaComum)
+        public void EnviarPushReservaRetiradaDaFila(string nomeAreaComum, Guid condominioId)
         {
             switch (Status)
             {
                 case StatusReserva.APROVADA:
-                    EnviarPushReservaAprovada(nomeAreaComum);
+                    EnviarPushReservaAprovada(nomeAreaComum, condominioId);
                     break;
 
                 case StatusReserva.REPROVADA:
-                    EnviarPushReservaReprovada(nomeAreaComum);
+                    EnviarPushReservaReprovada(nomeAreaComum, condominioId);
                     break;
 
                 case StatusReserva.AGUARDANDO_APROVACAO:
-                    EnviarPushReservaAguardandoAprovacao(nomeAreaComum);
+                    EnviarPushReservaAguardandoAprovacao(nomeAreaComum, condominioId);
                     break;               
              
                 default:
                     break;
             }            
+        }
+
+        private void EnviarPushParaMorador(string titulo, string conteudo)
+        {
+            AdicionarEvento
+                (new EnviarPushParaMoradorIntegrationEvent(MoradorId, titulo, conteudo));
+        }
+
+        private void EnviarPushParaSindico(string titulo, string conteudo, Guid condominioId)
+        {
+            AdicionarEvento
+                (new EnviarPushParaSindicoIntegrationEvent(condominioId, titulo, conteudo));
+        }
+
+
+        public void EnviarEmail(string nomeAreaComum, Guid condominioId)
+        {
+            switch (Status)
+            {
+                case StatusReserva.APROVADA:
+                    EnviarEmailReservaAprovada(nomeAreaComum, condominioId);
+                    break;
+
+                case StatusReserva.REPROVADA:
+                    EnviarEmailReservaReprovada(nomeAreaComum, condominioId);
+                    break;
+
+                case StatusReserva.AGUARDANDO_APROVACAO:
+                    EnviarEmailReservaAguardandoAprovacao(nomeAreaComum, condominioId);
+                    break;
+
+                case StatusReserva.NA_FILA:
+                    EnviarEmailReservaNaFila(nomeAreaComum, condominioId);
+                    break;
+
+                case StatusReserva.CANCELADA:
+                    EnviarEmailReservaCancelada(nomeAreaComum, condominioId);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        private void EnviarEmailReservaAprovada(string nomeAreaComum, Guid condominioId)
+        {
+            var titulo = "Reserva APROVADA";
+
+            EnviarEmailParaMorador(titulo, nomeAreaComum, condominioId);
+
+            if (Preco>0)
+                EnviarEmailParaSindico(titulo, nomeAreaComum, condominioId);
+
+            return;
+        }
+
+        private void EnviarEmailReservaReprovada(string nomeAreaComum, Guid condominioId)
+        {
+            var titulo = "Reserva REPROVADA";
+
+            EnviarEmailParaMorador(titulo, nomeAreaComum, condominioId);
+
+            if (Preco > 0)
+                EnviarEmailParaSindico(titulo, nomeAreaComum, condominioId);
+
+            return;
+        }
+
+        private void EnviarEmailReservaAguardandoAprovacao(string nomeAreaComum, Guid condominioId)
+        {
+            var titulo = "Reserva Aguardando Aprovação";
+
+            EnviarEmailParaMorador(titulo, nomeAreaComum, condominioId);
+
+            EnviarEmailParaSindico(titulo, nomeAreaComum, condominioId);
+
+            return;
+        }
+
+        private void EnviarEmailReservaNaFila(string nomeAreaComum, Guid condominioId)
+        {
+            var titulo = "Reserva na FILA";
+
+            EnviarEmailParaMorador(titulo, nomeAreaComum, condominioId);
+
+            if (Preco > 0)
+                EnviarEmailParaSindico(titulo, nomeAreaComum, condominioId);
+
+            return;
+        }
+
+        private void EnviarEmailReservaCancelada(string nomeAreaComum, Guid condominioId)
+        {
+            var titulo = "Reserva CANCELADA";
+
+            EnviarEmailParaMorador(titulo, nomeAreaComum, condominioId);
+
+            if (Preco > 0)
+                EnviarEmailParaSindico(titulo, nomeAreaComum, condominioId);
+
+            return;
+        }
+
+        private void EnviarEmailReservaRetiradaDaFila(string nomeAreaComum, Guid condominioId)
+        {
+            switch (Status)
+            {
+                case StatusReserva.APROVADA:
+                    EnviarEmailReservaAprovada(nomeAreaComum, condominioId);
+                    break;
+
+                case StatusReserva.REPROVADA:
+                    EnviarEmailReservaReprovada(nomeAreaComum, condominioId);
+                    break;
+
+                case StatusReserva.AGUARDANDO_APROVACAO:
+                    EnviarEmailReservaAguardandoAprovacao(nomeAreaComum, condominioId);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        
+        private void EnviarEmailParaMorador(string titulo, string nomeAreaComum, Guid condominioId)
+        {
+            AdicionarEvento
+           (new EnviarEmailReservaParaMoradorIntegrationEvent
+           (titulo, nomeAreaComum, DataDeRealizacao.ToShortDateString(),
+            HoraInicio, HoraFim, MoradorId, $"{NumeroUnidade}|{AndarUnidade}|{DescricaoGrupoUnidade}",
+            Preco.ToString(), Observacao, Justificativa, DataDeCadastroFormatada, condominioId, UnidadeId));
+
+        }
+
+        private void EnviarEmailParaSindico(string titulo, string nomeAreaComum, Guid condominioId)
+        {
+            AdicionarEvento
+           (new EnviarEmailReservaParaSindicoIntegrationEvent
+           (titulo, nomeAreaComum, DataDeRealizacao.ToShortDateString(),
+            HoraInicio, HoraFim, MoradorId, $"{NumeroUnidade}|{AndarUnidade}|{DescricaoGrupoUnidade}",
+            Preco.ToString(), Observacao, Justificativa, DataDeCadastroFormatada, condominioId, UnidadeId));
+
         }
     }
 }

@@ -14,7 +14,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             return new CadastrarReservaCommand
                 (Guid.NewGuid(), "Observacao", Guid.NewGuid(), "101", "1º",
                 "Bloco 1", Guid.NewGuid(), "Usuario", DateTime.Now.Date, "08:00", "09:00",
-                150, "Mobile", false);
+                150, "Mobile", false, false);
         }
 
 

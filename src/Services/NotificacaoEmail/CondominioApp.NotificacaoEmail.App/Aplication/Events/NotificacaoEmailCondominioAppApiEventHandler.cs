@@ -16,6 +16,7 @@ using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.NotificacaoEm
 using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.NotificacaoEmailIntegrationEvent.Correspondencia;
 using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.NotificacaoEmailIntegrationEvent.Enquete;
 using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.NotificacaoEmailIntegrationEvent.Ocorrencia;
+using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.NotificacaoEmailIntegrationEvent.Reserva;
 
 namespace CondominioApp.NotificacaoEmail.Aplication.Events
 {
@@ -26,6 +27,8 @@ namespace CondominioApp.NotificacaoEmail.Aplication.Events
         INotificationHandler<EnviarEmailOcorrenciaIntegrationEvent>,
         INotificationHandler<EnviarEmailRespostaOcorrenciaParaMoradorIntegrationEvent>,
         INotificationHandler<EnviarEmailRespostaOcorrenciaParaSindicoIntegrationEvent>,
+        INotificationHandler<EnviarEmailReservaParaMoradorIntegrationEvent>,
+        INotificationHandler<EnviarEmailReservaParaSindicoIntegrationEvent>,
         System.IDisposable
     {
         private IUsuarioQuery _usuarioQuery;
@@ -98,7 +101,7 @@ namespace CondominioApp.NotificacaoEmail.Aplication.Events
 
         public async Task Handle(EnviarEmailRespostaOcorrenciaParaSindicoIntegrationEvent notification, CancellationToken cancellationToken)
         {
-            var listaDeEmails = await ObterListaDeEmailsDaRespostaOcorrenciaParaSindico(notification);
+            var listaDeEmails = await ObterListaDeEmailsDoSindico(notification.CondominioId);
 
             var respostaOcorrenciaDTO = RespostaOcorrenciaDTOFactory(notification, listaDeEmails, notification.CondominioId);
 
@@ -106,6 +109,29 @@ namespace CondominioApp.NotificacaoEmail.Aplication.Events
             await DisparadorDeEmail.Disparar();
         }
 
+        public async Task Handle(EnviarEmailReservaParaMoradorIntegrationEvent notification, CancellationToken cancellationToken)
+        {
+            var morador = await _usuarioQuery.ObterMoradorPorId(notification.MoradorId);
+            var listaDeEmails = new List<string>();
+            listaDeEmails.Add(morador.Email);
+
+            var reservaDTO = ReservaDTOParaMoradorFactory(notification, listaDeEmails, morador);
+
+            var DisparadorDeEmail = new DisparadorDeEmails(new EmailReserva(reservaDTO));
+            await DisparadorDeEmail.Disparar();
+        }
+
+        public async Task Handle(EnviarEmailReservaParaSindicoIntegrationEvent notification, CancellationToken cancellationToken)
+        {
+            var morador = await _usuarioQuery.ObterMoradorPorId(notification.MoradorId);
+            
+            var listaDeEmails = await ObterListaDeEmailsDoSindico(notification.CondominioId);            
+
+            var reservaDTO = ReservaDTOParaSindicoFactory(notification, listaDeEmails, morador);
+
+            var DisparadorDeEmail = new DisparadorDeEmails(new EmailReserva(reservaDTO));
+            await DisparadorDeEmail.Disparar();
+        }
 
 
 
@@ -131,23 +157,23 @@ namespace CondominioApp.NotificacaoEmail.Aplication.Events
             {
                 case VisibilidadeComunicado.PROPRIETARIOS:
                     var moradores = await _usuarioQuery.ObterProprietariosPorCondominioId(notification.CondominioId);
-                    return ObterEmailsDaLista(moradores);
+                    return ObterEmailsDaListaDeUsuarios(moradores);
 
                 case VisibilidadeComunicado.PROPRIETARIOS_UNIDADES:
                     moradores = ObterMoradoresDasUnidades(notification.UnidadesIds, true);
-                    return ObterEmailsDaLista(moradores);
+                    return ObterEmailsDaListaDeUsuarios(moradores);
                     
                 case VisibilidadeComunicado.UNIDADES:
                     moradores = ObterMoradoresDasUnidades(notification.UnidadesIds, false);
-                    return ObterEmailsDaLista(moradores);
+                    return ObterEmailsDaListaDeUsuarios(moradores);
 
                 default:
                     moradores = await _usuarioQuery.ObterMoradoresPorCondominioId(notification.CondominioId);
-                    return ObterEmailsDaLista(moradores);
+                    return ObterEmailsDaListaDeUsuarios(moradores);
             }
         }
 
-        private List<string> ObterEmailsDaLista(IEnumerable<MoradorFlat> moradores)
+        private List<string> ObterEmailsDaListaDeUsuarios(IEnumerable<MoradorFlat> moradores)
         {
             var listaDeEmails = new List<string>();
             if (moradores != null)
@@ -160,7 +186,7 @@ namespace CondominioApp.NotificacaoEmail.Aplication.Events
             }
             return listaDeEmails;
         }
-        private List<string> ObterEmailsDaLista(IEnumerable<FuncionarioFlat> funcionarios)
+        private List<string> ObterEmailsDaListaDeUsuarios(IEnumerable<FuncionarioFlat> funcionarios)
         {
             var listaDeEmails = new List<string>();
             if (funcionarios != null)
@@ -232,7 +258,7 @@ namespace CondominioApp.NotificacaoEmail.Aplication.Events
         private async Task<List<string>> ObterListaDeEmailsDaCorrespondencia(EnviarEmailCorrespondenciaIntegrationEvent notification)
         {
             var moradores = await _usuarioQuery.ObterMoradoresPorUnidadeId(notification.UnidadeId);
-            return ObterEmailsDaLista(moradores);
+            return ObterEmailsDaListaDeUsuarios(moradores);
         }
         private CorrespondenciaDTO CorrespondenciaDTOFactory
            (EnviarEmailCorrespondenciaIntegrationEvent notification, List<string> listaDeEmails)
@@ -254,7 +280,7 @@ namespace CondominioApp.NotificacaoEmail.Aplication.Events
             if (!notification.ApenasProprietarios)
                 moradores = await _usuarioQuery.ObterMoradoresPorCondominioId(notification.CondominioId);
 
-            var listaDeEmails = ObterEmailsDaLista(moradores);
+            var listaDeEmails = ObterEmailsDaListaDeUsuarios(moradores);
 
             var sindico = await _usuarioQuery.ObterSindicoPorCondominioId(notification.CondominioId);
             if (sindico != null)
@@ -326,11 +352,11 @@ namespace CondominioApp.NotificacaoEmail.Aplication.Events
                  notification.Foto, condominio.Nome, condominio.LogoMarca, listaDeEmails);
         }
 
-        private async Task<List<string>> ObterListaDeEmailsDaRespostaOcorrenciaParaSindico(EnviarEmailRespostaOcorrenciaParaSindicoIntegrationEvent notification)
+        private async Task<List<string>> ObterListaDeEmailsDoSindico(System.Guid condominioId)
         {
             var listaDeEmails = new List<string>();            
 
-            var sindico = await _usuarioQuery.ObterSindicoPorCondominioId(notification.CondominioId);
+            var sindico = await _usuarioQuery.ObterSindicoPorCondominioId(condominioId);
             if (sindico != null)
             {
                 var usuario = await _usuarioQuery.ObterPorId(sindico.UsuarioId);
@@ -340,6 +366,30 @@ namespace CondominioApp.NotificacaoEmail.Aplication.Events
             return listaDeEmails;
         }
 
+
+        private ReservaDTO ReservaDTOParaMoradorFactory
+        (EnviarEmailReservaParaMoradorIntegrationEvent notification, List<string> listaDeEmails, MoradorFlat morador)
+        {
+            var condominio = _principalQuery.ObterPorId(notification.CondominioId).Result;
+
+            return new ReservaDTO
+                (notification.Titulo, notification.AreaComumNome, notification.DataRealizacao,
+                 notification.HoraInicio, notification.HoraFim, morador.Nome, notification.UnidadeDescricao,
+                 notification.Valor, notification.Observacao, notification.Justificativa, 
+                 notification.DataDeCadastro, condominio.Nome, condominio.LogoMarca, listaDeEmails);
+        }
+
+        private ReservaDTO ReservaDTOParaSindicoFactory
+        (EnviarEmailReservaParaSindicoIntegrationEvent notification, List<string> listaDeEmails, MoradorFlat morador)
+        {
+            var condominio = _principalQuery.ObterPorId(notification.CondominioId).Result;
+
+            return new ReservaDTO
+                (notification.Titulo, notification.AreaComumNome, notification.DataRealizacao,
+                 notification.HoraInicio, notification.HoraFim, morador.Nome, notification.UnidadeDescricao,
+                 notification.Valor, notification.Observacao, notification.Justificativa,
+                 notification.DataDeCadastro, condominio.Nome, condominio.LogoMarca, listaDeEmails);
+        }
 
         public void Dispose()
         {
