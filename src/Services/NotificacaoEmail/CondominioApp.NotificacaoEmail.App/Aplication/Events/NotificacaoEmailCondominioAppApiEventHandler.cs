@@ -371,12 +371,12 @@ namespace CondominioApp.NotificacaoEmail.Aplication.Events
         (EnviarEmailReservaParaMoradorIntegrationEvent notification, List<string> listaDeEmails, MoradorFlat morador)
         {
             var condominio = _principalQuery.ObterPorId(notification.CondominioId).Result;
-
             return new ReservaDTO
                 (notification.Titulo, notification.AreaComumNome, notification.DataRealizacao,
                  notification.HoraInicio, notification.HoraFim, morador.Nome, notification.UnidadeDescricao,
-                 notification.Valor, notification.Observacao, notification.Justificativa, 
-                 notification.DataDeCadastro, condominio.Nome, condominio.LogoMarca, listaDeEmails);
+                 notification.Valor, notification.Observacao, notification.Justificativa,  notification.DataDeCadastro,
+                 condominio.Nome, condominio.LogoMarca, listaDeEmails, notification.CorFundoTitulo);
+
         }
 
         private ReservaDTO ReservaDTOParaSindicoFactory
@@ -387,8 +387,8 @@ namespace CondominioApp.NotificacaoEmail.Aplication.Events
             return new ReservaDTO
                 (notification.Titulo, notification.AreaComumNome, notification.DataRealizacao,
                  notification.HoraInicio, notification.HoraFim, morador.Nome, notification.UnidadeDescricao,
-                 notification.Valor, notification.Observacao, notification.Justificativa,
-                 notification.DataDeCadastro, condominio.Nome, condominio.LogoMarca, listaDeEmails);
+                 notification.Valor, notification.Observacao, notification.Justificativa, notification.DataDeCadastro,
+                 condominio.Nome, condominio.LogoMarca, listaDeEmails, notification.CorFundoTitulo);
         }
 
         public void Dispose()

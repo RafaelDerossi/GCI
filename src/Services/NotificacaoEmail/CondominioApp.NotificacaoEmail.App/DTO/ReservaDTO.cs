@@ -34,12 +34,15 @@ namespace CondominioApp.NotificacaoEmail.App.DTO
         public string LogoDoCondominio { get; set; }
 
         public IEnumerable<string> ListaDeEmails { get; set; }
+        
+        public string CorFundoTitulo { get; set; }
+
 
         public ReservaDTO
             (string titulo, string areaComumNome, string dataRealizacao, string horaInicio,
              string horaFim, string nomeMorador, string unidadeDescricao, string valor,
              string observacao, string justificativa, string dataDeCadastro, string nomeCondominio,
-             string logoDoCondominio, IEnumerable<string> listaDeEmails)
+             string logoDoCondominio, IEnumerable<string> listaDeEmails, string corFundoTitulo)
         {
             Titulo = titulo;
             AreaComumNome = areaComumNome;
@@ -55,6 +58,7 @@ namespace CondominioApp.NotificacaoEmail.App.DTO
             NomeCondominio = nomeCondominio;
             LogoDoCondominio = logoDoCondominio;
             ListaDeEmails = listaDeEmails;
+            CorFundoTitulo = corFundoTitulo;
         }
     }
 }

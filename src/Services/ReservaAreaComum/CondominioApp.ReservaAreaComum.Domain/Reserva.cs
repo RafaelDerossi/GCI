@@ -13,6 +13,11 @@ namespace CondominioApp.ReservaAreaComum.Domain
 {
    public class Reserva : Entity, IHorario
     {
+        private string CorAzul = "#3333FF";
+        private string CorVerde = "#009900";
+        private string CorVermelho = "#CC0000";
+        private string CorAmarelo = "#FFCC00";
+
         public Guid AreaComumId { get; private set; }
 
         public string Observacao { get; private set; }
@@ -317,7 +322,7 @@ namespace CondominioApp.ReservaAreaComum.Domain
         }
         
         private void EnviarPushReservaAprovada(string nomeAreaComum, Guid condominioId)
-        {
+        {          
             var titulo = "Reserva APROVADA";
             var conteudo = $"Sua solicitação de reserva da(o) {nomeAreaComum} para o dia: {DataDeRealizacao.ToShortDateString()}, no horário: {HoraInicio}-{HoraFim} foi aprovada.";
 
@@ -330,7 +335,7 @@ namespace CondominioApp.ReservaAreaComum.Domain
         }
 
         private void EnviarPushReservaAguardandoAprovacao(string nomeAreaComum, Guid condominioId)
-        {
+        {           
             var titulo = "Reserva Aguardando Aprovação";
             var conteudo = $"Sua solicitação de reserva da(o) {nomeAreaComum} para o dia: {DataDeRealizacao.ToShortDateString()}, no horário: {HoraInicio}-{HoraFim} esta aguardando aprovação pela administração do condomínio.";
 
@@ -445,59 +450,64 @@ namespace CondominioApp.ReservaAreaComum.Domain
 
         private void EnviarEmailReservaAprovada(string nomeAreaComum, Guid condominioId)
         {
+            var corFundoTitulo = CorVerde;
             var titulo = "Reserva APROVADA";
 
-            EnviarEmailParaMorador(titulo, nomeAreaComum, condominioId);
+            EnviarEmailParaMorador(titulo, nomeAreaComum, condominioId, corFundoTitulo);
 
             if (Preco>0)
-                EnviarEmailParaSindico(titulo, nomeAreaComum, condominioId);
+                EnviarEmailParaSindico(titulo, nomeAreaComum, condominioId, corFundoTitulo);
 
             return;
         }
 
         private void EnviarEmailReservaReprovada(string nomeAreaComum, Guid condominioId)
         {
+            var corFundoTitulo = CorVermelho;
             var titulo = "Reserva REPROVADA";
 
-            EnviarEmailParaMorador(titulo, nomeAreaComum, condominioId);
+            EnviarEmailParaMorador(titulo, nomeAreaComum, condominioId, corFundoTitulo);
 
             if (Preco > 0)
-                EnviarEmailParaSindico(titulo, nomeAreaComum, condominioId);
+                EnviarEmailParaSindico(titulo, nomeAreaComum, condominioId, corFundoTitulo);
 
             return;
         }
 
         private void EnviarEmailReservaAguardandoAprovacao(string nomeAreaComum, Guid condominioId)
         {
+            var corFundoTitulo = CorAzul;
             var titulo = "Reserva Aguardando Aprovação";
 
-            EnviarEmailParaMorador(titulo, nomeAreaComum, condominioId);
+            EnviarEmailParaMorador(titulo, nomeAreaComum, condominioId, corFundoTitulo);
 
-            EnviarEmailParaSindico(titulo, nomeAreaComum, condominioId);
+            EnviarEmailParaSindico(titulo, nomeAreaComum, condominioId, corFundoTitulo);
 
             return;
         }
 
         private void EnviarEmailReservaNaFila(string nomeAreaComum, Guid condominioId)
         {
+            var corFundoTitulo = CorAmarelo;
             var titulo = "Reserva na FILA";
 
-            EnviarEmailParaMorador(titulo, nomeAreaComum, condominioId);
+            EnviarEmailParaMorador(titulo, nomeAreaComum, condominioId, corFundoTitulo);
 
             if (Preco > 0)
-                EnviarEmailParaSindico(titulo, nomeAreaComum, condominioId);
+                EnviarEmailParaSindico(titulo, nomeAreaComum, condominioId, corFundoTitulo);
 
             return;
         }
 
         private void EnviarEmailReservaCancelada(string nomeAreaComum, Guid condominioId)
         {
+            var corFundoTitulo = CorVermelho;
             var titulo = "Reserva CANCELADA";
 
-            EnviarEmailParaMorador(titulo, nomeAreaComum, condominioId);
+            EnviarEmailParaMorador(titulo, nomeAreaComum, condominioId, corFundoTitulo);
 
             if (Preco > 0)
-                EnviarEmailParaSindico(titulo, nomeAreaComum, condominioId);
+                EnviarEmailParaSindico(titulo, nomeAreaComum, condominioId, corFundoTitulo);
 
             return;
         }
@@ -524,24 +534,24 @@ namespace CondominioApp.ReservaAreaComum.Domain
         }
 
         
-        private void EnviarEmailParaMorador(string titulo, string nomeAreaComum, Guid condominioId)
+        private void EnviarEmailParaMorador(string titulo, string nomeAreaComum, Guid condominioId, string corFundoTitulo)
         {
             AdicionarEvento
            (new EnviarEmailReservaParaMoradorIntegrationEvent
            (titulo, nomeAreaComum, DataDeRealizacao.ToShortDateString(),
             HoraInicio, HoraFim, MoradorId, $"{NumeroUnidade}|{AndarUnidade}|{DescricaoGrupoUnidade}",
-            Preco.ToString(), Observacao, Justificativa, DataDeCadastroFormatada, condominioId, UnidadeId));
-
+            Preco.ToString(), Observacao, Justificativa, DataDeCadastroFormatada, condominioId,
+            UnidadeId, corFundoTitulo));
         }
 
-        private void EnviarEmailParaSindico(string titulo, string nomeAreaComum, Guid condominioId)
+        private void EnviarEmailParaSindico(string titulo, string nomeAreaComum, Guid condominioId, string corFundoTitulo)
         {
             AdicionarEvento
            (new EnviarEmailReservaParaSindicoIntegrationEvent
            (titulo, nomeAreaComum, DataDeRealizacao.ToShortDateString(),
             HoraInicio, HoraFim, MoradorId, $"{NumeroUnidade}|{AndarUnidade}|{DescricaoGrupoUnidade}",
-            Preco.ToString(), Observacao, Justificativa, DataDeCadastroFormatada, condominioId, UnidadeId));
-
+            Preco.ToString(), Observacao, Justificativa, DataDeCadastroFormatada, condominioId,
+            UnidadeId, corFundoTitulo));
         }
     }
 }
