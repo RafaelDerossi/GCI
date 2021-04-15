@@ -25,7 +25,7 @@ namespace CondominioApp.Api.FilaDeReservas
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            timer = new Timer(ExecuteProcess, null, TimeSpan.Zero, TimeSpan.FromSeconds(30));
+            timer = new Timer(ExecuteProcess, null, TimeSpan.Zero, TimeSpan.FromSeconds(60));
             return Task.CompletedTask;
         }
 
@@ -53,8 +53,7 @@ namespace CondominioApp.Api.FilaDeReservas
                     {
                         var comando = new AprovarReservaAutomaticamenteCommand(reserva.Id, "");
                         var Resultado = _mediatorHandler.EnviarComando(comando).Result;
-                    }                        
-
+                    }                    
                 }
                 
                 if (!retorno.IsValid)
@@ -72,6 +71,8 @@ namespace CondominioApp.Api.FilaDeReservas
                         var Resultado = _mediatorHandler.EnviarComando(comando).Result;
                     }
                 }
+
+                Thread.Sleep(2000);
             }
 
 
@@ -85,6 +86,7 @@ namespace CondominioApp.Api.FilaDeReservas
                     {
                         var comando = new MarcarReservaComoExpiradaCommand(reserva.Id, "");
                         var Resultado = _mediatorHandler.EnviarComando(comando).Result;
+                        Thread.Sleep(2000);
                     }
                 }
             }
@@ -100,9 +102,11 @@ namespace CondominioApp.Api.FilaDeReservas
                     {
                         var comando = new MarcarReservaComoExpiradaCommand(reserva.Id, "");
                         var Resultado = _mediatorHandler.EnviarComando(comando).Result;
+                        Thread.Sleep(2000);
                     }
                 }
             }
+
         }
 
         public Task StopAsync(CancellationToken cancellationToken)

@@ -17,7 +17,7 @@ namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy
                     ||
                     (_horaFimB > _horaInicioA && _horaFimB < _horaFimA)
                     ||
-                    (_horaFimA > _horaInicioB && _horaFimA < _horaFimB)
+                    (_horaFimA > _horaInicioB && _horaFimA <= _horaFimB)
                     ||
                     (_horaInicioA > _horaInicioB && _horaFimA < _horaFimB)
                     ||
