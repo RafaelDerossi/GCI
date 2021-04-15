@@ -1,6 +1,5 @@
 using CondominioApp.Api.Configuration;
 using CondominioApp.Api.FilaDeReservas;
-using CondominioApp.ReservaAreaComum.Aplication.FilaDeReservas;
 using CondominioApp.WebApi.Core.Identidade;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
