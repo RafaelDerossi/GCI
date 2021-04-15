@@ -169,6 +169,8 @@ namespace CondominioApp.ReservaAreaComum.Domain
         public void MarcarComoExpirada(string justificativa)
         {
             Status = StatusReserva.EXPIRADA;
+            if (justificativa == "")
+                justificativa = "Sua reserva expirou.";
             Justificativa = justificativa;
         }
 
@@ -290,6 +292,19 @@ namespace CondominioApp.ReservaAreaComum.Domain
             }
         }
 
+        public bool EstaExpirada()
+        {
+            var dataHj = DataHoraDeBrasilia.Get();
+
+            var dataFimDaRealizacao =DataDeRealizacao.Date;
+            dataFimDaRealizacao.AddHours(ObterAHoraDeFimDaReserva);
+            dataFimDaRealizacao.AddMinutes(ObterOMinutoDeFimDaReserva);
+
+            if (dataFimDaRealizacao < dataHj)
+                return true;
+
+            return false;
+        }
 
 
         public void EnviarPush(string nomeAreaComum, Guid condominioId)

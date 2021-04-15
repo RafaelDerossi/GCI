@@ -332,8 +332,9 @@ namespace CondominioApp.Api.Configuration
             services.AddTransient<IRequestHandler<CancelarReservaComoUsuarioCommand, ValidationResult>, ReservaCommandHandler>();
             services.AddTransient<IRequestHandler<CancelarReservaComoAdministradorCommand, ValidationResult>, ReservaCommandHandler>();
             services.AddTransient<IRequestHandler<RetirarReservaDaFilaCommand, ValidationResult>, ReservaCommandHandler>();
+            services.AddTransient<IRequestHandler<MarcarReservaComoExpiradaCommand, ValidationResult>, ReservaCommandHandler>();
             services.AddTransient<INotificationHandler<ReservaCadastradaEvent>, ReservaEventHandler>();            
-            services.AddTransient<INotificationHandler<StatusDaReservaAlteradoEvent>, ReservaEventHandler>();            
+            services.AddTransient<INotificationHandler<StatusDaReservaAlteradoEvent>, ReservaEventHandler>();
 
             #endregion
 

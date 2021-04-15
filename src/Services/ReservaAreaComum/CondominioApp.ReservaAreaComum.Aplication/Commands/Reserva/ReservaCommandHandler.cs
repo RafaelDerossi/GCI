@@ -22,6 +22,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
          IRequestHandler<AprovarReservaPelaAdministracaoCommand, ValidationResult>,
          IRequestHandler<CancelarReservaComoUsuarioCommand, ValidationResult>,
          IRequestHandler<CancelarReservaComoAdministradorCommand, ValidationResult>,
+         IRequestHandler<MarcarReservaComoExpiradaCommand, ValidationResult>,
          IRequestHandler<RetirarReservaDaFilaCommand, ValidationResult>,         
          IDisposable
     {
@@ -333,6 +334,37 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
             reservaRetiradaDaFila.EnviarPushReservaRetiradaDaFila(areaComum.Nome, areaComum.CondominioId);
 
             reservaRetiradaDaFila.EnviarEmailReservaRetiradaDaFila(areaComum.Nome, areaComum.CondominioId);
+
+            return await PersistirDados(_reservaAreaComumRepository.UnitOfWork);
+        }
+
+
+        public async Task<ValidationResult> Handle(MarcarReservaComoExpiradaCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido()) return request.ValidationResult;
+
+            var reserva = await _reservaAreaComumRepository.ObterReservaPorId(request.Id);
+            if (reserva == null)
+            {
+                AdicionarErro("Reserva não encontrada!");
+                return ValidationResult;
+            }
+
+            var areacomum = await _reservaAreaComumRepository.ObterPorId(reserva.AreaComumId);
+            if (areacomum == null)
+            {
+                AdicionarErro("Area Comum não encontrada!");
+                return ValidationResult;
+            }
+
+
+            reserva.MarcarComoExpirada(request.Justificativa);
+
+            _reservaAreaComumRepository.AtualizarReserva(reserva);
+
+            //Evento
+            reserva.AdicionarEvento(new StatusDaReservaAlteradoEvent(reserva.Id, reserva.Status, reserva.Justificativa, reserva.Observacao));
+            
 
             return await PersistirDados(_reservaAreaComumRepository.UnitOfWork);
         }

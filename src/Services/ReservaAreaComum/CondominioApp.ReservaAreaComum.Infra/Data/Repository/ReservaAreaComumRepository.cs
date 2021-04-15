@@ -1,5 +1,6 @@
 ﻿using CondominioApp.Core.Data;
 using CondominioApp.Core.Enumeradores;
+using CondominioApp.Core.Helpers;
 using CondominioApp.ReservaAreaComum.Domain;
 using CondominioApp.ReservaAreaComum.Domain.Interfaces;
 using CondominioApp.ReservaAreaComum.Infra.Data;
@@ -136,6 +137,23 @@ namespace CondominioApp.Principal.Infra.Data.Repository
             return await _context.Reservas.Where(c => c.Status == StatusReserva.PROCESSANDO && !c.Lixeira).CountAsync();
         }
 
+        public async Task<int> ObterQtdDeReservasAguardandoAprovacaoAteHoje()
+        {
+            var dataHj = DataHoraDeBrasilia.Get().Date;
+
+            return await _context.Reservas.Where(c => c.Status == StatusReserva.AGUARDANDO_APROVACAO && 
+                                                      c.DataDeRealizacao <= dataHj &&
+                                                     !c.Lixeira).CountAsync();
+        }
+
+        public async Task<int> ObterQtdDeReservasNaFilaAteHoje()
+        {
+            var dataHj = DataHoraDeBrasilia.Get().Date;
+            return await _context.Reservas.Where(c => c.Status == StatusReserva.NA_FILA &&
+                                                      c.DataDeRealizacao <= dataHj &&
+                                                     !c.Lixeira).CountAsync();
+        }
+
         public async Task<Reserva> ObterPrimeiraNaFilaParaSerProcessada()
         {
             return await _context.Reservas.Where(r => r.Status == StatusReserva.PROCESSANDO && !r.Lixeira)
@@ -143,7 +161,23 @@ namespace CondominioApp.Principal.Infra.Data.Repository
                                           .FirstOrDefaultAsync();
         }
 
-        
+        public async Task<IEnumerable<Reserva>> ObterReservasAguardandoAprovacaoAteHoje()
+        {
+            var dataHj = DataHoraDeBrasilia.Get().Date;
+
+            return await _context.Reservas.Where(c => c.Status == StatusReserva.AGUARDANDO_APROVACAO &&
+                                                      c.DataDeRealizacao <= dataHj &&
+                                                     !c.Lixeira).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Reserva>> ObterReservasNaFilaAteHoje()
+        {
+            var dataHj = DataHoraDeBrasilia.Get().Date;
+
+            return await _context.Reservas.Where(c => c.Status == StatusReserva.NA_FILA &&
+                                                      c.DataDeRealizacao <= dataHj &&
+                                                     !c.Lixeira).ToListAsync();
+        }
 
         public void Dispose()
         {

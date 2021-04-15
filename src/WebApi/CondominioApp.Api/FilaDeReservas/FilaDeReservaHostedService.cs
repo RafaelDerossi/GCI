@@ -73,7 +73,36 @@ namespace CondominioApp.Api.FilaDeReservas
                     }
                 }
             }
-            
+
+
+            if (_reservaAreaComumRepository.ObterQtdDeReservasAguardandoAprovacaoAteHoje().Result > 0)
+            {
+                var reservas = _reservaAreaComumRepository.ObterReservasAguardandoAprovacaoAteHoje().Result;
+
+                foreach (var reserva in reservas)
+                {
+                    if (reserva.EstaExpirada())
+                    {
+                        var comando = new MarcarReservaComoExpiradaCommand(reserva.Id, "");
+                        var Resultado = _mediatorHandler.EnviarComando(comando).Result;
+                    }
+                }
+            }
+
+
+            if (_reservaAreaComumRepository.ObterQtdDeReservasNaFilaAteHoje().Result > 0)
+            {
+                var reservas = _reservaAreaComumRepository.ObterReservasNaFilaAteHoje().Result;
+
+                foreach (var reserva in reservas)
+                {
+                    if (reserva.EstaExpirada())
+                    {
+                        var comando = new MarcarReservaComoExpiradaCommand(reserva.Id, "");
+                        var Resultado = _mediatorHandler.EnviarComando(comando).Result;
+                    }
+                }
+            }
         }
 
         public Task StopAsync(CancellationToken cancellationToken)
