@@ -25,6 +25,17 @@ namespace CondominioApp.Ocorrencias.App.Aplication.Query
             return await _ocorrenciaRepository.ObterPorId(id);
         }
 
+        public async Task<IEnumerable<Ocorrencia>> ObterPorMoradorOuPublicas(Guid condominioId, Guid moradorId)
+        {
+            var dataAtrasada = DataHoraDeBrasilia.Get().AddMonths(meses);
+            return await _ocorrenciaRepository.Obter(
+                 c => c.CondominioId == condominioId &&
+                      (c.MoradorId == moradorId || c.Publica) &&
+                      c.DataDeCadastro >= dataAtrasada &&
+                      !c.Lixeira, true, take);
+        }
+
+
         public async Task<IEnumerable<Ocorrencia>> ObterPorCondominio(Guid condominioId)
         {
             var dataAtrasada = DataHoraDeBrasilia.Get().AddMonths(meses);
@@ -32,17 +43,7 @@ namespace CondominioApp.Ocorrencias.App.Aplication.Query
                  c => c.CondominioId == condominioId &&
                  c.DataDeCadastro >= dataAtrasada &&
                  !c.Lixeira, true, take);
-        }
-
-        public async Task<IEnumerable<Ocorrencia>> ObterPorCondominioEUsuario(Guid condominioId, Guid usuarioId)
-        {
-            var dataAtrasada = DataHoraDeBrasilia.Get().AddMonths(meses);
-            return await _ocorrenciaRepository.Obter(
-                 c => c.CondominioId == condominioId &&
-                      (c.MoradorId == usuarioId || c.Publica) &&
-                      c.DataDeCadastro >= dataAtrasada &&
-                      !c.Lixeira, true, take);
-        }
+        }        
 
         public async Task<IEnumerable<Ocorrencia>> ObterPorCondominioEStatus(Guid condominioId, StatusDaOcorrencia status)
         {
@@ -74,6 +75,49 @@ namespace CondominioApp.Ocorrencias.App.Aplication.Query
                  c.DataDeCadastro >= dataAtrasada &&
                  !c.Lixeira, true, take);
         }
+
+
+        public async Task<IEnumerable<Ocorrencia>> ObterPorUnidade(Guid unidadeId)
+        {
+            var dataAtrasada = DataHoraDeBrasilia.Get().AddMonths(meses);
+            return await _ocorrenciaRepository.Obter(
+                 c => c.UnidadeId == unidadeId &&
+                 c.DataDeCadastro >= dataAtrasada &&
+                 !c.Lixeira, true, take);
+        }
+
+        public async Task<IEnumerable<Ocorrencia>> ObterPorUnidadeEStatus(Guid unidadeId, StatusDaOcorrencia status)
+        {
+            var dataAtrasada = DataHoraDeBrasilia.Get().AddMonths(meses);
+            return await _ocorrenciaRepository.Obter(
+                 c => c.UnidadeId == unidadeId &&
+                 c.Status == status &&
+                 c.DataDeCadastro >= dataAtrasada &&
+                 !c.Lixeira, true, take);
+        }
+
+        public async Task<IEnumerable<Ocorrencia>> ObterPorUnidadeEFiltro(Guid unidadeId, string filtro)
+        {
+            var dataAtrasada = DataHoraDeBrasilia.Get().AddMonths(meses);
+            return await _ocorrenciaRepository.Obter(
+                c => c.UnidadeId == unidadeId &&
+                c.Descricao.Contains(filtro) &&
+                c.DataDeCadastro >= dataAtrasada &&
+                 !c.Lixeira, true, take);
+        }
+
+        public async Task<IEnumerable<Ocorrencia>> ObterPorUnidadeEStatusEFiltro(Guid unidadeid, StatusDaOcorrencia status, string filtro)
+        {
+            var dataAtrasada = DataHoraDeBrasilia.Get().AddMonths(meses);
+            return await _ocorrenciaRepository.Obter(
+                 c => c.UnidadeId == unidadeid &&
+                 c.Status == status &&
+                 c.Descricao.Contains(filtro) &&
+                 c.DataDeCadastro >= dataAtrasada &&
+                 !c.Lixeira, true, take);
+        }
+
+
 
         public async Task<IEnumerable<RespostaOcorrencia>> ObterRespostasPorOcorrencia(Guid ocorrenciaId)
         {            

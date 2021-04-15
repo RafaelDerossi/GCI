@@ -136,6 +136,11 @@ namespace CondominioApp.Usuarios.App.Aplication.Query
             return await _veiculoQueryRepository.Obter(v => v.UsuarioId == usuarioId);
         }
 
+        public async Task<IEnumerable<VeiculoFlat>> ObterVeiculosPorUnidade(Guid unidadeId)
+        {
+            return await _veiculoQueryRepository.Obter(v => v.UnidadeId == unidadeId);
+        }
+
         #endregion
 
 

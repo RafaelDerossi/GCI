@@ -44,19 +44,37 @@ namespace CondominioApp.Principal.Infra.Data.Repository
         {
             _context.Grupos.Add(entity);
         }
-      
+
+        public void AtualizarGrupo(Grupo entity)
+        {
+            _context.Grupos.Update(entity);
+        }
+
+
+
         public void AdicionarUnidade(Unidade entity)
         {
             _context.Unidades.Add(entity);
         }
+
+        public void AtualizarUnidade(Unidade entity)
+        {
+            _context.Unidades.Update(entity);
+        }
+
+
 
         public void AdicionarContrato(Contrato entity)
         {
             _context.Contratos.Add(entity);
         }
 
+        public void AtualizarContrato(Contrato entity)
+        {
+            _context.Contratos.Update(entity);
+        }
 
-      
+
 
 
         public async Task<IEnumerable<Condominio>> Obter(Expression<Func<Condominio, bool>> expression, bool OrderByDesc = false, int take = 0)

@@ -78,6 +78,8 @@ namespace CondominioApp.Api.Controllers
         }
 
 
+
+
         [HttpPost]
         public async Task<ActionResult> Post(CadastraUnidadeViewModel unidadeVM)
         {
@@ -99,6 +101,7 @@ namespace CondominioApp.Api.Controllers
             return CustomResponse();
             
         }
+
 
 
         [HttpPut("{Id:Guid}")]
@@ -123,7 +126,7 @@ namespace CondominioApp.Api.Controllers
 
 
         [HttpPut("atualizar-codigo/{Id:Guid}")]
-        public async Task<ActionResult> Put(Guid Id)
+        public async Task<ActionResult> PutAtualizarCodigo(Guid Id)
         {
             var comando = new ResetCodigoUnidadeCommand(Id);
 
@@ -132,6 +135,15 @@ namespace CondominioApp.Api.Controllers
             return CustomResponse(Resultado);
         }
 
+        [HttpPut("atualizar-vagas")]
+        public async Task<ActionResult> PutAtualizarVagas(EditaVagaDeUnidadeViewModel viewModel)
+        {
+            var comando = new EditarVagasDaUnidadeCommand(viewModel.Id, viewModel.Vagas);
+
+            var Resultado = await _mediatorHandler.EnviarComando(comando);
+
+            return CustomResponse(Resultado);
+        }
 
         [HttpDelete("{Id:Guid}")]
         public async Task<ActionResult> DeleteUnidade(Guid Id)

@@ -16,6 +16,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
         IRequestHandler<MarcarComoUnidadePrincipalCommand, ValidationResult>,
         IRequestHandler<MarcarComoProprietarioCommand, ValidationResult>,
         IRequestHandler<DesmarcarComoProprietarioCommand, ValidationResult>,
+        IRequestHandler<RemoverMoradorCommand, ValidationResult>,
         IDisposable
     {
         private IUsuarioRepository _usuarioRepository;
@@ -155,9 +156,30 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
 
         }
 
-      
+        public async Task<ValidationResult> Handle(RemoverMoradorCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido()) return request.ValidationResult;
 
-              
+            var morador = await _usuarioRepository.ObterMoradorPorId(request.Id);
+            if (morador == null)
+            {
+                AdicionarErro("Morador não encontrado.");
+                return ValidationResult;
+            }
+
+            morador.EnviarParaLixeira();
+
+            _usuarioRepository.AtualizarMorador(morador);
+
+            //Evento
+            morador.AdicionarEvento(new MoradorRemovidoEvent(morador.Id));
+
+            return await PersistirDados(_usuarioRepository.UnitOfWork);
+
+        }
+
+
+
         private Morador MoradorFactory(MoradorCommand request)
         {
             var morador = new Morador
