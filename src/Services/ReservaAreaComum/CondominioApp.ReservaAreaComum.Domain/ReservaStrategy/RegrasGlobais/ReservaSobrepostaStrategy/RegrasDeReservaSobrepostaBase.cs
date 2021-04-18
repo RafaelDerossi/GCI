@@ -2,7 +2,7 @@
 
 namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.ReservaSobrepostaStrategy
 {
-    public abstract class RegrasDeReservaSobrepostaStrategy : IRegrasDeReservaSobrepostaStrategy
+    public abstract class RegrasDeReservaSobrepostaBase : IRegrasDeReservaSobreposta
     {
         protected ValidationResult ValidationResult { get; private set; } = new ValidationResult();
 

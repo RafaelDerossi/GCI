@@ -8,16 +8,13 @@ using System.Text;
 
 namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy
 {
-    public class RegrasDeAdministradorParaReservar : RegrasStrategy
+    public class RegrasDeAdministradorParaReservar : RegraDeReservaBase, IRegrasDeReservaEspecificas
     {
-        private readonly Reserva _reserva;
+        private readonly Reserva _reserva;        
 
-        private readonly AreaComum _areaComum;
-
-        public RegrasDeAdministradorParaReservar(Reserva reserva, AreaComum areaComum)
+        public RegrasDeAdministradorParaReservar(Reserva reserva)
         {
             _reserva = reserva;
-            _areaComum = areaComum;
         }
 
         public override ValidationResult Validar()

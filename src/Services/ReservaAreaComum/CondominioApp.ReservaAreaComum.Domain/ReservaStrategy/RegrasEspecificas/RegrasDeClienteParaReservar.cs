@@ -9,7 +9,7 @@ using System.Text;
 
 namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy
 {
-    public class RegrasDeClienteParaReservar : RegrasStrategy
+    public class RegrasDeClienteParaReservar : RegraDeReservaBase, IRegrasDeReservaEspecificas
     {
         private readonly Reserva _reserva;
 

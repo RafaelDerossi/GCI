@@ -5,13 +5,13 @@ using System.Linq;
 
 namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.ReservaSobrepostaStrategy
 {
-    public class RegrasDeReservaLimiteDeVagasPorHorario : RegrasDeReservaSobrepostaStrategy
+    public class RegrasParaReservaSemSobreposicao : RegrasDeReservaSobrepostaBase
     {
         private readonly Reserva _reserva;
 
         private readonly AreaComum _areaComum;
 
-        public RegrasDeReservaLimiteDeVagasPorHorario(Reserva reserva, AreaComum areaComum)
+        public RegrasParaReservaSemSobreposicao(Reserva reserva, AreaComum areaComum)
         {
             _reserva = reserva;
             _areaComum = areaComum;
@@ -56,5 +56,6 @@ namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.ReservaSobrepost
             }
             return ValidationResult;
         }
+
     }
 }

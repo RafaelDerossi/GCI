@@ -2,7 +2,7 @@
 
 namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.ReservaSobrepostaStrategy
 {
-    public interface IRegrasDeReservaSobrepostaStrategy
+    public interface IRegrasDeReservaSobreposta
     {
         ValidationResult Validar();
     }

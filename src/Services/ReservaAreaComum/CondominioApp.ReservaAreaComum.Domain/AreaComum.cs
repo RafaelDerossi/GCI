@@ -228,58 +228,12 @@ namespace CondominioApp.ReservaAreaComum.Domain
 
 
         public ValidationResult ValidarReserva(Reserva reserva)
-        {
-            if (reserva.CriadaPelaAdministracao)
-                return ValidarReservaCriadaPelaAdministracao(reserva);
-
-            
-            return ValidarReservaCriadaPorMorador(reserva);            
+        {           
+            var regraDeReserva = RegrasDeReservaFactory.CriaRegrasDeReserva(reserva, this);
+            var resultado = regraDeReserva.Validar();
+            return resultado;
         }
-      
-        private ValidationResult ValidarReservaCriadaPelaAdministracao(Reserva reserva)
-        {
-            var Gerenciador = new GerenciadorDeReserva(new RegrasDeAdministradorParaReservar(reserva, this));
-            var resultado = Gerenciador.Validar();
-            if (!resultado.IsValid)
-                return resultado;
-
-            
-            return ValidarReservaRegrasGlobais(reserva);
-            
-        }
-
-        private ValidationResult ValidarReservaCriadaPorMorador(Reserva reserva)
-        {
-            var Gerenciador = new GerenciadorDeReserva(new RegrasDeClienteParaReservar(reserva, this));
-            var resultado = Gerenciador.Validar();
-            if (!resultado.IsValid)
-                return resultado;
-
-            return ValidarReservaRegrasGlobais(reserva);
-        }
-
-        private ValidationResult ValidarReservaRegrasGlobais(Reserva reserva)
-        {
-            if (PermiteReservaSobreposta && TemHorariosEspecificos)
-                return ValidarReservaComSobreposicao(reserva);
-
-
-            return ValidarReservaSemSobreposicao(reserva);
-        }
-
-        private ValidationResult ValidarReservaComSobreposicao(Reserva reserva)
-        {
-            var Gerenciador = new GerenciadorDeReserva(
-                   new RegrasGlobaisParaReservar(reserva, this, new RegraDeReservaSobreposta(this, reserva)));
-            return Gerenciador.Validar();
-        }
-
-        private ValidationResult ValidarReservaSemSobreposicao(Reserva reserva)
-        {
-            var Gerenciador = new GerenciadorDeReserva(
-                    new RegrasGlobaisParaReservar(reserva, this, new RegrasDeReservaLimiteDeVagasPorHorario(reserva, this)));
-            return Gerenciador.Validar();
-        }
+       
 
 
 
@@ -321,7 +275,7 @@ namespace CondominioApp.ReservaAreaComum.Domain
         {
             var reserva = _Reservas.FirstOrDefault(x => x.Id == reservaId);
 
-            var ValidacaoGlobal = new RegrasGlobaisParaReservar(reserva, this, new RegrasDeReservaLimiteDeVagasPorHorario(reserva, this));
+            var ValidacaoGlobal = new RegrasGlobaisParaReservar(reserva, this, new RegrasParaReservaSemSobreposicao(reserva, this));
 
             var result = ValidacaoGlobal.VerificaReservasAprovadas();
 

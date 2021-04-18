@@ -6,19 +6,19 @@ using System.Linq;
 
 namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy
 {
-    public class RegrasGlobaisParaReservar : RegrasStrategy
+    public class RegrasGlobaisParaReservar : RegraDeReservaBase, IRegrasDeReservaGlobais
     {
         private readonly Reserva _reserva;
 
         private readonly AreaComum _areaComum;
 
-        private readonly IRegrasDeReservaSobrepostaStrategy _strategyReservaSobreposta;
+        private readonly IRegrasDeReservaSobreposta _regrasDeReservaSobreposta;
         
-        public RegrasGlobaisParaReservar(Reserva reserva, AreaComum areaComum, IRegrasDeReservaSobrepostaStrategy strategyReservaSobreposta)
+        public RegrasGlobaisParaReservar(Reserva reserva, AreaComum areaComum, IRegrasDeReservaSobreposta strategyReservaSobreposta)
         {
             _reserva = reserva;
             _areaComum = areaComum;            
-            _strategyReservaSobreposta = strategyReservaSobreposta;
+            _regrasDeReservaSobreposta = strategyReservaSobreposta;
         }
 
         public override ValidationResult Validar()
@@ -30,14 +30,14 @@ namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy
             if (!result.IsValid) return result;
 
             if (_reserva.Status != StatusReserva.NA_FILA)
-                return _strategyReservaSobreposta.Validar();
+                return _regrasDeReservaSobreposta.Validar();
 
             return result;
         }
 
         public ValidationResult VerificaReservasAprovadas()
         {
-            return _strategyReservaSobreposta.Validar();
+            return _regrasDeReservaSobreposta.Validar();
         }
 
         private ValidationResult ValidarDuracaoLimiteDaReserva()
