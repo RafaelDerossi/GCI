@@ -230,7 +230,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
                 return ValidationResult;
             }
 
-            var retorno = areacomum.AprovarReservaPelaAdministracao(request.Id);
+            var retorno = areacomum.AprovarReservaPelaAdministracao(reserva.Id);
             if (!retorno.IsValid)
                 return retorno;
 

@@ -29,10 +29,8 @@ namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy
             result = ValidarDuracaoLimiteDaReserva();
             if (!result.IsValid) return result;
 
-            if (_reserva.Status != StatusReserva.NA_FILA)
-                return _regrasDeReservaSobreposta.Validar();
+           return _regrasDeReservaSobreposta.Validar();
 
-            return result;
         }
 
         public ValidationResult VerificaReservasAprovadas()

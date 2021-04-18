@@ -126,6 +126,8 @@ namespace CondominioApp.ReservaAreaComum.Domain
 
         public void SetPreco(decimal preco) => Preco = preco;
 
+        public void SetAreaComumId(Guid id) => AreaComumId = id;
+
         public void ColocarEmProcessamento()
         {
             Status = StatusReserva.PROCESSANDO;

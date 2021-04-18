@@ -263,9 +263,10 @@ namespace CondominioApp.ReservaAreaComum.Domain
                         reserva.Aprovar("Reserva restaurada da fila");
 
                     AdicionarReserva(reserva);
-                }
 
-                return reserva;
+                    return reserva;
+                }
+                
             }
             return null;
         }

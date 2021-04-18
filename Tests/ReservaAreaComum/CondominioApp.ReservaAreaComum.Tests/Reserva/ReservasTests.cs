@@ -650,12 +650,13 @@ namespace CondominioApp.ReservaAreaComum.Tests
             //Arrange
             var areacomum = AreaComumFactory.CriarAreaComum_AprovacaoAutomatica();
             var reserva1 = ReservaFactory.CriarReservaValidaMobile0800_1200();
+            reserva1.Aprovar("");
             var reserva2 = ReservaFactory.CriarReservaValidaMobile0800_1200();
 
             areacomum.AdicionarReserva(reserva1);
 
             //act
-            var result = areacomum.AdicionarReserva(reserva2);
+            var result = areacomum.ValidarReserva(reserva2);
             if (!result.IsValid)
             {
                 reserva2.EnviarParaFila("");
@@ -817,17 +818,17 @@ namespace CondominioApp.ReservaAreaComum.Tests
         {
             var areacomum = AreaComumFactory.CriarAreaComum_AprovacaoAutomatica();
             var reserva1 = ReservaFactory.CriarReservaValidaMobile0800_1200();
+            reserva1.Aprovar("");
             var reserva2 = ReservaFactory.CriarReservaValidaMobile1300_1700();
+            reserva2.Aprovar("");
             var reserva3 = ReservaFactory.CriarReservaValidaMobile1000_1400();
+            reserva3.EnviarParaFila("");
             var reserva4 = ReservaFactory.CriarReservaValidaMobile0800_1200();
+            reserva4.EnviarParaFila("");
 
             areacomum.AdicionarReserva(reserva1);            
-            areacomum.AdicionarReserva(reserva2);
-
-            reserva3.EnviarParaFila("");
-            areacomum.AdicionarReserva(reserva3);
-
-            reserva4.EnviarParaFila("");
+            areacomum.AdicionarReserva(reserva2);            
+            areacomum.AdicionarReserva(reserva3);            
             areacomum.AdicionarReserva(reserva4);
 
             //act
