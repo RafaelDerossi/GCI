@@ -1,38 +1,35 @@
 ﻿using CondominioApp.Core.Enumeradores;
+using CondominioApp.Core.Helpers;
+using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.RegraDeReservaBase;
+using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.RegrasParaCriacaoDeReserva.Regras.Interfaces;
+using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.RegrasParaHorariosConflitantes;
 using FluentValidation.Results;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.ReservaSobrepostaStrategy
+namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.RegrasParaCriacaoDeReserva.Regras
 {
-    public class RegraDeReservaSobreposta : RegrasDeReservaSobrepostaStrategy
-    {
-        private readonly AreaComum _areaComum;
-
-        private readonly Reserva _reserva;
-
-        public RegraDeReservaSobreposta(AreaComum areaComum, Reserva reserva)
+    public class RegraHorarioDisponivelComSobreposicao : RegrasDeReservaBase, IRegraHorarioDisponivelComSobreposicao
+    {       
+        public ValidationResult Validar(Reserva _reserva, AreaComum _areaComum)
         {
-            _areaComum = areaComum;
-            _reserva = reserva;
-        }
+            ValidationResult.Errors.Clear();
 
-        public override ValidationResult Validar()
-        {
-            var validationResultQuantidadeDeVagas = ValidarQuantidadeDeVagas();
+            var validationResultQuantidadeDeVagas = ValidarQuantidadeDeVagas(_reserva, _areaComum);
             if (!validationResultQuantidadeDeVagas.IsValid) return validationResultQuantidadeDeVagas;
 
-            return ValidarQuantidadeDeVagasPorUnidade();
+            return ValidarQuantidadeDeVagasPorUnidade(_reserva, _areaComum);
         }
 
-        private ValidationResult ValidarQuantidadeDeVagas()
+        private ValidationResult ValidarQuantidadeDeVagas(Reserva _reserva, AreaComum _areaComum)
         {
             int quantidadeReservaMesmoHorario = _areaComum.Reservas.Count(x => x.Status == StatusReserva.APROVADA && !x.Lixeira &&
                                                                                x.ObterHoraInicio == _reserva.ObterHoraInicio &&
                                                                                x.ObterHoraFim == _reserva.ObterHoraFim &&
                                                                                x.DataDeRealizacao == _reserva.DataDeRealizacao);
 
-            if (quantidadeReservaMesmoHorario > 0 && _areaComum.NumeroLimiteDeReservaSobreposta > 0 && 
+            if (quantidadeReservaMesmoHorario > 0 && _areaComum.NumeroLimiteDeReservaSobreposta > 0 &&
                 quantidadeReservaMesmoHorario >= _areaComum.NumeroLimiteDeReservaSobreposta)
             {
                 _reserva.EnviarParaFila("Não ha mais vagas para o período selecionado! Sua Solicitação de reserva foi encaminhada para a fila de espera.");
@@ -42,7 +39,8 @@ namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.ReservaSobrepost
 
             return ValidationResult;
         }
-        private ValidationResult ValidarQuantidadeDeVagasPorUnidade()
+
+        private ValidationResult ValidarQuantidadeDeVagasPorUnidade(Reserva _reserva, AreaComum _areaComum)
         {
             int quantidadeReservaMesmoHorarioPorUnidade = _areaComum.Reservas.Count(x => x.Status == StatusReserva.APROVADA && !x.Lixeira &&
                                                                                          x.ObterHoraInicio == _reserva.ObterHoraInicio &&
@@ -60,5 +58,6 @@ namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.ReservaSobrepost
 
             return ValidationResult;
         }
+
     }
 }

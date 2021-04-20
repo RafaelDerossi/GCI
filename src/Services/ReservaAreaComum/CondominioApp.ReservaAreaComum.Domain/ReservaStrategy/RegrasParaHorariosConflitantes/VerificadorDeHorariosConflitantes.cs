@@ -1,5 +1,5 @@
 ﻿
-namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy
+namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.RegrasParaHorariosConflitantes
 {
     public static class VerificadorDeHorariosConflitantes
     {

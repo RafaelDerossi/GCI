@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy
+namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.RegrasParaHorariosConflitantes
 {
    public interface IHorario
     {

@@ -17,6 +17,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
         {
             var reserva = Factory();
             reserva.SetOrigem("Sistema Web");
+            reserva.MarcarComoCriadaPelaAdministracao();
             return reserva;
         }
 
@@ -110,6 +111,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
         {
             var reserva = Factory();
             reserva.SetOrigem("Sistema Web");
+            reserva.MarcarComoCriadaPelaAdministracao();
             reserva.SetHoraInicioEHoraFim("08:00", "17:00");
             reserva.SetDataDeRealizacao(DateTime.Now.AddDays(-30).Date);
             return reserva;

@@ -52,6 +52,11 @@ namespace CondominioApp.Enquetes.App.Tests
                 "Sim ou Nao", DateTime.Now, DateTime.Now.AddDays(30), Guid.NewGuid(),
                 "Nome do Condominio", false, Guid.NewGuid(), "Nome do Usuario");
 
+            var alternativa1 = new AlternativaEnquete("Alternativa1", 1);
+            var alternativa2 = new AlternativaEnquete("Alternativa2", 2);
+
+            enquete.AdicionarAlternativa(alternativa1);
+            enquete.AdicionarAlternativa(alternativa2);
 
             _mocker.GetMock<IEnqueteRepository>().Setup(r => r.ObterPorId(command.Id))
                 .Returns(Task.FromResult(enquete));
@@ -64,6 +69,7 @@ namespace CondominioApp.Enquetes.App.Tests
 
             //Assert
             Assert.True(result.IsValid);
+            _mocker.GetMock<IEnqueteRepository>().Verify(r => r.AdicionarAlternativa(It.IsAny<AlternativaEnquete>()), Times.Exactly(2));
             _mocker.GetMock<IEnqueteRepository>().Verify(r => r.Atualizar(It.IsAny<Enquete>()), Times.Once);
             _mocker.GetMock<IEnqueteRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
         }

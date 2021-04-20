@@ -2,6 +2,7 @@
 using CondominioApp.Core.Mediator;
 using CondominioApp.ReservaAreaComum.Aplication.Commands;
 using CondominioApp.ReservaAreaComum.Domain.Interfaces;
+using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
@@ -15,12 +16,18 @@ namespace CondominioApp.Api.FilaDeReservas
     {
         private readonly IMediatorHandler _mediatorHandler;
         private readonly IReservaAreaComumRepository _reservaAreaComumRepository;
+        private readonly IRegrasDeReserva _regrasDeReserva;
+
         private Timer timer;
 
-        public FilaDeReservaHostedService(IMediatorHandler mediatorHandler, IReservaAreaComumRepository reservaAreaComumRepository)
+        public FilaDeReservaHostedService
+            (IMediatorHandler mediatorHandler,
+             IReservaAreaComumRepository reservaAreaComumRepository,
+             IRegrasDeReserva regrasDeReserva)
         {
             _mediatorHandler = mediatorHandler;
             _reservaAreaComumRepository = reservaAreaComumRepository;
+            _regrasDeReserva = regrasDeReserva;
         }
 
         public Task StartAsync(CancellationToken cancellationToken)
@@ -37,7 +44,7 @@ namespace CondominioApp.Api.FilaDeReservas
 
                 var areaComum = _reservaAreaComumRepository.ObterPorId(reserva.AreaComumId).Result;
 
-                var retorno = areaComum.ValidarReserva(reserva);
+                var retorno = areaComum.ValidarReserva(reserva, _regrasDeReserva);
 
                 if (retorno.IsValid)
                 {

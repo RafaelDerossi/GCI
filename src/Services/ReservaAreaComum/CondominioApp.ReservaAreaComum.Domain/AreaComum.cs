@@ -2,7 +2,7 @@
 using CondominioApp.Core.Enumeradores;
 using CondominioApp.Core.Helpers;
 using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy;
-using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.ReservaSobrepostaStrategy;
+using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.RegrasParaHorariosConflitantes;
 using FluentValidation.Results;
 using System;
 using System.Collections.Generic;
@@ -218,72 +218,23 @@ namespace CondominioApp.ReservaAreaComum.Domain
 
 
 
-        public ValidationResult AdicionarReserva(Reserva reserva)
+        public void AdicionarReserva(Reserva reserva)
         {            
-            _Reservas.Add(reserva);
-           
-            return ValidationResult;
+            _Reservas.Add(reserva);            
         }
 
 
 
-        public ValidationResult ValidarReserva(Reserva reserva)
-        {
-            if (reserva.CriadaPelaAdministracao)
-                return ValidarReservaCriadaPelaAdministracao(reserva);
-
-            
-            return ValidarReservaCriadaPorMorador(reserva);            
+        public ValidationResult ValidarReserva(Reserva reserva, IRegrasDeReserva regras)
+        {   
+            var resultado = regras.ValidarRegrasParaCriacao(reserva, this);
+            return resultado;
         }
-      
-        private ValidationResult ValidarReservaCriadaPelaAdministracao(Reserva reserva)
-        {
-            var Gerenciador = new GerenciadorDeReserva(new RegrasDeAdministradorParaReservar(reserva, this));
-            var resultado = Gerenciador.Validar();
-            if (!resultado.IsValid)
-                return resultado;
-
-            
-            return ValidarReservaRegrasGlobais(reserva);
-            
-        }
-
-        private ValidationResult ValidarReservaCriadaPorMorador(Reserva reserva)
-        {
-            var Gerenciador = new GerenciadorDeReserva(new RegrasDeClienteParaReservar(reserva, this));
-            var resultado = Gerenciador.Validar();
-            if (!resultado.IsValid)
-                return resultado;
-
-            return ValidarReservaRegrasGlobais(reserva);
-        }
-
-        private ValidationResult ValidarReservaRegrasGlobais(Reserva reserva)
-        {
-            if (PermiteReservaSobreposta && TemHorariosEspecificos)
-                return ValidarReservaComSobreposicao(reserva);
-
-
-            return ValidarReservaSemSobreposicao(reserva);
-        }
-
-        private ValidationResult ValidarReservaComSobreposicao(Reserva reserva)
-        {
-            var Gerenciador = new GerenciadorDeReserva(
-                   new RegrasGlobaisParaReservar(reserva, this, new RegraDeReservaSobreposta(this, reserva)));
-            return Gerenciador.Validar();
-        }
-
-        private ValidationResult ValidarReservaSemSobreposicao(Reserva reserva)
-        {
-            var Gerenciador = new GerenciadorDeReserva(
-                    new RegrasGlobaisParaReservar(reserva, this, new RegrasDeReservaLimiteDeVagasPorHorario(reserva, this)));
-            return Gerenciador.Validar();
-        }
+       
 
 
 
-        public Reserva RetirarProximaReservaDaFila(Reserva reservaCancelada)
+        public Reserva RetirarProximaReservaDaFila(Reserva reservaCancelada, IRegrasDeReserva regras)
         {
             var reservas = _Reservas
                 .Where(x => x.Status == StatusReserva.NA_FILA &&
@@ -296,7 +247,7 @@ namespace CondominioApp.ReservaAreaComum.Domain
             
             foreach (Reserva reserva in reservas)
             {
-                var result = ValidarReserva(reserva);                 
+                var result = regras.ValidarRegrasParaCriacao(reserva, this);                 
                 if (result.IsValid)
                 {
                     _Reservas.Remove(reserva);
@@ -309,21 +260,20 @@ namespace CondominioApp.ReservaAreaComum.Domain
                         reserva.Aprovar("Reserva restaurada da fila");
 
                     AdicionarReserva(reserva);
-                }
 
-                return reserva;
+                    return reserva;
+                }
+                
             }
             return null;
         }
        
 
-        public ValidationResult AprovarReservaPelaAdministracao(Guid reservaId)
+        public ValidationResult AprovarReservaPelaAdministracao(Guid reservaId, IRegrasDeReserva regras)
         {
-            var reserva = _Reservas.FirstOrDefault(x => x.Id == reservaId);
+            var reserva = _Reservas.FirstOrDefault(x => x.Id == reservaId);            
 
-            var ValidacaoGlobal = new RegrasGlobaisParaReservar(reserva, this, new RegrasDeReservaLimiteDeVagasPorHorario(reserva, this));
-
-            var result = ValidacaoGlobal.VerificaReservasAprovadas();
+            var result = regras.VerificaReservasAprovadas(reserva, this);
 
             if (result.IsValid) reserva.Aprovar("");
 
@@ -331,9 +281,9 @@ namespace CondominioApp.ReservaAreaComum.Domain
         }
 
 
-        public ValidationResult CancelarReservaComoUsuario(Reserva reservaACancelar, string justificativa)
+        public ValidationResult CancelarReservaComoUsuario(Reserva reservaACancelar, string justificativa, IRegrasDeReserva regras)
         {
-            var result = ValidarRemocaoDeReserva(reservaACancelar);
+            var result = regras.ValidarRegrasParaCancelamentoPeloMorador(reservaACancelar, this);
             if (!result.IsValid)
                 return result;
 
@@ -342,60 +292,18 @@ namespace CondominioApp.ReservaAreaComum.Domain
             return ValidationResult;
         }
 
-        public ValidationResult CancelarReservaComoAdministrador(Reserva reservaACancelar, string justificativa)
+        public ValidationResult CancelarReservaComoAdministrador(Reserva reservaACancelar, string justificativa, IRegrasDeReserva regras)
         {
+            var result = regras.ValidarRegrasParaCancelamentoPelaAdministracao(reservaACancelar);
+            if (!result.IsValid)
+                return result;
+
             reservaACancelar.Cancelar(justificativa + " (Cancelada pela Administração)");           
 
             return ValidationResult;
         }
         
-        private ValidationResult ValidarRemocaoDeReserva(Reserva reserva)
-        {
-            if (reserva.Status == StatusReserva.CANCELADA ||
-                reserva.Status == StatusReserva.EXPIRADA ||
-                reserva.Status == StatusReserva.REMOVIDA ||
-                reserva.Status == StatusReserva.REPROVADA)
-            {
-                AdicionarErrosDaEntidade("Esta reserva não pode ser cancelada!");
-                return ValidationResult;
-            }
-
-            if (reserva.Status == StatusReserva.NA_FILA)
-            {                
-                return ValidationResult;
-            }
-
-            var dataAtual = DataHoraDeBrasilia.Get();
-            
-            int qtdDias = Convert.ToInt32((reserva.DataDeRealizacao.Date - dataAtual.Date).TotalDays);
-            if (qtdDias <= AntecedenciaMinimaParaCancelamentoEmDias && AntecedenciaMinimaParaCancelamentoEmDias > 0)
-            {
-                AdicionarErrosDaEntidade("Prazo para cancelamento expirado!");
-                return ValidationResult;
-            }
-            
-            if (qtdDias == 0 && AntecedenciaMinimaParaCancelamentoEmDias == 0)
-            {
-                var horaAtual = dataAtual.ToString("HH:mm");
-                var horaAtualInt = Convert.ToInt32(horaAtual.Replace(":", ""));
-                
-                if (horaAtualInt >= reserva.ObterHoraInicio)
-                {
-                    AdicionarErrosDaEntidade("Prazo para cancelamento expirado!");
-                    return ValidationResult;
-                }
-            }
-
-            if (qtdDias < 0 && AntecedenciaMinimaParaCancelamentoEmDias == 0)
-            {
-                AdicionarErrosDaEntidade("Prazo para cancelamento expirado!");
-                return ValidationResult;
-            }            
-
-            return ValidationResult;
-        }
-
-
+     
         public Reserva ObterReserva(Guid reservaId)
         {
             return _Reservas.FirstOrDefault(x => x.Id == reservaId);           

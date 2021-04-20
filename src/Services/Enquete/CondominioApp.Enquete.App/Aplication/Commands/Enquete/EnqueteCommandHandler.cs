@@ -76,7 +76,8 @@ namespace CondominioApp.Enquetes.App.Aplication.Commands
                     return resultado;
                 _EnqueteRepository.AdicionarAlternativa(alternativa);
             }
-           
+
+            _EnqueteRepository.Atualizar(enqueteBd);
 
             return await PersistirDados(_EnqueteRepository.UnitOfWork);
         }

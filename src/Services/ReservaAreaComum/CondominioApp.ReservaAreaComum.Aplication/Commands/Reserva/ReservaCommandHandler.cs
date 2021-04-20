@@ -4,6 +4,7 @@ using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents;
 using CondominioApp.ReservaAreaComum.Aplication.Events;
 using CondominioApp.ReservaAreaComum.Domain;
 using CondominioApp.ReservaAreaComum.Domain.Interfaces;
+using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy;
 using FluentValidation.Results;
 using MediatR;
 using System;
@@ -28,10 +29,13 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
     {
 
         private IReservaAreaComumRepository _reservaAreaComumRepository;
+        private IRegrasDeReserva _regrasDeReserva;
 
-        public ReservaCommandHandler(IReservaAreaComumRepository areaComumRepository)
+        public ReservaCommandHandler
+            (IReservaAreaComumRepository areaComumRepository, IRegrasDeReserva regrasDeReserva)
         {
-            _reservaAreaComumRepository = areaComumRepository;            
+            _reservaAreaComumRepository = areaComumRepository;       
+            _regrasDeReserva = regrasDeReserva;
         }
 
 
@@ -49,11 +53,9 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
             var reserva = ReservaFactory(request);
 
             reserva.ColocarEmProcessamento();
-
-            var Result = areacomum.AdicionarReserva(reserva);
-            if (!Result.IsValid) 
-                return Result;
             
+            areacomum.AdicionarReserva(reserva);
+           
             _reservaAreaComumRepository.AdicionarReserva(reserva);
 
             //Evento
@@ -230,7 +232,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
                 return ValidationResult;
             }
 
-            var retorno = areacomum.AprovarReservaPelaAdministracao(request.Id);
+            var retorno = areacomum.AprovarReservaPelaAdministracao(reserva.Id, _regrasDeReserva);
             if (!retorno.IsValid)
                 return retorno;
 
@@ -259,7 +261,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
                 return ValidationResult;
             }            
 
-            var result = areaComum.CancelarReservaComoUsuario(reserva, request.Justificativa);
+            var result = areaComum.CancelarReservaComoUsuario(reserva, request.Justificativa, _regrasDeReserva);
             if (!result.IsValid)
                 return result;
 
@@ -289,7 +291,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
                 return ValidationResult;
             }            
 
-            var result = areaComum.CancelarReservaComoAdministrador(reserva, request.Justificativa);
+            var result = areaComum.CancelarReservaComoAdministrador(reserva, request.Justificativa, _regrasDeReserva);
             if (!result.IsValid)
                 return result;
 
@@ -319,7 +321,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
                 return ValidationResult;
             }
             
-            var reservaRetiradaDaFila = areaComum.RetirarProximaReservaDaFila(reservaCancelada);            
+            var reservaRetiradaDaFila = areaComum.RetirarProximaReservaDaFila(reservaCancelada, _regrasDeReserva);            
             if (reservaRetiradaDaFila == null)
             {
                 return ValidationResult;
