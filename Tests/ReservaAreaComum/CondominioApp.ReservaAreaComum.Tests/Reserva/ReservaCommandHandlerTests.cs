@@ -8,6 +8,7 @@ using CondominioApp.ReservaAreaComum.Aplication.Commands;
 using CondominioApp.ReservaAreaComum.Domain;
 using CondominioApp.ReservaAreaComum.Domain.Interfaces;
 using CondominioApp.Core.Enumeradores;
+using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy;
 
 namespace CondominioApp.ReservaAreaComum.Tests
 {
@@ -15,11 +16,13 @@ namespace CondominioApp.ReservaAreaComum.Tests
     {
         private readonly AutoMocker _mocker;
         private readonly ReservaCommandHandler _reservaCommandHandler;
+        private readonly RegrasDeReserva _reagrasDeReserva;
 
         public ReservaCommandHandlerTests()
         {
             _mocker = new AutoMocker();
             _reservaCommandHandler = _mocker.CreateInstance<ReservaCommandHandler>();
+            _reagrasDeReserva = _mocker.CreateInstance<RegrasDeReserva>();
         }
 
         [Fact(DisplayName = "Adicionar Reserva Válido")]
@@ -51,12 +54,16 @@ namespace CondominioApp.ReservaAreaComum.Tests
         [Trait("Categoria", "Reserva -ReservaCommandHandler")]
         public async Task AprovarReserva_CommandoValido_DevePassarNaValidacao()
         {
-            //Arrange
-            var reserva = ReservaFactory.CriarReservaValidaMobile();            
+            //Arrange            
             var areaComum = AreaComumFactory.CriarAreaComum_AprovacaoDeAdministracao();
+            var reserva = ReservaFactory.CriarReservaValidaMobile();
             reserva.SetAreaComumId(areaComum.Id);
+            reserva.AguardarAprovacao("");
             areaComum.AdicionarReserva(reserva);
+
             var command = new AprovarReservaPelaAdministracaoCommand(reserva.Id);
+            
+            
 
             _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.ObterReservaPorId(command.Id))
                .Returns(Task.FromResult(reserva));
@@ -67,6 +74,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.UnitOfWork.Commit())
                .Returns(Task.FromResult(true));
 
+            
             //Act
             var result = await _reservaCommandHandler.Handle(command, CancellationToken.None);
 

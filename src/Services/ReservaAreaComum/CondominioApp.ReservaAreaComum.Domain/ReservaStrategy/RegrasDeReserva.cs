@@ -1,29 +1,38 @@
-﻿using FluentValidation.Results;
+﻿using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.RegrasParaCancelamento;
+using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.RegrasParaCriacaoDeReserva;
+using FluentValidation.Results;
 
 namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy
 {
-    public class RegrasDeReserva : IRegrasDeReserva
+   public class RegrasDeReserva : IRegrasDeReserva
     {
-        protected IRegrasDeReservaEspecificas _regraEspecifica { get; private set; }
+        private readonly IRegrasDeCriacaoDeReserva _regrasDeCriacao;
 
-        protected IRegrasDeReservaGlobais _regraGlobal { get; private set; }
+        private readonly IRegrasDeCancelamentoDeReserva _regrasDeCancelamento;
 
-        public RegrasDeReserva(IRegrasDeReservaEspecificas regraEspecifica, IRegrasDeReservaGlobais regraGlobal)
+        public RegrasDeReserva(IRegrasDeCriacaoDeReserva regrasDeCriacao, IRegrasDeCancelamentoDeReserva regrasDeCancelamento)
         {
-            _regraEspecifica = regraEspecifica;
-            _regraGlobal = regraGlobal;
+            _regrasDeCriacao = regrasDeCriacao;
+            _regrasDeCancelamento = regrasDeCancelamento;
         }
 
-        public ValidationResult Validar()
-        {            
-            var resultado = _regraEspecifica.Validar();
-            if (!resultado.IsValid)
-                return resultado;
-
-
-            return _regraGlobal.Validar();
+        public ValidationResult ValidarRegrasParaCriacao(Reserva reserva, AreaComum areaComum)
+        {
+            return _regrasDeCriacao.Validar(reserva, areaComum);
         }
-                
+        public ValidationResult VerificaReservasAprovadas(Reserva reserva, AreaComum areaComum)
+        {
+            return _regrasDeCriacao.VerificaReservasAprovadas(reserva, areaComum);
+        }
         
+        public ValidationResult ValidarRegrasParaCancelamentoPelaAdministracao(Reserva reserva)
+        {
+            return _regrasDeCancelamento.ValidarCancelamentoPelaAdministracao(reserva);
+        }
+
+        public ValidationResult ValidarRegrasParaCancelamentoPeloMorador(Reserva reserva, AreaComum areaComum)
+        {
+            return _regrasDeCancelamento.ValidarCancelamentoPeloMorador(reserva, areaComum);
+        }
     }
 }

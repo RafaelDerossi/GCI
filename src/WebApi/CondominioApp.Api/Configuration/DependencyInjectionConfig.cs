@@ -70,6 +70,18 @@ using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.NotificacaoEm
 using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.NotificacaoPushIntegrationEvents;
 using CondominioApp.Core.Data;
 using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.NotificacaoEmailIntegrationEvent.Reserva;
+using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy;
+using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.RegrasParaCriacaoDeReserva;
+using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.RegrasParaCancelamento;
+using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.RegrasParaCriacaoDeReserva.RegrasParaAdministrador;
+using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.RegrasParaCriacaoDeReserva.RegrasDeMorador;
+using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.RegrasParaCriacaoDeReserva.RegrasGerais;
+using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.RegrasParaCriacaoDeReserva.Regras.Interfaces;
+using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.RegrasParaCriacaoDeReserva.Regras;
+using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.RegrasParaCancelamento.RegrasParaMorador;
+using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.RegrasParaCancelamento.RegrasParaAdministracao;
+using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.RegrasParaCancelamento.Regras.Interfaces;
+using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.RegrasParaCancelamento.Regras;
 
 namespace CondominioApp.Api.Configuration
 {
@@ -335,6 +347,32 @@ namespace CondominioApp.Api.Configuration
             services.AddTransient<IRequestHandler<MarcarReservaComoExpiradaCommand, ValidationResult>, ReservaCommandHandler>();
             services.AddTransient<INotificationHandler<ReservaCadastradaEvent>, ReservaEventHandler>();            
             services.AddTransient<INotificationHandler<StatusDaReservaAlteradoEvent>, ReservaEventHandler>();
+
+            //Regras de Reserva
+            services.AddTransient<IRegrasDeReserva, RegrasDeReserva>();
+            services.AddTransient<IRegrasDeCriacaoDeReserva, RegrasDeCriacaoDeReserva>();
+            services.AddTransient<IRegrasDeAdministradorParaReservar, RegrasDeAdministradorParaReservar>();
+            services.AddTransient<IRegrasDeMoradorParaReservar, RegrasDeMoradorParaReservar>();
+            services.AddTransient<IRegrasGeraisParaReservar, RegrasGeraisParaReservar>();
+            services.AddTransient<IRegraAntecedenciaMaxima, RegraAntecedenciaMaxima>();
+            services.AddTransient<IRegraAntecedenciaMinima, RegraAntecedenciaMinima>();
+            services.AddTransient<IRegraBloqueioDaAreaComum, RegraBloqueioDaAreaComum>();
+            services.AddTransient<IRegraDataRetroativaNaoPermitida, RegraDataRetroativaNaoPermitida>();
+            services.AddTransient<IRegraDataRetroativaPermitida, RegraDataRetroativaPermitida>();
+            services.AddTransient<IRegraDiasPermitidos, RegraDiasPermitidos>();
+            services.AddTransient<IRegraDuracaoLimite, RegraDuracaoLimite>();
+            services.AddTransient<IRegraHorarioDentroDosLimites, RegraHorarioDentroDosLimites>();
+            services.AddTransient<IRegraHorarioDisponivelComSobreposicao, RegraHorarioDisponivelComSobreposicao>();
+            services.AddTransient<IRegraHorarioDisponivelSemSobreposicao, RegraHorarioDisponivelSemSobreposicao>();
+            services.AddTransient<IRegraIntervaloParaMesmaUnidade, RegraIntervaloParaMesmaUnidade>();
+            services.AddTransient<IRegraIntervalosFixos, RegraIntervalosFixos>();
+            services.AddTransient<IRegraLimitePorUnidadePorDia, RegraLimitePorUnidadePorDia>();
+
+            services.AddTransient<IRegrasDeCancelamentoDeReserva, RegrasDeCancelamentoDeReserva>();
+            services.AddTransient<IRegrasDeCancelamentoDeReservaPeloMorador, RegrasDeCancelamentoDeReservaPeloMorador>();
+            services.AddTransient<IRegrasDeCancelamentoDeReservaPelaAdministracao, RegrasDeCancelamentoDeReservaPelaAdministracao>();
+            services.AddTransient<IRegraDoPrazoMinimoPraCancelar, RegraDoPrazoMinimoPraCancelar>();
+            services.AddTransient<IRegraDoStatusPraCancelar, RegraDoStatusPraCancelar>();
 
             #endregion
 

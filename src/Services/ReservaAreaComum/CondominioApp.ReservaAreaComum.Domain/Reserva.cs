@@ -3,15 +3,13 @@ using CondominioApp.Core.Enumeradores;
 using CondominioApp.Core.Helpers;
 using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.NotificacaoEmailIntegrationEvent.Reserva;
 using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.NotificacaoPushIntegrationEvents;
-using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy;
+using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.RegrasParaHorariosConflitantes;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace CondominioApp.ReservaAreaComum.Domain
 {
-   public class Reserva : Entity, IHorario
+    public class Reserva : Entity, IHorario
     {
         private string CorAzul = "#3333FF";
         private string CorVerde = "#009900";
@@ -197,6 +195,8 @@ namespace CondominioApp.ReservaAreaComum.Domain
             MoradorId = id;
             NomeMorador = nome;            
         }
+
+        public void MarcarComoCriadaPelaAdministracao() => CriadaPelaAdministracao = true;
 
 
         public int ObterHoraInicio
