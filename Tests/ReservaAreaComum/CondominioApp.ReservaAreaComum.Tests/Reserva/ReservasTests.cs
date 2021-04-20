@@ -20,72 +20,53 @@ namespace CondominioApp.ReservaAreaComum.Tests
 {
     public class ReservasTests
     {
-        private readonly AutoMocker _mocker;
-        private readonly RegrasDeReserva _regrasDeReserva;
-        private readonly RegrasDeCriacaoDeReserva _regrasDeCriacao;
-        
-        private readonly RegrasGeraisParaReservar _regrasGerais;
-        private readonly RegraIntervalosFixos _regraIntervalosFixos;
-        private readonly RegraDuracaoLimite _regraDuracaoLimite;
-        private readonly RegraHorarioDisponivelSemSobreposicao _regraSemSobreposicao;
-        private readonly RegraHorarioDisponivelComSobreposicao _regraComSobreposicao;
+        private  AutoMocker _mocker;
+        private  RegrasDeReserva _regrasDeReserva;
 
-        private readonly RegrasDeAdministradorParaReservar _regrasDeAdministradorParaReservar;
-        private readonly RegraDataRetroativaPermitida _regraDaDataRetroativaPermitida;
+        private RegrasDeCriacaoDeReserva _regrasDeCriacao;
 
-        private readonly RegrasDeMoradorParaReservar _regrasDeMoradorParaReservar;
-        private readonly RegraIntervaloParaMesmaUnidade _regraIntervaloParaMesmaUnidade;
-        private readonly RegraDataRetroativaNaoPermitida _regraDataRetroativaNaoPermitida;
-        private readonly RegraBloqueioDaAreaComum _regraBloqueioDaAreaComum;
-        private readonly RegraAntecedenciaMaxima _regraAntecedenciaMaxima;
-        private readonly RegraAntecedenciaMinima _regraAntecedenciaMinima;
-        private readonly RegraDiasPermitidos _regraDiasPermitidos;
-        private readonly RegraLimitePorUnidadePorDia _regraLimitePorUnidadePorDia;
-        private readonly RegraHorarioDentroDosLimites _regraHorarioDentroDosLimites;
+        private RegrasGeraisParaReservar _regrasGerais;
+        private RegraIntervalosFixos _regraIntervalosFixos;
+        private RegraDuracaoLimite _regraDuracaoLimite;
+        private RegraHorarioDisponivelSemSobreposicao _regraSemSobreposicao;
+        private RegraHorarioDisponivelComSobreposicao _regraComSobreposicao;
+
+        private RegrasDeAdministradorParaReservar _regrasDeAdministradorParaReservar;
+        private RegraDataRetroativaPermitida _regraDaDataRetroativaPermitida;
+
+        private RegrasDeMoradorParaReservar _regrasDeMoradorParaReservar;
+        private RegraIntervaloParaMesmaUnidade _regraIntervaloParaMesmaUnidade;
+        private RegraDataRetroativaNaoPermitida _regraDataRetroativaNaoPermitida;
+        private RegraBloqueioDaAreaComum _regraBloqueioDaAreaComum;
+        private RegraAntecedenciaMaxima _regraAntecedenciaMaxima;
+        private RegraAntecedenciaMinima _regraAntecedenciaMinima;
+        private RegraDiasPermitidos _regraDiasPermitidos;
+        private RegraLimitePorUnidadePorDia _regraLimitePorUnidadePorDia;
+        private RegraHorarioDentroDosLimites _regraHorarioDentroDosLimites;
 
 
-        private readonly RegrasDeCancelamentoDeReserva _regrasDeCancelamentoDeReserva;
-        private readonly RegrasDeCancelamentoDeReservaPeloMorador _regrasDeCancelamentoDeReservaPeloMorador;
-        private readonly RegrasDeCancelamentoDeReservaPelaAdministracao _regrasDeCancelamentoDeReservaPelaAdministracao;
-        private readonly RegraDoPrazoMinimoPraCancelar _regraDoPrazoMinimoPraCancelar;
-        private readonly RegraDoStatusPraCancelar _regraDoStatusPraCancelar;
+        private RegrasDeCancelamentoDeReserva _regrasDeCancelamentoDeReserva;
+        private RegrasDeCancelamentoDeReservaPeloMorador _regrasDeCancelamentoDeReservaPeloMorador;
+        private RegrasDeCancelamentoDeReservaPelaAdministracao _regrasDeCancelamentoDeReservaPelaAdministracao;
+        private RegraDoPrazoMinimoPraCancelar _regraDoPrazoMinimoPraCancelar;
+        private RegraDoStatusPraCancelar _regraDoStatusPraCancelar;
 
         public ReservasTests()
         {
             _mocker = new AutoMocker();
             _regrasDeReserva = _mocker.CreateInstance<RegrasDeReserva>();
-            _regrasDeCriacao = _mocker.CreateInstance<RegrasDeCriacaoDeReserva>();
-            _regrasGerais = _mocker.CreateInstance<RegrasGeraisParaReservar>();
+        }
+       
 
+        private void SetMocksRegrasGerais(Reserva reserva, AreaComum areacomum)
+        {
             _regraIntervalosFixos = _mocker.CreateInstance<RegraIntervalosFixos>();
             _regraDuracaoLimite = _mocker.CreateInstance<RegraDuracaoLimite>();
             _regraSemSobreposicao = _mocker.CreateInstance<RegraHorarioDisponivelSemSobreposicao>();
             _regraComSobreposicao = _mocker.CreateInstance<RegraHorarioDisponivelComSobreposicao>();
 
-            _regrasDeAdministradorParaReservar = _mocker.CreateInstance<RegrasDeAdministradorParaReservar>();
-            _regraDaDataRetroativaPermitida = _mocker.CreateInstance<RegraDataRetroativaPermitida>();
+            _regrasGerais = _mocker.CreateInstance<RegrasGeraisParaReservar>();
 
-
-            _regrasDeMoradorParaReservar = _mocker.CreateInstance<RegrasDeMoradorParaReservar>();
-            _regraIntervaloParaMesmaUnidade = _mocker.CreateInstance<RegraIntervaloParaMesmaUnidade>();
-            _regraDataRetroativaNaoPermitida = _mocker.CreateInstance<RegraDataRetroativaNaoPermitida>();
-            _regraBloqueioDaAreaComum = _mocker.CreateInstance<RegraBloqueioDaAreaComum>();
-            _regraAntecedenciaMaxima = _mocker.CreateInstance<RegraAntecedenciaMaxima>();
-            _regraAntecedenciaMinima = _mocker.CreateInstance<RegraAntecedenciaMinima>();
-            _regraDiasPermitidos = _mocker.CreateInstance<RegraDiasPermitidos>();
-            _regraLimitePorUnidadePorDia = _mocker.CreateInstance<RegraLimitePorUnidadePorDia>();
-            _regraHorarioDentroDosLimites = _mocker.CreateInstance<RegraHorarioDentroDosLimites>();
-
-
-            _regrasDeCancelamentoDeReserva = _mocker.CreateInstance<RegrasDeCancelamentoDeReserva>();
-            _regrasDeCancelamentoDeReservaPeloMorador = _mocker.CreateInstance<RegrasDeCancelamentoDeReservaPeloMorador>();
-            _regrasDeCancelamentoDeReservaPelaAdministracao = _mocker.CreateInstance<RegrasDeCancelamentoDeReservaPelaAdministracao>();
-            _regraDoPrazoMinimoPraCancelar = _mocker.CreateInstance<RegraDoPrazoMinimoPraCancelar>();
-            _regraDoStatusPraCancelar = _mocker.CreateInstance<RegraDoStatusPraCancelar>();
-        }
-
-        private void SetMocksRegrasGerais(Reserva reserva, AreaComum areacomum)
-        {
             var retIntervaloFixo = _regraIntervalosFixos.Validar(reserva, areacomum);
             _mocker.GetMock<IRegraIntervalosFixos>().Setup(r => r.Validar(reserva, areacomum))
                .Returns(retIntervaloFixo);
@@ -113,6 +94,9 @@ namespace CondominioApp.ReservaAreaComum.Tests
 
         private void SetMocksRegrasDeAdministradorParaReservar(Reserva reserva)
         {
+            _regrasDeAdministradorParaReservar = _mocker.CreateInstance<RegrasDeAdministradorParaReservar>();
+            _regraDaDataRetroativaPermitida = _mocker.CreateInstance<RegraDataRetroativaPermitida>();
+
             var retRegraDataRetroativaPermitida = _regraDaDataRetroativaPermitida.Validar(reserva);
             _mocker.GetMock<IRegraDataRetroativaPermitida>().Setup(r => r.Validar(reserva))
                .Returns(retRegraDataRetroativaPermitida);
@@ -123,7 +107,17 @@ namespace CondominioApp.ReservaAreaComum.Tests
         }
 
         private void SetMocksRegrasDeMoradorParaReservar(Reserva reserva, AreaComum areacomum)
-        {            
+        {
+            _regrasDeMoradorParaReservar = _mocker.CreateInstance<RegrasDeMoradorParaReservar>();
+            _regraIntervaloParaMesmaUnidade = _mocker.CreateInstance<RegraIntervaloParaMesmaUnidade>();
+            _regraDataRetroativaNaoPermitida = _mocker.CreateInstance<RegraDataRetroativaNaoPermitida>();
+            _regraBloqueioDaAreaComum = _mocker.CreateInstance<RegraBloqueioDaAreaComum>();
+            _regraAntecedenciaMaxima = _mocker.CreateInstance<RegraAntecedenciaMaxima>();
+            _regraAntecedenciaMinima = _mocker.CreateInstance<RegraAntecedenciaMinima>();
+            _regraDiasPermitidos = _mocker.CreateInstance<RegraDiasPermitidos>();
+            _regraLimitePorUnidadePorDia = _mocker.CreateInstance<RegraLimitePorUnidadePorDia>();
+            _regraHorarioDentroDosLimites = _mocker.CreateInstance<RegraHorarioDentroDosLimites>();
+
             var retRegraIntervaloParaMesmaUnidade = _regraIntervaloParaMesmaUnidade.Validar(reserva, areacomum);
             _mocker.GetMock<IRegraIntervaloParaMesmaUnidade>().Setup(r => r.Validar(reserva, areacomum))
                .Returns(retRegraIntervaloParaMesmaUnidade);
@@ -175,8 +169,9 @@ namespace CondominioApp.ReservaAreaComum.Tests
 
             SetMocksRegrasDeAdministradorParaReservar(reserva);
 
-            SetMocksRegrasDeMoradorParaReservar(reserva, areacomum);            
+            SetMocksRegrasDeMoradorParaReservar(reserva, areacomum);
 
+            _regrasDeCriacao = _mocker.CreateInstance<RegrasDeCriacaoDeReserva>();
 
             var retRegrasDeCriacao = _regrasDeCriacao.Validar(reserva, areacomum);
             _mocker.GetMock<IRegrasDeCriacaoDeReserva>().Setup(r => r.Validar(reserva, areacomum))
@@ -185,10 +180,20 @@ namespace CondominioApp.ReservaAreaComum.Tests
             var retVerificaReservasAprovadas = _regrasDeCriacao.VerificaReservasAprovadas(reserva, areacomum);
             _mocker.GetMock<IRegrasDeCriacaoDeReserva>().Setup(r => r.VerificaReservasAprovadas(reserva, areacomum))
                .Returns(retVerificaReservasAprovadas);
+
+            var retVerificaReservasAprovadas2 = _regrasDeReserva.VerificaReservasAprovadas(reserva, areacomum);
+            _mocker.GetMock<IRegrasDeReserva>().Setup(r => r.VerificaReservasAprovadas(reserva, areacomum))
+              .Returns(retVerificaReservasAprovadas2);
         }
 
         private void SetMocksRegrasDeCancelamento(Reserva reserva, AreaComum areacomum)
-        {            
+        {
+            _regraDoPrazoMinimoPraCancelar = _mocker.CreateInstance<RegraDoPrazoMinimoPraCancelar>();
+            _regraDoStatusPraCancelar = _mocker.CreateInstance<RegraDoStatusPraCancelar>();
+            _regrasDeCancelamentoDeReservaPelaAdministracao = _mocker.CreateInstance<RegrasDeCancelamentoDeReservaPelaAdministracao>();
+            _regrasDeCancelamentoDeReservaPeloMorador = _mocker.CreateInstance<RegrasDeCancelamentoDeReservaPeloMorador>();
+            _regrasDeCancelamentoDeReserva = _mocker.CreateInstance<RegrasDeCancelamentoDeReserva>();
+
             var reRegraDoStatusPraCancelar = _regraDoStatusPraCancelar.Validar(reserva);
             _mocker.GetMock<IRegraDoStatusPraCancelar>().Setup(r => r.Validar(reserva))
                .Returns(reRegraDoStatusPraCancelar);
@@ -215,6 +220,14 @@ namespace CondominioApp.ReservaAreaComum.Tests
             var retRegrasDeCancelamentoDeReservaMorador = _regrasDeCancelamentoDeReserva.ValidarCancelamentoPeloMorador(reserva, areacomum);
             _mocker.GetMock<IRegrasDeCancelamentoDeReserva>().Setup(r => r.ValidarCancelamentoPeloMorador(reserva, areacomum))
                .Returns(retRegrasDeCancelamentoDeReservaMorador);
+
+            var retRegrasDeReservaCancelamentoPelaAdm = _regrasDeCancelamentoDeReserva.ValidarCancelamentoPelaAdministracao(reserva);
+            _mocker.GetMock<IRegrasDeReserva>().Setup(r => r.ValidarRegrasParaCancelamentoPelaAdministracao(reserva))
+               .Returns(retRegrasDeReservaCancelamentoPelaAdm);
+
+            var retRegrasDeReservaCancelamentoPeloMorador = _regrasDeCancelamentoDeReserva.ValidarCancelamentoPeloMorador(reserva, areacomum);
+            _mocker.GetMock<IRegrasDeReserva>().Setup(r => r.ValidarRegrasParaCancelamentoPeloMorador(reserva, areacomum))
+               .Returns(retRegrasDeReservaCancelamentoPeloMorador);
 
         }
 
@@ -1208,12 +1221,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             SetMocksRegrasDeCriacao(reserva3, areacomum);
             SetMocksRegrasDeCriacao(reserva4, areacomum);
 
-            reserva1.Aprovar("");
-
-            SetMocksRegrasDeCancelamento(reserva1, areacomum);
-
             //act
-            var retorno = areacomum.CancelarReservaComoUsuario(reserva1, "Justificativa", _regrasDeReserva);
             var reservaRetiradaDaFila = areacomum.RetirarProximaReservaDaFila(reserva1, _regrasDeReserva);
 
             //assert
