@@ -17,7 +17,7 @@ namespace CondominioApp.Portaria.Aplication.Events
             Id = id;
             SetDataDeEntrada(dataDeEntrada);
             Observacao = observacao;
-            Status = status.ToString();
+            Status = status;
             SetVisitanteId(visitanteId);
             NomeVisitante = nomeVisitante;
             SetDocumentoVisitante(documento, tipoDeDocumento);            
