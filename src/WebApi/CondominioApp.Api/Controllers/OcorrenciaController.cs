@@ -57,9 +57,7 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }
 
-            var ocorrenciasVM = new List<OcorrenciaViewModel>();
-            foreach (Ocorrencia comunicado in ocorrencias)
-                ocorrenciasVM.Add(_mapper.Map<OcorrenciaViewModel>(comunicado));
+            var ocorrenciasVM = MapperListEntityToViewModel(ocorrencias);
 
             return ocorrenciasVM;
         }
@@ -77,9 +75,7 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }
 
-            var ocorrenciasVM = new List<OcorrenciaViewModel>();
-            foreach (Ocorrencia comunicado in ocorrencias)
-                ocorrenciasVM.Add(_mapper.Map<OcorrenciaViewModel>(comunicado));
+            var ocorrenciasVM = MapperListEntityToViewModel(ocorrencias);
 
             return ocorrenciasVM;
         }
@@ -95,9 +91,7 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }
 
-            var ocorrenciasVM = new List<OcorrenciaViewModel>();
-            foreach (Ocorrencia comunicado in ocorrencias)
-                ocorrenciasVM.Add(_mapper.Map<OcorrenciaViewModel>(comunicado));
+            var ocorrenciasVM = MapperListEntityToViewModel(ocorrencias);
 
             return ocorrenciasVM;
         }
@@ -113,9 +107,7 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }
 
-            var ocorrenciasVM = new List<OcorrenciaViewModel>();
-            foreach (Ocorrencia comunicado in ocorrencias)
-                ocorrenciasVM.Add(_mapper.Map<OcorrenciaViewModel>(comunicado));
+            var ocorrenciasVM = MapperListEntityToViewModel(ocorrencias);
 
             return ocorrenciasVM;
         }
@@ -131,9 +123,7 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }
 
-            var ocorrenciasVM = new List<OcorrenciaViewModel>();
-            foreach (Ocorrencia comunicado in ocorrencias)
-                ocorrenciasVM.Add(_mapper.Map<OcorrenciaViewModel>(comunicado));
+            var ocorrenciasVM = MapperListEntityToViewModel(ocorrencias);
 
             return ocorrenciasVM;
         }
@@ -149,9 +139,7 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }
 
-            var ocorrenciasVM = new List<OcorrenciaViewModel>();
-            foreach (Ocorrencia comunicado in ocorrencias)
-                ocorrenciasVM.Add(_mapper.Map<OcorrenciaViewModel>(comunicado));
+            var ocorrenciasVM = MapperListEntityToViewModel(ocorrencias);
 
             return ocorrenciasVM;
         }
@@ -167,9 +155,7 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }
 
-            var ocorrenciasVM = new List<OcorrenciaViewModel>();
-            foreach (Ocorrencia comunicado in ocorrencias)
-                ocorrenciasVM.Add(_mapper.Map<OcorrenciaViewModel>(comunicado));
+            var ocorrenciasVM = MapperListEntityToViewModel(ocorrencias);
 
             return ocorrenciasVM;
         }
@@ -185,9 +171,7 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }
 
-            var ocorrenciasVM = new List<OcorrenciaViewModel>();
-            foreach (Ocorrencia comunicado in ocorrencias)
-                ocorrenciasVM.Add(_mapper.Map<OcorrenciaViewModel>(comunicado));
+            var ocorrenciasVM = MapperListEntityToViewModel(ocorrencias);
 
             return ocorrenciasVM;
         }
@@ -203,9 +187,7 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }
 
-            var ocorrenciasVM = new List<OcorrenciaViewModel>();
-            foreach (Ocorrencia comunicado in ocorrencias)
-                ocorrenciasVM.Add(_mapper.Map<OcorrenciaViewModel>(comunicado));
+            var ocorrenciasVM = MapperListEntityToViewModel(ocorrencias);
 
             return ocorrenciasVM;
         }
@@ -505,8 +487,36 @@ namespace CondominioApp.Api.Controllers
 
         }
 
+        [HttpDelete("remover/{respostaId:Guid}")]
+        public async Task<ActionResult> RemoverRespostaDeOcorrencia(Guid respostaId)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            var comando = new RemoverRespostaOcorrenciaCommand(respostaId);
+
+            var Resultado = await _mediatorHandler.EnviarComando(comando);
+
+            return CustomResponse(Resultado);
+
+        }
 
 
+
+        private List<OcorrenciaViewModel> MapperListEntityToViewModel(IEnumerable<Ocorrencia> ocorrencias)
+        {
+            var ocorrenciasVM = new List<OcorrenciaViewModel>();
+            foreach (Ocorrencia ocorrencia in ocorrencias)
+            {
+                var ocorrenciaVM = _mapper.Map<OcorrenciaViewModel>(ocorrencia);
+
+                var morador = _usuarioQuery.ObterMoradorPorId(ocorrencia.MoradorId).Result;
+                ocorrenciaVM.NomeMorador = morador.Nome;
+                ocorrenciaVM.FotoMorador = morador.Foto;
+
+                ocorrenciasVM.Add(ocorrenciaVM);
+            }
+            return ocorrenciasVM;
+        }
 
         private CadastrarOcorrenciaCommand CadastrarOcorrenciaCommandFactory
             (CadastraOcorrenciaViewModel ocorrenciaVM, MoradorFlat morador, UnidadeFlat unidade)

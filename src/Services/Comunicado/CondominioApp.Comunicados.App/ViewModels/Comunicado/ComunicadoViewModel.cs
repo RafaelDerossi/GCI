@@ -15,7 +15,9 @@ namespace CondominioApp.Comunicados.App.ViewModels
 
         public string NomeCondominio { get; set; }       
 
-        public string NomeFuncionario { get; set; }        
+        public string NomeFuncionario { get; set; }
+
+        public string FotoFuncionario { get; set; }
 
         public IEnumerable<UnidadeComunicadoViewModel> Unidades { get; set; }
 

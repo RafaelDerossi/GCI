@@ -22,8 +22,8 @@ namespace CondominioApp.Comunicados.App.Aplication.Query
             return await _comunicadoRepository.ObterPorId(id);
         }
 
-        public async Task<IEnumerable<Comunicado>> ObterPorCondominioUnidadeEProprietario
-            (Guid condominioId, Guid UnidadeId, bool IsProprietario)
+        public async Task<IEnumerable<Comunicado>> ObterPorCondominioEUnidadeEProprietario
+            (Guid condominioId, Guid unidadeId, bool isProprietario)
         {
             //Pega Comunicados Publicos
             List<Comunicado> listaFinal = _comunicadoRepository.Obter(
@@ -38,7 +38,7 @@ namespace CondominioApp.Comunicados.App.Aplication.Query
             var listaUnidades = await _comunicadoRepository.ObterUnidades(
                 c => c.Comunicado.CondominioId == condominioId &&
                 c.Comunicado.Visibilidade == VisibilidadeComunicado.UNIDADES &&
-                c.UnidadeId == UnidadeId && 
+                c.UnidadeId == unidadeId && 
                 !c.Comunicado.Lixeira);
 
             if (listaUnidades != null)
@@ -52,7 +52,7 @@ namespace CondominioApp.Comunicados.App.Aplication.Query
 
 
            //Pega comunicados específicos para proprietario
-            if (IsProprietario)
+            if (isProprietario)
             {
                 //Pega Comunicados para Proprietarios em geral
                 var listaProprietario = _comunicadoRepository.Obter(
@@ -74,7 +74,7 @@ namespace CondominioApp.Comunicados.App.Aplication.Query
                 var listaProprietarioUnidade = await _comunicadoRepository.ObterUnidades(
                     c => c.Comunicado.CondominioId == condominioId &&
                     c.Comunicado.Visibilidade == VisibilidadeComunicado.PROPRIETARIOS_UNIDADES &&
-                    c.UnidadeId == UnidadeId &&
+                    c.UnidadeId == unidadeId &&
                     !c.Comunicado.Lixeira);
 
                 if (listaProprietarioUnidade != null)

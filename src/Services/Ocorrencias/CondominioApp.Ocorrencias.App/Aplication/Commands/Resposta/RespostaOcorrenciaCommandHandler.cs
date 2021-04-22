@@ -17,6 +17,7 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
          IRequestHandler<CadastrarRespostaOcorrenciaMoradorCommand, ValidationResult>,
          IRequestHandler<EditarRespostaOcorrenciaCommand, ValidationResult>,
          IRequestHandler<MarcarRespostaOcorrenciaComoVistaCommand, ValidationResult>,
+         IRequestHandler<RemoverRespostaOcorrenciaCommand, ValidationResult>,
          IDisposable
     {
 
@@ -125,7 +126,24 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
             return await PersistirDados(_ocorrenciaRepository.UnitOfWork);
         }
 
+        public async Task<ValidationResult> Handle(RemoverRespostaOcorrenciaCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido())
+                return request.ValidationResult;
 
+            var resposta = await _ocorrenciaRepository.ObterRespostaPorId(request.Id);
+            if (resposta == null)
+            {
+                AdicionarErro("Resposta não encontrada!");
+                return ValidationResult;
+            }
+
+            resposta.EnviarParaLixeira();
+
+            _ocorrenciaRepository.AtualizarResposta(resposta);
+
+            return await PersistirDados(_ocorrenciaRepository.UnitOfWork);
+        }
 
 
         private RespostaOcorrencia RespostaOcorrenciaFactory(RespostaOcorrenciaCommand request)

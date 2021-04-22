@@ -31,6 +31,8 @@ namespace CondominioApp.Ocorrencias.App.ViewModels
 
         public string NomeMorador { get; set; }
 
+        public string FotoMorador { get; set; }
+
         public Guid CondominioId { get; set; }       
         
         public bool Panico { get;  set; }              

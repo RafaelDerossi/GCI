@@ -9,7 +9,7 @@ namespace CondominioApp.Comunicados.App.Aplication.Query
     {
         Task<Comunicado> ObterPorId(Guid id);       
 
-        Task<IEnumerable<Comunicado>> ObterPorCondominioUnidadeEProprietario(Guid condominioId, Guid UnidadeId, bool IsProprietario);
+        Task<IEnumerable<Comunicado>> ObterPorCondominioEUnidadeEProprietario(Guid condominioId, Guid unidadeId, bool isProprietario);
 
         Task<IEnumerable<Comunicado>> ObterPorCondominioEUsuario(Guid condominioId, Guid usuarioId);
 

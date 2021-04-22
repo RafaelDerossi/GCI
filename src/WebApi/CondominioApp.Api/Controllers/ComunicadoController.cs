@@ -58,6 +58,10 @@ namespace CondominioApp.Api.Controllers
 
             var comunicadoVM = _mapper.Map<ComunicadoViewModel>(comunicado);
 
+            var funcionario = await _usuarioQuery.ObterFuncionarioPorId(comunicado.Id);
+            comunicadoVM.NomeFuncionario = funcionario.Nome;
+            comunicadoVM.FotoFuncionario = funcionario.Foto;
+
             //Obtem Anexos
             if (comunicado.TemAnexos)
             {
@@ -68,32 +72,27 @@ namespace CondominioApp.Api.Controllers
             return comunicadoVM;
         }
 
-        [HttpGet("por-condominio-unidade-e-proprietario")]
+        [HttpGet("por-unidade-e-proprietario")]
         public async Task<ActionResult<IEnumerable<ComunicadoViewModel>>> ObterPorCondominioUnidadeEProprietario
-            (Guid condominioId, Guid unidadeId, bool IsProprietario)
+            (Guid unidadeId, bool IsProprietario)
         {
-            var comunicados = await _comunicadoQuery.ObterPorCondominioUnidadeEProprietario(
-                condominioId, unidadeId, IsProprietario);
+            var unidade = await _principalQuery.ObterUnidadePorId(unidadeId);
+            if (unidade == null)
+            {
+                AdicionarErroProcessamento("Unidade não encontrada!");
+                return CustomResponse();
+            }
+
+            var comunicados = await _comunicadoQuery.ObterPorCondominioEUnidadeEProprietario(
+               unidade.CondominioId, unidadeId, IsProprietario);
             if (comunicados.Count() == 0)
             {
                 AdicionarErroProcessamento("Nenhum registro encontrado.");
                 return CustomResponse();
             }
 
-            var comunicadosVM = new List<ComunicadoViewModel>();
-            foreach (Comunicado comunicado in comunicados)
-            {
-                var comunicadoVM = _mapper.Map<ComunicadoViewModel>(comunicado);
+            var comunicadosVM = MapperListEntityToViewModel(comunicados);
 
-                //Obtem Anexos
-                if (comunicado.TemAnexos)
-                {
-                    var anexos = await ObterAnexos(comunicado);
-                    comunicadoVM.Anexos = anexos;
-                }
-                
-                comunicadosVM.Add(comunicadoVM);
-            }
             return comunicadosVM;
         }
 
@@ -109,20 +108,7 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }
 
-            var comunicadosVM = new List<ComunicadoViewModel>();
-            foreach (Comunicado comunicado in comunicados)
-            {
-                var comunicadoVM = _mapper.Map<ComunicadoViewModel>(comunicado);
-
-                //Obtem Anexos
-                if (comunicado.TemAnexos)
-                {
-                    var anexos = await ObterAnexos(comunicado);
-                    comunicadoVM.Anexos = anexos;
-                }
-               
-                comunicadosVM.Add(comunicadoVM);
-            }
+            var comunicadosVM = MapperListEntityToViewModel(comunicados);
 
             return comunicadosVM;
         }
@@ -137,19 +123,7 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }
 
-            var comunicadosVM = new List<ComunicadoViewModel>();
-            foreach (Comunicado comunicado in comunicados)
-            {
-                var comunicadoVM = _mapper.Map<ComunicadoViewModel>(comunicado);
-                //Obtem Anexos
-                if (comunicado.TemAnexos)
-                {
-                   var anexos = await ObterAnexos(comunicado);
-                   comunicadoVM.Anexos = anexos;
-                }                
-                
-                comunicadosVM.Add(comunicadoVM);
-            }
+            var comunicadosVM = MapperListEntityToViewModel(comunicados);
 
             return comunicadosVM;
         }
@@ -266,6 +240,30 @@ namespace CondominioApp.Api.Controllers
 
 
         #region Metodos Auxiliares
+        
+        private List<ComunicadoViewModel> MapperListEntityToViewModel(IEnumerable<Comunicado> comunicados)
+        {
+            var comunicadosVM = new List<ComunicadoViewModel>();
+            foreach (Comunicado comunicado in comunicados)
+            {
+                var comunicadoVM = _mapper.Map<ComunicadoViewModel>(comunicado);
+
+                var funcionario = _usuarioQuery.ObterFuncionarioPorId(comunicado.Id).Result;
+                comunicadoVM.NomeFuncionario = funcionario.Nome;
+                comunicadoVM.FotoFuncionario = funcionario.Foto;
+
+                //Obtem Anexos
+                if (comunicado.TemAnexos)
+                {
+                    var anexos = ObterAnexos(comunicado).Result;
+                    comunicadoVM.Anexos = anexos;
+                }
+
+                comunicadosVM.Add(comunicadoVM);
+            }
+            return comunicadosVM;
+        }
+
 
         private CadastrarComunicadoCommand CadastrarComunicadoCommandFactory
             (CadastraComunicadoViewModel comunicadoVM, CondominioFlat condominio, FuncionarioFlat funcionario)
