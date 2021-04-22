@@ -16,10 +16,11 @@ namespace CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.RegrasParaCriaca
         {
             ValidationResult.Errors.Clear();
 
-            var validationResultQuantidadeDeVagas = ValidarQuantidadeDeVagas(_reserva, _areaComum);
-            if (!validationResultQuantidadeDeVagas.IsValid) return validationResultQuantidadeDeVagas;
+            var retorno = ValidarQuantidadeDeVagasPorUnidade(_reserva, _areaComum);
+            if (!retorno.IsValid) 
+                return retorno;
 
-            return ValidarQuantidadeDeVagasPorUnidade(_reserva, _areaComum);
+            return ValidarQuantidadeDeVagas(_reserva, _areaComum);
         }
 
         private ValidationResult ValidarQuantidadeDeVagas(Reserva _reserva, AreaComum _areaComum)
