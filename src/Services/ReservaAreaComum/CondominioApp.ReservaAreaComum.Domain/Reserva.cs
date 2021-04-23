@@ -3,7 +3,7 @@ using CondominioApp.Core.Enumeradores;
 using CondominioApp.Core.Helpers;
 using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.NotificacaoEmailIntegrationEvent.Reserva;
 using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.NotificacaoPushIntegrationEvents;
-using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.RegrasParaHorariosConflitantes;
+using CondominioApp.ReservaAreaComum.Domain.ReservasStrategy.RegrasParaHorariosConflitantes;
 using System;
 using System.Linq;
 

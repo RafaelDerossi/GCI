@@ -4,7 +4,7 @@ using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents;
 using CondominioApp.ReservaAreaComum.Aplication.Events;
 using CondominioApp.ReservaAreaComum.Domain;
 using CondominioApp.ReservaAreaComum.Domain.Interfaces;
-using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy;
+using CondominioApp.ReservaAreaComum.Domain.ReservasStrategy;
 using FluentValidation.Results;
 using MediatR;
 using System;
@@ -29,10 +29,10 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
     {
 
         private IReservaAreaComumRepository _reservaAreaComumRepository;
-        private IRegrasDeReserva _regrasDeReserva;
+        private IReservaStrategy _regrasDeReserva;
 
         public ReservaCommandHandler
-            (IReservaAreaComumRepository areaComumRepository, IRegrasDeReserva regrasDeReserva)
+            (IReservaAreaComumRepository areaComumRepository, IReservaStrategy regrasDeReserva)
         {
             _reservaAreaComumRepository = areaComumRepository;       
             _regrasDeReserva = regrasDeReserva;

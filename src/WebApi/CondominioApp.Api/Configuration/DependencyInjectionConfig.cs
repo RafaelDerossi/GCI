@@ -70,18 +70,18 @@ using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.NotificacaoEm
 using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.NotificacaoPushIntegrationEvents;
 using CondominioApp.Core.Data;
 using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.NotificacaoEmailIntegrationEvent.Reserva;
-using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy;
-using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.RegrasParaCriacaoDeReserva;
-using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.RegrasParaCancelamento;
-using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.RegrasParaCriacaoDeReserva.RegrasParaAdministrador;
-using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.RegrasParaCriacaoDeReserva.RegrasDeMorador;
-using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.RegrasParaCriacaoDeReserva.RegrasGerais;
-using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.RegrasParaCriacaoDeReserva.Regras.Interfaces;
-using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.RegrasParaCriacaoDeReserva.Regras;
-using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.RegrasParaCancelamento.RegrasParaMorador;
-using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.RegrasParaCancelamento.RegrasParaAdministracao;
-using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.RegrasParaCancelamento.Regras.Interfaces;
-using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.RegrasParaCancelamento.Regras;
+using CondominioApp.ReservaAreaComum.Domain.ReservasStrategy;
+using CondominioApp.ReservaAreaComum.Domain.ReservasStrategy.RegrasParaCriacaoDeReserva;
+using CondominioApp.ReservaAreaComum.Domain.ReservasStrategy.RegrasParaCancelamento;
+using CondominioApp.ReservaAreaComum.Domain.ReservasStrategy.RegrasParaCriacaoDeReserva.RegrasParaAdministrador;
+using CondominioApp.ReservaAreaComum.Domain.ReservasStrategy.RegrasParaCriacaoDeReserva.RegrasDeMorador;
+using CondominioApp.ReservaAreaComum.Domain.ReservasStrategy.RegrasParaCriacaoDeReserva.RegrasGerais;
+using CondominioApp.ReservaAreaComum.Domain.ReservasStrategy.RegrasParaCriacaoDeReserva.Regras.Interfaces;
+using CondominioApp.ReservaAreaComum.Domain.ReservasStrategy.RegrasParaCriacaoDeReserva.Regras;
+using CondominioApp.ReservaAreaComum.Domain.ReservasStrategy.RegrasParaCancelamento.RegrasParaMorador;
+using CondominioApp.ReservaAreaComum.Domain.ReservasStrategy.RegrasParaCancelamento.RegrasParaAdministracao;
+using CondominioApp.ReservaAreaComum.Domain.ReservasStrategy.RegrasParaCancelamento.Regras.Interfaces;
+using CondominioApp.ReservaAreaComum.Domain.ReservasStrategy.RegrasParaCancelamento.Regras;
 
 namespace CondominioApp.Api.Configuration
 {
@@ -351,7 +351,7 @@ namespace CondominioApp.Api.Configuration
             services.AddTransient<INotificationHandler<StatusDaReservaAlteradoEvent>, ReservaEventHandler>();
 
             //Regras de Reserva
-            services.AddTransient<IRegrasDeReserva, RegrasDeReserva>();
+            services.AddTransient<IReservaStrategy, ReservaStrategy>();
             services.AddTransient<IRegrasDeCriacaoDeReserva, RegrasDeCriacaoDeReserva>();
             services.AddTransient<IRegrasDeAdministradorParaReservar, RegrasDeAdministradorParaReservar>();
             services.AddTransient<IRegrasDeMoradorParaReservar, RegrasDeMoradorParaReservar>();

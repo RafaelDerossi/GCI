@@ -8,18 +8,18 @@ using CondominioApp.ReservaAreaComum.Aplication.Commands;
 using CondominioApp.ReservaAreaComum.Domain;
 using CondominioApp.ReservaAreaComum.Domain.Interfaces;
 using CondominioApp.Core.Enumeradores;
-using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy;
-using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.RegrasParaCriacaoDeReserva;
-using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.RegrasParaCriacaoDeReserva.RegrasParaAdministrador;
-using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.RegrasParaCriacaoDeReserva.Regras;
-using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.RegrasParaCriacaoDeReserva.RegrasGerais;
-using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.RegrasParaCriacaoDeReserva.RegrasDeMorador;
-using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.RegrasParaCancelamento;
-using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.RegrasParaCancelamento.RegrasParaMorador;
-using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.RegrasParaCancelamento.RegrasParaAdministracao;
-using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.RegrasParaCancelamento.Regras;
-using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.RegrasParaCriacaoDeReserva.Regras.Interfaces;
-using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.RegrasParaCancelamento.Regras.Interfaces;
+using CondominioApp.ReservaAreaComum.Domain.ReservasStrategy;
+using CondominioApp.ReservaAreaComum.Domain.ReservasStrategy.RegrasParaCriacaoDeReserva;
+using CondominioApp.ReservaAreaComum.Domain.ReservasStrategy.RegrasParaCriacaoDeReserva.RegrasParaAdministrador;
+using CondominioApp.ReservaAreaComum.Domain.ReservasStrategy.RegrasParaCriacaoDeReserva.Regras;
+using CondominioApp.ReservaAreaComum.Domain.ReservasStrategy.RegrasParaCriacaoDeReserva.RegrasGerais;
+using CondominioApp.ReservaAreaComum.Domain.ReservasStrategy.RegrasParaCriacaoDeReserva.RegrasDeMorador;
+using CondominioApp.ReservaAreaComum.Domain.ReservasStrategy.RegrasParaCancelamento;
+using CondominioApp.ReservaAreaComum.Domain.ReservasStrategy.RegrasParaCancelamento.RegrasParaMorador;
+using CondominioApp.ReservaAreaComum.Domain.ReservasStrategy.RegrasParaCancelamento.RegrasParaAdministracao;
+using CondominioApp.ReservaAreaComum.Domain.ReservasStrategy.RegrasParaCancelamento.Regras;
+using CondominioApp.ReservaAreaComum.Domain.ReservasStrategy.RegrasParaCriacaoDeReserva.Regras.Interfaces;
+using CondominioApp.ReservaAreaComum.Domain.ReservasStrategy.RegrasParaCancelamento.Regras.Interfaces;
 
 namespace CondominioApp.ReservaAreaComum.Tests
 {
@@ -27,7 +27,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
     {
         private readonly AutoMocker _mocker;
         private readonly ReservaCommandHandler _reservaCommandHandler;
-        private readonly RegrasDeReserva _regrasDeReserva;
+        private readonly ReservaStrategy _regrasDeReserva;
 
         private RegrasDeCriacaoDeReserva _regrasDeCriacao;
 
@@ -61,7 +61,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
         {
             _mocker = new AutoMocker();
             _reservaCommandHandler = _mocker.CreateInstance<ReservaCommandHandler>();
-            _regrasDeReserva = _mocker.CreateInstance<RegrasDeReserva>();
+            _regrasDeReserva = _mocker.CreateInstance<ReservaStrategy>();
         }
 
         private void SetMocksRegrasGerais(Reserva reserva, AreaComum areacomum)
@@ -188,11 +188,11 @@ namespace CondominioApp.ReservaAreaComum.Tests
                .Returns(retVerificaReservasAprovadas);
 
             var retVerificaReservasAprovadas2 = _regrasDeReserva.VerificaReservasAprovadas(reserva, areacomum);
-            _mocker.GetMock<IRegrasDeReserva>().Setup(r => r.VerificaReservasAprovadas(reserva, areacomum))
+            _mocker.GetMock<IReservaStrategy>().Setup(r => r.VerificaReservasAprovadas(reserva, areacomum))
               .Returns(retVerificaReservasAprovadas2);
 
             var retValidarRegrasParaCiracao = _regrasDeReserva.ValidarRegrasParaCriacao(reserva, areacomum);
-            _mocker.GetMock<IRegrasDeReserva>().Setup(r => r.ValidarRegrasParaCriacao(reserva, areacomum))
+            _mocker.GetMock<IReservaStrategy>().Setup(r => r.ValidarRegrasParaCriacao(reserva, areacomum))
               .Returns(retValidarRegrasParaCiracao);
         }
 
@@ -233,11 +233,11 @@ namespace CondominioApp.ReservaAreaComum.Tests
 
 
             var retRegrasDeReservaCancelamentoPelaAdm = _regrasDeCancelamentoDeReserva.ValidarCancelamentoPelaAdministracao(reserva);
-            _mocker.GetMock<IRegrasDeReserva>().Setup(r => r.ValidarRegrasParaCancelamentoPelaAdministracao(reserva))
+            _mocker.GetMock<IReservaStrategy>().Setup(r => r.ValidarRegrasParaCancelamentoPelaAdministracao(reserva))
                .Returns(retRegrasDeReservaCancelamentoPelaAdm);
 
             var retRegrasDeReservaCancelamentoPeloMorador = _regrasDeCancelamentoDeReserva.ValidarCancelamentoPeloMorador(reserva, areacomum);
-            _mocker.GetMock<IRegrasDeReserva>().Setup(r => r.ValidarRegrasParaCancelamentoPeloMorador(reserva, areacomum))
+            _mocker.GetMock<IReservaStrategy>().Setup(r => r.ValidarRegrasParaCancelamentoPeloMorador(reserva, areacomum))
                .Returns(retRegrasDeReservaCancelamentoPeloMorador);
         }
 

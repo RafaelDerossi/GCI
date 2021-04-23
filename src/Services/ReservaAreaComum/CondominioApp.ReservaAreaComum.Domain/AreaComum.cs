@@ -1,8 +1,8 @@
 ﻿using CondominioApp.Core.DomainObjects;
 using CondominioApp.Core.Enumeradores;
 using CondominioApp.Core.Helpers;
-using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy;
-using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.RegrasParaHorariosConflitantes;
+using CondominioApp.ReservaAreaComum.Domain.ReservasStrategy;
+using CondominioApp.ReservaAreaComum.Domain.ReservasStrategy.RegrasParaHorariosConflitantes;
 using FluentValidation.Results;
 using System;
 using System.Collections.Generic;
@@ -225,7 +225,7 @@ namespace CondominioApp.ReservaAreaComum.Domain
 
 
 
-        public ValidationResult ValidarReserva(Reserva reserva, IRegrasDeReserva regras)
+        public ValidationResult ValidarReserva(Reserva reserva, IReservaStrategy regras)
         {   
             var resultado = regras.ValidarRegrasParaCriacao(reserva, this);
             return resultado;
@@ -234,7 +234,7 @@ namespace CondominioApp.ReservaAreaComum.Domain
 
 
 
-        public Reserva RetirarProximaReservaDaFila(Reserva reservaCancelada, IRegrasDeReserva regras)
+        public Reserva RetirarProximaReservaDaFila(Reserva reservaCancelada, IReservaStrategy regras)
         {
             var reservas = _Reservas
                 .Where(x => x.Status == StatusReserva.NA_FILA &&
@@ -269,7 +269,7 @@ namespace CondominioApp.ReservaAreaComum.Domain
         }
        
 
-        public ValidationResult AprovarReservaPelaAdministracao(Guid reservaId, IRegrasDeReserva regras)
+        public ValidationResult AprovarReservaPelaAdministracao(Guid reservaId, IReservaStrategy regras)
         {
             var reserva = _Reservas.FirstOrDefault(x => x.Id == reservaId);            
 
@@ -281,7 +281,7 @@ namespace CondominioApp.ReservaAreaComum.Domain
         }
 
 
-        public ValidationResult CancelarReservaComoUsuario(Reserva reservaACancelar, string justificativa, IRegrasDeReserva regras)
+        public ValidationResult CancelarReservaComoUsuario(Reserva reservaACancelar, string justificativa, IReservaStrategy regras)
         {
             var result = regras.ValidarRegrasParaCancelamentoPeloMorador(reservaACancelar, this);
             if (!result.IsValid)
@@ -292,7 +292,7 @@ namespace CondominioApp.ReservaAreaComum.Domain
             return ValidationResult;
         }
 
-        public ValidationResult CancelarReservaComoAdministrador(Reserva reservaACancelar, string justificativa, IRegrasDeReserva regras)
+        public ValidationResult CancelarReservaComoAdministrador(Reserva reservaACancelar, string justificativa, IReservaStrategy regras)
         {
             var result = regras.ValidarRegrasParaCancelamentoPelaAdministracao(reservaACancelar);
             if (!result.IsValid)
