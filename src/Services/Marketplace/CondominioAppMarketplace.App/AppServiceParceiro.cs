@@ -169,6 +169,10 @@ namespace CondominioAppMarketplace.App
                                  ViewModel.Cep, ViewModel.Bairro, ViewModel.Cidade, ViewModel.Estado);
             Parceiro.SetEmail(ViewModel.EmailDoResponsavel);
 
+            Parceiro.SetEndereco(ViewModel.Logradouro, ViewModel.Complemento, ViewModel.Numero, ViewModel.Cep, ViewModel.Bairro, ViewModel.Cidade, ViewModel.Estado);
+            Parceiro.setCorDoLayout(ViewModel.Cor);
+            Parceiro.setLogoMarca(ViewModel.LogoMarca);
+
             _repository.Atualizar(Parceiro);
 
             return await PersistirDados(_repository.UnitOfWork);
