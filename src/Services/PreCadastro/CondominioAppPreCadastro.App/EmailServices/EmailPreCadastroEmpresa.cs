@@ -22,7 +22,7 @@ namespace CondominioAppPreCadastro.App.EmailServices
 
         public override string SubstituirValores()
         {
-            var CaminhoDoHtml = "wwwroot\\Email\\PreCadastro\\precadastro-empresa.html";
+            var CaminhoDoHtml = "wwwroot\\Emails\\PreCadastro\\precadastro-empresa.html";
 
             var conteudoDoHtmlDoEmail = File.ReadAllText(CaminhoDoHtml);
 
@@ -48,7 +48,7 @@ namespace CondominioAppPreCadastro.App.EmailServices
 
         private string SubstituirValoresDosCondominios()
         {
-            var CaminhoDoHtml = "wwwroot\\Email\\PreCadastro\\condominio.html";
+            var CaminhoDoHtml = "wwwroot\\Emails\\PreCadastro\\condominio.html";
 
             var condominioHtml = File.ReadAllText(CaminhoDoHtml);
 

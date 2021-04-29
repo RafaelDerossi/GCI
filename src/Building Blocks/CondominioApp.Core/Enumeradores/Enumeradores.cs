@@ -139,4 +139,16 @@
         SINDICO = 1,
         MORADOR = 2
     }
+
+    public enum StatusReserva
+    {
+        PROCESSANDO = 0,
+        APROVADA = 1,
+        REPROVADA = 2,
+        AGUARDANDO_APROVACAO = 3,
+        NA_FILA = 4,
+        CANCELADA = 5,
+        EXPIRADA = 6,
+        REMOVIDA = 7
+    }
 }

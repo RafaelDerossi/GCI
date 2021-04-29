@@ -1,4 +1,5 @@
 ﻿using CondominioApp.Core.Data;
+using CondominioApp.Core.Enumeradores;
 using CondominioApp.Principal.Infra.DataQuery;
 using CondominioApp.ReservaAreaComum.Domain.FlatModel;
 using CondominioApp.ReservaAreaComum.Domain.Interfaces;
@@ -21,7 +22,6 @@ namespace CondominioApp.ReservaAreaComum.Infra.Data.Repository
         }
 
         public IUnitOfWorks UnitOfWork => _context;
-
 
       
 
@@ -157,6 +157,18 @@ namespace CondominioApp.ReservaAreaComum.Infra.Data.Repository
         {
             return await _context.ReservasFlat                
                 .FirstOrDefaultAsync(a => a.Id == Id && !a.Lixeira);
+        }
+
+        public async Task<int> ObterQtdDeReservasProcessando()
+        {
+            return await _context.ReservasFlat.Where(c => c.Status == StatusReserva.PROCESSANDO && !c.Lixeira).CountAsync();
+        }
+
+        public async Task<ReservaFlat> ObterPrimeiraNaFilaParaSerProcessada()
+        {
+            return await _context.ReservasFlat.Where(r => r.Status == StatusReserva.PROCESSANDO && !r.Lixeira)
+                                          .OrderByDescending(r => r.DataDeCadastro)
+                                          .FirstOrDefaultAsync();
         }
 
 

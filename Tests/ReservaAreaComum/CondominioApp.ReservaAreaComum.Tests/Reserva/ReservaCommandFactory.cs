@@ -14,7 +14,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             return new CadastrarReservaCommand
                 (Guid.NewGuid(), "Observacao", Guid.NewGuid(), "101", "1º",
                 "Bloco 1", Guid.NewGuid(), "Usuario", DateTime.Now.Date, "08:00", "09:00",
-                150, false, "Mobile", false);
+                150, "Mobile", false, false);
         }
 
 
@@ -74,7 +74,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
         {
             var comando = CadastrarReservaCommandFactory();
 
-            comando.SetUsuarioId(Guid.Empty);
+            comando.SetMoradorId(Guid.Empty);
 
             return comando;
         }
@@ -83,7 +83,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
         {
             var comando = CadastrarReservaCommandFactory();
 
-            comando.SetNomeUsuario("");
+            comando.SetNomeMorador("");
 
             return comando;
         }

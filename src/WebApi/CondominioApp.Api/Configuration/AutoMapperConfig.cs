@@ -29,8 +29,8 @@ namespace CondominioApp.Api.Configuration
                 cfg.AddProfile(new EntityToViewModelContrato());
                 cfg.AddProfile(new EntityToViewModelUsuario());
                 cfg.AddProfile(new EntityToViewModelArquivoDigital());
-                cfg.AddProfile(new EntityToViewModelOcorrencia());   
-                
+                cfg.AddProfile(new EntityToViewModelOcorrencia());
+                cfg.AddProfile(new EntityFlatToViewModelUnidade());                
             });
 
             var mapper = config.CreateMapper();

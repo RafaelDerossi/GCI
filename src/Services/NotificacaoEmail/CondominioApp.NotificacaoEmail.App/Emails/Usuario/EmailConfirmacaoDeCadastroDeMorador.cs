@@ -7,36 +7,36 @@ namespace CondominioApp.NotificacaoEmail.Api.Email
 {
     public class EmailConfirmacaoDeCadastroDeMorador : ServicoDeEmail
     {
-        private readonly string Assunto = "Confirmação de cadastro";
-        private MoradorFlat Morador;
-        private string LogoCondominio;
+        private readonly string _assunto = "Confirmação de cadastro";
+        private MoradorFlat _morador;
+        private string _logoCondominio;
 
         public EmailConfirmacaoDeCadastroDeMorador(MoradorFlat morador, string logoCondominio)
         {
-            Morador = morador;
+            _morador = morador;
 
-            LogoCondominio = logoCondominio;
+            _logoCondominio = logoCondominio;
 
             var conteudo = SubstituirValores();
 
-            ConstruirEmail(Assunto, conteudo);
+            ConstruirEmail(_assunto, conteudo);
         }
 
         public override string SubstituirValores()
         {
-            var CaminhoDoHtml = "wwwroot\\Emails\\EmailConfirmacaoDeCadastroDeMorador.html";
+            var CaminhoDoHtml = "wwwroot\\Emails\\Usuario\\EmailConfirmacaoDeCadastroDeMorador.html";
 
             var conteudoDoHtmlDoEmail = File.ReadAllText(CaminhoDoHtml);
 
-            conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_NomeDoUsuario_", Morador.Nome);
-            conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_LogoCondominio_", LogoCondominio);
+            conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_NomeDoUsuario_", _morador.Nome);
+            conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_LogoCondominio_", _logoCondominio);
 
             return conteudoDoHtmlDoEmail;
         }
 
         public override async Task EnviarEmail()
         {
-            _Email.To.Add(Morador.Email);
+            _Email.To.Add(_morador.Email);
             await Task.Run(() => base.Send(_Email));
         }
     }

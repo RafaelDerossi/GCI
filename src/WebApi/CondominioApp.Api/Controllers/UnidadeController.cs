@@ -1,4 +1,5 @@
-﻿using CondominioApp.Core.Mediator;
+﻿using AutoMapper;
+using CondominioApp.Core.Mediator;
 using CondominioApp.Principal.Aplication.Commands;
 using CondominioApp.Principal.Aplication.Query.Interfaces;
 using CondominioApp.Principal.Aplication.ViewModels;
@@ -11,26 +12,31 @@ using System.Threading.Tasks;
 using FluentValidation;
 using FluentValidation.Results;
 using System.Linq;
+using CondominioApp.Usuarios.App.Aplication.Query;
 
 namespace CondominioApp.Api.Controllers
 {
     [Route("api/unidade")]
     public class UnidadeController : MainController
     {
-
+        private readonly IMapper _mapper;
         private readonly IMediatorHandler _mediatorHandler;
         private readonly IPrincipalQuery _principalQuery;
+        private readonly IUsuarioQuery _usuarioQuery;
 
-        public UnidadeController(IMediatorHandler mediatorHandler, IPrincipalQuery principalQuery)
+        public UnidadeController
+            (IMapper mapper, IMediatorHandler mediatorHandler, IPrincipalQuery principalQuery, IUsuarioQuery usuarioQuery)
         {
+            _mapper = mapper;
             _mediatorHandler = mediatorHandler;
             _principalQuery = principalQuery;
+            _usuarioQuery = usuarioQuery;
         }
 
 
 
         [HttpGet("{id:Guid}")]
-        public async Task<ActionResult<UnidadeFlat>> ObterUnidadePorId(Guid id)
+        public async Task<ActionResult<UnidadeFlatViewModel>> ObterUnidadePorId(Guid id)
         {
             var unidade = await _principalQuery.ObterUnidadePorId(id);
             if (unidade == null)
@@ -38,7 +44,30 @@ namespace CondominioApp.Api.Controllers
                 AdicionarErroProcessamento("Unidade não encontrada.");
                 return CustomResponse();
             }
-            return unidade;
+
+            var unidadeViewModel = _mapper.Map<UnidadeFlatViewModel>(unidade);
+            unidadeViewModel.Moradores = new List<MoradorFlatViewModel>();
+            unidadeViewModel.Veiculos = new List<VeiculoFlatViewModel>();
+
+            var moradores = await _usuarioQuery.ObterMoradoresPorUnidadeId(unidade.Id);
+            if (moradores != null)
+            {
+                foreach (var morador in moradores)
+                {
+                    unidadeViewModel.Moradores.Add(_mapper.Map<MoradorFlatViewModel>(morador));
+                }
+            }
+
+            var veiculos = await _usuarioQuery.ObterVeiculosPorUnidade(unidade.Id);
+            if (veiculos != null)
+            {
+                foreach (var veiculo in veiculos)
+                {
+                    unidadeViewModel.Veiculos.Add(_mapper.Map<VeiculoFlatViewModel>(veiculo));
+                }
+            }
+
+            return unidadeViewModel;
         }
 
         [HttpGet("por-grupo/{grupoId:Guid}")]
@@ -78,6 +107,8 @@ namespace CondominioApp.Api.Controllers
         }
 
 
+
+
         [HttpPost]
         public async Task<ActionResult> Post(CadastraUnidadeViewModel unidadeVM)
         {
@@ -99,6 +130,7 @@ namespace CondominioApp.Api.Controllers
             return CustomResponse();
             
         }
+
 
 
         [HttpPut("{Id:Guid}")]
@@ -123,7 +155,7 @@ namespace CondominioApp.Api.Controllers
 
 
         [HttpPut("atualizar-codigo/{Id:Guid}")]
-        public async Task<ActionResult> Put(Guid Id)
+        public async Task<ActionResult> PutAtualizarCodigo(Guid Id)
         {
             var comando = new ResetCodigoUnidadeCommand(Id);
 
@@ -132,6 +164,15 @@ namespace CondominioApp.Api.Controllers
             return CustomResponse(Resultado);
         }
 
+        [HttpPut("atualizar-vagas")]
+        public async Task<ActionResult> PutAtualizarVagas(EditaVagaDeUnidadeViewModel viewModel)
+        {
+            var comando = new EditarVagasDaUnidadeCommand(viewModel.Id, viewModel.Vagas);
+
+            var Resultado = await _mediatorHandler.EnviarComando(comando);
+
+            return CustomResponse(Resultado);
+        }
 
         [HttpDelete("{Id:Guid}")]
         public async Task<ActionResult> DeleteUnidade(Guid Id)

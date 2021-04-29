@@ -12,9 +12,9 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
 
         public CadastrarReservaCommand
             (Guid areaComumId, string observacao, Guid unidadeId, string numeroUnidade,
-            string andarUnidade, string descricaoGrupoUnidade, Guid usuarioId, string nomeUsuario,
-            DateTime dataDeRealizacao, string horaInicio, string horaFim, decimal preco,
-            bool estaNaFila, string origem, bool reservadoPelaAdministracao)
+             string andarUnidade, string descricaoGrupoUnidade, Guid moradorId, string nomeMorador,
+             DateTime dataDeRealizacao, string horaInicio, string horaFim, decimal preco,
+             string origem, bool criadaPelaAdministracao, bool reservadoPelaAdministracao)
         {            
             SetAreaComumId(areaComumId);
             Observacao = observacao;
@@ -22,14 +22,14 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
             SetNumeroUnidade(numeroUnidade);
             SetAndarUnidade(andarUnidade);
             SetGrupoUnidade(descricaoGrupoUnidade);
-            SetUsuarioId(usuarioId);
-            SetNomeUsuario(nomeUsuario);
+            SetMoradorId(moradorId);
+            SetNomeMorador(nomeMorador);
             DataDeRealizacao = dataDeRealizacao;
             SetHoraInicio(horaInicio);
             SetHoraFim(horaFim);
-            Preco = preco;
-            EstaNaFila = estaNaFila;
+            Preco = preco;            
             Origem = origem;
+            CriadaPelaAdministracao = criadaPelaAdministracao;
             ReservadoPelaAdministracao = reservadoPelaAdministracao;
         }
 
@@ -54,14 +54,14 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
                 ValidateNumeroUnidade();
                 ValidateAndarUnidade();
                 ValidateDescricaoGrupoUnidade();
-                ValidateUsuarioId();
-                ValidateNomeUsuario();
+                ValidateMoradorId();
+                ValidateNomeMorador();
                 ValidateDataDeRealizacao();
                 ValidateHoraInicio();
                 ValidateHoraFim();               
-                ValidatePreco();
-                ValidateEstaNaFila();
+                ValidatePreco();                
                 ValidateOrigem();
+                ValidateCriadoPelaAdministracao();
                 ValidateReservadoPelaAdministracao();
             }
         }

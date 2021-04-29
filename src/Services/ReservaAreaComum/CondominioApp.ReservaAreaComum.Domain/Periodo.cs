@@ -1,5 +1,5 @@
 ﻿using CondominioApp.Core.DomainObjects;
-using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy;
+using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.RegrasParaHorariosConflitantes;
 using System;
 using System.Collections.Generic;
 using System.Text;

@@ -1,4 +1,5 @@
-﻿using CondominioApp.ReservaAreaComum.Domain.FlatModel;
+﻿using CondominioApp.Core.Enumeradores;
+using CondominioApp.ReservaAreaComum.Domain.FlatModel;
 using CondominioApp.ReservaAreaComum.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -48,7 +49,6 @@ namespace CondominioApp.ReservaAreaComum.App.Aplication.Query
             }            
         }
 
-
         public async Task<ReservaFlat> ObterReservaPorId(Guid id)
         {
             return await _reservaAreaComumQueryRepository.ObterReservaPorId(id);
@@ -66,7 +66,7 @@ namespace CondominioApp.ReservaAreaComum.App.Aplication.Query
 
         public async Task<IEnumerable<ReservaFlat>> ObterReservasPorUsuario(Guid usuarioId)
         {
-            return await _reservaAreaComumQueryRepository.ObterReserva(r => r.UsuarioId == usuarioId && !r.Lixeira);
+            return await _reservaAreaComumQueryRepository.ObterReserva(r => r.MoradorId == usuarioId && !r.Lixeira);
         }
 
         public async Task<IEnumerable<ReservaFlat>> ObterReservasPorAreaComum(Guid areaComumId)
@@ -74,7 +74,15 @@ namespace CondominioApp.ReservaAreaComum.App.Aplication.Query
             return await _reservaAreaComumQueryRepository.ObterReserva(r => r.AreaComumId == areaComumId && !r.Lixeira);
         }
 
+        public async Task<int> ObterQtdDeReservasProcessando()
+        {
+            return await _reservaAreaComumQueryRepository.ObterQtdDeReservasProcessando();
+        }
 
+        public async Task<ReservaFlat> ObterPrimeiraNaFilaParaSerProcessada()
+        {
+            return await _reservaAreaComumQueryRepository.ObterPrimeiraNaFilaParaSerProcessada();
+        }
 
         public void Dispose()
         {           

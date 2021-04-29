@@ -10,9 +10,19 @@ namespace CondominioApp.Principal.Domain.Interfaces
     {
         void AdicionarGrupo(Grupo entity);
 
+        void AtualizarGrupo(Grupo entity);
+
+
         void AdicionarUnidade(Unidade entity);
 
+        void AtualizarUnidade(Unidade entity);
+
+
         void AdicionarContrato(Contrato entity);
+
+        void AtualizarContrato(Contrato entity);
+
+
 
         Task<bool> CnpjCondominioJaCadastrado(Cnpj cnpj, Guid condominioId);
 

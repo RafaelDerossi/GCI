@@ -30,10 +30,36 @@ namespace CondominioApp.Api.Controllers
         }
 
 
-        [HttpGet("{usuarioId:Guid}")]
+        [HttpGet("{funcionarioId:Guid}")]
+        public async Task<ActionResult<FuncionarioFlat>> ObterFuncionarioPorId(Guid funcionarioId)
+        {
+            var funcionario = await _usuarioQuery.ObterFuncionarioPorId(funcionarioId);
+            if (funcionario == null)
+            {
+                AdicionarErroProcessamento("Nenhum funcionario encontrado.");
+                return CustomResponse();
+            }
+
+            return funcionario;
+        }
+
+        [HttpGet("funcionarios-por-usuario{usuarioId:Guid}")]
         public async Task<ActionResult<IEnumerable<FuncionarioFlat>>> ObterFuncionariosPorUsuarioId(Guid usuarioId)
         {
             var funcionario = await _usuarioQuery.ObterFuncionariosPorUsuarioId(usuarioId);
+            if (funcionario.Count() == 0)
+            {
+                AdicionarErroProcessamento("Nenhum funcionario encontrado.");
+                return CustomResponse();
+            }
+
+            return funcionario.ToList();
+        }
+
+        [HttpGet("funcionarios-por-condominio{condominioId:Guid}")]
+        public async Task<ActionResult<IEnumerable<FuncionarioFlat>>> ObterFuncionariosPorCondominio(Guid condominioId)
+        {
+            var funcionario = await _usuarioQuery.ObterFuncionariosPorCondominioId(condominioId);
             if (funcionario.Count() == 0)
             {
                 AdicionarErroProcessamento("Nenhum funcionario encontrado.");
@@ -77,7 +103,21 @@ namespace CondominioApp.Api.Controllers
 
         }
 
-        
+        [HttpPost("registrar-dispositivo")]
+        public async Task<ActionResult> PostRegistrarDispositivo(CadastraMobileFuncionarioViewModel mobileVM)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            var registrarComando = new RegistrarFuncionarioMobileCommand
+                (mobileVM.DeviceKey, mobileVM.MobileId, mobileVM.Modelo, mobileVM.Plataforma, mobileVM.Versao,
+                mobileVM.FuncionarioId);
+
+            var result = await _mediatorHandler.EnviarComando(registrarComando);
+            return CustomResponse(result);
+        }
+
+
+
         [HttpPut("editar-funcionario")]
         public async Task<ActionResult> Put(EditaFuncionarioViewModel editaViewModel)
         {
@@ -104,17 +144,6 @@ namespace CondominioApp.Api.Controllers
         }
 
 
-        [HttpPost("registrar-dispositivo")]
-        public async Task<ActionResult> PostRegistrarDispositivo(CadastraMobileFuncionarioViewModel mobileVM)
-        {
-            if (!ModelState.IsValid) return CustomResponse(ModelState);
-
-            var registrarComando = new RegistrarFuncionarioMobileCommand
-                (mobileVM.DeviceKey, mobileVM.MobileId, mobileVM.Modelo, mobileVM.Plataforma, mobileVM.Versao,
-                mobileVM.FuncionarioId);
-
-            var result = await _mediatorHandler.EnviarComando(registrarComando);
-            return CustomResponse(result);
-        }
+        
     }
 }

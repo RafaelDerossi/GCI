@@ -94,5 +94,11 @@ namespace CondominioApp.Principal.Domain.FlatModel
         public void SetCondominioNome(string nome) => CondominioNome = nome;
 
         public void SetCondominioLogomarca(string logomarca) => CondominioLogoMarca = logomarca;
+
+
+        public string ObterDescricaoUnidade()
+        {
+            return $"{Numero}|{Andar}|{GrupoDescricao}";
+        }
     }
 }

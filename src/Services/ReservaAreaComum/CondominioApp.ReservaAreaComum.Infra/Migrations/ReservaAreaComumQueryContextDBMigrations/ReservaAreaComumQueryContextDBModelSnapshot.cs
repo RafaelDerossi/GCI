@@ -166,17 +166,14 @@ namespace CondominioApp.ReservaAreaComum.Infra.Migrations.ReservaAreaComumQueryC
                     b.Property<Guid>("AreaComumId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool>("Ativa")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("Cancelada")
-                        .HasColumnType("bit");
-
                     b.Property<int>("Capacidade")
                         .HasColumnType("int");
 
                     b.Property<Guid>("CondominioId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("CriadaPelaAdministracao")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("DataDeAlteracao")
                         .HasColumnType("datetime2");
@@ -191,9 +188,6 @@ namespace CondominioApp.ReservaAreaComum.Infra.Migrations.ReservaAreaComumQueryC
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("EstaNaFila")
-                        .HasColumnType("bit");
-
                     b.Property<string>("HoraFim")
                         .IsRequired()
                         .HasColumnType("varchar(200)");
@@ -203,10 +197,13 @@ namespace CondominioApp.ReservaAreaComum.Infra.Migrations.ReservaAreaComumQueryC
                         .HasColumnType("varchar(200)");
 
                     b.Property<string>("Justificativa")
-                        .HasColumnType("varchar(200)");
+                        .HasColumnType("varchar(500)");
 
                     b.Property<bool>("Lixeira")
                         .HasColumnType("bit");
+
+                    b.Property<Guid>("MoradorId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("NomeAreaComum")
                         .IsRequired()
@@ -216,7 +213,7 @@ namespace CondominioApp.ReservaAreaComum.Infra.Migrations.ReservaAreaComumQueryC
                         .IsRequired()
                         .HasColumnType("varchar(200)");
 
-                    b.Property<string>("NomeUsuario")
+                    b.Property<string>("NomeMorador")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -236,10 +233,14 @@ namespace CondominioApp.ReservaAreaComum.Infra.Migrations.ReservaAreaComumQueryC
                     b.Property<bool>("ReservadoPelaAdministracao")
                         .HasColumnType("bit");
 
-                    b.Property<Guid>("UnidadeId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
-                    b.Property<Guid>("UsuarioId")
+                    b.Property<string>("StatusDescricao")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("UnidadeId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");

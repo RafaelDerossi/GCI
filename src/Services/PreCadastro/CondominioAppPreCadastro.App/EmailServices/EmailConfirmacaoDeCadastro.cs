@@ -22,7 +22,7 @@ namespace CondominioAppPreCadastro.App.EmailServices
 
         public override string SubstituirValores()
         {
-            var CaminhoDoHtml = "wwwroot\\Email\\PreCadastro\\precadastro-cliente.html";
+            var CaminhoDoHtml = "wwwroot\\Emails\\PreCadastro\\precadastro-cliente.html";
 
             var conteudoDoHtmlDoEmail = File.ReadAllText(CaminhoDoHtml);
 

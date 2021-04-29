@@ -9,7 +9,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
         {
             return new Reserva
                 (Guid.NewGuid(),"Obs",Guid.NewGuid(),"101","1º","Bloco 1",Guid.NewGuid(), "Usuario", 
-                 DateTime.Now.AddDays(30).Date, "08:00", "17:00", 150, false, "Mobile", false);
+                 DateTime.Now.AddDays(30).Date, "08:00", "17:00", 150, "Mobile",false, false);
         }
 
 
@@ -17,6 +17,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
         {
             var reserva = Factory();
             reserva.SetOrigem("Sistema Web");
+            reserva.MarcarComoCriadaPelaAdministracao();
             return reserva;
         }
 
@@ -110,6 +111,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
         {
             var reserva = Factory();
             reserva.SetOrigem("Sistema Web");
+            reserva.MarcarComoCriadaPelaAdministracao();
             reserva.SetHoraInicioEHoraFim("08:00", "17:00");
             reserva.SetDataDeRealizacao(DateTime.Now.AddDays(-30).Date);
             return reserva;

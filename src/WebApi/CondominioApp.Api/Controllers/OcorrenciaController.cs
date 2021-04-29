@@ -40,6 +40,30 @@ namespace CondominioApp.Api.Controllers
         }
 
 
+        [HttpGet("por-morador-ou-publicas/{moradorId:Guid}")]
+        public async Task<ActionResult<IEnumerable<OcorrenciaViewModel>>> ObterPorMoradorOuPublicas(Guid moradorId)
+        {
+            var morador = await _usuarioQuery.ObterMoradorPorId(moradorId);
+            if (morador == null)
+            {
+                AdicionarErroProcessamento("Morador não encontrado!");
+                return CustomResponse();
+            }
+
+            var ocorrencias = await _ocorrenciaQuery.ObterPorMoradorOuPublicas(morador.CondominioId, moradorId);
+            if (ocorrencias.Count() == 0)
+            {
+                AdicionarErroProcessamento("Nenhum registro encontrado.");
+                return CustomResponse();
+            }
+
+            var ocorrenciasVM = MapperListEntityToViewModel(ocorrencias);
+
+            return ocorrenciasVM;
+        }
+
+
+
 
         [HttpGet("por-condominio/{condominioId:Guid}")]
         public async Task<ActionResult<IEnumerable<OcorrenciaViewModel>>> ObterPorCondominio(Guid condominioId)
@@ -51,46 +75,23 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }
 
-            var ocorrenciasVM = new List<OcorrenciaViewModel>();
-            foreach (Ocorrencia comunicado in ocorrencias)
-                ocorrenciasVM.Add(_mapper.Map<OcorrenciaViewModel>(comunicado));
-            
-            return ocorrenciasVM;
-        }
-
-
-        [HttpGet("por-condominio-e-usuario")]
-        public async Task<ActionResult<IEnumerable<OcorrenciaViewModel>>> ObterPorCondominioEUsuario
-            (Guid condominioId, Guid usuarioId)
-        {
-            var ocorrencias = await _ocorrenciaQuery.ObterPorCondominioEUsuario(condominioId, usuarioId);
-            if (ocorrencias.Count() == 0)
-            {
-                AdicionarErroProcessamento("Nenhum registro encontrado.");
-                return CustomResponse();
-            }
-
-            var ocorrenciasVM = new List<OcorrenciaViewModel>();
-            foreach (Ocorrencia comunicado in ocorrencias)
-                ocorrenciasVM.Add(_mapper.Map<OcorrenciaViewModel>(comunicado));
+            var ocorrenciasVM = MapperListEntityToViewModel(ocorrencias);
 
             return ocorrenciasVM;
         }
 
 
         [HttpGet("pendentes-por-condominio/{condominioId:Guid}")]
-        public async Task<ActionResult<IEnumerable<OcorrenciaViewModel>>> ObterPendentesPorCondominio(Guid condominioId)
+        public async Task<ActionResult<IEnumerable<OcorrenciaViewModel>>> ObterPendentesPorCondominio(Guid unidadeId)
         {
-            var ocorrencias = await _ocorrenciaQuery.ObterPorCondominioEStatus(condominioId, StatusDaOcorrencia.PENDENTE);
+            var ocorrencias = await _ocorrenciaQuery.ObterPorCondominioEStatus(unidadeId, StatusDaOcorrencia.PENDENTE);
             if (ocorrencias.Count() == 0)
             {
                 AdicionarErroProcessamento("Nenhum registro encontrado.");
                 return CustomResponse();
             }
 
-            var ocorrenciasVM = new List<OcorrenciaViewModel>();
-            foreach (Ocorrencia comunicado in ocorrencias)
-                ocorrenciasVM.Add(_mapper.Map<OcorrenciaViewModel>(comunicado));
+            var ocorrenciasVM = MapperListEntityToViewModel(ocorrencias);
 
             return ocorrenciasVM;
         }
@@ -106,9 +107,7 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }
 
-            var ocorrenciasVM = new List<OcorrenciaViewModel>();
-            foreach (Ocorrencia comunicado in ocorrencias)
-                ocorrenciasVM.Add(_mapper.Map<OcorrenciaViewModel>(comunicado));
+            var ocorrenciasVM = MapperListEntityToViewModel(ocorrencias);
 
             return ocorrenciasVM;
         }
@@ -124,9 +123,7 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }
 
-            var ocorrenciasVM = new List<OcorrenciaViewModel>();
-            foreach (Ocorrencia comunicado in ocorrencias)
-                ocorrenciasVM.Add(_mapper.Map<OcorrenciaViewModel>(comunicado));
+            var ocorrenciasVM = MapperListEntityToViewModel(ocorrencias);
 
             return ocorrenciasVM;
         }
@@ -142,9 +139,7 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }
 
-            var ocorrenciasVM = new List<OcorrenciaViewModel>();
-            foreach (Ocorrencia comunicado in ocorrencias)
-                ocorrenciasVM.Add(_mapper.Map<OcorrenciaViewModel>(comunicado));
+            var ocorrenciasVM = MapperListEntityToViewModel(ocorrencias);
 
             return ocorrenciasVM;
         }
@@ -160,9 +155,7 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }
 
-            var ocorrenciasVM = new List<OcorrenciaViewModel>();
-            foreach (Ocorrencia comunicado in ocorrencias)
-                ocorrenciasVM.Add(_mapper.Map<OcorrenciaViewModel>(comunicado));
+            var ocorrenciasVM = MapperListEntityToViewModel(ocorrencias);
 
             return ocorrenciasVM;
         }
@@ -178,9 +171,7 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }
 
-            var ocorrenciasVM = new List<OcorrenciaViewModel>();
-            foreach (Ocorrencia comunicado in ocorrencias)
-                ocorrenciasVM.Add(_mapper.Map<OcorrenciaViewModel>(comunicado));
+            var ocorrenciasVM = MapperListEntityToViewModel(ocorrencias);
 
             return ocorrenciasVM;
         }
@@ -196,12 +187,162 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }
 
+            var ocorrenciasVM = MapperListEntityToViewModel(ocorrencias);
+
+            return ocorrenciasVM;
+        }
+
+
+
+
+
+
+
+        [HttpGet("por-unidade/{unidadeId:Guid}")]
+        public async Task<ActionResult<IEnumerable<OcorrenciaViewModel>>> ObterPorUnidade(Guid unidadeId)
+        {
+            var ocorrencias = await _ocorrenciaQuery.ObterPorUnidade(unidadeId);
+            if (ocorrencias.Count() == 0)
+            {
+                AdicionarErroProcessamento("Nenhum registro encontrado.");
+                return CustomResponse();
+            }
+
             var ocorrenciasVM = new List<OcorrenciaViewModel>();
             foreach (Ocorrencia comunicado in ocorrencias)
                 ocorrenciasVM.Add(_mapper.Map<OcorrenciaViewModel>(comunicado));
 
             return ocorrenciasVM;
         }
+
+
+        [HttpGet("pendentes-por-unidade/{unidadeId:Guid}")]
+        public async Task<ActionResult<IEnumerable<OcorrenciaViewModel>>> ObterPendentesPorUnidade(Guid unidadeId)
+        {
+            var ocorrencias = await _ocorrenciaQuery.ObterPorUnidadeEStatus(unidadeId, StatusDaOcorrencia.PENDENTE);
+            if (ocorrencias.Count() == 0)
+            {
+                AdicionarErroProcessamento("Nenhum registro encontrado.");
+                return CustomResponse();
+            }
+
+            var ocorrenciasVM = new List<OcorrenciaViewModel>();
+            foreach (Ocorrencia comunicado in ocorrencias)
+                ocorrenciasVM.Add(_mapper.Map<OcorrenciaViewModel>(comunicado));
+
+            return ocorrenciasVM;
+        }
+
+
+        [HttpGet("em-andamento-por-unidade/{unidadeId:Guid}")]
+        public async Task<ActionResult<IEnumerable<OcorrenciaViewModel>>> ObterEmAndamentoPorUnidade(Guid unidadeId)
+        {
+            var ocorrencias = await _ocorrenciaQuery.ObterPorUnidadeEStatus(unidadeId, StatusDaOcorrencia.EM_ANDAMENTO);
+            if (ocorrencias.Count() == 0)
+            {
+                AdicionarErroProcessamento("Nenhum registro encontrado.");
+                return CustomResponse();
+            }
+
+            var ocorrenciasVM = new List<OcorrenciaViewModel>();
+            foreach (Ocorrencia comunicado in ocorrencias)
+                ocorrenciasVM.Add(_mapper.Map<OcorrenciaViewModel>(comunicado));
+
+            return ocorrenciasVM;
+        }
+
+
+        [HttpGet("resolvidas-por-unidade/{unidadeId:Guid}")]
+        public async Task<ActionResult<IEnumerable<OcorrenciaViewModel>>> ObterResolvidasPorUnidade(Guid unidadeId)
+        {
+            var ocorrencias = await _ocorrenciaQuery.ObterPorUnidadeEStatus(unidadeId, StatusDaOcorrencia.RESOLVIDA);
+            if (ocorrencias.Count() == 0)
+            {
+                AdicionarErroProcessamento("Nenhum registro encontrado.");
+                return CustomResponse();
+            }
+
+            var ocorrenciasVM = new List<OcorrenciaViewModel>();
+            foreach (Ocorrencia comunicado in ocorrencias)
+                ocorrenciasVM.Add(_mapper.Map<OcorrenciaViewModel>(comunicado));
+
+            return ocorrenciasVM;
+        }
+
+
+        [HttpGet("por-unidade-e-filtro")]
+        public async Task<ActionResult<IEnumerable<OcorrenciaViewModel>>> ObterPorUnidadeEFiltro(Guid unidadeId, string filtro)
+        {
+            var ocorrencias = await _ocorrenciaQuery.ObterPorUnidadeEFiltro(unidadeId, filtro);
+            if (ocorrencias.Count() == 0)
+            {
+                AdicionarErroProcessamento("Nenhum registro encontrado.");
+                return CustomResponse();
+            }
+
+            var ocorrenciasVM = new List<OcorrenciaViewModel>();
+            foreach (Ocorrencia comunicado in ocorrencias)
+                ocorrenciasVM.Add(_mapper.Map<OcorrenciaViewModel>(comunicado));
+
+            return ocorrenciasVM;
+        }
+
+
+        [HttpGet("pendentes-por-unidade-e-filtro")]
+        public async Task<ActionResult<IEnumerable<OcorrenciaViewModel>>> ObterPendentesPorUnidadeEFiltro(Guid unidadeId, string filtro)
+        {
+            var ocorrencias = await _ocorrenciaQuery.ObterPorUnidadeEStatusEFiltro(unidadeId, StatusDaOcorrencia.PENDENTE, filtro);
+            if (ocorrencias.Count() == 0)
+            {
+                AdicionarErroProcessamento("Nenhum registro encontrado.");
+                return CustomResponse();
+            }
+
+            var ocorrenciasVM = new List<OcorrenciaViewModel>();
+            foreach (Ocorrencia comunicado in ocorrencias)
+                ocorrenciasVM.Add(_mapper.Map<OcorrenciaViewModel>(comunicado));
+
+            return ocorrenciasVM;
+        }
+
+
+        [HttpGet("em-andamento-por-unidade-e-filtro")]
+        public async Task<ActionResult<IEnumerable<OcorrenciaViewModel>>> ObterEmAndamentoPorUnidadeEFiltro(Guid unidadeId, string filtro)
+        {
+            var ocorrencias = await _ocorrenciaQuery.ObterPorUnidadeEStatusEFiltro(unidadeId, StatusDaOcorrencia.EM_ANDAMENTO, filtro);
+            if (ocorrencias.Count() == 0)
+            {
+                AdicionarErroProcessamento("Nenhum registro encontrado.");
+                return CustomResponse();
+            }
+
+            var ocorrenciasVM = new List<OcorrenciaViewModel>();
+            foreach (Ocorrencia comunicado in ocorrencias)
+                ocorrenciasVM.Add(_mapper.Map<OcorrenciaViewModel>(comunicado));
+
+            return ocorrenciasVM;
+        }
+
+
+        [HttpGet("resolvidas-por-unidade-e-filtro")]
+        public async Task<ActionResult<IEnumerable<OcorrenciaViewModel>>> ObterResolvidasPorUnidadeEFiltro(Guid unidadeId, string filtro)
+        {
+            var ocorrencias = await _ocorrenciaQuery.ObterPorUnidadeEStatusEFiltro(unidadeId, StatusDaOcorrencia.RESOLVIDA, filtro);
+            if (ocorrencias.Count() == 0)
+            {
+                AdicionarErroProcessamento("Nenhum registro encontrado.");
+                return CustomResponse();
+            }
+
+            var ocorrenciasVM = new List<OcorrenciaViewModel>();
+            foreach (Ocorrencia comunicado in ocorrencias)
+                ocorrenciasVM.Add(_mapper.Map<OcorrenciaViewModel>(comunicado));
+
+            return ocorrenciasVM;
+        }
+
+
+
 
 
         [HttpGet("respostas-por-ocorrencia/{ocorrenciaId:Guid}")]
@@ -215,6 +356,7 @@ namespace CondominioApp.Api.Controllers
 
             return respostasVM;
         }
+
 
 
 
@@ -244,34 +386,7 @@ namespace CondominioApp.Api.Controllers
 
             return CustomResponse(Resultado);
 
-        }
-
-        [HttpPut]
-        public async Task<ActionResult> Put(EditaOcorrenciaViewModel ocorrenciaVM)
-        {
-            if (!ModelState.IsValid) return CustomResponse(ModelState);           
-
-            var comando = EditarOcorrenciaCommandFactory(ocorrenciaVM);
-
-            var Resultado = await _mediatorHandler.EnviarComando(comando);
-
-            return CustomResponse(Resultado);
-
-        }
-
-        [HttpDelete("remover/{ocorrenciaId:Guid}")]
-        public async Task<ActionResult> RemoverOcorrencia(Guid ocorrenciaId)
-        {
-            if (!ModelState.IsValid) return CustomResponse(ModelState);
-
-            var comando = new RemoverOcorrenciaCommand(ocorrenciaId);
-
-            var Resultado = await _mediatorHandler.EnviarComando(comando);
-
-            return CustomResponse(Resultado);
-
-        }
-
+        }    
 
         [HttpPost("resposta-sindico")]
         public async Task<ActionResult> PostRespostaSindico(CadastraRespostaOcorrenciaSindicoViewModel respostaVM)
@@ -313,6 +428,22 @@ namespace CondominioApp.Api.Controllers
 
         }
 
+
+
+
+        [HttpPut]
+        public async Task<ActionResult> Put(EditaOcorrenciaViewModel ocorrenciaVM)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            var comando = EditarOcorrenciaCommandFactory(ocorrenciaVM);
+
+            var Resultado = await _mediatorHandler.EnviarComando(comando);
+
+            return CustomResponse(Resultado);
+
+        }        
+
         [HttpPut("marcar-resposta-vista/{respostaId:Guid}")]
         public async Task<ActionResult> PutMarcarRespostaVista(Guid respostaId)
         {
@@ -343,7 +474,49 @@ namespace CondominioApp.Api.Controllers
 
 
 
+        [HttpDelete("remover/{ocorrenciaId:Guid}")]
+        public async Task<ActionResult> RemoverOcorrencia(Guid ocorrenciaId)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
 
+            var comando = new RemoverOcorrenciaCommand(ocorrenciaId);
+
+            var Resultado = await _mediatorHandler.EnviarComando(comando);
+
+            return CustomResponse(Resultado);
+
+        }
+
+        [HttpDelete("remover/{respostaId:Guid}")]
+        public async Task<ActionResult> RemoverRespostaDeOcorrencia(Guid respostaId)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            var comando = new RemoverRespostaOcorrenciaCommand(respostaId);
+
+            var Resultado = await _mediatorHandler.EnviarComando(comando);
+
+            return CustomResponse(Resultado);
+
+        }
+
+
+
+        private List<OcorrenciaViewModel> MapperListEntityToViewModel(IEnumerable<Ocorrencia> ocorrencias)
+        {
+            var ocorrenciasVM = new List<OcorrenciaViewModel>();
+            foreach (Ocorrencia ocorrencia in ocorrencias)
+            {
+                var ocorrenciaVM = _mapper.Map<OcorrenciaViewModel>(ocorrencia);
+
+                var morador = _usuarioQuery.ObterMoradorPorId(ocorrencia.MoradorId).Result;
+                ocorrenciaVM.NomeMorador = morador.Nome;
+                ocorrenciaVM.FotoMorador = morador.Foto;
+
+                ocorrenciasVM.Add(ocorrenciaVM);
+            }
+            return ocorrenciasVM;
+        }
 
         private CadastrarOcorrenciaCommand CadastrarOcorrenciaCommandFactory
             (CadastraOcorrenciaViewModel ocorrenciaVM, MoradorFlat morador, UnidadeFlat unidade)

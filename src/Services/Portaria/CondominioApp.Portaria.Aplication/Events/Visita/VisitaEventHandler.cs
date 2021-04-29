@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using CondominioApp.Core.Enumeradores;
 using CondominioApp.Core.Messages;
 using CondominioApp.Portaria.Domain.FlatModel;
 using CondominioApp.Portaria.Domain.Interfaces;
@@ -138,15 +139,23 @@ namespace CondominioApp.Portaria.Aplication.Events
 
         private VisitaFlat VisitaFlatFactory(VisitaEvent notification)
         {
-            return new VisitaFlat
+           var visita = new VisitaFlat
                 (notification.Id, notification.DataDeEntrada, notification.Observacao,
-                notification.Status, notification.VisitanteId, notification.NomeVisitante,
-                notification.TipoDeDocumentoVisitante, notification.DocumentoVisitante,
-                notification.EmailVisitante.Endereco, notification.FotoVisitante.NomeDoArquivo, notification.TipoDeVisitante,
-                notification.NomeEmpresaVisitante, notification.CondominioId, notification.NomeCondominio,
-                notification.UnidadeId, notification.NumeroUnidade, notification.AndarUnidade, notification.GrupoUnidade,
-                notification.TemVeiculo, notification.Veiculo.Placa, notification.Veiculo.Modelo,
-                notification.Veiculo.Cor, notification.UsuarioId, notification.NomeUsuario);
+                 notification.VisitanteId, notification.NomeVisitante, notification.TipoDeDocumentoVisitante,
+                 notification.DocumentoVisitante, notification.EmailVisitante.Endereco, 
+                 notification.FotoVisitante.NomeDoArquivo, notification.TipoDeVisitante,
+                 notification.NomeEmpresaVisitante, notification.CondominioId, notification.NomeCondominio,
+                 notification.UnidadeId, notification.NumeroUnidade, notification.AndarUnidade, notification.GrupoUnidade,
+                 notification.TemVeiculo, notification.Veiculo.Placa, notification.Veiculo.Modelo, 
+                 notification.Veiculo.Cor, notification.UsuarioId, notification.NomeUsuario);
+
+            
+            visita.MarcarVisitaComoPendente();
+
+            if (notification.Status == StatusVisita.APROVADA)
+                visita.AprovarVisita();            
+
+            return visita;
         }
 
         public void Dispose()

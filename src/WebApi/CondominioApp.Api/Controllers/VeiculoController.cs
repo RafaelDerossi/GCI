@@ -89,6 +89,17 @@ namespace CondominioApp.Api.Controllers
             return veiculo;
         }
 
+        [HttpGet("por-unidade/{unidadeId:Guid}")]
+        public async Task<ActionResult<IEnumerable<VeiculoFlat>>> ObterPorUnidade(Guid unidadeId)
+        {
+            var veiculos = await _usuarioQuery.ObterVeiculosPorUnidade(unidadeId);
+            if (veiculos.Count() == 0)
+            {
+                AdicionarErroProcessamento("Nenhum registro encontrado.");
+                return CustomResponse();
+            }
+            return veiculos.ToList();
+        }
 
 
         [HttpPost]

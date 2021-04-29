@@ -11,7 +11,8 @@ namespace CondominioApp.Principal.Aplication.Events
         INotificationHandler<UnidadeCadastradaEvent>,
         INotificationHandler<UnidadeEditadaEvent>,
         INotificationHandler<CodigoUnidadeResetadoEvent>,
-        INotificationHandler<UnidadeRemovidaEvent>,        
+        INotificationHandler<UnidadeRemovidaEvent>,
+        INotificationHandler<VagaDeUnidadeEditadaEvent>,
         System.IDisposable
     {
         private IPrincipalQueryRepository _condominioQueryRepository;
@@ -73,6 +74,18 @@ namespace CondominioApp.Principal.Aplication.Events
             await PersistirDados(_condominioQueryRepository.UnitOfWork);
         }
 
+        public async Task Handle(VagaDeUnidadeEditadaEvent notification, CancellationToken cancellationToken)
+        {
+            var unidadeFlat = await _condominioQueryRepository.ObterUnidadePorId(notification.UnidadeId);
+            if (unidadeFlat != null)
+            {
+                unidadeFlat.SetVagas(notification.Vaga);
+             
+                _condominioQueryRepository.AtualizarUnidade(unidadeFlat);
+
+                await PersistirDados(_condominioQueryRepository.UnitOfWork);
+            }            
+        }
 
         public void Dispose()
         {

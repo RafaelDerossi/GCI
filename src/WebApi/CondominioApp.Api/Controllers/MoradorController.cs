@@ -29,7 +29,22 @@ namespace CondominioApp.Api.Controllers
             _principalQuery = principalQuery;          
         }
 
-        [HttpGet("{usuarioId:Guid}")]
+
+
+        [HttpGet("{moradorId:Guid}")]
+        public async Task<ActionResult<MoradorFlat>> ObterMoradorPorId(Guid moradorId)
+        {
+            var morador = await _usuarioQuery.ObterMoradorPorId(moradorId);
+            if (morador == null)
+            {
+                AdicionarErroProcessamento("Nenhum morador encontrado.");
+                return CustomResponse();
+            }
+
+            return morador;
+        }
+
+        [HttpGet("moradores-por-usuario/{usuarioId:Guid}")]
         public async Task<ActionResult<IEnumerable<MoradorFlat>>> ObterMoradoresPorUsuarioId(Guid usuarioId)
         {
             var morador = await _usuarioQuery.ObterMoradoresPorUsuarioId(usuarioId);
@@ -41,6 +56,33 @@ namespace CondominioApp.Api.Controllers
 
             return morador.ToList();
         }
+
+        [HttpGet("moradores-por-unidade/{unidadeId:Guid}")]
+        public async Task<ActionResult<IEnumerable<MoradorFlat>>> ObterMoradoresPorUnidadeId(Guid unidadeId)
+        {
+            var morador = await _usuarioQuery.ObterMoradoresPorUnidadeId(unidadeId);
+            if (morador.Count() == 0)
+            {
+                AdicionarErroProcessamento("Nenhum morador encontrado.");
+                return CustomResponse();
+            }
+
+            return morador.ToList();
+        }
+
+        [HttpGet("moradores-por-condominio/{condominioId:Guid}")]
+        public async Task<ActionResult<IEnumerable<MoradorFlat>>> ObterMoradoresPorCondominioId(Guid condominioId)
+        {
+            var morador = await _usuarioQuery.ObterMoradoresPorCondominioId(condominioId);
+            if (morador.Count() == 0)
+            {
+                AdicionarErroProcessamento("Nenhum morador encontrado.");
+                return CustomResponse();
+            }
+
+            return morador.ToList();
+        }
+
 
 
         [HttpPost("vincular-morador-unidade")]
@@ -77,20 +119,27 @@ namespace CondominioApp.Api.Controllers
 
         }
 
+        [HttpPost("registrar-dispositivo")]
+        public async Task<ActionResult> PostRegistrarDispositivo(CadastraMobileMoradorViewModel mobileVM)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            var registrarComando = new RegistrarMoradorMobileCommand
+                (mobileVM.DeviceKey, mobileVM.MobileId, mobileVM.Modelo, mobileVM.Plataforma,
+                mobileVM.Versao, mobileVM.MoradorId);
+
+            var result = await _mediatorHandler.EnviarComando(registrarComando);
+            return CustomResponse(result);
+
+        }
+
 
         [HttpPut("marcar-como-unidadePrincipal/{moradorId:Guid}")]
         public async Task<ActionResult> Post(Guid moradorId)
         {
-            if (!ModelState.IsValid) return CustomResponse(ModelState);
+            if (!ModelState.IsValid) return CustomResponse(ModelState);            
 
-            var morador = await _usuarioQuery.ObterMoradorPorId(moradorId);
-            if (morador == null)
-            {
-                AdicionarErroProcessamento("Morador não encontrado!");
-                return CustomResponse();
-            }
-
-            var comando = new MarcarComoUnidadePrincipalCommand(morador.Id);
+            var comando = new MarcarComoUnidadePrincipalCommand(moradorId);
 
             var resultado = await _mediatorHandler.EnviarComando(comando);
 
@@ -108,14 +157,7 @@ namespace CondominioApp.Api.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var morador = await _usuarioQuery.ObterMoradorPorId(moradorId);
-            if (morador == null)
-            {
-                AdicionarErroProcessamento("Morador não encontrado!");
-                return CustomResponse();
-            }
-
-            var comando = new MarcarComoProprietarioCommand(morador.Id);
+            var comando = new MarcarComoProprietarioCommand(moradorId);
 
             var resultado = await _mediatorHandler.EnviarComando(comando);
 
@@ -132,14 +174,7 @@ namespace CondominioApp.Api.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var morador = await _usuarioQuery.ObterMoradorPorId(moradorId);
-            if (morador == null)
-            {
-                AdicionarErroProcessamento("Morador não encontrado!");
-                return CustomResponse();
-            }
-
-            var comando = new DesmarcarComoProprietarioCommand(morador.Id);
+            var comando = new DesmarcarComoProprietarioCommand(moradorId);
 
             var resultado = await _mediatorHandler.EnviarComando(comando);
 
@@ -151,18 +186,20 @@ namespace CondominioApp.Api.Controllers
         }
 
 
-        [HttpPost("registrar-dispositivo")]
-        public async Task<ActionResult> PostRegistrarDispositivo(CadastraMobileMoradorViewModel mobileVM)
+        [HttpDelete("{moradorId:Guid}")]
+        public async Task<ActionResult> DeleteRemoverMorador(Guid moradorId)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
+           
+            var comando = new RemoverMoradorCommand(moradorId);
 
-            var registrarComando = new RegistrarMoradorMobileCommand
-                (mobileVM.DeviceKey, mobileVM.MobileId, mobileVM.Modelo, mobileVM.Plataforma,
-                mobileVM.Versao, mobileVM.MoradorId);
+            var resultado = await _mediatorHandler.EnviarComando(comando);
 
-            var result = await _mediatorHandler.EnviarComando(registrarComando);
-            return CustomResponse(result);
+            if (!resultado.IsValid)
+                CustomResponse(resultado);
 
+
+            return CustomResponse();
         }
 
     }

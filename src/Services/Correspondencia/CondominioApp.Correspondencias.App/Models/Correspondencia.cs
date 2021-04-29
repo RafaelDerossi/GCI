@@ -1,7 +1,8 @@
 ﻿using CondominioApp.Core.DomainObjects;
 using CondominioApp.Core.Enumeradores;
 using CondominioApp.Core.Helpers;
-using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents;
+using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.NotificacaoEmailIntegrationEvent.Correspondencia;
+using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.NotificacaoPushIntegrationEvents;
 using CondominioApp.Correspondencias.App.ValueObjects;
 using FluentValidation.Results;
 using System;
@@ -213,14 +214,14 @@ namespace CondominioApp.Correspondencias.App.Models
 
         private void EnviarPushNovaCorrespondencia()
         {
-            var titulo = "NOVA CORRESPONDÊNCIA";
-            var descricao = ObterDescricaoDoPushParaNovaCorrespondencia();
+            var titulo = "Nova Correspondência";
+            var descricao = ObterDescricaoDoPushEdoEmailParaNovaCorrespondencia();
 
             AdicionarEvento
                 (new EnviarPushParaUnidadeIntegrationEvent(UnidadeId, titulo, descricao));
             return;
         }
-        private string ObterDescricaoDoPushParaNovaCorrespondencia()
+        private string ObterDescricaoDoPushEdoEmailParaNovaCorrespondencia()
         {
             var descricao = $"Chegou uma correspondência para você.  Recebido por {NomeFuncionario}.";
 
@@ -236,7 +237,7 @@ namespace CondominioApp.Correspondencias.App.Models
 
         private void EnviarPushCorrespondenciaRetirada()
         {
-            var titulo = "CORRESPONDÊNCIA RETIRADA";
+            var titulo = "Correspondência Retirada";
             var descricao = ObterDescricaoDoPushParaCorrespondenciaRetirada();
 
             AdicionarEvento
@@ -259,7 +260,7 @@ namespace CondominioApp.Correspondencias.App.Models
 
         private void EnviarPushCorrespondenciaDevolvida()
         {
-            var titulo = "CORRESPONDÊNCIA DEVOLVIDA";
+            var titulo = "Correspondência Devolvida";
             var descricao = ObterDescricaoDoPushParaCorrespondenciaDevolvida();
 
             AdicionarEvento
@@ -282,7 +283,7 @@ namespace CondominioApp.Correspondencias.App.Models
 
         public void EnviarPushDeAlerta()
         {
-            var titulo = "CORRESPONDÊNCIA";
+            var titulo = "Correspondência";
             var descricao = ObterDescricaoDoPushDeAlerta();
 
             AdicionarEvento
@@ -302,6 +303,57 @@ namespace CondominioApp.Correspondencias.App.Models
             return descricao;
         }
 
+
+        public void EnviarEmail()
+        {
+            switch (Status)
+            {
+                case StatusCorrespondencia.PENDENTE:
+                    EnviarEmailNovaCorrespondencia();
+                    break;
+                case StatusCorrespondencia.RETIRADO:
+                    EnviarEmailCorrespondenciaRetirada();
+                    break;
+                case StatusCorrespondencia.DEVOLVIDO:
+                    EnviarEmailCorrespondenciaDevolvida();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void EnviarEmailNovaCorrespondencia()
+        {
+            var assunto = "Correspondência";
+            var titulo = "Nova Correspondência";
+            var descricao = ObterDescricaoDoPushEdoEmailParaNovaCorrespondencia();
+
+            AdicionarEvento
+                (new EnviarEmailCorrespondenciaIntegrationEvent(assunto, titulo, descricao, UnidadeId));
+            return;
+        }
+
+        private void EnviarEmailCorrespondenciaRetirada()
+        {
+            var assunto = "Correspondência";
+            var titulo = "Correspondência Retirada";
+            var descricao = ObterDescricaoDoPushParaCorrespondenciaRetirada();
+
+            AdicionarEvento
+                (new EnviarEmailCorrespondenciaIntegrationEvent(assunto, titulo, descricao, UnidadeId));
+            return;
+        }
+
+        private void EnviarEmailCorrespondenciaDevolvida()
+        {
+            var assunto = "Correspondência";
+            var titulo = "Correspondência Devolvida";
+            var descricao = ObterDescricaoDoPushParaCorrespondenciaDevolvida();
+
+            AdicionarEvento
+                (new EnviarEmailCorrespondenciaIntegrationEvent(assunto, titulo, descricao, UnidadeId));
+            return;
+        }
 
     }
 }

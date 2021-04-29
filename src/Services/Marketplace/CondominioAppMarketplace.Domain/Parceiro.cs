@@ -57,8 +57,12 @@ namespace CondominioAppMarketplace.Domain
 
         protected Parceiro() { }
 
-        public Parceiro(string nomeCompleto, string descricao, Cnpj cnpj, Endereco endereco, 
-            string nomeDoResponsavel, Email email, Telefone telefoneCelular, Telefone telefoneFixo, bool preCadastro = false, Contrato contrato = null, string logoMarca = null, string cor = null)
+        public Parceiro
+            (string nomeCompleto, string descricao, string cnpj, string nomeDoResponsavel, 
+             string email, string telefoneCelular, string telefoneFixo, string logoMarca, string cor,
+             string logradouro, string complemento, string numero, string cep, string bairro,
+             string cidade, string estado, DateTime dataInicio, DateTime dataRenovacao, string descricaoContrato,
+             bool preCadastro, bool whatsApp)
         {
 
             _Vendedores = new List<Vendedor>();
@@ -67,17 +71,18 @@ namespace CondominioAppMarketplace.Domain
 
             NomeCompleto = nomeCompleto;
             NomeDoResponsavel = nomeDoResponsavel;
-            TelefoneCelular = telefoneCelular;
-            TelefoneFixo = telefoneFixo;
             Descricao = descricao;
             LogoMarca = logoMarca;
-            Cor = cor;
-            Cnpj = cnpj;
-            Endereco = endereco;
-            Contrato = contrato;
-            Email = email;
+            Cor = cor;            
             LogoMarca = logoMarca;
             Cor = cor;
+
+            SetTelefoneMovel(telefoneCelular, whatsApp);
+            SetTelefoneFixo(telefoneFixo);
+            SetCnpj(cnpj);
+            SetEmail(email);
+            SetEndereco(logradouro, complemento, numero, cep, bairro, cidade, estado);
+            SetContrato(dataInicio, dataRenovacao, descricaoContrato);
 
             if (preCadastro) AtivarPreCadastro();
         }
@@ -90,15 +95,31 @@ namespace CondominioAppMarketplace.Domain
        
         public void setNomeDoResponsavel(string nome) => NomeDoResponsavel = nome;
 
-        public void setTelefoneMovel(Telefone celular) => TelefoneCelular = celular;
-        
-        public void setTelefoneFixo(Telefone telefone) => TelefoneFixo = telefone;
-        
-        public void setEmail(Email email) => Email = email;
+        public void SetTelefoneMovel(string celular, bool whatsApp)
+        {
+            TelefoneCelular = new Telefone(celular, whatsApp);
+            
+        }
+
+        public void SetTelefoneFixo(string telefone)
+        {
+            TelefoneFixo = new Telefone(telefone);
+        }
+
+        public void SetEmail(string email)
+        {
+            Email = new Email(email);
+        }
        
-        public void setContrato(Contrato contrato) => Contrato = contrato;
-       
-        public void setEndereco(Endereco endereco) => Endereco = endereco;
+        public void SetContrato(DateTime dataInicio, DateTime dataRenovacao, string descricao)
+        {
+            Contrato = new Contrato(dataInicio, dataRenovacao, descricao);
+        }
+
+        public void SetEndereco(string logradouro, string complemento, string numero, string cep, string bairro, string cidade, string estado)
+        {
+            Endereco = new Endereco(logradouro, complemento, numero, cep, bairro, cidade, estado);
+        }
        
         public void setNomeCompleto(string nomeCompleto) => NomeCompleto = nomeCompleto;
         
@@ -107,8 +128,11 @@ namespace CondominioAppMarketplace.Domain
         public void setDescricao(string descricao) => Descricao = descricao;
         
         public void setLogoMarca(string logoMarca) => LogoMarca = logoMarca;
-        
-        public void setCnpj(Cnpj cnpj) => Cnpj = cnpj;
+
+        public void SetCnpj(string cnpj)
+        {
+            Cnpj = new Cnpj(cnpj);
+        }
        
         public ValidationResult Contratar(Vendedor vendedor)
         {

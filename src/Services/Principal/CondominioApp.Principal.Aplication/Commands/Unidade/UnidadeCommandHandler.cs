@@ -14,7 +14,9 @@ namespace CondominioApp.Principal.Aplication.Commands
          IRequestHandler<CadastrarUnidadeCommand, ValidationResult>,
          IRequestHandler<EditarUnidadeCommand, ValidationResult>,
          IRequestHandler<ResetCodigoUnidadeCommand, ValidationResult>,
-         IRequestHandler<RemoverUnidadeCommand, ValidationResult>, IDisposable
+         IRequestHandler<RemoverUnidadeCommand, ValidationResult>,
+         IRequestHandler<EditarVagasDaUnidadeCommand, ValidationResult>,
+         IDisposable
     {
 
         private IPrincipalRepository _condominioRepository;
@@ -142,7 +144,26 @@ namespace CondominioApp.Principal.Aplication.Commands
 
         }
 
+        public async Task<ValidationResult> Handle(EditarVagasDaUnidadeCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido()) return request.ValidationResult;
 
+            var unidadeBD = await _condominioRepository.ObterUnidadePorId(request.UnidadeId);
+            if (unidadeBD == null)
+            {
+                AdicionarErro("Unidade não encontrada.");
+                return ValidationResult;
+            }
+            
+            unidadeBD.SetVagas(request.Vaga);
+
+            _condominioRepository.AtualizarUnidade(unidadeBD);
+
+            unidadeBD.AdicionarEvento(
+               new VagaDeUnidadeEditadaEvent(unidadeBD.Id, unidadeBD.Vagas));
+
+            return await PersistirDados(_condominioRepository.UnitOfWork);
+        }
 
 
         private Unidade UnidadeFactory(UnidadeCommand request)

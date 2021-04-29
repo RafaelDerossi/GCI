@@ -1,4 +1,6 @@
 ﻿using CondominioApp.Core.Data;
+using CondominioApp.Core.Enumeradores;
+using CondominioApp.Core.Helpers;
 using CondominioApp.ReservaAreaComum.Domain;
 using CondominioApp.ReservaAreaComum.Domain.Interfaces;
 using CondominioApp.ReservaAreaComum.Infra.Data;
@@ -51,7 +53,12 @@ namespace CondominioApp.Principal.Infra.Data.Repository
         {
             _context.Reservas.Add(entity);
         }
-       
+
+        public void AtualizarReserva(Reserva entity)
+        {
+            _context.Reservas.Update(entity);
+        }
+
 
 
         public async Task<IEnumerable<AreaComum>> Obter(Expression<Func<AreaComum, bool>> expression, bool OrderByDesc = false, int take = 0)
@@ -78,7 +85,10 @@ namespace CondominioApp.Principal.Infra.Data.Repository
         {
             var reservas = _context.Reservas.Where(r => r.AreaComumId == id &&
                                                    r.DataDeCadastro > DateTime.Today.AddMonths(-6) && 
-                                                   !r.Cancelada &&
+                                                   (r.Status == StatusReserva.PROCESSANDO ||
+                                                    r.Status == StatusReserva.APROVADA ||
+                                                    r.Status == StatusReserva.NA_FILA ||
+                                                    r.Status == StatusReserva.AGUARDANDO_APROVACAO) &&
                                                    !r.Lixeira).ToList();
             if (reservas == null)
                 reservas = new List<Reserva>();
@@ -87,18 +97,19 @@ namespace CondominioApp.Principal.Infra.Data.Repository
                 .AsNoTracking()
                 .Include(a => a.Periodos)
                 .FirstOrDefaultAsync(a => a.Id == id && !a.Lixeira);
-            
-            var areaComum = new AreaComum(aC.Nome, aC.Descricao, aC.TermoDeUso, aC.CondominioId,
-            aC.NomeCondominio, aC.Capacidade, aC.DiasPermitidos, aC.AntecedenciaMaximaEmMeses,
-            aC.AntecedenciaMaximaEmDias,aC.AntecedenciaMinimaEmDias, aC.AntecedenciaMinimaParaCancelamentoEmDias,
-            aC.RequerAprovacaoDeReserva, aC.TemHorariosEspecificos, aC.TempoDeIntervaloEntreReservas, aC.Ativa,
-            aC.TempoDeDuracaoDeReserva, aC.NumeroLimiteDeReservaPorUnidade, aC.PermiteReservaSobreposta,
-            aC.NumeroLimiteDeReservaSobreposta, aC.NumeroLimiteDeReservaSobrepostaPorUnidade,
-            aC.TempoDeIntervaloEntreReservasPorUnidade, aC.Periodos.ToList(), reservas.ToList());
-
-            areaComum.SetEntidadeId(aC.Id);
-
-            return areaComum;
+            if (aC != null)
+            {
+                var areaComum = new AreaComum(aC.Nome, aC.Descricao, aC.TermoDeUso, aC.CondominioId,
+                    aC.NomeCondominio, aC.Capacidade, aC.DiasPermitidos, aC.AntecedenciaMaximaEmMeses,
+                    aC.AntecedenciaMaximaEmDias, aC.AntecedenciaMinimaEmDias, aC.AntecedenciaMinimaParaCancelamentoEmDias,
+                    aC.RequerAprovacaoDeReserva, aC.TemHorariosEspecificos, aC.TempoDeIntervaloEntreReservas, aC.Ativa,
+                    aC.TempoDeDuracaoDeReserva, aC.NumeroLimiteDeReservaPorUnidade, aC.PermiteReservaSobreposta,
+                    aC.NumeroLimiteDeReservaSobreposta, aC.NumeroLimiteDeReservaSobrepostaPorUnidade,
+                    aC.TempoDeIntervaloEntreReservasPorUnidade, aC.Periodos.ToList(), reservas.ToList());
+                    areaComum.SetEntidadeId(aC.Id);
+                return areaComum;
+            }
+            return null;
         }
 
         public async Task<Reserva> ObterReservaPorId(Guid Id)
@@ -118,6 +129,54 @@ namespace CondominioApp.Principal.Infra.Data.Repository
         public async Task<IEnumerable<AreaComum>> ObterTodos()
         {
             return await _context.AreasComuns.Where(u => !u.Lixeira).Include(a => a.Periodos).ToListAsync();
+        }
+
+
+        public async Task<int> ObterQtdDeReservasProcessando()
+        {
+            return await _context.Reservas.Where(c => c.Status == StatusReserva.PROCESSANDO && !c.Lixeira).CountAsync();
+        }
+
+        public async Task<int> ObterQtdDeReservasAguardandoAprovacaoAteHoje()
+        {
+            var dataHj = DataHoraDeBrasilia.Get().Date;
+
+            return await _context.Reservas.Where(c => c.Status == StatusReserva.AGUARDANDO_APROVACAO && 
+                                                      c.DataDeRealizacao <= dataHj &&
+                                                     !c.Lixeira).CountAsync();
+        }
+
+        public async Task<int> ObterQtdDeReservasNaFilaAteHoje()
+        {
+            var dataHj = DataHoraDeBrasilia.Get().Date;
+            return await _context.Reservas.Where(c => c.Status == StatusReserva.NA_FILA &&
+                                                      c.DataDeRealizacao <= dataHj &&
+                                                     !c.Lixeira).CountAsync();
+        }
+
+        public async Task<Reserva> ObterPrimeiraNaFilaParaSerProcessada()
+        {
+            return await _context.Reservas.Where(r => r.Status == StatusReserva.PROCESSANDO && !r.Lixeira)
+                                          .OrderByDescending(r => r.DataDeCadastro)
+                                          .FirstOrDefaultAsync();
+        }
+
+        public async Task<IEnumerable<Reserva>> ObterReservasAguardandoAprovacaoAteHoje()
+        {
+            var dataHj = DataHoraDeBrasilia.Get().Date;
+
+            return await _context.Reservas.Where(c => c.Status == StatusReserva.AGUARDANDO_APROVACAO &&
+                                                      c.DataDeRealizacao <= dataHj &&
+                                                     !c.Lixeira).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Reserva>> ObterReservasNaFilaAteHoje()
+        {
+            var dataHj = DataHoraDeBrasilia.Get().Date;
+
+            return await _context.Reservas.Where(c => c.Status == StatusReserva.NA_FILA &&
+                                                      c.DataDeRealizacao <= dataHj &&
+                                                     !c.Lixeira).ToListAsync();
         }
 
         public void Dispose()

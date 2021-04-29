@@ -62,17 +62,36 @@ using CondominioApp.Ocorrencias.App.Aplication.Commands;
 using CondominioApp.Ocorrencias.App.Data.Repository;
 using CondominioApp.Ocorrencias.App.Models;
 using CondominioApp.Ocorrencias.App.Aplication.Query;
-using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents;
 using CondominioApp.NotificacaoEmail.Aplication.Events;
+using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.NotificacaoEmailIntegrationEvent.Comunicado;
+using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.NotificacaoEmailIntegrationEvent.Correspondencia;
+using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.NotificacaoEmailIntegrationEvent.Enquete;
+using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.NotificacaoEmailIntegrationEvent.Ocorrencia;
+using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.NotificacaoPushIntegrationEvents;
+using CondominioApp.Core.Data;
+using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.NotificacaoEmailIntegrationEvent.Reserva;
+using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy;
+using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.RegrasParaCriacaoDeReserva;
+using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.RegrasParaCancelamento;
+using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.RegrasParaCriacaoDeReserva.RegrasParaAdministrador;
+using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.RegrasParaCriacaoDeReserva.RegrasDeMorador;
+using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.RegrasParaCriacaoDeReserva.RegrasGerais;
+using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.RegrasParaCriacaoDeReserva.Regras.Interfaces;
+using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.RegrasParaCriacaoDeReserva.Regras;
+using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.RegrasParaCancelamento.RegrasParaMorador;
+using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.RegrasParaCancelamento.RegrasParaAdministracao;
+using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.RegrasParaCancelamento.Regras.Interfaces;
+using CondominioApp.ReservaAreaComum.Domain.ReservaStrategy.RegrasParaCancelamento.Regras;
 
 namespace CondominioApp.Api.Configuration
 {
     public static class DependencyInjectionConfig
     {
         public static void RegisterServices(this IServiceCollection services)
-        {
-            services.AddScoped<IMediatorHandler, MediatorHandler>();
-
+        {            
+            services.AddSingleton<IMediatorHandler, MediatorHandler>();
+            
+            
 
             #region ArquivoDigital -Contexto
             //Pasta
@@ -178,21 +197,29 @@ namespace CondominioApp.Api.Configuration
 
             #endregion
 
+
             #region NotificacaoEmail -Contexto            
-            services.AddScoped<INotificationHandler<EnviarEmailConfirmacaoDeCadastroDeMoradorIntegrationEvent>, NotificacaoEmailEventHandler>();
-            services.AddScoped<INotificationHandler<EnviarEmailConfirmacaoDeCadastroDeUsuarioIntegrationEvent>, NotificacaoEmailEventHandler>();
+            services.AddTransient<INotificationHandler<EnviarEmailComunicadoIntegrationEvent>, NotificacaoEmailCondominioAppApiEventHandler>();
+            services.AddTransient<INotificationHandler<EnviarEmailCorrespondenciaIntegrationEvent>, NotificacaoEmailCondominioAppApiEventHandler>();
+            services.AddTransient<INotificationHandler<EnviarEmailEnqueteIntegrationEvent>, NotificacaoEmailCondominioAppApiEventHandler>();
+            services.AddTransient<INotificationHandler<EnviarEmailOcorrenciaIntegrationEvent>, NotificacaoEmailCondominioAppApiEventHandler>();
+            services.AddTransient<INotificationHandler<EnviarEmailRespostaOcorrenciaParaMoradorIntegrationEvent>, NotificacaoEmailCondominioAppApiEventHandler>();
+            services.AddTransient<INotificationHandler<EnviarEmailRespostaOcorrenciaParaSindicoIntegrationEvent>, NotificacaoEmailCondominioAppApiEventHandler>();
+            services.AddTransient<INotificationHandler<EnviarEmailReservaParaMoradorIntegrationEvent>, NotificacaoEmailCondominioAppApiEventHandler>();
+            services.AddTransient<INotificationHandler<EnviarEmailReservaParaSindicoIntegrationEvent>, NotificacaoEmailCondominioAppApiEventHandler>();
             #endregion
 
+
             #region NotificacaoPush -Contexto
-            services.AddScoped<INotificacaoPushService, NotificacaoPushService>();
-            services.AddScoped<INotificationHandler<EnviarPushParaSindicoIntegrationEvent>, NotificacaoPushEventHandler>();
-            services.AddScoped<INotificationHandler<EnviarPushParaMoradorIntegrationEvent>, NotificacaoPushEventHandler>();
-            services.AddScoped<INotificationHandler<EnviarPushParaUnidadeIntegrationEvent>, NotificacaoPushEventHandler>();
-            services.AddScoped<INotificationHandler<EnviarPushParaUnidadesIntegrationEvent>, NotificacaoPushEventHandler>();
-            services.AddScoped<INotificationHandler<EnviarPushParaCondominioIntegrationEvent>, NotificacaoPushEventHandler>();
-            services.AddScoped<INotificationHandler<EnviarPushParaProprietariosIntegrationEvent>, NotificacaoPushEventHandler>();
-            services.AddScoped<INotificationHandler<EnviarPushParaProprietariosPorUnidadeIntegrationEvent>, NotificacaoPushEventHandler>();
-            services.AddScoped<INotificationHandler<EnviarPushParaTodosIntegrationEvent>, NotificacaoPushEventHandler>();
+            services.AddTransient<INotificacaoPushService, NotificacaoPushService>();
+            services.AddTransient<INotificationHandler<EnviarPushParaSindicoIntegrationEvent>, NotificacaoPushEventHandler>();
+            services.AddTransient<INotificationHandler<EnviarPushParaMoradorIntegrationEvent>, NotificacaoPushEventHandler>();
+            services.AddTransient<INotificationHandler<EnviarPushParaUnidadeIntegrationEvent>, NotificacaoPushEventHandler>();
+            services.AddTransient<INotificationHandler<EnviarPushParaUnidadesIntegrationEvent>, NotificacaoPushEventHandler>();
+            services.AddTransient<INotificationHandler<EnviarPushParaCondominioIntegrationEvent>, NotificacaoPushEventHandler>();
+            services.AddTransient<INotificationHandler<EnviarPushParaProprietariosIntegrationEvent>, NotificacaoPushEventHandler>();
+            services.AddTransient<INotificationHandler<EnviarPushParaProprietariosPorUnidadeIntegrationEvent>, NotificacaoPushEventHandler>();
+            services.AddTransient<INotificationHandler<EnviarPushParaTodosIntegrationEvent>, NotificacaoPushEventHandler>();
             #endregion
 
 
@@ -277,10 +304,12 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<IRequestHandler<EditarUnidadeCommand, ValidationResult>, UnidadeCommandHandler>();
             services.AddScoped<IRequestHandler<ResetCodigoUnidadeCommand, ValidationResult>, UnidadeCommandHandler>();
             services.AddScoped<IRequestHandler<RemoverUnidadeCommand, ValidationResult>, UnidadeCommandHandler>();
+            services.AddScoped<IRequestHandler<EditarVagasDaUnidadeCommand, ValidationResult>, UnidadeCommandHandler>();
             services.AddScoped<INotificationHandler<UnidadeCadastradaEvent>, UnidadeEventHandler>();
             services.AddScoped<INotificationHandler<UnidadeEditadaEvent>, UnidadeEventHandler>();
             services.AddScoped<INotificationHandler<CodigoUnidadeResetadoEvent>, UnidadeEventHandler>();
             services.AddScoped<INotificationHandler<UnidadeRemovidaEvent>, UnidadeEventHandler>();
+            services.AddScoped<INotificationHandler<VagaDeUnidadeEditadaEvent>, UnidadeEventHandler>();
 
             //Contratos
             services.AddScoped<IRequestHandler<CadastrarContratoCommand, ValidationResult>, ContratoCommandHandler>();
@@ -300,7 +329,7 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<IRequestHandler<EditarAreaComumCommand, ValidationResult>, AreaComumCommandHandler>();
             services.AddScoped<IRequestHandler<RemoverAreaComumCommand, ValidationResult>, AreaComumCommandHandler>();
             services.AddScoped<IRequestHandler<AtivarAreaComumCommand, ValidationResult>, AreaComumCommandHandler>();
-            services.AddScoped<IRequestHandler<DesativarAreaComumCommand, ValidationResult>, AreaComumCommandHandler>();
+            services.AddScoped<IRequestHandler<DesativarAreaComumCommand, ValidationResult>, AreaComumCommandHandler>();            
             services.AddScoped<INotificationHandler<AreaComumCadastradaEvent>, AreaComumEventHandler>();
             services.AddScoped<INotificationHandler<AreaComumEditadaEvent>, AreaComumEventHandler>();
             services.AddScoped<INotificationHandler<AreaComumAtivadaEvent>, AreaComumEventHandler>();
@@ -308,15 +337,44 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<INotificationHandler<AreaComumRemovidaEvent>, AreaComumEventHandler>();
 
             //Reserva
-            services.AddScoped<IRequestHandler<CadastrarReservaCommand, ValidationResult>, ReservaCommandHandler>();
-            services.AddScoped<IRequestHandler<AprovarReservaCommand, ValidationResult>, ReservaCommandHandler>();
-            services.AddScoped<IRequestHandler<CancelarReservaComoUsuarioCommand, ValidationResult>, ReservaCommandHandler>();
-            services.AddScoped<IRequestHandler<CancelarReservaComoAdministradorCommand, ValidationResult>, ReservaCommandHandler>();
-            services.AddScoped<IRequestHandler<RetirarReservaDaFilaCommand, ValidationResult>, ReservaCommandHandler>();
-            services.AddScoped<INotificationHandler<ReservaCadastradaEvent>, ReservaEventHandler>();
-            services.AddScoped<INotificationHandler<ReservaAprovadaEvent>, ReservaEventHandler>();
-            services.AddScoped<INotificationHandler<ReservaCanceladaEvent>, ReservaEventHandler>();
-            services.AddScoped<INotificationHandler<ReservaRetiradaDaFilaEvent>, ReservaEventHandler>();
+            services.AddTransient<IRequestHandler<CadastrarReservaCommand, ValidationResult>, ReservaCommandHandler>();
+            services.AddTransient<IRequestHandler<AprovarReservaAutomaticamenteCommand, ValidationResult>, ReservaCommandHandler>();
+            services.AddTransient<IRequestHandler<ReprovarReservaCommand, ValidationResult>, ReservaCommandHandler>();
+            services.AddTransient<IRequestHandler<AguardarAprovacaoDaReservaPelaAdmCommand, ValidationResult>, ReservaCommandHandler>();
+            services.AddTransient<IRequestHandler<EnviarReservaParaFilaCommand, ValidationResult>, ReservaCommandHandler>();
+            services.AddTransient<IRequestHandler<AprovarReservaPelaAdministracaoCommand, ValidationResult>, ReservaCommandHandler>();
+            services.AddTransient<IRequestHandler<CancelarReservaComoUsuarioCommand, ValidationResult>, ReservaCommandHandler>();
+            services.AddTransient<IRequestHandler<CancelarReservaComoAdministradorCommand, ValidationResult>, ReservaCommandHandler>();
+            services.AddTransient<IRequestHandler<RetirarReservaDaFilaCommand, ValidationResult>, ReservaCommandHandler>();
+            services.AddTransient<IRequestHandler<MarcarReservaComoExpiradaCommand, ValidationResult>, ReservaCommandHandler>();
+            services.AddTransient<INotificationHandler<ReservaCadastradaEvent>, ReservaEventHandler>();            
+            services.AddTransient<INotificationHandler<StatusDaReservaAlteradoEvent>, ReservaEventHandler>();
+
+            //Regras de Reserva
+            services.AddTransient<IRegrasDeReserva, RegrasDeReserva>();
+            services.AddTransient<IRegrasDeCriacaoDeReserva, RegrasDeCriacaoDeReserva>();
+            services.AddTransient<IRegrasDeAdministradorParaReservar, RegrasDeAdministradorParaReservar>();
+            services.AddTransient<IRegrasDeMoradorParaReservar, RegrasDeMoradorParaReservar>();
+            services.AddTransient<IRegrasGeraisParaReservar, RegrasGeraisParaReservar>();
+            services.AddTransient<IRegraAntecedenciaMaxima, RegraAntecedenciaMaxima>();
+            services.AddTransient<IRegraAntecedenciaMinima, RegraAntecedenciaMinima>();
+            services.AddTransient<IRegraBloqueioDaAreaComum, RegraBloqueioDaAreaComum>();
+            services.AddTransient<IRegraDataRetroativaNaoPermitida, RegraDataRetroativaNaoPermitida>();
+            services.AddTransient<IRegraDataRetroativaPermitida, RegraDataRetroativaPermitida>();
+            services.AddTransient<IRegraDiasPermitidos, RegraDiasPermitidos>();
+            services.AddTransient<IRegraDuracaoLimite, RegraDuracaoLimite>();
+            services.AddTransient<IRegraHorarioDentroDosLimites, RegraHorarioDentroDosLimites>();
+            services.AddTransient<IRegraHorarioDisponivelComSobreposicao, RegraHorarioDisponivelComSobreposicao>();
+            services.AddTransient<IRegraHorarioDisponivelSemSobreposicao, RegraHorarioDisponivelSemSobreposicao>();
+            services.AddTransient<IRegraIntervaloParaMesmaUnidade, RegraIntervaloParaMesmaUnidade>();
+            services.AddTransient<IRegraIntervalosFixos, RegraIntervalosFixos>();
+            services.AddTransient<IRegraLimitePorUnidadePorDia, RegraLimitePorUnidadePorDia>();
+
+            services.AddTransient<IRegrasDeCancelamentoDeReserva, RegrasDeCancelamentoDeReserva>();
+            services.AddTransient<IRegrasDeCancelamentoDeReservaPeloMorador, RegrasDeCancelamentoDeReservaPeloMorador>();
+            services.AddTransient<IRegrasDeCancelamentoDeReservaPelaAdministracao, RegrasDeCancelamentoDeReservaPelaAdministracao>();
+            services.AddTransient<IRegraDoPrazoMinimoPraCancelar, RegraDoPrazoMinimoPraCancelar>();
+            services.AddTransient<IRegraDoStatusPraCancelar, RegraDoStatusPraCancelar>();
 
             #endregion
 
@@ -328,11 +386,13 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<IRequestHandler<MarcarComoUnidadePrincipalCommand, ValidationResult>, MoradorCommandHandler>();
             services.AddScoped<IRequestHandler<MarcarComoProprietarioCommand, ValidationResult>, MoradorCommandHandler>();
             services.AddScoped<IRequestHandler<DesmarcarComoProprietarioCommand, ValidationResult>, MoradorCommandHandler>();
+            services.AddScoped<IRequestHandler<RemoverMoradorCommand, ValidationResult>, MoradorCommandHandler>();
             services.AddScoped<INotificationHandler<MoradorCadastradoEvent>, MoradorEventHandler>();
             services.AddScoped<INotificationHandler<UnidadeMarcadaComoPrincipalEvent>, MoradorEventHandler>();
             services.AddScoped<INotificationHandler<MarcadoComoProprietarioEvent>, MoradorEventHandler>();
             services.AddScoped<INotificationHandler<DesmarcadoComoProprietarioEvent>, MoradorEventHandler>();
             services.AddScoped<INotificationHandler<MoradorExcluidoEvent>, MoradorEventHandler>();
+            services.AddScoped<INotificationHandler<MoradorRemovidoEvent>, MoradorEventHandler>();
 
             //Funcionario
             services.AddScoped<IRequestHandler<CadastrarFuncionarioCommand, ValidationResult>, FuncionarioCommandHandler>();
@@ -365,47 +425,54 @@ namespace CondominioApp.Api.Configuration
 
             #region Querys
 
-            //Query
-            services.AddScoped<IArquivoDigitalQuery, ArquivoDigitalQuery>();
+            //Query            
             services.AddScoped<IAutomacaoQuery, AutomacaoQuery>();
             services.AddScoped<IComunicadoQuery, ComunicadoQuery>();
             services.AddScoped<ICorrespondenciaQuery, CorrespondenciaQuery>();
             services.AddScoped<IEnqueteQuery, EnqueteQuery>();
             services.AddScoped<IOcorrenciaQuery, OcorrenciaQuery>();
             services.AddScoped<IPortariaQuery, PortariaQuery>();
-            services.AddScoped<IPrincipalQuery, PrincipalQuery>();
             services.AddScoped<IQueryLead, QueryLead>();
-            services.AddScoped<IReservaAreaComumQuery, ReservaAreaComumQuery>();            
-            services.AddScoped<IUsuarioQuery, UsuarioQuery>();
-            //services.AddScoped<IOcorrenciaQuery, OcorrenciaQuery>();
+
+            services.AddTransient<IArquivoDigitalQuery, ArquivoDigitalQuery>();
+            services.AddTransient<IPrincipalQuery, PrincipalQuery>();
+            services.AddTransient<IReservaAreaComumQuery, ReservaAreaComumQuery>();            
+            services.AddTransient<IUsuarioQuery, UsuarioQuery>();
+
             #endregion
 
             #region Repositórios
-            //Repositórios
-            services.AddScoped<IArquivoDigitalRepository, ArquivoDigitalRepository>();
+            //Repositórios            
             services.AddScoped<IAutomacaoRepository, AutomacaoRepository>();
             services.AddScoped<IComunidadoRepository, ComunicadoRepository>();
             services.AddScoped<ICorrespondenciaRepository, CorrespondenciaRepository>();
             services.AddScoped<IEnqueteRepository, EnqueteRepository>();
             services.AddScoped<ILeadRepository, LeadRepository>();
             services.AddScoped<IPortariaRepository, PortariaRepository>();
-            services.AddScoped<IPrincipalRepository, PrincipalRepository>();            
-            services.AddScoped<IReservaAreaComumRepository, ReservaAreaComumRepository>();            
-            services.AddScoped<IUsuarioRepository, UsuarioRepository>();
             services.AddScoped<IOcorrenciaRepository, OcorrenciaRepository>();
+
+            
+            services.AddTransient<IArquivoDigitalRepository, ArquivoDigitalRepository>();
+            services.AddTransient<IPrincipalRepository, PrincipalRepository>();            
+            services.AddTransient<IReservaAreaComumRepository, ReservaAreaComumRepository>();
+            services.AddTransient<IUsuarioRepository, UsuarioRepository>();
+
+            
             #endregion
 
             #region Repositórios Query
             //Repositórios Query                     
-            services.AddScoped<IFuncionarioQueryRepository, FuncionarioQueryRepository>();
-            services.AddScoped<IMoradorQueryRepository, MoradorQueryRepository>();
+            services.AddTransient<IFuncionarioQueryRepository, FuncionarioQueryRepository>();
+            services.AddTransient<IMoradorQueryRepository, MoradorQueryRepository>();
             services.AddScoped<IPortariaQueryRepository, PortariaQueryRepository>();
-            services.AddScoped<IPrincipalQueryRepository, PrincipalQueryRepository>();                        
-            services.AddScoped<IReservaAreaComumQueryRepository, ReservaAreaComumQueryRepository>();            
-            services.AddScoped<IVeiculoQueryRepository, VeiculoQueryRepository>();           
-            
+            services.AddTransient<IPrincipalQueryRepository, PrincipalQueryRepository>();                        
+            services.AddTransient<IReservaAreaComumQueryRepository, ReservaAreaComumQueryRepository>();            
+            services.AddTransient<IVeiculoQueryRepository, VeiculoQueryRepository>();
+
             #endregion
 
+
+            
         }
     }
 }

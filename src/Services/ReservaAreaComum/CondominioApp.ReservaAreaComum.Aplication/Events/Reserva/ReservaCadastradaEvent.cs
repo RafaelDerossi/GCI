@@ -1,5 +1,6 @@
 ﻿
 
+using CondominioApp.Core.Enumeradores;
 using CondominioApp.Principal.Aplication.Commands.Validations;
 using System;
 using System.Collections.Generic;
@@ -13,8 +14,9 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Events
             string nomeAreaComum, Guid condominioId, string nomeCondominio,
             int capacidade, string observacao, Guid unidadeId, string numeroUnidade,
             string andarUnidade, string descricaoGrupoUnidade, Guid usuarioId, string nomeUsuario,
-            DateTime dataDeRealizacao, string horaInicio, string horaFim, bool ativa, decimal preco,
-            bool estaNaFila, string origem, bool reservadoPelaAdministracao)
+            DateTime dataDeRealizacao, string horaInicio, string horaFim, decimal preco,
+            StatusReserva status, string justificativa, string origem, bool criadaPelaAdministracao, 
+            bool reservadoPelaAdministracao)
         {
             Id = id;
             AreaComumId = areaComumId;
@@ -27,15 +29,16 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Events
             NumeroUnidade = numeroUnidade;
             AndarUnidade = andarUnidade;
             DescricaoGrupoUnidade = descricaoGrupoUnidade;
-            UsuarioId = usuarioId;
-            NomeUsuario = nomeUsuario;
+            MoradorId = usuarioId;
+            NomeMorador = nomeUsuario;
             DataDeRealizacao = dataDeRealizacao;
             HoraInicio = horaInicio;
-            HoraFim = horaFim;
-            Ativa = ativa;
+            HoraFim = horaFim;            
             Preco = preco;
-            EstaNaFila = estaNaFila;
+            Status = status;
+            Justificativa = justificativa;
             Origem = origem;
+            CriadaPelaAdministracao = criadaPelaAdministracao;
             ReservadoPelaAdministracao = reservadoPelaAdministracao;
 
         }    
