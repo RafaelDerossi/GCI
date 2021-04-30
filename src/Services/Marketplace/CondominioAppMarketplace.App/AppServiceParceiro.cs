@@ -2,7 +2,6 @@
 using CondominioAppMarketplace.Domain.ValueObjects;
 using CondominioAppMarketplace.App.Interfaces;
 using CondominioAppMarketplace.App.Model;
-using CondominioAppMarketplace.App.ParceiroFactory;
 using CondominioAppMarketplace.App.ViewModel;
 using CondominioAppMarketplace.Domain;
 using CondominioAppMarketplace.Domain.Interfaces;
@@ -11,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CondominioApp.Core.DomainObjects;
 
 namespace CondominioAppMarketplace.App
 {
@@ -77,20 +77,13 @@ namespace CondominioAppMarketplace.App
 
         public async Task<ValidationResult> Adicionar(ParceiroViewModel ViewModel)
         {
-            ConstrutorDeParceiros fabricaDeParceiros;
+            var parceiro = ParceiroFactory(ViewModel);            
+            if (!ValidationResult.IsValid)
+                return ValidationResult;
 
-            if (ViewModel.PreCadastro)
-            {
-                fabricaDeParceiros = new ConstrutorDeParceiros(new FabricaDeParceirosPreCadastro());
-            }
-            else
-            {
-                fabricaDeParceiros = new ConstrutorDeParceiros(new FabricaDeParceirosEfetivos());
-            }
-
-            var parceiro = fabricaDeParceiros.Construir(ViewModel);
-
-            if (!fabricaDeParceiros.Fabrica.ValidationResult.IsValid) return fabricaDeParceiros.Fabrica.ValidationResult;
+            ValidationResult = parceiro.Validar();
+            if (!ValidationResult.IsValid)
+                return ValidationResult;
 
             if (EsteParceiroEstaCadastrado(parceiro))
             {
@@ -165,16 +158,30 @@ namespace CondominioAppMarketplace.App
             var Parceiro = await _repository.ObterPorId(ViewModel.ParceiroId);
 
             if (!ViewModel.PreCadastro)
-                Parceiro.setContrato(new Contrato(ViewModel.ContratoDataDeInicio, ViewModel.ContratoDataDeRenovacao, ViewModel.ContratoDescricao));
+                Parceiro.SetContrato(ViewModel.ContratoDataDeInicio, ViewModel.ContratoDataDeRenovacao, ViewModel.ContratoDescricao);
+            
+            try
+            {
+                Parceiro.setNomeCompleto(ViewModel.NomeCompleto);
+                Parceiro.setNomeDoResponsavel(ViewModel.NomeDoResponsavel);
+                Parceiro.SetTelefoneFixo(ViewModel.TelefoneFixo);
+                Parceiro.SetTelefoneMovel(ViewModel.TelefoneCelular, ViewModel.Whatsapp);
+                Parceiro.setDescricao(ViewModel.Descricao);
 
-            Parceiro.setNomeCompleto(ViewModel.NomeCompleto);
-            Parceiro.setNomeDoResponsavel(ViewModel.NomeDoResponsavel);
-            Parceiro.setTelefoneFixo(new Telefone(ViewModel.TelefoneFixo));
-            Parceiro.setTelefoneMovel(new Telefone(ViewModel.TelefoneCelular, ViewModel.Whatsapp));
-            Parceiro.setDescricao(ViewModel.Descricao);
-            Parceiro.setEndereco(new Endereco(ViewModel.Logradouro, ViewModel.Complemento, ViewModel.Numero,
-                ViewModel.Cep, ViewModel.Bairro, ViewModel.Cidade, ViewModel.Estado));
-            Parceiro.setEmail(new Email(ViewModel.EmailDoResponsavel));
+                Parceiro.SetEndereco(ViewModel.Logradouro, ViewModel.Complemento, ViewModel.Numero,
+                                     ViewModel.Cep, ViewModel.Bairro, ViewModel.Cidade, ViewModel.Estado);
+
+                Parceiro.SetEmail(ViewModel.EmailDoResponsavel);
+
+                Parceiro.setCorDoLayout(ViewModel.Cor);
+                Parceiro.setLogoMarca(ViewModel.LogoMarca);
+            }
+            catch (Exception ex)
+            {
+                AdicionarErro(ex.Message);
+                return ValidationResult;
+            }
+            
 
             _repository.Atualizar(Parceiro);
 
@@ -185,7 +192,7 @@ namespace CondominioAppMarketplace.App
         {
             var Parceiro = await _repository.ObterPorId(Model.ParceiroId);
 
-            Parceiro.setContrato(new Contrato(Model.ContratoDataDeInicio, Model.ContratoDataDeRenovacao, Model.ContratoDescricao));
+            Parceiro.SetContrato(Model.ContratoDataDeInicio, Model.ContratoDataDeRenovacao, Model.ContratoDescricao);
 
             _repository.Atualizar(Parceiro);
 
@@ -196,7 +203,7 @@ namespace CondominioAppMarketplace.App
         {
             var Parceiro = await _repository.ObterPorId(Model.ParceiroId);
 
-            Parceiro.setCnpj(new Cnpj(Model.Cnpj));
+            Parceiro.SetCnpj(Model.Cnpj);
 
             _repository.Atualizar(Parceiro);
 
@@ -254,6 +261,28 @@ namespace CondominioAppMarketplace.App
             }
 
             return await PersistirDados(_repository.UnitOfWork);
+        }
+
+
+
+        public Parceiro ParceiroFactory(ParceiroViewModel ViewModel)
+        {
+            try
+            {
+                var parceiro = new Parceiro
+                                  (ViewModel.NomeCompleto, ViewModel.Descricao, ViewModel.NumeroDoCnpj, ViewModel.NomeDoResponsavel,
+                                   ViewModel.EmailDoResponsavel, ViewModel.TelefoneCelular, ViewModel.TelefoneFixo, ViewModel.LogoMarca,
+                                   ViewModel.Cor, ViewModel.Logradouro, ViewModel.Complemento, ViewModel.Numero, ViewModel.Cep, ViewModel.Bairro,
+                                   ViewModel.Cidade, ViewModel.Estado, ViewModel.ContratoDataDeInicio, ViewModel.ContratoDataDeRenovacao,
+                                   ViewModel.ContratoDescricao, ViewModel.PreCadastro, ViewModel.Whatsapp);
+
+                return parceiro;
+            }
+            catch (DomainException e)
+            {
+                AdicionarErro(e.Message);
+                return null;
+            }
         }
 
         public void Dispose()

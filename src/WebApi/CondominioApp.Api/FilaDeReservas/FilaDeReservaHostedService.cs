@@ -32,7 +32,7 @@ namespace CondominioApp.Api.FilaDeReservas
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            timer = new Timer(ExecuteProcess, null, TimeSpan.Zero, TimeSpan.FromSeconds(60));
+            timer = new Timer(ExecuteProcess, null, TimeSpan.Zero, TimeSpan.FromSeconds(120));
             return Task.CompletedTask;
         }
 

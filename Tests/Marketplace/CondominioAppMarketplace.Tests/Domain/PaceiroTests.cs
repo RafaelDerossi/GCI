@@ -10,7 +10,7 @@ namespace CondominioAppMarketplace.Tests.Domain
         public void Criar_parceiro_pre_cadastro_valido()
         {
             //Arrange
-            var paceiro = ParceiroFactory.CriarParceiroPrecadastro();
+            var paceiro = ParceiroFactory.CriarParceiroPreCadastro();
 
             //act
             var result = paceiro.Validar();
@@ -24,7 +24,7 @@ namespace CondominioAppMarketplace.Tests.Domain
         public void Criar_parceiro_cadastro_valido()
         {
             //Arrange
-            var paceiro = ParceiroFactory.CriarParceiroCadastroEfetivo();
+            var paceiro = ParceiroFactory.CriarParceiroPreCadastro();
 
             //act
             var result = paceiro.Validar();
@@ -38,7 +38,7 @@ namespace CondominioAppMarketplace.Tests.Domain
         public void ObterNome_valido()
         {
             //Arrange
-            var paceiro = ParceiroFactory.CriarParceiroCadastroEfetivo();
+            var paceiro = ParceiroFactory.CriarParceiroPreCadastro();
 
             //act
             var nome = paceiro.Nome;
@@ -52,7 +52,7 @@ namespace CondominioAppMarketplace.Tests.Domain
         public void Contratar_vendedor_deveEstarValido()
         {
             //Arrange
-            var parceiro = ParceiroFactory.CriarParceiroCadastroEfetivo();
+            var parceiro = ParceiroFactory.CriarParceiroPreCadastro();
             var vendedor = VendedorFactory.CriarVendedorValido();
 
             //act
@@ -67,7 +67,7 @@ namespace CondominioAppMarketplace.Tests.Domain
         public void Contratar_vendedor_naoDeveEstarValido()
         {
             //Arrange
-            var parceiro = ParceiroFactory.CriarParceiroCadastroEfetivo();
+            var parceiro = ParceiroFactory.CriarParceiroPreCadastro();
             var vendedor = VendedorFactory.CriarVendedorValido();
             var vendedor2 = VendedorFactory.CriarVendedorValido();
             var result = parceiro.Contratar(vendedor);

@@ -20,7 +20,7 @@ namespace CondominioAppMarketplace.App.AutoMapper
 
 
             CreateMap<CampanhaNovaViewModel, Campanha>()
-                .ConstructUsing(campanha => new Campanha(campanha.Titulo, campanha.Descricao, campanha.Banner, campanha.DataDeInicio, campanha.DataDeFim));
+                .ConstructUsing(campanha => new Campanha(campanha.Titulo, campanha.Descricao, campanha.Banner, campanha.DataDeInicio, campanha.DataDeFim, campanha.Ativo, campanha.ItemDeVendaId));
 
 
             CreateMap<LeadNovoViewModel, Lead>()

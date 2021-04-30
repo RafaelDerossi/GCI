@@ -29,13 +29,15 @@ namespace CondominioAppMarketplace.Domain
 
         protected Campanha() { }
 
-        public Campanha(string titulo, string descricao, string banner, DateTime dataDeInicio, DateTime dataDeFim)
+        public Campanha(string titulo, string descricao, string banner, DateTime dataDeInicio, DateTime dataDeFim, bool ativo, Guid itemDeVendaId)
         {
             Titulo = titulo;
             Descricao = descricao;
             Banner = banner;
             DataDeInicio = dataDeInicio;
             DataDeFim = dataDeFim;
+            Ativo = ativo;
+            ItemDeVendaId = itemDeVendaId;
         }
 
         public void AssociarAoItemDeVenda(ItemDeVenda itemDeVenda) => ItemDeVenda = itemDeVenda;

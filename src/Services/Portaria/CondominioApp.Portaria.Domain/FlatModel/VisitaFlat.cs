@@ -20,18 +20,43 @@ namespace CondominioApp.Portaria.Domain.FlatModel
 
         public DateTime DataDeEntrada { get; private set; }       
         public DateTime DataDeSaida { get; private set; }
-        public string Status { get; private set; }
+
+        public StatusVisita Status { get; private set; }
+        public string DescricaoStatus
+        {
+            get
+            {
+                if (Status == StatusVisita.PENDENTE && DataDeEntrada.Date < DataHoraDeBrasilia.Get().Date)
+                    return "Expirada";
+
+                if (Status == StatusVisita.APROVADA && DataDeEntrada.Date < DataHoraDeBrasilia.Get().Date)
+                    return "Expirada";
+
+                if (Status == StatusVisita.PENDENTE)
+                    return "Pendente";
+
+                return DescricaoStatus;
+            }
+            private set { }
+        }    
+
         public string Observacao { get; private set; }
         
         
 
         public Guid VisitanteId { get; private set; }
         public string NomeVisitante { get; private set; }
-        public string TipoDeDocumentoVisitante { get; private set; }
+
+        public TipoDeDocumento TipoDeDocumentoVisitante { get; private set; }
+        public string DescricaoTipoDeDocumentoVisitante { get; private set; }
+
         public string DocumentoVisitante { get; private set; }       
         public string EmailVisitante { get; private set; }
         public string FotoVisitante { get; private set; }
-        public string TipoDeVisitante { get; private set; }
+
+        public TipoDeVisitante TipoDeVisitante { get; private set; }
+        public string DescricaoTipoDeVisitante { get; private set; }
+
         public string NomeEmpresaVisitante { get; private set; }
 
 
@@ -60,41 +85,40 @@ namespace CondominioApp.Portaria.Domain.FlatModel
         {                  
         }
 
-        public VisitaFlat(
-            Guid id, DateTime dataDeEntrada, string observacao, string status,
-            Guid visitanteId, string nomeVisitante, string tipoDeDocumentoVisitante,
-            string documentoVisitante, string emailVisitante, string fotoVisitante,
-            string tipoDeVisitante, string nomeEmpresaVisitante, Guid condominioId,
-            string nomeCondominio, Guid unidadeId, string numeroUnidade, string andarUnidade,
-            string descricaoGrupoUnidade, bool temVeiculo,
-            string placaVeiculo, string modeloVeiculo, string corVeiculo,
-            Guid usuarioId, string nomeUsuario)
+        public VisitaFlat
+            (Guid id, DateTime dataDeEntrada, string observacao, Guid visitanteId, string nomeVisitante,
+             TipoDeDocumento tipoDeDocumentoVisitante, string documentoVisitante, string emailVisitante,
+             string fotoVisitante, TipoDeVisitante tipoDeVisitante, string nomeEmpresaVisitante,
+             Guid condominioId, string nomeCondominio, Guid unidadeId, string numeroUnidade, 
+             string andarUnidade, string grupoUnidade, bool temVeiculo, string placaVeiculo,
+             string modeloVeiculo, string corVeiculo, Guid usuarioId, string nomeUsuario)
         {
             Id = id;
-            DataDeEntrada = dataDeEntrada;            
+            DataDeEntrada = dataDeEntrada;
             Observacao = observacao;
-            Status = status;
             VisitanteId = visitanteId;
             NomeVisitante = nomeVisitante;            
             EmailVisitante = emailVisitante;
-            FotoVisitante = fotoVisitante;
-            TipoDeVisitante = tipoDeVisitante;
+            FotoVisitante = fotoVisitante;            
             NomeEmpresaVisitante = nomeEmpresaVisitante;
             CondominioId = condominioId;
             NomeCondominio = nomeCondominio;
             UnidadeId = unidadeId;
             NumeroUnidade = numeroUnidade;
             AndarUnidade = andarUnidade;
-            GrupoUnidade = descricaoGrupoUnidade;
+            GrupoUnidade = grupoUnidade;
             TemVeiculo = temVeiculo;
             PlacaVeiculo = placaVeiculo;
             ModeloVeiculo = modeloVeiculo;
             CorVeiculo = corVeiculo;
             UsuarioId = usuarioId;
             NomeUsuario = nomeUsuario;
+
             SetDocumentoVisitante(documentoVisitante, tipoDeDocumentoVisitante);
+            SetTipoDeVisitante(tipoDeVisitante);
         }
 
+        
 
 
         /// Metodos Set    
@@ -103,33 +127,84 @@ namespace CondominioApp.Portaria.Domain.FlatModel
         public void RestaurarDaLixeira() => Lixeira = false;
 
 
-        public void AprovarVisita() => Status = StatusVisita.APROVADA.ToString();
-        public void ReprovarVisita() => Status = StatusVisita.REPROVADA.ToString();
+        public void MarcarVisitaComoPendente()
+        {
+            Status = StatusVisita.PENDENTE;
+            DescricaoStatus = "Pendente";
+        }
+
+        public void AprovarVisita()
+        {
+            Status = StatusVisita.APROVADA;
+            DescricaoStatus = "Aprovada";
+        }
+        public void ReprovarVisita()
+        {
+            Status = StatusVisita.REPROVADA;
+            DescricaoStatus = "Reprovada";
+        }
 
 
         public void IniciarVisita(DateTime dataDeEntrada)
         {
-            Status = StatusVisita.INICIADA.ToString();
+            Status = StatusVisita.INICIADA;
+            DescricaoStatus = "Iniciada";
             DataDeEntrada = dataDeEntrada;
         }
         public void TerminarVisita(DateTime dataDeSaida)
         { 
-            Status = StatusVisita.TERMINADA.ToString();
+            Status = StatusVisita.TERMINADA;
+            DescricaoStatus = "Terminada";
             DataDeSaida = dataDeSaida;
         }
+
 
         public void SetVisitanteId(Guid id) => VisitanteId = id;
         public void SetObservacao(string observacao) => Observacao = observacao;
         public void SetDataDeEntrada(DateTime dataDeEntrada) => DataDeEntrada = dataDeEntrada;       
         public void SetNomeVisitante(string nome) => NomeVisitante = nome;
-        public void SetDocumentoVisitante(string documento, string tipoDeDocumento)
+
+        public void SetDocumentoVisitante(string documento,TipoDeDocumento tipoDeDocumento)
         {
-            TipoDeDocumentoVisitante = tipoDeDocumento;
             DocumentoVisitante = documento;
+            TipoDeDocumentoVisitante = tipoDeDocumento;
+            switch (tipoDeDocumento)
+            {
+                case TipoDeDocumento.CPF:
+                    DescricaoTipoDeDocumentoVisitante = "CPF";
+                    break;
+                case TipoDeDocumento.CNPJ:
+                    DescricaoTipoDeDocumentoVisitante = "CNPJ";
+                    break;
+                case TipoDeDocumento.RG:
+                    DescricaoTipoDeDocumentoVisitante = "RG";
+                    break;                
+                default:
+                    DescricaoTipoDeDocumentoVisitante = "Outros";
+                    break;
+            }           
+            
         }
+
         public void SetEmailVisitante(string email) => EmailVisitante = email;
         public void SetFotoVisitante(string foto) => FotoVisitante = foto;
-        public void SetTipoDeVisitante(string tipoDeVisitante) => TipoDeVisitante = tipoDeVisitante;
+
+        public void SetTipoDeVisitante(TipoDeVisitante tipoDeVisitante)
+        {
+            TipoDeVisitante = tipoDeVisitante;
+            switch (tipoDeVisitante)
+            {
+                case TipoDeVisitante.PARTICULAR:
+                    DescricaoTipoDeVisitante = "Particular";
+                    break;
+                case TipoDeVisitante.SERVICO:
+                    DescricaoTipoDeVisitante = "Serviço";
+                    break;
+                default:
+                    break;
+            }
+        }
+        
         public void SetNomeEmpresaVisitante(string nomeEmpresa) => NomeEmpresaVisitante = nomeEmpresa;
 
         public void MarcarTemVeiculo() => TemVeiculo = true;
@@ -149,16 +224,6 @@ namespace CondominioApp.Portaria.Domain.FlatModel
             UsuarioId = id;
             NomeUsuario = nome;
         }
-
-        public string ObterStatus()
-        {
-            if (Status == "PENDENTE" && DataDeEntrada.Date < DataHoraDeBrasilia.Get().Date)
-                return "EXPIRADA";
-
-            if (Status == "APROVADA" && DataDeEntrada.Date < DataHoraDeBrasilia.Get().Date)
-                return "EXPIRADA";
-
-            return Status;
-        }
+       
     }
 }

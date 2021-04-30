@@ -8,8 +8,8 @@ namespace CondominioApp.Portaria.Aplication.Events
     {
 
         public VisitanteEditadoEvent
-            (Guid id, string nome, TipoDeDocumento tipoDeDocumento, string documento, Email email, Foto foto, bool visitantePermanente,
-            TipoDeVisitante tipoDeVisitante, string nomeEmpresa, bool temVeiculo)
+            (Guid id, string nome, TipoDeDocumento tipoDeDocumento, string documento, Email email, Foto foto,
+            bool visitantePermanente, TipoDeVisitante tipoDeVisitante, string nomeEmpresa, bool temVeiculo)
         {
             Id = id;
             SetDocumento(documento, tipoDeDocumento);
@@ -17,7 +17,7 @@ namespace CondominioApp.Portaria.Aplication.Events
             SetEmail(email);
             SetFoto(foto);
             VisitantePermanente = visitantePermanente;
-            TipoDeVisitante = tipoDeVisitante.ToString();
+            TipoDeVisitante = tipoDeVisitante;
             NomeEmpresa = nomeEmpresa;
             TemVeiculo = temVeiculo;           
         }
