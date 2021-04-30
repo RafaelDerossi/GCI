@@ -32,7 +32,7 @@ namespace CondominioApp.Api
 
             services.RegisterServices();
 
-            //services.AddHostedService<FilaDeReservaHostedService>();
+            services.AddHostedService<FilaDeReservaHostedService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
