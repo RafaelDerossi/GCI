@@ -159,19 +159,29 @@ namespace CondominioAppMarketplace.App
 
             if (!ViewModel.PreCadastro)
                 Parceiro.SetContrato(ViewModel.ContratoDataDeInicio, ViewModel.ContratoDataDeRenovacao, ViewModel.ContratoDescricao);
+            
+            try
+            {
+                Parceiro.setNomeCompleto(ViewModel.NomeCompleto);
+                Parceiro.setNomeDoResponsavel(ViewModel.NomeDoResponsavel);
+                Parceiro.SetTelefoneFixo(ViewModel.TelefoneFixo);
+                Parceiro.SetTelefoneMovel(ViewModel.TelefoneCelular, ViewModel.Whatsapp);
+                Parceiro.setDescricao(ViewModel.Descricao);
 
-            Parceiro.setNomeCompleto(ViewModel.NomeCompleto);
-            Parceiro.setNomeDoResponsavel(ViewModel.NomeDoResponsavel);
-            Parceiro.SetTelefoneFixo(ViewModel.TelefoneFixo);
-            Parceiro.SetTelefoneMovel(ViewModel.TelefoneCelular, ViewModel.Whatsapp);
-            Parceiro.setDescricao(ViewModel.Descricao);
-            Parceiro.SetEndereco(ViewModel.Logradouro, ViewModel.Complemento, ViewModel.Numero,
-                                 ViewModel.Cep, ViewModel.Bairro, ViewModel.Cidade, ViewModel.Estado);
-            Parceiro.SetEmail(ViewModel.EmailDoResponsavel);
+                Parceiro.SetEndereco(ViewModel.Logradouro, ViewModel.Complemento, ViewModel.Numero,
+                                     ViewModel.Cep, ViewModel.Bairro, ViewModel.Cidade, ViewModel.Estado);
 
-            Parceiro.SetEndereco(ViewModel.Logradouro, ViewModel.Complemento, ViewModel.Numero, ViewModel.Cep, ViewModel.Bairro, ViewModel.Cidade, ViewModel.Estado);
-            Parceiro.setCorDoLayout(ViewModel.Cor);
-            Parceiro.setLogoMarca(ViewModel.LogoMarca);
+                Parceiro.SetEmail(ViewModel.EmailDoResponsavel);
+
+                Parceiro.setCorDoLayout(ViewModel.Cor);
+                Parceiro.setLogoMarca(ViewModel.LogoMarca);
+            }
+            catch (Exception ex)
+            {
+                AdicionarErro(ex.Message);
+                return ValidationResult;
+            }
+            
 
             _repository.Atualizar(Parceiro);
 
