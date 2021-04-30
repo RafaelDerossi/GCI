@@ -119,7 +119,9 @@ namespace CondominioAppMarketplace.App
 
         public async Task<ValidationResult> IniciarCampanha(CampanhaNovaViewModel ViewModel)
         {
-            var CampanhaNova = new Campanha(ViewModel.Titulo,ViewModel.Descricao,ViewModel.Banner,ViewModel.DataDeInicio,ViewModel.DataDeFim);
+            var CampanhaNova = new Campanha
+                (ViewModel.Titulo, ViewModel.Descricao, ViewModel.Banner, ViewModel.DataDeInicio, 
+                 ViewModel.DataDeFim, ViewModel.Ativo, ViewModel.ItemDeVendaId);
 
             if (_repository.VerificaExistenciaDaCampanha(CampanhaNova.ItemDeVendaId))
             {
