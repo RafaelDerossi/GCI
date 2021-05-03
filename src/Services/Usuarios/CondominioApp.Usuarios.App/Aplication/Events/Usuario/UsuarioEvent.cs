@@ -56,6 +56,8 @@ namespace CondominioApp.Usuarios.App.Aplication.Events
         public bool SindicoProfissional { get; protected set; }
 
 
+        public DateTime? DataUltimoLogin { get; protected set; }
+
         public TipoDeUsuario TipoDeUsuario { get; protected set; }
 
        

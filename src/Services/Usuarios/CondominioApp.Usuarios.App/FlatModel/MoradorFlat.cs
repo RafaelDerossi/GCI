@@ -113,6 +113,12 @@ namespace CondominioApp.Usuarios.App.FlatModel
             Estado = estado;
         }
 
+
+        public string NomeCompleto()
+        {
+            return $"{Nome} {Sobrenome}";
+        }
+
         public void EnviarParaLixeira() => Lixeira = true;
 
         public void RestaurarDaLixeira() => Lixeira = false;

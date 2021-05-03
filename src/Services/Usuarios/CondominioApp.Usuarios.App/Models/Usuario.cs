@@ -96,12 +96,9 @@ namespace CondominioApp.Usuarios.App.Models
         public void SetEndereco(Endereco endereco) => Endereco = endereco;
 
 
+        public void SetDataNascimento(DateTime? dataNascimento) => DataNascimento = dataNascimento;       
 
 
-        public void SetDataNascimento(DateTime? dataNascimento) => DataNascimento = dataNascimento;
-
-
-        
         public string ObterCPF()
         {
             if (Cpf == null)

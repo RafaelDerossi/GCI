@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace CondominioApp.Usuarios.App.Aplication.Events
 {
     public class UsuarioEventHandler : EventHandler,
-        INotificationHandler<UsuarioEditadoEvent>,        
+        INotificationHandler<UsuarioEditadoEvent>,
         System.IDisposable
     {
         private IMoradorQueryRepository _moradorRepository;
@@ -59,8 +59,8 @@ namespace CondominioApp.Usuarios.App.Aplication.Events
             await PersistirDados(_funcionarioRepository.UnitOfWork);
             
         }
+            
 
-       
         public void Dispose()
         {
             _moradorRepository.Dispose();

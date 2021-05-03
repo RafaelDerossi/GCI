@@ -283,7 +283,7 @@ namespace CondominioApp.Api.Controllers
                   viewModel.FotoVisitante, viewModel.NomeOriginalFotoVisitante, viewModel.TipoDeVisitante,
                   viewModel.NomeEmpresaVisitante, unidade.CondominioId, unidade.CondominioNome, unidade.Id,
                   unidade.Numero, unidade.Andar, unidade.GrupoDescricao, viewModel.TemVeiculo, viewModel.PlacaVeiculo, 
-                  viewModel.ModeloVeiculo, viewModel.CorVeiculo, morador.Id, morador.Nome);
+                  viewModel.ModeloVeiculo, viewModel.CorVeiculo, morador.Id, morador.NomeCompleto());
         }
 
         private CadastrarVisitaPorMoradorCommand CadastrarVisitaPorMoradorCommandFactory
@@ -293,7 +293,7 @@ namespace CondominioApp.Api.Controllers
                   dataDeEntrada, viewModel.Observacao, StatusVisita.APROVADA, viewModel.VisitanteId,
                   unidade.CondominioId, unidade.CondominioNome, unidade.Id, unidade.Numero,
                   unidade.Andar, unidade.GrupoDescricao, viewModel.TemVeiculo,viewModel.PlacaVeiculo,
-                  viewModel.ModeloVeiculo,viewModel.CorVeiculo, morador.Id, morador.Nome);
+                  viewModel.ModeloVeiculo,viewModel.CorVeiculo, morador.Id, morador.NomeCompleto());
         }
 
         private EditarVisitaCommand EditarVisitaCommandFactory(EditaVisitaViewModel viewModel, UnidadeFlat unidade, MoradorFlat morador)
@@ -303,7 +303,7 @@ namespace CondominioApp.Api.Controllers
                    viewModel.EmailVisitante, viewModel.FotoVisitante, viewModel.NomeOriginalFotoVisitante,
                    viewModel.TipoDeVisitante, viewModel.NomeEmpresaVisitante, unidade.Id, unidade.Numero,
                    unidade.Andar, unidade.GrupoDescricao, viewModel.TemVeiculo, viewModel.PlacaVeiculo,
-                   viewModel.ModeloVeiculo, viewModel.CorVeiculo, morador.Id, morador.Nome);
+                   viewModel.ModeloVeiculo, viewModel.CorVeiculo, morador.Id, morador.NomeCompleto());
         }
 
 

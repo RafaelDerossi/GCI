@@ -42,18 +42,19 @@ namespace CondominioApp.Api.Controllers
         }            
 
         [HttpPut]
-        public async Task<ActionResult> Put(UsuarioViewModel usuarioVM)
+        public async Task<ActionResult> Put(EditaUsuarioViewModel usuarioVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
            var editarComando = new EditarUsuarioCommand
                 (usuarioVM.Id, usuarioVM.Nome, usuarioVM.Sobrenome, usuarioVM.Email,
                  usuarioVM.Rg, usuarioVM.Cpf, usuarioVM.Foto, usuarioVM.NomeOriginal,
-                 usuarioVM.Cel, usuarioVM.Telefone, usuarioVM.Logradouro,
+                 usuarioVM.Celular, usuarioVM.Telefone, usuarioVM.Logradouro,
                  usuarioVM.Complemento, usuarioVM.Numero, usuarioVM.Cep, usuarioVM.Bairro,
                  usuarioVM.Bairro, usuarioVM.Estado, usuarioVM.DataNascimento);            
 
             return CustomResponse(await _mediatorHandler.EnviarComando(editarComando));
         }
+
     }
 }

@@ -216,6 +216,8 @@ namespace CondominioApp.Identidade.Api.Controllers
 
             if (result.Succeeded)
             {
+                var user = await _userManager.FindByLoginAsync(usuarioLogin.Login, usuarioLogin.Senha);
+                await AtualizarUltimoLoginUsuario(Guid.Parse(user.Id));
                 return CustomResponse(await GerarJwt(usuarioLogin.Login));
             }
 
@@ -461,7 +463,17 @@ namespace CondominioApp.Identidade.Api.Controllers
                     AdicionarErroProcessamento(item.ErrorMessage);
             }
         }
-        
+
+        private async Task AtualizarUltimoLoginUsuario(Guid usuarioId)
+        {
+            var comando = new AtualizarUltimoLoginUsuarioCommand(usuarioId);
+            var resultado = await _mediatorHandler.EnviarComando(comando);
+            if (!resultado.IsValid)
+            {
+                foreach (var item in resultado.Errors)
+                    AdicionarErroProcessamento(item.ErrorMessage);
+            }
+        }
 
 
         private CadastrarMoradorCommand CadastrarMoradorCommandFactory(MoradorRegistroViewModel moradorVM,
@@ -469,7 +481,7 @@ namespace CondominioApp.Identidade.Api.Controllers
         {
             return new CadastrarMoradorCommand
                 (userId, condominio.Id, condominio.Nome, unidade.Id, unidade.Numero, unidade.Andar,
-                unidade.GrupoDescricao, moradorVM.Proprietario, moradorVM.Principal);
+                unidade.GrupoDescricao, moradorVM.Proprietario, moradorVM.Principal, moradorVM.CriadoPelaAdministracao);
         }        
        
         private CadastrarFuncionarioCommand CadastrarFuncionarioCommandFactory(FuncionarioRegistroViewModel usuarioRegistro,

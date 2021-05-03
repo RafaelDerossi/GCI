@@ -256,7 +256,7 @@ namespace CondominioApp.Api.Controllers
 
             return new CadastrarEnqueteCommand(
                  enqueteVM.Descricao, enqueteVM.DataInicio, enqueteVM.DataFim,
-                 condominio.Id, condominio.Nome, funcionario.Id, funcionario.Nome,
+                 condominio.Id, condominio.Nome, funcionario.Id, funcionario.NomeCompleto(),
                  enqueteVM.ApenasProprietarios, alternativas);
         }
 

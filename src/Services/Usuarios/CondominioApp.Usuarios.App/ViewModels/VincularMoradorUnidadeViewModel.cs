@@ -12,5 +12,7 @@ namespace CondominioApp.Usuarios.App.ViewModels
 
         public bool Principal { get; set; }
 
+        public bool CriadoPelaAdministracao { get; set; }
+
     }
 }

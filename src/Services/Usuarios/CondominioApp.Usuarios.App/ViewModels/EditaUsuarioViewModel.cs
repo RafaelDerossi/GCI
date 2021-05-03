@@ -1,17 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace CondominioApp.Usuarios.App.ViewModels
 {
-    public class UsuarioViewModel
+    public class EditaUsuarioViewModel
     {
-        public const int Max = 200;
-
         public Guid Id { get; set; }
-
-        public string DataDeCadastro { get; set; }
-
-        public string DataDeAlteracao { get; set; }
 
         public string Nome { get; set; }
 
@@ -29,15 +22,9 @@ namespace CondominioApp.Usuarios.App.ViewModels
 
         public string Foto { get; set; }
 
-        public string NomeOriginal { get; set; }
-
-        public string TpUsuario { get; set; }      
-
-        public bool Ativo { get; set; }
+        public string NomeOriginal { get; set; }                
       
-        public DateTime? DataNascimento { get; set; }
-
-        public DateTime? UltimoLogin { get; set; }
+        public DateTime? DataNascimento { get; set; }       
 
         public string Logradouro { get; private set; }
 
@@ -54,16 +41,5 @@ namespace CondominioApp.Usuarios.App.ViewModels
         public string Estado { get; private set; }
 
         public bool SindicoProfissional { get; set; }
-
-        
-        public IEnumerable<MobileViewModel> Mobiles;
-
-
-        public string NomeCompleto
-        {
-            get { return $"{Nome} {Sobrenome}"; }
-        }
-
-
     }
 }

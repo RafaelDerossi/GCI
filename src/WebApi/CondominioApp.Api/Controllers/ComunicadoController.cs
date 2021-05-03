@@ -59,7 +59,7 @@ namespace CondominioApp.Api.Controllers
             var comunicadoVM = _mapper.Map<ComunicadoViewModel>(comunicado);
 
             var funcionario = await _usuarioQuery.ObterFuncionarioPorId(comunicado.Id);
-            comunicadoVM.NomeFuncionario = funcionario.Nome;
+            comunicadoVM.NomeFuncionario = funcionario.NomeCompleto();
             comunicadoVM.FotoFuncionario = funcionario.Foto;
 
             //Obtem Anexos
@@ -249,7 +249,7 @@ namespace CondominioApp.Api.Controllers
                 var comunicadoVM = _mapper.Map<ComunicadoViewModel>(comunicado);
 
                 var funcionario = _usuarioQuery.ObterFuncionarioPorId(comunicado.Id).Result;
-                comunicadoVM.NomeFuncionario = funcionario.Nome;
+                comunicadoVM.NomeFuncionario = funcionario.NomeCompleto();
                 comunicadoVM.FotoFuncionario = funcionario.Foto;
 
                 //Obtem Anexos
@@ -286,7 +286,7 @@ namespace CondominioApp.Api.Controllers
            return new CadastrarComunicadoCommand(
                 comunicadoVM.Titulo, comunicadoVM.Descricao, comunicadoVM.DataDeRealizacao,
                 comunicadoVM.CondominioId, condominio.Nome, funcionario.Id,
-                funcionario.Nome, comunicadoVM.Visibilidade, comunicadoVM.Categoria,
+                funcionario.NomeCompleto(), comunicadoVM.Visibilidade, comunicadoVM.Categoria,
                 comunicadoVM.TemAnexos, comunicadoVM.CriadoPelaAdministradora, listaUnidadesComunicado);
         }
 
@@ -311,7 +311,7 @@ namespace CondominioApp.Api.Controllers
             //Edita Comunicado
             return new EditarComunicadoCommand(
                 comunicadoVM.ComunicadoId, comunicadoVM.Titulo, comunicadoVM.Descricao, comunicadoVM.DataDeRealizacao,
-                funcionario.Id, funcionario.Nome, comunicadoVM.Visibilidade, comunicadoVM.Categoria,
+                funcionario.Id, funcionario.NomeCompleto(), comunicadoVM.Visibilidade, comunicadoVM.Categoria,
                 comunicadoVM.TemAnexos, listaUnidadesComunicado);
 
         }

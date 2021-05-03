@@ -23,7 +23,12 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
 
         public bool Proprietario { get; protected set; }
 
-        public bool Principal { get; protected set; }        
+        public bool Principal { get; protected set; }
+
+        public bool CriadoPelaAdministracao { get; protected set; }
+
+
+        public void DesmarcarComoCriadoPelaAdministracao() => CriadoPelaAdministracao = false;
 
     }
 }

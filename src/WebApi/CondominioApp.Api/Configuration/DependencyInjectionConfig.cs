@@ -404,7 +404,8 @@ namespace CondominioApp.Api.Configuration
             services.AddTransient<IRequestHandler<CadastrarUsuarioCommand, ValidationResult>, UsuarioCommandHandler>();
             services.AddTransient<IRequestHandler<EditarUsuarioCommand, ValidationResult>, UsuarioCommandHandler>();
             services.AddTransient<IRequestHandler<ExcluirUsuarioCommand, ValidationResult>, UsuarioCommandHandler>();
-            services.AddTransient<INotificationHandler<UsuarioEditadoEvent>, UsuarioEventHandler>();
+            services.AddTransient<IRequestHandler<AtualizarUltimoLoginUsuarioCommand, ValidationResult>, UsuarioCommandHandler>();
+            services.AddTransient<INotificationHandler<UsuarioEditadoEvent>, UsuarioEventHandler>();            
 
             //Veiculo
             services.AddTransient<IRequestHandler<CadastrarVeiculoCommand, ValidationResult>, VeiculoCommandHandler>();

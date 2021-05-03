@@ -35,6 +35,11 @@ namespace CondominioApp.Principal.Aplication.ViewModels
 
         public string Sobrenome { get; private set; }
 
+        public string NomeCompleto
+        {
+            get { return $"{Nome} {Sobrenome}"; }
+        }
+
         public string Rg { get; private set; }
 
         public string Cpf { get; private set; }

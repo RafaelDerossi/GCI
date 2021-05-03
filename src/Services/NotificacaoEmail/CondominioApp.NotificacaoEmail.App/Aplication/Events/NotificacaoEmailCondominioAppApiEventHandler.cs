@@ -373,7 +373,7 @@ namespace CondominioApp.NotificacaoEmail.Aplication.Events
             var condominio = _principalQuery.ObterPorId(notification.CondominioId).Result;
             return new ReservaDTO
                 (notification.Titulo, notification.AreaComumNome, notification.DataRealizacao,
-                 notification.HoraInicio, notification.HoraFim, morador.Nome, notification.UnidadeDescricao,
+                 notification.HoraInicio, notification.HoraFim, morador.NomeCompleto(), notification.UnidadeDescricao,
                  notification.Valor, notification.Observacao, notification.Justificativa,  notification.DataDeCadastro,
                  condominio.Nome, condominio.LogoMarca, listaDeEmails, notification.CorFundoTitulo);
 
@@ -386,7 +386,7 @@ namespace CondominioApp.NotificacaoEmail.Aplication.Events
 
             return new ReservaDTO
                 (notification.Titulo, notification.AreaComumNome, notification.DataRealizacao,
-                 notification.HoraInicio, notification.HoraFim, morador.Nome, notification.UnidadeDescricao,
+                 notification.HoraInicio, notification.HoraFim, morador.NomeCompleto(), notification.UnidadeDescricao,
                  notification.Valor, notification.Observacao, notification.Justificativa, notification.DataDeCadastro,
                  condominio.Nome, condominio.LogoMarca, listaDeEmails, notification.CorFundoTitulo);
         }

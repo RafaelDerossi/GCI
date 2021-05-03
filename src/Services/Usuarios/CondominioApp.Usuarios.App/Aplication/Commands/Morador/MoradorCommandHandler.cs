@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using CondominioApp.Core.Messages;
@@ -44,6 +45,18 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
             {
                 AdicionarErro("Morador já cadastrado.");
                 return ValidationResult;
+            }
+            
+
+            if (!request.CriadoPelaAdministracao)
+            {
+                var qtdDeMoradores = await _usuarioRepository.ContaMoradorePorUsuarioIdEUnidadeId
+                    (request.UsuarioId, request.UnidadeId);
+                if (qtdDeMoradores >= 5)
+                {
+                    AdicionarErro("Limite de moradores para esta unidade atingido.");
+                    return ValidationResult;
+                }
             }
 
             var moradorNovo = MoradorFactory(request);

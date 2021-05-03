@@ -15,6 +15,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
         IRequestHandler<EditarUsuarioCommand, ValidationResult>,
         IRequestHandler<CadastrarResponsavelDaLojaCommand, ValidationResult>,
         IRequestHandler<ExcluirUsuarioCommand, ValidationResult>,
+        IRequestHandler<AtualizarUltimoLoginUsuarioCommand, ValidationResult>,        
         IDisposable
     {
         private IUsuarioRepository _usuarioRepository;
@@ -110,6 +111,25 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
             _usuarioRepository.Excluir(usuario);
 
             return await PersistirDados(_usuarioRepository.UnitOfWork);
+        }
+
+        public async Task<ValidationResult> Handle(AtualizarUltimoLoginUsuarioCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido()) return request.ValidationResult;
+
+            var usuario = await _usuarioRepository.ObterPorId(request.UsuarioId);
+            if (usuario == null)
+            {
+                AdicionarErro("Usuário não encontrado.");
+                return ValidationResult;
+            }
+
+            usuario.AtualizarUltimoLogin();
+            
+            _usuarioRepository.Atualizar(usuario);            
+
+            return await PersistirDados(_usuarioRepository.UnitOfWork);
+
         }
 
 

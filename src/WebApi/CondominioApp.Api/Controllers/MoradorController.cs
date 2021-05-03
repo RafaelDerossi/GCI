@@ -107,7 +107,7 @@ namespace CondominioApp.Api.Controllers
             var comando = new CadastrarMoradorCommand
                 (morador.UsuarioId, unidade.CondominioId, unidade.CondominioNome, unidade.Id,
                 unidade.Numero, unidade.Andar, unidade.GrupoDescricao, vincularViewModel.Proprietario,
-                vincularViewModel.Principal);
+                vincularViewModel.Principal, vincularViewModel.CriadoPelaAdministracao);
 
             var resultado = await _mediatorHandler.EnviarComando(comando);
 

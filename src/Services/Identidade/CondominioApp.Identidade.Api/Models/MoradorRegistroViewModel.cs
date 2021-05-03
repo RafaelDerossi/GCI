@@ -13,5 +13,7 @@ namespace CondominioApp.Identidade.Api.Models
 
         public bool Principal { get; set; }
 
+        public bool CriadoPelaAdministracao { get; set; }
+
     }
 }

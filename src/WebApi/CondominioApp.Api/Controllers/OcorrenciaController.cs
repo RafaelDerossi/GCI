@@ -63,8 +63,6 @@ namespace CondominioApp.Api.Controllers
         }
 
 
-
-
         [HttpGet("por-condominio/{condominioId:Guid}")]
         public async Task<ActionResult<IEnumerable<OcorrenciaViewModel>>> ObterPorCondominio(Guid condominioId)
         {
@@ -510,7 +508,7 @@ namespace CondominioApp.Api.Controllers
                 var ocorrenciaVM = _mapper.Map<OcorrenciaViewModel>(ocorrencia);
 
                 var morador = _usuarioQuery.ObterMoradorPorId(ocorrencia.MoradorId).Result;
-                ocorrenciaVM.NomeMorador = morador.Nome;
+                ocorrenciaVM.NomeMorador = morador.NomeCompleto();
                 ocorrenciaVM.FotoMorador = morador.Foto;
 
                 ocorrenciasVM.Add(ocorrenciaVM);
@@ -524,7 +522,7 @@ namespace CondominioApp.Api.Controllers
            return new CadastrarOcorrenciaCommand
                 (ocorrenciaVM.Descricao, ocorrenciaVM.NomeOriginalFoto, ocorrenciaVM.NomeFoto,
                  ocorrenciaVM.Publica, ocorrenciaVM.UnidadeId, unidade.Numero, unidade.Andar, unidade.GrupoDescricao,
-                 ocorrenciaVM.MoradorId, morador.Nome, unidade.CondominioId, unidade.CondominioNome,
+                 ocorrenciaVM.MoradorId, morador.NomeCompleto(), unidade.CondominioId, unidade.CondominioNome,
                  ocorrenciaVM.Panico);
         }
 
@@ -540,7 +538,7 @@ namespace CondominioApp.Api.Controllers
           (CadastraRespostaOcorrenciaSindicoViewModel respostaVM, FuncionarioFlat funcionario)
         {
             return new CadastrarRespostaOcorrenciaSindicoCommand
-                 (respostaVM.OcorrenciaId, respostaVM.Descricao, respostaVM.FuncionarioId, funcionario.Nome,
+                 (respostaVM.OcorrenciaId, respostaVM.Descricao, respostaVM.FuncionarioId, funcionario.NomeCompleto(),
                  respostaVM.FotoNome, respostaVM.FotoNomeOriginal, respostaVM.StatusDaOcorrencia);
         }
 
@@ -548,8 +546,8 @@ namespace CondominioApp.Api.Controllers
             (CadastraRespostaOcorrenciaMoradorViewModel respostaVM, MoradorFlat morador)
         {
             return new CadastrarRespostaOcorrenciaMoradorCommand
-                 (respostaVM.OcorrenciaId, respostaVM.Descricao, respostaVM.MoradorId, morador.Nome,
-                 respostaVM.FotoNome, respostaVM.FotoNomeOriginal);
+                 (respostaVM.OcorrenciaId, respostaVM.Descricao, respostaVM.MoradorId, morador.NomeCompleto(),
+                  respostaVM.FotoNome, respostaVM.FotoNomeOriginal);
         }
       
 

@@ -177,7 +177,7 @@ namespace CondominioApp.Api.Controllers
             return new CadastrarReservaCommand(
                   reservaVM.AreaComumId, reservaVM.Observacao, unidade.Id, unidade.Numero,
                   unidade.Andar, unidade.GrupoDescricao, morador.Id,
-                  morador.Nome, reservaVM.DataDeRealizacao, reservaVM.HoraInicio, reservaVM.HoraFim,
+                  morador.NomeCompleto(), reservaVM.DataDeRealizacao, reservaVM.HoraInicio, reservaVM.HoraFim,
                   reservaVM.Preco, reservaVM.Origem,reservaVM.CriadaPelaAdministracao,
                   reservaVM.ReservadoPelaAdministracao);
         }

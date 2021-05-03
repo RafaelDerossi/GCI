@@ -128,7 +128,10 @@ namespace CondominioApp.Usuarios.App.Data.Repository
                                     .OrderBy(x => x.DataDeCadastro).ToListAsync();
         }
 
-
+        public async Task<int> ContaMoradorePorUsuarioIdEUnidadeId(Guid usuarioid, Guid unidadeId)
+        {
+            return await _context.Moradores.Where(u => u.UsuarioId == usuarioid && u.UnidadeId == unidadeId && !u.Lixeira).CountAsync();
+        }
 
         public void AdicionarMorador(Morador morador)
         {

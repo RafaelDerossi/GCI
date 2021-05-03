@@ -129,5 +129,36 @@ namespace CondominioApp.Usuarios.App.Tests
             _mocker.GetMock<IUsuarioRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
         }
 
+        [Fact(DisplayName = "Adicionar sexto Morador pelo App Inválido")]
+        [Trait("Categoria", "Moradores - MoradorCommandHandler")]
+        public async Task AdicionarSextoMorador_CommandoInvalido_NaoDevePassarNaValidacao()
+        {
+
+            //Arrange
+            var usuario = UsuarioFactoryTests.Criar_Usuario_Valido();
+            var Command = MoradorCommandFactory.CriarComandoCadastroDeMoradorPeloApp();
+            usuario.SetEntidadeId(Command.UsuarioId);
+            var qtdMoradoresCadastrados = 5;
+            Morador morador = null;
+
+            _mocker.GetMock<IUsuarioRepository>().Setup(r => r.ContaMoradorePorUsuarioIdEUnidadeId(Command.UsuarioId, Command.UnidadeId))
+               .Returns(Task.FromResult(qtdMoradoresCadastrados));
+
+            _mocker.GetMock<IUsuarioRepository>().Setup(r => r.ObterPorId(Command.UsuarioId))
+                .Returns(Task.FromResult(usuario));
+
+            _mocker.GetMock<IUsuarioRepository>().Setup(r => r.ObterMoradorPorUsuarioIdEUnidadeId(Command.UsuarioId, Command.UnidadeId))
+               .Returns(Task.FromResult(morador));
+
+            _mocker.GetMock<IUsuarioRepository>().Setup(r => r.UnitOfWork.Commit())
+                .Returns(Task.FromResult(true));
+
+            //Act
+            var result = await _moradorCommandHandler.Handle(Command, CancellationToken.None);
+
+            //Assert
+            Assert.False(result.IsValid);            
+        }
+
     }
 }

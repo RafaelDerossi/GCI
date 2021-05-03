@@ -18,6 +18,8 @@ namespace CondominioApp.Usuarios.App.Models
         Task<Morador> ObterMoradorPorUsuarioIdEUnidadeId(Guid usuarioId, Guid unidadeId);
         Task<IEnumerable<Morador>> ObterMoradoresPorUsuarioId(Guid usuarioId);
         Task<IEnumerable<Morador>> ObterMoradores(Expression<Func<Morador, bool>> expression, bool OrderByDesc = false, int take = 0);
+        Task<int> ContaMoradorePorUsuarioIdEUnidadeId(Guid usuarioid, Guid unidadeId);
+
         void AdicionarMorador(Morador morador);
         void AtualizarMorador(Morador entity);
 
