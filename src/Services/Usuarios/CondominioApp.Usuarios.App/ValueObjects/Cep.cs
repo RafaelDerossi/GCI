@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using CondominioApp.Core.DomainObjects;
+using System.Text.RegularExpressions;
 
 namespace CondominioApp.Usuarios.App.ValueObjects
 {
@@ -20,8 +21,10 @@ namespace CondominioApp.Usuarios.App.ValueObjects
             Regex regex = new Regex(@"^\d{5}-\d{3}$");
             Match match = regex.Match(cepNumero);
 
-            if (match.Success)
-                Numero = cepNumero.Trim().Replace("-", "");
+            if (!match.Success)
+                throw new DomainException("Número de CEP não formatado");
+
+            Numero = cepNumero.Trim().Replace("-", "");            
         }
     }
 }
