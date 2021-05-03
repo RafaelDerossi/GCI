@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Building Blocks\CondominioApp.Core\CondominioApp.Core.csproj" />
-    <ProjectReference Include="..\CondominioApp.EwelinkNET\EwelinkNet\CondominioApp.EwelinkNet.csproj" />
+    <ProjectReference Include="..\CondominioApp.EwelinkNET\CondominioApp.EwelinkNet.csproj" />
   </ItemGroup>
 
   <ItemGroup>

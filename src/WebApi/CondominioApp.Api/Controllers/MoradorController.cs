@@ -90,7 +90,7 @@ namespace CondominioApp.Api.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var morador = await _usuarioQuery.ObterMoradorPorId(vincularViewModel.UsuarioId);
+            var morador = await _usuarioQuery.ObterMoradorPorId(vincularViewModel.MoradorId);
             if (morador == null)
             {
                 AdicionarErroProcessamento("Morador não encontrado!");
