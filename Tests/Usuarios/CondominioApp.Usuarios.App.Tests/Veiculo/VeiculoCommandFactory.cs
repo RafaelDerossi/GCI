@@ -21,7 +21,7 @@ namespace CondominioApp.Usuarios.App.Tests
         {
             var comando = CadastrarVeiculoCommandFactory();
 
-            comando.SetVeiculo("lmg8955", "modelo", "cor");
+            comando.SetVeiculo("lmg-8955", "modelo", "cor");
 
             return comando;
         }

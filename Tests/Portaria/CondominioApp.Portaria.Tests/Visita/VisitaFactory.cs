@@ -15,7 +15,7 @@ namespace CondominioApp.Portaria.Tests
                  new Email("rafael@condominioapp.com"), new Foto("nomeOriginal.jpg", "foto.jpg"),
                 TipoDeVisitante.PARTICULAR, "", Guid.NewGuid(), Guid.NewGuid(),
                 true, new Veiculo("LMG8888","Modelo","Prata"),
-                 Guid.NewGuid(), "Nome usuario");
+                 Guid.NewGuid());
         }
 
         public static Visita CriarVisitaPorteiroValida_ComCPF()
