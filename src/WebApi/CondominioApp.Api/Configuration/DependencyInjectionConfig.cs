@@ -410,10 +410,12 @@ namespace CondominioApp.Api.Configuration
             //Veiculo
             services.AddTransient<IRequestHandler<CadastrarVeiculoCommand, ValidationResult>, VeiculoCommandHandler>();
             services.AddTransient<IRequestHandler<RemoverVeiculoCommand, ValidationResult>, VeiculoCommandHandler>();
+            services.AddTransient<IRequestHandler<EditarVeiculoCommand, ValidationResult>, VeiculoCommandHandler>();            
             services.AddTransient<INotificationHandler<VeiculoCadastradoEvent>, VeiculoEventHandler>();
             services.AddTransient<INotificationHandler<UsuarioDoVeiculoNoCondominioEditadoEvent>, VeiculoEventHandler>();
             services.AddTransient<INotificationHandler<VeiculoRemovidoEvent>, VeiculoEventHandler>();
-
+            services.AddTransient<INotificationHandler<VeiculoEditadoEvent>, VeiculoEventHandler>();
+            
             //Mobile
             services.AddTransient<IRequestHandler<RegistrarMoradorMobileCommand, ValidationResult>, MobileCommandHandler>();
             services.AddTransient<IRequestHandler<RegistrarFuncionarioMobileCommand, ValidationResult>, MobileCommandHandler>();

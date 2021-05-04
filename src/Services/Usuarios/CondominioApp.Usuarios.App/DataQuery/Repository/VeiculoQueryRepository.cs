@@ -26,6 +26,11 @@ namespace CondominioApp.Usuarios.App.Data.Repository
             return await _context.VeiculosFlat.Where(u => u.Id == Id && !u.Lixeira).FirstOrDefaultAsync();
         }
 
+        public async Task<IEnumerable<VeiculoFlat>> ObterPorVeiculoId(Guid veiculoId)
+        {
+            return await _context.VeiculosFlat.Where(u => u.VeiculoId == veiculoId && !u.Lixeira).ToListAsync();
+        }
+
         public async Task<IEnumerable<VeiculoFlat>> ObterTodos()
         {
             return await _context.VeiculosFlat.Where(u => !u.Lixeira).ToListAsync();

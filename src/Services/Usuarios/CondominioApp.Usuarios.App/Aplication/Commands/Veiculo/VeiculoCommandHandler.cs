@@ -13,6 +13,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
 {
     public class VeiculoCommandHandler : CommandHandler, 
         IRequestHandler<CadastrarVeiculoCommand, ValidationResult>,
+        IRequestHandler<EditarVeiculoCommand, ValidationResult>,
         IRequestHandler<RemoverVeiculoCommand, ValidationResult>,
         IDisposable
     {
@@ -36,7 +37,6 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
 
             var veiculo = await _usuarioRepository.ObterVeiculoPorPlaca(request.Placa);
 
-
             if (veiculo == null)
                 return await CadastrarVeiculo(request, usuario.NomeCompleto);
 
@@ -54,6 +54,35 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
 
             
             return await CadastrarVeiculoEmCondominio(veiculo, request, usuario.NomeCompleto);
+
+        }
+
+        public async Task<ValidationResult> Handle(EditarVeiculoCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido()) return request.ValidationResult;
+
+            var veiculo = await _usuarioRepository.ObterVeiculoPorId(request.Id);
+            if (veiculo == null)
+            {
+                AdicionarErro("Veículo não encontrado.");
+                return ValidationResult;
+            }
+
+            var veiculoPelaPlaca = await _usuarioRepository.ObterVeiculoPorPlaca(request.Placa);
+
+            if (veiculoPelaPlaca != null && veiculo.Id != veiculoPelaPlaca.Id)
+            {
+                AdicionarErro("Placa já consta no sistema.");
+                return ValidationResult;
+            }
+
+            veiculo.SetVeiculo(request.Placa, request.Modelo, request.Cor);
+
+            veiculo.AdicionarEvento(new VeiculoEditadoEvent(veiculo.Id, veiculo.Placa, veiculo.Modelo, veiculo.Cor));
+
+            _usuarioRepository.AtualizarVeiculo(veiculo);
+            
+            return await PersistirDados(_usuarioRepository.UnitOfWork);
 
         }
 

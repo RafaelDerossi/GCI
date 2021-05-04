@@ -10,7 +10,8 @@ namespace CondominioApp.Usuarios.App.Aplication.Events
 {
     public class VeiculoEventHandler : EventHandler,        
         INotificationHandler<VeiculoCadastradoEvent>,
-        INotificationHandler<UsuarioDoVeiculoNoCondominioEditadoEvent>,
+        INotificationHandler<VeiculoEditadoEvent>,
+        INotificationHandler<UsuarioDoVeiculoNoCondominioEditadoEvent>,        
         INotificationHandler<VeiculoRemovidoEvent>,
         System.IDisposable
     {
@@ -30,6 +31,19 @@ namespace CondominioApp.Usuarios.App.Aplication.Events
                  notification.CondominioId, notification.NomeCondominio);
 
             _veiculoQueryRepository.Adicionar(veiculoFlat);
+
+            await PersistirDados(_veiculoQueryRepository.UnitOfWork);
+        }
+
+        public async Task Handle(VeiculoEditadoEvent notification, CancellationToken cancellationToken)
+        {
+            var veiculos = await _veiculoQueryRepository.ObterPorVeiculoId(notification.VeiculoId);
+
+            foreach (var item in veiculos)
+            {
+                item.SetVeiculo(notification.VeiculoId, notification.Placa, notification.Modelo, notification.Cor);
+                _veiculoQueryRepository.Atualizar(item);
+            }            
 
             await PersistirDados(_veiculoQueryRepository.UnitOfWork);
         }

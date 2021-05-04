@@ -129,6 +129,31 @@ namespace CondominioApp.Api.Controllers
 
         }
 
+        [HttpPut]
+        public async Task<ActionResult> Put(EditaVeiculoViewModel veiculoVM)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            var veiculoCondominio = await _usuarioQuery.ObterVeiculoPorId(veiculoVM.Id);
+            if (veiculoCondominio == null)
+            {
+                AdicionarErroProcessamento("Veiculo não encontrado!");
+                return CustomResponse();
+            }
+
+            var comando = new EditarVeiculoCommand(
+                 veiculoCondominio.VeiculoId, veiculoVM.Placa, veiculoVM.Modelo, veiculoVM.Cor);
+
+            var resultado = await _mediatorHandler.EnviarComando(comando);
+
+            if (!resultado.IsValid)
+                CustomResponse(resultado);
+
+
+            return CustomResponse();
+
+        }
+
         [HttpDelete]
         public async Task<ActionResult> Delete(Guid veiculoId, Guid condominioId)
         {
