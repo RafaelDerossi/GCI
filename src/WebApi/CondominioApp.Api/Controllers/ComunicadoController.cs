@@ -248,7 +248,7 @@ namespace CondominioApp.Api.Controllers
             {
                 var comunicadoVM = _mapper.Map<ComunicadoViewModel>(comunicado);
 
-                var funcionario = _usuarioQuery.ObterFuncionarioPorId(comunicado.Id).Result;
+                var funcionario = _usuarioQuery.ObterFuncionarioPorId(comunicado.FuncionarioId).Result;
                 comunicadoVM.NomeFuncionario = funcionario.NomeCompleto();
                 comunicadoVM.FotoFuncionario = funcionario.Foto;
 

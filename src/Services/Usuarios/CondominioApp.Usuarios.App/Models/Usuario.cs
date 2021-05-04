@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CondominioApp.Core.DomainObjects;
 using CondominioApp.Core.Enumeradores;
+using CondominioApp.Core.Helpers;
 using CondominioApp.Usuarios.App.ValueObjects;
 
 namespace CondominioApp.Usuarios.App.Models
@@ -75,7 +76,7 @@ namespace CondominioApp.Usuarios.App.Models
 
         public void DesativarSindicoProfissional() => SindicoProfissional = false;
 
-        public void AtualizarUltimoLogin() => UltimoLogin = DateTime.UnixEpoch;
+        public void AtualizarUltimoLogin() => UltimoLogin = DataHoraDeBrasilia.Get();
 
         public void SetNome(string nome) => Nome = nome;
 

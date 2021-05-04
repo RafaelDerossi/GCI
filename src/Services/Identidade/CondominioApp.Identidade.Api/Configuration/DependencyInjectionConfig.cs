@@ -25,6 +25,7 @@ namespace CondominioApp.Identidade.Api.Configuration
             #region Usuario
             services.AddScoped<IRequestHandler<CadastrarUsuarioCommand, ValidationResult>, UsuarioCommandHandler>();
             services.AddScoped<IRequestHandler<ExcluirUsuarioCommand, ValidationResult>, UsuarioCommandHandler>();
+            services.AddScoped<IRequestHandler<AtualizarUltimoLoginUsuarioCommand, ValidationResult>, UsuarioCommandHandler>();
             #endregion
 
             #region Morador

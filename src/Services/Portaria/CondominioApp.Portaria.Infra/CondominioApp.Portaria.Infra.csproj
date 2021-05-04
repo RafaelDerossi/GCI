@@ -9,6 +9,8 @@
     <Compile Remove="Migrations\20210114142225_Portaria.Designer.cs" />
     <Compile Remove="Migrations\20210205131142_RetirarEnunsDasFlat.cs" />
     <Compile Remove="Migrations\20210205131142_RetirarEnunsDasFlat.Designer.cs" />
+    <Compile Remove="Migrations\20210504132849_DescricaoStatusParaVisitaFlat.cs" />
+    <Compile Remove="Migrations\20210504132849_DescricaoStatusParaVisitaFlat.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -216,7 +216,7 @@ namespace CondominioApp.Identidade.Api.Controllers
 
             if (result.Succeeded)
             {
-                var user = await _userManager.FindByLoginAsync(usuarioLogin.Login, usuarioLogin.Senha);
+                var user = await _userManager.FindByEmailAsync(usuarioLogin.Login);
                 await AtualizarUltimoLoginUsuario(Guid.Parse(user.Id));
                 return CustomResponse(await GerarJwt(usuarioLogin.Login));
             }
@@ -471,7 +471,7 @@ namespace CondominioApp.Identidade.Api.Controllers
             if (!resultado.IsValid)
             {
                 foreach (var item in resultado.Errors)
-                    AdicionarErroProcessamento(item.ErrorMessage);
+                    AdicionarErroProcessamento(item.ErrorMessage);                
             }
         }
 
