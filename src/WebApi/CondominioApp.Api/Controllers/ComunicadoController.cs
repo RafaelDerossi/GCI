@@ -397,38 +397,19 @@ namespace CondominioApp.Api.Controllers
 
         private CategoriaDaPastaDeSistema ObterCategoriaDePastaDeSistema(CategoriaComunicado categoria)
         {
-            switch (categoria)
+            return categoria switch
             {
-                case CategoriaComunicado.ATA:
-                    return CategoriaDaPastaDeSistema.ATA;
-
-                case CategoriaComunicado.AVISO:
-                    return CategoriaDaPastaDeSistema.AVISO;
-
-                case CategoriaComunicado.BALANCETE:
-                    return CategoriaDaPastaDeSistema.BALANCETE;
-
-                case CategoriaComunicado.COBRANÇA:
-                    return CategoriaDaPastaDeSistema.COBRANÇA;
-
-                case CategoriaComunicado.COMUNICADO:
-                    return CategoriaDaPastaDeSistema.COMUNICADO;
-
-                case CategoriaComunicado.MANUTENÇÃO:
-                    return CategoriaDaPastaDeSistema.MANUTENÇÃO;
-
-                case CategoriaComunicado.OBRA_REFORMA:
-                    return CategoriaDaPastaDeSistema.OBRA_REFORMA;
-
-                case CategoriaComunicado.OUTROS:
-                    return CategoriaDaPastaDeSistema.OUTROS;
-
-                case CategoriaComunicado.URGENCIA:
-                    return CategoriaDaPastaDeSistema.URGENCIA;
-
-                default:
-                    return 0;
-            }
+                CategoriaComunicado.ATA => CategoriaDaPastaDeSistema.ATA,
+                CategoriaComunicado.AVISO => CategoriaDaPastaDeSistema.AVISO,
+                CategoriaComunicado.BALANCETE => CategoriaDaPastaDeSistema.BALANCETE,
+                CategoriaComunicado.COBRANÇA => CategoriaDaPastaDeSistema.COBRANÇA,
+                CategoriaComunicado.COMUNICADO => CategoriaDaPastaDeSistema.COMUNICADO,
+                CategoriaComunicado.MANUTENÇÃO => CategoriaDaPastaDeSistema.MANUTENÇÃO,
+                CategoriaComunicado.OBRA_REFORMA => CategoriaDaPastaDeSistema.OBRA_REFORMA,
+                CategoriaComunicado.OUTROS => CategoriaDaPastaDeSistema.OUTROS,
+                CategoriaComunicado.URGENCIA => CategoriaDaPastaDeSistema.URGENCIA,
+                _ => 0,
+            };
         }
 
         private async Task ExcluirAnexos(ComunicadoCommand comando)

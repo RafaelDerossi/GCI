@@ -1,22 +1,28 @@
 ﻿using CondominioAppMarketplace.App;
+using CondominioAppMarketplace.App.ViewModel;
+using CondominioAppMarketplace.Domain;
+using CondominioAppMarketplace.Domain.ValueObjects;
 using Moq.AutoMock;
+using System;
+using System.Threading.Tasks;
+using Xunit;
 
 namespace CondominioAppMarketplace.Tests.Aplication
 {
     public class AppServiceParceiroTests
     {
-        private readonly AutoMocker _mocker;
-        private readonly AppServiceLead _appServiceLead;
+        //private readonly AutoMocker _mocker;
+        //private readonly AppServiceLead _appServiceLead;
 
         public AppServiceParceiroTests()
         {
-            _mocker = new AutoMocker();
-            _appServiceLead = _mocker.CreateInstance<AppServiceLead>();
+            //_mocker = new AutoMocker();
+            //_appServiceLead = _mocker.CreateInstance<AppServiceLead>();
         }
 
         //[Fact(DisplayName = "Enviar Lead")]
         //[Trait("Categoria", "Lead - AppServiceLead")]
-        //public async Task EnviarLead()
+        //public void EnviarLead()
         //{
         //    //Arrange
         //    LeadNovoViewModel ViewModel = new LeadNovoViewModel()
@@ -30,15 +36,15 @@ namespace CondominioAppMarketplace.Tests.Aplication
         //        EmailDoMorador = "fulano@gmail.com",
         //        ItemDeVendaId = Guid.NewGuid()
         //    };
-          
+
 
         //    var lead = new Lead(ViewModel.NomeDoCondominio, ViewModel.NomeDoCliente, ViewModel.Bloco,
         //        ViewModel.Unidade, ViewModel.Observacao, null, new Email(ViewModel.EmailDoMorador),
-        //        ViewModel.ItemDeVendaId);                                
+        //        ViewModel.ItemDeVendaId);
 
         //    var itemDeVenda = new ItemDeVenda(10, 2, DateTime.Now.AddDays(-3), DateTime.Now.AddDays(3),
         //       Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid());
-        //       itemDeVenda.SetEntidadeId(lead.ItemDeVendaId);
+        //    itemDeVenda.SetEntidadeId(lead.ItemDeVendaId);
 
         //    _mocker.GetMock<IMapper>().Setup(r => r.Map<Lead>(ViewModel))
         //        .Returns(lead);
@@ -56,7 +62,5 @@ namespace CondominioAppMarketplace.Tests.Aplication
         //    Assert.True(result.IsValid);
         //    _mocker.GetMock<IItemDeVendaRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
         //}
-
-       
     }
 }

@@ -14,7 +14,7 @@ namespace CondominioApp.Enquetes.App.Aplication.Commands
          IDisposable
     {
 
-        private IEnqueteRepository _EnqueteRepository;
+        private readonly IEnqueteRepository _EnqueteRepository;
 
         public RespostaEnqueteCommandHandler(IEnqueteRepository enqueteRepository)
         {

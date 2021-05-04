@@ -10,9 +10,9 @@ namespace CondominioApp.NotificacaoEmail.Api.Email
     public class EmailComunicadoComAnexo : ServicoDeEmail
     {
         private readonly string _assunto = "Novo Comunicado";        
-        private ComunicadoDTO _comunicado;       
-        private string _caminhoAnexo = "https://condominioappstorage.blob.core.windows.net/condominioapp/Uploads/Comunicado/";
-        private string _logoCondominioApp = "https://condominioappstorage.blob.core.windows.net/condominioapp/Uploads/usuario/572d0886-11c4-4fb3-b806-0d7cf6695bc8.png";
+        private readonly ComunicadoDTO _comunicado;       
+        private readonly string _caminhoAnexo = "https://condominioappstorage.blob.core.windows.net/condominioapp/Uploads/Comunicado/";
+        private readonly string _logoCondominioApp = "https://condominioappstorage.blob.core.windows.net/condominioapp/Uploads/usuario/572d0886-11c4-4fb3-b806-0d7cf6695bc8.png";
 
         public EmailComunicadoComAnexo(ComunicadoDTO comunicado)
         {

@@ -9,7 +9,7 @@ namespace CondominioApp.Comunicados.App.Aplication.Query
 {
     public class ComunicadoQuery : IComunicadoQuery
     {
-        private IComunidadoRepository _comunicadoRepository;
+        private readonly IComunidadoRepository _comunicadoRepository;
 
         public ComunicadoQuery(IComunidadoRepository comunicadoRepository)
         {

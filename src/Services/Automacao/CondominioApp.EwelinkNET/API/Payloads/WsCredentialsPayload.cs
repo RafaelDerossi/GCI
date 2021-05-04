@@ -12,36 +12,36 @@ namespace EwelinkNet.Payloads
 {
     internal class WsCredentialsPayload
     {
-        public string action { get; internal set; }
-        public string userAgent { get; internal set; }
-        public string version { get; internal set; }
-        public string nonce { get; internal set; }
-        public string apkVesrion { get; internal set; }
-        public string os { get; internal set; }
-        public string at { get; internal set; }
-        public string apikey { get; internal set; }
-        public string ts { get; internal set; }
-        public string model { get; internal set; }
-        public string romVersion { get; internal set; }
-        public string sequence { get; internal set; }
+        public string Action { get; internal set; }
+        public string UserAgent { get; internal set; }
+        public string Version { get; internal set; }
+        public string Nonce { get; internal set; }
+        public string ApkVesrion { get; internal set; }
+        public string Os { get; internal set; }
+        public string At { get; internal set; }
+        public string Apikey { get; internal set; }
+        public string Ts { get; internal set; }
+        public string Model { get; internal set; }
+        public string RomVersion { get; internal set; }
+        public string Sequence { get; internal set; }
 
 
         internal WsCredentialsPayload(string accessToken, string apiKey)
         {
-            var seq = EwelinkHelper.MakeSequence();
+            var (timestamp, sequence) = EwelinkHelper.MakeSequence();
 
-            action = "userOnline";
-            userAgent = "app";
-            version = AppData.VERSION;
-            nonce = EwelinkHelper.MakeNonce();
-            apkVesrion = AppData.APK_VERSION;
-            os = AppData.OS;
-            at = accessToken;
-            apikey = apiKey;
-            ts = seq.timestamp;
-            model = AppData.MODEL;
-            romVersion = AppData.ROM_VERSION;
-            sequence = seq.sequence;
+            Action = "userOnline";
+            UserAgent = "app";
+            Version = AppData.VERSION;
+            Nonce = EwelinkHelper.MakeNonce();
+            ApkVesrion = AppData.APK_VERSION;
+            Os = AppData.OS;
+            At = accessToken;
+            Apikey = apiKey;
+            Ts = timestamp;
+            Model = AppData.MODEL;
+            RomVersion = AppData.ROM_VERSION;
+            Sequence = sequence;
         }
     }
 }

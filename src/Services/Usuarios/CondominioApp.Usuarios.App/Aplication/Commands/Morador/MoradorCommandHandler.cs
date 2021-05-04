@@ -20,7 +20,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
         IRequestHandler<RemoverMoradorCommand, ValidationResult>,
         IDisposable
     {
-        private IUsuarioRepository _usuarioRepository;
+        private readonly IUsuarioRepository _usuarioRepository;
 
         public MoradorCommandHandler(IUsuarioRepository usuarioRepository)
         {

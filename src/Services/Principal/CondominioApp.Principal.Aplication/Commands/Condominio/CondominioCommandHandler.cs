@@ -18,7 +18,7 @@ namespace CondominioApp.Principal.Aplication.Commands
          IRequestHandler<RemoverCondominioCommand, ValidationResult>, IDisposable
     {
 
-        private IPrincipalRepository _condominioRepository;
+        private readonly IPrincipalRepository _condominioRepository;
 
         public CondominioCommandHandler(IPrincipalRepository condominioRepository)
         {

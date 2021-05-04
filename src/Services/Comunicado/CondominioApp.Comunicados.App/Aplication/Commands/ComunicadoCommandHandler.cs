@@ -19,7 +19,7 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
          IDisposable
     {
 
-        private IComunidadoRepository _ComunicadoRepository;
+        private readonly IComunidadoRepository _ComunicadoRepository;
 
         public ComunicadoCommandHandler(IComunidadoRepository comunicadoRepository)
         {

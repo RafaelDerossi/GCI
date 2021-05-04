@@ -10,7 +10,7 @@ namespace CondominioApp.Ocorrencias.App.Aplication.Query
 {
     public class OcorrenciaQuery : IOcorrenciaQuery
     {
-        private IOcorrenciaRepository _ocorrenciaRepository;
+        private readonly IOcorrenciaRepository _ocorrenciaRepository;
         private readonly int meses = -60;
         private readonly int take = 100;
 

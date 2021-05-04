@@ -10,10 +10,10 @@ namespace CondominioApp.Usuarios.App.Aplication.Query
 {
     public class UsuarioQuery : IUsuarioQuery
     {
-        private IUsuarioRepository _usuarioRepository;
-        private IVeiculoQueryRepository _veiculoQueryRepository;
-        private IMoradorQueryRepository _moradorQueryRepository;
-        private IFuncionarioQueryRepository _funcionarioQueryRepository;
+        private readonly IUsuarioRepository _usuarioRepository;
+        private readonly IVeiculoQueryRepository _veiculoQueryRepository;
+        private readonly IMoradorQueryRepository _moradorQueryRepository;
+        private readonly IFuncionarioQueryRepository _funcionarioQueryRepository;
 
         public UsuarioQuery(IUsuarioRepository usuarioRepository, IVeiculoQueryRepository veiculoQueryRepository,
             IMoradorQueryRepository moradorQueryRepository, IFuncionarioQueryRepository funcionarioQueryRepository)

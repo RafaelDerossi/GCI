@@ -9,8 +9,8 @@ namespace CondominioApp.NotificacaoEmail.Api.Email
 {
     public class EmailReserva : ServicoDeEmail
     {   
-        private ReservaDTO _reserva;        
-        private string _logoCondominioApp = "https://condominioappstorage.blob.core.windows.net/condominioapp/Uploads/usuario/572d0886-11c4-4fb3-b806-0d7cf6695bc8.png";        
+        private readonly ReservaDTO _reserva;        
+        private readonly string _logoCondominioApp = "https://condominioappstorage.blob.core.windows.net/condominioapp/Uploads/usuario/572d0886-11c4-4fb3-b806-0d7cf6695bc8.png";        
 
         public EmailReserva(ReservaDTO reserva)
         {

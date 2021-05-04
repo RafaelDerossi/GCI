@@ -9,8 +9,8 @@ namespace CondominioApp.NotificacaoEmail.Api.Email
 {
     public class EmailCorrespondencia : ServicoDeEmail
     {                
-        private CorrespondenciaDTO _correspondencia;        
-        private string _logoCondominioApp = "https://condominioappstorage.blob.core.windows.net/condominioapp/Uploads/usuario/572d0886-11c4-4fb3-b806-0d7cf6695bc8.png";
+        private readonly CorrespondenciaDTO _correspondencia;        
+        private readonly string _logoCondominioApp = "https://condominioappstorage.blob.core.windows.net/condominioapp/Uploads/usuario/572d0886-11c4-4fb3-b806-0d7cf6695bc8.png";
 
         public EmailCorrespondencia(CorrespondenciaDTO correspondencia)
         {

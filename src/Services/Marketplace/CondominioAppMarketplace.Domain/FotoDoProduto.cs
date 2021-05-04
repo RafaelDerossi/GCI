@@ -30,7 +30,7 @@ namespace CondominioAppMarketplace.Domain
             NomeArquivo = nomeDoArquivo;
             Principal = principal;
 
-            setExtensao();
+            SetExtensao();
         }
 
         public void AssociarFotoAoProduto(Produto produto) => Produto = produto;
@@ -39,7 +39,7 @@ namespace CondominioAppMarketplace.Domain
 
         public void DesmarcarPrincipal() => Principal = false;
 
-        public void setNomeOriginal(string nomeOriginal)
+        public void SetNomeOriginal(string nomeOriginal)
         {
             if (!string.IsNullOrEmpty(nomeOriginal))
                 if (nomeOriginal.Contains("http:"))
@@ -51,13 +51,13 @@ namespace CondominioAppMarketplace.Domain
                     NomeOriginal = nomeOriginal;
         }
 
-        public void setNomeArquivo(string nomeDoArquivo)
+        public void SetNomeArquivo(string nomeDoArquivo)
         {
             if (!string.IsNullOrEmpty(nomeDoArquivo))
                 NomeArquivo = nomeDoArquivo;
         }
 
-        public void setExtensao()
+        public void SetExtensao()
         {
             if (string.IsNullOrEmpty(NomeArquivo) || NomeArquivo.Contains("http:")) return;
 

@@ -18,7 +18,9 @@ namespace CondominioApp.Api.FilaDeReservas
         private readonly IReservaAreaComumRepository _reservaAreaComumRepository;
         private readonly IReservaStrategy _regrasDeReserva;
 
-        private Timer timer;
+        #pragma warning disable IDE0052 // Remover membros particulares não lidos
+        private Timer Timer;
+        #pragma warning restore IDE0052 // Remover membros particulares não lidos
 
         public FilaDeReservaHostedService
             (IMediatorHandler mediatorHandler,
@@ -32,7 +34,7 @@ namespace CondominioApp.Api.FilaDeReservas
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            timer = new Timer(ExecuteProcess, null, TimeSpan.Zero, TimeSpan.FromSeconds(120));
+            Timer = new Timer(ExecuteProcess, null, TimeSpan.Zero, TimeSpan.FromSeconds(120));
             return Task.CompletedTask;
         }
 
@@ -52,14 +54,14 @@ namespace CondominioApp.Api.FilaDeReservas
                     if (areaComum.RequerAprovacaoDeReserva)
                     {
                         var comando = new AguardarAprovacaoDaReservaPelaAdmCommand(reserva.Id, "");
-                        var Resultado = _mediatorHandler.EnviarComando(comando).Result;                        
+                        _mediatorHandler.EnviarComando(comando);                        
                     }
                         
 
                     if (!areaComum.RequerAprovacaoDeReserva)
                     {
                         var comando = new AprovarReservaAutomaticamenteCommand(reserva.Id, "");
-                        var Resultado = _mediatorHandler.EnviarComando(comando).Result;
+                        _mediatorHandler.EnviarComando(comando);
                     }                    
                 }
                 
@@ -68,14 +70,14 @@ namespace CondominioApp.Api.FilaDeReservas
                     if (reserva.Status == StatusReserva.NA_FILA)
                     {
                         var comando = new EnviarReservaParaFilaCommand(reserva.Id, reserva.Justificativa);
-                        var Resultado = _mediatorHandler.EnviarComando(comando).Result;
+                        _mediatorHandler.EnviarComando(comando);
                     }
 
 
                     if (reserva.Status == StatusReserva.REPROVADA)
                     {
                         var comando = new ReprovarReservaCommand(reserva.Id, reserva.Justificativa);
-                        var Resultado = _mediatorHandler.EnviarComando(comando).Result;
+                        _mediatorHandler.EnviarComando(comando);
                     }
                 }
 
@@ -92,7 +94,7 @@ namespace CondominioApp.Api.FilaDeReservas
                     if (reserva.EstaExpirada())
                     {
                         var comando = new MarcarReservaComoExpiradaCommand(reserva.Id, "");
-                        var Resultado = _mediatorHandler.EnviarComando(comando).Result;
+                        _mediatorHandler.EnviarComando(comando);
                         Thread.Sleep(2000);
                     }
                 }
@@ -108,7 +110,7 @@ namespace CondominioApp.Api.FilaDeReservas
                     if (reserva.EstaExpirada())
                     {
                         var comando = new MarcarReservaComoExpiradaCommand(reserva.Id, "");
-                        var Resultado = _mediatorHandler.EnviarComando(comando).Result;
+                        _mediatorHandler.EnviarComando(comando);
                         Thread.Sleep(2000);
                     }
                 }

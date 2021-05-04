@@ -1,5 +1,4 @@
 ﻿using CondominioApp.NotificacaoEmail.App.Service;
-using CondominioApp.Usuarios.App.Models;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -8,9 +7,9 @@ namespace CondominioApp.NotificacaoEmail.Api.Email
     public class EmailConfirmacaoDeCadastroDeUser : ServicoDeEmail
     {
         private readonly string _assunto = "Confirmação de cadastro";
-        private string _nomeUsuario;
-        private string _emailUsuario;
-        private string _caminhoUrl;
+        private readonly string _nomeUsuario;
+        private readonly string _emailUsuario;
+        private readonly string _caminhoUrl;
 
         public EmailConfirmacaoDeCadastroDeUser(string nomeUsuario, string emailUsuario, string linkDeRedirecionamento)
         {

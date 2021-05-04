@@ -10,7 +10,7 @@ namespace CondominioApp.Automacao.App.Aplication.Query
 {
     public class AutomacaoQuery : IAutomacaoQuery
     {
-        private IAutomacaoRepository _condominioCredencialRepository;
+        private readonly IAutomacaoRepository _condominioCredencialRepository;
 
         public AutomacaoQuery(IAutomacaoRepository condominioCredencialRepository)
         {

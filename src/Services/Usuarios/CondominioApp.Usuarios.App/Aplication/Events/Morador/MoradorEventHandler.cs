@@ -16,8 +16,8 @@ namespace CondominioApp.Usuarios.App.Aplication.Events
         INotificationHandler<MoradorRemovidoEvent>,        
         System.IDisposable
     {
-        private IUsuarioRepository _usuarioRepository;
-        private IMoradorQueryRepository _moradorQueryRepository;      
+        private readonly IUsuarioRepository _usuarioRepository;
+        private readonly IMoradorQueryRepository _moradorQueryRepository;      
 
         public MoradorEventHandler(IUsuarioRepository usuarioRepository, IMoradorQueryRepository moradorQueryRepository)
         {

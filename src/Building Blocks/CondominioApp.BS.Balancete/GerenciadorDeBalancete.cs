@@ -83,7 +83,7 @@ namespace CondominioApp.BS.Balancete
 
             NovoNome = NovoNome.Replace("CBAL", "");
 
-            NovoNome = $"{Convert.ToInt32(NovoNome).ToString()}.htm";
+            NovoNome = $"{Convert.ToInt32(NovoNome)}.htm";
 
             return NovoNome;
         }

@@ -1,13 +1,13 @@
 ﻿using EwelinkNet.Helpers.Extensions;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace EwelinkNet.Constants
 {
     internal class DeviceChannels
     {
-        private static Dictionary<string?, int?> data = new Dictionary<string?, int?> {
+        #pragma warning disable CS8632 // A anotação para tipos de referência anuláveis deve ser usada apenas em código em um contexto de anotações '#nullable'.
+        private static readonly Dictionary<string?, int?> data = new Dictionary<string?, int?> {
+        #pragma warning restore CS8632 // A anotação para tipos de referência anuláveis deve ser usada apenas em código em um contexto de anotações '#nullable'.
             {"SOCKET", 1},
             {"SWITCH_CHANGE", 1},
             {"GSM_UNLIMIT_SOCKET", 1},

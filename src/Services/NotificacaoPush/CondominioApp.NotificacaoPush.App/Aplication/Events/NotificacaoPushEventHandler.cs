@@ -26,8 +26,8 @@ namespace CondominioApp.Principal.Aplication.Events
         INotificationHandler<EnviarPushParaTodosIntegrationEvent>,
         System.IDisposable
     {
-        private IUsuarioQuery _usuarioQueryRepository;
-        private INotificacaoPushService _notificacaoPushService;
+        private readonly IUsuarioQuery _usuarioQueryRepository;
+        private readonly INotificacaoPushService _notificacaoPushService;
 
         public NotificacaoPushEventHandler(IUsuarioQuery usuarioQueryRepository, INotificacaoPushService notificacaoPushService)
         {

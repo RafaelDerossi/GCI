@@ -18,7 +18,7 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
          IDisposable
     {
 
-        private IOcorrenciaRepository _ocorrenciaRepository;
+        private readonly IOcorrenciaRepository _ocorrenciaRepository;
 
         public OcorrenciaCommandHandler(IOcorrenciaRepository ocorrenciaRepository)
         {

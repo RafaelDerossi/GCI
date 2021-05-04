@@ -354,10 +354,11 @@ namespace CondominioApp.Correspondencias.App.Tests
                Guid.NewGuid(), "Nome do Usuario", VisibilidadeComunicado.UNIDADES,
                CategoriaComunicado.COMUNICADO, false, false);
 
-            var listaUnidades = new List<UnidadeComunicado>();
-
-            listaUnidades.Add(new UnidadeComunicado(Guid.NewGuid(), "101", "1", grupoId, "Bloco 1"));
-            listaUnidades.Add(new UnidadeComunicado(Guid.NewGuid(), "102", "1", grupoId, "Bloco 1"));
+            var listaUnidades = new List<UnidadeComunicado>
+            {
+                new UnidadeComunicado(Guid.NewGuid(), "101", "1", grupoId, "Bloco 1"),
+                new UnidadeComunicado(Guid.NewGuid(), "102", "1", grupoId, "Bloco 1")
+            };
 
             comunicado.AdicionarUnidades(listaUnidades);
 

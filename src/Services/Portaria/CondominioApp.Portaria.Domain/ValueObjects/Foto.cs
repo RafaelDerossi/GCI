@@ -15,7 +15,7 @@ namespace CondominioApp.Portaria.ValueObjects
         public Foto(string nomeOriginal, string nomeDoArquivo)
         {
             SetNomeOriginal(nomeOriginal);
-            setNomeDoArquivo(nomeDoArquivo);
+            SetNomeDoArquivo(nomeDoArquivo);
         }
 
         public void SetNomeOriginal(string nomeOriginal)
@@ -29,7 +29,7 @@ namespace CondominioApp.Portaria.ValueObjects
             NomeOriginal = nomeOriginal;
         }
 
-        public void setNomeDoArquivo(string nomeDoArquivo)
+        public void SetNomeDoArquivo(string nomeDoArquivo)
         {
             string[] ListaDeExtensoes = { ".jpg", ".jpeg", ".png", ".gif" };
 

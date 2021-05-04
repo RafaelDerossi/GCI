@@ -31,9 +31,9 @@ namespace CondominioApp.NotificacaoEmail.Aplication.Events
         INotificationHandler<EnviarEmailReservaParaSindicoIntegrationEvent>,
         System.IDisposable
     {
-        private IUsuarioQuery _usuarioQuery;
-        private IPrincipalQuery _principalQuery;
-        private IArquivoDigitalQuery _arquivoDigitalQuery;
+        private readonly IUsuarioQuery _usuarioQuery;
+        private readonly IPrincipalQuery _principalQuery;
+        private readonly IArquivoDigitalQuery _arquivoDigitalQuery;
 
         public NotificacaoEmailCondominioAppApiEventHandler
             (IUsuarioQuery usuarioQuery, IPrincipalQuery principalQuery, IArquivoDigitalQuery arquivoDigitalQuery)
@@ -90,8 +90,10 @@ namespace CondominioApp.NotificacaoEmail.Aplication.Events
         {
             
             var morador = await _usuarioQuery.ObterMoradorPorId(notification.moradorId);
-            var listaDeEmails = new List<string>();
-            listaDeEmails.Add(morador.Email);                        
+            var listaDeEmails = new List<string>
+            {
+                morador.Email
+            };
 
             var respostaOcorrenciaDTO = RespostaOcorrenciaDTOFactory(notification, listaDeEmails, morador.CondominioId);
 
@@ -112,8 +114,10 @@ namespace CondominioApp.NotificacaoEmail.Aplication.Events
         public async Task Handle(EnviarEmailReservaParaMoradorIntegrationEvent notification, CancellationToken cancellationToken)
         {
             var morador = await _usuarioQuery.ObterMoradorPorId(notification.MoradorId);
-            var listaDeEmails = new List<string>();
-            listaDeEmails.Add(morador.Email);
+            var listaDeEmails = new List<string>
+            {
+                morador.Email
+            };
 
             var reservaDTO = ReservaDTOParaMoradorFactory(notification, listaDeEmails, morador);
 
@@ -157,23 +161,23 @@ namespace CondominioApp.NotificacaoEmail.Aplication.Events
             {
                 case VisibilidadeComunicado.PROPRIETARIOS:
                     var moradores = await _usuarioQuery.ObterProprietariosPorCondominioId(notification.CondominioId);
-                    return ObterEmailsDaListaDeUsuarios(moradores);
+                    return ObterEmailsDaListaDeMoradores(moradores);
 
                 case VisibilidadeComunicado.PROPRIETARIOS_UNIDADES:
                     moradores = ObterMoradoresDasUnidades(notification.UnidadesIds, true);
-                    return ObterEmailsDaListaDeUsuarios(moradores);
+                    return ObterEmailsDaListaDeMoradores(moradores);
                     
                 case VisibilidadeComunicado.UNIDADES:
                     moradores = ObterMoradoresDasUnidades(notification.UnidadesIds, false);
-                    return ObterEmailsDaListaDeUsuarios(moradores);
+                    return ObterEmailsDaListaDeMoradores(moradores);
 
                 default:
                     moradores = await _usuarioQuery.ObterMoradoresPorCondominioId(notification.CondominioId);
-                    return ObterEmailsDaListaDeUsuarios(moradores);
+                    return ObterEmailsDaListaDeMoradores(moradores);
             }
         }
 
-        private List<string> ObterEmailsDaListaDeUsuarios(IEnumerable<MoradorFlat> moradores)
+        private List<string> ObterEmailsDaListaDeMoradores(IEnumerable<MoradorFlat> moradores)
         {
             var listaDeEmails = new List<string>();
             if (moradores != null)
@@ -182,19 +186,6 @@ namespace CondominioApp.NotificacaoEmail.Aplication.Events
                 {
                     if (!string.IsNullOrEmpty(morador.Email))
                         listaDeEmails.Add(morador.Email);
-                }
-            }
-            return listaDeEmails;
-        }
-        private List<string> ObterEmailsDaListaDeUsuarios(IEnumerable<FuncionarioFlat> funcionarios)
-        {
-            var listaDeEmails = new List<string>();
-            if (funcionarios != null)
-            {
-                foreach (var funcionario in funcionarios)
-                {
-                    if (!string.IsNullOrEmpty(funcionario.Email))
-                        listaDeEmails.Add(funcionario.Email);
                 }
             }
             return listaDeEmails;
@@ -258,7 +249,7 @@ namespace CondominioApp.NotificacaoEmail.Aplication.Events
         private async Task<List<string>> ObterListaDeEmailsDaCorrespondencia(EnviarEmailCorrespondenciaIntegrationEvent notification)
         {
             var moradores = await _usuarioQuery.ObterMoradoresPorUnidadeId(notification.UnidadeId);
-            return ObterEmailsDaListaDeUsuarios(moradores);
+            return ObterEmailsDaListaDeMoradores(moradores);
         }
         private CorrespondenciaDTO CorrespondenciaDTOFactory
            (EnviarEmailCorrespondenciaIntegrationEvent notification, List<string> listaDeEmails)
@@ -280,7 +271,7 @@ namespace CondominioApp.NotificacaoEmail.Aplication.Events
             if (!notification.ApenasProprietarios)
                 moradores = await _usuarioQuery.ObterMoradoresPorCondominioId(notification.CondominioId);
 
-            var listaDeEmails = ObterEmailsDaListaDeUsuarios(moradores);
+            var listaDeEmails = ObterEmailsDaListaDeMoradores(moradores);
 
             var sindico = await _usuarioQuery.ObterSindicoPorCondominioId(notification.CondominioId);
             if (sindico != null)

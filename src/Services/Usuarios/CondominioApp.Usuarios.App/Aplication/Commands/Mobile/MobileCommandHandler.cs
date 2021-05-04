@@ -14,7 +14,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
         IRequestHandler<RegistrarFuncionarioMobileCommand, ValidationResult>,
         IDisposable 
     {
-        private IUsuarioRepository _usuarioRepository;
+        private readonly IUsuarioRepository _usuarioRepository;
 
         public MobileCommandHandler(IUsuarioRepository usuarioRepository)
         {

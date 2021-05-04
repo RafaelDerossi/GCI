@@ -15,10 +15,10 @@ namespace CondominioApp.Portaria.ValueObjects
 
         public Cpf(string pCpf)
         {
-            setNumero(pCpf);
+            SetNumero(pCpf);
         }
 
-        private void setNumero(string cpfStr)
+        private void SetNumero(string cpfStr)
         {
             if (string.IsNullOrEmpty(cpfStr))
             {

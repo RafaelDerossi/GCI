@@ -8,7 +8,9 @@ namespace EwelinkNet.Constants
 {
     internal static class DevicesSwitchName
     {
-        private static Dictionary<string?, string?> data = new Dictionary<string?, string?> {
+        #pragma warning disable CS8632 // A anotação para tipos de referência anuláveis deve ser usada apenas em código em um contexto de anotações '#nullable'.
+        private static readonly Dictionary<string?, string?> data = new Dictionary<string?, string?> {
+        #pragma warning restore CS8632 // A anotação para tipos de referência anuláveis deve ser usada apenas em código em um contexto de anotações '#nullable'.
             {"SWITCH_CHANGE", "switch"},
             {"SOCKET", "switch"},
             {"THERMOSTAT", "switch"},

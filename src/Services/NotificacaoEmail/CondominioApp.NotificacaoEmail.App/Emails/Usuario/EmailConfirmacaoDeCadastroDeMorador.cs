@@ -8,8 +8,8 @@ namespace CondominioApp.NotificacaoEmail.Api.Email
     public class EmailConfirmacaoDeCadastroDeMorador : ServicoDeEmail
     {
         private readonly string _assunto = "Confirmação de cadastro";
-        private MoradorFlat _morador;
-        private string _logoCondominio;
+        private readonly MoradorFlat _morador;
+        private readonly string _logoCondominio;
 
         public EmailConfirmacaoDeCadastroDeMorador(MoradorFlat morador, string logoCondominio)
         {

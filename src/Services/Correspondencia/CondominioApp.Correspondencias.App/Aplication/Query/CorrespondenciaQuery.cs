@@ -8,7 +8,7 @@ namespace CondominioApp.Correspondencias.App.Aplication.Query
 {
     public class CorrespondenciaQuery : ICorrespondenciaQuery
     {
-        private ICorrespondenciaRepository _correspondenciaRepository;
+        private readonly ICorrespondenciaRepository _correspondenciaRepository;
 
         public CorrespondenciaQuery(ICorrespondenciaRepository correspondenciaRepository)
         {

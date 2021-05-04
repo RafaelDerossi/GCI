@@ -6,6 +6,7 @@ namespace CondominioApp.BS.Balancete
     {
         const string CaminhoDaPasta = "/IntegracaoBase/Icondo/FAX/CBAL";
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:Remover o parâmetro não utilizado", Justification = "<Pendente>")]
         static void Main(string[] args)
         {
             Console.WriteLine("ENVIO DE BALANCETE (ESTASA)");

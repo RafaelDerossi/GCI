@@ -12,10 +12,10 @@ namespace CondominioApp.Usuarios.App.Aplication.Events
         INotificationHandler<FuncionarioEditadoEvent>,
         System.IDisposable
     {
-        private IUsuarioRepository _usuarioRepository;        
-        private IFuncionarioQueryRepository _funcionarioQueryRepository;
+        private readonly IUsuarioRepository _usuarioRepository;        
+        private readonly IFuncionarioQueryRepository _funcionarioQueryRepository;
 
-        public FuncionarioEventHandler(IUsuarioRepository usuarioRepository, IMoradorQueryRepository moradorQueryRepository, IFuncionarioQueryRepository funcionarioQueryRepository)
+        public FuncionarioEventHandler(IUsuarioRepository usuarioRepository, IFuncionarioQueryRepository funcionarioQueryRepository)
         {
             _usuarioRepository = usuarioRepository;            
             _funcionarioQueryRepository = funcionarioQueryRepository;

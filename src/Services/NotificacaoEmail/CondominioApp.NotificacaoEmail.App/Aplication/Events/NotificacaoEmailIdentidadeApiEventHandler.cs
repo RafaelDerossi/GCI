@@ -15,8 +15,8 @@ namespace CondominioApp.NotificacaoEmail.Aplication.Events
         INotificationHandler<EnviarEmailConfirmacaoDeCadastroDeMoradorIntegrationEvent>,        
         System.IDisposable
     {
-        private IUsuarioQuery _usuarioQuery;
-        private IPrincipalQuery _principalQuery;        
+        private readonly IUsuarioQuery _usuarioQuery;
+        private readonly IPrincipalQuery _principalQuery;        
 
         public NotificacaoEmailIdentidadeApiEventHandler
             (IUsuarioQuery usuarioQuery, IPrincipalQuery principalQuery)

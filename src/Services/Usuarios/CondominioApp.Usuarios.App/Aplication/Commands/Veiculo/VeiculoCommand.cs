@@ -38,7 +38,8 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
         public void SetVeiculo(string placa, string modelo, string cor)
         {
             if (!string.IsNullOrEmpty(placa))
-            {                
+            {
+                placa = placa.ToUpper();
                 Regex regex = new Regex(@"^([A-Z]{3}[0-9][0-9A-Z][0-9]{2})*$");
                 Match match = regex.Match(placa);
                 if (!match.Success)

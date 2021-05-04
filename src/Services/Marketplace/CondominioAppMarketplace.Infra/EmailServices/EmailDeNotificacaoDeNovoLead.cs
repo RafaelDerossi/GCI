@@ -12,9 +12,9 @@ namespace CondominioAppMarketplace.Infra.EmailServices
     {
         private readonly MailMessage _Email;
 
-        private List<string> _Destinatarios;
+        private readonly List<string> _Destinatarios;
 
-        private Lead _lead;
+        private readonly Lead _lead;
 
         public EmailDeNotificacaoDeNovoLead(IAggregateRoot Aggregate, string Assunto)
         {

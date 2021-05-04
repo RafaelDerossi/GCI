@@ -151,29 +151,27 @@ namespace CondominioApp.BS.CompiladorDeDados
         {
             if (!File.Exists(CaminhoDoBoletoHtml)) return string.Empty;
 
-            using (StreamReader st = new StreamReader(CaminhoDoBoletoHtml))
+            using StreamReader st = new StreamReader(CaminhoDoBoletoHtml);
+            string htmlread = st.ReadToEnd();
+            var link = string.Empty;
+
+            int indiceBoleto = htmlread.IndexOf("<img id='boleto' src='");
+
+            if (indiceBoleto > 0)
             {
-                string htmlread = st.ReadToEnd();
-                var link = string.Empty;
-
-                int indiceBoleto = htmlread.IndexOf("<img id='boleto' src='");
-
-                if (indiceBoleto > 0)
+                while (htmlread[indiceBoleto].ToString() != ">")
                 {
-                    while (htmlread[indiceBoleto].ToString() != ">")
-                    {
-                        link += htmlread[indiceBoleto].ToString();
-                        indiceBoleto++;
-                    }
+                    link += htmlread[indiceBoleto].ToString();
+                    indiceBoleto++;
                 }
-
-                link = link.Replace("<img id='boleto' src=", "");
-                link = link.Replace("+", " ");
-                link = Uri.UnescapeDataString(link);
-                link = link.Replace("'", "");
-
-                return link;
             }
+
+            link = link.Replace("<img id='boleto' src=", "");
+            link = link.Replace("+", " ");
+            link = Uri.UnescapeDataString(link);
+            link = link.Replace("'", "");
+
+            return link;
         }
 
         private string[] ColetarAmostraDeRegistro(string LinhaDoHtml)
@@ -224,31 +222,27 @@ namespace CondominioApp.BS.CompiladorDeDados
         {
             SincronizarListas();
 
-            using (var logWriter = new StreamWriter(CaminhoNovoIndiceDeBoletos, false, Encoding.UTF8))
+            using var logWriter = new StreamWriter(CaminhoNovoIndiceDeBoletos, false, Encoding.UTF8);
+            try
             {
-                try
-                {
-                    string json = JsonConvert.SerializeObject(_ListaDeBoletos, Newtonsoft.Json.Formatting.Indented);
-                    logWriter.WriteLine(json);
+                string json = JsonConvert.SerializeObject(_ListaDeBoletos, Newtonsoft.Json.Formatting.Indented);
+                logWriter.WriteLine(json);
 
-                    Console.WriteLine("Nova lista de boletos criada com sucesso!!");
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
+                Console.WriteLine("Nova lista de boletos criada com sucesso!!");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
         }
 
         private void CarregarListaDeIndicesDeCpfs()
         {
-            using (StreamReader st = new StreamReader(CaminhoNovoIndiceDeBoletos))
-            {
-                string ConteudoDoArquivo = st.ReadToEnd();
-                _ListaDeBoletos = JsonConvert.DeserializeObject<List<ItemBoleto>>(ConteudoDoArquivo);
-                if (_ListaDeBoletos == null)
-                    _ListaDeBoletos = new List<ItemBoleto>();
-            }
+            using StreamReader st = new StreamReader(CaminhoNovoIndiceDeBoletos);
+            string ConteudoDoArquivo = st.ReadToEnd();
+            _ListaDeBoletos = JsonConvert.DeserializeObject<List<ItemBoleto>>(ConteudoDoArquivo);
+            if (_ListaDeBoletos == null)
+                _ListaDeBoletos = new List<ItemBoleto>();
         }
 
         private void SincronizarListas()

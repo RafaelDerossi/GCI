@@ -1,12 +1,9 @@
-﻿using CondominioApp.Core.Enumeradores;
-using CondominioApp.Core.Messages;
+﻿using CondominioApp.Core.Messages;
 using CondominioApp.Ocorrencias.App.Aplication.Commands;
 using CondominioApp.Ocorrencias.App.Models;
 using FluentValidation.Results;
 using MediatR;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -21,7 +18,7 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
          IDisposable
     {
 
-        private IOcorrenciaRepository _ocorrenciaRepository;
+        private readonly IOcorrenciaRepository _ocorrenciaRepository;
 
         public RespostaOcorrenciaCommandHandler(IOcorrenciaRepository ocorrenciaRepository)
         {

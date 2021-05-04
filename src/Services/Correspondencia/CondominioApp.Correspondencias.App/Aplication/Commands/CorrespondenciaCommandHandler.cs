@@ -24,7 +24,7 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
          IDisposable
     {
 
-        private ICorrespondenciaRepository _CorrespondenciaRepository;
+        private readonly ICorrespondenciaRepository _CorrespondenciaRepository;
 
         public CorrespondenciaCommandHandler(ICorrespondenciaRepository correspondenciaRepository)
         {
@@ -187,12 +187,14 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
                 }              
             }
 
-            List<string> cabecalho = new List<string>();
-            cabecalho.Add("Data da Chegada");
-            cabecalho.Add("Data da Retirada");
-            cabecalho.Add("Entregue por");           
-            cabecalho.Add("Retirado por");
-            cabecalho.Add("Observação");
+            List<string> cabecalho = new List<string>
+            {
+                "Data da Chegada",
+                "Data da Retirada",
+                "Entregue por",
+                "Retirado por",
+                "Observação"
+            };
 
             var geradorExcel = new GeradorDeExcel<CorrespondenciaExcelDTO>
                 (cabecalho, listaCorrespondencias, request.NomeArquivo, "Relatório de Correspondência",

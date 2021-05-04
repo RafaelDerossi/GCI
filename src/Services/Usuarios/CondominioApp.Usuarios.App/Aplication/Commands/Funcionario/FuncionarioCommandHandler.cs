@@ -15,7 +15,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
         IRequestHandler<EditarFuncionarioCommand, ValidationResult>,
         IDisposable
     {
-        private IUsuarioRepository _usuarioRepository;
+        private readonly IUsuarioRepository _usuarioRepository;
 
         public FuncionarioCommandHandler(IUsuarioRepository usuarioRepository)
         {

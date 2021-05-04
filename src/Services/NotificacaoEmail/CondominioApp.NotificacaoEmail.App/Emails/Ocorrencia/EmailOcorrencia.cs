@@ -9,9 +9,9 @@ namespace CondominioApp.NotificacaoEmail.Api.Email
 {
     public class EmailOcorrencia : ServicoDeEmail
     {   
-        private OcorrenciaDTO _ocorrencia;        
-        private string _logoCondominioApp = "https://condominioappstorage.blob.core.windows.net/condominioapp/Uploads/usuario/572d0886-11c4-4fb3-b806-0d7cf6695bc8.png";
-        private string _caminhoFoto = "https://condominioappstorage.blob.core.windows.net/condominioapp/Uploads/ocorrencias/";
+        private readonly OcorrenciaDTO _ocorrencia;        
+        private readonly string _logoCondominioApp = "https://condominioappstorage.blob.core.windows.net/condominioapp/Uploads/usuario/572d0886-11c4-4fb3-b806-0d7cf6695bc8.png";
+        private readonly string _caminhoFoto = "https://condominioappstorage.blob.core.windows.net/condominioapp/Uploads/ocorrencias/";
 
         public EmailOcorrencia(OcorrenciaDTO ocorrencia)
         {

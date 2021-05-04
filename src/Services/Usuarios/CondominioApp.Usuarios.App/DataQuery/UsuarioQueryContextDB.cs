@@ -15,8 +15,6 @@ namespace CondominioApp.Usuarios.App.Data
 {
     public class UsuarioQueryContextDB : DbContext, IUnitOfWorks
     {
-        private readonly IMediatorHandler _mediatorHandler;
-
         public DbSet<VeiculoFlat> VeiculosFlat { get; set; }
         
         public DbSet<MoradorFlat> MoradoresFlat { get; set; }
@@ -24,10 +22,9 @@ namespace CondominioApp.Usuarios.App.Data
         public DbSet<FuncionarioFlat> FuncionariosFlat { get; set; }
 
 
-        public UsuarioQueryContextDB(DbContextOptions<UsuarioQueryContextDB> options, IMediatorHandler mediatorHandler)
+        public UsuarioQueryContextDB(DbContextOptions<UsuarioQueryContextDB> options)
             : base(options)
-        {
-            _mediatorHandler = mediatorHandler;
+        {            
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

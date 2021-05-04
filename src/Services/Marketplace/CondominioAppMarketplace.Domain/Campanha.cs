@@ -48,11 +48,11 @@ namespace CondominioAppMarketplace.Domain
 
         public void Ativar() => Ativo = true;
 
-        public void setTitulo(string titulo) => Titulo = titulo;
+        public void SetTitulo(string titulo) => Titulo = titulo;
 
-        public void setDescricao(string descricao) => Descricao = descricao;
+        public void SetDescricao(string descricao) => Descricao = descricao;
 
-        public void setBanner(string banner) => Banner = banner;
+        public void SetBanner(string banner) => Banner = banner;
 
         public ValidationResult ConfigurarIntervalo(DateTime dataDeInicio, DateTime dataDeFim)
         {

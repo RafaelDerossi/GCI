@@ -1,9 +1,7 @@
-﻿using CondominioApp.Core.Enumeradores;
-using CondominioApp.Core.Messages;
+﻿using CondominioApp.Core.Messages;
 using CondominioApp.Portaria.Aplication.Events;
 using CondominioApp.Portaria.Domain;
 using CondominioApp.Portaria.Domain.Interfaces;
-using CondominioApp.Portaria.ValueObjects;
 using FluentValidation.Results;
 using MediatR;
 using System;
@@ -23,7 +21,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
          IRequestHandler<TerminarVisitaCommand, ValidationResult>,
          IDisposable
     {
-        private IPortariaRepository _visitanteRepository;       
+        private readonly IPortariaRepository _visitanteRepository;       
 
         public VisitaCommandHandler(IPortariaRepository visitanteRepository)
         {
@@ -252,7 +250,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
                  request.DocumentoVisitante, request.EmailVisitante, request.FotoVisitante,
                  request.TipoDeVisitante, request.NomeEmpresaVisitante, request.CondominioId,
                  request.UnidadeId, request.TemVeiculo, request.Veiculo,
-                 request.MoradorId, request.NomeMorador);
+                 request.MoradorId);
         }
 
         private Visita VisitaFactory(CadastrarVisitaPorMoradorCommand request, Visitante visitante)
@@ -263,7 +261,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
                  visitante.Documento, visitante.Email, visitante.Foto,
                  visitante.TipoDeVisitante, visitante.NomeEmpresa, request.CondominioId,
                  request.UnidadeId, request.TemVeiculo, request.Veiculo,
-                 request.MoradorId, request.NomeMorador);
+                 request.MoradorId);
         }
 
 

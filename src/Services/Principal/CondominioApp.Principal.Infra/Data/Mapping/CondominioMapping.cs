@@ -22,7 +22,7 @@ namespace CondominioApp.Principal.Infra.Data.Mapping
 
             builder.OwnsOne(u => u.Cnpj, cnpj =>
             {
-                cnpj.Property(u => u.numero)
+                cnpj.Property(u => u.Numero)
                     .IsRequired()
                     .HasMaxLength(Cnpj.Maxlength)
                     .HasColumnName("Cnpj")

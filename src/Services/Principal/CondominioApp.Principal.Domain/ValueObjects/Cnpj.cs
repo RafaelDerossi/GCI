@@ -8,16 +8,16 @@ namespace CondominioApp.Principal.Domain.ValueObjects
     public class Cnpj
     {
         public const int Maxlength = 18;
-        public string numero { get; private set; }
+        public string Numero { get; private set; }
 
         protected Cnpj() { }
 
         public Cnpj(string pCnpj)
         {
-            setNumero(pCnpj);
+            SetNumero(pCnpj);
         }
 
-        private void setNumero(string cnpjStr)
+        private void SetNumero(string cnpjStr)
         {
             Guarda.ValidarTamanhoMaximo(cnpjStr, Maxlength, "CNPJ");
 
@@ -31,7 +31,7 @@ namespace CondominioApp.Principal.Domain.ValueObjects
                 {
                     string nCnpj = cnpjStr.Replace(".", "").Replace("/", "").Replace("-", "");
                     if (IsCnpj(nCnpj))
-                        numero = nCnpj;
+                        Numero = nCnpj;
                     else
                         throw new DomainException("Número de CNPJ inválido");
                 }
@@ -48,9 +48,9 @@ namespace CondominioApp.Principal.Domain.ValueObjects
         {
             get
             {
-                if (string.IsNullOrEmpty(numero)) return "";
+                if (string.IsNullOrEmpty(Numero)) return "";
 
-                return Convert.ToUInt64(numero).ToString(@"00\.000\.000\/0000\-00");
+                return Convert.ToUInt64(Numero).ToString(@"00\.000\.000\/0000\-00");
             }
         }
 

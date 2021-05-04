@@ -10,10 +10,10 @@ namespace CondominioApp.Principal.Domain.ValueObjects
 
         public Cep(string pCep)
         {
-            setCep(pCep);
+            SetCep(pCep);
         }
 
-        public void setCep(string cepNumero)
+        public void SetCep(string cepNumero)
         {
             if (string.IsNullOrEmpty(cepNumero)) return;
 

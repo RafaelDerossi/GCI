@@ -12,30 +12,30 @@ namespace CondominioApp.Core.Helpers
 {
    public class GeradorDeExcel<T>
     {
-        List<string> cabecalho { get; set; }
-        List<T> lista { get; set; }
-        string nomeArquivo { get; set; }
-        string titulo { get; set; }
-        string pastaDestino { get; set; }
+        List<string> Cabecalho { get; set; }
+        List<T> Lista { get; set; }
+        string NomeArquivo { get; set; }
+        string Titulo { get; set; }
+        string PastaDestino { get; set; }
 
-        string caminhoRaiz { get; set; }
+        string CaminhoRaiz { get; set; }
 
         public ValidationResult ValidationResult { get; set; }
 
         public GeradorDeExcel(List<string> cabecalho, List<T> lista, string nomeArquivo, string titulo, string caminhoRaiz, string pastaDestino = "Temp")
         {
             ValidationResult = new ValidationResult();
-            this.cabecalho = cabecalho;
-            this.lista = lista;
-            this.nomeArquivo = nomeArquivo;
-            this.titulo = titulo;
-            this.pastaDestino = pastaDestino;
-            this.caminhoRaiz = caminhoRaiz;
+            this.Cabecalho = cabecalho;
+            this.Lista = lista;
+            this.NomeArquivo = nomeArquivo;
+            this.Titulo = titulo;
+            this.PastaDestino = pastaDestino;
+            this.CaminhoRaiz = caminhoRaiz;
         }
 
         public ValidationResult GerarExcel()
         {
-            if (lista.Count == 0)
+            if (Lista.Count == 0)
             {
                 AdicionarErrosDeProcessamento("Não há itens");
                 return ValidationResult;
@@ -43,13 +43,15 @@ namespace CondominioApp.Core.Helpers
             
             try
             {
-                string nomeDoArquivo = @"/" + nomeArquivo + ".xlsx";               
-                string outputDir = caminhoRaiz + @"/Download/" + pastaDestino;
-                
-                List<string> usuarioNaoInformado = new List<string>();
-                usuarioNaoInformado.Add("N/I");
+                string nomeDoArquivo = @"/" + NomeArquivo + ".xlsx";               
+                string outputDir = CaminhoRaiz + @"/Download/" + PastaDestino;
 
-                    if (!Directory.Exists(outputDir))
+                List<string> usuarioNaoInformado = new List<string>
+                {
+                    "N/I"
+                };
+
+                if (!Directory.Exists(outputDir))
                         Directory.CreateDirectory(outputDir);
 
 
@@ -62,11 +64,11 @@ namespace CondominioApp.Core.Helpers
                     using (ExcelPackage package = new ExcelPackage(newFile))
                     {
                         // Cria um worksheet num workbook vazio
-                        ExcelWorksheet worksheet = package.Workbook.Worksheets.Add(titulo.Replace(" ", "-"));
+                        ExcelWorksheet worksheet = package.Workbook.Worksheets.Add(Titulo.Replace(" ", "-"));
 
                         //Cabeçalho
                         var x = 0;
-                        cabecalho.ForEach(t =>
+                        Cabecalho.ForEach(t =>
                         {
                             x++;
                             worksheet.Cells[1, x].Value = t;
@@ -74,7 +76,7 @@ namespace CondominioApp.Core.Helpers
 
 
                         //formatação do cabeçalho
-                        using (var range = worksheet.Cells[1, 1, 1, cabecalho.Count])
+                        using (var range = worksheet.Cells[1, 1, 1, Cabecalho.Count])
                         {
                             range.Style.Font.Bold = true;
                             range.Style.Fill.PatternType = ExcelFillStyle.Solid;
@@ -83,7 +85,7 @@ namespace CondominioApp.Core.Helpers
                         }
 
                         // inserindo os registros na planilha
-                        for (var i = 0; i < lista.Count(); i++)
+                        for (var i = 0; i < Lista.Count(); i++)
                         {
 
 
@@ -94,7 +96,7 @@ namespace CondominioApp.Core.Helpers
                             {
                                 j++;
 
-                                worksheet.Cells[(i + 2), j].Value = lista[i].GetType().GetProperty(prop.Name).GetValue(lista[i], null);
+                                worksheet.Cells[(i + 2), j].Value = Lista[i].GetType().GetProperty(prop.Name).GetValue(Lista[i], null);
                             }
 
                         }
@@ -104,7 +106,7 @@ namespace CondominioApp.Core.Helpers
                         worksheet.HeaderFooter.OddFooter.CenteredText = ExcelHeaderFooter.SheetName;
                         worksheet.HeaderFooter.OddFooter.LeftAlignedText = ExcelHeaderFooter.FilePath + ExcelHeaderFooter.FileName;
                         worksheet.View.PageLayoutView = false;
-                        package.Workbook.Properties.Title = titulo;
+                        package.Workbook.Properties.Title = Titulo;
                         package.Save();
 
                     }

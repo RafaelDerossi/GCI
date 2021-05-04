@@ -1,7 +1,4 @@
-﻿using CondominioApp.Core.Enumeradores;
-using CondominioApp.Portaria.Aplication.Commands.Validations;
-using CondominioApp.Portaria.ValueObjects;
-using System;
+﻿using System;
 
 namespace CondominioApp.Portaria.Aplication.Events
 {
@@ -11,7 +8,7 @@ namespace CondominioApp.Portaria.Aplication.Events
         public VisitaTerminadaEvent(Guid id, DateTime dataDeSaida)
         {
             Id = id;
-            DataDeSaida = DataDeSaida;
+            DataDeSaida = dataDeSaida;
         }
 
     }

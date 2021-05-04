@@ -15,11 +15,11 @@ namespace CondominioApp.Principal.Domain.ValueObjects
         {
             if (!string.IsNullOrEmpty(endereco))
             {
-                setEndereco(endereco);
+                SetEndereco(endereco);
             }
         }
 
-        private void setEndereco(string EnderecoDeEmail)
+        private void SetEndereco(string EnderecoDeEmail)
         {
             Regex regex = new Regex(@"[\w\.-]+(\+[\w-]*)?@([\w-]+\.)+[\w-]+");
             Match match = regex.Match(EnderecoDeEmail);

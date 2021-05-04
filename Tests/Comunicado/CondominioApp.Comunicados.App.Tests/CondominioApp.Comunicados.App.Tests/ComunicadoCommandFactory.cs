@@ -47,9 +47,11 @@ namespace CondominioApp.Comunicados.App.Tests
             comando.SetVisibilidade(VisibilidadeComunicado.UNIDADES);
 
             var grupoId = Guid.NewGuid();
-            var unidades = new List<UnidadeComunicado>();
-            unidades.Add(new UnidadeComunicado(Guid.NewGuid(), "101", "1", grupoId, "Bloco 1"));
-            unidades.Add(new UnidadeComunicado(Guid.NewGuid(), "102", "1", grupoId, "Bloco 1"));
+            var unidades = new List<UnidadeComunicado>
+            {
+                new UnidadeComunicado(Guid.NewGuid(), "101", "1", grupoId, "Bloco 1"),
+                new UnidadeComunicado(Guid.NewGuid(), "102", "1", grupoId, "Bloco 1")
+            };
 
             comando.SetUnidades(unidades);
 
@@ -63,9 +65,11 @@ namespace CondominioApp.Comunicados.App.Tests
             comando.SetVisibilidade(VisibilidadeComunicado.PROPRIETARIOS_UNIDADES);
 
             var grupoId = Guid.NewGuid();
-            var unidades = new List<UnidadeComunicado>();
-            unidades.Add(new UnidadeComunicado(Guid.NewGuid(), "101", "1", grupoId, "Bloco 1"));
-            unidades.Add(new UnidadeComunicado(Guid.NewGuid(), "102", "1", grupoId, "Bloco 1"));
+            var unidades = new List<UnidadeComunicado>
+            {
+                new UnidadeComunicado(Guid.NewGuid(), "101", "1", grupoId, "Bloco 1"),
+                new UnidadeComunicado(Guid.NewGuid(), "102", "1", grupoId, "Bloco 1")
+            };
 
             comando.SetUnidades(unidades);
 
@@ -93,9 +97,11 @@ namespace CondominioApp.Comunicados.App.Tests
 
             var grupoId = Guid.NewGuid();
             var unidadeId = Guid.NewGuid();
-            var unidades = new List<UnidadeComunicado>();
-            unidades.Add(new UnidadeComunicado(unidadeId, "101", "1", grupoId, "Bloco 1"));
-            unidades.Add(new UnidadeComunicado(unidadeId, "101", "1", grupoId, "Bloco 1"));
+            var unidades = new List<UnidadeComunicado>
+            {
+                new UnidadeComunicado(unidadeId, "101", "1", grupoId, "Bloco 1"),
+                new UnidadeComunicado(unidadeId, "101", "1", grupoId, "Bloco 1")
+            };
 
             comando.SetUnidades(unidades);
 
@@ -120,9 +126,11 @@ namespace CondominioApp.Comunicados.App.Tests
 
             var grupoId = Guid.NewGuid();
             var unidadeId = Guid.NewGuid();
-            var unidades = new List<UnidadeComunicado>();
-            unidades.Add(new UnidadeComunicado(unidadeId, "101", "1", grupoId, "Bloco 1"));
-            unidades.Add(new UnidadeComunicado(unidadeId, "101", "1", grupoId, "Bloco 1"));
+            var unidades = new List<UnidadeComunicado>
+            {
+                new UnidadeComunicado(unidadeId, "101", "1", grupoId, "Bloco 1"),
+                new UnidadeComunicado(unidadeId, "101", "1", grupoId, "Bloco 1")
+            };
 
             //Act
             comando.SetUnidades(unidades);
@@ -237,9 +245,11 @@ namespace CondominioApp.Comunicados.App.Tests
             comando.SetVisibilidade(VisibilidadeComunicado.UNIDADES);
 
             var grupoId = Guid.NewGuid();
-            var unidades = new List<UnidadeComunicado>();
-            unidades.Add(new UnidadeComunicado(Guid.NewGuid(), "101", "1", grupoId, "Bloco 1"));
-            unidades.Add(new UnidadeComunicado(Guid.NewGuid(), "102", "1", grupoId, "Bloco 1"));
+            var unidades = new List<UnidadeComunicado>
+            {
+                new UnidadeComunicado(Guid.NewGuid(), "101", "1", grupoId, "Bloco 1"),
+                new UnidadeComunicado(Guid.NewGuid(), "102", "1", grupoId, "Bloco 1")
+            };
 
             comando.SetUnidades(unidades);
 
@@ -255,9 +265,11 @@ namespace CondominioApp.Comunicados.App.Tests
             comando.SetVisibilidade(VisibilidadeComunicado.PROPRIETARIOS_UNIDADES);
 
             var grupoId = Guid.NewGuid();
-            var unidades = new List<UnidadeComunicado>();
-            unidades.Add(new UnidadeComunicado(Guid.NewGuid(), "101", "1", grupoId, "Bloco 1"));
-            unidades.Add(new UnidadeComunicado(Guid.NewGuid(), "102", "1", grupoId, "Bloco 1"));
+            var unidades = new List<UnidadeComunicado>
+            {
+                new UnidadeComunicado(Guid.NewGuid(), "101", "1", grupoId, "Bloco 1"),
+                new UnidadeComunicado(Guid.NewGuid(), "102", "1", grupoId, "Bloco 1")
+            };
 
             comando.SetUnidades(unidades);
 
@@ -285,9 +297,11 @@ namespace CondominioApp.Comunicados.App.Tests
 
             var grupoId = Guid.NewGuid();
             var unidadeId = Guid.NewGuid();
-            var unidades = new List<UnidadeComunicado>();
-            unidades.Add(new UnidadeComunicado(unidadeId, "101", "1", grupoId, "Bloco 1"));
-            unidades.Add(new UnidadeComunicado(unidadeId, "101", "1", grupoId, "Bloco 1"));
+            var unidades = new List<UnidadeComunicado>
+            {
+                new UnidadeComunicado(unidadeId, "101", "1", grupoId, "Bloco 1"),
+                new UnidadeComunicado(unidadeId, "101", "1", grupoId, "Bloco 1")
+            };
 
             comando.SetUnidades(unidades);
 
@@ -314,9 +328,11 @@ namespace CondominioApp.Comunicados.App.Tests
 
             var grupoId = Guid.NewGuid();
             var unidadeId = Guid.NewGuid();
-            var unidades = new List<UnidadeComunicado>();
-            unidades.Add(new UnidadeComunicado(unidadeId, "101", "1", grupoId, "Bloco 1"));
-            unidades.Add(new UnidadeComunicado(unidadeId, "101", "1", grupoId, "Bloco 1"));
+            var unidades = new List<UnidadeComunicado>
+            {
+                new UnidadeComunicado(unidadeId, "101", "1", grupoId, "Bloco 1"),
+                new UnidadeComunicado(unidadeId, "101", "1", grupoId, "Bloco 1")
+            };
 
             comando.SetUnidades(unidades);
 

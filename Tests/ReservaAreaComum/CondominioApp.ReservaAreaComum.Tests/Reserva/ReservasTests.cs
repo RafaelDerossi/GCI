@@ -20,8 +20,8 @@ namespace CondominioApp.ReservaAreaComum.Tests
 {
     public class ReservasTests
     {
-        private  AutoMocker _mocker;
-        private  ReservaStrategy _regrasDeReserva;
+        private readonly AutoMocker _mocker;
+        private readonly ReservaStrategy _regrasDeReserva;
 
         private RegrasDeCriacaoDeReserva _regrasDeCriacao;
 

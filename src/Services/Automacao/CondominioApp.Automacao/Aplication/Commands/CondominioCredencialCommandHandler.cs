@@ -19,7 +19,7 @@ namespace CondominioApp.Automacao.App.Aplication.Commands
          IDisposable
     {
 
-        private IAutomacaoRepository _condominioCredencialRepository;
+        private readonly IAutomacaoRepository _condominioCredencialRepository;
 
         public CondominioCredencialCommandHandler(IAutomacaoRepository condominioCredencialRepository)
         {

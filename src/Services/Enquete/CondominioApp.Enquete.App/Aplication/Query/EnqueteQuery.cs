@@ -8,7 +8,7 @@ namespace CondominioApp.Enquetes.App.Aplication.Query
 {
     public class EnqueteQuery : IEnqueteQuery
     {
-        private IEnqueteRepository _enqueteRepository;
+        private readonly IEnqueteRepository _enqueteRepository;
 
         public EnqueteQuery(IEnqueteRepository enqueteRepository)
         {

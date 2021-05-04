@@ -8,7 +8,9 @@ namespace EwelinkNet.Constants
 {
     internal static class DevicesUiid
     {
+        #pragma warning disable CS8632 // A anotação para tipos de referência anuláveis deve ser usada apenas em código em um contexto de anotações '#nullable'.
         private static readonly List<(string? name, int? uuid)> data = new List<(string? name, int? uuid)>
+        #pragma warning restore CS8632 // A anotação para tipos de referência anuláveis deve ser usada apenas em código em um contexto de anotações '#nullable'.
         {
             ("SOCKET", 1),
             ("SOCKET_2", 2),
@@ -68,7 +70,9 @@ namespace EwelinkNet.Constants
 
         internal static int? GetDeviceUiidByName(string name) => data.FirstOrDefault(x => x.name == name).uuid;
 
+        #pragma warning disable CS8632 // A anotação para tipos de referência anuláveis deve ser usada apenas em código em um contexto de anotações '#nullable'.
         internal static string? GetDeviceNameByUiid(int uiid) => data.FirstOrDefault(x => x.uuid == uiid).name;
+        #pragma warning restore CS8632 // A anotação para tipos de referência anuláveis deve ser usada apenas em código em um contexto de anotações '#nullable'.
 
     }
 }

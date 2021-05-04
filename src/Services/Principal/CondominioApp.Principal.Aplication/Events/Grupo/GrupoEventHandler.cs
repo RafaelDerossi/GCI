@@ -14,7 +14,7 @@ namespace CondominioApp.Principal.Aplication.Events
         INotificationHandler<GrupoRemovidoEvent>,
         System.IDisposable
     {
-        private IPrincipalQueryRepository _condominioQueryRepository;
+        private readonly IPrincipalQueryRepository _condominioQueryRepository;
 
         public GrupoEventHandler(IPrincipalQueryRepository condominioQueryRepository)
         {

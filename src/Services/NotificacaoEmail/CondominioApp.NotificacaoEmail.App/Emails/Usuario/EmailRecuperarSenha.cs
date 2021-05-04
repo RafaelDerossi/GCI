@@ -10,9 +10,9 @@ namespace CondominioApp.NotificacaoEmail.Api.Email
     public class EmailRecuperarSenha : ServicoDeEmail
     {
         private readonly string _assunto = "Recuperar senha - CondomínioApp";
-        private string _caminhoUrl = string.Empty;
-        private string _nomeUsuario;
-        private string _emailUsuario;
+        private readonly string _caminhoUrl = string.Empty;
+        private readonly string _nomeUsuario;
+        private readonly string _emailUsuario;
 
         public EmailRecuperarSenha(string nomeUsuario, string emailUsuario, string token, string linkDeRedirecionamento)
         {

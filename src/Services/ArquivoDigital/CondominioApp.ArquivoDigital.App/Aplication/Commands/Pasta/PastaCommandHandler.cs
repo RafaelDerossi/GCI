@@ -17,7 +17,7 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
          IDisposable
     {
 
-        private IArquivoDigitalRepository _arquivoDigitalRepository;
+        private readonly IArquivoDigitalRepository _arquivoDigitalRepository;
 
         public PastaCommandHandler(IArquivoDigitalRepository arquivoDigitalRepository)
         {

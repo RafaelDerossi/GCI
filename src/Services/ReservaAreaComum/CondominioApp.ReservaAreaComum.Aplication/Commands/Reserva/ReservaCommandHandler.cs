@@ -1,6 +1,4 @@
-﻿using CondominioApp.Core.Enumeradores;
-using CondominioApp.Core.Messages;
-using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents;
+﻿using CondominioApp.Core.Messages;
 using CondominioApp.ReservaAreaComum.Aplication.Events;
 using CondominioApp.ReservaAreaComum.Domain;
 using CondominioApp.ReservaAreaComum.Domain.Interfaces;
@@ -8,7 +6,6 @@ using CondominioApp.ReservaAreaComum.Domain.ReservasStrategy;
 using FluentValidation.Results;
 using MediatR;
 using System;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -28,8 +25,8 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
          IDisposable
     {
 
-        private IReservaAreaComumRepository _reservaAreaComumRepository;
-        private IReservaStrategy _regrasDeReserva;
+        private readonly IReservaAreaComumRepository _reservaAreaComumRepository;
+        private readonly IReservaStrategy _regrasDeReserva;
 
         public ReservaCommandHandler
             (IReservaAreaComumRepository areaComumRepository, IReservaStrategy regrasDeReserva)

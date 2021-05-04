@@ -9,7 +9,7 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Query
 {
     public class ArquivoDigitalQuery : IArquivoDigitalQuery
     {
-        private IArquivoDigitalRepository _arquivoDigitalRepository;
+        private readonly IArquivoDigitalRepository _arquivoDigitalRepository;
 
         public ArquivoDigitalQuery(IArquivoDigitalRepository pastaRepository)
         {

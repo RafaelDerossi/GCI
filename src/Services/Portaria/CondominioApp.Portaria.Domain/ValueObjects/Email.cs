@@ -13,10 +13,10 @@ namespace CondominioApp.Portaria.ValueObjects
 
         public Email(string endereco)
         {
-            setEndereco(endereco);
+            SetEndereco(endereco);
         }
 
-        private void setEndereco(string EnderecoDeEmail)
+        private void SetEndereco(string EnderecoDeEmail)
         {
             if (string.IsNullOrEmpty(EnderecoDeEmail))
             {

@@ -130,8 +130,7 @@ namespace EwelinkNet
 
         private void handleWebsocketResponse(object sender, EventWebsocketMessage e)
         {
-            var response = e.Message as WsUpdateResponse;
-            if (response == null) return;
+            if (!(e.Message is WsUpdateResponse response)) return;
 
             if (deviceCache.ContainsKey(response.deviceid))
             {

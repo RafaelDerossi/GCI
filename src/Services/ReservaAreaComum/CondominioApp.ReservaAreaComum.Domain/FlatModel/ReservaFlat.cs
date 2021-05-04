@@ -95,35 +95,18 @@ namespace CondominioApp.ReservaAreaComum.Domain.FlatModel
 
         public string ObterStatusDescricao()
         {
-            switch (Status)
+            return Status switch
             {
-                case StatusReserva.PROCESSANDO:
-                    return "PROCESSANDO";
-
-                case StatusReserva.APROVADA:
-                    return "APROVADA";
-
-                case StatusReserva.REPROVADA:
-                    return "REPROVADA";
-
-                case StatusReserva.AGUARDANDO_APROVACAO:
-                    return "AGUARDANDO APROVAÇÃO";
-
-                case StatusReserva.NA_FILA:
-                    return "FILA DE ESPERA";
-
-                case StatusReserva.CANCELADA:
-                    return "CANCELADA";
-
-                case StatusReserva.EXPIRADA:
-                    return "EXPIRADA";
-
-                case StatusReserva.REMOVIDA:
-                    return "REMOVIDA";
-
-                default:
-                    return "INDEFINIDO";
-            }
+                StatusReserva.PROCESSANDO => "PROCESSANDO",
+                StatusReserva.APROVADA => "APROVADA",
+                StatusReserva.REPROVADA => "REPROVADA",
+                StatusReserva.AGUARDANDO_APROVACAO => "AGUARDANDO APROVAÇÃO",
+                StatusReserva.NA_FILA => "FILA DE ESPERA",
+                StatusReserva.CANCELADA => "CANCELADA",
+                StatusReserva.EXPIRADA => "EXPIRADA",
+                StatusReserva.REMOVIDA => "REMOVIDA",
+                _ => "INDEFINIDO",
+            };
         }
 
 

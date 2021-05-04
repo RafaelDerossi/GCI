@@ -37,7 +37,7 @@ namespace CondominioAppMarketplace.App
         public async Task<ValidationResult> AlterarPreco(Guid ItemDeVendaId, decimal novoPreco)
         {
             var ItemDeVenda = await _repository.ObterPorId(ItemDeVendaId);
-            ItemDeVenda.setPreco(novoPreco);
+            ItemDeVenda.SetPreco(novoPreco);
 
             return await PersistirDados(_repository.UnitOfWork);
         }

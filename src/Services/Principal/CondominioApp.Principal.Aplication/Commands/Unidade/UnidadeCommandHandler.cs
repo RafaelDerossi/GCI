@@ -19,7 +19,7 @@ namespace CondominioApp.Principal.Aplication.Commands
          IDisposable
     {
 
-        private IPrincipalRepository _condominioRepository;
+        private readonly IPrincipalRepository _condominioRepository;
 
         public UnidadeCommandHandler(IPrincipalRepository condominioRepository)
         {

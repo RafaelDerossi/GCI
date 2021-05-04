@@ -11,9 +11,11 @@ namespace CondominioApp.Enquetes.App.Tests
         public static CadastrarEnqueteCommand CriarComandoCadastroDeEnqueteFactory_ComDuasAlternativas()
         {
             //Arrange            
-            var alternativas = new List<AlternativaEnquete>();
-            alternativas.Add(new AlternativaEnquete("SIM", 1));
-            alternativas.Add(new AlternativaEnquete("NAO", 2));
+            var alternativas = new List<AlternativaEnquete>
+            {
+                new AlternativaEnquete("SIM", 1),
+                new AlternativaEnquete("NAO", 2)
+            };
 
             //Act
             return new CadastrarEnqueteCommand(
@@ -36,8 +38,10 @@ namespace CondominioApp.Enquetes.App.Tests
 
         public static CadastrarEnqueteCommand CriarComandoCadastroDeEnqueteComMenosDeDuasAlternativas()
         {
-            var alternativas = new List<AlternativaEnquete>();
-            alternativas.Add(new AlternativaEnquete("SIM", 1));
+            var alternativas = new List<AlternativaEnquete>
+            {
+                new AlternativaEnquete("SIM", 1)
+            };
 
             var comando = CriarComandoCadastroDeEnqueteFactory_SemAlternativas();
             comando.SetAlternativas(alternativas);
@@ -92,9 +96,11 @@ namespace CondominioApp.Enquetes.App.Tests
 
         public static EditarEnqueteCommand CriarComandoEdicaoDeEnquete()
         {
-            var alternativas = new List<AlternativaEnquete>();
-            alternativas.Add(new AlternativaEnquete("SIM", 1));
-            alternativas.Add(new AlternativaEnquete("NAO", 2));
+            var alternativas = new List<AlternativaEnquete>
+            {
+                new AlternativaEnquete("SIM", 1),
+                new AlternativaEnquete("NAO", 2)
+            };
 
             return new EditarEnqueteCommand
                 (Guid.NewGuid(), "SIM ou NAO?", DateTime.Now, DateTime.Now.AddDays(30),

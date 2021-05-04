@@ -17,15 +17,16 @@ namespace CondominioApp.NotificacaoPush.App.Services
         {
             _OneSignalClient = new OneSignalClient(dispositivo.AppOneSignal.ApiKey);
 
-            var opcoes = new OpcoesDoAdicionarDispositvo();
+            var opcoes = new OpcoesDoAdicionarDispositvo
+            {
+                AppId = dispositivo.AppOneSignal.AppId,
+                Identificador = dispositivo.Identificador,
+                Lingua = dispositivo.CodigoDaLingua,
+                ModeloDoDispositivo = dispositivo.Modelo,
+                SODoDispositivo = dispositivo.SOdoDispositivo,
+                TipoDoDispositivo = dispositivo.TipoDoDispositivo
+            };
 
-            opcoes.AppId = dispositivo.AppOneSignal.AppId;
-            opcoes.Identificador = dispositivo.Identificador;
-            opcoes.Lingua = dispositivo.CodigoDaLingua;
-            opcoes.ModeloDoDispositivo = dispositivo.Modelo;
-            opcoes.SODoDispositivo = dispositivo.SOdoDispositivo;
-            opcoes.TipoDoDispositivo = dispositivo.TipoDoDispositivo;
-            
             RetornoDoAdicionarDispositivo retorno = _OneSignalClient.Devices.Adicionar(opcoes);
 
             return retorno.ValidationResult;
@@ -35,10 +36,11 @@ namespace CondominioApp.NotificacaoPush.App.Services
         {
             _OneSignalClient = new OneSignalClient(notificacao.AppOneSignal.ApiKey);
 
-            var opcoes = new OpcoesDoCriarNotificacao();
-                                    
-            opcoes.AppId = notificacao.AppOneSignal.AppId;
-            opcoes.Titulos = notificacao.Titulos;
+            var opcoes = new OpcoesDoCriarNotificacao
+            {
+                AppId = notificacao.AppOneSignal.AppId,
+                Titulos = notificacao.Titulos
+            };
 
             foreach (var item in notificacao.Conteudo)
             {

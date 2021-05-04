@@ -8,8 +8,8 @@ namespace CondominioAppPreCadastro.App.EmailServices
 {
     public class EmailPreCadastroEmpresa : ServicoDeEmail
     {
-        private string _Assunto = "Novo pré cadastro realizado!";
-        private Lead _lead;
+        private readonly string _Assunto = "Novo pré cadastro realizado!";
+        private readonly Lead _lead;
 
         public EmailPreCadastroEmpresa(Lead lead)
         {

@@ -17,7 +17,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
         IRequestHandler<RemoverVeiculoCommand, ValidationResult>,
         IDisposable
     {
-        private IUsuarioRepository _usuarioRepository;
+        private readonly IUsuarioRepository _usuarioRepository;
 
         public VeiculoCommandHandler(IUsuarioRepository usuarioRepository)
         {
@@ -44,7 +44,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
 
             if (veiculo.EstaCadastrado(request.UsuarioId, request.UnidadeId, request.CondominioId))
             {
-                AdicionarErro("Veículo ja esta cadastrado.");
+                AdicionarErro("Veículo já esta cadastrado.");
                 return ValidationResult;
             }
             

@@ -70,7 +70,7 @@ namespace CondominioAppMarketplace.Tests.Domain
             var parceiro = ParceiroFactory.CriarParceiroPreCadastro();
             var vendedor = VendedorFactory.CriarVendedorValido();
             var vendedor2 = VendedorFactory.CriarVendedorValido();
-            var result = parceiro.Contratar(vendedor);
+            parceiro.Contratar(vendedor);
 
             //act
             var resultFinal = parceiro.Contratar(vendedor2);

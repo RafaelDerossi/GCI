@@ -14,8 +14,7 @@ using System.Threading.Tasks;
 namespace CondominioApp.Principal.Infra.DataQuery
 {
     public class PrincipalQueryContextDB : DbContext, IUnitOfWorks
-    {
-        private readonly IMediatorHandler _mediatorHandler;
+    {        
 
         public DbSet<CondominioFlat> CondominiosFlat { get; set; }
 
@@ -24,10 +23,9 @@ namespace CondominioApp.Principal.Infra.DataQuery
         public DbSet<UnidadeFlat> UnidadesFlat { get; set; }
         
 
-        public PrincipalQueryContextDB(DbContextOptions<PrincipalQueryContextDB> options, IMediatorHandler mediatorHandler)
+        public PrincipalQueryContextDB(DbContextOptions<PrincipalQueryContextDB> options)
             : base(options)
-        {
-            _mediatorHandler = mediatorHandler;
+        {            
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

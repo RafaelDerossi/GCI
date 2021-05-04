@@ -135,9 +135,11 @@ namespace CondominioApp.Correspondencias.App.Tests
         public static GerarExcelCorrespondenciaCommand CriarComandGerarExcelDeCorrespondencia()
         {
             //Arrange
-            var lista = new List<Guid>();
-            lista.Add(Guid.NewGuid());
-            lista.Add(Guid.NewGuid());
+            var lista = new List<Guid>
+            {
+                Guid.NewGuid(),
+                Guid.NewGuid()
+            };
 
             //Act
             return new GerarExcelCorrespondenciaCommand

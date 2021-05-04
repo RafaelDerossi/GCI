@@ -11,8 +11,8 @@ namespace CondominioApp.Usuarios.App.Aplication.Events
         INotificationHandler<UsuarioEditadoEvent>,
         System.IDisposable
     {
-        private IMoradorQueryRepository _moradorRepository;
-        private IFuncionarioQueryRepository _funcionarioRepository;
+        private readonly IMoradorQueryRepository _moradorRepository;
+        private readonly IFuncionarioQueryRepository _funcionarioRepository;
 
         public UsuarioEventHandler(IMoradorQueryRepository moradorRepository, IFuncionarioQueryRepository funcionarioRepository)
         {

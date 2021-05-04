@@ -11,7 +11,7 @@ namespace CondominioApp.ReservaAreaComum.App.Aplication.Query
 {
     public class ReservaAreaComumQuery : IReservaAreaComumQuery
     {        
-        private IReservaAreaComumQueryRepository _reservaAreaComumQueryRepository;
+        private readonly IReservaAreaComumQueryRepository _reservaAreaComumQueryRepository;
 
         public ReservaAreaComumQuery(IReservaAreaComumQueryRepository reservaAreaComumQueryRepository)
         {

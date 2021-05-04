@@ -50,13 +50,12 @@ namespace EwelinkNet.Helpers.Extensions
     {
         public static TValue GetOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> source, TKey key)
         {
-            return source.GetOrDefault(key, default(TValue));
+            return source.GetOrDefault(key, default);
         }
 
         public static TValue GetOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> source, TKey key, TValue defaultValue)
         {
-            TValue value;
-            return source.TryGetValue(key, out value) ? value : defaultValue;
+            return source.TryGetValue(key, out TValue value) ? value : defaultValue;
         }
     }
 

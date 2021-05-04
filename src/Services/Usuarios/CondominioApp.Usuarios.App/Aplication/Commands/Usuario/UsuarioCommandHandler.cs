@@ -18,7 +18,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
         IRequestHandler<AtualizarUltimoLoginUsuarioCommand, ValidationResult>,        
         IDisposable
     {
-        private IUsuarioRepository _usuarioRepository;
+        private readonly IUsuarioRepository _usuarioRepository;
 
         public UsuarioCommandHandler(IUsuarioRepository usuarioRepository)
         {

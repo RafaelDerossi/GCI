@@ -89,22 +89,15 @@ namespace CondominioApp.Portaria.Domain.FlatModel
         {
             Documento = documento;
             TipoDeDocumento = tipoDeDocumento;
-            switch (tipoDeDocumento)
+            DescricaoTipoDeDocumento = tipoDeDocumento switch
             {
-                case TipoDeDocumento.CPF:
-                    DescricaoTipoDeDocumento = "CPF";
-                    break;
-                case TipoDeDocumento.CNPJ:
-                    DescricaoTipoDeDocumento = "CNPJ";
-                    break;
-                case TipoDeDocumento.RG:
-                    DescricaoTipoDeDocumento = "RG";
-                    break;                
-                default:
-                    DescricaoTipoDeDocumento = "Outros";
-                    break;
-            }            
-        }        
+                TipoDeDocumento.CPF => "CPF",
+                TipoDeDocumento.CNPJ => "CNPJ",
+                TipoDeDocumento.RG => "RG",
+                TipoDeDocumento.OUTROS => "Outros",
+                _ => "Outros",
+            };
+        }
         public void SetEmail(string email) => Email = email;
         public void SetFoto(string foto) => Foto = foto;
         public void SetQrCode(string qrCode) => QrCode = qrCode;

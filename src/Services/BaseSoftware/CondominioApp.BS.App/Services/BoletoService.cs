@@ -9,8 +9,7 @@ namespace CondominioApp.BS.App.Services
     public class BoletoService : IBoletoService
     {
         string CaminhoDoIndiceDeBoleto = "\\Basesoftware\\boletos";
-
-        string NomeDoArquivoDeIndices = "indiceDeBoletos.txt";
+        readonly string NomeDoArquivoDeIndices = "indiceDeBoletos.txt";
 
         public Boleto ObterBoletosDoCpf(string CaminhoBase, string cpf, string NomeDaPasta)
         {

@@ -168,22 +168,14 @@ namespace CondominioApp.Portaria.Domain.FlatModel
         {
             DocumentoVisitante = documento;
             TipoDeDocumentoVisitante = tipoDeDocumento;
-            switch (tipoDeDocumento)
+            DescricaoTipoDeDocumentoVisitante = tipoDeDocumento switch
             {
-                case TipoDeDocumento.CPF:
-                    DescricaoTipoDeDocumentoVisitante = "CPF";
-                    break;
-                case TipoDeDocumento.CNPJ:
-                    DescricaoTipoDeDocumentoVisitante = "CNPJ";
-                    break;
-                case TipoDeDocumento.RG:
-                    DescricaoTipoDeDocumentoVisitante = "RG";
-                    break;                
-                default:
-                    DescricaoTipoDeDocumentoVisitante = "Outros";
-                    break;
-            }           
-            
+                TipoDeDocumento.CPF => "CPF",
+                TipoDeDocumento.CNPJ => "CNPJ",
+                TipoDeDocumento.RG => "RG",
+                TipoDeDocumento.OUTROS => "Outros",
+                _ => "Outros",
+            };
         }
 
         public void SetEmailVisitante(string email) => EmailVisitante = email;
@@ -224,6 +216,6 @@ namespace CondominioApp.Portaria.Domain.FlatModel
             UsuarioId = id;
             NomeUsuario = nome;
         }
-       
+
     }
 }

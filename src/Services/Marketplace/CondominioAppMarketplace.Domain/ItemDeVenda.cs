@@ -10,7 +10,7 @@ namespace CondominioAppMarketplace.Domain
 {
     public class ItemDeVenda : Entity, IAggregateRoot
     {
-        NumberFormatInfo InformacaoDeNumeroFormatado = new CultureInfo("pt-BR", false).NumberFormat;
+        readonly NumberFormatInfo InformacaoDeNumeroFormatado = new CultureInfo("pt-BR", false).NumberFormat;
 
         public int NumeroDeCliques { get; private set; }
 
@@ -44,8 +44,8 @@ namespace CondominioAppMarketplace.Domain
             VendedorId = vendedorId;
             ParceiroId = parceiroId;
            
-            setPorcentagemDeDesconto(porcentagemDeDesconto);
-            setPreco(preco);
+            SetPorcentagemDeDesconto(porcentagemDeDesconto);
+            SetPreco(preco);
             ConfigurarIntervalo(dataDeInicio, dataDeFim);
 
         }
@@ -73,7 +73,7 @@ namespace CondominioAppMarketplace.Domain
 
         public void ContaCliques() => NumeroDeCliques++;
 
-        public void setPreco(decimal preco)
+        public void SetPreco(decimal preco)
         {
             if (preco < 0)
                 this.Preco = preco *= -1;
@@ -81,7 +81,7 @@ namespace CondominioAppMarketplace.Domain
                 this.Preco = preco;
         }
 
-        public void setPorcentagemDeDesconto(int porcentagemDeDesconto)
+        public void SetPorcentagemDeDesconto(int porcentagemDeDesconto)
         {
             if (porcentagemDeDesconto < 0)
                 PorcentagemDeDesconto = porcentagemDeDesconto *= -1;
@@ -104,10 +104,10 @@ namespace CondominioAppMarketplace.Domain
 
         }
 
-        public void setVendedor(Vendedor vendedor) => Vendedor = vendedor;
+        public void SetVendedor(Vendedor vendedor) => Vendedor = vendedor;
 
 
-        public void setProduto(Produto produto) => Produto = produto;
+        public void SetProduto(Produto produto) => Produto = produto;
 
 
         public ValidationResult Validar()

@@ -6,14 +6,14 @@ namespace CondominioApp.ReservaAreaComum.Domain.ReservasStrategy.RegrasParaCriac
 {
     public class RegrasDeMoradorParaReservar : IRegrasDeMoradorParaReservar
     {
-        private IRegraIntervaloParaMesmaUnidade _regraIntervaloParaMesmaUnidade;
-        private IRegraDataRetroativaNaoPermitida _regraDataRetroativaNaoPermitida;
-        private IRegraBloqueioDaAreaComum _regraBloqueioDaAreaComum;
-        private IRegraAntecedenciaMaxima _regraAntecedenciaMaxima;
-        private IRegraAntecedenciaMinima _regraAntecedenciaMinima;
-        private IRegraDiasPermitidos _regraDiasPermitidos;
-        private IRegraLimitePorUnidadePorDia _regraLimitePorUnidadePorDia;
-        private IRegraHorarioDentroDosLimites _regraHorarioDentroDosLimites;
+        private readonly IRegraIntervaloParaMesmaUnidade _regraIntervaloParaMesmaUnidade;
+        private readonly IRegraDataRetroativaNaoPermitida _regraDataRetroativaNaoPermitida;
+        private readonly IRegraBloqueioDaAreaComum _regraBloqueioDaAreaComum;
+        private readonly IRegraAntecedenciaMaxima _regraAntecedenciaMaxima;
+        private readonly IRegraAntecedenciaMinima _regraAntecedenciaMinima;
+        private readonly IRegraDiasPermitidos _regraDiasPermitidos;
+        private readonly IRegraLimitePorUnidadePorDia _regraLimitePorUnidadePorDia;
+        private readonly IRegraHorarioDentroDosLimites _regraHorarioDentroDosLimites;
 
         public RegrasDeMoradorParaReservar
             (IRegraIntervaloParaMesmaUnidade regraIntervaloParaMesmaUnidade,

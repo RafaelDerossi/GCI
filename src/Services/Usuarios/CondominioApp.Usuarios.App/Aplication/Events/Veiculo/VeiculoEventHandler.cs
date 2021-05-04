@@ -15,7 +15,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Events
         INotificationHandler<VeiculoRemovidoEvent>,
         System.IDisposable
     {
-        private IVeiculoQueryRepository _veiculoQueryRepository;
+        private readonly IVeiculoQueryRepository _veiculoQueryRepository;
 
         public VeiculoEventHandler(IVeiculoQueryRepository veiculoQueryRepository)
         {

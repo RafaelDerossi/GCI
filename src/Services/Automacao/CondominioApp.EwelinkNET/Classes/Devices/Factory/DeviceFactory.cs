@@ -82,32 +82,7 @@ namespace EwelinkNet.Classes
 
             if (newDevice == null) newDevice = new Device();
             return newDevice;
-        }
-
-
-        private static Device CreateDeviceBySwitchName(string deviceName)
-        {
-            Device newDevice = null;
-
-            var switchName = Constants.DevicesSwitchName.GetDeviceSwitchByName(deviceName);
-
-            if (switchName != null)
-            {
-                switch (switchName)
-                {
-                    case "switch": newDevice = new SwitchDevice(); break;
-                    case "switches": newDevice = new MultiSwitchDevice(); break;
-                    case "state":
-                    case "fan":
-                    case "lock":
-                    case "key": newDevice = new SwitchDevice(); break;
-
-                }
-            }
-
-            if (newDevice == null) newDevice = new Device();
-            return newDevice;
-        }
+        }      
 
     }
 }

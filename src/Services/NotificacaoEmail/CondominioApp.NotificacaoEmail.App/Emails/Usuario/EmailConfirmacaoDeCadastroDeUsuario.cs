@@ -8,7 +8,7 @@ namespace CondominioApp.NotificacaoEmail.Api.Email
     public class EmailConfirmacaoDeCadastroDeUsuario : ServicoDeEmail
     {
         private readonly string _assunto = "Confirmação de cadastro";
-        private Usuario _usuario;       
+        private readonly Usuario _usuario;       
 
         public EmailConfirmacaoDeCadastroDeUsuario(Usuario usuario)
         {

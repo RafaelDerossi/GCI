@@ -305,7 +305,7 @@ namespace CondominioApp.Principal.Domain
         public ValidationResult AdicionarContrato(Contrato contrato)
         {
             if (contrato.Ativo)
-                DesativarContratos(contrato.Id);
+                DesativarContratos();
 
             contrato.SetCondominioId(Id);
 
@@ -314,7 +314,7 @@ namespace CondominioApp.Principal.Domain
             return ValidationResult;
         }
 
-        private void DesativarContratos(Guid contratoAtivoId)
+        private void DesativarContratos()
         {
             foreach (Contrato contrato in _Contratos)
             {

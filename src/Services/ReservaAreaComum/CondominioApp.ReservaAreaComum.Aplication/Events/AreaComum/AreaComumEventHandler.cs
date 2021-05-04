@@ -18,7 +18,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Events
          System.IDisposable
     {
 
-        private IReservaAreaComumQueryRepository _reservaAreaComumQueryRepository;
+        private readonly IReservaAreaComumQueryRepository _reservaAreaComumQueryRepository;
 
 
         public AreaComumEventHandler(IReservaAreaComumQueryRepository reservaAreaComumQueryRepository)

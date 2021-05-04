@@ -3,7 +3,6 @@ using CondominioApp.Enquetes.App.Models;
 using FluentValidation.Results;
 using MediatR;
 using System;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -15,7 +14,7 @@ namespace CondominioApp.Enquetes.App.Aplication.Commands
          IDisposable
     {
 
-        private IEnqueteRepository _EnqueteRepository;
+        private readonly IEnqueteRepository _EnqueteRepository;
 
         public AlternativaEnqueteCommandHandler(IEnqueteRepository enqueteRepository)
         {

@@ -2,16 +2,15 @@
 using CondominioApp.NotificacaoEmail.App.Service;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CondominioApp.NotificacaoEmail.Api.Email
 {
     public class EmailEnquete : ServicoDeEmail
     {     
-        private string _assunto = "Nova Enquete";
-        private EnqueteDTO _enquete;        
-        private string _logoCondominioApp = "https://condominioappstorage.blob.core.windows.net/condominioapp/Uploads/usuario/572d0886-11c4-4fb3-b806-0d7cf6695bc8.png";
+        private readonly string _assunto = "Nova Enquete";
+        private readonly EnqueteDTO _enquete;        
+        private readonly string _logoCondominioApp = "https://condominioappstorage.blob.core.windows.net/condominioapp/Uploads/usuario/572d0886-11c4-4fb3-b806-0d7cf6695bc8.png";
 
         public EmailEnquete(EnqueteDTO enquete)
         {

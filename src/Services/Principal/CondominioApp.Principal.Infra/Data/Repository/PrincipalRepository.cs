@@ -115,7 +115,7 @@ namespace CondominioApp.Principal.Infra.Data.Repository
             return await _context.Condominios
                 .Where
                     (u => !u.Lixeira &&
-                     u.Cnpj.numero == cnpj.numero && 
+                     u.Cnpj.Numero == cnpj.Numero && 
                      u.Id != condominioId)
                 .CountAsync()>0;
         }

@@ -42,7 +42,7 @@ namespace CondominioApp.ArquivoDigital.App.ValueObjects
 
             ExtensaoDoArquivo = Extensao.Replace(".", "");
 
-            NomeDoArquivo = $"{arquivoId.ToString()}{Extensao}";
+            NomeDoArquivo = $"{arquivoId}{Extensao}";
             
         }
     }

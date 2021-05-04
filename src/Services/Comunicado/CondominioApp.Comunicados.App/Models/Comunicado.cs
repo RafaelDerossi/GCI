@@ -193,37 +193,26 @@ namespace CondominioApp.Comunicados.App.Models
 
         private string ObterTituloDoPush()
         {
-            switch (Categoria)
+            return Categoria switch
             {
-                case CategoriaComunicado.COMUNICADO:
-                    return "COMUNICADO";
-                case CategoriaComunicado.ATA:
-                    return "ATA";
-                case CategoriaComunicado.URGENCIA:
-                    return "URGÊNCIA";
-                case CategoriaComunicado.BALANCETE:
-                    return "BALANCETE";
-                case CategoriaComunicado.COBRANÇA:
-                    return "COBRANÇA";
-                case CategoriaComunicado.MANUTENÇÃO:
-                    return "MANUTENÇÃO";
-                case CategoriaComunicado.AVISO:
-                    return "AVISO";
-                case CategoriaComunicado.OBRA_REFORMA:
-                    return "OBRA/REFORMA";                    
-                default:
-                    return Titulo;
-            }
+                CategoriaComunicado.COMUNICADO => "COMUNICADO",
+                CategoriaComunicado.ATA => "ATA",
+                CategoriaComunicado.URGENCIA => "URGÊNCIA",
+                CategoriaComunicado.BALANCETE => "BALANCETE",
+                CategoriaComunicado.COBRANÇA => "COBRANÇA",
+                CategoriaComunicado.MANUTENÇÃO => "MANUTENÇÃO",
+                CategoriaComunicado.AVISO => "AVISO",
+                CategoriaComunicado.OBRA_REFORMA => "OBRA/REFORMA",
+                CategoriaComunicado.OUTROS => Titulo,
+                _ => Titulo,
+            };
         }
         private string ObterDescricaoDoPush()
         {
-            switch (Categoria)
-            {   
-                case CategoriaComunicado.OUTROS:
-                    return Descricao;
-                default:
-                    return $"{Titulo} - {Descricao}";
-            }
+            if (Categoria ==CategoriaComunicado.OUTROS)
+                return Descricao;
+            
+            return $"{Titulo} - {Descricao}";            
         }
         private IEnumerable<Guid> ObterIdsDasUnidades()
         {

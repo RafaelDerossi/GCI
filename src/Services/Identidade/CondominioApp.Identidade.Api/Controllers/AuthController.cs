@@ -51,7 +51,7 @@ namespace CondominioApp.Identidade.Api.Controllers
 
 
         [HttpPut("{Id:Guid}")]
-        public async Task<ActionResult> AtualizarSenha(Guid Id, UsuarioSenhaViewModel UsuarioSenhaModel)
+        public async Task<ActionResult> AtualizarSenha(UsuarioSenhaViewModel UsuarioSenhaModel)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 

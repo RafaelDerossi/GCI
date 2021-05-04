@@ -35,8 +35,8 @@ namespace CondominioAppMarketplace.Infra.EventHandler
 
             var produto = await _produtoRepository.ObterPorId(Lead.ItemDeVenda.ProdutoId);
 
-            Lead.ItemDeVenda.setVendedor(vendedor);
-            Lead.ItemDeVenda.setProduto(produto);
+            Lead.ItemDeVenda.SetVendedor(vendedor);
+            Lead.ItemDeVenda.SetProduto(produto);
 
             var disparadorDeEmail = new DisparadorDeEmails(new EmailDeNotificacaoDeNovoLead(Lead, "Novo Lead para você!"));
 

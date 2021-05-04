@@ -47,7 +47,7 @@ namespace CondominioApp.Portaria.Domain
             string nomeVisitante, TipoDeDocumento tipoDeDocumentoVisitante, string documento,
             Email emailVisitante, Foto fotoVisitante, TipoDeVisitante tipoDeVisitante,
             string nomeEmpresaVisitante, Guid condominioId, Guid unidadeId, bool temVeiculo,
-            Veiculo veiculo, Guid usuarioId, string nomeUsuario)
+            Veiculo veiculo, Guid moradorId)
         {
             DataDeEntrada = dataDeEntrada;
             Observacao = observacao;
@@ -62,7 +62,7 @@ namespace CondominioApp.Portaria.Domain
             UnidadeId = unidadeId;
             TemVeiculo = temVeiculo;
             Veiculo = veiculo;
-            MoradorId = usuarioId;
+            MoradorId = moradorId;            
             SetDocumentoVisitante(documento, tipoDeDocumentoVisitante);
         }
 

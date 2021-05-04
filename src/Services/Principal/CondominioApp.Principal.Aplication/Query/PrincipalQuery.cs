@@ -10,8 +10,8 @@ namespace CondominioApp.Principal.Aplication.Query
 {
     public class PrincipalQuery : IPrincipalQuery
     {
-        private IPrincipalQueryRepository _condominioQueryRepository;
-        private IPrincipalRepository _condominioRepository;
+        private readonly IPrincipalQueryRepository _condominioQueryRepository;
+        private readonly IPrincipalRepository _condominioRepository;
 
         public PrincipalQuery(IPrincipalQueryRepository condominioQueryRepository, IPrincipalRepository condominioRepository)
         {
