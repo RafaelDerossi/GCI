@@ -5,15 +5,13 @@ using System.Threading.Tasks;
 using Xunit;
 using System;
 using CondominioApp.Core.Enumeradores;
-using CondominioApp.Core.Helpers;
 using CondominioApp.Comunicados.App.Aplication.Commands;
-using CondominioApp.Comunicados.App.Tests;
 using CondominioApp.Comunicados.App.Models;
 using System.Collections.Generic;
 
-namespace CondominioApp.Correspondencias.App.Tests
+namespace CondominioApp.Comunicados.App.Tests
 {
-   public class ComunicadoCommandHandlerTests
+    public class ComunicadoCommandHandlerTests
     {
         private readonly AutoMocker _mocker;
         private readonly ComunicadoCommandHandler _comunicadoCommandCommandHandler;
