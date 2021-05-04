@@ -18,9 +18,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApi", "WebApi", "{6DCE3EC8-F7BD-4A00-A8A8-8FCDC1C6B2D0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Usuarios", "Usuarios", "{73DA058E-257C-4A32-9CB5-DA87F9A3B74A}"
-	ProjectSection(SolutionItems) = preProject
-		src\Services\Usuarios\CondominioApp.Usuarios.App\FlatModel\VeiculoFlat.cs = src\Services\Usuarios\CondominioApp.Usuarios.App\FlatModel\VeiculoFlat.cs
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioApp.Usuarios.App", "src\Services\Usuarios\CondominioApp.Usuarios.App\CondominioApp.Usuarios.App.csproj", "{2F89F2E0-8C61-4632-8A7D-1EB02F80C820}"
 EndProject
