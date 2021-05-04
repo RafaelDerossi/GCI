@@ -66,8 +66,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
             usuario.SetRg(request.Rg);
             usuario.SetCpf(request.Cpf);
             usuario.SetCelular(request.Cel);
-            usuario.SetTelefone(request.Telefone);
-            usuario.SetEmail(request.Email);
+            usuario.SetTelefone(request.Telefone);            
             usuario.SetFoto(request.Foto);
             usuario.SetDataNascimento(request.DataNascimento);
             usuario.SetEndereco(request.Endereco);            
@@ -77,7 +76,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
             //Evento
             usuario.AdicionarEvento(
                 new UsuarioEditadoEvent(
-                    usuario.Id, usuario.Nome, usuario.Sobrenome, usuario.Email, usuario.Rg,
+                    usuario.Id, usuario.Nome, usuario.Sobrenome, usuario.Rg,
                     usuario.Cpf, usuario.Cel, usuario.Foto, usuario.Endereco, usuario.DataNascimento));
 
             return await PersistirDados(_usuarioRepository.UnitOfWork);

@@ -7,7 +7,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
     public class EditarUsuarioCommand : UsuarioCommand
     {
 
-        public EditarUsuarioCommand(Guid usuarioId, string nome, string sobrenome, string email,
+        public EditarUsuarioCommand(Guid usuarioId, string nome, string sobrenome,
             string rg = null, string cpf = null, string foto = null, string nomeOriginal = null,
             string cel = null, string tel = null, string logradouro = null, string complemento = null,
             string numero = null, string cep = null, string bairro = null, string cidade = null,
@@ -20,13 +20,12 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
             DataNascimento = dataNascimento;
             
             Permissao = Permissao.USUARIO;
-
-            SetEmail(email);
+            
             SetCpf(cpf);
             SetFoto(foto, nomeOriginal);
             SetTelefone(tel);
             SetCelular(cel);
-            SetEndereco(logradouro, complemento, numero, cep, bairro, cidade, estado);            
+            SetEndereco(logradouro, complemento, numero, cep, bairro, cidade, estado);
         }
         
         public override bool EstaValido()
@@ -44,8 +43,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
             public EditarUsuarioCommandValidation()
             {
                 ValidateId();
-                ValidateNome();
-                ValidateEmail();                
+                ValidateNome();                       
             }
         }
     }

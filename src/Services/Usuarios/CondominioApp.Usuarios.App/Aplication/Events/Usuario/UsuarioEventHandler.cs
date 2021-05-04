@@ -31,8 +31,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Events
                 item.SetRg(notification.Rg);
                 item.SetCpf(notification.Cpf);
                 item.SetTelefone(notification.Telefone);
-                item.SetCelular(notification.Cel);
-                item.SetEmail(notification.Email);
+                item.SetCelular(notification.Cel);              
                 item.SetFoto(notification.Foto);
                 item.SetEndereco(notification.Endereco);
 

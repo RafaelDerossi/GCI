@@ -47,7 +47,7 @@ namespace CondominioApp.Api.Controllers
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
            var editarComando = new EditarUsuarioCommand
-                (usuarioVM.Id, usuarioVM.Nome, usuarioVM.Sobrenome, usuarioVM.Email,
+                (usuarioVM.Id, usuarioVM.Nome, usuarioVM.Sobrenome,
                  usuarioVM.Rg, usuarioVM.Cpf, usuarioVM.Foto, usuarioVM.NomeOriginal,
                  usuarioVM.Celular, usuarioVM.Telefone, usuarioVM.Logradouro,
                  usuarioVM.Complemento, usuarioVM.Numero, usuarioVM.Cep, usuarioVM.Bairro,
