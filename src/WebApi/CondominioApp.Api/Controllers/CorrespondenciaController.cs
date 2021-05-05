@@ -118,7 +118,7 @@ namespace CondominioApp.Api.Controllers
 
             var comando = new CadastrarCorrespondenciaCommand(
                  unidade.CondominioId, unidade.Id, unidade.Numero, unidade.GrupoDescricao,
-                 correspondenciaVM.Observacao, funcionario.Id, funcionario.NomeCompleto(),
+                 correspondenciaVM.Observacao, funcionario.Id, funcionario.NomeCompleto,
                  correspondenciaVM.Foto, correspondenciaVM.NomeOriginal,
                  correspondenciaVM.NumeroRastreamentoCorreio, correspondenciaVM.DataDeChegada,
                  correspondenciaVM.TipoDeCorrespondencia, correspondenciaVM.Status,
@@ -153,7 +153,7 @@ namespace CondominioApp.Api.Controllers
 
             var comando = new MarcarCorrespondenciaRetiradaCommand(
                 viewModel.Id,viewModel.NomeRetirante, viewModel.Observacao,
-                viewModel.FuncionarioId, funcionario.NomeCompleto());
+                viewModel.FuncionarioId, funcionario.NomeCompleto);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
@@ -172,7 +172,7 @@ namespace CondominioApp.Api.Controllers
 
             var comando = new MarcarCorrespondenciaDevolvidaCommand(
                 viewModel.Id, viewModel.Observacao,
-                viewModel.FuncionarioId, funcionario.NomeCompleto());
+                viewModel.FuncionarioId, funcionario.NomeCompleto);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 

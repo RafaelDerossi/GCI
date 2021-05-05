@@ -28,7 +28,7 @@ namespace CondominioApp.NotificacaoEmail.Api.Email
 
             var conteudoDoHtmlDoEmail = File.ReadAllText(CaminhoDoHtml);
 
-            conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_NomeDoUsuario_", _morador.NomeCompleto());
+            conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_NomeDoUsuario_", _morador.NomeCompleto);
             conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_LogoCondominio_", _logoCondominio);
 
             return conteudoDoHtmlDoEmail;

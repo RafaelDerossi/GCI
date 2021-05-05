@@ -39,7 +39,7 @@ namespace CondominioApp.Usuarios.App.DataQuery.Mapping
                     .HasColumnType($"varchar({Telefone.NumeroMaximo})");
            
 
-            builder.Property(u => u.Cel)                    
+            builder.Property(u => u.Celular)                    
                     .HasMaxLength(Telefone.NumeroMaximo)
                     .HasColumnName("Celular")
                     .HasColumnType($"varchar({Telefone.NumeroMaximo})");

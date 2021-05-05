@@ -141,7 +141,7 @@ namespace CondominioApp.Api.Controllers
             }            
 
             var comando = new DefinirSindicoDoCondominioCommand(
-                 sindico.CondominioId, sindico.Id, sindico.NomeCompleto());                 
+                 sindico.CondominioId, sindico.Id, sindico.NomeCompleto);                 
 
 
             return CustomResponse(await _mediatorHandler.EnviarComando(comando));

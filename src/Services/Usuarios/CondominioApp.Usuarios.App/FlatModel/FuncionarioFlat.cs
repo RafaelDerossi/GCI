@@ -31,7 +31,7 @@ namespace CondominioApp.Usuarios.App.FlatModel
 
         public string Cpf { get; private set; }
 
-        public string Cel { get; private set; }
+        public string Celular { get; private set; }
 
         public string Telefone { get; private set; }
 
@@ -69,6 +69,42 @@ namespace CondominioApp.Usuarios.App.FlatModel
         public string DescricaoPermissao { get; private set; }
 
 
+        public string NomeCompleto
+        {
+            get { return $"{Nome} {Sobrenome}"; }
+        }
+
+        public string CpfFormatado
+        {
+            get
+            {
+                if (Cpf != null && Cpf.Length == 11)
+                    return $"{Cpf.Substring(0, 3)}.{Cpf.Substring(3, 3)}.{Cpf.Substring(6, 3)}-{Cpf.Substring(9, 2)}";
+                return Cpf;
+            }
+        }
+
+        public string TelefoneFormatado
+        {
+            get
+            {
+                if (Telefone != null && Telefone.Length == 10)
+                    return $"({Telefone.Substring(0, 2)}) {Telefone.Substring(2, 4)}-{Telefone.Substring(6, 4)}";
+                return Telefone;
+            }
+        }
+
+        public string CelularFormatado
+        {
+            get
+            {
+                if (Celular != null && Celular.Length == 11)
+                    return $"({Celular.Substring(0, 2)}) {Celular.Substring(2, 5)}-{Celular.Substring(7, 4)}";
+                return Celular;
+            }
+        }
+
+
         public FuncionarioFlat()
         {
         }
@@ -87,7 +123,7 @@ namespace CondominioApp.Usuarios.App.FlatModel
             Sobrenome = sobrenome;
             Rg = rg;
             Cpf = cpf;
-            Cel = cel;
+            Celular = cel;
             Telefone = telefone;
             Email = email;
             Foto = foto;            
@@ -107,10 +143,7 @@ namespace CondominioApp.Usuarios.App.FlatModel
         }
 
 
-        public string NomeCompleto()
-        {
-            return $"{Nome} {Sobrenome}";
-        }
+        
 
         public void EnviarParaLixeira() => Lixeira = true;
 
@@ -144,9 +177,9 @@ namespace CondominioApp.Usuarios.App.FlatModel
         public void SetCelular(Telefone cel)
         {
             if (cel != null)
-                Cel = cel.Numero;
+                Celular = cel.Numero;
             else
-                Cel = "";
+                Celular = "";
         }
 
         public void SetEmail(Email email)

@@ -31,9 +31,7 @@ namespace CondominioApp.Usuarios.App.ViewModels
 
         public string NomeOriginal { get; set; }
 
-        public string TpUsuario { get; set; }      
-
-        public bool Ativo { get; set; }
+        public string TpUsuario { get; set; }        
       
         public DateTime? DataNascimento { get; set; }
 
