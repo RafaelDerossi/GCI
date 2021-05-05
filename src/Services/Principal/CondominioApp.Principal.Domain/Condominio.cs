@@ -36,6 +36,8 @@ namespace CondominioApp.Principal.Domain
 
         public Url UrlWebServer { get; private set; }
 
+        public Guid FuncionarioIdDoSindico { get; private set; }
+
 
 
         ///Parametros
@@ -196,6 +198,8 @@ namespace CondominioApp.Principal.Domain
         public void SetTelefone(Telefone telefone) => Telefone = telefone;
 
         public void SetEndereco(Endereco endereco) => Endereco = endereco;
+
+        public void SetFuncionarioIdDoSindico(Guid id) => FuncionarioIdDoSindico = id;
 
 
         ///Métodos de Parametros

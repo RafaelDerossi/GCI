@@ -13,6 +13,7 @@ namespace CondominioApp.Principal.Aplication.Events
         INotificationHandler<CondominioEditadoEvent>,
         INotificationHandler<CondominioConfiguracaoEditadoEvent>,
         INotificationHandler<CondominioRemovidoEvent>,
+        INotificationHandler<SindicoDoCondominioDefinidoEvent>,
         System.IDisposable
     {
         private readonly IPrincipalQueryRepository _condominioQueryRepository;
@@ -201,6 +202,17 @@ namespace CondominioApp.Principal.Aplication.Events
             await PersistirDados(_condominioQueryRepository.UnitOfWork);
         }
 
+        public async Task Handle(SindicoDoCondominioDefinidoEvent notification, CancellationToken cancellationToken)
+        {
+            //Atualizar no CondominioFlat
+            var condominioFlat = await _condominioQueryRepository.ObterPorId(notification.CondominioId);
+
+            condominioFlat.SetSindico(notification.FuncionarioIdDoSindico, notification.NomeDoSindico);
+
+            _condominioQueryRepository.Atualizar(condominioFlat);
+
+            await PersistirDados(_condominioQueryRepository.UnitOfWork);
+        }
 
 
         public void Dispose()

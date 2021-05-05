@@ -49,8 +49,10 @@ namespace CondominioApp.Principal.Domain.FlatModel
         public string BoletoFolder { get; private set; }
 
         public string UrlWebServer { get; private set; }
-        
 
+        public Guid FuncionarioIdDoSindico { get; private set; }
+
+        public string NomeDoSindico { get; private set; }
 
         public bool Portaria { get; private set; }
        
@@ -189,6 +191,11 @@ namespace CondominioApp.Principal.Domain.FlatModel
             LinkContrato = contrato.Link;
         }
 
+        public void SetSindico(Guid id, string nome)
+        {
+            FuncionarioIdDoSindico = id;
+            NomeDoSindico = nome;
+        }
 
         ///Métodos de Parametros
 

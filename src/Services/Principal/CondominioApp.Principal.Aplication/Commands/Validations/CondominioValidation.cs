@@ -109,8 +109,19 @@ namespace CondominioApp.Principal.Aplication.Commands.Validations
                   .NotNull()                  
                   .WithMessage("Correspondencia na Portaria não pode estar vazio!");
         }
-       
 
 
+        protected void ValidateFuncionarioIdDoSindico()
+        {
+            RuleFor(c => c.FuncionarioIdDoSindico)
+                .NotEqual(Guid.Empty);
+        }
+
+        protected void ValidateNomeDoSindico()
+        {
+            RuleFor(c => c.NomeDoSindico)
+                .NotEmpty().WithMessage("Nome do Síndico não pode estar vazio!")
+                .Length(2, 200).WithMessage("Nome do Síndico deve ter mais de 2 caracteres!");
+        }
     }
 }

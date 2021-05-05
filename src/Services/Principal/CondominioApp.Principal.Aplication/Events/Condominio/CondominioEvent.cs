@@ -33,7 +33,10 @@ namespace CondominioApp.Principal.Aplication.Events
         public Url UrlWebServer { get; protected set; }
 
 
-      
+        public Guid FuncionarioIdDoSindico { get; protected set; }
+
+        public string NomeDoSindico { get; protected set; }
+
         public bool Portaria { get; protected set; }
 
         public bool PortariaMorador { get; protected set; }

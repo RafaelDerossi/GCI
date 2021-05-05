@@ -15,7 +15,9 @@ namespace CondominioApp.Principal.Aplication.Commands
          IRequestHandler<CadastrarCondominioCommand, ValidationResult>,
          IRequestHandler<EditarCondominioCommand, ValidationResult>,
          IRequestHandler<EditarConfiguracaoCondominioCommand, ValidationResult>,
-         IRequestHandler<RemoverCondominioCommand, ValidationResult>, IDisposable
+         IRequestHandler<RemoverCondominioCommand, ValidationResult>,
+         IRequestHandler<DefinirSindicoDoCondominioCommand, ValidationResult>,
+         IDisposable
     {
 
         private readonly IPrincipalRepository _condominioRepository;
@@ -213,6 +215,27 @@ namespace CondominioApp.Principal.Aplication.Commands
             _condominioRepository.Atualizar(condominioBd);
 
             condominioBd.AdicionarEvento(new CondominioRemovidoEvent(condominioBd.Id));
+
+            return await PersistirDados(_condominioRepository.UnitOfWork);
+        }
+
+        public async Task<ValidationResult> Handle(DefinirSindicoDoCondominioCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido()) return request.ValidationResult;
+
+            var condominioBd = _condominioRepository.ObterPorId(request.CondominioId).Result;
+            if (condominioBd == null)
+            {
+                AdicionarErro("Condominio não encontrado.");
+                return ValidationResult;
+            }
+
+            condominioBd.SetFuncionarioIdDoSindico(request.FuncionarioIdDoSindico);
+
+            _condominioRepository.Atualizar(condominioBd);
+
+            condominioBd.AdicionarEvento(
+                new SindicoDoCondominioDefinidoEvent(condominioBd.Id, request.FuncionarioIdDoSindico, request.NomeDoSindico));
 
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }

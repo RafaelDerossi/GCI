@@ -3,6 +3,7 @@ using CondominioApp.Principal.Aplication.Commands;
 using CondominioApp.Principal.Aplication.Query.Interfaces;
 using CondominioApp.Principal.Aplication.ViewModels;
 using CondominioApp.Principal.Domain.FlatModel;
+using CondominioApp.Usuarios.App.Aplication.Query;
 using CondominioApp.WebApi.Core.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -17,11 +18,14 @@ namespace CondominioApp.Api.Controllers
     {
 
         private readonly IMediatorHandler _mediatorHandler;
-        private readonly IPrincipalQuery _principalQuery; 
-        public CondominioController(IMediatorHandler mediatorHandler, IPrincipalQuery principalQuery)
+        private readonly IPrincipalQuery _principalQuery;
+        private readonly IUsuarioQuery _usuarioQuery;
+        public CondominioController
+            (IMediatorHandler mediatorHandler, IPrincipalQuery principalQuery, IUsuarioQuery usuarioQuery)
         {
             _mediatorHandler = mediatorHandler;
             _principalQuery = principalQuery;
+            _usuarioQuery = usuarioQuery;
         }
 
 
@@ -108,7 +112,7 @@ namespace CondominioApp.Api.Controllers
         }
 
         [HttpPut("configuracao")]
-        public async Task<ActionResult> Put(EditaConfiguracaoCondominioViewModel EditaCondominioVM)
+        public async Task<ActionResult> PutConfiguracao(EditaConfiguracaoCondominioViewModel EditaCondominioVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
@@ -120,6 +124,25 @@ namespace CondominioApp.Api.Controllers
                  EditaCondominioVM.OcorrenciaMorador, EditaCondominioVM.Correspondencia, 
                  EditaCondominioVM.CorrespondenciaNaPortaria, EditaCondominioVM.LimiteTempoReserva);          
                     
+
+            return CustomResponse(await _mediatorHandler.EnviarComando(comando));
+        }
+
+        [HttpPut("definir-sindico/{funcionarioId:Guid}")]
+        public async Task<ActionResult> PutDefinirSindico(Guid funcionarioId)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            var sindico = await _usuarioQuery.ObterFuncionarioPorId(funcionarioId);
+            if (sindico == null)
+            {
+                AdicionarErroProcessamento("Funcionário não encontrado!");
+                return CustomResponse();
+            }            
+
+            var comando = new DefinirSindicoDoCondominioCommand(
+                 sindico.CondominioId, sindico.Id, sindico.NomeCompleto());                 
+
 
             return CustomResponse(await _mediatorHandler.EnviarComando(comando));
         }

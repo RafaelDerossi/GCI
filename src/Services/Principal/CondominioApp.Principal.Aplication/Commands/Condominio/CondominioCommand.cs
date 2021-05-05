@@ -37,7 +37,9 @@ namespace CondominioApp.Principal.Aplication.Commands
 
         public Url UrlWebServer { get; protected set; }
 
+        public Guid FuncionarioIdDoSindico { get; protected set; }
 
+        public string NomeDoSindico { get; protected set; }
 
         ///Parametros
         /// <summary>
@@ -192,5 +194,10 @@ namespace CondominioApp.Principal.Aplication.Commands
 
         public void SetNome(string nome) => Nome = nome;
 
+        public void SetSindico(Guid id, string nome)
+        {
+            FuncionarioIdDoSindico = id;
+            NomeDoSindico = nome;
+        }
     }
 }

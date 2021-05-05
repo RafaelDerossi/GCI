@@ -73,6 +73,8 @@ namespace CondominioApp.Principal.Infra.DataQuery.Mapping
 
             builder.Property(e => e.Estado).HasColumnName("Estado").HasMaxLength(Endereco.EstadoMaximo);
 
+            builder.Property(u => u.NomeDoSindico).HasColumnType($"varchar({CondominioFlat.Max})");
+
         }
     }
 }

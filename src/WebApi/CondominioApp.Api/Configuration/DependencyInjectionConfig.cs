@@ -89,8 +89,7 @@ namespace CondominioApp.Api.Configuration
     {
         public static void RegisterServices(this IServiceCollection services)
         {            
-            services.AddSingleton<IMediatorHandler, MediatorHandler>();
-            
+            services.AddSingleton<IMediatorHandler, MediatorHandler>();            
             
 
             #region ArquivoDigital -Contexto
@@ -286,10 +285,13 @@ namespace CondominioApp.Api.Configuration
             services.AddTransient<IRequestHandler<EditarCondominioCommand, ValidationResult>, CondominioCommandHandler>();
             services.AddTransient<IRequestHandler<EditarConfiguracaoCondominioCommand, ValidationResult>, CondominioCommandHandler>();
             services.AddTransient<IRequestHandler<RemoverCondominioCommand, ValidationResult>, CondominioCommandHandler>();
+            services.AddTransient<IRequestHandler<DefinirSindicoDoCondominioCommand, ValidationResult>, CondominioCommandHandler>();
             services.AddTransient<INotificationHandler<CondominioCadastradoEvent>, CondominioEventHandler>();
             services.AddTransient<INotificationHandler<CondominioEditadoEvent>, CondominioEventHandler>();
             services.AddTransient<INotificationHandler<CondominioConfiguracaoEditadoEvent>, CondominioEventHandler>();
             services.AddTransient<INotificationHandler<CondominioRemovidoEvent>, CondominioEventHandler>();
+            services.AddTransient<INotificationHandler<SindicoDoCondominioDefinidoEvent>, CondominioEventHandler>();
+
 
             //Grupo
             services.AddTransient<IRequestHandler<CadastrarGrupoCommand, ValidationResult>, GrupoCommandHandler>();
