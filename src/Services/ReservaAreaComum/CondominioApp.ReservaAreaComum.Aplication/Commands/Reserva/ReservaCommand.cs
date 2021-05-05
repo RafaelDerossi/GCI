@@ -45,6 +45,10 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
 
         public bool ReservadoPelaAdministracao { get; protected set; }
 
+        public Guid FuncionarioId { get; protected set; }
+
+        public string NomeFuncionario { get; protected set; }
+
 
         public void SetAreaComumId(Guid id) => AreaComumId = id;
 

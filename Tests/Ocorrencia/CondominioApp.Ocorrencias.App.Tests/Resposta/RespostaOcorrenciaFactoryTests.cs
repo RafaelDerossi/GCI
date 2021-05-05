@@ -12,7 +12,7 @@ namespace CondominioApp.Ocorrencias.App.Tests
         private static RespostaOcorrencia FactorySindico()
         {
             return new RespostaOcorrencia
-                (Guid.NewGuid(), "Descrição da Resposta", TipoDoAutor.SINDICO,
+                (Guid.NewGuid(), "Descrição da Resposta", TipoDoAutor.ADMINISTRACAO,
                 Guid.NewGuid(), "Nome do Usuario", false, new Foto("imagem.jpg","imagem.jpg"));
         }
         private static RespostaOcorrencia FactoryMorador()

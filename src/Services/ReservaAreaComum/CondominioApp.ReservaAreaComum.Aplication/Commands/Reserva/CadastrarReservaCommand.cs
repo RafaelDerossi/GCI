@@ -14,7 +14,8 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
             (Guid areaComumId, string observacao, Guid unidadeId, string numeroUnidade,
              string andarUnidade, string descricaoGrupoUnidade, Guid moradorId, string nomeMorador,
              DateTime dataDeRealizacao, string horaInicio, string horaFim, decimal preco,
-             string origem, bool criadaPelaAdministracao, bool reservadoPelaAdministracao)
+             string origem, bool criadaPelaAdministracao, bool reservadoPelaAdministracao,
+             Guid funcionarioId, string nomeFuncionario)
         {            
             SetAreaComumId(areaComumId);
             Observacao = observacao;
@@ -31,6 +32,8 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
             Origem = origem;
             CriadaPelaAdministracao = criadaPelaAdministracao;
             ReservadoPelaAdministracao = reservadoPelaAdministracao;
+            FuncionarioId = funcionarioId;
+            NomeFuncionario = nomeFuncionario;
         }
 
 

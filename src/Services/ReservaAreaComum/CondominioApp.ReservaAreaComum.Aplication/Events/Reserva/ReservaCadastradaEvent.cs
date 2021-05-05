@@ -16,7 +16,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Events
             string andarUnidade, string descricaoGrupoUnidade, Guid usuarioId, string nomeUsuario,
             DateTime dataDeRealizacao, string horaInicio, string horaFim, decimal preco,
             StatusReserva status, string justificativa, string origem, bool criadaPelaAdministracao, 
-            bool reservadoPelaAdministracao)
+            bool reservadoPelaAdministracao, Guid funcionarioId, string nomeFuncionario)
         {
             Id = id;
             AreaComumId = areaComumId;
@@ -40,7 +40,8 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Events
             Origem = origem;
             CriadaPelaAdministracao = criadaPelaAdministracao;
             ReservadoPelaAdministracao = reservadoPelaAdministracao;
-
+            FuncionarioId = funcionarioId;
+            NomeFuncionario = nomeFuncionario;
         }    
 
     }

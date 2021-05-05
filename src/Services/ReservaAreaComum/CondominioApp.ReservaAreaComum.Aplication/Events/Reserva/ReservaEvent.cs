@@ -52,6 +52,9 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Events
         public bool CriadaPelaAdministracao { get; protected set; }
 
         public bool ReservadoPelaAdministracao { get; protected set; }
-       
+
+        public Guid FuncionarioId { get; protected set; }
+
+        public string NomeFuncionario { get; protected set; }
     }
 }

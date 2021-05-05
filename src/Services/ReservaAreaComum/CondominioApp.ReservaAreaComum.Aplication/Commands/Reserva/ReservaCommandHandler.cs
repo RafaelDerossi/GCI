@@ -63,7 +63,8 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
                 reserva.Observacao, reserva.UnidadeId, reserva.NumeroUnidade, reserva.AndarUnidade,
                 reserva.DescricaoGrupoUnidade, reserva.MoradorId, reserva.NomeMorador, reserva.DataDeRealizacao,
                 reserva.HoraInicio, reserva.HoraFim, reserva.Preco, reserva.Status, reserva.Justificativa,
-                reserva.Origem,reserva.CriadaPelaAdministracao, reserva.ReservadoPelaAdministracao));
+                reserva.Origem,reserva.CriadaPelaAdministracao, reserva.ReservadoPelaAdministracao,
+                request.FuncionarioId, request.NomeFuncionario));
             
 
             return await PersistirDados(_reservaAreaComumRepository.UnitOfWork);
@@ -91,10 +92,12 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
 
             reserva.Aprovar(request.Justificativa);
 
-            _reservaAreaComumRepository.AtualizarReserva(reserva);            
+            _reservaAreaComumRepository.AtualizarReserva(reserva);          
 
             //Evento
-            reserva.AdicionarEvento(new StatusDaReservaAlteradoEvent(reserva.Id, reserva.Status, reserva.Justificativa, reserva.Observacao));
+            reserva.AdicionarEvento(
+                new ReservaAprovadaEvent
+                (reserva.Id, reserva.Status, reserva.Justificativa, reserva.Observacao));
 
             reserva.EnviarPush(areacomum.Nome, areacomum.CondominioId);
 

@@ -12,7 +12,7 @@ namespace CondominioApp.Ocorrencias.App.Aplication.Commands
         {
             OcorrenciaId = ocorrenciaId;
             Descricao = descricao;
-            TipoAutor = TipoDoAutor.SINDICO;
+            TipoAutor = TipoDoAutor.ADMINISTRACAO;
             MoradorIdFuncionarioId = moradorIdFuncionarioId;
             NomeUsuario = nomeUsuario;
             SetFoto(fotoNomeOriginal, fotoNome);

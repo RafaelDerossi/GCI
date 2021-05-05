@@ -195,6 +195,12 @@ namespace CondominioApp.ReservaAreaComum.Infra.Data.Repository
         }
 
 
+        public void AdicionarHistoricoReserva(HistoricoReservaFlat entity)
+        {
+            _context.HistoricosReservasFlat.Add(entity);
+        }
+
+
         public void Dispose()
         {
             _context?.Dispose();

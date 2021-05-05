@@ -136,8 +136,9 @@
 
     public enum TipoDoAutor
     {
-        SINDICO = 1,
-        MORADOR = 2
+        ADMINISTRACAO = 1,
+        MORADOR = 2,
+        SISTEMA = 3
     }
 
     public enum StatusReserva
@@ -150,5 +151,18 @@
         CANCELADA = 5,
         EXPIRADA = 6,
         REMOVIDA = 7
+    }
+
+    public enum AcoesReserva
+    {
+        SOLICITADA = 0,
+        APROVADA = 1,
+        REPROVADA = 2,
+        AGUARDAR_APROVACAO = 3,
+        ENVIADA_PARA_FILA = 4,
+        RETIRADA_DA_FILA = 5,
+        CANCELADA = 6,
+        EXPIRADA = 7,
+        REMOVIDA = 8
     }
 }

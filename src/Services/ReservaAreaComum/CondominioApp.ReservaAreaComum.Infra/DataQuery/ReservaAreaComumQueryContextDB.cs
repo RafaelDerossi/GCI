@@ -17,7 +17,8 @@ namespace CondominioApp.Principal.Infra.DataQuery
         public DbSet<AreaComumFlat> AreasComunsFlat { get; set; }
         public DbSet<PeriodoFlat> PeriodosFlat { get; set; }
         public DbSet<ReservaFlat> ReservasFlat { get; set; }
-      
+        public DbSet<HistoricoReservaFlat> HistoricosReservasFlat { get; set; }
+
         public ReservaAreaComumQueryContextDB(DbContextOptions<ReservaAreaComumQueryContextDB> options)
             : base(options)
         {
