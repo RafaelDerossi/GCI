@@ -27,7 +27,8 @@ namespace CondominioApp.Usuarios.App.Aplication.Query
         Task<FuncionarioFlat> ObterFuncionarioPorId(Guid id);
         Task<IEnumerable<FuncionarioFlat>> ObterFuncionariosPorUsuarioId(Guid usuarioId);
         Task<IEnumerable<FuncionarioFlat>> ObterFuncionariosPorCondominioId(Guid condominioId);
-        Task<Funcionario> ObterSindicoPorCondominioId(Guid condominioId);
+
+        Task<IEnumerable<FuncionarioFlat>> ObterFuncionariosAdmPorCondominioId(Guid condominioId);
 
         #endregion
 

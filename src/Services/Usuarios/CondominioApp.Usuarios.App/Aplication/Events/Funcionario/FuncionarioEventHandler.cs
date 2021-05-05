@@ -29,7 +29,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Events
             var funcionarioFlat = new FuncionarioFlat
                 (notification.Id, notification.UsuarioId, notification.CondominioId, notification.NomeCondominio,
                  notification.Atribuicao, notification.Funcao, usuario.SindicoProfissional,
-                 notification.Permissao.ToString(), usuario.Nome, usuario.Sobrenome, usuario.Rg, usuario.ObterCPF(),
+                 notification.Permissao, usuario.Nome, usuario.Sobrenome, usuario.Rg, usuario.ObterCPF(),
                  usuario.ObterCelular(), usuario.ObterTelefone(), usuario.ObterEmail(), usuario.ObterFoto(), usuario.DataNascimento,
                  usuario.ObterLogradouro(), usuario.ObterComplemento(), usuario.ObterNumero(), usuario.ObterCep(),
                  usuario.ObterBairro(), usuario.ObterCidade(), usuario.ObterEstado());

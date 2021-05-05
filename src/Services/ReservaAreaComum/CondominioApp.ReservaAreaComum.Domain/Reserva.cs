@@ -423,7 +423,7 @@ namespace CondominioApp.ReservaAreaComum.Domain
         private void EnviarPushParaSindico(string titulo, string conteudo, Guid condominioId)
         {
             AdicionarEvento
-                (new EnviarPushParaSindicoIntegrationEvent(condominioId, titulo, conteudo));
+                (new EnviarPushParaAdministracaoIntegrationEvent(condominioId, titulo, conteudo));
         }
 
 
@@ -555,7 +555,7 @@ namespace CondominioApp.ReservaAreaComum.Domain
         private void EnviarEmailParaSindico(string titulo, string nomeAreaComum, Guid condominioId, string corFundoTitulo)
         {
             AdicionarEvento
-           (new EnviarEmailReservaParaSindicoIntegrationEvent
+           (new EnviarEmailReservaParaAdministracaoIntegrationEvent
            (titulo, nomeAreaComum, DataDeRealizacao.ToShortDateString(),
             HoraInicio, HoraFim, MoradorId, $"{NumeroUnidade}|{AndarUnidade}|{DescricaoGrupoUnidade}",
             Preco.ToString(), Observacao, Justificativa, DataDeCadastroFormatada, condominioId,

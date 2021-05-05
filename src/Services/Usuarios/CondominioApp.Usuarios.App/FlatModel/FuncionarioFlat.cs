@@ -62,9 +62,11 @@ namespace CondominioApp.Usuarios.App.FlatModel
 
         public string Funcao { get; private set; }
 
-        public bool SindicoProfissional { get; set; }
+        public bool SindicoProfissional { get; private set; }
 
-        public string Permissao { get; set; }
+        public Permissao Permissao { get; private set; }
+
+        public string DescricaoPermissao { get; private set; }
 
 
         public FuncionarioFlat()
@@ -73,7 +75,7 @@ namespace CondominioApp.Usuarios.App.FlatModel
 
         public FuncionarioFlat
             (Guid id, Guid usuarioId, Guid condominioId, string nomeCondominio, string atribuicao, string funcao,
-            bool sindicoProfissional, string permissao, string nome, string sobrenome, string rg, 
+            bool sindicoProfissional, Permissao permissao, string nome, string sobrenome, string rg, 
              string cpf, string cel, string telefone, string email, string foto, DateTime? dataNascimento,
              string logradouro, string complemento, string numero, string cep, string bairro, string cidade, string estado)
         {
@@ -101,7 +103,7 @@ namespace CondominioApp.Usuarios.App.FlatModel
             Atribuicao = atribuicao;
             Funcao = funcao;
             SindicoProfissional = sindicoProfissional;
-            Permissao = permissao;
+            SetPermissao(permissao);
         }
 
 
@@ -179,6 +181,10 @@ namespace CondominioApp.Usuarios.App.FlatModel
 
         public void SetAtribuicao(string atribuicao) => Atribuicao = atribuicao;
 
-        public void SetPermissao(Permissao permissao) => Permissao = permissao.ToString();
+        public void SetPermissao(Permissao permissao)
+        {
+            Permissao = permissao;
+            DescricaoPermissao = permissao.ToString();
+        }
     }
 }

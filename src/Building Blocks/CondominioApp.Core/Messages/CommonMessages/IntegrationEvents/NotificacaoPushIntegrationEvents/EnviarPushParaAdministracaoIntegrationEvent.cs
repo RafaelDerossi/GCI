@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.NotificacaoPushIntegrationEvents
 {
-    public class EnviarPushParaSindicoIntegrationEvent : IntegrationEvent
+    public class EnviarPushParaAdministracaoIntegrationEvent : IntegrationEvent
     {
         public Guid CondominioId { get; set; }
 
@@ -13,7 +13,7 @@ namespace CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.Notificac
         public string Conteudo { get; set; }
 
 
-        public EnviarPushParaSindicoIntegrationEvent(Guid condominioId, string titulo, string conteudo)
+        public EnviarPushParaAdministracaoIntegrationEvent(Guid condominioId, string titulo, string conteudo)
         {            
             CondominioId = condominioId;            
             Conteudo = conteudo;

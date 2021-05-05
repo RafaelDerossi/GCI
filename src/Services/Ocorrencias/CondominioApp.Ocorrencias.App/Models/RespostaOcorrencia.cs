@@ -98,7 +98,7 @@ namespace CondominioApp.Ocorrencias.App.Models
             var titulo = "Ocorrência Respondida";
 
             AdicionarEvento
-                (new EnviarPushParaSindicoIntegrationEvent(condominioId, titulo, Descricao));
+                (new EnviarPushParaAdministracaoIntegrationEvent(condominioId, titulo, Descricao));
         }
 
 
@@ -139,7 +139,7 @@ namespace CondominioApp.Ocorrencias.App.Models
             var titulo = "Ocorrência Respondida";
 
             AdicionarEvento
-                (new EnviarEmailRespostaOcorrenciaParaSindicoIntegrationEvent
+                (new EnviarEmailRespostaOcorrenciaParaAdministracaoIntegrationEvent
                 (titulo, descricaoDaOcorrencia, Descricao, NomeUsuario, statusDaOcorrencia.ToString(),
                  DataDeCadastroFormatada, Foto.NomeDoArquivo, condominioId));
         }

@@ -203,15 +203,15 @@ namespace CondominioApp.Api.Configuration
             services.AddTransient<INotificationHandler<EnviarEmailEnqueteIntegrationEvent>, NotificacaoEmailCondominioAppApiEventHandler>();
             services.AddTransient<INotificationHandler<EnviarEmailOcorrenciaIntegrationEvent>, NotificacaoEmailCondominioAppApiEventHandler>();
             services.AddTransient<INotificationHandler<EnviarEmailRespostaOcorrenciaParaMoradorIntegrationEvent>, NotificacaoEmailCondominioAppApiEventHandler>();
-            services.AddTransient<INotificationHandler<EnviarEmailRespostaOcorrenciaParaSindicoIntegrationEvent>, NotificacaoEmailCondominioAppApiEventHandler>();
+            services.AddTransient<INotificationHandler<EnviarEmailRespostaOcorrenciaParaAdministracaoIntegrationEvent>, NotificacaoEmailCondominioAppApiEventHandler>();
             services.AddTransient<INotificationHandler<EnviarEmailReservaParaMoradorIntegrationEvent>, NotificacaoEmailCondominioAppApiEventHandler>();
-            services.AddTransient<INotificationHandler<EnviarEmailReservaParaSindicoIntegrationEvent>, NotificacaoEmailCondominioAppApiEventHandler>();
+            services.AddTransient<INotificationHandler<EnviarEmailReservaParaAdministracaoIntegrationEvent>, NotificacaoEmailCondominioAppApiEventHandler>();
             #endregion
 
 
             #region NotificacaoPush -Contexto
             services.AddTransient<INotificacaoPushService, NotificacaoPushService>();
-            services.AddTransient<INotificationHandler<EnviarPushParaSindicoIntegrationEvent>, NotificacaoPushEventHandler>();
+            services.AddTransient<INotificationHandler<EnviarPushParaAdministracaoIntegrationEvent>, NotificacaoPushEventHandler>();
             services.AddTransient<INotificationHandler<EnviarPushParaMoradorIntegrationEvent>, NotificacaoPushEventHandler>();
             services.AddTransient<INotificationHandler<EnviarPushParaUnidadeIntegrationEvent>, NotificacaoPushEventHandler>();
             services.AddTransient<INotificationHandler<EnviarPushParaUnidadesIntegrationEvent>, NotificacaoPushEventHandler>();

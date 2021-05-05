@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.NotificacaoEmailIntegrationEvent.Ocorrencia
 {
-    public class EnviarEmailRespostaOcorrenciaParaSindicoIntegrationEvent : IntegrationEvent
+    public class EnviarEmailRespostaOcorrenciaParaAdministracaoIntegrationEvent : IntegrationEvent
     {
         public string Titulo { get; set; }
 
@@ -22,7 +22,7 @@ namespace CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.Notificac
         
         public Guid CondominioId { get; set; }
 
-        public EnviarEmailRespostaOcorrenciaParaSindicoIntegrationEvent
+        public EnviarEmailRespostaOcorrenciaParaAdministracaoIntegrationEvent
             (string titulo, string descricaoDaOcorrencia, string resposta, string nomeMorador,
              string statusOcorrencia, string dataDaResposta, string foto, Guid condominioId)
         {

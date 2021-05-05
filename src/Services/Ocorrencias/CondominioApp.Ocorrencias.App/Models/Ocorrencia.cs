@@ -195,7 +195,7 @@ namespace CondominioApp.Ocorrencias.App.Models
             var titulo = ObterTituloParaNovoPushEEmail();
 
             AdicionarEvento
-              (new EnviarPushParaSindicoIntegrationEvent(CondominioId, titulo, Descricao));
+              (new EnviarPushParaAdministracaoIntegrationEvent(CondominioId, titulo, Descricao));
 
             AdicionarEvento
             (new EnviarPushParaUnidadeIntegrationEvent(UnidadeId, titulo, Descricao));
@@ -208,7 +208,7 @@ namespace CondominioApp.Ocorrencias.App.Models
             var titulo = "Ocorrência Editada";
 
             AdicionarEvento
-                 (new EnviarPushParaSindicoIntegrationEvent(CondominioId, titulo, Descricao));
+                 (new EnviarPushParaAdministracaoIntegrationEvent(CondominioId, titulo, Descricao));
 
             AdicionarEvento
                 (new EnviarPushParaMoradorIntegrationEvent(MoradorId, titulo, Descricao));
@@ -219,7 +219,7 @@ namespace CondominioApp.Ocorrencias.App.Models
             var titulo = "Ocorrência Removida";
 
             AdicionarEvento
-                 (new EnviarPushParaSindicoIntegrationEvent(CondominioId, titulo, Descricao));
+                 (new EnviarPushParaAdministracaoIntegrationEvent(CondominioId, titulo, Descricao));
 
             AdicionarEvento
                 (new EnviarPushParaMoradorIntegrationEvent(MoradorId, titulo, Descricao));

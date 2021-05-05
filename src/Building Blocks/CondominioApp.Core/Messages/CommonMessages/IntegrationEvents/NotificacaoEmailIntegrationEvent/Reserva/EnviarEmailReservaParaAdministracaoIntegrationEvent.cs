@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.NotificacaoEmailIntegrationEvent.Reserva
 {
-    public class EnviarEmailReservaParaSindicoIntegrationEvent : IntegrationEvent
+    public class EnviarEmailReservaParaAdministracaoIntegrationEvent : IntegrationEvent
     {
         public string Titulo { get; set; }
 
@@ -34,7 +34,7 @@ namespace CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.Notificac
 
         public string CorFundoTitulo { get; set; }
 
-        public EnviarEmailReservaParaSindicoIntegrationEvent
+        public EnviarEmailReservaParaAdministracaoIntegrationEvent
             (string titulo, string areaComumNome, string dataRealizacao, string horaInicio, 
              string horaFim, Guid moradorId, string unidadeDescricao, string valor,
              string observacao, string justificativa, string dataDeCadastro, Guid condominioId,
