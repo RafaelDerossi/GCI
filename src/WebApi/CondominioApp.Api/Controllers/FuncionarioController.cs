@@ -43,7 +43,7 @@ namespace CondominioApp.Api.Controllers
             return funcionario;
         }
 
-        [HttpGet("funcionarios-por-usuario{usuarioId:Guid}")]
+        [HttpGet("funcionarios-por-usuario/{usuarioId:Guid}")]
         public async Task<ActionResult<IEnumerable<FuncionarioFlat>>> ObterFuncionariosPorUsuarioId(Guid usuarioId)
         {
             var funcionario = await _usuarioQuery.ObterFuncionariosPorUsuarioId(usuarioId);
@@ -56,7 +56,7 @@ namespace CondominioApp.Api.Controllers
             return funcionario.ToList();
         }
 
-        [HttpGet("funcionarios-por-condominio{condominioId:Guid}")]
+        [HttpGet("funcionarios-por-condominio/{condominioId:Guid}")]
         public async Task<ActionResult<IEnumerable<FuncionarioFlat>>> ObterFuncionariosPorCondominio(Guid condominioId)
         {
             var funcionario = await _usuarioQuery.ObterFuncionariosPorCondominioId(condominioId);
@@ -144,6 +144,40 @@ namespace CondominioApp.Api.Controllers
         }
 
 
-        
+        [HttpPut("ativar/{funcionarioId:Guid}")]
+        public async Task<ActionResult> PutAtivar(Guid funcionarioId)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+           
+            var comando = new AtivarFuncionarioCommand(funcionarioId);
+
+            var resultado = await _mediatorHandler.EnviarComando(comando);
+
+            if (!resultado.IsValid)
+                CustomResponse(resultado);
+
+
+            return CustomResponse();
+
+        }
+
+
+        [HttpPut("desativar/{funcionarioId:Guid}")]
+        public async Task<ActionResult> PutDesativar(Guid funcionarioId)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            var comando = new DesativarFuncionarioCommand(funcionarioId);
+
+            var resultado = await _mediatorHandler.EnviarComando(comando);
+
+            if (!resultado.IsValid)
+                CustomResponse(resultado);
+
+
+            return CustomResponse();
+
+        }
+
     }
 }

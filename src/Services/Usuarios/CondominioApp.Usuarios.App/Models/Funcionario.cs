@@ -18,6 +18,8 @@ namespace CondominioApp.Usuarios.App.Models
 
         public Permissao Permissao { get; private set; }
 
+        public bool Ativo { get; private set; }
+
 
         public Funcionario(Guid usuarioId, Guid condominioId, string atribuicao, string funcao, Permissao permissao)
         {
@@ -26,6 +28,8 @@ namespace CondominioApp.Usuarios.App.Models
             Atribuicao = atribuicao;
             Funcao = funcao;
             Permissao = permissao;
+
+            Ativar();
         }
 
 
@@ -39,8 +43,10 @@ namespace CondominioApp.Usuarios.App.Models
         public void SetFuncao(string funcao) => Funcao = funcao;
 
         public void SetPermissao(Permissao permissao) => Permissao = permissao;
-        
 
+        public void Ativar() => Ativo = true;
+
+        public void Desativar() => Ativo = false;
 
     }
 }

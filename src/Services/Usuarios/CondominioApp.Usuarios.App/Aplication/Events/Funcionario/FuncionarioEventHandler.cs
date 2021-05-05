@@ -10,6 +10,8 @@ namespace CondominioApp.Usuarios.App.Aplication.Events
     public class FuncionarioEventHandler : EventHandler,        
         INotificationHandler<FuncionarioCadastradoEvent>,
         INotificationHandler<FuncionarioEditadoEvent>,
+        INotificationHandler<FuncionarioAtivadoEvent>,
+        INotificationHandler<FuncionarioDesativadoEvent>,
         System.IDisposable
     {
         private readonly IUsuarioRepository _usuarioRepository;        
@@ -46,6 +48,28 @@ namespace CondominioApp.Usuarios.App.Aplication.Events
             funcionarioFlat.SetAtribuicao(notification.Atribuicao);
             funcionarioFlat.SetFuncao(notification.Funcao);
             funcionarioFlat.SetPermissao(notification.Permissao);
+
+            _funcionarioQueryRepository.Atualizar(funcionarioFlat);
+
+            await PersistirDados(_funcionarioQueryRepository.UnitOfWork);
+        }
+
+        public async Task Handle(FuncionarioAtivadoEvent notification, CancellationToken cancellationToken)
+        {
+            var funcionarioFlat = await _funcionarioQueryRepository.ObterPorId(notification.Id);
+
+            funcionarioFlat.Ativar();            
+
+            _funcionarioQueryRepository.Atualizar(funcionarioFlat);
+
+            await PersistirDados(_funcionarioQueryRepository.UnitOfWork);
+        }
+
+        public async Task Handle(FuncionarioDesativadoEvent notification, CancellationToken cancellationToken)
+        {
+            var funcionarioFlat = await _funcionarioQueryRepository.ObterPorId(notification.Id);
+
+            funcionarioFlat.Desativar();
 
             _funcionarioQueryRepository.Atualizar(funcionarioFlat);
 

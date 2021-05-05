@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using CondominioApp.Core.DomainObjects;
-using CondominioApp.Core.Enumeradores;
 using CondominioApp.Core.Helpers;
 using CondominioApp.Usuarios.App.ValueObjects;
 
@@ -30,10 +27,7 @@ namespace CondominioApp.Usuarios.App.Models
 
         public DateTime? DataNascimento { get; private set; }
 
-        public Endereco Endereco { get; set; }
-       
-
-        public bool Ativo { get; private set; }
+        public Endereco Endereco { get; set; }       
 
         public DateTime? UltimoLogin { get; private set; }
 
@@ -57,8 +51,6 @@ namespace CondominioApp.Usuarios.App.Models
             DataNascimento = dataNascimento;
             Endereco = endereco;
             SindicoProfissional = sindicoProfissional;
-
-            Ativar();
         }
 
         public string NomeCompleto
@@ -66,11 +58,7 @@ namespace CondominioApp.Usuarios.App.Models
             get { return $"{Nome} {Sobrenome}"; }
         }
 
-
-
-        public void Ativar() => Ativo = true;
-
-        public void Desativar() => Ativo = false;
+               
 
         public void AtivarSindicoProfissional() => SindicoProfissional = true;
 

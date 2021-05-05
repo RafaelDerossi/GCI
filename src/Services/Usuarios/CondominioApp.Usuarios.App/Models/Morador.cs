@@ -15,6 +15,9 @@ namespace CondominioApp.Usuarios.App.Models
 
         public bool Principal { get; private set; }
 
+        public bool Ativo { get; private set; }
+
+
         public Morador(Guid usuarioId, Guid unidadeId, Guid condominioId, bool proprietario, bool principal)
         {
             UsuarioId = usuarioId;
@@ -22,6 +25,8 @@ namespace CondominioApp.Usuarios.App.Models
             CondominioId = condominioId;
             Proprietario = proprietario;
             Principal = principal;
+
+            Ativar();
         }
 
 
@@ -37,5 +42,8 @@ namespace CondominioApp.Usuarios.App.Models
         public void MarcarComoPrincipal() => Principal = true;
         public void DesmarcarComoPrincipal() => Principal = false;
 
+        public void Ativar() => Ativo = true;
+
+        public void Desativar() => Ativo = false;
     }
 }

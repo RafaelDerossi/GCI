@@ -13,7 +13,9 @@ namespace CondominioApp.Usuarios.App.Aplication.Events
         INotificationHandler<UnidadeMarcadaComoPrincipalEvent>,
         INotificationHandler<MarcadoComoProprietarioEvent>,
         INotificationHandler<DesmarcadoComoProprietarioEvent>,
-        INotificationHandler<MoradorRemovidoEvent>,        
+        INotificationHandler<MoradorRemovidoEvent>,
+        INotificationHandler<MoradorAtivadoEvent>,
+        INotificationHandler<MoradorDesativadoEvent>,
         System.IDisposable
     {
         private readonly IUsuarioRepository _usuarioRepository;
@@ -107,6 +109,27 @@ namespace CondominioApp.Usuarios.App.Aplication.Events
             }
         }
 
+        public async Task Handle(MoradorAtivadoEvent notification, CancellationToken cancellationToken)
+        {
+            var moradorFlat = await _moradorQueryRepository.ObterPorId(notification.Id);
+
+            moradorFlat.Ativar();
+
+            _moradorQueryRepository.Atualizar(moradorFlat);
+
+            await PersistirDados(_moradorQueryRepository.UnitOfWork);
+        }
+
+        public async Task Handle(MoradorDesativadoEvent notification, CancellationToken cancellationToken)
+        {
+            var moradorFlat = await _moradorQueryRepository.ObterPorId(notification.Id);
+
+            moradorFlat.Desativar();
+
+            _moradorQueryRepository.Atualizar(moradorFlat);
+
+            await PersistirDados(_moradorQueryRepository.UnitOfWork);
+        }
 
         public void Dispose()
         {

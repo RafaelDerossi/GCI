@@ -184,7 +184,23 @@ namespace CondominioApp.Usuarios.App.FlatModel
         public void SetPermissao(Permissao permissao)
         {
             Permissao = permissao;
-            DescricaoPermissao = permissao.ToString();
+
+            switch (permissao)
+            {
+                case Permissao.USUARIO:
+                    DescricaoPermissao = "Usuario";
+                    break;
+                case Permissao.ADMIN:
+                    DescricaoPermissao = "Administrador";
+                    break;
+                default:
+                    break;
+            }            
         }
+
+        public void Ativar() => Ativo = true;
+
+        public void Desativar() => Ativo = false;
+
     }
 }

@@ -13,6 +13,8 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
     public class FuncionarioCommandHandler : CommandHandler,                
         IRequestHandler<CadastrarFuncionarioCommand, ValidationResult>,
         IRequestHandler<EditarFuncionarioCommand, ValidationResult>,
+        IRequestHandler<AtivarFuncionarioCommand, ValidationResult>,
+        IRequestHandler<DesativarFuncionarioCommand, ValidationResult>,
         IDisposable
     {
         private readonly IUsuarioRepository _usuarioRepository;
@@ -79,6 +81,52 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
             funcionario.AdicionarEvento(
                new FuncionarioEditadoEvent(
                    funcionario.Id, funcionario.Atribuicao, funcionario.Funcao, funcionario.Permissao));
+
+            return await PersistirDados(_usuarioRepository.UnitOfWork);
+
+        }
+
+        public async Task<ValidationResult> Handle(AtivarFuncionarioCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido()) return request.ValidationResult;
+
+            var funcionario = await _usuarioRepository.ObterFuncionarioPorId(request.Id);
+            if (funcionario == null)
+            {
+                AdicionarErro("Funcionário não encontrado.");
+                return ValidationResult;
+            }
+
+            funcionario.Ativar();
+            
+            _usuarioRepository.AtualizarFuncionario(funcionario);
+
+            //Evento
+            funcionario.AdicionarEvento(
+               new FuncionarioAtivadoEvent(funcionario.Id));
+
+            return await PersistirDados(_usuarioRepository.UnitOfWork);
+
+        }
+
+        public async Task<ValidationResult> Handle(DesativarFuncionarioCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido()) return request.ValidationResult;
+
+            var funcionario = await _usuarioRepository.ObterFuncionarioPorId(request.Id);
+            if (funcionario == null)
+            {
+                AdicionarErro("Funcionário não encontrado.");
+                return ValidationResult;
+            }
+
+            funcionario.Desativar();
+
+            _usuarioRepository.AtualizarFuncionario(funcionario);
+
+            //Evento
+            funcionario.AdicionarEvento(
+               new FuncionarioDesativadoEvent(funcionario.Id));
 
             return await PersistirDados(_usuarioRepository.UnitOfWork);
 

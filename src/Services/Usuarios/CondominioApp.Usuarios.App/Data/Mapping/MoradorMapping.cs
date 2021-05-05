@@ -22,6 +22,7 @@ namespace CondominioApp.Usuarios.App.Data.Mapping
 
             builder.Property(u => u.Principal).IsRequired().HasDefaultValueSql("0");
 
+            builder.Property(u => u.Ativo).IsRequired().HasDefaultValueSql("0");
         }
     }
 }

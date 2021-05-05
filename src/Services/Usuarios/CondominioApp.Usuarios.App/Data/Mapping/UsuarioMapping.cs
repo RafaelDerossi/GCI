@@ -17,9 +17,7 @@ namespace CondominioApp.Usuarios.App.Data.Mapping
 
             builder.Property(u => u.Sobrenome).HasColumnType($"varchar({Usuario.Max})");
 
-            builder.Property(u => u.Rg).HasColumnType($"varchar({Usuario.Max})");          
-
-            builder.Property(u => u.Ativo).IsRequired().HasDefaultValueSql("0");
+            builder.Property(u => u.Rg).HasColumnType($"varchar({Usuario.Max})");                      
 
             builder.Property(u => u.SindicoProfissional).IsRequired().HasDefaultValueSql("0");
 

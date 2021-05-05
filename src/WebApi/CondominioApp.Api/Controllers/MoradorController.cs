@@ -202,5 +202,40 @@ namespace CondominioApp.Api.Controllers
             return CustomResponse();
         }
 
+
+        [HttpPut("ativar/{moradorId:Guid}")]
+        public async Task<ActionResult> PutAtivar(Guid moradorId)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            var comando = new AtivarMoradorCommand(moradorId);
+
+            var resultado = await _mediatorHandler.EnviarComando(comando);
+
+            if (!resultado.IsValid)
+                CustomResponse(resultado);
+
+
+            return CustomResponse();
+
+        }
+
+
+        [HttpPut("desativar/{moradorId:Guid}")]
+        public async Task<ActionResult> PutDesativar(Guid moradorId)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            var comando = new DesativarMoradorCommand(moradorId);
+
+            var resultado = await _mediatorHandler.EnviarComando(comando);
+
+            if (!resultado.IsValid)
+                CustomResponse(resultado);
+
+
+            return CustomResponse();
+
+        }
     }
 }

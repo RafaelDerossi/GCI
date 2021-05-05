@@ -389,18 +389,26 @@ namespace CondominioApp.Api.Configuration
             services.AddTransient<IRequestHandler<MarcarComoProprietarioCommand, ValidationResult>, MoradorCommandHandler>();
             services.AddTransient<IRequestHandler<DesmarcarComoProprietarioCommand, ValidationResult>, MoradorCommandHandler>();
             services.AddTransient<IRequestHandler<RemoverMoradorCommand, ValidationResult>, MoradorCommandHandler>();
+            services.AddTransient<IRequestHandler<AtivarMoradorCommand, ValidationResult>, MoradorCommandHandler>();
+            services.AddTransient<IRequestHandler<DesativarMoradorCommand, ValidationResult>, MoradorCommandHandler>();
             services.AddTransient<INotificationHandler<MoradorCadastradoEvent>, MoradorEventHandler>();
             services.AddTransient<INotificationHandler<UnidadeMarcadaComoPrincipalEvent>, MoradorEventHandler>();
             services.AddTransient<INotificationHandler<MarcadoComoProprietarioEvent>, MoradorEventHandler>();
             services.AddTransient<INotificationHandler<DesmarcadoComoProprietarioEvent>, MoradorEventHandler>();
             services.AddTransient<INotificationHandler<MoradorExcluidoEvent>, MoradorEventHandler>();
             services.AddTransient<INotificationHandler<MoradorRemovidoEvent>, MoradorEventHandler>();
+            services.AddTransient<INotificationHandler<MoradorAtivadoEvent>, MoradorEventHandler>();
+            services.AddTransient<INotificationHandler<MoradorDesativadoEvent>, MoradorEventHandler>();
 
             //Funcionario
-            services.AddTransient<IRequestHandler<CadastrarFuncionarioCommand, ValidationResult>, FuncionarioCommandHandler>();
-            services.AddTransient<INotificationHandler<FuncionarioCadastradoEvent>, FuncionarioEventHandler>();
+            services.AddTransient<IRequestHandler<CadastrarFuncionarioCommand, ValidationResult>, FuncionarioCommandHandler>();            
             services.AddTransient<IRequestHandler<EditarFuncionarioCommand, ValidationResult>, FuncionarioCommandHandler>();
+            services.AddTransient<IRequestHandler<AtivarFuncionarioCommand, ValidationResult>, FuncionarioCommandHandler>();
+            services.AddTransient<IRequestHandler<DesativarFuncionarioCommand, ValidationResult>, FuncionarioCommandHandler>();
+            services.AddTransient<INotificationHandler<FuncionarioCadastradoEvent>, FuncionarioEventHandler>();
             services.AddTransient<INotificationHandler<FuncionarioEditadoEvent>, FuncionarioEventHandler>();
+            services.AddTransient<INotificationHandler<FuncionarioAtivadoEvent>, FuncionarioEventHandler>();
+            services.AddTransient<INotificationHandler<FuncionarioDesativadoEvent>, FuncionarioEventHandler>();
 
             //Usuario
             services.AddTransient<IRequestHandler<CadastrarUsuarioCommand, ValidationResult>, UsuarioCommandHandler>();

@@ -18,6 +18,8 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
         IRequestHandler<MarcarComoProprietarioCommand, ValidationResult>,
         IRequestHandler<DesmarcarComoProprietarioCommand, ValidationResult>,
         IRequestHandler<RemoverMoradorCommand, ValidationResult>,
+        IRequestHandler<AtivarMoradorCommand, ValidationResult>,
+        IRequestHandler<DesativarMoradorCommand, ValidationResult>,
         IDisposable
     {
         private readonly IUsuarioRepository _usuarioRepository;
@@ -191,6 +193,49 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
 
         }
 
+        public async Task<ValidationResult> Handle(AtivarMoradorCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido()) return request.ValidationResult;
+
+            var morador = await _usuarioRepository.ObterMoradorPorId(request.Id);
+            if (morador == null)
+            {
+                AdicionarErro("Morador não encontrado.");
+                return ValidationResult;
+            }
+            
+            morador.Ativar();
+
+            _usuarioRepository.AtualizarMorador(morador);
+
+            //Evento
+            morador.AdicionarEvento(new MoradorAtivadoEvent(morador.Id));
+
+            return await PersistirDados(_usuarioRepository.UnitOfWork);
+
+        }
+
+        public async Task<ValidationResult> Handle(DesativarMoradorCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido()) return request.ValidationResult;
+
+            var morador = await _usuarioRepository.ObterMoradorPorId(request.Id);
+            if (morador == null)
+            {
+                AdicionarErro("Morador não encontrado.");
+                return ValidationResult;
+            }
+
+            morador.Desativar();
+
+            _usuarioRepository.AtualizarMorador(morador);
+
+            //Evento
+            morador.AdicionarEvento(new MoradorDesativadoEvent(morador.Id));
+
+            return await PersistirDados(_usuarioRepository.UnitOfWork);
+
+        }
 
 
         private Morador MoradorFactory(MoradorCommand request)
