@@ -9,7 +9,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
     public class ReservaCommandFactory
     {
 
-        public static CadastrarReservaCommand CadastrarReservaCommandFactory()
+        public static CadastrarReservaPeloUsuarioCommand CadastrarReservaCommandFactory()
         {
             return new CadastrarReservaCommand
                 (Guid.NewGuid(), "Observacao", Guid.NewGuid(), "101", "1º",
@@ -20,12 +20,12 @@ namespace CondominioApp.ReservaAreaComum.Tests
 
         
         /// CadastrarReservaCommand
-        public static CadastrarReservaCommand CriarComandoCadastroDeReserva()
+        public static CadastrarReservaPeloUsuarioCommand CriarComandoCadastroDeReserva()
         {
             return CadastrarReservaCommandFactory();
         }
 
-        public static CadastrarReservaCommand CriarComandoCadastroDeReservaSemAreaComumId()
+        public static CadastrarReservaPeloUsuarioCommand CriarComandoCadastroDeReservaSemAreaComumId()
         {
             var comando = CadastrarReservaCommandFactory();
 
@@ -34,7 +34,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             return comando;
         }
 
-        public static CadastrarReservaCommand CriarComandoCadastroDeReservaSemUnidadeId()
+        public static CadastrarReservaPeloUsuarioCommand CriarComandoCadastroDeReservaSemUnidadeId()
         {
             var comando = CadastrarReservaCommandFactory();
 
@@ -43,7 +43,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             return comando;
         }
 
-        public static CadastrarReservaCommand CriarComandoCadastroDeReservaSemNumeroDaUnidade()
+        public static CadastrarReservaPeloUsuarioCommand CriarComandoCadastroDeReservaSemNumeroDaUnidade()
         {
             var comando = CadastrarReservaCommandFactory();
 
@@ -52,7 +52,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             return comando;
         }
 
-        public static CadastrarReservaCommand CriarComandoCadastroDeReservaSemAndarDaUnidade()
+        public static CadastrarReservaPeloUsuarioCommand CriarComandoCadastroDeReservaSemAndarDaUnidade()
         {
             var comando = CadastrarReservaCommandFactory();
 
@@ -61,7 +61,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             return comando;
         }
 
-        public static CadastrarReservaCommand CriarComandoCadastroDeReservaSemGrupoDaUnidade()
+        public static CadastrarReservaPeloUsuarioCommand CriarComandoCadastroDeReservaSemGrupoDaUnidade()
         {
             var comando = CadastrarReservaCommandFactory();
 
@@ -70,7 +70,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             return comando;
         }
 
-        public static CadastrarReservaCommand CriarComandoCadastroDeReservaSemUsuarioId()
+        public static CadastrarReservaPeloUsuarioCommand CriarComandoCadastroDeReservaSemUsuarioId()
         {
             var comando = CadastrarReservaCommandFactory();
 
@@ -79,7 +79,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             return comando;
         }
 
-        public static CadastrarReservaCommand CriarComandoCadastroDeReservaSemNomeDoUsuario()
+        public static CadastrarReservaPeloUsuarioCommand CriarComandoCadastroDeReservaSemNomeDoUsuario()
         {
             var comando = CadastrarReservaCommandFactory();
 
@@ -88,7 +88,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             return comando;
         }
 
-        public static CadastrarReservaCommand CriarComandoCadastroDeReservaSemHoraInicio()
+        public static CadastrarReservaPeloUsuarioCommand CriarComandoCadastroDeReservaSemHoraInicio()
         {
             var comando = CadastrarReservaCommandFactory();
 
@@ -97,7 +97,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             return comando;
         }
 
-        public static CadastrarReservaCommand CriarComandoCadastroDeReservaComHoraInicioInvalido()
+        public static CadastrarReservaPeloUsuarioCommand CriarComandoCadastroDeReservaComHoraInicioInvalido()
         {
             var comando = CadastrarReservaCommandFactory();
 
@@ -106,7 +106,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             return comando;
         }
 
-        public static CadastrarReservaCommand CriarComandoCadastroDeReservaSemHoraFim()
+        public static CadastrarReservaPeloUsuarioCommand CriarComandoCadastroDeReservaSemHoraFim()
         {
             var comando = CadastrarReservaCommandFactory();
 
@@ -115,7 +115,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             return comando;
         }
 
-        public static CadastrarReservaCommand CriarComandoCadastroDeReservaComHoraFimInvalido()
+        public static CadastrarReservaPeloUsuarioCommand CriarComandoCadastroDeReservaComHoraFimInvalido()
         {
             var comando = CadastrarReservaCommandFactory();
 

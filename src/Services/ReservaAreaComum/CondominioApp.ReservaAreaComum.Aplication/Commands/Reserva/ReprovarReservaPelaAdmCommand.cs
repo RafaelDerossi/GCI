@@ -1,22 +1,24 @@
 ﻿
 
 using CondominioApp.Principal.Aplication.Commands.Validations;
+using CondominioApp.ReservaAreaComum.Domain;
 using System;
+using System.Collections.Generic;
 
 namespace CondominioApp.ReservaAreaComum.Aplication.Commands
 {
-    public class CancelarReservaComoAdministradorCommand : ReservaCommand
+   public class ReprovarReservaPelaAdmCommand : ReservaCommand
     {
 
-        public CancelarReservaComoAdministradorCommand
-            (Guid reservaId, string justificatica, Guid funcionarioId, string nomeFuncionario, string origem)
-        {            
+        public ReprovarReservaPelaAdmCommand
+        (Guid reservaId, string justificativa, Guid funcionarioid, string nomeFuncionario, string origem)
+        {
             Id = reservaId;
-            Justificativa = justificatica;
-            FuncionarioId = funcionarioId;
+            Justificativa = justificativa;
+            FuncionarioId = funcionarioid;
             NomeFuncionario = nomeFuncionario;
             Origem = origem;
-        }
+        }     
 
 
         public override bool EstaValido()
@@ -24,14 +26,14 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
             if (!ValidationResult.IsValid)
                 return ValidationResult.IsValid;
 
-            ValidationResult = new CancelarReservaComoAdministradorCommandValidation().Validate(this);
+            ValidationResult = new ReprovarReservaPelaAdmCommandValidation().Validate(this);
             return ValidationResult.IsValid;
         }
 
 
-        public class CancelarReservaComoAdministradorCommandValidation : ReservaValidation<CancelarReservaComoAdministradorCommand>
+        public class ReprovarReservaPelaAdmCommandValidation : ReservaValidation<ReprovarReservaPelaAdmCommand>
         {
-            public CancelarReservaComoAdministradorCommandValidation()
+            public ReprovarReservaPelaAdmCommandValidation()
             {
                 ValidateId();
                 ValidateJustificativa();

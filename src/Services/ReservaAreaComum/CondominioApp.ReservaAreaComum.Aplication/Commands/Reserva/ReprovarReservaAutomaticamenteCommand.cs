@@ -7,10 +7,10 @@ using System.Collections.Generic;
 
 namespace CondominioApp.ReservaAreaComum.Aplication.Commands
 {
-   public class ReprovarReservaCommand : ReservaCommand
+   public class ReprovarReservaAutomaticamenteCommand : ReservaCommand
     {
 
-        public ReprovarReservaCommand
+        public ReprovarReservaAutomaticamenteCommand
             (Guid reservaId, string justificativa)
         {            
             Id = reservaId;
@@ -23,14 +23,14 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
             if (!ValidationResult.IsValid)
                 return ValidationResult.IsValid;
 
-            ValidationResult = new ReprovarReservaCommandValidation().Validate(this);
+            ValidationResult = new ReprovarReservaAutomaticamenteCommandValidation().Validate(this);
             return ValidationResult.IsValid;
         }
 
 
-        public class ReprovarReservaCommandValidation : ReservaValidation<ReprovarReservaCommand>
+        public class ReprovarReservaAutomaticamenteCommandValidation : ReservaValidation<ReprovarReservaAutomaticamenteCommand>
         {
-            public ReprovarReservaCommandValidation()
+            public ReprovarReservaAutomaticamenteCommandValidation()
             {
                 ValidateId();
                 ValidateJustificativa();

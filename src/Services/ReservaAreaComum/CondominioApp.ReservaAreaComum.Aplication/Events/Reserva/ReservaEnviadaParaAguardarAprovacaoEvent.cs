@@ -7,15 +7,11 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Events
     {
 
         public ReservaEnviadaParaAguardarAprovacaoEvent
-           (Guid reservaId, string justificativa, string observacao,
-            Guid funcionarioId, string nomeFuncionario, string origem)
+           (Guid reservaId, string justificativa, string observacao)
         {
             Id = reservaId;
             Justificativa = justificativa;
-            Observacao = observacao;
-            FuncionarioId = funcionarioId;
-            NomeFuncionario = nomeFuncionario;
-            Origem = origem;
+            Observacao = observacao;            
         }
 
     }

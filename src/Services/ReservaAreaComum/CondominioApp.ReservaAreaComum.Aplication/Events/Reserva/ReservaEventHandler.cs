@@ -10,9 +10,18 @@ using MediatR;
 namespace CondominioApp.ReservaAreaComum.Aplication.Events
 {
     public class ReservaEventHandler : EventHandler,
-        INotificationHandler<ReservaCadastradaEvent>,
-        INotificationHandler<ReservaAprovadaEvent>,
-        INotificationHandler<ReservaAprovadaPelaAdministracaoEvent>,        
+        INotificationHandler<ReservaCadastradaPeloUsuarioEvent>,
+        INotificationHandler<ReservaCadastradaPelaAdmEvent>,
+        INotificationHandler<ReservaAprovadaAutomaticamenteEvent>,
+        INotificationHandler<ReservaAprovadaPelaAdministracaoEvent>,
+        INotificationHandler<ReservaEnviadaParaAguardarAprovacaoEvent>,
+        INotificationHandler<ReservaEnviadaParaFilaEvent>,
+        INotificationHandler<ReservaCanceladaPeloUsuarioEvent>,
+        INotificationHandler<ReservaCanceladaPelaAdmEvent>,
+        INotificationHandler<ReservaReprovadaAutomaticamenteEvent>,
+        INotificationHandler<ReservaReprovadaPelaAdmEvent>,
+        INotificationHandler<ReservaMarcadaComoExpiradaEvent>,
+        INotificationHandler<ReservaRetiradaDaFilaEvent>,
         System.IDisposable
     {
        
@@ -28,41 +37,53 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Events
         }
 
 
-        public async Task Handle(ReservaCadastradaEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(ReservaCadastradaPeloUsuarioEvent notification, CancellationToken cancellationToken)
         {
             var reservaFlat = new ReservaFlat
-                (notification.Id,
-                notification.AreaComumId, notification.NomeAreaComum, notification.CondominioId,
-                notification.NomeCondominio, notification.Capacidade, notification.Observacao,
-                notification.UnidadeId, notification.NumeroUnidade, notification.AndarUnidade,
-                notification.DescricaoGrupoUnidade, notification.MoradorId, notification.NomeMorador,
-                notification.DataDeRealizacao, notification.HoraInicio, notification.HoraFim,
-                notification.Preco, notification.Status, notification.Justificativa, notification.Origem,
-                notification.CriadaPelaAdministracao, notification.ReservadoPelaAdministracao);
+                (notification.Id, notification.AreaComumId, notification.NomeAreaComum,
+                 notification.CondominioId, notification.NomeCondominio, notification.Capacidade,
+                 notification.Observacao, notification.UnidadeId, notification.NumeroUnidade,
+                 notification.AndarUnidade, notification.DescricaoGrupoUnidade, notification.MoradorId,
+                 notification.NomeMorador, notification.DataDeRealizacao, notification.HoraInicio,
+                 notification.HoraFim, notification.Preco, StatusReserva.PROCESSANDO,
+                 notification.Justificativa, notification.Origem, false,
+                 notification.ReservadoPelaAdministracao);
 
             _reservaAreaComumQueryRepository.AdicionarReserva(reservaFlat);
 
-            var historico = HistoricoReservaSolicitadaFactory(notification);
+            var historico = new HistoricoReservaFlat
+                (notification.Id, AcoesReserva.SOLICITADA, notification.MoradorId, notification.NomeMorador,
+                 TipoDoAutor.MORADOR, notification.Origem);
 
             _reservaAreaComumQueryRepository.AdicionarHistoricoReserva(historico);
 
             await PersistirDados(_reservaAreaComumQueryRepository.UnitOfWork);
         }
-        private HistoricoReservaFlat HistoricoReservaSolicitadaFactory(ReservaCadastradaEvent notification)
+
+        public async Task Handle(ReservaCadastradaPelaAdmEvent notification, CancellationToken cancellationToken)
         {
-            if (notification.CriadaPelaAdministracao)
-                return new HistoricoReservaFlat
+            var reservaFlat = new ReservaFlat
+                (notification.Id, notification.AreaComumId, notification.NomeAreaComum,
+                 notification.CondominioId, notification.NomeCondominio, notification.Capacidade,
+                 notification.Observacao, notification.UnidadeId, notification.NumeroUnidade,
+                 notification.AndarUnidade, notification.DescricaoGrupoUnidade, notification.MoradorId,
+                 notification.NomeMorador, notification.DataDeRealizacao, notification.HoraInicio,
+                 notification.HoraFim, notification.Preco, StatusReserva.PROCESSANDO,
+                 notification.Justificativa, notification.Origem, true,
+                 notification.ReservadoPelaAdministracao);
+
+            _reservaAreaComumQueryRepository.AdicionarReserva(reservaFlat);
+
+            var historico = new HistoricoReservaFlat
                 (notification.Id, AcoesReserva.SOLICITADA, notification.FuncionarioId, notification.NomeFuncionario,
                  TipoDoAutor.ADMINISTRACAO, notification.Origem);
 
-            return new HistoricoReservaFlat
-                (notification.Id, AcoesReserva.SOLICITADA, notification.MoradorId, notification.NomeMorador,
-                 TipoDoAutor.MORADOR, notification.Origem);
+            _reservaAreaComumQueryRepository.AdicionarHistoricoReserva(historico);
 
+            await PersistirDados(_reservaAreaComumQueryRepository.UnitOfWork);
         }
-
-
-        public async Task Handle(ReservaAprovadaEvent notification, CancellationToken cancellationToken)
+    
+        public async Task Handle(ReservaAprovadaAutomaticamenteEvent notification, CancellationToken cancellationToken)
         {
             var reservaFlat = await _reservaAreaComumQueryRepository.ObterReservaPorId(notification.Id);
             if (reservaFlat == null)
@@ -73,21 +94,14 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Events
 
             _reservaAreaComumQueryRepository.AtualizarReserva(reservaFlat);
 
-            var historico = HistoricoReservaAprovadaFactory(notification);
+            var historico = HistoricoReservaAcaoDoSistemaFactory(notification.Id, AcoesReserva.APROVADA);
 
             _reservaAreaComumQueryRepository.AdicionarHistoricoReserva(historico);
 
             await PersistirDados(_reservaAreaComumQueryRepository.UnitOfWork);
 
         }
-        private HistoricoReservaFlat HistoricoReservaAprovadaFactory(ReservaAprovadaEvent notification)
-        {
-            return new HistoricoReservaFlat
-                (notification.Id, AcoesReserva.APROVADA, System.Guid.Empty, "Ação Automática",
-                 TipoDoAutor.SISTEMA, "Sistema");
-        }
-
-
+    
         public async Task Handle(ReservaAprovadaPelaAdministracaoEvent notification, CancellationToken cancellationToken)
         {
             var reservaFlat = await _reservaAreaComumQueryRepository.ObterReservaPorId(notification.Id);
@@ -99,21 +113,16 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Events
 
             _reservaAreaComumQueryRepository.AtualizarReserva(reservaFlat);
 
-            var historico = HistoricoReservaAprovadaPelaAdmFactory(notification);
+            var historico = new HistoricoReservaFlat
+                (notification.Id, AcoesReserva.APROVADA, notification.FuncionarioId, notification.NomeFuncionario,
+                 TipoDoAutor.ADMINISTRACAO, notification.Origem);
 
             _reservaAreaComumQueryRepository.AdicionarHistoricoReserva(historico);
 
             await PersistirDados(_reservaAreaComumQueryRepository.UnitOfWork);
 
         }
-        private HistoricoReservaFlat HistoricoReservaAprovadaPelaAdmFactory(ReservaAprovadaPelaAdministracaoEvent notification)
-        {
-            return new HistoricoReservaFlat
-                (notification.Id, AcoesReserva.APROVADA, notification.FuncionarioId, notification.NomeFuncionario,
-                 TipoDoAutor.SISTEMA, notification.Origem);
-        }
-
-
+       
         public async Task Handle(ReservaEnviadaParaAguardarAprovacaoEvent notification, CancellationToken cancellationToken)
         {
             var reservaFlat = await _reservaAreaComumQueryRepository.ObterReservaPorId(notification.Id);
@@ -125,68 +134,171 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Events
 
             _reservaAreaComumQueryRepository.AtualizarReserva(reservaFlat);
 
-            var historico = HistoricoReservaEnviadaParaAguardarAprovacaoFactory(notification);
+            var historico = HistoricoReservaAcaoDoSistemaFactory(notification.Id, AcoesReserva.AGUARDAR_APROVACAO);
+         
 
             _reservaAreaComumQueryRepository.AdicionarHistoricoReserva(historico);
 
             await PersistirDados(_reservaAreaComumQueryRepository.UnitOfWork);
 
         }
-        private HistoricoReservaFlat HistoricoReservaEnviadaParaAguardarAprovacaoFactory(ReservaEnviadaParaAguardarAprovacaoEvent notification)
+
+        public async Task Handle(ReservaEnviadaParaFilaEvent notification, CancellationToken cancellationToken)
         {
-            return new HistoricoReservaFlat
-                (notification.Id, AcoesReserva.AGUARDAR_APROVACAO, notification.FuncionarioId, notification.NomeFuncionario,
-                 TipoDoAutor.SISTEMA, notification.Origem);
+            var reservaFlat = await _reservaAreaComumQueryRepository.ObterReservaPorId(notification.Id);
+            if (reservaFlat == null)
+                return;
+
+            reservaFlat.SetStatus(StatusReserva.NA_FILA, notification.Justificativa);
+            reservaFlat.SetObservacao(notification.Observacao);
+
+            _reservaAreaComumQueryRepository.AtualizarReserva(reservaFlat);
+
+            var historico = HistoricoReservaAcaoDoSistemaFactory(notification.Id, AcoesReserva.ENVIADA_PARA_FILA);
+
+            _reservaAreaComumQueryRepository.AdicionarHistoricoReserva(historico);
+
+            await PersistirDados(_reservaAreaComumQueryRepository.UnitOfWork);
+
         }
 
-
-
-        private HistoricoReservaFlat HistoricoReservaAprovadaFactory(StatusDaReservaAlteradoEvent notification)
+        public async Task Handle(ReservaCanceladaPeloUsuarioEvent notification, CancellationToken cancellationToken)
         {
-            if (notification.CriadaPelaAdministracao)
-                return new HistoricoReservaFlat
-                (notification.Id, AcoesReserva.SOLICITADA, System.Guid.Empty, "Administração",
-                 TipoDoAutor.ADMINISTRACAO, notification.Origem);
+            var reservaFlat = await _reservaAreaComumQueryRepository.ObterReservaPorId(notification.Id);
+            if (reservaFlat == null)
+                return;
 
-            return new HistoricoReservaFlat
-                (notification.Id, AcoesReserva.SOLICITADA, notification.MoradorId, notification.NomeMorador,
+            reservaFlat.SetStatus(StatusReserva.CANCELADA, notification.Justificativa);
+            reservaFlat.SetObservacao(notification.Observacao);
+
+            _reservaAreaComumQueryRepository.AtualizarReserva(reservaFlat);
+
+            var historico = new HistoricoReservaFlat
+                (notification.Id, AcoesReserva.CANCELADA, notification.MoradorId, notification.NomeMorador,
                  TipoDoAutor.MORADOR, notification.Origem);
 
+            _reservaAreaComumQueryRepository.AdicionarHistoricoReserva(historico);
+
+            await PersistirDados(_reservaAreaComumQueryRepository.UnitOfWork);
         }
 
-        private HistoricoReservaFlat HistoricoReservaReprovadaFactory(StatusDaReservaAlteradoEvent notification)
+        public async Task Handle(ReservaCanceladaPelaAdmEvent notification, CancellationToken cancellationToken)
         {
-            switch (notification.Status)
+            var reservaFlat = await _reservaAreaComumQueryRepository.ObterReservaPorId(notification.Id);
+            if (reservaFlat == null)
+                return;
+
+            reservaFlat.SetStatus(StatusReserva.CANCELADA, notification.Justificativa);
+            reservaFlat.SetObservacao(notification.Observacao);
+
+            _reservaAreaComumQueryRepository.AtualizarReserva(reservaFlat);
+
+            var historico = new HistoricoReservaFlat
+                (notification.Id, AcoesReserva.CANCELADA, notification.FuncionarioId, notification.NomeFuncionario,
+                 TipoDoAutor.ADMINISTRACAO, notification.Origem);
+
+            _reservaAreaComumQueryRepository.AdicionarHistoricoReserva(historico);
+
+            await PersistirDados(_reservaAreaComumQueryRepository.UnitOfWork);
+        }
+
+        public async Task Handle(ReservaReprovadaAutomaticamenteEvent notification, CancellationToken cancellationToken)
+        {
+            var reservaFlat = await _reservaAreaComumQueryRepository.ObterReservaPorId(notification.Id);
+            if (reservaFlat == null)
+                return;
+
+            reservaFlat.SetStatus(StatusReserva.REPROVADA, notification.Justificativa);
+            reservaFlat.SetObservacao(notification.Observacao);
+
+            _reservaAreaComumQueryRepository.AtualizarReserva(reservaFlat);
+
+            var historico = HistoricoReservaAcaoDoSistemaFactory(notification.Id, AcoesReserva.REPROVADA);
+
+            _reservaAreaComumQueryRepository.AdicionarHistoricoReserva(historico);
+
+            await PersistirDados(_reservaAreaComumQueryRepository.UnitOfWork);
+        }
+
+        public async Task Handle(ReservaReprovadaPelaAdmEvent notification, CancellationToken cancellationToken)
+        {
+            var reservaFlat = await _reservaAreaComumQueryRepository.ObterReservaPorId(notification.Id);
+            if (reservaFlat == null)
+                return;
+
+            reservaFlat.SetStatus(StatusReserva.REPROVADA, notification.Justificativa);
+            reservaFlat.SetObservacao(notification.Observacao);
+
+            _reservaAreaComumQueryRepository.AtualizarReserva(reservaFlat);
+
+            var historico = new HistoricoReservaFlat
+                (notification.Id, AcoesReserva.CANCELADA, notification.FuncionarioId, notification.NomeFuncionario,
+                 TipoDoAutor.ADMINISTRACAO, notification.Origem);
+
+            _reservaAreaComumQueryRepository.AdicionarHistoricoReserva(historico);
+
+            await PersistirDados(_reservaAreaComumQueryRepository.UnitOfWork);
+        }
+
+        public async Task Handle(ReservaMarcadaComoExpiradaEvent notification, CancellationToken cancellationToken)
+        {
+            var reservaFlat = await _reservaAreaComumQueryRepository.ObterReservaPorId(notification.Id);
+            if (reservaFlat == null)
+                return;
+
+            reservaFlat.SetStatus(StatusReserva.EXPIRADA, notification.Justificativa);
+            reservaFlat.SetObservacao(notification.Observacao);
+
+            _reservaAreaComumQueryRepository.AtualizarReserva(reservaFlat);
+
+            var historico = HistoricoReservaAcaoDoSistemaFactory(notification.Id, AcoesReserva.EXPIRADA);
+
+            _reservaAreaComumQueryRepository.AdicionarHistoricoReserva(historico);
+
+            await PersistirDados(_reservaAreaComumQueryRepository.UnitOfWork);
+        }
+
+        public async Task Handle(ReservaRetiradaDaFilaEvent notification, CancellationToken cancellationToken)
+        {
+            var reservaFlat = await _reservaAreaComumQueryRepository.ObterReservaPorId(notification.Id);
+            if (reservaFlat == null)
+                return;
+
+            reservaFlat.SetStatus(notification.Status, notification.Justificativa);
+            reservaFlat.SetObservacao(notification.Observacao);
+
+            _reservaAreaComumQueryRepository.AtualizarReserva(reservaFlat);
+
+            var historico1 = HistoricoReservaAcaoDoSistemaFactory(notification.Id, AcoesReserva.RETIRADA_DA_FILA);
+            _reservaAreaComumQueryRepository.AdicionarHistoricoReserva(historico1);
+
+            var historico2 = HistoricoReservaPorStatusFactory(notification.Id, notification.Status);
+            _reservaAreaComumQueryRepository.AdicionarHistoricoReserva(historico2);
+
+            await PersistirDados(_reservaAreaComumQueryRepository.UnitOfWork);
+        }
+        private HistoricoReservaFlat HistoricoReservaPorStatusFactory(System.Guid reservaId, StatusReserva status)
+        {
+            return status switch
             {
-                case StatusReserva.PROCESSANDO:
-                    break;
-                case StatusReserva.APROVADA:
-                    break;
-                case StatusReserva.REPROVADA:
-                    break;
-                case StatusReserva.AGUARDANDO_APROVACAO:
-                    break;
-                case StatusReserva.NA_FILA:
-                    break;
-                case StatusReserva.CANCELADA:
-                    break;
-                case StatusReserva.EXPIRADA:
-                    break;
-                case StatusReserva.REMOVIDA:
-                    break;
-                default:
-                    break;
-            }
+                StatusReserva.PROCESSANDO => HistoricoReservaAcaoDoSistemaFactory(reservaId, AcoesReserva.SOLICITADA),
+                StatusReserva.APROVADA => HistoricoReservaAcaoDoSistemaFactory(reservaId, AcoesReserva.APROVADA),
+                StatusReserva.REPROVADA => HistoricoReservaAcaoDoSistemaFactory(reservaId, AcoesReserva.REPROVADA),
+                StatusReserva.AGUARDANDO_APROVACAO => HistoricoReservaAcaoDoSistemaFactory(reservaId, AcoesReserva.AGUARDAR_APROVACAO),
+                StatusReserva.NA_FILA => HistoricoReservaAcaoDoSistemaFactory(reservaId, AcoesReserva.ENVIADA_PARA_FILA),
+                StatusReserva.CANCELADA => HistoricoReservaAcaoDoSistemaFactory(reservaId, AcoesReserva.CANCELADA),
+                StatusReserva.EXPIRADA => HistoricoReservaAcaoDoSistemaFactory(reservaId, AcoesReserva.EXPIRADA),
+                StatusReserva.REMOVIDA => HistoricoReservaAcaoDoSistemaFactory(reservaId, AcoesReserva.REMOVIDA),
+                _ => HistoricoReservaAcaoDoSistemaFactory(reservaId, AcoesReserva.SOLICITADA),
+            };
+        }
 
-            if (notification.CriadaPelaAdministracao)
-                return new HistoricoReservaFlat
-                (notification.Id, AcoesReserva.SOLICITADA, System.Guid.Empty, "Administração",
-                 TipoDoAutor.ADMINISTRACAO, notification.Origem);
 
+        private HistoricoReservaFlat HistoricoReservaAcaoDoSistemaFactory(System.Guid reservaId, AcoesReserva acao)
+        {
             return new HistoricoReservaFlat
-                (notification.Id, AcoesReserva.SOLICITADA, notification.MoradorId, notification.NomeMorador,
-                 TipoDoAutor.MORADOR, notification.Origem);
-
+                (reservaId, acao, System.Guid.Empty, "Ação Automática",
+                 TipoDoAutor.SISTEMA, "Sistema");
         }
 
         public void Dispose()

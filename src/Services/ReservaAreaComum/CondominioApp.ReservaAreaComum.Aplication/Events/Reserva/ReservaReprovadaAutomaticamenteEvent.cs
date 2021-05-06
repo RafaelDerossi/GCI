@@ -3,12 +3,12 @@ using System;
 
 namespace CondominioApp.ReservaAreaComum.Aplication.Events
 {
-   public class ReservaEnviadaParaFilaEvent : ReservaEvent
+   public class ReservaReprovadaAutomaticamenteEvent : ReservaEvent
     {
 
-        public ReservaEnviadaParaFilaEvent
-            (Guid reservaId, string justificativa, string observacao)
-        {            
+        public ReservaReprovadaAutomaticamenteEvent
+              (Guid reservaId, string justificativa, string observacao)
+        {
             Id = reservaId;
             Justificativa = justificativa;
             Observacao = observacao;

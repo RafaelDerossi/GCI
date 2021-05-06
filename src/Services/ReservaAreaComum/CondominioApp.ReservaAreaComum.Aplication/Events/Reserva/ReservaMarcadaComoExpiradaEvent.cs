@@ -3,10 +3,10 @@ using System;
 
 namespace CondominioApp.ReservaAreaComum.Aplication.Events
 {
-   public class ReservaEnviadaParaFilaEvent : ReservaEvent
+   public class ReservaMarcadaComoExpiradaEvent : ReservaEvent
     {
 
-        public ReservaEnviadaParaFilaEvent
+        public ReservaMarcadaComoExpiradaEvent
             (Guid reservaId, string justificativa, string observacao)
         {            
             Id = reservaId;

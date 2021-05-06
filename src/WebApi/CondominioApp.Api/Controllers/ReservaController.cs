@@ -99,8 +99,10 @@ namespace CondominioApp.Api.Controllers
         }
 
 
-        [HttpPost]
-        public async Task<ActionResult> Post(CadastraReservaViewModel reservaVM)
+
+
+        [HttpPost("cadastrar-como-morador")]
+        public async Task<ActionResult> PostComoMorador(CadastraReservaMoradorViewModel reservaVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
@@ -118,50 +120,132 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }
 
-            var comando = CadastrarReservaCommandFactory(reservaVM, unidade, morador);
+            var comando = CadastrarReservaPeloUsuarioCommandFactory(reservaVM, unidade, morador);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
             return CustomResponse(Resultado);
         }
 
-        [HttpPut("aprovar/{id:Guid}")]
-        public async Task<ActionResult> PutAprovar(Guid id)
+        [HttpPost("cadastrar-como-administrador")]
+        public async Task<ActionResult> PostComoAdministrador(CadastraReservaAdmViewModel reservaVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var comando = new AprovarReservaPelaAdministracaoCommand(id);
+            var morador = await _usuarioQuery.ObterMoradorPorId(reservaVM.MoradorId);
+            if (morador == null)
+            {
+                AdicionarErroProcessamento("Morador não encontrado!");
+                return CustomResponse();
+            }
+
+            var funcionario = await _usuarioQuery.ObterFuncionarioPorId(reservaVM.FuncionarioId);
+            if (funcionario == null)
+            {
+                AdicionarErroProcessamento("Funcionário não encontrado!");
+                return CustomResponse();
+            }
+
+            var unidade = await _principalQuery.ObterUnidadePorId(reservaVM.UnidadeId);
+            if (unidade == null)
+            {
+                AdicionarErroProcessamento("Unidade não encontrada!");
+                return CustomResponse();
+            }
+
+            var comando = CadastrarReservaPelaAdmCommandFactory(reservaVM, unidade, morador, funcionario);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
             return CustomResponse(Resultado);
         }
 
-        [HttpDelete("cancelar-como-usuario")]
-        public async Task<ActionResult> CancelarComoUsuario(CancelarReservaViewModel cancelarReservaVM)
+
+
+        [HttpPut("aprovar")]
+        public async Task<ActionResult> PutAprovar(AprovarReservaAdmViewModel reservaVM)
         {
-            var comandoCancelarReserva = new CancelarReservaComoUsuarioCommand(cancelarReservaVM.ReservaId, cancelarReservaVM.Justificativa);
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            var funcionario = await _usuarioQuery.ObterFuncionarioPorId(reservaVM.FuncionarioId);
+            if (funcionario == null)
+            {
+                AdicionarErroProcessamento("Funcionário não encontrado!");
+                return CustomResponse();
+            }
+
+            var comando = new AprovarReservaPelaAdministracaoCommand
+                (reservaVM.ReservaId, funcionario.Id, funcionario.NomeCompleto, reservaVM.Origem);
+
+            var Resultado = await _mediatorHandler.EnviarComando(comando);
+
+            return CustomResponse(Resultado);
+        }
+
+        [HttpPut("reprovar")]
+        public async Task<ActionResult> PutReprovar(ReprovarReservaAdmViewModel reservaVM)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            var funcionario = await _usuarioQuery.ObterFuncionarioPorId(reservaVM.FuncionarioId);
+            if (funcionario == null)
+            {
+                AdicionarErroProcessamento("Funcionário não encontrado!");
+                return CustomResponse();
+            }
+
+            var comando = new ReprovarReservaPelaAdmCommand
+                (reservaVM.ReservaId, reservaVM.Justificativa, funcionario.Id, funcionario.NomeCompleto, reservaVM.Origem);
+
+            var Resultado = await _mediatorHandler.EnviarComando(comando);
+
+            return CustomResponse(Resultado);
+        }
+
+
+
+        [HttpDelete("cancelar-como-usuario")]
+        public async Task<ActionResult> CancelarComoUsuario(CancelarReservaMoradorViewModel reservaVM)
+        {
+
+            var morador = await _usuarioQuery.ObterMoradorPorId(reservaVM.MoradorId);
+            if (morador == null)
+            {
+                AdicionarErroProcessamento("Morador não encontrado!");
+                return CustomResponse();
+            }
+
+            var comandoCancelarReserva = new CancelarReservaComoUsuarioCommand
+                (reservaVM.ReservaId, reservaVM.Justificativa, morador.Id, morador.NomeCompleto, reservaVM.Origem);
 
             var result = await _mediatorHandler.EnviarComando(comandoCancelarReserva);
             if (!result.IsValid)
                 return CustomResponse(result);
 
-            var comando2RetirarDaFila = new RetirarReservaDaFilaCommand(cancelarReservaVM.ReservaId);
+            var comando2RetirarDaFila = new RetirarReservaDaFilaCommand(reservaVM.ReservaId);
             result = await _mediatorHandler.EnviarComando(comando2RetirarDaFila);
 
             return CustomResponse(result);
         }
 
         [HttpDelete("cancelar-como-administrador")]
-        public async Task<ActionResult> CancelarComoAdministrador(CancelarReservaViewModel cancelarReservaVM)
+        public async Task<ActionResult> CancelarComoAdministrador(CancelarReservaAdmViewModel reservaVM)
         {
-            var comando = new CancelarReservaComoAdministradorCommand(cancelarReservaVM.ReservaId, cancelarReservaVM.Justificativa);
+            var funcionario = await _usuarioQuery.ObterFuncionarioPorId(reservaVM.FuncionarioId);
+            if (funcionario == null)
+            {
+                AdicionarErroProcessamento("Funcionário não encontrado!");
+                return CustomResponse();
+            }
+
+            var comando = new CancelarReservaComoAdministradorCommand
+                (reservaVM.ReservaId, reservaVM.Justificativa, funcionario.Id, funcionario.NomeCompleto, reservaVM.Origem);
 
             var result = await _mediatorHandler.EnviarComando(comando);
             if (!result.IsValid)
                 return CustomResponse(result);
 
-            var comandoRetirarDaFila = new RetirarReservaDaFilaCommand(cancelarReservaVM.ReservaId);
+            var comandoRetirarDaFila = new RetirarReservaDaFilaCommand(reservaVM.ReservaId);
             result = await _mediatorHandler.EnviarComando(comandoRetirarDaFila);
 
             return CustomResponse(result);           
@@ -171,16 +255,25 @@ namespace CondominioApp.Api.Controllers
 
 
 
-        private CadastrarReservaCommand CadastrarReservaCommandFactory
-            (CadastraReservaViewModel reservaVM, UnidadeFlat unidade, MoradorFlat morador)
+        private CadastrarReservaPeloUsuarioCommand CadastrarReservaPeloUsuarioCommandFactory
+            (CadastraReservaMoradorViewModel reservaVM, UnidadeFlat unidade, MoradorFlat morador)
         {            
-            return new CadastrarReservaCommand(
+            return new CadastrarReservaPeloUsuarioCommand(
                   reservaVM.AreaComumId, reservaVM.Observacao, unidade.Id, unidade.Numero,
                   unidade.Andar, unidade.GrupoDescricao, morador.Id,
                   morador.NomeCompleto, reservaVM.DataDeRealizacao, reservaVM.HoraInicio, reservaVM.HoraFim,
-                  reservaVM.Preco, reservaVM.Origem,reservaVM.CriadaPelaAdministracao,
-                  reservaVM.ReservadoPelaAdministracao);
+                  reservaVM.Preco, reservaVM.Origem, reservaVM.ReservadoPelaAdministracao);
         }
 
+        private CadastrarReservaPelaAdmCommand CadastrarReservaPelaAdmCommandFactory
+           (CadastraReservaAdmViewModel reservaVM, UnidadeFlat unidade, MoradorFlat morador, FuncionarioFlat funcionario)
+        {
+            return new CadastrarReservaPelaAdmCommand(
+                  reservaVM.AreaComumId, reservaVM.Observacao, unidade.Id, unidade.Numero,
+                  unidade.Andar, unidade.GrupoDescricao, morador.Id,
+                  morador.NomeCompleto, reservaVM.DataDeRealizacao, reservaVM.HoraInicio, reservaVM.HoraFim,
+                  reservaVM.Preco, reservaVM.Origem, reservaVM.ReservadoPelaAdministracao, funcionario.Id,
+                  funcionario.NomeCompleto);
+        }
     }
 }

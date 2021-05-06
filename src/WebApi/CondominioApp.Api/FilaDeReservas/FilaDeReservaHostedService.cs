@@ -18,9 +18,8 @@ namespace CondominioApp.Api.FilaDeReservas
         private readonly IReservaAreaComumRepository _reservaAreaComumRepository;
         private readonly IReservaStrategy _regrasDeReserva;
 
-        #pragma warning disable IDE0052 // Remover membros particulares não lidos
-        private Timer Timer;
-        #pragma warning restore IDE0052 // Remover membros particulares não lidos
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0052:Remover membros particulares não lidos", Justification = "<Pendente>")]
+        private Timer Timer;        
 
         public FilaDeReservaHostedService
             (IMediatorHandler mediatorHandler,
@@ -76,7 +75,7 @@ namespace CondominioApp.Api.FilaDeReservas
 
                     if (reserva.Status == StatusReserva.REPROVADA)
                     {
-                        var comando = new ReprovarReservaCommand(reserva.Id, reserva.Justificativa);
+                        var comando = new ReprovarReservaAutomaticamenteCommand(reserva.Id, reserva.Justificativa);
                         _mediatorHandler.EnviarComando(comando);
                     }
                 }

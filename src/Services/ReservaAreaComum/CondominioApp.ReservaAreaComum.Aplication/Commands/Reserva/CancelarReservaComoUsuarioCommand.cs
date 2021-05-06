@@ -1,20 +1,21 @@
 ﻿
 
 using CondominioApp.Principal.Aplication.Commands.Validations;
-using CondominioApp.ReservaAreaComum.Domain;
 using System;
-using System.Collections.Generic;
 
 namespace CondominioApp.ReservaAreaComum.Aplication.Commands
 {
-   public class CancelarReservaComoUsuarioCommand : ReservaCommand
+    public class CancelarReservaComoUsuarioCommand : ReservaCommand
     {
 
         public CancelarReservaComoUsuarioCommand
-            (Guid reservaId, string justificatica)
+            (Guid reservaId, string justificatica, Guid moradorId, string nomeMorador, string origem)
         {            
             Id = reservaId;
             Justificativa = justificatica;
+            MoradorId = moradorId;
+            NomeMorador = nomeMorador;
+            Origem = origem;
         }
 
 
@@ -34,6 +35,9 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
             {
                 ValidateId();
                 ValidateJustificativa();
+                ValidateMoradorId();
+                ValidateNomeMorador();
+                ValidateOrigem();
             }
         }
 

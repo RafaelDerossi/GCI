@@ -11,9 +11,12 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
     {
 
         public AprovarReservaPelaAdministracaoCommand
-            (Guid reservaId)
+            (Guid reservaId, Guid funcionarioid, string nomeFuncionario, string origem)
         {            
-            Id = reservaId;           
+            Id = reservaId;
+            FuncionarioId = funcionarioid;
+            NomeFuncionario = nomeFuncionario;
+            Origem = origem;
         }
 
 
@@ -31,7 +34,10 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
         {
             public AprovarReservaCommandValidation()
             {
-                ValidateId();                
+                ValidateId();
+                ValidateFuncionarioId();
+                ValidateNomeFuncionario();
+                ValidateOrigem();
             }
         }
 

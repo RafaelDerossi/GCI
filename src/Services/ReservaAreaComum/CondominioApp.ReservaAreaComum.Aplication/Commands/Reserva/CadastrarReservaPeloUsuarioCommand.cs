@@ -1,21 +1,18 @@
 ﻿
 
 using CondominioApp.Principal.Aplication.Commands.Validations;
-using CondominioApp.ReservaAreaComum.Domain;
 using System;
-using System.Collections.Generic;
 
 namespace CondominioApp.ReservaAreaComum.Aplication.Commands
 {
-   public class CadastrarReservaCommand : ReservaCommand
+   public class CadastrarReservaPeloUsuarioCommand : ReservaCommand
     {
 
-        public CadastrarReservaCommand
+        public CadastrarReservaPeloUsuarioCommand
             (Guid areaComumId, string observacao, Guid unidadeId, string numeroUnidade,
              string andarUnidade, string descricaoGrupoUnidade, Guid moradorId, string nomeMorador,
              DateTime dataDeRealizacao, string horaInicio, string horaFim, decimal preco,
-             string origem, bool criadaPelaAdministracao, bool reservadoPelaAdministracao,
-             Guid funcionarioId, string nomeFuncionario)
+             string origem, bool reservadoPelaAdministracao)
         {            
             SetAreaComumId(areaComumId);
             Observacao = observacao;
@@ -29,11 +26,8 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
             SetHoraInicio(horaInicio);
             SetHoraFim(horaFim);
             Preco = preco;            
-            Origem = origem;
-            CriadaPelaAdministracao = criadaPelaAdministracao;
-            ReservadoPelaAdministracao = reservadoPelaAdministracao;
-            FuncionarioId = funcionarioId;
-            NomeFuncionario = nomeFuncionario;
+            Origem = origem;            
+            ReservadoPelaAdministracao = reservadoPelaAdministracao;            
         }
 
 
@@ -47,7 +41,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
         }
 
 
-        public class CadastrarReservaCommandValidation : ReservaValidation<CadastrarReservaCommand>
+        public class CadastrarReservaCommandValidation : ReservaValidation<CadastrarReservaPeloUsuarioCommand>
         {
             public CadastrarReservaCommandValidation()
             {
@@ -63,9 +57,11 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
                 ValidateHoraInicio();
                 ValidateHoraFim();               
                 ValidatePreco();                
-                ValidateOrigem();
-                ValidateCriadoPelaAdministracao();
+                ValidateOrigem();                
                 ValidateReservadoPelaAdministracao();
+                ValidateFuncionarioId();
+                ValidateNomeFuncionario();
+                ValidateOrigem();
             }
         }
 

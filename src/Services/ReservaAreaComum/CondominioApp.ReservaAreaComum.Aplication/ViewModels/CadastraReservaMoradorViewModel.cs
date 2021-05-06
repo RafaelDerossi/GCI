@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CondominioApp.ReservaAreaComum.Aplication.ViewModels
 {
-   public class CadastraReservaViewModel
+    public class CadastraReservaMoradorViewModel
     {      
         public Guid AreaComumId { get; set; }
 
@@ -20,12 +18,11 @@ namespace CondominioApp.ReservaAreaComum.Aplication.ViewModels
 
         public string HoraFim { get; set; }
 
-        public decimal Preco { get; set; }        
-
-        public string Origem { get; set; }
-
-        public bool CriadaPelaAdministracao { get; set; }
+        public decimal Preco { get; set; }
 
         public bool ReservadoPelaAdministracao { get; set; }
+
+        public string Origem { get; set; }
+        
     }
 }

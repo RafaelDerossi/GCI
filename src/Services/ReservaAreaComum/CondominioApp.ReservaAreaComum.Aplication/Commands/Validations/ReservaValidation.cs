@@ -118,5 +118,18 @@ namespace CondominioApp.Principal.Aplication.Commands.Validations
                 .NotNull().WithMessage("'Reservado pela Administracao' não pode estar vazio!");
         }
 
+        protected void ValidateFuncionarioId()
+        {
+            RuleFor(c => c.FuncionarioId)
+                .NotEqual(Guid.Empty);
+        }
+
+        protected void ValidateNomeFuncionario()
+        {
+            RuleFor(c => c.NomeFuncionario)
+                .NotEmpty().WithMessage("Nome do Funcionário não pode estar vazio!")
+                .Length(2, 200).WithMessage("Nome do Funcionário deve ter mais de 2 caracteres!");
+        }
+
     }
 }
