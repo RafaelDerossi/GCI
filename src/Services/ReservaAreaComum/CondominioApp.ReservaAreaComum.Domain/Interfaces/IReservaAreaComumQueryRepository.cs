@@ -33,6 +33,8 @@ namespace CondominioApp.ReservaAreaComum.Domain.Interfaces
         Task<PeriodoFlat> ObterPeriodoPorId(Guid Id);
 
 
+        Task<IEnumerable<HistoricoReservaFlat>> ObterHistoricoDaReserva(Guid reservaId);
+
         void AdicionarHistoricoReserva(HistoricoReservaFlat entity);
     }
 }

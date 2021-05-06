@@ -44,7 +44,7 @@ namespace CondominioApp.Api.Controllers
             return morador;
         }
 
-        [HttpGet("moradores-por-usuario/{usuarioId:Guid}")]
+        [HttpGet("por-usuario/{usuarioId:Guid}")]
         public async Task<ActionResult<IEnumerable<MoradorFlat>>> ObterMoradoresPorUsuarioId(Guid usuarioId)
         {
             var morador = await _usuarioQuery.ObterMoradoresPorUsuarioId(usuarioId);
@@ -57,7 +57,7 @@ namespace CondominioApp.Api.Controllers
             return morador.ToList();
         }
 
-        [HttpGet("moradores-por-unidade/{unidadeId:Guid}")]
+        [HttpGet("por-unidade/{unidadeId:Guid}")]
         public async Task<ActionResult<IEnumerable<MoradorFlat>>> ObterMoradoresPorUnidadeId(Guid unidadeId)
         {
             var morador = await _usuarioQuery.ObterMoradoresPorUnidadeId(unidadeId);
@@ -70,7 +70,7 @@ namespace CondominioApp.Api.Controllers
             return morador.ToList();
         }
 
-        [HttpGet("moradores-por-condominio/{condominioId:Guid}")]
+        [HttpGet("por-condominio/{condominioId:Guid}")]
         public async Task<ActionResult<IEnumerable<MoradorFlat>>> ObterMoradoresPorCondominioId(Guid condominioId)
         {
             var morador = await _usuarioQuery.ObterMoradoresPorCondominioId(condominioId);
@@ -134,7 +134,7 @@ namespace CondominioApp.Api.Controllers
         }
 
 
-        [HttpPut("marcar-como-unidadePrincipal/{moradorId:Guid}")]
+        [HttpPut("marcar-como-unidade-principal/{moradorId:Guid}")]
         public async Task<ActionResult> Post(Guid moradorId)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);            

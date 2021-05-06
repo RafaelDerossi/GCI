@@ -1,7 +1,4 @@
-﻿using CondominioApp.Core.Enumeradores;
-using CondominioApp.Core.Messages;
-using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents;
-using CondominioApp.Ocorrencias.App.Aplication.Commands;
+﻿using CondominioApp.Core.Messages;
 using CondominioApp.Ocorrencias.App.Models;
 using FluentValidation.Results;
 using MediatR;
@@ -9,7 +6,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CondominioApp.Comunicados.App.Aplication.Commands
+namespace CondominioApp.Ocorrencias.App.Aplication.Commands
 {
     public class OcorrenciaCommandHandler : CommandHandler,
          IRequestHandler<CadastrarOcorrenciaCommand, ValidationResult>,

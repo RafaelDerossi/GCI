@@ -84,6 +84,12 @@ namespace CondominioApp.ReservaAreaComum.App.Aplication.Query
             return await _reservaAreaComumQueryRepository.ObterPrimeiraNaFilaParaSerProcessada();
         }
 
+
+        public async Task<IEnumerable<HistoricoReservaFlat>> ObterHistoricoDaReserva(Guid reservaId)
+        {
+            return await _reservaAreaComumQueryRepository.ObterHistoricoDaReserva(reservaId);
+        }
+
         public void Dispose()
         {           
             _reservaAreaComumQueryRepository?.Dispose();

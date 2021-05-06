@@ -98,6 +98,19 @@ namespace CondominioApp.Api.Controllers
             return reservas.ToList();
         }
 
+        [HttpGet("historico/{reservaId:Guid}")]
+        public async Task<ActionResult<IEnumerable<HistoricoReservaFlat>>> ObterHistoricoDaReserva(Guid reservaId)
+        {
+            var historico = await _reservaAreaComumQuery.ObterHistoricoDaReserva(reservaId);
+            if (historico.Count() == 0)
+            {
+                AdicionarErroProcessamento("Nenhum registro encontrado.");
+                return CustomResponse();
+            }
+            return historico.ToList();
+        }
+
+
 
 
 
@@ -255,20 +268,20 @@ namespace CondominioApp.Api.Controllers
 
 
 
-        private CadastrarReservaPeloUsuarioCommand CadastrarReservaPeloUsuarioCommandFactory
+        private SolicitarReservaComoMoradorCommand CadastrarReservaPeloUsuarioCommandFactory
             (CadastraReservaMoradorViewModel reservaVM, UnidadeFlat unidade, MoradorFlat morador)
         {            
-            return new CadastrarReservaPeloUsuarioCommand(
+            return new SolicitarReservaComoMoradorCommand(
                   reservaVM.AreaComumId, reservaVM.Observacao, unidade.Id, unidade.Numero,
                   unidade.Andar, unidade.GrupoDescricao, morador.Id,
                   morador.NomeCompleto, reservaVM.DataDeRealizacao, reservaVM.HoraInicio, reservaVM.HoraFim,
                   reservaVM.Preco, reservaVM.Origem, reservaVM.ReservadoPelaAdministracao);
         }
 
-        private CadastrarReservaPelaAdmCommand CadastrarReservaPelaAdmCommandFactory
+        private SolicitarReservaComoAdministradorCommand CadastrarReservaPelaAdmCommandFactory
            (CadastraReservaAdmViewModel reservaVM, UnidadeFlat unidade, MoradorFlat morador, FuncionarioFlat funcionario)
         {
-            return new CadastrarReservaPelaAdmCommand(
+            return new SolicitarReservaComoAdministradorCommand(
                   reservaVM.AreaComumId, reservaVM.Observacao, unidade.Id, unidade.Numero,
                   unidade.Andar, unidade.GrupoDescricao, morador.Id,
                   morador.NomeCompleto, reservaVM.DataDeRealizacao, reservaVM.HoraInicio, reservaVM.HoraFim,

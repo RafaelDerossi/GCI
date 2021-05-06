@@ -12,8 +12,8 @@ using System.Threading.Tasks;
 namespace CondominioApp.ReservaAreaComum.Aplication.Commands
 {
     public class ReservaCommandHandler : CommandHandler,
-         IRequestHandler<CadastrarReservaPeloUsuarioCommand, ValidationResult>,
-         IRequestHandler<CadastrarReservaPelaAdmCommand, ValidationResult>,
+         IRequestHandler<SolicitarReservaComoMoradorCommand, ValidationResult>,
+         IRequestHandler<SolicitarReservaComoAdministradorCommand, ValidationResult>,
          IRequestHandler<AprovarReservaAutomaticamenteCommand, ValidationResult>,
          IRequestHandler<AguardarAprovacaoDaReservaPelaAdmCommand, ValidationResult>,
          IRequestHandler<ReprovarReservaAutomaticamenteCommand, ValidationResult>,
@@ -38,7 +38,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
         }
 
 
-        public async Task<ValidationResult> Handle(CadastrarReservaPeloUsuarioCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(SolicitarReservaComoMoradorCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido()) return request.ValidationResult;           
 
@@ -59,7 +59,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
 
             //Evento
             reserva.AdicionarEvento
-                (new ReservaCadastradaPeloUsuarioEvent
+                (new ReservaSolicitadaComoUsuarioEvent
                 (reserva.Id, reserva.AreaComumId,
                 areacomum.Nome, areacomum.CondominioId, areacomum.NomeCondominio, areacomum.Capacidade,
                 reserva.Observacao, reserva.UnidadeId, reserva.NumeroUnidade, reserva.AndarUnidade,
@@ -71,7 +71,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
             return await PersistirDados(_reservaAreaComumRepository.UnitOfWork);
         }
 
-        public async Task<ValidationResult> Handle(CadastrarReservaPelaAdmCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(SolicitarReservaComoAdministradorCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido()) return request.ValidationResult;
 
@@ -92,7 +92,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
 
             //Evento
             reserva.AdicionarEvento
-                (new ReservaCadastradaPelaAdmEvent
+                (new ReservaSolicitadaComoAdministradorEvent
                 (reserva.Id, reserva.AreaComumId,
                 areacomum.Nome, areacomum.CondominioId, areacomum.NomeCondominio, areacomum.Capacidade,
                 reserva.Observacao, reserva.UnidadeId, reserva.NumeroUnidade, reserva.AndarUnidade,

@@ -43,7 +43,7 @@ namespace CondominioApp.Api.Controllers
             return funcionario;
         }
 
-        [HttpGet("funcionarios-por-usuario/{usuarioId:Guid}")]
+        [HttpGet("por-usuario/{usuarioId:Guid}")]
         public async Task<ActionResult<IEnumerable<FuncionarioFlat>>> ObterFuncionariosPorUsuarioId(Guid usuarioId)
         {
             var funcionario = await _usuarioQuery.ObterFuncionariosPorUsuarioId(usuarioId);
@@ -56,7 +56,7 @@ namespace CondominioApp.Api.Controllers
             return funcionario.ToList();
         }
 
-        [HttpGet("funcionarios-por-condominio/{condominioId:Guid}")]
+        [HttpGet("por-condominio/{condominioId:Guid}")]
         public async Task<ActionResult<IEnumerable<FuncionarioFlat>>> ObterFuncionariosPorCondominio(Guid condominioId)
         {
             var funcionario = await _usuarioQuery.ObterFuncionariosPorCondominioId(condominioId);

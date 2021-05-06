@@ -2,9 +2,9 @@
 
 namespace CondominioApp.ReservaAreaComum.Aplication.Events
 {
-    public class ReservaCadastradaPelaAdmEvent : ReservaEvent
+    public class ReservaSolicitadaComoAdministradorEvent : ReservaEvent
     {
-        public ReservaCadastradaPelaAdmEvent
+        public ReservaSolicitadaComoAdministradorEvent
             (Guid id, Guid areaComumId, 
             string nomeAreaComum, Guid condominioId, string nomeCondominio,
             int capacidade, string observacao, Guid unidadeId, string numeroUnidade,

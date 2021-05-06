@@ -7,9 +7,9 @@ using System.Collections.Generic;
 
 namespace CondominioApp.ReservaAreaComum.Aplication.Events
 {
-   public class ReservaCadastradaPeloUsuarioEvent : ReservaEvent
+   public class ReservaSolicitadaComoUsuarioEvent : ReservaEvent
     {
-        public ReservaCadastradaPeloUsuarioEvent
+        public ReservaSolicitadaComoUsuarioEvent
             (Guid id, Guid areaComumId, 
             string nomeAreaComum, Guid condominioId, string nomeCondominio,
             int capacidade, string observacao, Guid unidadeId, string numeroUnidade,

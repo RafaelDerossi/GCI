@@ -243,13 +243,14 @@ namespace CondominioApp.ReservaAreaComum.Tests
 
 
 
-        [Fact(DisplayName = "Adicionar Reserva Válido")]
+
+        [Fact(DisplayName = "Solicitar Reserva como Morador Válido")]
         [Trait("Categoria", "Reserva -ReservaCommandHandler")]
-        public async Task AdicionarReserva_CommandoValido_DevePassarNaValidacao()
+        public async Task SolicitarReservaComoMorador_CommandoValido_DevePassarNaValidacao()
         {
             //Arrange
             var areaComum = AreaComumFactory.CriarAreaComum_AprovacaoAutomatica();
-            var command = ReservaCommandFactory.CriarComandoCadastroDeReserva();
+            var command = ReservaCommandFactory.CriarComandoSolicitacaoDeReservaComoMorador();
             command.SetAreaComumId(areaComum.Id);            
 
             _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.ObterPorId(command.AreaComumId))
@@ -267,9 +268,69 @@ namespace CondominioApp.ReservaAreaComum.Tests
             _mocker.GetMock<IReservaAreaComumRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
         }
 
-        [Fact(DisplayName = "Aprovar Reserva Válido")]
+        [Fact(DisplayName = "Solicitar Reserva como Administrador Válido")]
         [Trait("Categoria", "Reserva -ReservaCommandHandler")]
-        public async Task AprovarReserva_CommandoValido_DevePassarNaValidacao()
+        public async Task SolicitarReservaComoAdministrador_CommandoValido_DevePassarNaValidacao()
+        {
+            //Arrange
+            var areaComum = AreaComumFactory.CriarAreaComum_AprovacaoAutomatica();
+            var command = ReservaCommandFactory.CriarComandoSolicitacaoDeReservaComoAdministrador();
+            command.SetAreaComumId(areaComum.Id);
+
+            _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.ObterPorId(command.AreaComumId))
+               .Returns(Task.FromResult(areaComum));
+
+            _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.UnitOfWork.Commit())
+               .Returns(Task.FromResult(true));
+
+            //Act
+            var result = await _reservaCommandHandler.Handle(command, CancellationToken.None);
+
+            //Assert
+            Assert.True(result.IsValid);
+            _mocker.GetMock<IReservaAreaComumRepository>().Verify(r => r.AdicionarReserva(It.IsAny<Reserva>()), Times.Once);
+            _mocker.GetMock<IReservaAreaComumRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
+        }
+
+
+
+        
+        [Fact(DisplayName = "Aprovar Reserva Automaticamente Válido")]
+        [Trait("Categoria", "Reserva -ReservaCommandHandler")]
+        public async Task AprovarReservaAutomaticamente_CommandoValido_DevePassarNaValidacao()
+        {
+            //Arrange            
+            var areaComum = AreaComumFactory.CriarAreaComum_AprovacaoAutomatica_LimiteDe2ReservasPorUnidade();
+            var reserva = ReservaFactory.CriarReservaValidaMobile();
+            reserva.SetAreaComumId(areaComum.Id);
+            reserva.ColocarEmProcessamento();
+            areaComum.AdicionarReserva(reserva);
+
+            var command = new AprovarReservaAutomaticamenteCommand
+                (reserva.Id, "Justificativa");
+
+            SetMocksRegrasDeCriacao(reserva, areaComum);
+
+            _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.ObterReservaPorId(command.Id))
+               .Returns(Task.FromResult(reserva));
+
+            _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.ObterPorId(reserva.AreaComumId))
+               .Returns(Task.FromResult(areaComum));
+
+            _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.UnitOfWork.Commit())
+               .Returns(Task.FromResult(true));
+
+            //Act
+            var result = await _reservaCommandHandler.Handle(command, CancellationToken.None);
+
+            //Assert
+            Assert.True(result.IsValid);
+            _mocker.GetMock<IReservaAreaComumRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
+        }
+
+        [Fact(DisplayName = "Aprovar Reserva pela Administracao Válido")]
+        [Trait("Categoria", "Reserva -ReservaCommandHandler")]
+        public async Task AprovarReservaPelaAdministracao_CommandoValido_DevePassarNaValidacao()
         {
             //Arrange            
             var areaComum = AreaComumFactory.CriarAreaComum_AprovacaoDeAdministracao();
@@ -277,8 +338,9 @@ namespace CondominioApp.ReservaAreaComum.Tests
             reserva.SetAreaComumId(areaComum.Id);
             reserva.AguardarAprovacao("");
             areaComum.AdicionarReserva(reserva);
-
-            var command = new AprovarReservaPelaAdministracaoCommand(reserva.Id);
+            
+            var command = new AprovarReservaPelaAdministracaoCommand
+                (reserva.Id, Guid.NewGuid(), "Nome do funcionario", "Origem");
 
             SetMocksRegrasDeCriacao(reserva, areaComum);            
 
@@ -299,6 +361,145 @@ namespace CondominioApp.ReservaAreaComum.Tests
             _mocker.GetMock<IReservaAreaComumRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
         }
 
+
+
+
+        [Fact(DisplayName = "Enviar Reserva Para Aguardar Aprovação Válido")]
+        [Trait("Categoria", "Reserva -ReservaCommandHandler")]
+        public async Task EnviarParaAguardarAprovacao_CommandoValido_DevePassarNaValidacao()
+        {
+            //Arrange            
+            var areaComum = AreaComumFactory.CriarAreaComum_AprovacaoDeAdministracao();
+            var reserva = ReservaFactory.CriarReservaValidaMobile();
+            reserva.SetAreaComumId(areaComum.Id);            
+            areaComum.AdicionarReserva(reserva);
+
+            var command = new AguardarAprovacaoDaReservaPelaAdmCommand
+                (reserva.Id, "Justificativa");
+
+            SetMocksRegrasDeCriacao(reserva, areaComum);
+
+            _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.ObterReservaPorId(command.Id))
+               .Returns(Task.FromResult(reserva));
+
+            _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.ObterPorId(reserva.AreaComumId))
+               .Returns(Task.FromResult(areaComum));
+
+            _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.UnitOfWork.Commit())
+               .Returns(Task.FromResult(true));
+
+            //Act
+            var result = await _reservaCommandHandler.Handle(command, CancellationToken.None);
+
+            //Assert
+            Assert.True(result.IsValid);
+            _mocker.GetMock<IReservaAreaComumRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
+        }
+
+        [Fact(DisplayName = "Enviar Reserva Para Fila Válido")]
+        [Trait("Categoria", "Reserva -ReservaCommandHandler")]
+        public async Task EnviarParaFila_CommandoValido_DevePassarNaValidacao()
+        {
+            //Arrange            
+            var areaComum = AreaComumFactory.CriarAreaComum_AprovacaoDeAdministracao();
+            var reserva = ReservaFactory.CriarReservaValidaMobile();
+            reserva.SetAreaComumId(areaComum.Id);
+            areaComum.AdicionarReserva(reserva);
+
+            var command = new EnviarReservaParaFilaCommand
+                (reserva.Id, "Justificativa");
+
+            SetMocksRegrasDeCriacao(reserva, areaComum);
+
+            _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.ObterReservaPorId(command.Id))
+               .Returns(Task.FromResult(reserva));
+
+            _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.ObterPorId(reserva.AreaComumId))
+               .Returns(Task.FromResult(areaComum));
+
+            _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.UnitOfWork.Commit())
+               .Returns(Task.FromResult(true));
+
+            //Act
+            var result = await _reservaCommandHandler.Handle(command, CancellationToken.None);
+
+            //Assert
+            Assert.True(result.IsValid);
+            _mocker.GetMock<IReservaAreaComumRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
+        }
+
+
+
+
+        [Fact(DisplayName = "Reprovar Reserva Automaticamente Válido")]
+        [Trait("Categoria", "Reserva -ReservaCommandHandler")]
+        public async Task ReprovarReservaAutomaticamente_CommandoValido_DevePassarNaValidacao()
+        {
+            //Arrange            
+            var areaComum = AreaComumFactory.CriarAreaComum_AprovacaoAutomatica_LimiteDe2ReservasPorUnidade();
+            var reserva = ReservaFactory.CriarReservaValidaMobile();
+            reserva.SetAreaComumId(areaComum.Id);
+            reserva.ColocarEmProcessamento();
+            areaComum.AdicionarReserva(reserva);
+
+            var command = new ReprovarReservaAutomaticamenteCommand
+                (reserva.Id, "Justificativa");
+
+            SetMocksRegrasDeCriacao(reserva, areaComum);
+
+            _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.ObterReservaPorId(command.Id))
+               .Returns(Task.FromResult(reserva));
+
+            _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.ObterPorId(reserva.AreaComumId))
+               .Returns(Task.FromResult(areaComum));
+
+            _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.UnitOfWork.Commit())
+               .Returns(Task.FromResult(true));
+
+            //Act
+            var result = await _reservaCommandHandler.Handle(command, CancellationToken.None);
+
+            //Assert
+            Assert.True(result.IsValid);
+            _mocker.GetMock<IReservaAreaComumRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
+        }
+
+        [Fact(DisplayName = "Reprovar Reserva pela Administracao Válido")]
+        [Trait("Categoria", "Reserva -ReservaCommandHandler")]
+        public async Task ReprovarReservaPelaAdministracao_CommandoValido_DevePassarNaValidacao()
+        {
+            //Arrange            
+            var areaComum = AreaComumFactory.CriarAreaComum_AprovacaoDeAdministracao();
+            var reserva = ReservaFactory.CriarReservaValidaMobile();
+            reserva.SetAreaComumId(areaComum.Id);
+            reserva.AguardarAprovacao("");
+            areaComum.AdicionarReserva(reserva);
+
+            var command = new ReprovarReservaPelaAdmCommand
+                (reserva.Id, "Justificativa", Guid.NewGuid(), "Nome do funcionario", "Origem");
+
+            SetMocksRegrasDeCriacao(reserva, areaComum);
+
+            _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.ObterReservaPorId(command.Id))
+               .Returns(Task.FromResult(reserva));
+
+            _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.ObterPorId(reserva.AreaComumId))
+               .Returns(Task.FromResult(areaComum));
+
+            _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.UnitOfWork.Commit())
+               .Returns(Task.FromResult(true));
+
+            //Act
+            var result = await _reservaCommandHandler.Handle(command, CancellationToken.None);
+
+            //Assert
+            Assert.True(result.IsValid);
+            _mocker.GetMock<IReservaAreaComumRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
+        }
+
+
+
+
         [Fact(DisplayName = "Cancelar Reserva Como Usuario Válido")]
         [Trait("Categoria", "Reserva -ReservaCommandHandler")]
         public async Task CancelarReserva_ComoUsuario_CommandoValido_DevePassarNaValidacao()
@@ -310,7 +511,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             reserva.SetAreaComumId(areaComum.Id);
 
             var command = new CancelarReservaComoUsuarioCommand
-                (reserva.Id, "Justificativa");
+                (reserva.Id, "Justificativa", Guid.NewGuid(), "NomeMorador", "Origem");
 
             SetMocksRegrasDeCancelamento(reserva, areaComum);
 
@@ -342,7 +543,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             reserva.SetAreaComumId(areaComum.Id);
 
             var command = new CancelarReservaComoAdministradorCommand
-                (reserva.Id, "Justificativa");
+                (reserva.Id, "Justificativa", Guid.NewGuid(), "NomeFuncionario", "Origem");
 
             SetMocksRegrasDeCancelamento(reserva, areaComum);
 
@@ -362,6 +563,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             Assert.True(result.IsValid);
             _mocker.GetMock<IReservaAreaComumRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
         }
+
 
         [Fact(DisplayName = "Retirar Reserva da Fila Válido")]
         [Trait("Categoria", "Reserva -ReservaCommandHandler")]
@@ -400,6 +602,41 @@ namespace CondominioApp.ReservaAreaComum.Tests
             Assert.True(result.IsValid && reserva2.Status != StatusReserva.NA_FILA);
             _mocker.GetMock<IReservaAreaComumRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
         }
+
+
+        [Fact(DisplayName = "Marcar Reserva Como Expirada Válido")]
+        [Trait("Categoria", "Reserva -ReservaCommandHandler")]
+        public async Task MarcarReservaComoExpirada_CommandoValido_DevePassarNaValidacao()
+        {
+            //Arrange            
+            var areaComum = AreaComumFactory.CriarAreaComum_AprovacaoAutomatica_LimiteDe2ReservasPorUnidade();
+            var reserva = ReservaFactory.CriarReservaValidaMobile();
+            reserva.SetAreaComumId(areaComum.Id);
+            reserva.ColocarEmProcessamento();
+            areaComum.AdicionarReserva(reserva);
+
+            var command = new MarcarReservaComoExpiradaCommand
+                (reserva.Id, "Justificativa");
+
+            SetMocksRegrasDeCriacao(reserva, areaComum);
+
+            _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.ObterReservaPorId(command.Id))
+               .Returns(Task.FromResult(reserva));
+
+            _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.ObterPorId(reserva.AreaComumId))
+               .Returns(Task.FromResult(areaComum));
+
+            _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.UnitOfWork.Commit())
+               .Returns(Task.FromResult(true));
+
+            //Act
+            var result = await _reservaCommandHandler.Handle(command, CancellationToken.None);
+
+            //Assert
+            Assert.True(result.IsValid);
+            _mocker.GetMock<IReservaAreaComumRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
+        }
+
 
     }
 }

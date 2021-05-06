@@ -195,6 +195,13 @@ namespace CondominioApp.ReservaAreaComum.Infra.Data.Repository
         }
 
 
+
+        public async Task<IEnumerable<HistoricoReservaFlat>> ObterHistoricoDaReserva(Guid reservaId)
+        {
+            return await _context.HistoricosReservasFlat
+                .Where(a => a.ReservaId == reservaId && !a.Lixeira).ToListAsync();
+        }
+
         public void AdicionarHistoricoReserva(HistoricoReservaFlat entity)
         {
             _context.HistoricosReservasFlat.Add(entity);

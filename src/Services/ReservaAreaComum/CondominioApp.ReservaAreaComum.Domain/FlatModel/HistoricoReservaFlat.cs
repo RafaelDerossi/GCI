@@ -7,7 +7,9 @@ namespace CondominioApp.ReservaAreaComum.Domain.FlatModel
     {
         public Guid Id { get; private set; }
 
-        public DateTime DataDeCadastro { get; private set; }        
+        public DateTime DataDeCadastro { get; private set; }
+
+        public DateTime DataDeAlteracao { get; private set; }
 
         public bool Lixeira { get; private set; }
 

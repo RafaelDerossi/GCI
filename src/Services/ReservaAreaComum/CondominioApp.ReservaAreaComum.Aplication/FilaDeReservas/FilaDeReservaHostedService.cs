@@ -10,7 +10,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CondominioApp.Api.FilaDeReservas
+namespace CondominioApp.ReservaAreaComum.Aplication.FilaDeReservas
 {
     public class FilaDeReservaHostedService : IHostedService
     {

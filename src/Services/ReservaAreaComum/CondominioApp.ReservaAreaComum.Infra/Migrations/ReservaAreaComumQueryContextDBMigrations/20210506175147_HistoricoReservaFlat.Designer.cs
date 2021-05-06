@@ -4,14 +4,16 @@ using CondominioApp.Principal.Infra.DataQuery;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CondominioApp.ReservaAreaComum.Infra.Migrations.ReservaAreaComumQueryContextDBMigrations
 {
     [DbContext(typeof(ReservaAreaComumQueryContextDB))]
-    partial class ReservaAreaComumQueryContextDBModelSnapshot : ModelSnapshot
+    [Migration("20210506175147_HistoricoReservaFlat")]
+    partial class HistoricoReservaFlat
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -125,9 +127,6 @@ namespace CondominioApp.ReservaAreaComum.Infra.Migrations.ReservaAreaComumQueryC
 
                     b.Property<Guid>("AutorId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("DataDeAlteracao")
-                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DataDeCadastro")
                         .HasColumnType("datetime2");

@@ -3,14 +3,12 @@ using Moq.AutoMock;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
-using System;
-using CondominioApp.Core.Enumeradores;
-using CondominioApp.Comunicados.App.Aplication.Commands;
 using CondominioApp.Ocorrencias.App.Models;
+using CondominioApp.Ocorrencias.App.Aplication.Commands;
 
 namespace CondominioApp.Ocorrencias.App.Tests
 {
-   public class OcorrenciaCommandHandlerTests
+    public class OcorrenciaCommandHandlerTests
     {
         private readonly AutoMocker _mocker;
         private readonly OcorrenciaCommandHandler _ocorrenciaCommandCommandHandler;

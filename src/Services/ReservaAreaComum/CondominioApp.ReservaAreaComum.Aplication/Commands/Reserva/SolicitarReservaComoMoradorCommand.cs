@@ -5,10 +5,10 @@ using System;
 
 namespace CondominioApp.ReservaAreaComum.Aplication.Commands
 {
-   public class CadastrarReservaPeloUsuarioCommand : ReservaCommand
+   public class SolicitarReservaComoMoradorCommand : ReservaCommand
     {
 
-        public CadastrarReservaPeloUsuarioCommand
+        public SolicitarReservaComoMoradorCommand
             (Guid areaComumId, string observacao, Guid unidadeId, string numeroUnidade,
              string andarUnidade, string descricaoGrupoUnidade, Guid moradorId, string nomeMorador,
              DateTime dataDeRealizacao, string horaInicio, string horaFim, decimal preco,
@@ -36,14 +36,14 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
             if (!ValidationResult.IsValid)
                 return ValidationResult.IsValid;
 
-            ValidationResult = new CadastrarReservaCommandValidation().Validate(this);
+            ValidationResult = new SolicitarReservaCommandValidation().Validate(this);
             return ValidationResult.IsValid;
         }
 
 
-        public class CadastrarReservaCommandValidation : ReservaValidation<CadastrarReservaPeloUsuarioCommand>
+        public class SolicitarReservaCommandValidation : ReservaValidation<SolicitarReservaComoMoradorCommand>
         {
-            public CadastrarReservaCommandValidation()
+            public SolicitarReservaCommandValidation()
             {
                 ValidateAreaComumId();
                 ValidateObservacao();
@@ -58,10 +58,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
                 ValidateHoraFim();               
                 ValidatePreco();                
                 ValidateOrigem();                
-                ValidateReservadoPelaAdministracao();
-                ValidateFuncionarioId();
-                ValidateNomeFuncionario();
-                ValidateOrigem();
+                ValidateReservadoPelaAdministracao();                
             }
         }
 

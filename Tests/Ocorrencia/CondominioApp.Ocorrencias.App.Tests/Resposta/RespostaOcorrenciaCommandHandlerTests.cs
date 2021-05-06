@@ -3,8 +3,8 @@ using Moq.AutoMock;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
-using CondominioApp.Comunicados.App.Aplication.Commands;
 using CondominioApp.Ocorrencias.App.Models;
+using CondominioApp.Ocorrencias.App.Aplication.Commands;
 
 namespace CondominioApp.Ocorrencias.App.Tests
 {

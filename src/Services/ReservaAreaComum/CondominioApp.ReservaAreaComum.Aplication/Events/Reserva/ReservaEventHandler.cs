@@ -10,8 +10,8 @@ using MediatR;
 namespace CondominioApp.ReservaAreaComum.Aplication.Events
 {
     public class ReservaEventHandler : EventHandler,
-        INotificationHandler<ReservaCadastradaPeloUsuarioEvent>,
-        INotificationHandler<ReservaCadastradaPelaAdmEvent>,
+        INotificationHandler<ReservaSolicitadaComoUsuarioEvent>,
+        INotificationHandler<ReservaSolicitadaComoAdministradorEvent>,
         INotificationHandler<ReservaAprovadaAutomaticamenteEvent>,
         INotificationHandler<ReservaAprovadaPelaAdministracaoEvent>,
         INotificationHandler<ReservaEnviadaParaAguardarAprovacaoEvent>,
@@ -37,7 +37,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Events
         }
 
 
-        public async Task Handle(ReservaCadastradaPeloUsuarioEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(ReservaSolicitadaComoUsuarioEvent notification, CancellationToken cancellationToken)
         {
             var reservaFlat = new ReservaFlat
                 (notification.Id, notification.AreaComumId, notification.NomeAreaComum,
@@ -60,7 +60,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Events
             await PersistirDados(_reservaAreaComumQueryRepository.UnitOfWork);
         }
 
-        public async Task Handle(ReservaCadastradaPelaAdmEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(ReservaSolicitadaComoAdministradorEvent notification, CancellationToken cancellationToken)
         {
             var reservaFlat = new ReservaFlat
                 (notification.Id, notification.AreaComumId, notification.NomeAreaComum,

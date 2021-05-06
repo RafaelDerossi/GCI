@@ -29,5 +29,6 @@ namespace CondominioApp.ReservaAreaComum.App.Aplication.Query
 
         Task<ReservaFlat> ObterPrimeiraNaFilaParaSerProcessada();
 
+        Task<IEnumerable<HistoricoReservaFlat>> ObterHistoricoDaReserva(Guid reservaId);
     }
 }

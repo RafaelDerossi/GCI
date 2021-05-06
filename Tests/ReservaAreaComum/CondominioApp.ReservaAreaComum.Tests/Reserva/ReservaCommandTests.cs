@@ -17,7 +17,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
         {
 
             //Arrange
-            var Command = ReservaCommandFactory.CriarComandoCadastroDeReserva();
+            var Command = ReservaCommandFactory.CriarComandoSolicitacaoDeReservaComoMorador();
 
             //Act
             var result = Command.EstaValido();
@@ -31,7 +31,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
         public void CadastroDeReserva_SemAreaComumId_CommandoInvalido_NaoDevePassarNaValidacao()
         {
             //Arrange
-            var Command = ReservaCommandFactory.CriarComandoCadastroDeReservaSemAreaComumId();
+            var Command = ReservaCommandFactory.CriarComandoSolicitacaoDeReservaSemAreaComumIdComoMorador();
 
             //Act
             var result = Command.EstaValido();
@@ -45,7 +45,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
         public void CadastroDeReserva_SemUnidadeId_CommandoInvalido_NaoDevePassarNaValidacao()
         {
             //Arrange
-            var Command = ReservaCommandFactory.CriarComandoCadastroDeReservaSemUnidadeId();
+            var Command = ReservaCommandFactory.CriarComandoSolicitacaoDeReservaSemUnidadeIdComoMorador();
 
             //Act
             var result = Command.EstaValido();
@@ -59,7 +59,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
         public void CadastroDeReserva_SemNumeroDaUnidade_CommandoInvalido_NaoDevePassarNaValidacao()
         {
             //Arrange
-            var Command = ReservaCommandFactory.CriarComandoCadastroDeReservaSemNumeroDaUnidade();
+            var Command = ReservaCommandFactory.CriarComandoSolicitacaoDeReservaSemNumeroDaUnidadeComoMorador();
 
             //Act
             var result = Command.EstaValido();
@@ -73,7 +73,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
         public void CadastroDeReserva_SemAndarDaUnidade_CommandoInvalido_NaoDevePassarNaValidacao()
         {
             //Arrange
-            var Command = ReservaCommandFactory.CriarComandoCadastroDeReservaSemAndarDaUnidade();
+            var Command = ReservaCommandFactory.CriarComandoSolicitacaoDeReservaSemAndarDaUnidadeComoMorador();
 
             //Act
             var result = Command.EstaValido();
@@ -87,7 +87,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
         public void CadastroDeReserva_SemDescricaoDoGrupo_CommandoInvalido_NaoDevePassarNaValidacao()
         {
             //Arrange
-            var Command = ReservaCommandFactory.CriarComandoCadastroDeReservaSemGrupoDaUnidade();
+            var Command = ReservaCommandFactory.CriarComandoSolicitacaoDeReservaSemGrupoDaUnidadeComoMorador();
 
             //Act
             var result = Command.EstaValido();
@@ -101,7 +101,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
         public void CadastroDeReserva_SemUsuarioId_CommandoInvalido_NaoDevePassarNaValidacao()
         {
             //Arrange
-            var Command = ReservaCommandFactory.CriarComandoCadastroDeReservaSemUsuarioId();
+            var Command = ReservaCommandFactory.CriarComandoSolicitacaoDeReservaSemUsuarioIdComoMorador();
 
             //Act
             var result = Command.EstaValido();
@@ -115,7 +115,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
         public void CadastroDeReserva_SemNomeDoUsuario_CommandoInvalido_NaoDevePassarNaValidacao()
         {
             //Arrange
-            var Command = ReservaCommandFactory.CriarComandoCadastroDeReservaSemNomeDoUsuario();
+            var Command = ReservaCommandFactory.CriarComandoSolicitacaoDeReservaSemNomeDoUsuarioComoMorador();
 
             //Act
             var result = Command.EstaValido();
@@ -129,7 +129,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
         public void CadastroDeReserva_SemHoraDeInicio_CommandoInvalido_NaoDevePassarNaValidacao()
         {
             //Arrange
-            var Command = ReservaCommandFactory.CriarComandoCadastroDeReservaSemHoraInicio();
+            var Command = ReservaCommandFactory.CriarComandoSolicitacaoDeReservaSemHoraInicioComoMorador();
 
             //Act
             var result = Command.EstaValido();
@@ -143,7 +143,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
         public void CadastroDeReserva_ComHoraDeInicioInvalido_CommandoInvalido_NaoDevePassarNaValidacao()
         {
             //Arrange
-            var Command = ReservaCommandFactory.CriarComandoCadastroDeReservaComHoraInicioInvalido();
+            var Command = ReservaCommandFactory.CriarComandoSolicitacaoDeReservaComHoraInicioInvalidoComoMorador();
 
             //Act
             var result = Command.EstaValido();
@@ -157,7 +157,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
         public void CadastroDeReserva_SemHoraDeFim_CommandoInvalido_NaoDevePassarNaValidacao()
         {
             //Arrange
-            var Command = ReservaCommandFactory.CriarComandoCadastroDeReservaSemHoraFim();
+            var Command = ReservaCommandFactory.CriarComandoSolicitacaoDeReservaSemHoraFimComoMorador();
 
             //Act
             var result = Command.EstaValido();
@@ -171,7 +171,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
         public void CadastroDeReserva_ComHoraDeFimInvalido_CommandoInvalido_NaoDevePassarNaValidacao()
         {
             //Arrange
-            var Command = ReservaCommandFactory.CriarComandoCadastroDeReservaComHoraFimInvalido();
+            var Command = ReservaCommandFactory.CriarComandoSolicitacaoDeReservaComHoraFimInvalidoComoMorador();
 
             //Act
             var result = Command.EstaValido();

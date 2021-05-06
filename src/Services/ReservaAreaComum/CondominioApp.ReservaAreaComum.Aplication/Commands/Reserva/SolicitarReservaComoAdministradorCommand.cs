@@ -1,16 +1,14 @@
 ﻿
 
 using CondominioApp.Principal.Aplication.Commands.Validations;
-using CondominioApp.ReservaAreaComum.Domain;
 using System;
-using System.Collections.Generic;
 
 namespace CondominioApp.ReservaAreaComum.Aplication.Commands
 {
-   public class CadastrarReservaPelaAdmCommand : ReservaCommand
+    public class SolicitarReservaComoAdministradorCommand : ReservaCommand
     {
 
-        public CadastrarReservaPelaAdmCommand
+        public SolicitarReservaComoAdministradorCommand
             (Guid areaComumId, string observacao, Guid unidadeId, string numeroUnidade,
              string andarUnidade, string descricaoGrupoUnidade, Guid moradorId, string nomeMorador,
              DateTime dataDeRealizacao, string horaInicio, string horaFim, decimal preco,
@@ -40,14 +38,14 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
             if (!ValidationResult.IsValid)
                 return ValidationResult.IsValid;
 
-            ValidationResult = new CadastrarReservaPelaAdmCommandValidation().Validate(this);
+            ValidationResult = new SolicitarReservaComoAdministradorCommandValidation().Validate(this);
             return ValidationResult.IsValid;
         }
 
 
-        public class CadastrarReservaPelaAdmCommandValidation : ReservaValidation<CadastrarReservaPelaAdmCommand>
+        public class SolicitarReservaComoAdministradorCommandValidation : ReservaValidation<SolicitarReservaComoAdministradorCommand>
         {
-            public CadastrarReservaPelaAdmCommandValidation()
+            public SolicitarReservaComoAdministradorCommandValidation()
             {
                 ValidateAreaComumId();
                 ValidateObservacao();
