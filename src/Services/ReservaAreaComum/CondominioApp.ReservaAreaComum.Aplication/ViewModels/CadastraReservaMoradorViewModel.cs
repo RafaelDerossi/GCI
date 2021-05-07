@@ -6,9 +6,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.ViewModels
     {      
         public Guid AreaComumId { get; set; }
 
-        public string Observacao { get; set; }
-
-        public Guid UnidadeId { get; set; }        
+        public string Observacao { get; set; }        
 
         public Guid MoradorId { get; set; }        
 
@@ -19,8 +17,6 @@ namespace CondominioApp.ReservaAreaComum.Aplication.ViewModels
         public string HoraFim { get; set; }
 
         public decimal Preco { get; set; }
-
-        public bool ReservadoPelaAdministracao { get; set; }
 
         public string Origem { get; set; }
         

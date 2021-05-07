@@ -126,14 +126,14 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }
 
-            var unidade = await _principalQuery.ObterUnidadePorId(reservaVM.UnidadeId);
+            var unidade = await _principalQuery.ObterUnidadePorId(morador.UnidadeId);
             if (unidade == null)
             {
                 AdicionarErroProcessamento("Unidade não encontrada!");
                 return CustomResponse();
             }
 
-            var comando = CadastrarReservaPeloUsuarioCommandFactory(reservaVM, unidade, morador);
+            var comando = CadastrarReservaComoMoradorCommandFactory(reservaVM, unidade, morador);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
@@ -159,14 +159,14 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }
 
-            var unidade = await _principalQuery.ObterUnidadePorId(reservaVM.UnidadeId);
+            var unidade = await _principalQuery.ObterUnidadePorId(morador.UnidadeId);
             if (unidade == null)
             {
                 AdicionarErroProcessamento("Unidade não encontrada!");
                 return CustomResponse();
             }
 
-            var comando = CadastrarReservaPelaAdmCommandFactory(reservaVM, unidade, morador, funcionario);
+            var comando = CadastrarReservaComoAdministradorCommandFactory(reservaVM, unidade, morador, funcionario);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
@@ -268,17 +268,17 @@ namespace CondominioApp.Api.Controllers
 
 
 
-        private SolicitarReservaComoMoradorCommand CadastrarReservaPeloUsuarioCommandFactory
+        private SolicitarReservaComoMoradorCommand CadastrarReservaComoMoradorCommandFactory
             (CadastraReservaMoradorViewModel reservaVM, UnidadeFlat unidade, MoradorFlat morador)
         {            
             return new SolicitarReservaComoMoradorCommand(
                   reservaVM.AreaComumId, reservaVM.Observacao, unidade.Id, unidade.Numero,
                   unidade.Andar, unidade.GrupoDescricao, morador.Id,
                   morador.NomeCompleto, reservaVM.DataDeRealizacao, reservaVM.HoraInicio, reservaVM.HoraFim,
-                  reservaVM.Preco, reservaVM.Origem, reservaVM.ReservadoPelaAdministracao);
+                  reservaVM.Preco, reservaVM.Origem, false);
         }
 
-        private SolicitarReservaComoAdministradorCommand CadastrarReservaPelaAdmCommandFactory
+        private SolicitarReservaComoAdministradorCommand CadastrarReservaComoAdministradorCommandFactory
            (CadastraReservaAdmViewModel reservaVM, UnidadeFlat unidade, MoradorFlat morador, FuncionarioFlat funcionario)
         {
             return new SolicitarReservaComoAdministradorCommand(
@@ -288,5 +288,6 @@ namespace CondominioApp.Api.Controllers
                   reservaVM.Preco, reservaVM.Origem, reservaVM.ReservadoPelaAdministracao, funcionario.Id,
                   funcionario.NomeCompleto);
         }
+
     }
 }
