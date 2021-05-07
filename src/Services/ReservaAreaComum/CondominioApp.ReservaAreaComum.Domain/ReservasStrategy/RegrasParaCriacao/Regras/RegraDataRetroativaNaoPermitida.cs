@@ -22,7 +22,7 @@ namespace CondominioApp.ReservaAreaComum.Domain.ReservasStrategy.RegrasParaCriac
             var dataLimite = DataHoraDeBrasilia.Get().AddYears(5).Date;
             if (_reserva.DataDeRealizacao.Date > dataLimite)
             {
-                _reserva.Reprovar($"Informa uma data de realização da reserva anterior a {dataLimite.ToShortDateString()}!");
+                _reserva.Reprovar($"Informe uma data de realização da reserva anterior a {dataLimite.ToShortDateString()}!");
                 AdicionarErros(_reserva.Justificativa);
                 return ValidationResult;
             }
