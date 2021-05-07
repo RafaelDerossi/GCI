@@ -12,7 +12,9 @@ namespace CondominioApp.ArquivoDigital.App.Models
 
         public bool Publico { get; set; }
 
-        public string NomeOriginal { get; set; }
+        public string NomeArquivo { get; set; }
 
+        public string NomeOriginal { get; set; }
+        
     }
 }

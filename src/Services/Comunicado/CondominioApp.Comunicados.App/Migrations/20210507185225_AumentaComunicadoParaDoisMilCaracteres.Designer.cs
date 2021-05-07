@@ -4,14 +4,16 @@ using CondominioApp.Comunicados.App.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CondominioApp.Comunicados.App.Migrations
 {
     [DbContext(typeof(ComunicadoContextDB))]
-    partial class ComunicadoContextDBModelSnapshot : ModelSnapshot
+    [Migration("20210507185225_AumentaComunicadoParaDoisMilCaracteres")]
+    partial class AumentaComunicadoParaDoisMilCaracteres
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

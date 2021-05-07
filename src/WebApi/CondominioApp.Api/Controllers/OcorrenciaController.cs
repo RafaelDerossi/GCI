@@ -362,14 +362,7 @@ namespace CondominioApp.Api.Controllers
         [HttpPost]
         public async Task<ActionResult> Post(CadastraOcorrenciaViewModel ocorrenciaVM)
         {
-            if (!ModelState.IsValid) return CustomResponse(ModelState);           
-
-            var unidade = await _principalQuery.ObterUnidadePorId(ocorrenciaVM.UnidadeId);
-            if (unidade == null)
-            {
-                AdicionarErroProcessamento("Unidade não encontrada!");
-                return CustomResponse();
-            }
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
 
             var morador = await _usuarioQuery.ObterMoradorPorId(ocorrenciaVM.MoradorId);
             if (morador == null)
@@ -377,6 +370,13 @@ namespace CondominioApp.Api.Controllers
                 AdicionarErroProcessamento("Morador não encontrado!");
                 return CustomResponse();
             }
+
+            var unidade = await _principalQuery.ObterUnidadePorId(morador.UnidadeId);
+            if (unidade == null)
+            {
+                AdicionarErroProcessamento("Unidade não encontrada!");
+                return CustomResponse();
+            }            
 
             var comando = CadastrarOcorrenciaCommandFactory(ocorrenciaVM, morador, unidade);
 
@@ -521,7 +521,7 @@ namespace CondominioApp.Api.Controllers
         {           
            return new CadastrarOcorrenciaCommand
                 (ocorrenciaVM.Descricao, ocorrenciaVM.NomeOriginalFoto, ocorrenciaVM.NomeFoto,
-                 ocorrenciaVM.Publica, ocorrenciaVM.UnidadeId, unidade.Numero, unidade.Andar, unidade.GrupoDescricao,
+                 ocorrenciaVM.Publica, unidade.Id, unidade.Numero, unidade.Andar, unidade.GrupoDescricao,
                  ocorrenciaVM.MoradorId, morador.NomeCompleto, unidade.CondominioId, unidade.CondominioNome,
                  ocorrenciaVM.Panico);
         }

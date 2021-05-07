@@ -33,13 +33,13 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands.Validations
 
         protected void ValidateUsuarioId()
         {
-            RuleFor(c => c.UsuarioId)
+            RuleFor(c => c.FuncionarioId)
                 .NotEqual(Guid.Empty);
         }
 
         protected void ValidateNomeUsuario()
         {
-            RuleFor(c => c.NomeUsuario)
+            RuleFor(c => c.NomeFuncionario)
                 .NotEmpty()
                 .NotNull();
         }

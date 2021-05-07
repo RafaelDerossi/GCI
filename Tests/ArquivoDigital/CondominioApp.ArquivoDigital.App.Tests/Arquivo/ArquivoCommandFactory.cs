@@ -8,7 +8,7 @@ namespace CondominioApp.ArquivoDigital.App.Tests
         private static CadastrarArquivoCommand CadastrarArquivoCommandFactoy()
         {
             return new CadastrarArquivoCommand
-                ("NomeOriginal.txt", 10, Guid.NewGuid(), true, Guid.NewGuid(),
+                ("nomeArquivo.txt","NomeOriginal.txt", 10, Guid.NewGuid(), true, Guid.NewGuid(),
                 "Nome do Usuario", "Titulo do Arquivo", "Descricao do Arquivo", Guid.Empty);
         }
 
@@ -16,7 +16,7 @@ namespace CondominioApp.ArquivoDigital.App.Tests
         {
             return new EditarArquivoCommand
                  (Guid.NewGuid(), "Titulo do Arquivo", "Descricao do Arquivo", true,
-                 "nomeOriginal.pdf");
+                 "nomeArquivo.pdf", "nomeOriginal.pdf");
         }
 
 
@@ -25,19 +25,19 @@ namespace CondominioApp.ArquivoDigital.App.Tests
         {
             return CadastrarArquivoCommandFactoy();
         }
-        public static CadastrarArquivoCommand CriarComando_CadastroDeArquivo_NomeOriginalSemExtensao()
+        public static CadastrarArquivoCommand CriarComando_CadastroDeArquivo_NomeArquivoSemExtensao()
         {
             var commando = CadastrarArquivoCommandFactoy();
 
-            commando.SetNome("NomeOriginal");
+            commando.SetNome("NomeArquivo", "NomeOriginal.txt");
 
             return commando;
         }
-        public static CadastrarArquivoCommand CriarComando_CadastroDeArquivo_SemNomeOriginal()
+        public static CadastrarArquivoCommand CriarComando_CadastroDeArquivo_SemNomeArquivo()
         {
             var commando = CadastrarArquivoCommandFactoy();
 
-            commando.SetNome("");
+            commando.SetNome("", "nomeOriginal.txt");
 
             return commando;
         }

@@ -450,17 +450,16 @@ namespace CondominioApp.Api.Configuration
 
 
             #region Querys     
+            services.AddTransient<IArquivoDigitalQuery, ArquivoDigitalQuery>();
             services.AddScoped<IAutomacaoQuery, AutomacaoQuery>();
             services.AddScoped<IComunicadoQuery, ComunicadoQuery>();
-            services.AddScoped<ICorrespondenciaQuery, CorrespondenciaQuery>();            
+            services.AddScoped<ICorrespondenciaQuery, CorrespondenciaQuery>();
+            services.AddTransient<IEnqueteQuery, EnqueteQuery>();
             services.AddScoped<IOcorrenciaQuery, OcorrenciaQuery>();
             services.AddScoped<IPortariaQuery, PortariaQuery>();
-            services.AddScoped<IQueryLead, QueryLead>();
-
-            services.AddTransient<IArquivoDigitalQuery, ArquivoDigitalQuery>();
-            services.AddTransient<IEnqueteQuery, EnqueteQuery>();
             services.AddTransient<IPrincipalQuery, PrincipalQuery>();
-            services.AddTransient<IReservaAreaComumQuery, ReservaAreaComumQuery>();            
+            services.AddTransient<IReservaAreaComumQuery, ReservaAreaComumQuery>();
+            services.AddScoped<IQueryLead, QueryLead>();
             services.AddTransient<IUsuarioQuery, UsuarioQuery>();
             #endregion
 
@@ -468,11 +467,11 @@ namespace CondominioApp.Api.Configuration
             #region Repositórios            
             services.AddTransient<IArquivoDigitalRepository, ArquivoDigitalRepository>();
             services.AddScoped<IAutomacaoRepository, AutomacaoRepository>();
-            services.AddScoped<IComunidadoRepository, ComunicadoRepository>();
+            services.AddTransient<IComunidadoRepository, ComunicadoRepository>();
             services.AddScoped<ICorrespondenciaRepository, CorrespondenciaRepository>();
             services.AddTransient<IEnqueteRepository, EnqueteRepository>();
             services.AddScoped<ILeadRepository, LeadRepository>();
-            services.AddScoped<IOcorrenciaRepository, OcorrenciaRepository>();
+            services.AddTransient<IOcorrenciaRepository, OcorrenciaRepository>();
             services.AddScoped<IPortariaRepository, PortariaRepository>();
             services.AddTransient<IPrincipalRepository, PrincipalRepository>();            
             services.AddTransient<IReservaAreaComumRepository, ReservaAreaComumRepository>();

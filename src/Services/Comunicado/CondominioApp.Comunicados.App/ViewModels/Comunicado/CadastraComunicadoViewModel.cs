@@ -13,9 +13,7 @@ namespace CondominioApp.Comunicados.App.ViewModels
 
         public string Descricao { get; set; }
 
-        public DateTime? DataDeRealizacao { get; set; }
-
-        public Guid CondominioId { get; set; }
+        public DateTime? DataDeRealizacao { get; set; }        
 
         public Guid FuncionarioId { get; set; }
 

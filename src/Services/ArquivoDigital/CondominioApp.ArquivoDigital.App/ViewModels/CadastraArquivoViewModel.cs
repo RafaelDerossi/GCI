@@ -4,6 +4,8 @@ namespace CondominioApp.ArquivoDigital.App.Models
 {
     public class CadastraArquivoViewModel
     {
+        public string NomeArquivo { get; set; }
+
         public string NomeOriginal { get; set; }
 
         public int Tamanho { get; set; }       
@@ -12,7 +14,7 @@ namespace CondominioApp.ArquivoDigital.App.Models
 
         public bool Publico { get; set; }
 
-        public Guid UsuarioId { get; set; }        
+        public Guid FuncionarioId { get; set; }        
 
         public string Titulo { get; set; }
 

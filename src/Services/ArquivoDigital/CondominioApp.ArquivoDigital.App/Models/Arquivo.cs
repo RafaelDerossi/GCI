@@ -18,9 +18,9 @@ namespace CondominioApp.ArquivoDigital.App.Models
 
         public bool Publico { get; private set; }
 
-        public Guid UsuarioId { get; private set; }
+        public Guid FuncionarioId { get; private set; }
 
-        public string NomeUsuario { get; private set; }
+        public string NomeFuncionario { get; private set; }
 
         public string Titulo { get; private set; }
 
@@ -41,8 +41,8 @@ namespace CondominioApp.ArquivoDigital.App.Models
             CondominioId = condominioId;
             PastaId = pastaId;
             Publico = publico;
-            UsuarioId = usuarioId;
-            NomeUsuario = nomeUsuario;
+            FuncionarioId = usuarioId;
+            NomeFuncionario = nomeUsuario;
             Titulo = titulo;
             Descricao = descricao;
             AnexadoPorId = anexadoPorId;
@@ -62,8 +62,8 @@ namespace CondominioApp.ArquivoDigital.App.Models
 
         public void SetUsuario(Guid id, string nome) 
         {
-            UsuarioId = id;
-            NomeUsuario = nome;
+            FuncionarioId = id;
+            NomeFuncionario = nome;
         }
 
         public void SetTitulo(string titulo) => Titulo = titulo;

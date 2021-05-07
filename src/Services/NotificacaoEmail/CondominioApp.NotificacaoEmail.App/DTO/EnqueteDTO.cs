@@ -19,12 +19,16 @@ namespace CondominioApp.NotificacaoEmail.App.DTO
 
         public string NomeFuncionario { get; set; }
 
+        public IEnumerable<string> Alternativas { get; set; }
+
         public IEnumerable<string> ListaDeEmails { get; set; }
+        
 
         public EnqueteDTO
             (string descricao, string dataInicio, string dataFim, 
              string nomeCondominio, string logoDoCondominio, 
-             string nomeFuncionario, IEnumerable<string> listaDeEmails)
+             string nomeFuncionario, IEnumerable<string> alternativas, 
+             IEnumerable<string> listaDeEmails)
         {
             Descricao = descricao;
             DataInicio = dataInicio;
@@ -33,6 +37,7 @@ namespace CondominioApp.NotificacaoEmail.App.DTO
             LogoDoCondominio = logoDoCondominio;
             NomeFuncionario = nomeFuncionario;
             ListaDeEmails = listaDeEmails;
+            Alternativas = alternativas;
         }
     }
 }

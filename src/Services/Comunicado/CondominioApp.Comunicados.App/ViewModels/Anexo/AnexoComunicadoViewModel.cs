@@ -4,9 +4,9 @@ namespace CondominioApp.Comunicados.App.ViewModels
 {
     public class AnexoComunicadoViewModel
     {
-        public Guid ArquivoId { get; set; }
+        public Guid ArquivoId { get; set; }        
 
-        public string Nome { get; set; }
+        public string NomeArquivo { get; set; }
 
         public string NomeOriginal { get; set; }        
 
@@ -15,10 +15,10 @@ namespace CondominioApp.Comunicados.App.ViewModels
         public int Tamanho { get; set; }
 
 
-        public AnexoComunicadoViewModel(Guid arquivoId, string nome, string nomeOriginal, string extensao, int tamanho)
+        public AnexoComunicadoViewModel(Guid arquivoId, string nomeArquivo, string nomeOriginal, string extensao, int tamanho)
         {
             ArquivoId = arquivoId;
-            Nome = nome;
+            NomeArquivo = nomeArquivo;
             NomeOriginal = nomeOriginal;
             Extensao = extensao;
             Tamanho = tamanho;

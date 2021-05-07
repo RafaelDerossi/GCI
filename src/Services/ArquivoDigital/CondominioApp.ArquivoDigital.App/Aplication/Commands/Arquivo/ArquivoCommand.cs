@@ -16,9 +16,9 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
 
         public bool Publico { get; protected set; }
 
-        public Guid UsuarioId { get; protected set; }
+        public Guid FuncionarioId { get; protected set; }
 
-        public string NomeUsuario { get; protected set; }
+        public string NomeFuncionario { get; protected set; }
 
         public string Titulo { get; protected set; }
 
@@ -28,11 +28,11 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
 
 
 
-        public void SetNome(string nomeOriginal)
+        public void SetNome(string nomeArquivo, string nomeOriginal)
         {
             try
             {
-                Nome = new NomeArquivo(nomeOriginal, Id);
+                Nome = new NomeArquivo(nomeArquivo, nomeOriginal);
             }
             catch (Exception e)
             {
@@ -48,10 +48,10 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
 
         public void MarcarComoPrivado() => Publico = false;
 
-        public void SetUsuario(Guid id, string nome)
+        public void SetFuncionario(Guid id, string nome)
         {
-            UsuarioId = id;
-            NomeUsuario = nome;
+            FuncionarioId = id;
+            NomeFuncionario = nome;
         }
 
         public void SetTitulo(string titulo) => Titulo = titulo;

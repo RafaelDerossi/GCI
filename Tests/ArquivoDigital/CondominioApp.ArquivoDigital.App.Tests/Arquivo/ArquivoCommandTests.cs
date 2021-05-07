@@ -24,7 +24,7 @@ namespace CondominioApp.ArquivoDigital.App.Tests
         public void CadastroDeArquivo_ComNomeOriginalSemExtensao_CommandoInvalido_NaoDevePassarNaValidacao()
         {
             //Arrange
-            var UsuarioCommand = ArquivoCommandFactory.CriarComando_CadastroDeArquivo_NomeOriginalSemExtensao();
+            var UsuarioCommand = ArquivoCommandFactory.CriarComando_CadastroDeArquivo_NomeArquivoSemExtensao();
 
             //Act
             var result = UsuarioCommand.EstaValido();
@@ -38,7 +38,7 @@ namespace CondominioApp.ArquivoDigital.App.Tests
         public void CadastroDeArquivo_SemNomeOriginal_CommandoInvalido_NaoDevePassarNaValidacao()
         {
             //Arrange
-            var UsuarioCommand = ArquivoCommandFactory.CriarComando_CadastroDeArquivo_SemNomeOriginal();
+            var UsuarioCommand = ArquivoCommandFactory.CriarComando_CadastroDeArquivo_SemNomeArquivo();
 
             //Act
             var result = UsuarioCommand.EstaValido();

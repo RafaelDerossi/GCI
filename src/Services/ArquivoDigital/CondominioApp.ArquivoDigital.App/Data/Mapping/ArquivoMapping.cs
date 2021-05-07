@@ -45,9 +45,9 @@ namespace CondominioApp.ArquivoDigital.App.Data.Mapping
 
             builder.Property(u => u.Publico).IsRequired();
 
-            builder.Property(u => u.UsuarioId).IsRequired();
+            builder.Property(u => u.FuncionarioId).IsRequired();
 
-            builder.Property(u => u.NomeUsuario).IsRequired().HasColumnType($"varchar({Arquivo.Max})");
+            builder.Property(u => u.NomeFuncionario).IsRequired().HasColumnType($"varchar({Arquivo.Max})");
 
             builder.Property(u => u.Titulo).HasColumnType($"varchar(50)");
 

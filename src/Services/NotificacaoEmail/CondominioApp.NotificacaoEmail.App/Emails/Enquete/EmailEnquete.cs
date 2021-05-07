@@ -2,6 +2,7 @@
 using CondominioApp.NotificacaoEmail.App.Service;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace CondominioApp.NotificacaoEmail.Api.Email
@@ -37,11 +38,24 @@ namespace CondominioApp.NotificacaoEmail.Api.Email
             conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_dataPublicacao_", _enquete.DataInicio);
             conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_dataLimite_", _enquete.DataFim);
             conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_logoCondominio_", _enquete.LogoDoCondominio);
-            conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_logoCondominioApp_", _logoCondominioApp);            
+            conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_logoCondominioApp_", _logoCondominioApp);
+            conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_alternativas_", RetornaAlternativasHtml());
 
             return conteudoDoHtmlDoEmail;
         }
-    
+        private string RetornaAlternativasHtml()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            foreach (var item in _enquete.Alternativas)
+            {
+                var html =
+                    $@"<font face=""roboto,helvetica,sans - serif""  style=""font - weight:300; font - size:1.0em; text - align:left; ""> {item} </ font >";
+                sb.Append(html);
+                sb.Append("<br />");
+            }
+            return sb.ToString();
+        }
         public override async Task EnviarEmail()
         {
             if (_enquete.ListaDeEmails.Count() == 0)

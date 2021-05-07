@@ -181,10 +181,16 @@ namespace CondominioApp.Enquetes.App.Models
 
         public void EnviarEmailNovaEnquete()
         {
+            List<string> AlternativaS_STR = new List<string>();
+            var alternativasOrdenadas =_Alternativas.OrderBy(a => a.Ordem);
+            foreach (var item in alternativasOrdenadas)
+            {
+                AlternativaS_STR.Add(item.Descricao);
+            }
             AdicionarEvento
                 (new EnviarEmailEnqueteIntegrationEvent
                 (Descricao, DataInicio.ToShortDateString(), DataFim.ToShortDateString(), CondominioId,
-                 FuncionarioNome, ApenasProprietarios));
+                 FuncionarioNome, ApenasProprietarios, AlternativaS_STR));
             return;
         }
     }

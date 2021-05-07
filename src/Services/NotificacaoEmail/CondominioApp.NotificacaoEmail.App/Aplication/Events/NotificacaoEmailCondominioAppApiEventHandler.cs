@@ -216,7 +216,7 @@ namespace CondominioApp.NotificacaoEmail.Aplication.Events
 
             return new EnqueteDTO
                 (notification.Descricao, notification.DataInicio, notification.DataFim, condominio.Nome,
-                 condominio.LogoMarca, notification.NomeFuncionario, listaDeEmails);
+                 condominio.LogoMarca, notification.NomeFuncionario, notification.Alternativas, listaDeEmails);
         }
 
         #endregion

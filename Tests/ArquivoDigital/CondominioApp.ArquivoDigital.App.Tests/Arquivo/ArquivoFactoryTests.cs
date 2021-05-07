@@ -9,10 +9,10 @@ namespace CondominioApp.ArquivoDigital.App.Tests
         public static Arquivo Criar_Arquivo_Valido()
         {   
             var id = Guid.NewGuid();
-            var nome = new NomeArquivo("nomeOriginal.pdf", id);
+            var nome = new NomeArquivo("nomeArquivo.pdf", "nomeOriginal.pdf");
             var arquivo = new Arquivo
                 (nome, 10, Guid.NewGuid(), Guid.NewGuid(), true, Guid.NewGuid(), "Nome Usuario", 
-                "Titulo do Arquivo", "Descricao do Arquivo", Guid.Empty);
+                 "Titulo do Arquivo", "Descricao do Arquivo", Guid.Empty);
             arquivo.SetEntidadeId(id);
             return arquivo;
         }

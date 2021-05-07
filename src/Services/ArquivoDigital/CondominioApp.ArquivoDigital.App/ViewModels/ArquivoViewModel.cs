@@ -15,7 +15,7 @@ namespace CondominioApp.ArquivoDigital.App.Models
 
         public bool Lixeira { get; set; }
 
-        public string Nome { get; set; }
+        public string NomeArquivo { get; set; }
 
         public string NomeOriginal { get; set; }
 
@@ -29,9 +29,9 @@ namespace CondominioApp.ArquivoDigital.App.Models
 
         public bool Publico { get; set; }
 
-        public Guid UsuarioId { get; set; }
+        public Guid FuncionarioId { get; set; }
 
-        public string NomeUsuario { get; set; }
+        public string NomeFuncionario { get; set; }
 
         public string Titulo { get; set; }
 

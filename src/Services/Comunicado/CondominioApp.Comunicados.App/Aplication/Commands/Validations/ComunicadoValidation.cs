@@ -38,7 +38,7 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands.Validations
             RuleFor(c => c.Descricao)                 
                   .NotNull()
                   .NotEmpty().WithMessage("Descricao do comunicado não pode estar vazio!")
-                  .Length(2, 200).WithMessage("Descricao do comunicado deve ter entre 2 e 200 caracteres!");
+                  .Length(2, 2000).WithMessage("Descricao do comunicado deve ter entre 2 e 200 caracteres!");
         }
         
         protected void ValidateFuncionarioId()

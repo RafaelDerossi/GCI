@@ -209,16 +209,16 @@ namespace CondominioApp.Api.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var usuario = await _usuarioQuery.ObterPorId(arquivoVM.UsuarioId);
-            if (usuario == null)
+            var funcionario = await _usuarioQuery.ObterFuncionarioPorId(arquivoVM.FuncionarioId);
+            if (funcionario == null)
             {
-                AdicionarErroProcessamento("Usuário não encontrado!");
+                AdicionarErroProcessamento("Funcionário não encontrado!");
                 return CustomResponse();
             }
 
             var comando = new CadastrarArquivoCommand
-                (arquivoVM.NomeOriginal, arquivoVM.Tamanho, arquivoVM.PastaId, arquivoVM.Publico,
-                arquivoVM.UsuarioId, usuario.NomeCompleto, arquivoVM.Titulo, arquivoVM.Descricao,
+                (arquivoVM.NomeArquivo, arquivoVM.NomeOriginal, arquivoVM.Tamanho, arquivoVM.PastaId, arquivoVM.Publico,
+                 funcionario.Id, funcionario.NomeCompleto, arquivoVM.Titulo, arquivoVM.Descricao,
                 Guid.Empty);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
@@ -234,7 +234,7 @@ namespace CondominioApp.Api.Controllers
 
             var comando = new EditarArquivoCommand
                 (arquivoVM.Id, arquivoVM.Titulo, arquivoVM.Descricao, arquivoVM.Publico,
-                 arquivoVM.NomeOriginal);
+                 arquivoVM.NomeArquivo, arquivoVM.NomeOriginal);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 

@@ -18,9 +18,11 @@ namespace CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.Notificac
 
         public bool ApenasProprietarios { get; set; }
 
+        public IEnumerable<string> Alternativas { get; set; }
+
         public EnviarEmailEnqueteIntegrationEvent
             (string descricao, string dataInicio, string dataFim, Guid condominioId,
-             string nomeFuncionario, bool apenasProprietarios)
+             string nomeFuncionario, bool apenasProprietarios, IEnumerable<string> alternativas)
         {
             Descricao = descricao;
             DataInicio = dataInicio;
@@ -28,6 +30,7 @@ namespace CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.Notificac
             CondominioId = condominioId;
             NomeFuncionario = nomeFuncionario;
             ApenasProprietarios = apenasProprietarios;
+            Alternativas = alternativas;
         }
     }
 }

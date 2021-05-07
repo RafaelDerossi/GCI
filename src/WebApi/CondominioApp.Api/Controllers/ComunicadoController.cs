@@ -135,13 +135,6 @@ namespace CondominioApp.Api.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var condominio = await _principalQuery.ObterPorId(comunicadoVM.CondominioId);
-            if(condominio == null)
-            {
-                AdicionarErroProcessamento("Condominio não encontrado!");
-                return CustomResponse();
-            }
-
             var funcionario = await _usuarioQuery.ObterFuncionarioPorId(comunicadoVM.FuncionarioId);
             if (funcionario == null)
             {
@@ -149,23 +142,31 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }
 
-            var comando = CadastrarComunicadoCommandFactory(comunicadoVM, condominio, funcionario);
-
-            var Resultado = await _mediatorHandler.EnviarComando(comando);
-
-            //Salva Anexos
-            if (Resultado.IsValid && comunicadoVM.TemAnexos)
+            var condominio = await _principalQuery.ObterPorId(funcionario.CondominioId);
+            if(condominio == null)
             {
-                await SalvarAnexos(comunicadoVM.Anexos.ToList(), comando, comando.ComunicadoId);
+                AdicionarErroProcessamento("Condominio não encontrado!");
+                return CustomResponse();
+            }
+            
+            var comando = CadastrarComunicadoCommandFactory(comunicadoVM, condominio, funcionario);
+            
+            //Salva Anexos
+            if (comunicadoVM.TemAnexos)
+            {
+                await SalvarAnexos(comunicadoVM.Anexos.ToList(), comando);
                 if (!OperacaoValida())
-                {
-                    var comandoExcluirOcorrencia = new RemoverComunicadoCommand(comando.ComunicadoId);
-                    await _mediatorHandler.EnviarComando(comandoExcluirOcorrencia);
-                    return CustomResponse();
-                }
+                    return CustomResponse();                
             }
 
-            return CustomResponse(Resultado);
+            var resultado = await _mediatorHandler.EnviarComando(comando);
+            if (!resultado.IsValid)
+            {
+                await ExcluirAnexos(comando);
+                return CustomResponse(resultado);
+            }
+
+            return CustomResponse();
 
         }
 
@@ -196,7 +197,7 @@ namespace CondominioApp.Api.Controllers
             //Salva Anexos
             if (Resultado.IsValid && comunicadoVM.TemAnexos)
             {
-                await SalvarAnexos(comunicadoVM.Anexos.ToList(), comando, comunicado.CondominioId);
+                await SalvarAnexos(comunicadoVM.Anexos.ToList(), comando);
                 if (!OperacaoValida())
                 {                 
                     return CustomResponse();
@@ -285,7 +286,7 @@ namespace CondominioApp.Api.Controllers
            
            return new CadastrarComunicadoCommand(
                 comunicadoVM.Titulo, comunicadoVM.Descricao, comunicadoVM.DataDeRealizacao,
-                comunicadoVM.CondominioId, condominio.Nome, funcionario.Id,
+                condominio.Id, condominio.Nome, funcionario.Id,
                 funcionario.NomeCompleto, comunicadoVM.Visibilidade, comunicadoVM.Categoria,
                 comunicadoVM.TemAnexos, comunicadoVM.CriadoPelaAdministradora, listaUnidadesComunicado);
         }
@@ -318,10 +319,8 @@ namespace CondominioApp.Api.Controllers
 
 
         private async Task SalvarAnexos
-            (List<CadastraAnexoComunicadoViewModel> anexos, ComunicadoCommand comando, Guid condominioId)
+            (List<CadastraAnexoComunicadoViewModel> anexos, ComunicadoCommand comando)
         {
-            comando.SetCondominioId(condominioId);
-
             var pasta = await ObterPastaDoSistema(comando);
 
             await ExcluirAnexos(comando);
@@ -351,7 +350,7 @@ namespace CondominioApp.Api.Controllers
                 arquivoPublico = true;
 
             return new CadastrarArquivoCommand
-                (anexo.NomeOriginal, anexo.Tamanho, pastaId, arquivoPublico, comunicadoCommand.FuncionarioId,
+                (anexo.NomeArquivo, anexo.NomeOriginal, anexo.Tamanho, pastaId, arquivoPublico, comunicadoCommand.FuncionarioId,
                  comunicadoCommand.NomeFuncionario, "Anexo de Comunicado", "", comunicadoCommand.ComunicadoId);
         }
 
