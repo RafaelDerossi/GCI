@@ -90,10 +90,10 @@ namespace CondominioApp.Api.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var morador = await _usuarioQuery.ObterMoradorPorId(vincularViewModel.MoradorId);
-            if (morador == null)
+            var usuario = await _usuarioQuery.ObterPorId(vincularViewModel.UsuarioId);
+            if (usuario == null)
             {
-                AdicionarErroProcessamento("Morador não encontrado!");
+                AdicionarErroProcessamento("Usuário não encontrado!");
                 return CustomResponse();
             }
 
@@ -105,7 +105,7 @@ namespace CondominioApp.Api.Controllers
             }
 
             var comando = new CadastrarMoradorCommand
-                (morador.UsuarioId, unidade.CondominioId, unidade.CondominioNome, unidade.Id,
+                (usuario.Id, unidade.CondominioId, unidade.CondominioNome, unidade.Id,
                 unidade.Numero, unidade.Andar, unidade.GrupoDescricao, vincularViewModel.Proprietario,
                 vincularViewModel.Principal, vincularViewModel.CriadoPelaAdministracao);
 

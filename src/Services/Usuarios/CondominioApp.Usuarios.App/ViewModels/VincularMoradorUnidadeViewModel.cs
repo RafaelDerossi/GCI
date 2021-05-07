@@ -4,7 +4,7 @@ namespace CondominioApp.Usuarios.App.ViewModels
 {
     public class VincularMoradorUnidadeViewModel
     {
-        public Guid MoradorId { get; set; }
+        public Guid UsuarioId { get; set; }
 
         public Guid UnidadeId { get; set; }
 
