@@ -167,7 +167,40 @@ namespace CondominioApp.Comunicados.App.Tests
             //Arrange
             var comando = CadastrarCondominioCommandFactory();
             comando.SetDescricao("qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu " +
-                "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu");
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu");
 
             //Act
             return comando;
@@ -385,8 +418,42 @@ namespace CondominioApp.Comunicados.App.Tests
         {
             //Arrange
             var comando = EditarComunicadoCommandFactory();
+            
             comando.SetDescricao("qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu " +
-                "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu");
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu" +
+                                 "qwertyuiopasdfghjklçqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklçzxcvbnmqwertyuiopasdfghjklqwertyu");
 
             //Act
             return comando;
