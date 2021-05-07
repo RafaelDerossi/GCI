@@ -12,6 +12,7 @@ namespace CondominioApp.Enquetes.App.Aplication.Commands
     public class EnqueteCommandHandler : CommandHandler,
          IRequestHandler<CadastrarEnqueteCommand, ValidationResult>,
          IRequestHandler<EditarEnqueteCommand, ValidationResult>,
+         IRequestHandler<EditarDataFimDaEnqueteCommand, ValidationResult>,
          IRequestHandler<RemoverEnqueteCommand, ValidationResult>,
          IDisposable
     {
@@ -62,20 +63,49 @@ namespace CondominioApp.Enquetes.App.Aplication.Commands
             if (!retorno.IsValid)
                 return retorno;
 
+            retorno = EditarAlternativasDaEnquete(enqueteBd, request);
+            if (!retorno.IsValid)
+                return retorno;
+            
 
+            _EnqueteRepository.Atualizar(enqueteBd);
+
+            return await PersistirDados(_EnqueteRepository.UnitOfWork);
+        }
+        private ValidationResult EditarAlternativasDaEnquete(Enquete enqueteBd, EditarEnqueteCommand request)
+        {
             foreach (var item in enqueteBd.Alternativas)
             {
                 _EnqueteRepository.RemoverAlternativa(item);
             }
-
             enqueteBd.RemoverTodasAsAlternativa();
+
             foreach (var alternativa in request.Alternativas)
-            {                
+            {
                 var resultado = enqueteBd.AdicionarAlternativa(alternativa);
                 if (!resultado.IsValid)
                     return resultado;
                 _EnqueteRepository.AdicionarAlternativa(alternativa);
             }
+
+            return ValidationResult;
+        }
+
+        public async Task<ValidationResult> Handle(EditarDataFimDaEnqueteCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido())
+                return request.ValidationResult;
+
+            var enqueteBd = await _EnqueteRepository.ObterPorId(request.Id);
+            if (enqueteBd == null)
+            {
+                AdicionarErro("Enquete não encontrada.");
+                return ValidationResult;
+            }           
+            
+            var retorno = enqueteBd.SetDataFim(request.DataFim);
+            if (!retorno.IsValid)
+                return retorno;
 
             _EnqueteRepository.Atualizar(enqueteBd);
 

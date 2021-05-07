@@ -1,4 +1,5 @@
-﻿using CondominioApp.Core.Messages;
+﻿using CondominioApp.Core.Helpers;
+using CondominioApp.Core.Messages;
 using CondominioApp.Enquetes.App.Models;
 using System;
 using System.Collections.Generic;
@@ -29,14 +30,16 @@ namespace CondominioApp.Enquetes.App.Aplication.Commands
 
         public void SetDataInicio(DateTime data)
         {
-            if (data < DateTime.Now.Date) AdicionarErrosDeProcessamentoDoComando("Data inicial não pode ser menor que a data de hoje!");
+            if (data < DateTime.Now.Date)
+                AdicionarErrosDeProcessamentoDoComando("Informe uma data inicial posterior ou igual a data de hoje!");            
 
             DataInicio = data;
         }
 
         public void SetDataFim(DateTime data)
         {
-            if (data < DateTime.Now.Date) AdicionarErrosDeProcessamentoDoComando("Data final não pode ser menor que a data de hoje!");
+            if (data.Date < DataHoraDeBrasilia.Get().Date)
+                AdicionarErrosDeProcessamentoDoComando("Informe uma data final posterior ou igual a data de hoje.");
 
             DataFim = data;
         }

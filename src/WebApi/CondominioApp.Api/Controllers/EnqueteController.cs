@@ -168,6 +168,19 @@ namespace CondominioApp.Api.Controllers
 
         }
 
+        [HttpPut("alterar-data-fim")]
+        public async Task<ActionResult> PutAlterarDataFim(EditaDataFimDaEnqueteViewModel enqueteVM)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            var comando = new EditarDataFimDaEnqueteCommand(enqueteVM.Id, enqueteVM.DataFim);
+
+            var Resultado = await _mediatorHandler.EnviarComando(comando);
+
+            return CustomResponse(Resultado);
+
+        }
+
         [HttpDelete("{Id:Guid}")]
         public async Task<ActionResult> Delete(Guid Id)
         {

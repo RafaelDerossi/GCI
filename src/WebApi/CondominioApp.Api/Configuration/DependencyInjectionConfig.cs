@@ -113,10 +113,10 @@ namespace CondominioApp.Api.Configuration
 
             #region Automacao -Contexto
 
-            services.AddScoped<IDispositivosServiceFactory, DispositivoServiceFactory>();
-            services.AddScoped<IRequestHandler<CadastrarCondominioCredencialCommand, ValidationResult>, CondominioCredencialCommandHandler>();
-            services.AddScoped<IRequestHandler<EditarCondominioCredencialCommand, ValidationResult>, CondominioCredencialCommandHandler>();
-            services.AddScoped<IRequestHandler<RemoverCondominioCredencialCommand, ValidationResult>, CondominioCredencialCommandHandler>();
+            services.AddTransient<IDispositivosServiceFactory, DispositivoServiceFactory>();
+            services.AddTransient<IRequestHandler<CadastrarCondominioCredencialCommand, ValidationResult>, CondominioCredencialCommandHandler>();
+            services.AddTransient<IRequestHandler<EditarCondominioCredencialCommand, ValidationResult>, CondominioCredencialCommandHandler>();
+            services.AddTransient<IRequestHandler<RemoverCondominioCredencialCommand, ValidationResult>, CondominioCredencialCommandHandler>();
 
             #endregion
 
@@ -132,9 +132,9 @@ namespace CondominioApp.Api.Configuration
             #region Comunicado -Contexto
 
             //Comunicado
-            services.AddScoped<IRequestHandler<CadastrarComunicadoCommand, ValidationResult>, ComunicadoCommandHandler>();
-            services.AddScoped<IRequestHandler<EditarComunicadoCommand, ValidationResult>, ComunicadoCommandHandler>();
-            services.AddScoped<IRequestHandler<RemoverComunicadoCommand, ValidationResult>, ComunicadoCommandHandler>();
+            services.AddTransient<IRequestHandler<CadastrarComunicadoCommand, ValidationResult>, ComunicadoCommandHandler>();
+            services.AddTransient<IRequestHandler<EditarComunicadoCommand, ValidationResult>, ComunicadoCommandHandler>();
+            services.AddTransient<IRequestHandler<RemoverComunicadoCommand, ValidationResult>, ComunicadoCommandHandler>();
 
             #endregion
 
@@ -142,13 +142,13 @@ namespace CondominioApp.Api.Configuration
             #region Correspondencia -Contexto
 
             //Correspondencia
-            services.AddScoped<IRequestHandler<CadastrarCorrespondenciaCommand, ValidationResult>, CorrespondenciaCommandHandler>();
-            services.AddScoped<IRequestHandler<MarcarCorrespondenciaVistaCommand, ValidationResult>, CorrespondenciaCommandHandler>();
-            services.AddScoped<IRequestHandler<MarcarCorrespondenciaRetiradaCommand, ValidationResult>, CorrespondenciaCommandHandler>();
-            services.AddScoped<IRequestHandler<MarcarCorrespondenciaDevolvidaCommand, ValidationResult>, CorrespondenciaCommandHandler>();
-            services.AddScoped<IRequestHandler<DispararAlertaDeCorrespondenciaCommand, ValidationResult>, CorrespondenciaCommandHandler>();
-            services.AddScoped<IRequestHandler<RemoverCorrespondenciaCommand, ValidationResult>, CorrespondenciaCommandHandler>();
-            services.AddScoped<IRequestHandler<GerarExcelCorrespondenciaCommand, ValidationResult>, CorrespondenciaCommandHandler>();
+            services.AddTransient<IRequestHandler<CadastrarCorrespondenciaCommand, ValidationResult>, CorrespondenciaCommandHandler>();
+            services.AddTransient<IRequestHandler<MarcarCorrespondenciaVistaCommand, ValidationResult>, CorrespondenciaCommandHandler>();
+            services.AddTransient<IRequestHandler<MarcarCorrespondenciaRetiradaCommand, ValidationResult>, CorrespondenciaCommandHandler>();
+            services.AddTransient<IRequestHandler<MarcarCorrespondenciaDevolvidaCommand, ValidationResult>, CorrespondenciaCommandHandler>();
+            services.AddTransient<IRequestHandler<DispararAlertaDeCorrespondenciaCommand, ValidationResult>, CorrespondenciaCommandHandler>();
+            services.AddTransient<IRequestHandler<RemoverCorrespondenciaCommand, ValidationResult>, CorrespondenciaCommandHandler>();
+            services.AddTransient<IRequestHandler<GerarExcelCorrespondenciaCommand, ValidationResult>, CorrespondenciaCommandHandler>();
 
             #endregion
 
@@ -156,17 +156,18 @@ namespace CondominioApp.Api.Configuration
             #region Enquete -Contexto
 
             //Enquete
-            services.AddScoped<IRequestHandler<CadastrarEnqueteCommand, ValidationResult>, EnqueteCommandHandler>();
-            services.AddScoped<IRequestHandler<EditarEnqueteCommand, ValidationResult>, EnqueteCommandHandler>();
-            services.AddScoped<IRequestHandler<RemoverEnqueteCommand, ValidationResult>, EnqueteCommandHandler>();
-            services.AddScoped<INotificationHandler<EnqueteCadastradaEvent>, EnqueteEventHandler>();
+            services.AddTransient<IRequestHandler<CadastrarEnqueteCommand, ValidationResult>, EnqueteCommandHandler>();
+            services.AddTransient<IRequestHandler<EditarEnqueteCommand, ValidationResult>, EnqueteCommandHandler>();
+            services.AddTransient<IRequestHandler<EditarDataFimDaEnqueteCommand, ValidationResult>, EnqueteCommandHandler>();
+            services.AddTransient<IRequestHandler<RemoverEnqueteCommand, ValidationResult>, EnqueteCommandHandler>();
+            services.AddTransient<INotificationHandler<EnqueteCadastradaEvent>, EnqueteEventHandler>();
 
             //AlternativasEnquete
-            services.AddScoped<IRequestHandler<EditarAlternativaCommand, ValidationResult>, AlternativaEnqueteCommandHandler>();
-            services.AddScoped<IRequestHandler<RemoverAlternativaCommand, ValidationResult>, AlternativaEnqueteCommandHandler>();
+            services.AddTransient<IRequestHandler<EditarAlternativaCommand, ValidationResult>, AlternativaEnqueteCommandHandler>();
+            services.AddTransient<IRequestHandler<RemoverAlternativaCommand, ValidationResult>, AlternativaEnqueteCommandHandler>();
 
             //RespostaEnquete
-            services.AddScoped<IRequestHandler<CadastrarRespostaCommand, ValidationResult>, RespostaEnqueteCommandHandler>();
+            services.AddTransient<IRequestHandler<CadastrarRespostaCommand, ValidationResult>, RespostaEnqueteCommandHandler>();
 
             #endregion
             
@@ -224,29 +225,29 @@ namespace CondominioApp.Api.Configuration
 
             #region Ocorrencia -Contexto
             //Ocorrencia
-            services.AddScoped<IRequestHandler<CadastrarOcorrenciaCommand, ValidationResult>, OcorrenciaCommandHandler>();
-            services.AddScoped<IRequestHandler<EditarOcorrenciaCommand, ValidationResult>, OcorrenciaCommandHandler>();
-            services.AddScoped<IRequestHandler<RemoverOcorrenciaCommand, ValidationResult>, OcorrenciaCommandHandler>();
+            services.AddTransient<IRequestHandler<CadastrarOcorrenciaCommand, ValidationResult>, OcorrenciaCommandHandler>();
+            services.AddTransient<IRequestHandler<EditarOcorrenciaCommand, ValidationResult>, OcorrenciaCommandHandler>();
+            services.AddTransient<IRequestHandler<RemoverOcorrenciaCommand, ValidationResult>, OcorrenciaCommandHandler>();
 
             //Resposta
-            services.AddScoped<IRequestHandler<CadastrarRespostaOcorrenciaMoradorCommand, ValidationResult>, RespostaOcorrenciaCommandHandler>();
-            services.AddScoped<IRequestHandler<CadastrarRespostaOcorrenciaSindicoCommand, ValidationResult>, RespostaOcorrenciaCommandHandler>();
-            services.AddScoped<IRequestHandler<MarcarRespostaOcorrenciaComoVistaCommand, ValidationResult>, RespostaOcorrenciaCommandHandler>();
-            services.AddScoped<IRequestHandler<EditarRespostaOcorrenciaCommand, ValidationResult>, RespostaOcorrenciaCommandHandler>();
+            services.AddTransient<IRequestHandler<CadastrarRespostaOcorrenciaMoradorCommand, ValidationResult>, RespostaOcorrenciaCommandHandler>();
+            services.AddTransient<IRequestHandler<CadastrarRespostaOcorrenciaSindicoCommand, ValidationResult>, RespostaOcorrenciaCommandHandler>();
+            services.AddTransient<IRequestHandler<MarcarRespostaOcorrenciaComoVistaCommand, ValidationResult>, RespostaOcorrenciaCommandHandler>();
+            services.AddTransient<IRequestHandler<EditarRespostaOcorrenciaCommand, ValidationResult>, RespostaOcorrenciaCommandHandler>();
             #endregion
 
 
             #region Portaria -Contexto
 
             //Visitante                        
-            services.AddScoped<IRequestHandler<CadastrarVisitantePorMoradorCommand, ValidationResult>, VisitanteCommandHandler>();
-            services.AddScoped<IRequestHandler<CadastrarVisitantePorPorteiroCommand, ValidationResult>, VisitanteCommandHandler>();
-            services.AddScoped<IRequestHandler<EditarVisitantePorMoradorCommand, ValidationResult>, VisitanteCommandHandler>();
-            services.AddScoped<IRequestHandler<EditarVisitantePorPorteiroCommand, ValidationResult>, VisitanteCommandHandler>();
-            services.AddScoped<IRequestHandler<RemoverVisitanteCommand, ValidationResult>, VisitanteCommandHandler>();
-            services.AddScoped<INotificationHandler<VisitanteCadastradoEvent>, VisitanteEventHandler>();
-            services.AddScoped<INotificationHandler<VisitanteEditadoEvent>, VisitanteEventHandler>();
-            services.AddScoped<INotificationHandler<VisitanteRemovidoEvent>, VisitanteEventHandler>();
+            services.AddTransient<IRequestHandler<CadastrarVisitantePorMoradorCommand, ValidationResult>, VisitanteCommandHandler>();
+            services.AddTransient<IRequestHandler<CadastrarVisitantePorPorteiroCommand, ValidationResult>, VisitanteCommandHandler>();
+            services.AddTransient<IRequestHandler<EditarVisitantePorMoradorCommand, ValidationResult>, VisitanteCommandHandler>();
+            services.AddTransient<IRequestHandler<EditarVisitantePorPorteiroCommand, ValidationResult>, VisitanteCommandHandler>();
+            services.AddTransient<IRequestHandler<RemoverVisitanteCommand, ValidationResult>, VisitanteCommandHandler>();
+            services.AddTransient<INotificationHandler<VisitanteCadastradoEvent>, VisitanteEventHandler>();
+            services.AddTransient<INotificationHandler<VisitanteEditadoEvent>, VisitanteEventHandler>();
+            services.AddTransient<INotificationHandler<VisitanteRemovidoEvent>, VisitanteEventHandler>();
 
             //Visita
             services.AddScoped<IRequestHandler<CadastrarVisitaPorPorteiroCommand, ValidationResult>, VisitaCommandHandler>();
@@ -448,52 +449,43 @@ namespace CondominioApp.Api.Configuration
 
 
 
-            #region Querys
-
-            //Query            
+            #region Querys     
             services.AddScoped<IAutomacaoQuery, AutomacaoQuery>();
             services.AddScoped<IComunicadoQuery, ComunicadoQuery>();
-            services.AddScoped<ICorrespondenciaQuery, CorrespondenciaQuery>();
-            services.AddScoped<IEnqueteQuery, EnqueteQuery>();
+            services.AddScoped<ICorrespondenciaQuery, CorrespondenciaQuery>();            
             services.AddScoped<IOcorrenciaQuery, OcorrenciaQuery>();
             services.AddScoped<IPortariaQuery, PortariaQuery>();
             services.AddScoped<IQueryLead, QueryLead>();
 
             services.AddTransient<IArquivoDigitalQuery, ArquivoDigitalQuery>();
+            services.AddTransient<IEnqueteQuery, EnqueteQuery>();
             services.AddTransient<IPrincipalQuery, PrincipalQuery>();
             services.AddTransient<IReservaAreaComumQuery, ReservaAreaComumQuery>();            
             services.AddTransient<IUsuarioQuery, UsuarioQuery>();
-
             #endregion
 
-            #region Repositórios
-            //Repositórios            
+
+            #region Repositórios            
+            services.AddTransient<IArquivoDigitalRepository, ArquivoDigitalRepository>();
             services.AddScoped<IAutomacaoRepository, AutomacaoRepository>();
             services.AddScoped<IComunidadoRepository, ComunicadoRepository>();
             services.AddScoped<ICorrespondenciaRepository, CorrespondenciaRepository>();
-            services.AddScoped<IEnqueteRepository, EnqueteRepository>();
+            services.AddTransient<IEnqueteRepository, EnqueteRepository>();
             services.AddScoped<ILeadRepository, LeadRepository>();
-            services.AddScoped<IPortariaRepository, PortariaRepository>();
             services.AddScoped<IOcorrenciaRepository, OcorrenciaRepository>();
-
-            
-            services.AddTransient<IArquivoDigitalRepository, ArquivoDigitalRepository>();
+            services.AddScoped<IPortariaRepository, PortariaRepository>();
             services.AddTransient<IPrincipalRepository, PrincipalRepository>();            
             services.AddTransient<IReservaAreaComumRepository, ReservaAreaComumRepository>();
             services.AddTransient<IUsuarioRepository, UsuarioRepository>();
-
-            
             #endregion
 
-            #region Repositórios Query
-            //Repositórios Query                     
+            #region Repositórios Query               
             services.AddTransient<IFuncionarioQueryRepository, FuncionarioQueryRepository>();
             services.AddTransient<IMoradorQueryRepository, MoradorQueryRepository>();
             services.AddScoped<IPortariaQueryRepository, PortariaQueryRepository>();
             services.AddTransient<IPrincipalQueryRepository, PrincipalQueryRepository>();                        
             services.AddTransient<IReservaAreaComumQueryRepository, ReservaAreaComumQueryRepository>();            
             services.AddTransient<IVeiculoQueryRepository, VeiculoQueryRepository>();
-
             #endregion
 
 

@@ -58,7 +58,16 @@ namespace CondominioApp.Enquetes.App.Models
 
         public void SetDataInicial(DateTime data) => DataInicio = data;
 
-        public void SetDataFim(DateTime data) => DataFim = data;
+        public ValidationResult SetDataFim(DateTime data)
+        {
+            if (DataFim.Date < DataHoraDeBrasilia.Get().Date)
+                AdicionarErrosDaEntidade("Data de término não pode ser alterada pois a enquete já foi encerrada");            
+
+            if (ValidationResult.IsValid)
+                DataFim = data;
+
+            return ValidationResult;
+        }
 
         public void SetDescricao(string descricao) => Descricao = descricao;
 
@@ -158,7 +167,8 @@ namespace CondominioApp.Enquetes.App.Models
             (string descricao, DateTime dataInicio, DateTime dataFim, bool apenasProprietarios)
         {
             if (ObterQuantidadeDeVotos > 0)
-                AdicionarErrosDaEntidade("Enquete não pode mais ser edita pois já tem voto(s)!");
+                AdicionarErrosDaEntidade("A descrição, data de início, se é ou não apenas para proprietários e as alternativas não podem mais serem editados pois a enquete já tem voto(s)!");
+                             
 
             SetDescricao(descricao);
             SetDataInicial(dataInicio);
