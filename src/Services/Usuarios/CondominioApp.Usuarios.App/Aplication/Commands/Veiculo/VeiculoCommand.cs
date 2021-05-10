@@ -1,9 +1,4 @@
-﻿using CondominioApp.Core.DomainObjects;
-using CondominioApp.Core.Enumeradores;
-using CondominioApp.Core.Helpers;
-using CondominioApp.Core.Messages;
-using CondominioApp.Usuarios.App.ValueObjects;
-using FluentValidation;
+﻿using CondominioApp.Core.Messages;
 using System;
 using System.Text.RegularExpressions;
 
@@ -11,7 +6,9 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
 {
     public abstract class VeiculoCommand : Command
     {
-        public Guid Id { get; protected set; }
+        public Guid VeiculoCondominioId { get; protected set; }
+
+        public Guid VeiculoId { get; protected set; }
 
         public string Placa { get; protected set; }
 
@@ -33,6 +30,9 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
 
         public string NomeCondominio { get; protected set; }
 
+        public string Tag { get; protected set; }
+
+        public string Observacao { get; protected set; }
 
 
         public void SetVeiculo(string placa, string modelo, string cor)
@@ -69,6 +69,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
             CondominioId = id;
             NomeCondominio = nome;
         }
+
 
     }
 }

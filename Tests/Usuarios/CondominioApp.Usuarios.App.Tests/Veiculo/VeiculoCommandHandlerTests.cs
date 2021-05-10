@@ -58,7 +58,9 @@ namespace CondominioApp.Usuarios.App.Tests
             var usuario = new Usuario("usuario", "sobrenome", "", null, null, null);
             usuario.SetEntidadeId(command.UsuarioId);
             Veiculo veiculo = new Veiculo(command.Placa, command.Modelo, command.Cor);
-            veiculo.AdicionarVeiculoCondominio(new VeiculoCondominio(veiculo.Id, command.UnidadeId, command.CondominioId, command.UsuarioId));
+            veiculo.AdicionarVeiculoCondominio
+                (new VeiculoCondominio
+                (veiculo.Id, command.UnidadeId, command.CondominioId, command.UsuarioId, "", ""));
 
             _mocker.GetMock<IUsuarioRepository>().Setup(r => r.ObterPorId(command.UsuarioId))
                .Returns(Task.FromResult(usuario));
@@ -88,7 +90,9 @@ namespace CondominioApp.Usuarios.App.Tests
             var usuario = new Usuario("usuario", "sobrenome", "", null, null, null);
             usuario.SetEntidadeId(command.UsuarioId);
             Veiculo veiculo = new Veiculo(command.Placa, command.Modelo, command.Cor);
-            veiculo.AdicionarVeiculoCondominio(new VeiculoCondominio(veiculo.Id, Guid.NewGuid(), command.CondominioId, command.UsuarioId));
+            veiculo.AdicionarVeiculoCondominio
+                (new VeiculoCondominio
+                (veiculo.Id, Guid.NewGuid(), command.CondominioId, command.UsuarioId, "", ""));
 
             _mocker.GetMock<IUsuarioRepository>().Setup(r => r.ObterPorId(command.UsuarioId))
                .Returns(Task.FromResult(usuario));
@@ -118,7 +122,9 @@ namespace CondominioApp.Usuarios.App.Tests
             var usuario = new Usuario("usuario", "sobrenome", "", null, null, null);
             usuario.SetEntidadeId(command.UsuarioId);
             Veiculo veiculo = new Veiculo(command.Placa, command.Modelo, command.Cor);
-            veiculo.AdicionarVeiculoCondominio(new VeiculoCondominio(veiculo.Id, Guid.NewGuid(), Guid.NewGuid(), command.UsuarioId));
+            veiculo.AdicionarVeiculoCondominio
+                (new VeiculoCondominio
+                (veiculo.Id, Guid.NewGuid(), Guid.NewGuid(), command.UsuarioId, "", ""));
 
             _mocker.GetMock<IUsuarioRepository>().Setup(r => r.ObterPorId(command.UsuarioId))
                .Returns(Task.FromResult(usuario));
@@ -149,7 +155,9 @@ namespace CondominioApp.Usuarios.App.Tests
             var usuario = new Usuario("usuario", "sobrenome", "", null, null, null);
             usuario.SetEntidadeId(command.UsuarioId);
             Veiculo veiculo = new Veiculo(command.Placa, command.Modelo, command.Cor);
-            veiculo.AdicionarVeiculoCondominio(new VeiculoCondominio(veiculo.Id, command.UnidadeId, command.CondominioId, Guid.NewGuid()));
+            veiculo.AdicionarVeiculoCondominio
+                (new VeiculoCondominio
+                (veiculo.Id, command.UnidadeId, command.CondominioId, Guid.NewGuid(), "", ""));
 
             _mocker.GetMock<IUsuarioRepository>().Setup(r => r.ObterPorId(command.UsuarioId))
                .Returns(Task.FromResult(usuario));

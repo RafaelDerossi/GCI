@@ -7,9 +7,10 @@ namespace CondominioApp.Usuarios.App.Aplication.Events
         public UsuarioDoVeiculoNoCondominioEditadoEvent(
             Guid id, Guid veiculoId, string placa, string modelo, string cor,
             Guid usuarioId,string nomeUsuario, Guid unidadeId, string numeroUnidade,
-            string andarUnidade, string grupoDaUnidade, Guid condominioId, string nomeCondominio)
+            string andarUnidade, string grupoDaUnidade, Guid condominioId, string nomeCondominio,
+            string tag, string observacao)
         {
-            Id = id;
+            VeiculoCondominioId = id;
             VeiculoId = veiculoId;
             Placa = placa;
             Modelo = modelo;
@@ -22,6 +23,8 @@ namespace CondominioApp.Usuarios.App.Aplication.Events
             GrupoUnidade = grupoDaUnidade;
             CondominioId = condominioId;
             NomeCondominio = nomeCondominio;
+            Tag = tag;
+            Observacao = observacao;
         }
     }
 }

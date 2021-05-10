@@ -9,7 +9,7 @@ namespace CondominioApp.Usuarios.App.Tests
         {
             return new CadastrarVeiculoCommand
                 (Guid.NewGuid(),"LMG8922","Modelo","Cor", Guid.NewGuid(),"101","1","Bloco A",
-                Guid.NewGuid(), "Nome do Condominio");
+                Guid.NewGuid(), "Nome do Condominio", "", "");
         }
 
         public static CadastrarVeiculoCommand CriarComandoCadastroDeVeiculo()

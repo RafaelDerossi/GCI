@@ -39,19 +39,24 @@ namespace CondominioApp.Usuarios.App.FlatModel
 
         public string NomeCondominio { get; private set; }
 
+        public string Tag { get; private set; }
+
+        public string Observacao { get; private set; }
 
         protected VeiculoFlat() { }
 
         public VeiculoFlat
             (Guid id, Guid veiculoId, string placa, string modelo, string cor, Guid usuarioId,
              string nomeUsuario, Guid unidadeId, string numeroUnidade, string andarUnidade,
-             string grupoUnidade, Guid condominioId, string nomeCondominio)
+             string grupoUnidade, Guid condominioId, string nomeCondominio, string tag, string observacao)
         {
             Id = id;
             SetVeiculo(veiculoId, placa, modelo, cor);
             SetUsuario(usuarioId, nomeUsuario);
             SetUnidade(unidadeId, numeroUnidade, andarUnidade, grupoUnidade);
             SetCondominio(condominioId, nomeCondominio);
+            Tag = tag;
+            Observacao = observacao;
         }
 
         public void EnviarParaLixeira() => Lixeira = true;
@@ -86,5 +91,8 @@ namespace CondominioApp.Usuarios.App.FlatModel
             NomeCondominio = nomeCondominio;
         }
 
+        public void SetTag(string tag) => Tag = tag;
+
+        public void SetObservacao(string observacao) => Observacao = observacao;
     }
 }

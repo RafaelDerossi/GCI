@@ -7,12 +7,15 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
     {
         public CadastrarVeiculoCommand
             (Guid usuarioId, string placa, string modelo, string cor, Guid unidadeId, string numeroUnidade,
-            string andarUnidade, string grupoDaUnidade, Guid condominioId, string nomeCondominio)
+             string andarUnidade, string grupoDaUnidade, Guid condominioId, string nomeCondominio, string tag, 
+             string observacao)
         {
             SetUsuarioId(usuarioId);
             SetVeiculo(placa, modelo, cor);            
             SetUnidade(unidadeId, numeroUnidade, andarUnidade, grupoDaUnidade);
             SetCondominio(condominioId, nomeCondominio);
+            Tag = tag;
+            Observacao = observacao;
         }
 
         public override bool EstaValido()

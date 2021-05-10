@@ -5,7 +5,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Events
 {
     public class VeiculoEvent : Event
     {
-        public Guid Id { get; protected set; }
+        public Guid VeiculoCondominioId { get; protected set; }
 
         public DateTime DataDeCadastro { get; private set; }
 
@@ -36,6 +36,10 @@ namespace CondominioApp.Usuarios.App.Aplication.Events
         public Guid CondominioId { get; protected set; }
 
         public string NomeCondominio { get; protected set; }
+
+        public string Tag { get; protected set; }
+
+        public string Observacao { get; protected set; }
 
     }
 }

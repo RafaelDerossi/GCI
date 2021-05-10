@@ -234,6 +234,10 @@ namespace CondominioApp.Usuarios.App.Data.Repository
             return await _context.Veiculos.Include(x => x.VeiculoCondominios).FirstOrDefaultAsync(v => v.Placa == placa);
         }
 
+        public async Task<VeiculoCondominio> ObterVeiculoCondominioPorId(Guid veiculoCondominioId)
+        {
+            return await _context.VeiculosCondominios.FirstOrDefaultAsync(v => v.Id == veiculoCondominioId);
+        }
 
 
         public void AdicionarVeiculo(Veiculo veiculo)
@@ -244,6 +248,11 @@ namespace CondominioApp.Usuarios.App.Data.Repository
         public void AtualizarVeiculo(Veiculo entity)
         {
             _context.Veiculos.Update(entity);
+        }
+
+        public void AtualizarVeiculoCondominio(VeiculoCondominio entity)
+        {
+            _context.VeiculosCondominios.Update(entity);
         }
 
         public void AdicionarVeiculoCondominio(VeiculoCondominio veiculo)

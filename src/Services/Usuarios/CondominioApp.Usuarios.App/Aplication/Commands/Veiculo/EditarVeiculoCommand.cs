@@ -6,10 +6,12 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
     public class EditarVeiculoCommand : VeiculoCommand
     {
         public EditarVeiculoCommand
-            (Guid veiculoId, string placa, string modelo, string cor)
+            (Guid veiculoCondominioId, string placa, string modelo, string cor, string tag, string observacao)
         {
-            Id = veiculoId;
-            SetVeiculo(placa, modelo, cor);            
+            VeiculoCondominioId = veiculoCondominioId;
+            SetVeiculo(placa, modelo, cor);
+            Tag = tag;
+            Observacao = observacao;
         }
 
         public override bool EstaValido()
@@ -26,7 +28,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
         {
             public EditarVeiculoCommandValidation()
             {
-                ValidateId();
+                ValidateVeiculoCondominioId();
                 ValidatePlaca();
                 ValidateModelo();
                 ValidateCor();

@@ -5,11 +5,18 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands.Validations
 {
     public abstract class VeiculoValidation<T> : AbstractValidator<T> where T : VeiculoCommand
     {
-        protected void ValidateId()
+        protected void ValidateVeiculoId()
         {
-            RuleFor(c => c.Id)
+            RuleFor(c => c.VeiculoId)
                 .NotEqual(Guid.Empty);
         }
+
+        protected void ValidateVeiculoCondominioId()
+        {
+            RuleFor(c => c.VeiculoCondominioId)
+                .NotEqual(Guid.Empty);
+        }
+
 
         protected void ValidatePlaca()
         {

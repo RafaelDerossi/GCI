@@ -12,6 +12,8 @@ namespace CondominioApp.Usuarios.App.Models
 
         Task<IEnumerable<VeiculoFlat>> ObterPorVeiculoId(Guid veiculoId);
 
+        Task<VeiculoFlat> ObterPorVeiculoCondominioId(Guid veiculoCondominioId);
+
         void Remover(VeiculoFlat veiculo);
     }
 }

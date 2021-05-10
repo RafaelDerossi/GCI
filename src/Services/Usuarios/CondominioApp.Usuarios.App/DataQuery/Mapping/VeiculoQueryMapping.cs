@@ -17,8 +17,11 @@ namespace CondominioApp.Usuarios.App.Data.Mapping
 
             builder.Property(u => u.Modelo).HasColumnType($"varchar({Usuario.Max})");
 
-            builder.Property(u => u.Cor).HasColumnType($"varchar(30)");            
+            builder.Property(u => u.Cor).HasColumnType($"varchar(30)");
 
+            builder.Property(u => u.Tag).HasColumnType($"varchar({Usuario.Max})");
+
+            builder.Property(u => u.Observacao).HasColumnType($"varchar(250)");
         }
     }
 }

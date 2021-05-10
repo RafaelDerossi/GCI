@@ -117,7 +117,7 @@ namespace CondominioApp.Api.Controllers
             var comando = new CadastrarVeiculoCommand(
                  veiculoVM.UsuarioId, veiculoVM.Placa, veiculoVM.Modelo, veiculoVM.Cor,
                  unidade.Id, unidade.Numero, unidade.Andar, unidade.GrupoDescricao,
-                 unidade.CondominioId, unidade.CondominioNome);
+                 unidade.CondominioId, unidade.CondominioNome, veiculoVM.Tag, veiculoVM.Observacao);
 
              var resultado = await _mediatorHandler.EnviarComando(comando);
 
@@ -133,16 +133,10 @@ namespace CondominioApp.Api.Controllers
         public async Task<ActionResult> Put(EditaVeiculoViewModel veiculoVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
-
-            var veiculoCondominio = await _usuarioQuery.ObterVeiculoPorId(veiculoVM.Id);
-            if (veiculoCondominio == null)
-            {
-                AdicionarErroProcessamento("Veiculo não encontrado!");
-                return CustomResponse();
-            }
-
+            
             var comando = new EditarVeiculoCommand(
-                 veiculoCondominio.VeiculoId, veiculoVM.Placa, veiculoVM.Modelo, veiculoVM.Cor);
+                 veiculoVM.veiculoCondominioId, veiculoVM.Placa, veiculoVM.Modelo, veiculoVM.Cor,
+                 veiculoVM.Tag, veiculoVM .Observacao);
 
             var resultado = await _mediatorHandler.EnviarComando(comando);
 

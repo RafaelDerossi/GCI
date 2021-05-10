@@ -5,6 +5,7 @@ using CondominioApp.Usuarios.App.FlatModel;
 using CondominioApp.Usuarios.App.Models;
 using FluentValidation.Results;
 using MediatR;
+using System.Linq;
 
 namespace CondominioApp.Usuarios.App.Aplication.Events
 {
@@ -25,10 +26,10 @@ namespace CondominioApp.Usuarios.App.Aplication.Events
         public async Task Handle(VeiculoCadastradoEvent notification, CancellationToken cancellationToken)
         {            
             var veiculoFlat = new VeiculoFlat
-                (notification.Id, notification.VeiculoId, notification.Placa, notification.Modelo,
+                (notification.VeiculoCondominioId, notification.VeiculoId, notification.Placa, notification.Modelo,
                  notification.Cor, notification.UsuarioId, notification.NomeUsuario, notification.UnidadeId,
                  notification.NumeroUnidade, notification.AndarUnidade, notification.GrupoUnidade,
-                 notification.CondominioId, notification.NomeCondominio);
+                 notification.CondominioId, notification.NomeCondominio, notification.Tag, notification.Observacao);
 
             _veiculoQueryRepository.Adicionar(veiculoFlat);
 
@@ -37,8 +38,17 @@ namespace CondominioApp.Usuarios.App.Aplication.Events
 
         public async Task Handle(VeiculoEditadoEvent notification, CancellationToken cancellationToken)
         {
-            var veiculos = await _veiculoQueryRepository.ObterPorVeiculoId(notification.VeiculoId);
+            var veiculoCondominioEditado = await _veiculoQueryRepository.ObterPorVeiculoCondominioId(notification.VeiculoCondominioId);
+            
+            veiculoCondominioEditado.SetVeiculo(notification.VeiculoId, notification.Placa, notification.Modelo, notification.Cor);
+            veiculoCondominioEditado.SetTag(notification.Tag);
+            veiculoCondominioEditado.SetObservacao(notification.Observacao);
 
+            _veiculoQueryRepository.Atualizar(veiculoCondominioEditado);
+
+            
+            var veiculos = await _veiculoQueryRepository.ObterPorVeiculoId(veiculoCondominioEditado.VeiculoId);
+            veiculos = veiculos.Where(v => v.Id != veiculoCondominioEditado.Id);
             foreach (var item in veiculos)
             {
                 item.SetVeiculo(notification.VeiculoId, notification.Placa, notification.Modelo, notification.Cor);
@@ -57,10 +67,10 @@ namespace CondominioApp.Usuarios.App.Aplication.Events
             }            
             
             var veiculoFlat = new VeiculoFlat
-                (notification.Id, notification.VeiculoId, notification.Placa, notification.Modelo,
+                (notification.VeiculoCondominioId, notification.VeiculoId, notification.Placa, notification.Modelo,
                  notification.Cor, notification.UsuarioId, notification.NomeUsuario, notification.UnidadeId,
                  notification.NumeroUnidade, notification.AndarUnidade, notification.GrupoUnidade,
-                 notification.CondominioId, notification.NomeCondominio);
+                 notification.CondominioId, notification.NomeCondominio, notification.Tag, notification.Observacao);
 
             _veiculoQueryRepository.Adicionar(veiculoFlat);
 

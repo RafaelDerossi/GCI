@@ -61,7 +61,14 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
         {
             if (!request.EstaValido()) return request.ValidationResult;
 
-            var veiculo = await _usuarioRepository.ObterVeiculoPorId(request.Id);
+            var veiculoCondominio = await _usuarioRepository.ObterVeiculoCondominioPorId(request.VeiculoCondominioId);
+            if (veiculoCondominio == null)
+            {
+                AdicionarErro("Veículo não encontrado.");
+                return ValidationResult;
+            }
+
+            var veiculo = await _usuarioRepository.ObterVeiculoPorId(veiculoCondominio.VeiculoId);
             if (veiculo == null)
             {
                 AdicionarErro("Veículo não encontrado.");
@@ -76,12 +83,19 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
                 return ValidationResult;
             }
 
-            veiculo.SetVeiculo(request.Placa, request.Modelo, request.Cor);
 
-            veiculo.AdicionarEvento(new VeiculoEditadoEvent(veiculo.Id, veiculo.Placa, veiculo.Modelo, veiculo.Cor));
+            veiculo.SetVeiculo(request.Placa, request.Modelo, request.Cor);
+            veiculoCondominio.SetTag(request.Tag);
+            veiculoCondominio.SetObservacao(request.Observacao);            
 
             _usuarioRepository.AtualizarVeiculo(veiculo);
-            
+            _usuarioRepository.AtualizarVeiculoCondominio(veiculoCondominio);
+
+            veiculoCondominio.AdicionarEvento(
+                new VeiculoEditadoEvent(
+                    veiculoCondominio.Id, veiculoCondominio.VeiculoId, veiculo.Placa, veiculo.Modelo, veiculo.Cor,
+                    veiculoCondominio.Tag, veiculoCondominio.Observacao));
+
             return await PersistirDados(_usuarioRepository.UnitOfWork);
 
         }
@@ -90,7 +104,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
         {
             if (!request.EstaValido()) return request.ValidationResult;
 
-            var veiculo = await _usuarioRepository.ObterVeiculoPorId(request.Id);
+            var veiculo = await _usuarioRepository.ObterVeiculoPorId(request.VeiculoId);
             if (veiculo == null)
             {
                 AdicionarErro("Veículo não encontrado.");
@@ -111,7 +125,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
 
             _usuarioRepository.AtualizarVeiculo(veiculo);
 
-            veiculo.AdicionarEvento(new VeiculoRemovidoEvent(request.Id, request.CondominioId));
+            veiculo.AdicionarEvento(new VeiculoRemovidoEvent(request.VeiculoId, request.CondominioId));
 
             return await PersistirDados(_usuarioRepository.UnitOfWork);
 
@@ -123,7 +137,8 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
         {
             var veiculo = VeiculoFactory(request);
 
-            var veiculoCondominio = new VeiculoCondominio(veiculo.Id, request.UnidadeId, request.CondominioId, request.UsuarioId);
+            var veiculoCondominio = new VeiculoCondominio
+                (veiculo.Id, request.UnidadeId, request.CondominioId, request.UsuarioId, request.Tag, request.Observacao);
             var result = veiculo.AdicionarVeiculoCondominio(veiculoCondominio);
             if (!result.IsValid)
                 return result;
@@ -136,23 +151,24 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
         }
 
         private async Task<ValidationResult> EditarUsuarioDoVeiculoNoCondominio(Veiculo veiculo, VeiculoCommand request, Usuario usuario)
-        {            
-
+        {
             //Retirar da lixeira
             veiculo.RestaurarDaLixeira();
 
             //Exclui todos os VeiculoCondominio do Condominio
             var veiculoCondominiosDoCondominio =
                 veiculo.VeiculoCondominios.Where(v => v.CondominioId == request.CondominioId);
-            foreach (VeiculoCondominio vC in veiculoCondominiosDoCondominio)
+
+            foreach (var veicCond in veiculoCondominiosDoCondominio)
             {
-                _usuarioRepository.RemoverVeiculoCondominio(vC);
+                _usuarioRepository.RemoverVeiculoCondominio(veicCond);
             }
             veiculo.RemoverTodosOsVeiculoCondominioPorCondominio(request.CondominioId);
 
             //Adiciona um novo VeiculoCondominio
             var veiculoCondominio =
-                new VeiculoCondominio(veiculo.Id, request.UnidadeId, request.CondominioId, request.UsuarioId);
+                new VeiculoCondominio
+                (veiculo.Id, request.UnidadeId, request.CondominioId, request.UsuarioId, request.Tag, request.Observacao);
             
             var result = veiculo.AdicionarVeiculoCondominio(veiculoCondominio);
             if (!result.IsValid)
@@ -173,7 +189,8 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
 
             //Adiciona um novo VeiculoCondominio
             var veiculoCondominio =
-                new VeiculoCondominio(veiculo.Id, request.UnidadeId, request.CondominioId, request.UsuarioId);
+                new VeiculoCondominio
+                (veiculo.Id, request.UnidadeId, request.CondominioId, request.UsuarioId, request.Tag, request.Observacao);
 
             var result = veiculo.AdicionarVeiculoCondominio(veiculoCondominio);
             if (!result.IsValid)
@@ -213,7 +230,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
                 (veiculoCondominio.Id, veiculo.Id, veiculo.Placa, veiculo.Modelo, veiculo.Cor,
                  veiculoCondominio.UsuarioId, nomeUsuario, request.UnidadeId,
                  request.NumeroUnidade, request.AndarUnidade, request.GrupoUnidade, request.CondominioId,
-                 request.NomeCondominio));
+                 request.NomeCondominio, request.Tag, request.Observacao));
         }
 
 

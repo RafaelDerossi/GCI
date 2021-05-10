@@ -61,10 +61,14 @@ namespace CondominioApp.Usuarios.App.Models
 
         Task<Veiculo> ObterVeiculoPorPlaca(string placa);
 
+        Task<VeiculoCondominio> ObterVeiculoCondominioPorId(Guid veiculoCondominioId);
+
 
         void AdicionarVeiculo(Veiculo veiculo);
 
         void AtualizarVeiculo(Veiculo entity);
+
+        void AtualizarVeiculoCondominio(VeiculoCondominio entity);
 
         void AdicionarVeiculoCondominio(VeiculoCondominio veiculo);
 

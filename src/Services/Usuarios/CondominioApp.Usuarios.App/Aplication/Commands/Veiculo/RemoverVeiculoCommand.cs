@@ -8,7 +8,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
         public RemoverVeiculoCommand
             (Guid veiculoId, Guid condominioId)
         {
-            Id = veiculoId;
+            VeiculoId = veiculoId;
             CondominioId = condominioId;
         }
 
@@ -26,7 +26,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
         {
             public EditarVeiculoCommandValidation()
             {
-                ValidateId();
+                ValidateVeiculoId();
                 ValidateCondominioId();
             }
         }

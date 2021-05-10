@@ -12,8 +12,8 @@ namespace CondominioApp.Usuarios.App.Models
         
         public string Modelo { get; private set; }
 
-        public string Cor { get; private set; }       
-
+        public string Cor { get; private set; }
+       
 
         private readonly List<VeiculoCondominio> _VeiculoCondominios;
         public IReadOnlyCollection<VeiculoCondominio> VeiculoCondominios => _VeiculoCondominios;
@@ -28,7 +28,7 @@ namespace CondominioApp.Usuarios.App.Models
             _VeiculoCondominios = new List<VeiculoCondominio>();
             Placa = placa;
             Modelo = modelo;
-            Cor = cor;            
+            Cor = cor;          
         }
 
         public void SetVeiculo(string placa, string modelo, string cor)
@@ -36,7 +36,9 @@ namespace CondominioApp.Usuarios.App.Models
             Placa = placa;
             Modelo = modelo;
             Cor = cor;
-        }        
+        }
+
+       
 
         public ValidationResult AdicionarVeiculoCondominio(VeiculoCondominio veiculoCondominio)
         {

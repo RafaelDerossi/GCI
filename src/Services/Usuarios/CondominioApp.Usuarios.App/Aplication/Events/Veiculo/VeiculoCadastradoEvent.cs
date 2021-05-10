@@ -9,7 +9,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Events
             string nomeUsuario, Guid unidadeId, string numeroUnidade, string andarUnidade,
             string grupoUnidade ,Guid condominioId, string nomeCondominio)
         {
-            Id = id;
+            VeiculoCondominioId = id;
             VeiculoId = veiculoId;
             Placa = placa;
             Modelo = modelo;
