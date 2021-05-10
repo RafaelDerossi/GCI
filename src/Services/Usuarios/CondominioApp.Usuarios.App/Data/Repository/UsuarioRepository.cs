@@ -315,6 +315,7 @@ namespace CondominioApp.Usuarios.App.Data.Repository
                                  .ToListAsync();
         }
 
+        
         public void AdicionarMobile(Mobile mobile)
         {
             _context.Mobiles.Add(mobile);

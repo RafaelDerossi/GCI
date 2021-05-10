@@ -1,12 +1,8 @@
 ﻿using CondominioApp.Comunicados.App.Models;
-using CondominioApp.Core.Enumeradores;
 using CondominioApp.Core.Messages;
-using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents;
 using FluentValidation.Results;
 using MediatR;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -15,7 +11,7 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
     public class ComunicadoCommandHandler : CommandHandler,
          IRequestHandler<CadastrarComunicadoCommand, ValidationResult>,
          IRequestHandler<EditarComunicadoCommand, ValidationResult>,
-         IRequestHandler<RemoverComunicadoCommand, ValidationResult>,
+         IRequestHandler<RemoverComunicadoCommand, ValidationResult>,         
          IDisposable
     {
 
@@ -109,7 +105,7 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
 
             return await PersistirDados(_ComunicadoRepository.UnitOfWork);
         }
-
+        
 
 
         private Comunicado ComunicadoFactory(CadastrarComunicadoCommand request)

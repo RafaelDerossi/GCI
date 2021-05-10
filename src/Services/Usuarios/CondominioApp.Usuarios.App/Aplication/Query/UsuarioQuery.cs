@@ -149,7 +149,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Query
         public async Task<IEnumerable<Mobile>> ObterMobilesPorMoradorFuncionarioId(Guid moradorIdFuncionarioId)
         {
             return await _usuarioRepository.ObterMobilePorMoradorIdFuncionarioId(moradorIdFuncionarioId);             
-        }
+        }        
 
         public async Task<IEnumerable<Mobile>> ObterTodosOsMobiles()
         {

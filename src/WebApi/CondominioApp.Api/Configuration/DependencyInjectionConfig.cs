@@ -82,6 +82,8 @@ using CondominioApp.ReservaAreaComum.Domain.ReservasStrategy.RegrasParaCancelame
 using CondominioApp.ReservaAreaComum.Domain.ReservasStrategy.RegrasParaCancelamento.RegrasParaAdministracao;
 using CondominioApp.ReservaAreaComum.Domain.ReservasStrategy.RegrasParaCancelamento.Regras.Interfaces;
 using CondominioApp.ReservaAreaComum.Domain.ReservasStrategy.RegrasParaCancelamento.Regras;
+using CondominioApp.NotificacaoPush.App.Events;
+using CondominioApp.NotificacaoPush.App.Aplication.Commands;
 
 namespace CondominioApp.Api.Configuration
 {
@@ -211,6 +213,7 @@ namespace CondominioApp.Api.Configuration
 
 
             #region NotificacaoPush -Contexto
+            services.AddTransient<IRequestHandler<EnviarNotificacaoParaTodosNoCondominioCommand, ValidationResult>, NotificacaoPushCommandHandler>();
             services.AddTransient<INotificacaoPushService, NotificacaoPushService>();
             services.AddTransient<INotificationHandler<EnviarPushParaAdministracaoIntegrationEvent>, NotificacaoPushEventHandler>();
             services.AddTransient<INotificationHandler<EnviarPushParaMoradorIntegrationEvent>, NotificacaoPushEventHandler>();

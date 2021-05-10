@@ -41,6 +41,9 @@ namespace CondominioApp.Enquetes.App.Aplication.Commands
             if (data.Date < DataHoraDeBrasilia.Get().Date)
                 AdicionarErrosDeProcessamentoDoComando("Informe uma data final posterior ou igual a data de hoje.");
 
+            if (data.Date < DataInicio)
+                AdicionarErrosDeProcessamentoDoComando("Informe uma data final posterior ou igual a data de início.");
+
             DataFim = data;
         }
 

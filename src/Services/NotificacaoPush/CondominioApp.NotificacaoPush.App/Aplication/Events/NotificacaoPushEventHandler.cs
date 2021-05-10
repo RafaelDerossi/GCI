@@ -13,7 +13,7 @@ using CondominioApp.Usuarios.App.Models;
 using MediatR;
 
 
-namespace CondominioApp.Principal.Aplication.Events
+namespace CondominioApp.NotificacaoPush.App.Events
 {
     public class NotificacaoPushEventHandler : EventHandler, 
         INotificationHandler<EnviarPushParaAdministracaoIntegrationEvent>,
@@ -266,7 +266,7 @@ namespace CondominioApp.Principal.Aplication.Events
 
         public void Dispose()
         {
-            _usuarioQueryRepository?.Dispose();
+            _usuarioQueryRepository?.Dispose();            
         }        
     }
 }

@@ -8,16 +8,21 @@ using CondominioApp.OneSignal.Recursos.Dispositivos.Enuns;
 using CondominioApp.NotificacaoPush.App.DTO;
 using CondominioApp.NotificacaoPush.App.ViewModel;
 using CondominioApp.NotificacaoPush.App.OneSignalApps;
+using System;
+using CondominioApp.NotificacaoPush.App.Aplication.Commands;
+using System.Threading.Tasks;
 
 namespace CondominioApp.Api.Controllers
 {
     [Route("api/notificacaoPush")]
     public class NotificacaoPushController : MainController
-    {        
+    {
+        private readonly IMediatorHandler _mediatorHandler;
         private readonly INotificacaoPushService _notificacaoPushService;
 
-        public NotificacaoPushController(INotificacaoPushService notificacaoPushService)
-        {     
+        public NotificacaoPushController(IMediatorHandler mediatorHandler, INotificacaoPushService notificacaoPushService)
+        {
+            _mediatorHandler = mediatorHandler;
             _notificacaoPushService = notificacaoPushService;
         }        
 
@@ -51,32 +56,24 @@ namespace CondominioApp.Api.Controllers
             
         }
 
+        [HttpPost("notificar-todos-por-condominio")]
+        public async Task<ActionResult> NotificarTodosPorCondominio(NotificarTodosPorCondominioViewModel notificacaoVM)
+        {
+            if (notificacaoVM.CondominioId == Guid.Empty)
+            {
+                AdicionarErroProcessamento("Informe um condomínio.");
+                return CustomResponse();
+            }
 
-        //[HttpPost("criar-notificacao-AppV2")]
-        //public ActionResult CriarNotificacaoAppV2(NotificacaoPushViewModel notificacaoVM)
-        //{
-        //    var notificacaoDTO = new NotificacaoPushDTO();
+            var comando = new EnviarNotificacaoParaTodosNoCondominioCommand
+                (notificacaoVM.Titulo, notificacaoVM.Conteudo, notificacaoVM.CondominioId);
 
-        //    notificacaoDTO.AppOneSignal = new CondominioAppV2OneSignalApp();
+            var Resultado = await _mediatorHandler.EnviarComando(comando);            
+            if (!Resultado.IsValid)
+                return CustomResponse();
 
-        //    if (notificacaoVM.ApiKey != notificacaoDTO.AppOneSignal.ApiKey)
-        //    {
-        //        AdicionarErroProcessamento("ApiKey invalida!");
-        //        return CustomResponse();
-        //    }
-
-        //    //notificacaoDTO.Titulos.Add(CodigosDeLingua.English, "Condominio App");
-        //    notificacaoDTO.Titulos.Add(CodigosDeLingua.English, notificacaoVM.Titulo);
-
-        //    //notificacaoDTO.Conteudo.Add(CodigosDeLingua.English, "Hello world 6!");
-        //    notificacaoDTO.Conteudo.Add(CodigosDeLingua.English, notificacaoVM.Conteudo);
-
-        //    //notificacaoDTO.DispositivosIds = new List<string> { "159b6c6f-99b2-4e82-9875-3aa5295c5c74" };
-        //    notificacaoDTO.DispositivosIds = notificacaoVM.DispositivosIds;
-
-        //    return CustomResponse(_notificacaoPushService.CriarNotificacao(notificacaoDTO));
-
-        //}
+            return CustomResponse(Resultado);
+        }
 
     }
 }
