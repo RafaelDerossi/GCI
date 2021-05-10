@@ -34,7 +34,7 @@ namespace CondominioApp.Enquetes.App.Aplication.Commands
                 return ValidationResult;
             }
 
-            var enquete = await _EnqueteRepository.ObterPorId(request.EnqueteId);
+            var enquete = await _EnqueteRepository.ObterPorId(alternativa.EnqueteId);
             if (enquete == null)
             {
                 AdicionarErro("Enquete não encontrada!");
