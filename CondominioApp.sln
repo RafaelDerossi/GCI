@@ -17,9 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{27
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApi", "WebApi", "{6DCE3EC8-F7BD-4A00-A8A8-8FCDC1C6B2D0}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Usuarios", "Usuarios", "{73DA058E-257C-4A32-9CB5-DA87F9A3B74A}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioApp.Usuarios.App", "src\Services\Usuarios\CondominioApp.Usuarios.App\CondominioApp.Usuarios.App.csproj", "{2F89F2E0-8C61-4632-8A7D-1EB02F80C820}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Usuario", "Usuario", "{73DA058E-257C-4A32-9CB5-DA87F9A3B74A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioApp.Usuarios.App.Tests", "Tests\Usuarios\CondominioApp.Usuarios.App.Tests\CondominioApp.Usuarios.App.Tests.csproj", "{1F97DBB9-6E58-4EF5-997D-3EDBC5CEAAB2}"
 EndProject
@@ -65,7 +63,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioAppMarketplace.Ap
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioAppMarketplace.Tests", "Tests\Marketplace\CondominioAppMarketplace.Tests\CondominioAppMarketplace.Tests.csproj", "{E7A9DC34-1383-40FC-9355-9069A23DFE22}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Enquetes", "Enquetes", "{69ADD3EB-B0DA-43ED-BA39-298085632AF3}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Enquete", "Enquete", "{69ADD3EB-B0DA-43ED-BA39-298085632AF3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioApp.Enquetes.App.Tests", "Tests\Enquete\CondominioApp.Enquetes.App.Tests\CondominioApp.Enquetes.App.Tests.csproj", "{F211ABB3-8D0F-4B43-9F4E-46475359DE4E}"
 EndProject
@@ -119,9 +117,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioApp.ArquivoDigita
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioApp.ArquivoDigital.App.Tests", "Tests\ArquivoDigital\CondominioApp.ArquivoDigital.App.Tests\CondominioApp.ArquivoDigital.App.Tests.csproj", "{919BC37C-DC32-406B-AFF5-791472D7DC65}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ocorrencias", "Ocorrencias", "{051643B1-C01E-486C-9D69-EB23705FA284}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioApp.Ocorrencias.App", "src\Services\Ocorrencias\CondominioApp.Ocorrencias.App\CondominioApp.Ocorrencias.App.csproj", "{15AF845C-5E3C-4814-B70E-953DD321757A}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ocorrencia", "Ocorrencia", "{051643B1-C01E-486C-9D69-EB23705FA284}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioApp.Ocorrencias.App.Tests", "Tests\Ocorrencia\CondominioApp.Ocorrencias.App.Tests\CondominioApp.Ocorrencias.App.Tests.csproj", "{036E22E6-EE7C-4D4F-816B-498956234503}"
 EndProject
@@ -130,6 +126,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioApp.NotificacaoEmail.App", "src\Services\NotificacaoEmail\CondominioApp.NotificacaoEmail.App\CondominioApp.NotificacaoEmail.App.csproj", "{C442FA1B-6236-4B58-9B57-A5E5944BBA54}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioApp.EwelinkNet", "src\Services\Automacao\CondominioApp.EwelinkNET\CondominioApp.EwelinkNet.csproj", "{26FA76F6-123A-4B61-A806-065451C4C25C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioApp.Ocorrencias.App", "src\Services\Ocorrencia\CondominioApp.Ocorrencias.App\CondominioApp.Ocorrencias.App.csproj", "{4193A7FC-080F-4A1C-BE74-305A1C570C71}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioApp.Usuarios.App", "src\Services\Usuario\CondominioApp.Usuarios.App\CondominioApp.Usuarios.App.csproj", "{73A06D34-E7CF-4276-9F58-139E6D4C2FA2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -141,10 +141,6 @@ Global
 		{7436F685-7BFE-41A7-A7CE-FF3E6EC00EA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7436F685-7BFE-41A7-A7CE-FF3E6EC00EA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7436F685-7BFE-41A7-A7CE-FF3E6EC00EA2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2F89F2E0-8C61-4632-8A7D-1EB02F80C820}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2F89F2E0-8C61-4632-8A7D-1EB02F80C820}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2F89F2E0-8C61-4632-8A7D-1EB02F80C820}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2F89F2E0-8C61-4632-8A7D-1EB02F80C820}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1F97DBB9-6E58-4EF5-997D-3EDBC5CEAAB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1F97DBB9-6E58-4EF5-997D-3EDBC5CEAAB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F97DBB9-6E58-4EF5-997D-3EDBC5CEAAB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -285,10 +281,6 @@ Global
 		{919BC37C-DC32-406B-AFF5-791472D7DC65}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{919BC37C-DC32-406B-AFF5-791472D7DC65}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{919BC37C-DC32-406B-AFF5-791472D7DC65}.Release|Any CPU.Build.0 = Release|Any CPU
-		{15AF845C-5E3C-4814-B70E-953DD321757A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{15AF845C-5E3C-4814-B70E-953DD321757A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{15AF845C-5E3C-4814-B70E-953DD321757A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{15AF845C-5E3C-4814-B70E-953DD321757A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{036E22E6-EE7C-4D4F-816B-498956234503}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{036E22E6-EE7C-4D4F-816B-498956234503}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{036E22E6-EE7C-4D4F-816B-498956234503}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -301,6 +293,14 @@ Global
 		{26FA76F6-123A-4B61-A806-065451C4C25C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{26FA76F6-123A-4B61-A806-065451C4C25C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{26FA76F6-123A-4B61-A806-065451C4C25C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4193A7FC-080F-4A1C-BE74-305A1C570C71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4193A7FC-080F-4A1C-BE74-305A1C570C71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4193A7FC-080F-4A1C-BE74-305A1C570C71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4193A7FC-080F-4A1C-BE74-305A1C570C71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73A06D34-E7CF-4276-9F58-139E6D4C2FA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73A06D34-E7CF-4276-9F58-139E6D4C2FA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73A06D34-E7CF-4276-9F58-139E6D4C2FA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73A06D34-E7CF-4276-9F58-139E6D4C2FA2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -313,7 +313,6 @@ Global
 		{27DA6887-B451-4D5D-A232-00FBE20152FB} = {B8B296CA-A9EA-4777-8DF6-BE66A784165C}
 		{6DCE3EC8-F7BD-4A00-A8A8-8FCDC1C6B2D0} = {B8B296CA-A9EA-4777-8DF6-BE66A784165C}
 		{73DA058E-257C-4A32-9CB5-DA87F9A3B74A} = {27DA6887-B451-4D5D-A232-00FBE20152FB}
-		{2F89F2E0-8C61-4632-8A7D-1EB02F80C820} = {73DA058E-257C-4A32-9CB5-DA87F9A3B74A}
 		{1F97DBB9-6E58-4EF5-997D-3EDBC5CEAAB2} = {73DA058E-257C-4A32-9CB5-DA87F9A3B74A}
 		{A5A54E4D-BCB4-4F95-BBBA-7BE33A8079C6} = {6DCE3EC8-F7BD-4A00-A8A8-8FCDC1C6B2D0}
 		{4F03BAA6-B673-42DE-B2A9-54F17D1EEE90} = {1F841565-DB6E-4A34-81F3-B21C6D72EAB8}
@@ -364,11 +363,12 @@ Global
 		{9A11C6D6-0399-4064-91A1-607F5920B1EC} = {190C09E3-9AEB-45D8-B1D5-9559B79EFDBE}
 		{919BC37C-DC32-406B-AFF5-791472D7DC65} = {190C09E3-9AEB-45D8-B1D5-9559B79EFDBE}
 		{051643B1-C01E-486C-9D69-EB23705FA284} = {27DA6887-B451-4D5D-A232-00FBE20152FB}
-		{15AF845C-5E3C-4814-B70E-953DD321757A} = {051643B1-C01E-486C-9D69-EB23705FA284}
 		{036E22E6-EE7C-4D4F-816B-498956234503} = {051643B1-C01E-486C-9D69-EB23705FA284}
 		{B712E1B4-1A20-403E-8280-6F97CA5968BD} = {27DA6887-B451-4D5D-A232-00FBE20152FB}
 		{C442FA1B-6236-4B58-9B57-A5E5944BBA54} = {B712E1B4-1A20-403E-8280-6F97CA5968BD}
 		{26FA76F6-123A-4B61-A806-065451C4C25C} = {B704BCDD-5A92-480C-B860-7FED4ECB258F}
+		{4193A7FC-080F-4A1C-BE74-305A1C570C71} = {051643B1-C01E-486C-9D69-EB23705FA284}
+		{73A06D34-E7CF-4276-9F58-139E6D4C2FA2} = {73DA058E-257C-4A32-9CB5-DA87F9A3B74A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DA60CBD7-8A6E-436D-B07E-D654D162CE4B}

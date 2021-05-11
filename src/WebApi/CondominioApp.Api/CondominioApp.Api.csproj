@@ -48,7 +48,7 @@
     <ProjectReference Include="..\..\Services\Marketplace\CondominioAppMarketplace.Infra\CondominioAppMarketplace.Infra.csproj" />
     <ProjectReference Include="..\..\Services\NotificacaoEmail\CondominioApp.NotificacaoEmail.App\CondominioApp.NotificacaoEmail.App.csproj" />
     <ProjectReference Include="..\..\Services\NotificacaoPush\CondominioApp.NotificacaoPush.App\CondominioApp.NotificacaoPush.App.csproj" />
-    <ProjectReference Include="..\..\Services\Ocorrencias\CondominioApp.Ocorrencias.App\CondominioApp.Ocorrencias.App.csproj" />
+    <ProjectReference Include="..\..\Services\Ocorrencia\CondominioApp.Ocorrencias.App\CondominioApp.Ocorrencias.App.csproj" />
     <ProjectReference Include="..\..\Services\Portaria\CondominioApp.Portaria.Aplication\CondominioApp.Portaria.Aplication.csproj" />
     <ProjectReference Include="..\..\Services\Portaria\CondominioApp.Portaria.Infra\CondominioApp.Portaria.Infra.csproj" />
     <ProjectReference Include="..\..\Services\PreCadastro\CondominioAppPreCadastro.App\CondominioAppPreCadastro.App.csproj" />
@@ -58,7 +58,7 @@
     <ProjectReference Include="..\..\Services\ReservaAreaComum\CondominioApp.ReservaAreaComum.Aplication\CondominioApp.ReservaAreaComum.Aplication.csproj" />
     <ProjectReference Include="..\..\Services\ReservaAreaComum\CondominioApp.ReservaAreaComum.Domain\CondominioApp.ReservaAreaComum.Domain.csproj" />
     <ProjectReference Include="..\..\Services\ReservaAreaComum\CondominioApp.ReservaAreaComum.Infra\CondominioApp.ReservaAreaComum.Infra.csproj" />
-    <ProjectReference Include="..\..\Services\Usuarios\CondominioApp.Usuarios.App\CondominioApp.Usuarios.App.csproj" />
+    <ProjectReference Include="..\..\Services\Usuario\CondominioApp.Usuarios.App\CondominioApp.Usuarios.App.csproj" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties properties_4launchsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>

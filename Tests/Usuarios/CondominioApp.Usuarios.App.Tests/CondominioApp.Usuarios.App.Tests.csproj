@@ -17,7 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\Building Blocks\CondominioApp.Core\CondominioApp.Core.csproj" />
-    <ProjectReference Include="..\..\..\src\Services\Usuarios\CondominioApp.Usuarios.App\CondominioApp.Usuarios.App.csproj" />
+    <ProjectReference Include="..\..\..\src\Services\Usuario\CondominioApp.Usuarios.App\CondominioApp.Usuarios.App.csproj" />
   </ItemGroup>
 
 </Project>

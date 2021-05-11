@@ -22,7 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\Building Blocks\CondominioApp.Core\CondominioApp.Core.csproj" />
-    <ProjectReference Include="..\..\..\src\Services\Ocorrencias\CondominioApp.Ocorrencias.App\CondominioApp.Ocorrencias.App.csproj" />
+    <ProjectReference Include="..\..\..\src\Services\Ocorrencia\CondominioApp.Ocorrencias.App\CondominioApp.Ocorrencias.App.csproj" />
   </ItemGroup>
 
 </Project>
