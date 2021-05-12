@@ -226,8 +226,6 @@ namespace CondominioApp.Portaria.Domain
                 return ValidationResult;
             }
 
-            EnviarParaLixeira();
-
             return ValidationResult;
         }
 

@@ -14,7 +14,7 @@ namespace CondominioApp.Principal.Aplication.Commands
          IRequestHandler<CadastrarUnidadeCommand, ValidationResult>,
          IRequestHandler<EditarUnidadeCommand, ValidationResult>,
          IRequestHandler<ResetCodigoUnidadeCommand, ValidationResult>,
-         IRequestHandler<RemoverUnidadeCommand, ValidationResult>,
+         IRequestHandler<ApagarUnidadeCommand, ValidationResult>,
          IRequestHandler<EditarVagasDaUnidadeCommand, ValidationResult>,
          IDisposable
     {
@@ -124,7 +124,7 @@ namespace CondominioApp.Principal.Aplication.Commands
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }
 
-        public async Task<ValidationResult> Handle(RemoverUnidadeCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(ApagarUnidadeCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido()) return request.ValidationResult;
 
@@ -136,7 +136,7 @@ namespace CondominioApp.Principal.Aplication.Commands
                 return ValidationResult;
             }
 
-            unidadeBD.EnviarParaLixeira();
+            _condominioRepository.ApagarUnidade(x=>x.Id == unidadeBD.Id);
 
             unidadeBD.AdicionarEvento(new UnidadeRemovidaEvent(unidadeBD.Id));
 

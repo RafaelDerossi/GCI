@@ -11,7 +11,7 @@ namespace CondominioApp.Principal.Aplication.Events
     public class GrupoEventHandler : EventHandler,
         INotificationHandler<GrupoCadastradoEvent>,
         INotificationHandler<GrupoEditadoEvent>,
-        INotificationHandler<GrupoRemovidoEvent>,
+        INotificationHandler<GrupoApagadoEvent>,
         System.IDisposable
     {
         private readonly IPrincipalQueryRepository _condominioQueryRepository;
@@ -56,15 +56,12 @@ namespace CondominioApp.Principal.Aplication.Events
             await PersistirDados(_condominioQueryRepository.UnitOfWork);
         }
 
-
-        public async Task Handle(GrupoRemovidoEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(GrupoApagadoEvent notification, CancellationToken cancellationToken)
         {
             //Atualizar no GrupoFlat
-            var grupoFlat = await _condominioQueryRepository.ObterGrupoPorId(notification.GrupoId);
+            var grupoFlat = await _condominioQueryRepository.ObterGrupoPorId(notification.GrupoId);            
 
-            grupoFlat.EnviarParaLixeira();
-
-            _condominioQueryRepository.AtualizarGrupo(grupoFlat);
+            _condominioQueryRepository.ApagarGrupo(x=>x.Id == grupoFlat.Id);
             
             await PersistirDados(_condominioQueryRepository.UnitOfWork);
         }

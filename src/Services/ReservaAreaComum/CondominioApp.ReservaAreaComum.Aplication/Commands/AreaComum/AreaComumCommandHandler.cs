@@ -15,7 +15,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
     public class AreaComumCommandHandler : CommandHandler,
          IRequestHandler<CadastrarAreaComumCommand, ValidationResult>,
          IRequestHandler<EditarAreaComumCommand, ValidationResult>,
-         IRequestHandler<RemoverAreaComumCommand, ValidationResult>,
+         IRequestHandler<ApagarAreaComumCommand, ValidationResult>,
          IRequestHandler<AtivarAreaComumCommand, ValidationResult>,
          IRequestHandler<DesativarAreaComumCommand, ValidationResult>,
          IDisposable
@@ -143,7 +143,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
         }
 
 
-        public async Task<ValidationResult> Handle(RemoverAreaComumCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(ApagarAreaComumCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido())
                 return request.ValidationResult;
@@ -153,14 +153,12 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
             {
                 AdicionarErro("Area Comum não encontrada.");
                 return ValidationResult;
-            }
+            }            
 
-            areaComumBd.EnviarParaLixeira();
-
-            _areaComumRepository.Atualizar(areaComumBd);
+            _areaComumRepository.Apagar(x=>x.Id == areaComumBd.Id);
 
             //Evento
-            areaComumBd.AdicionarEvento(new AreaComumRemovidaEvent(areaComumBd.Id));
+            areaComumBd.AdicionarEvento(new AreaComumApagadaEvent(areaComumBd.Id));
 
             return await PersistirDados(_areaComumRepository.UnitOfWork);
         }

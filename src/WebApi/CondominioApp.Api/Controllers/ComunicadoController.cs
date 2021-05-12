@@ -212,7 +212,7 @@ namespace CondominioApp.Api.Controllers
         [HttpDelete("{id:Guid}")]
         public async Task<ActionResult> Delete(Guid id)
         {
-            var comando = new RemoverComunicadoCommand(id);
+            var comando = new ApagarComunicadoCommand(id);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
@@ -229,7 +229,7 @@ namespace CondominioApp.Api.Controllers
         [HttpDelete("anexo/{arquivoId:Guid}")]
         public async Task<ActionResult> DeleteAnexo(Guid arquivoId)
         {
-            var comando = new RemoverArquivoCommand(arquivoId);
+            var comando = new ApagarArquivoCommand(arquivoId);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);            
 
@@ -416,7 +416,7 @@ namespace CondominioApp.Api.Controllers
             var anexosExistentes = await _arquivoDigitalQuery.ObterArquivosPorAnexadoPorId(comando.ComunicadoId);
             foreach (Arquivo item in anexosExistentes)
             {
-                var comandoExcluiArquivo = new RemoverArquivoCommand(item.Id);
+                var comandoExcluiArquivo = new ApagarArquivoCommand(item.Id);
                 await _mediatorHandler.EnviarComando(comandoExcluiArquivo);
             }
         }

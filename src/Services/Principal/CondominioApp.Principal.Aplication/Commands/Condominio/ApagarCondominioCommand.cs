@@ -3,10 +3,10 @@ using System;
 
 namespace CondominioApp.Principal.Aplication.Commands
 {
-   public class RemoverCondominioCommand : CondominioCommand
+   public class ApagarCondominioCommand : CondominioCommand
     {
 
-        public RemoverCondominioCommand(Guid condominioId)
+        public ApagarCondominioCommand(Guid condominioId)
         {
             CondominioId = condominioId;           
         }
@@ -14,13 +14,13 @@ namespace CondominioApp.Principal.Aplication.Commands
 
         public override bool EstaValido()
         {
-            ValidationResult = new RemoverCondominioCommandValidation().Validate(this);
+            ValidationResult = new ApagarCondominioCommandValidation().Validate(this);
             return ValidationResult.IsValid;
         }
         
-        public class RemoverCondominioCommandValidation : CondominioValidation<RemoverCondominioCommand>
+        public class ApagarCondominioCommandValidation : CondominioValidation<ApagarCondominioCommand>
         {
-            public RemoverCondominioCommandValidation()
+            public ApagarCondominioCommandValidation()
             {
                 ValidateId();              
             }

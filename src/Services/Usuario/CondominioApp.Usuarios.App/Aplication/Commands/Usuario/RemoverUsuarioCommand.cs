@@ -1,12 +1,11 @@
 ﻿using System;
-using CondominioApp.Core.Enumeradores;
 using CondominioApp.Usuarios.App.Aplication.Commands.Validations;
 
 namespace CondominioApp.Usuarios.App.Aplication.Commands
 {
-    public class ExcluirUsuarioCommand : UsuarioCommand
+    public class RemoverUsuarioCommand : UsuarioCommand
     {
-        public ExcluirUsuarioCommand(Guid usuarioId)
+        public RemoverUsuarioCommand(Guid usuarioId)
         {
             UsuarioId = usuarioId;
         }
@@ -16,14 +15,14 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
             if (!ValidationResult.IsValid)
                 return ValidationResult.IsValid;
 
-            ValidationResult = new ExcluirUsuarioCommandValidation().Validate(this);
+            ValidationResult = new RemoverUsuarioCommandValidation().Validate(this);
             return ValidationResult.IsValid;
         }
 
 
-        public class ExcluirUsuarioCommandValidation : UsuarioValidation<ExcluirUsuarioCommand>
+        public class RemoverUsuarioCommandValidation : UsuarioValidation<RemoverUsuarioCommand>
         {
-            public ExcluirUsuarioCommandValidation()
+            public RemoverUsuarioCommandValidation()
             {
                 ValidateId();                
             }

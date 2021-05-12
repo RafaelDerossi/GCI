@@ -136,7 +136,7 @@ namespace CondominioApp.Api.Controllers
         [HttpDelete("pasta/{pastaId:Guid}")]
         public async Task<ActionResult> DeletePasta(Guid pastaId)
         {
-            var comando = new RemoverPastaCommand(pastaId);
+            var comando = new ApagarPastaCommand(pastaId);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
@@ -283,7 +283,7 @@ namespace CondominioApp.Api.Controllers
         [HttpDelete("arquivo/{arquivoId:Guid}")]
         public async Task<ActionResult> DeleteArquivo(Guid arquivoId)
         {
-            var comando = new RemoverArquivoCommand(arquivoId);
+            var comando = new ApagarArquivoCommand(arquivoId);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 

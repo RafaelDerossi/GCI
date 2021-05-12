@@ -4,9 +4,9 @@ using System;
 
 namespace CondominioApp.Principal.Aplication.Commands
 {
-   public class RemoverContratoCommand : ContratoCommand
+   public class ApagarContratoCommand : ContratoCommand
     {
-        public RemoverContratoCommand(Guid id)
+        public ApagarContratoCommand(Guid id)
         {
             Id = id;
         }
@@ -17,14 +17,14 @@ namespace CondominioApp.Principal.Aplication.Commands
             if (!ValidationResult.IsValid)
                 return ValidationResult.IsValid;
 
-            ValidationResult = new RemoverContratoCommandValidation().Validate(this);
+            ValidationResult = new ApagarContratoCommandValidation().Validate(this);
             return ValidationResult.IsValid;
         }
 
 
-        public class RemoverContratoCommandValidation : ContratoValidation<RemoverContratoCommand>
+        public class ApagarContratoCommandValidation : ContratoValidation<ApagarContratoCommand>
         {
-            public RemoverContratoCommandValidation()
+            public ApagarContratoCommandValidation()
             {
                 ValidateId();            
             }

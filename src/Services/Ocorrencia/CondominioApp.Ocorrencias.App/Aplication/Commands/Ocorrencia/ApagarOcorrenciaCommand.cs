@@ -4,9 +4,9 @@ using System;
 
 namespace CondominioApp.Ocorrencias.App.Aplication.Commands
 {
-    public class RemoverOcorrenciaCommand : OcorrenciaCommand
+    public class ApagarOcorrenciaCommand : OcorrenciaCommand
     {
-        public RemoverOcorrenciaCommand
+        public ApagarOcorrenciaCommand
             (Guid id)
         {
             Id = id;            
@@ -18,14 +18,14 @@ namespace CondominioApp.Ocorrencias.App.Aplication.Commands
             if (!ValidationResult.IsValid)
                 return ValidationResult.IsValid;
 
-            ValidationResult = new ExcluirOcorrenciaCommandValidation().Validate(this);
+            ValidationResult = new ApagarOcorrenciaCommandValidation().Validate(this);
             return ValidationResult.IsValid;
         }
 
 
-        public class ExcluirOcorrenciaCommandValidation : OcorrenciaValidation<RemoverOcorrenciaCommand>
+        public class ApagarOcorrenciaCommandValidation : OcorrenciaValidation<ApagarOcorrenciaCommand>
         {
-            public ExcluirOcorrenciaCommandValidation()
+            public ApagarOcorrenciaCommandValidation()
             {
                 ValidateId();
             }

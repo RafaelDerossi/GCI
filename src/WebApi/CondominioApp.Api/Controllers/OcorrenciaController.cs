@@ -477,7 +477,7 @@ namespace CondominioApp.Api.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var comando = new RemoverOcorrenciaCommand(ocorrenciaId);
+            var comando = new ApagarOcorrenciaCommand(ocorrenciaId);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
@@ -490,7 +490,7 @@ namespace CondominioApp.Api.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var comando = new RemoverRespostaOcorrenciaCommand(respostaId);
+            var comando = new ApagarRespostaOcorrenciaCommand(respostaId);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 

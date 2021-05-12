@@ -9,11 +9,11 @@ namespace CondominioApp.Usuarios.App.Aplication.Events
 {
     public class MoradorEventHandler : EventHandler,
         INotificationHandler<MoradorCadastradoEvent>,
-        INotificationHandler<MoradorExcluidoEvent>,
+        INotificationHandler<MoradorRemovidoEvent>,
         INotificationHandler<UnidadeMarcadaComoPrincipalEvent>,
         INotificationHandler<MarcadoComoProprietarioEvent>,
         INotificationHandler<DesmarcadoComoProprietarioEvent>,
-        INotificationHandler<MoradorRemovidoEvent>,
+        INotificationHandler<MoradorApagadoEvent>,
         INotificationHandler<MoradorAtivadoEvent>,
         INotificationHandler<MoradorDesativadoEvent>,
         System.IDisposable
@@ -45,12 +45,12 @@ namespace CondominioApp.Usuarios.App.Aplication.Events
             await PersistirDados(_moradorQueryRepository.UnitOfWork);
         }
 
-        public async Task Handle(MoradorExcluidoEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(MoradorRemovidoEvent notification, CancellationToken cancellationToken)
         {
             var moradorFlat = await _moradorQueryRepository.ObterPorId(notification.Id);            
             if (moradorFlat != null)
             {
-                _moradorQueryRepository.Excluir(moradorFlat);
+                _moradorQueryRepository.Remover(moradorFlat);
 
                 await PersistirDados(_moradorQueryRepository.UnitOfWork);
             }            
@@ -96,14 +96,12 @@ namespace CondominioApp.Usuarios.App.Aplication.Events
             await PersistirDados(_moradorQueryRepository.UnitOfWork);
         }
 
-        public async Task Handle(MoradorRemovidoEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(MoradorApagadoEvent notification, CancellationToken cancellationToken)
         {
             var moradorFlat = await _moradorQueryRepository.ObterPorId(notification.Id);
             if (moradorFlat != null)
             {
-                moradorFlat.EnviarParaLixeira();
-
-                _moradorQueryRepository.Atualizar(moradorFlat);
+                _moradorQueryRepository.Apagar(x=>x.Id == moradorFlat.Id);
 
                 await PersistirDados(_moradorQueryRepository.UnitOfWork);
             }

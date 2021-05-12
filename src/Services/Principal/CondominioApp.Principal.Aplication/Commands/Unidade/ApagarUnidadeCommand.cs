@@ -3,23 +3,23 @@ using System;
 
 namespace CondominioApp.Principal.Aplication.Commands
 {
-    public class RemoverUnidadeCommand : UnidadeCommand
+    public class ApagarUnidadeCommand : UnidadeCommand
     {
-        public RemoverUnidadeCommand(Guid unidadeId)
+        public ApagarUnidadeCommand(Guid unidadeId)
         {
             UnidadeId = unidadeId;          
         }
 
         public override bool EstaValido()
         {
-            ValidationResult = new RemoverUnidadeCommandValidation().Validate(this);
+            ValidationResult = new ApagarUnidadeCommandValidation().Validate(this);
             return ValidationResult.IsValid;
         }
 
 
-        public class RemoverUnidadeCommandValidation : UnidadeValidation<RemoverUnidadeCommand>
+        public class ApagarUnidadeCommandValidation : UnidadeValidation<ApagarUnidadeCommand>
         {
-            public RemoverUnidadeCommandValidation()
+            public ApagarUnidadeCommandValidation()
             {
                 ValidateId();                                    
             }

@@ -14,18 +14,18 @@ namespace CondominioApp.Portaria.Aplication.Commands
          IRequestHandler<CadastrarVisitaPorPorteiroCommand, ValidationResult>,
          IRequestHandler<CadastrarVisitaPorMoradorCommand, ValidationResult>,
          IRequestHandler<EditarVisitaCommand, ValidationResult>,
-         IRequestHandler<RemoverVisitaCommand, ValidationResult>,
+         IRequestHandler<ApagarVisitaCommand, ValidationResult>,
          IRequestHandler<AprovarVisitaCommand, ValidationResult>,
          IRequestHandler<ReprovarVisitaCommand, ValidationResult>,
          IRequestHandler<IniciarVisitaCommand, ValidationResult>,
          IRequestHandler<TerminarVisitaCommand, ValidationResult>,
          IDisposable
     {
-        private readonly IPortariaRepository _visitanteRepository;       
+        private readonly IPortariaRepository _portariaRepository;       
 
-        public VisitaCommandHandler(IPortariaRepository visitanteRepository)
+        public VisitaCommandHandler(IPortariaRepository portariaRepository)
         {
-            _visitanteRepository = visitanteRepository;
+            _portariaRepository = portariaRepository;
         }
 
 
@@ -35,7 +35,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
 
             var visita = VisitaFactory(request);           
 
-            _visitanteRepository.AdicionarVisita(visita);
+            _portariaRepository.AdicionarVisita(visita);
 
             //Evento
             visita.AdicionarEvento(
@@ -49,14 +49,14 @@ namespace CondominioApp.Portaria.Aplication.Commands
 
             visita.EnviarPushAvisoDeVisitaNaPortaria();
 
-            return await PersistirDados(_visitanteRepository.UnitOfWork);
+            return await PersistirDados(_portariaRepository.UnitOfWork);
         }
 
         public async Task<ValidationResult> Handle(CadastrarVisitaPorMoradorCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido()) return request.ValidationResult;
 
-            var visitante = await _visitanteRepository.ObterPorIdAsNoTracking(request.VisitanteId);
+            var visitante = await _portariaRepository.ObterPorIdAsNoTracking(request.VisitanteId);
             if (visitante == null)
             {
                 AdicionarErro("Visitante não encontrado.");
@@ -65,7 +65,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
 
             var visita = VisitaFactory(request, visitante);
              
-            _visitanteRepository.AdicionarVisita(visita);
+            _portariaRepository.AdicionarVisita(visita);
 
             //Evento
             visita.AdicionarEvento(
@@ -78,14 +78,14 @@ namespace CondominioApp.Portaria.Aplication.Commands
                   visita.Veiculo, visita.MoradorId, request.NomeMorador));
 
             
-            return await PersistirDados(_visitanteRepository.UnitOfWork);
+            return await PersistirDados(_portariaRepository.UnitOfWork);
         }
 
         public async Task<ValidationResult> Handle(EditarVisitaCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido()) return request.ValidationResult;
 
-            var visitaBd = await _visitanteRepository.ObterVisitaPorId(request.Id);
+            var visitaBd = await _portariaRepository.ObterVisitaPorId(request.Id);
             if (visitaBd == null)
             {
                 AdicionarErro("Visita não encontrada.");
@@ -100,7 +100,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
                 return retorno;
 
 
-            _visitanteRepository.AtualizarVisita(visitaBd);
+            _portariaRepository.AtualizarVisita(visitaBd);
 
             //Evento
             visitaBd.AdicionarEvento(
@@ -112,14 +112,14 @@ namespace CondominioApp.Portaria.Aplication.Commands
                      request.Veiculo, request.MoradorId, request.NomeMorador));
 
 
-            return await PersistirDados(_visitanteRepository.UnitOfWork);
+            return await PersistirDados(_portariaRepository.UnitOfWork);
         }
 
-        public async Task<ValidationResult> Handle(RemoverVisitaCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(ApagarVisitaCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido()) return request.ValidationResult;
 
-            var visitaBd = _visitanteRepository.ObterVisitaPorId(request.Id).Result;
+            var visitaBd = _portariaRepository.ObterVisitaPorId(request.Id).Result;
             if (visitaBd == null)
             {
                 AdicionarErro("Visita não encontrada.");
@@ -131,19 +131,19 @@ namespace CondominioApp.Portaria.Aplication.Commands
             if (!retorno.IsValid)
                 return retorno;
 
-            _visitanteRepository.AtualizarVisita(visitaBd);
+            _portariaRepository.ApagarVisita(x=>x.Id == visitaBd.Id);
 
             //Evento
-            visitaBd.AdicionarEvento(new VisitaRemovidaEvent(request.Id));
+            visitaBd.AdicionarEvento(new VisitaApagadaEvent(request.Id));
 
-            return await PersistirDados(_visitanteRepository.UnitOfWork);
+            return await PersistirDados(_portariaRepository.UnitOfWork);
         }
 
         public async Task<ValidationResult> Handle(AprovarVisitaCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido()) return request.ValidationResult;
 
-            var visitaBd = _visitanteRepository.ObterVisitaPorId(request.Id).Result;
+            var visitaBd = _portariaRepository.ObterVisitaPorId(request.Id).Result;
             if (visitaBd == null)
             {
                 AdicionarErro("Visita não encontrada.");
@@ -155,19 +155,19 @@ namespace CondominioApp.Portaria.Aplication.Commands
             if (!retorno.IsValid)
                 return retorno;
 
-            _visitanteRepository.AtualizarVisita(visitaBd);
+            _portariaRepository.AtualizarVisita(visitaBd);
 
             //Evento
             visitaBd.AdicionarEvento(new VisitaAprovadaEvent(request.Id));
 
-            return await PersistirDados(_visitanteRepository.UnitOfWork);
+            return await PersistirDados(_portariaRepository.UnitOfWork);
         }
 
         public async Task<ValidationResult> Handle(ReprovarVisitaCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido()) return request.ValidationResult;
 
-            var visitaBd = _visitanteRepository.ObterVisitaPorId(request.Id).Result;
+            var visitaBd = _portariaRepository.ObterVisitaPorId(request.Id).Result;
             if (visitaBd == null)
             {
                 AdicionarErro("Visita não encontrada.");
@@ -179,19 +179,19 @@ namespace CondominioApp.Portaria.Aplication.Commands
             if (!retorno.IsValid)
                 return retorno;
 
-            _visitanteRepository.AtualizarVisita(visitaBd);
+            _portariaRepository.AtualizarVisita(visitaBd);
 
             //Evento
             visitaBd.AdicionarEvento(new VisitaReprovadaEvent(request.Id));
 
-            return await PersistirDados(_visitanteRepository.UnitOfWork);
+            return await PersistirDados(_portariaRepository.UnitOfWork);
         }
 
         public async Task<ValidationResult> Handle(IniciarVisitaCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido()) return request.ValidationResult;
 
-            var visitaBd = _visitanteRepository.ObterVisitaPorId(request.Id).Result;
+            var visitaBd = _portariaRepository.ObterVisitaPorId(request.Id).Result;
             if (visitaBd == null)
             {
                 AdicionarErro("Visita não encontrada.");
@@ -203,21 +203,21 @@ namespace CondominioApp.Portaria.Aplication.Commands
             if (!retorno.IsValid)
                 return retorno;
 
-            _visitanteRepository.AtualizarVisita(visitaBd);
+            _portariaRepository.AtualizarVisita(visitaBd);
 
             //Evento
             visitaBd.AdicionarEvento(new VisitaIniciadaEvent(request.Id, request.DataDeEntrada));
 
             visitaBd.EnviarPushAvisoDeVisitaIniciada();
 
-            return await PersistirDados(_visitanteRepository.UnitOfWork);
+            return await PersistirDados(_portariaRepository.UnitOfWork);
         }
 
         public async Task<ValidationResult> Handle(TerminarVisitaCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido()) return request.ValidationResult;
 
-            var visitaBd = _visitanteRepository.ObterVisitaPorId(request.Id).Result;
+            var visitaBd = _portariaRepository.ObterVisitaPorId(request.Id).Result;
             if (visitaBd == null)
             {
                 AdicionarErro("Visita não encontrada.");
@@ -228,14 +228,14 @@ namespace CondominioApp.Portaria.Aplication.Commands
             if (!retorno.IsValid)
                 return retorno;
 
-            _visitanteRepository.AtualizarVisita(visitaBd);
+            _portariaRepository.AtualizarVisita(visitaBd);
 
             //Evento
             visitaBd.AdicionarEvento(new VisitaTerminadaEvent(request.Id, request.DataDeSaida));
 
             visitaBd.EnviarPushAvisoDeVisitaTerminada();
 
-            return await PersistirDados(_visitanteRepository.UnitOfWork);
+            return await PersistirDados(_portariaRepository.UnitOfWork);
         }
 
 
@@ -267,7 +267,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
 
         public void Dispose()
         {
-            _visitanteRepository?.Dispose();
+            _portariaRepository?.Dispose();
         }
 
 

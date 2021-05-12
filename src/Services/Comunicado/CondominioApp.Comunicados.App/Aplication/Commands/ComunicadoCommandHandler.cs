@@ -11,7 +11,7 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
     public class ComunicadoCommandHandler : CommandHandler,
          IRequestHandler<CadastrarComunicadoCommand, ValidationResult>,
          IRequestHandler<EditarComunicadoCommand, ValidationResult>,
-         IRequestHandler<RemoverComunicadoCommand, ValidationResult>,         
+         IRequestHandler<ApagarComunicadoCommand, ValidationResult>,         
          IDisposable
     {
 
@@ -87,7 +87,7 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
         }
 
 
-        public async Task<ValidationResult> Handle(RemoverComunicadoCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(ApagarComunicadoCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido())
                 return request.ValidationResult;
@@ -97,11 +97,9 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
             {
                 AdicionarErro("Comunicado não encontrado.");
                 return ValidationResult;
-            }
+            }          
 
-            comunicadoBd.EnviarParaLixeira();
-
-            _ComunicadoRepository.Atualizar(comunicadoBd);
+            _ComunicadoRepository.Apagar(x=>x.Id == comunicadoBd.Id);
 
             return await PersistirDados(_ComunicadoRepository.UnitOfWork);
         }

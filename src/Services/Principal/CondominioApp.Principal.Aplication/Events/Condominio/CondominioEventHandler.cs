@@ -12,7 +12,7 @@ namespace CondominioApp.Principal.Aplication.Events
         INotificationHandler<CondominioCadastradoEvent>,
         INotificationHandler<CondominioEditadoEvent>,
         INotificationHandler<CondominioConfiguracaoEditadoEvent>,
-        INotificationHandler<CondominioRemovidoEvent>,
+        INotificationHandler<CondominioApagadoEvent>,
         INotificationHandler<SindicoDoCondominioDefinidoEvent>,
         System.IDisposable
     {
@@ -189,15 +189,12 @@ namespace CondominioApp.Principal.Aplication.Events
             await PersistirDados(_condominioQueryRepository.UnitOfWork);
         }
 
-        public async Task Handle(CondominioRemovidoEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(CondominioApagadoEvent notification, CancellationToken cancellationToken)
         {
             //Atualizar no CondominioFlat
-            var condominioFlat = await _condominioQueryRepository.ObterPorId(notification.CondominioId);
+            var condominioFlat = await _condominioQueryRepository.ObterPorId(notification.CondominioId);            
 
-           
-            condominioFlat.EnviarParaLixeira();
-
-            _condominioQueryRepository.Atualizar(condominioFlat);
+            _condominioQueryRepository.Apagar(x=>x.Id == condominioFlat.Id);
 
             await PersistirDados(_condominioQueryRepository.UnitOfWork);
         }

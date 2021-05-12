@@ -151,7 +151,7 @@ namespace CondominioApp.Api.Controllers
         [HttpDelete]
         public async Task<ActionResult> Delete(Guid veiculoId, Guid condominioId)
         {
-            var comando = new RemoverVeiculoCommand(veiculoId, condominioId);
+            var comando = new ApagarVeiculoCommand(veiculoId, condominioId);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 

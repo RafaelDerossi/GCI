@@ -11,7 +11,7 @@ namespace CondominioApp.Ocorrencias.App.Aplication.Commands
     public class OcorrenciaCommandHandler : CommandHandler,
          IRequestHandler<CadastrarOcorrenciaCommand, ValidationResult>,
          IRequestHandler<EditarOcorrenciaCommand, ValidationResult>,
-         IRequestHandler<RemoverOcorrenciaCommand, ValidationResult>,
+         IRequestHandler<ApagarOcorrenciaCommand, ValidationResult>,
          IDisposable
     {
 
@@ -65,7 +65,7 @@ namespace CondominioApp.Ocorrencias.App.Aplication.Commands
             return await PersistirDados(_ocorrenciaRepository.UnitOfWork);
         }
 
-        public async Task<ValidationResult> Handle(RemoverOcorrenciaCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(ApagarOcorrenciaCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido())
                 return request.ValidationResult;
@@ -81,7 +81,7 @@ namespace CondominioApp.Ocorrencias.App.Aplication.Commands
             if (!retorno.IsValid)
                 return retorno;
 
-            _ocorrenciaRepository.Atualizar(ocorrencia);
+            _ocorrenciaRepository.Apagar(x=>x.Id == ocorrencia.Id);
 
             ocorrencia.EnviarPushOcorrenciaRemovida();
 

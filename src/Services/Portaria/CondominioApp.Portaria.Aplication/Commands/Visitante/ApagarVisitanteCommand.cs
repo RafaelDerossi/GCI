@@ -4,9 +4,9 @@ using System;
 
 namespace CondominioApp.Portaria.Aplication.Commands
 {
-   public class RemoverVisitaCommand : VisitaCommand
+   public class ApagarVisitanteCommand : VisitanteCommand
     {
-        public RemoverVisitaCommand(Guid id)
+        public ApagarVisitanteCommand(Guid id)
         {
             Id = id;
         }
@@ -17,14 +17,14 @@ namespace CondominioApp.Portaria.Aplication.Commands
             if (!ValidationResult.IsValid)
                 return ValidationResult.IsValid;
 
-            ValidationResult = new RemoverVisitaCommandValidation().Validate(this);
+            ValidationResult = new ApagarVisitanteCommandValidation().Validate(this);
             return ValidationResult.IsValid;
         }
 
 
-        public class RemoverVisitaCommandValidation : VisitaValidation<RemoverVisitaCommand>
+        public class ApagarVisitanteCommandValidation : VisitanteValidation<ApagarVisitanteCommand>
         {
-            public RemoverVisitaCommandValidation()
+            public ApagarVisitanteCommandValidation()
             {
                 ValidateId();
             }

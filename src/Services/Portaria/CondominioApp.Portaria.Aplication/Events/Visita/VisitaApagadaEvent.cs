@@ -5,10 +5,10 @@ using System;
 
 namespace CondominioApp.Portaria.Aplication.Events
 {
-   public class VisitaRemovidaEvent : VisitaEvent
+   public class VisitaApagadaEvent : VisitaEvent
     {
 
-        public VisitaRemovidaEvent(Guid id)
+        public VisitaApagadaEvent(Guid id)
         {
             Id = id;
         }

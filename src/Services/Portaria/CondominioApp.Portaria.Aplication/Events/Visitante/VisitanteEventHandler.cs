@@ -11,7 +11,7 @@ namespace CondominioApp.Portaria.Aplication.Events
     public class VisitanteEventHandler : EventHandler,
         INotificationHandler<VisitanteCadastradoEvent>,
         INotificationHandler<VisitanteEditadoEvent>,
-        INotificationHandler<VisitanteRemovidoEvent>,
+        INotificationHandler<VisitanteApagadoEvent>,
         System.IDisposable
     {        
         private readonly IPortariaQueryRepository _visitanteQueryRepository;
@@ -56,13 +56,11 @@ namespace CondominioApp.Portaria.Aplication.Events
             await PersistirDados(_visitanteQueryRepository.UnitOfWork);
         }
 
-        public async Task Handle(VisitanteRemovidoEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(VisitanteApagadoEvent notification, CancellationToken cancellationToken)
         {
-            var visitanteFlat = await _visitanteQueryRepository.ObterPorId(notification.Id);
-
-            visitanteFlat.EnviarParaLixeira();
+            var visitanteFlat = await _visitanteQueryRepository.ObterPorId(notification.Id);            
             
-            _visitanteQueryRepository.Atualizar(visitanteFlat);
+            _visitanteQueryRepository.Apagar(x=>x.Id == visitanteFlat.Id);
 
             await PersistirDados(_visitanteQueryRepository.UnitOfWork);
         }

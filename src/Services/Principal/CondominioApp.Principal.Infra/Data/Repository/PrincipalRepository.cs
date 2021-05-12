@@ -23,9 +23,11 @@ namespace CondominioApp.Principal.Infra.Data.Repository
 
         public IUnitOfWorks UnitOfWork => _context;
 
+
+        #region Condominio
         public void Adicionar(Condominio entity)
         {
-            _context.Condominios.Add(entity);       
+            _context.Condominios.Add(entity);
         }
 
         public void Apagar(Func<Condominio, bool> predicate)
@@ -37,44 +39,6 @@ namespace CondominioApp.Principal.Infra.Data.Repository
         {
             _context.Condominios.Update(entity);
         }
-
-
-
-        public void AdicionarGrupo(Grupo entity)
-        {
-            _context.Grupos.Add(entity);
-        }
-
-        public void AtualizarGrupo(Grupo entity)
-        {
-            _context.Grupos.Update(entity);
-        }
-
-
-
-        public void AdicionarUnidade(Unidade entity)
-        {
-            _context.Unidades.Add(entity);
-        }
-
-        public void AtualizarUnidade(Unidade entity)
-        {
-            _context.Unidades.Update(entity);
-        }
-
-
-
-        public void AdicionarContrato(Contrato entity)
-        {
-            _context.Contratos.Add(entity);
-        }
-
-        public void AtualizarContrato(Contrato entity)
-        {
-            _context.Contratos.Update(entity);
-        }
-
-
 
 
         public async Task<IEnumerable<Condominio>> Obter(Expression<Func<Condominio, bool>> expression, bool OrderByDesc = false, int take = 0)
@@ -115,12 +79,10 @@ namespace CondominioApp.Principal.Infra.Data.Repository
             return await _context.Condominios
                 .Where
                     (u => !u.Lixeira &&
-                     u.Cnpj.Numero == cnpj.Numero && 
+                     u.Cnpj.Numero == cnpj.Numero &&
                      u.Id != condominioId)
-                .CountAsync()>0;
+                .CountAsync() > 0;
         }
-
-
 
         public async Task<bool> CondominioExiste(Guid condominioId)
         {
@@ -129,17 +91,26 @@ namespace CondominioApp.Principal.Infra.Data.Repository
                     (u => !u.Lixeira &&
                     u.Id == condominioId)
                 .CountAsync() > 0;
-        }       
-
-        public async Task<bool> CodigoDaUnidadeJaExiste(string codigo, Guid unidadeId)
-        {
-            return await _context.Unidades
-                .Where
-                    (u => 
-                     u.Codigo == codigo &&                     
-                     u.Id != unidadeId)
-                .CountAsync() > 0;
         }
+        #endregion
+
+
+        #region Grupo
+        public void AdicionarGrupo(Grupo entity)
+        {
+            _context.Grupos.Add(entity);
+        }
+
+        public void AtualizarGrupo(Grupo entity)
+        {
+            _context.Grupos.Update(entity);
+        }
+
+        public void ApagarGrupo(Func<Grupo, bool> predicate)
+        {
+            _context.Grupos.Where(predicate).ToList().ForEach(del => del.EnviarParaLixeira());
+        }
+
 
         public async Task<Grupo> ObterGrupoPorId(Guid Id)
         {
@@ -147,12 +118,58 @@ namespace CondominioApp.Principal.Infra.Data.Repository
                 .Include(c => c.Unidades)
                 .FirstOrDefaultAsync(u => u.Id == Id && !u.Lixeira);
         }
+        #endregion
+
+
+        #region Unidade
+        public void AdicionarUnidade(Unidade entity)
+        {
+            _context.Unidades.Add(entity);
+        }
+
+        public void AtualizarUnidade(Unidade entity)
+        {
+            _context.Unidades.Update(entity);
+        }
+
+        public void ApagarUnidade(Func<Unidade, bool> predicate)
+        {
+            _context.Unidades.Where(predicate).ToList().ForEach(del => del.EnviarParaLixeira());
+        }
+
 
         public async Task<Unidade> ObterUnidadePorId(Guid Id)
         {
             return await _context.Unidades.FirstOrDefaultAsync(u => u.Id == Id && !u.Lixeira);
         }
 
+        public async Task<bool> CodigoDaUnidadeJaExiste(string codigo, Guid unidadeId)
+        {
+            return await _context.Unidades
+                .Where
+                    (u =>
+                     u.Codigo == codigo &&
+                     u.Id != unidadeId)
+                .CountAsync() > 0;
+        }
+        #endregion
+
+
+        #region Contrato
+        public void AdicionarContrato(Contrato entity)
+        {
+            _context.Contratos.Add(entity);
+        }
+
+        public void AtualizarContrato(Contrato entity)
+        {
+            _context.Contratos.Update(entity);
+        }
+
+        public void ApagarContrato(Func<Contrato, bool> predicate)
+        {
+            _context.Contratos.Where(predicate).ToList().ForEach(del => del.EnviarParaLixeira());
+        }
 
 
         public async Task<Contrato> ObterContratoPorId(Guid Id)
@@ -164,6 +181,7 @@ namespace CondominioApp.Principal.Infra.Data.Repository
         {
             return await _context.Contratos.Where(c => c.CondominioId == CondominioId && !c.Lixeira).ToListAsync();
         }
+        #endregion
 
 
         public void Dispose()

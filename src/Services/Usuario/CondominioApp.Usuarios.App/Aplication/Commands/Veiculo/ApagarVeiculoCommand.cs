@@ -3,9 +3,9 @@ using CondominioApp.Usuarios.App.Aplication.Commands.Validations;
 
 namespace CondominioApp.Usuarios.App.Aplication.Commands
 {
-    public class RemoverVeiculoCommand : VeiculoCommand
+    public class ApagarVeiculoCommand : VeiculoCommand
     {
-        public RemoverVeiculoCommand
+        public ApagarVeiculoCommand
             (Guid veiculoId, Guid condominioId)
         {
             VeiculoId = veiculoId;
@@ -17,14 +17,14 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
             if (!ValidationResult.IsValid)
                 return ValidationResult.IsValid;
 
-            ValidationResult = new EditarVeiculoCommandValidation().Validate(this);
+            ValidationResult = new ApagarVeiculoCommandValidation().Validate(this);
             return ValidationResult.IsValid;
         }
 
 
-        public class EditarVeiculoCommandValidation : VeiculoValidation<RemoverVeiculoCommand>
+        public class ApagarVeiculoCommandValidation : VeiculoValidation<ApagarVeiculoCommand>
         {
-            public EditarVeiculoCommandValidation()
+            public ApagarVeiculoCommandValidation()
             {
                 ValidateVeiculoId();
                 ValidateCondominioId();

@@ -13,11 +13,11 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
 {
     public class MoradorCommandHandler : CommandHandler,        
         IRequestHandler<CadastrarMoradorCommand, ValidationResult>,
-        IRequestHandler<ExcluirMoradorCommand, ValidationResult>,
+        IRequestHandler<RemoverMoradorCommand, ValidationResult>,
         IRequestHandler<MarcarComoUnidadePrincipalCommand, ValidationResult>,
         IRequestHandler<MarcarComoProprietarioCommand, ValidationResult>,
         IRequestHandler<DesmarcarComoProprietarioCommand, ValidationResult>,
-        IRequestHandler<RemoverMoradorCommand, ValidationResult>,
+        IRequestHandler<ApagarMoradorCommand, ValidationResult>,
         IRequestHandler<AtivarMoradorCommand, ValidationResult>,
         IRequestHandler<DesativarMoradorCommand, ValidationResult>,
         IDisposable
@@ -78,7 +78,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
             return await PersistirDados(_usuarioRepository.UnitOfWork);
         }
 
-        public async Task<ValidationResult> Handle(ExcluirMoradorCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(RemoverMoradorCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido()) return request.ValidationResult;
 
@@ -89,10 +89,10 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
                 return ValidationResult;
             }            
 
-            _usuarioRepository.ExcluirMorador(morador);
+            _usuarioRepository.RemoverMorador(morador);
 
             //Evento
-            morador.AdicionarEvento(new MoradorExcluidoEvent(morador.Id));
+            morador.AdicionarEvento(new MoradorRemovidoEvent(morador.Id));
 
             return await PersistirDados(_usuarioRepository.UnitOfWork);
 
@@ -171,7 +171,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
 
         }
 
-        public async Task<ValidationResult> Handle(RemoverMoradorCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(ApagarMoradorCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido()) return request.ValidationResult;
 
@@ -180,14 +180,12 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
             {
                 AdicionarErro("Morador não encontrado.");
                 return ValidationResult;
-            }
+            }          
 
-            morador.EnviarParaLixeira();
-
-            _usuarioRepository.AtualizarMorador(morador);
+            _usuarioRepository.ApagarMorador(x=>x.Id == morador.Id);
 
             //Evento
-            morador.AdicionarEvento(new MoradorRemovidoEvent(morador.Id));
+            morador.AdicionarEvento(new MoradorApagadoEvent(morador.Id));
 
             return await PersistirDados(_usuarioRepository.UnitOfWork);
 

@@ -13,6 +13,8 @@ namespace CondominioApp.Ocorrencias.App.Models
 
         void AtualizarResposta(RespostaOcorrencia entity);
 
+        void ApagarResposta(Func<RespostaOcorrencia, bool> predicate);
+
         Task<IEnumerable<RespostaOcorrencia>> ObterRespostasPorOcorrencia(Guid ocorrenciaId);
 
     }

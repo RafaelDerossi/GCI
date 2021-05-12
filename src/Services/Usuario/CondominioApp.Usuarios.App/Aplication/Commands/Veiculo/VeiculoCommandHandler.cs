@@ -14,7 +14,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
     public class VeiculoCommandHandler : CommandHandler, 
         IRequestHandler<CadastrarVeiculoCommand, ValidationResult>,
         IRequestHandler<EditarVeiculoCommand, ValidationResult>,
-        IRequestHandler<RemoverVeiculoCommand, ValidationResult>,
+        IRequestHandler<ApagarVeiculoCommand, ValidationResult>,
         IDisposable
     {
         private readonly IUsuarioRepository _usuarioRepository;
@@ -100,7 +100,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
 
         }
 
-        public async Task<ValidationResult> Handle(RemoverVeiculoCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(ApagarVeiculoCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido()) return request.ValidationResult;
 
@@ -121,9 +121,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
             veiculo.RemoverTodosOsVeiculoCondominioPorCondominio(request.CondominioId);
 
             if (veiculo.VeiculoCondominios.Count() == 0)
-                veiculo.EnviarParaLixeira();
-
-            _usuarioRepository.AtualizarVeiculo(veiculo);
+                _usuarioRepository.ApagarVeiculo(x=>x.Id == veiculo.Id);
 
             veiculo.AdicionarEvento(new VeiculoRemovidoEvent(request.VeiculoId, request.CondominioId));
 

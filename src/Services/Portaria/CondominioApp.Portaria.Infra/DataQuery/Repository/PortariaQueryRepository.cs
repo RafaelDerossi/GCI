@@ -46,6 +46,11 @@ namespace CondominioApp.Portaria.Infra.DataQuery.Repository
             _context.VisitasFlat.Add(entity);
         }
 
+        public void ApagarVisita(Func<VisitaFlat, bool> predicate)
+        {
+            _context.VisitasFlat.Where(predicate).ToList().ForEach(del => del.EnviarParaLixeira());
+        }
+
         public void RemoverVisita(VisitaFlat entity)
         {
             _context.VisitasFlat.Remove(entity);

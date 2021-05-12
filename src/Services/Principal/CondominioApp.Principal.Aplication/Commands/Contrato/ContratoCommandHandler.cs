@@ -13,7 +13,7 @@ namespace CondominioApp.Principal.Aplication.Commands
     public class ContratoCommandHandler : CommandHandler,
          IRequestHandler<CadastrarContratoCommand, ValidationResult>,
          IRequestHandler<EditarContratoCommand, ValidationResult>,
-         IRequestHandler<RemoverContratoCommand, ValidationResult>,
+         IRequestHandler<ApagarContratoCommand, ValidationResult>,
          IDisposable
     {
 
@@ -98,7 +98,7 @@ namespace CondominioApp.Principal.Aplication.Commands
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }
 
-        public async Task<ValidationResult> Handle(RemoverContratoCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(ApagarContratoCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido()) return request.ValidationResult;
 
@@ -110,7 +110,7 @@ namespace CondominioApp.Principal.Aplication.Commands
                 return ValidationResult;
             }
 
-            contratoBd.EnviarParaLixeira();
+            _condominioRepository.ApagarContrato(x => x.Id == contratoBd.Id);
 
             contratoBd.AdicionarEvento(
              new ContratoRemovidoEvent(contratoBd.Id));

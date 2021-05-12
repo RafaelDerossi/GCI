@@ -13,7 +13,7 @@ namespace CondominioApp.Enquetes.App.Aplication.Commands
          IRequestHandler<CadastrarEnqueteCommand, ValidationResult>,
          IRequestHandler<EditarEnqueteCommand, ValidationResult>,
          IRequestHandler<EditarDataFimDaEnqueteCommand, ValidationResult>,
-         IRequestHandler<RemoverEnqueteCommand, ValidationResult>,
+         IRequestHandler<ApagarEnqueteCommand, ValidationResult>,
          IDisposable
     {
 
@@ -112,7 +112,7 @@ namespace CondominioApp.Enquetes.App.Aplication.Commands
             return await PersistirDados(_EnqueteRepository.UnitOfWork);
         }
 
-        public async Task<ValidationResult> Handle(RemoverEnqueteCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(ApagarEnqueteCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido())
                 return request.ValidationResult;
@@ -122,12 +122,9 @@ namespace CondominioApp.Enquetes.App.Aplication.Commands
             {
                 AdicionarErro("Enquete não encontrada.");
                 return ValidationResult;
-            }
-
-            enqueteBd.EnviarParaLixeira();
+            }            
            
-            _EnqueteRepository.Atualizar(enqueteBd);
-
+            _EnqueteRepository.Apagar(x=>x.Id == enqueteBd.Id);
 
             return await PersistirDados(_EnqueteRepository.UnitOfWork);
         }

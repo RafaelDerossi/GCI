@@ -4,11 +4,10 @@ using System;
 
 namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
 {
-    public class RemoverArquivoCommand : ArquivoCommand
+    public class ApagarPastaCommand : PastaCommand
     {
 
-        public RemoverArquivoCommand
-            (Guid id)
+        public ApagarPastaCommand(Guid id)
         {
             Id = id;
         }
@@ -19,16 +18,16 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
             if (!ValidationResult.IsValid)
                 return ValidationResult.IsValid;
 
-            ValidationResult = new RemoverArquivoCommandValidation().Validate(this);
+            ValidationResult = new ApagarPastaCommandValidation().Validate(this);
             return ValidationResult.IsValid;
         }
 
 
-        public class RemoverArquivoCommandValidation : ArquivoValidation<RemoverArquivoCommand>
+        public class ApagarPastaCommandValidation : PastaValidation<ApagarPastaCommand>
         {
-            public RemoverArquivoCommandValidation()
-            {             
-                ValidateId();
+            public ApagarPastaCommandValidation()
+            {
+                ValidateId();                
             }
         }
 

@@ -3,9 +3,9 @@ using System;
 
 namespace CondominioApp.ReservaAreaComum.Aplication.Commands
 {
-    public class RemoverAreaComumCommand : AreaComumCommand
+    public class ApagarAreaComumCommand : AreaComumCommand
     {
-        public RemoverAreaComumCommand(Guid areaComumId)
+        public ApagarAreaComumCommand(Guid areaComumId)
         {
             Id = areaComumId;           
         }
@@ -16,14 +16,14 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
             if (!ValidationResult.IsValid)
                 return ValidationResult.IsValid;
 
-            ValidationResult = new RemoverAreaComumCommandValidation().Validate(this);
+            ValidationResult = new ApagarAreaComumCommandValidation().Validate(this);
             return ValidationResult.IsValid;
         }
 
 
-        public class RemoverAreaComumCommandValidation : AreaComumValidation<RemoverAreaComumCommand>
+        public class ApagarAreaComumCommandValidation : AreaComumValidation<ApagarAreaComumCommand>
         {
-            public RemoverAreaComumCommandValidation()
+            public ApagarAreaComumCommandValidation()
             {
                 ValidateId();               
             }

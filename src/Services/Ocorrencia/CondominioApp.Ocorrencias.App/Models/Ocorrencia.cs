@@ -184,8 +184,6 @@ namespace CondominioApp.Ocorrencias.App.Models
                 return ValidationResult;
             }
 
-            EnviarParaLixeira();
-
             return ValidationResult;
         }
 

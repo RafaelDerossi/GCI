@@ -9,7 +9,7 @@ namespace CondominioApp.Usuarios.App.Models
     public interface IUsuarioRepository : IRepository<Usuario>
     {
         #region Usuario
-        void Excluir(Usuario entity);
+        void Remover(Usuario entity);
         #endregion
 
 
@@ -22,8 +22,8 @@ namespace CondominioApp.Usuarios.App.Models
 
         void AdicionarMorador(Morador morador);
         void AtualizarMorador(Morador entity);
-
-        void ExcluirMorador(Morador entity);
+        void ApagarMorador(Func<Morador, bool> predicate);
+        void RemoverMorador(Morador entity);
         #endregion
 
 
@@ -34,6 +34,8 @@ namespace CondominioApp.Usuarios.App.Models
         Task<IEnumerable<Funcionario>> ObterFuncionario(Expression<Func<Funcionario, bool>> expression, bool OrderByDesc = false, int take = 0);
         void AdicionarFuncionario(Funcionario funcionario);
         void AtualizarFuncionario(Funcionario entity);
+        void ApagarFuncionario(Func<Funcionario, bool> predicate);
+        void RemoverFuncionario(Funcionario entity);
         #endregion
 
 
@@ -71,6 +73,8 @@ namespace CondominioApp.Usuarios.App.Models
         void AtualizarVeiculoCondominio(VeiculoCondominio entity);
 
         void AdicionarVeiculoCondominio(VeiculoCondominio veiculo);
+
+        void ApagarVeiculo(Func<Veiculo, bool> predicate);
 
         void RemoverVeiculoCondominio(VeiculoCondominio unidade);
 

@@ -14,7 +14,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Events
          INotificationHandler<AreaComumEditadaEvent>,
          INotificationHandler<AreaComumAtivadaEvent>,
          INotificationHandler<AreaComumDesativadaEvent>,
-        INotificationHandler<AreaComumRemovidaEvent>,
+        INotificationHandler<AreaComumApagadaEvent>,
          System.IDisposable
     {
 
@@ -155,18 +155,16 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Events
 
         }
 
-        public async Task Handle(AreaComumRemovidaEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(AreaComumApagadaEvent notification, CancellationToken cancellationToken)
         {
             var areaComumFlat = await _reservaAreaComumQueryRepository.ObterPorId(notification.Id);
             if (areaComumFlat == null)
             {
                 AdicionarErro("Area Comum não encontrada!");
                 return;
-            }
+            }            
 
-            areaComumFlat.EnviarParaLixeira();
-
-            _reservaAreaComumQueryRepository.Atualizar(areaComumFlat);
+            _reservaAreaComumQueryRepository.Apagar(x=>x.Id == areaComumFlat.Id);
 
             await PersistirDados(_reservaAreaComumQueryRepository.UnitOfWork);
 

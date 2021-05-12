@@ -16,14 +16,14 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
             if (!ValidationResult.IsValid)
                 return ValidationResult.IsValid;
 
-            ValidationResult = new RemoverMoradorCommandValidation().Validate(this);
+            ValidationResult = new ExcluirMoradorCommandValidation().Validate(this);
             return ValidationResult.IsValid;
         }
 
 
-        public class RemoverMoradorCommandValidation : MoradorValidation<RemoverMoradorCommand>
+        public class ExcluirMoradorCommandValidation : MoradorValidation<RemoverMoradorCommand>
         {
-            public RemoverMoradorCommandValidation()
+            public ExcluirMoradorCommandValidation()
             {
                 ValidateId();                
             }

@@ -4,9 +4,9 @@ using System;
 
 namespace CondominioApp.Automacao.App.Aplication.Commands
 {
-    public class RemoverCondominioCredencialCommand : CondominioCredencialCommand
+    public class ApagarCondominioCredencialCommand : CondominioCredencialCommand
     {
-        public RemoverCondominioCredencialCommand(Guid id)
+        public ApagarCondominioCredencialCommand(Guid id)
         {
             Id = id;            
         }
@@ -17,14 +17,14 @@ namespace CondominioApp.Automacao.App.Aplication.Commands
             if (!ValidationResult.IsValid)
                 return ValidationResult.IsValid;
 
-            ValidationResult = new RemoverCondominioCredencialCommandValidation().Validate(this);
+            ValidationResult = new ApagarCondominioCredencialCommandValidation().Validate(this);
             return ValidationResult.IsValid;
         }
 
 
-        public class RemoverCondominioCredencialCommandValidation : CondominioCredencialValidation<RemoverCondominioCredencialCommand>
+        public class ApagarCondominioCredencialCommandValidation : CondominioCredencialValidation<ApagarCondominioCredencialCommand>
         {
-            public RemoverCondominioCredencialCommandValidation()
+            public ApagarCondominioCredencialCommandValidation()
             {
                 ValidateId();             
             }

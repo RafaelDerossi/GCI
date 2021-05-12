@@ -3,10 +3,10 @@ using System;
 
 namespace CondominioApp.Principal.Aplication.Commands
 {
-    public class RemoverGrupoCommand : GrupoCommand
+    public class ApagarGrupoCommand : GrupoCommand
     {
 
-        public RemoverGrupoCommand(Guid grupoId)
+        public ApagarGrupoCommand(Guid grupoId)
         {  
             GrupoId = grupoId;
         }
@@ -14,14 +14,14 @@ namespace CondominioApp.Principal.Aplication.Commands
 
         public override bool EstaValido()
         {
-            ValidationResult = new RemoverGrupoCommandValidation().Validate(this);
+            ValidationResult = new ApagarGrupoCommandValidation().Validate(this);
             return ValidationResult.IsValid;
         }
 
 
-        public class RemoverGrupoCommandValidation : GrupoValidation<RemoverGrupoCommand>
+        public class ApagarGrupoCommandValidation : GrupoValidation<ApagarGrupoCommand>
         {
-            public RemoverGrupoCommandValidation()
+            public ApagarGrupoCommandValidation()
             {
                 ValidateId();                                           
             }

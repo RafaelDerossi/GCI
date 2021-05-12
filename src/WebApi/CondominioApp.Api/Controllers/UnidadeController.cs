@@ -177,7 +177,7 @@ namespace CondominioApp.Api.Controllers
         [HttpDelete("{Id:Guid}")]
         public async Task<ActionResult> DeleteUnidade(Guid Id)
         {
-            var comando = new RemoverUnidadeCommand(Id);
+            var comando = new ApagarUnidadeCommand(Id);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 

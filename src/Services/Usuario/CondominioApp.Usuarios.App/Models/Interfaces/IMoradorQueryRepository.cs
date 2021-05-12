@@ -6,6 +6,6 @@ namespace CondominioApp.Usuarios.App.Models
 {
     public interface IMoradorQueryRepository : IRepository<MoradorFlat>
     {
-        void Excluir(MoradorFlat morador);
+        void Remover(MoradorFlat morador);
     }
 }

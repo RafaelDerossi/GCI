@@ -2,9 +2,9 @@
 
 namespace CondominioApp.Usuarios.App.Aplication.Events
 {
-    public class MoradorExcluidoEvent : MoradorEvent
+    public class MoradorApagadoEvent : MoradorEvent
     {        
-        public MoradorExcluidoEvent(Guid id)
+        public MoradorApagadoEvent(Guid id)
         {
             Id = id;
         }

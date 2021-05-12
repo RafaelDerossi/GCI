@@ -14,7 +14,7 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
          IRequestHandler<AlterarPastaDoArquivoCommand, ValidationResult>,
          IRequestHandler<MarcarArquivoComoPublicoCommand, ValidationResult>,
          IRequestHandler<MarcarArquivoComoPrivadoCommand, ValidationResult>,
-         IRequestHandler<RemoverArquivoCommand, ValidationResult>,
+         IRequestHandler<ApagarArquivoCommand, ValidationResult>,
          IDisposable
     {
 
@@ -142,7 +142,7 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
             return await PersistirDados(_arquivoDigitalRepository.UnitOfWork);
         }
 
-        public async Task<ValidationResult> Handle(RemoverArquivoCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(ApagarArquivoCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido())
                 return request.ValidationResult;
@@ -155,10 +155,7 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
                 return ValidationResult;
             }
 
-            arquivoBd.EnviarParaLixeira();
-
-            _arquivoDigitalRepository.AtualizarArquivo(arquivoBd);
-
+            _arquivoDigitalRepository.ApagarArquivo(x=>x.Id == arquivoBd.Id);
 
             return await PersistirDados(_arquivoDigitalRepository.UnitOfWork);
         }

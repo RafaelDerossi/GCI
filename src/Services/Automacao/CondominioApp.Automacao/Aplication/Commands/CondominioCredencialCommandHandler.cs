@@ -15,7 +15,7 @@ namespace CondominioApp.Automacao.App.Aplication.Commands
     public class CondominioCredencialCommandHandler : CommandHandler,
          IRequestHandler<CadastrarCondominioCredencialCommand, ValidationResult>,
          IRequestHandler<EditarCondominioCredencialCommand, ValidationResult>,
-         IRequestHandler<RemoverCondominioCredencialCommand, ValidationResult>,
+         IRequestHandler<ApagarCondominioCredencialCommand, ValidationResult>,
          IDisposable
     {
 
@@ -66,7 +66,7 @@ namespace CondominioApp.Automacao.App.Aplication.Commands
             return await PersistirDados(_condominioCredencialRepository.UnitOfWork);
         }
 
-        public async Task<ValidationResult> Handle(RemoverCondominioCredencialCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(ApagarCondominioCredencialCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido())
                 return request.ValidationResult;
@@ -76,11 +76,9 @@ namespace CondominioApp.Automacao.App.Aplication.Commands
             {
                 AdicionarErro("Credencial não encontrada!");
                 return ValidationResult;
-            }
+            }            
 
-            credencial.EnviarParaLixeira();
-
-            _condominioCredencialRepository.Atualizar(credencial);
+            _condominioCredencialRepository.Apagar(x => x.Id == credencial.Id);
 
             return await PersistirDados(_condominioCredencialRepository.UnitOfWork);
         }

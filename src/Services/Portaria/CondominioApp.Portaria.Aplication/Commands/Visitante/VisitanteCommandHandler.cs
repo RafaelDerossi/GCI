@@ -15,7 +15,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
          IRequestHandler<CadastrarVisitantePorPorteiroCommand, ValidationResult>,
          IRequestHandler<EditarVisitantePorMoradorCommand, ValidationResult>,
          IRequestHandler<EditarVisitantePorPorteiroCommand, ValidationResult>,
-         IRequestHandler<RemoverVisitanteCommand, ValidationResult>,
+         IRequestHandler<ApagarVisitanteCommand, ValidationResult>,
          IDisposable
     {
         private readonly IPortariaRepository _visitanteRepository;
@@ -158,7 +158,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
 
             return await PersistirDados(_visitanteRepository.UnitOfWork);
         }
-        public async Task<ValidationResult> Handle(RemoverVisitanteCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(ApagarVisitanteCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido()) return request.ValidationResult;
 
@@ -167,15 +167,12 @@ namespace CondominioApp.Portaria.Aplication.Commands
             {
                 AdicionarErro("Visitante não encontrado.");
                 return ValidationResult;
-            }
+            }            
 
-            visitanteBd.EnviarParaLixeira();
-
-            _visitanteRepository.Atualizar(visitanteBd);
-
+            _visitanteRepository.Apagar(x=>x.Id == visitanteBd.Id);
             
             //Evento
-            visitanteBd.AdicionarEvento(new VisitanteRemovidoEvent(visitanteBd.Id));
+            visitanteBd.AdicionarEvento(new VisitanteApagadoEvent(visitanteBd.Id));
 
 
             return await PersistirDados(_visitanteRepository.UnitOfWork);

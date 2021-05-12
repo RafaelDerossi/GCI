@@ -2,9 +2,9 @@
 
 namespace CondominioApp.ReservaAreaComum.Aplication.Events
 {
-    public class AreaComumRemovidaEvent : AreaComumEvent
+    public class AreaComumApagadaEvent : AreaComumEvent
     {
-        public AreaComumRemovidaEvent(Guid areaComumId)
+        public AreaComumApagadaEvent(Guid areaComumId)
         {
             Id = areaComumId;           
         }        

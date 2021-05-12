@@ -15,6 +15,8 @@ namespace CondominioApp.Portaria.Domain.Interfaces
 
         void AtualizarVisita(VisitaFlat entity);
 
+        void ApagarVisita(Func<VisitaFlat, bool> predicate);
+
         Task<bool> VisitanteCadastradoPorId(Guid Id);
 
         

@@ -15,7 +15,7 @@ namespace CondominioApp.Principal.Aplication.Commands
          IRequestHandler<CadastrarCondominioCommand, ValidationResult>,
          IRequestHandler<EditarCondominioCommand, ValidationResult>,
          IRequestHandler<EditarConfiguracaoCondominioCommand, ValidationResult>,
-         IRequestHandler<RemoverCondominioCommand, ValidationResult>,
+         IRequestHandler<ApagarCondominioCommand, ValidationResult>,
          IRequestHandler<DefinirSindicoDoCondominioCommand, ValidationResult>,
          IDisposable
     {
@@ -199,7 +199,7 @@ namespace CondominioApp.Principal.Aplication.Commands
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }
 
-        public async Task<ValidationResult> Handle(RemoverCondominioCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(ApagarCondominioCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido()) return request.ValidationResult;
 
@@ -210,11 +210,9 @@ namespace CondominioApp.Principal.Aplication.Commands
                 return ValidationResult;
             }
 
-            condominioBd.EnviarParaLixeira();
+            _condominioRepository.Apagar(x=>x.Id == condominioBd.Id);
 
-            _condominioRepository.Atualizar(condominioBd);
-
-            condominioBd.AdicionarEvento(new CondominioRemovidoEvent(condominioBd.Id));
+            condominioBd.AdicionarEvento(new CondominioApagadoEvent(condominioBd.Id));
 
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }

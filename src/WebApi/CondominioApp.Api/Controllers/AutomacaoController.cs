@@ -80,7 +80,7 @@ namespace CondominioApp.Api.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var comando = new RemoverCondominioCredencialCommand(id);
+            var comando = new ApagarCondominioCredencialCommand(id);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 

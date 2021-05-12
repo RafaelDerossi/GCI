@@ -114,6 +114,11 @@ namespace CondominioApp.Ocorrencias.App.Data.Repository
             _context.RespostasOcorrencias.Update(entity);
         }
 
+        public void ApagarResposta(Func<RespostaOcorrencia, bool> predicate)
+        {
+            _context.RespostasOcorrencias.Where(predicate).ToList().ForEach(del => del.EnviarParaLixeira());
+        }
+
         #endregion
 
 

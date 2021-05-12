@@ -8,7 +8,6 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using CondominioApp.Principal.Infra.DataQuery;
 using CondominioApp.Principal.Domain.FlatModel;
-using CondominioApp.Principal.Domain;
 
 namespace CondominioApp.Principal.Infra.Data.Repository
 {
@@ -96,6 +95,12 @@ namespace CondominioApp.Principal.Infra.Data.Repository
             _queryContext.GruposFlat.Update(entity);
         }
 
+        public void ApagarGrupo(Func<GrupoFlat, bool> predicate)
+        {
+            _queryContext.GruposFlat.Where(predicate).ToList().ForEach(del => del.EnviarParaLixeira());
+        }
+
+
         public async Task<GrupoFlat> ObterGrupoPorId(Guid Id)
         {
             return await _queryContext.GruposFlat
@@ -121,6 +126,13 @@ namespace CondominioApp.Principal.Infra.Data.Repository
         {
             _queryContext.UnidadesFlat.Update(entity);
         }
+
+        public void ApagarUnidade(Func<UnidadeFlat, bool> predicate)
+        {
+            _queryContext.UnidadesFlat.Where(predicate).ToList().ForEach(del => del.EnviarParaLixeira());
+        }
+
+
 
         public async Task<UnidadeFlat> ObterUnidadePorId(Guid Id)
         {

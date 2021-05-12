@@ -71,6 +71,11 @@ namespace CondominioApp.Usuarios.App.Data.Repository
             _context.Usuarios.Where(predicate).ToList().ForEach(del => del.EnviarParaLixeira());
         }
 
+        public void Remover(Usuario entity)
+        {
+            _context.Usuarios.Remove(entity);
+        }
+
         public bool AtualizacaoNegada(Usuario Usuario)
         {
             return _context.Usuarios.Any(a => a.Email.Endereco.Trim() == Usuario.Email.Endereco.Trim() &&
@@ -82,12 +87,7 @@ namespace CondominioApp.Usuarios.App.Data.Repository
         {
             return _context.Usuarios.Any(u => u.Email.Endereco == Usuario.Email.Endereco &&
                                               !u.Lixeira);
-        }
-
-        public void Excluir(Usuario entity)
-        {
-            _context.Usuarios.Remove(entity);
-        }
+        }       
 
         #endregion
 
@@ -143,7 +143,12 @@ namespace CondominioApp.Usuarios.App.Data.Repository
             _context.Moradores.Update(entity);
         }
 
-        public void ExcluirMorador(Morador entity)
+        public void ApagarMorador(Func<Morador, bool> predicate)
+        {
+            _context.Moradores.Where(predicate).ToList().ForEach(del => del.EnviarParaLixeira());
+        }
+
+        public void RemoverMorador(Morador entity)
         {
             _context.Moradores.Remove(entity);
         }
@@ -195,6 +200,16 @@ namespace CondominioApp.Usuarios.App.Data.Repository
         public void AtualizarFuncionario(Funcionario entity)
         {
             _context.Funcionarios.Update(entity);
+        }
+
+        public void ApagarFuncionario(Func<Funcionario, bool> predicate)
+        {
+            _context.Funcionarios.Where(predicate).ToList().ForEach(del => del.EnviarParaLixeira());
+        }
+
+        public void RemoverFuncionario(Funcionario funcionario)
+        {
+            _context.Funcionarios.Remove(funcionario);
         }
 
         #endregion
@@ -258,6 +273,11 @@ namespace CondominioApp.Usuarios.App.Data.Repository
         public void AdicionarVeiculoCondominio(VeiculoCondominio veiculo)
         {
             _context.VeiculosCondominios.Add(veiculo);
+        }
+
+        public void ApagarVeiculo(Func<Veiculo, bool> predicate)
+        {
+            _context.Veiculos.Where(predicate).ToList().ForEach(del => del.EnviarParaLixeira());
         }
 
         public void RemoverVeiculoCondominio(VeiculoCondominio unidade)

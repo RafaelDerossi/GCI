@@ -11,7 +11,7 @@ namespace CondominioApp.Portaria.Aplication.Events
     public class VisitaEventHandler : EventHandler,
         INotificationHandler<VisitaCadastradaEvent>,
         INotificationHandler<VisitaEditadaEvent>,
-        INotificationHandler<VisitaRemovidaEvent>,
+        INotificationHandler<VisitaApagadaEvent>,
         INotificationHandler<VisitaAprovadaEvent>,
         INotificationHandler<VisitaReprovadaEvent>,
         INotificationHandler<VisitaIniciadaEvent>,
@@ -71,14 +71,12 @@ namespace CondominioApp.Portaria.Aplication.Events
 
         }
 
-        public async Task Handle(VisitaRemovidaEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(VisitaApagadaEvent notification, CancellationToken cancellationToken)
         {
             var visitaFlat = await _visitanteQueryRepository.ObterVisitaPorId(notification.Id);
             if(visitaFlat != null)
             {
-                visitaFlat.EnviarParaLixeira();
-
-                _visitanteQueryRepository.AtualizarVisita(visitaFlat);
+                _visitanteQueryRepository.ApagarVisita(x=>x.Id == visitaFlat.Id);
 
                 await PersistirDados(_visitanteQueryRepository.UnitOfWork);
             }            

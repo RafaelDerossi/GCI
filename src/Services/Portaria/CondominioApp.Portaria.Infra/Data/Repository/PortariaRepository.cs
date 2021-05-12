@@ -1,7 +1,6 @@
 ﻿using CondominioApp.Core.Data;
 using CondominioApp.Portaria.Domain;
 using CondominioApp.Portaria.Domain.Interfaces;
-using CondominioApp.Portaria.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -45,6 +44,11 @@ namespace CondominioApp.Portaria.Infra.Data.Repository
         public void AdicionarVisita(Visita entity)
         {
             _context.Visitas.Add(entity);
+        }
+
+        public void ApagarVisita(Func<Visita, bool> predicate)
+        {
+            _context.Visitas.Where(predicate).ToList().ForEach(del => del.EnviarParaLixeira());
         }
 
         public void RemoverVisita(Visita entity)

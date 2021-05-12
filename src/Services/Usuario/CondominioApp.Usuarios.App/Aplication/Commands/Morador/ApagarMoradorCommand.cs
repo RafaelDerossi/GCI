@@ -4,9 +4,9 @@ using CondominioApp.Usuarios.App.Aplication.Commands.Validations;
 
 namespace CondominioApp.Usuarios.App.Aplication.Commands
 {
-    public class ExcluirMoradorCommand : MoradorCommand
+    public class ApagarMoradorCommand : MoradorCommand
     {
-        public ExcluirMoradorCommand(Guid moradorId)
+        public ApagarMoradorCommand(Guid moradorId)
         {
             Id = moradorId;
         }
@@ -16,14 +16,14 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
             if (!ValidationResult.IsValid)
                 return ValidationResult.IsValid;
 
-            ValidationResult = new ExcluirMoradorCommandValidation().Validate(this);
+            ValidationResult = new ApagarMoradorCommandValidation().Validate(this);
             return ValidationResult.IsValid;
         }
 
 
-        public class ExcluirMoradorCommandValidation : MoradorValidation<ExcluirMoradorCommand>
+        public class ApagarMoradorCommandValidation : MoradorValidation<ApagarMoradorCommand>
         {
-            public ExcluirMoradorCommandValidation()
+            public ApagarMoradorCommandValidation()
             {
                 ValidateId();                
             }

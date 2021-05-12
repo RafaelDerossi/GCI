@@ -3,9 +3,9 @@ using System;
 
 namespace CondominioApp.Principal.Aplication.Events
 {
-    public class GrupoRemovidoEvent : GrupoEvent
+    public class GrupoApagadoEvent : GrupoEvent
     {
-        public GrupoRemovidoEvent(Guid grupoId)
+        public GrupoApagadoEvent(Guid grupoId)
         {  
             GrupoId = grupoId;
         }

@@ -5,9 +5,9 @@ using System;
 
 namespace CondominioApp.Correspondencias.App.Aplication.Commands
 {
-    public class RemoverCorrespondenciaCommand : CorrespondenciaCommand
+    public class ApagarCorrespondenciaCommand : CorrespondenciaCommand
     {
-        public RemoverCorrespondenciaCommand(Guid correspondenciaId)
+        public ApagarCorrespondenciaCommand(Guid correspondenciaId)
         {
             CorrespondenciaId = correspondenciaId;           
         }
@@ -18,14 +18,14 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
             if (!ValidationResult.IsValid)
                 return ValidationResult.IsValid;
 
-            ValidationResult = new RemoverCorrespondenciaCommandValidation().Validate(this);
+            ValidationResult = new ApagarCorrespondenciaCommandValidation().Validate(this);
             return ValidationResult.IsValid;
         }
 
 
-        public class RemoverCorrespondenciaCommandValidation : CorrespondenciaValidation<RemoverCorrespondenciaCommand>
+        public class ApagarCorrespondenciaCommandValidation : CorrespondenciaValidation<ApagarCorrespondenciaCommand>
         {
-            public RemoverCorrespondenciaCommandValidation()
+            public ApagarCorrespondenciaCommandValidation()
             {
                 ValidateId();               
             }

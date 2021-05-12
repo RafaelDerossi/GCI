@@ -191,7 +191,7 @@ namespace CondominioApp.Api.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
            
-            var comando = new RemoverMoradorCommand(moradorId);
+            var comando = new ApagarMoradorCommand(moradorId);
 
             var resultado = await _mediatorHandler.EnviarComando(comando);
 

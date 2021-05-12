@@ -4,10 +4,10 @@ using System.Collections.Generic;
 
 namespace CondominioApp.Enquetes.App.Aplication.Commands
 {
-   public class RemoverEnqueteCommand : EnqueteCommand
+   public class ApagarEnqueteCommand : EnqueteCommand
     {
 
-        public RemoverEnqueteCommand(Guid enqueteId)
+        public ApagarEnqueteCommand(Guid enqueteId)
         {
             Id = enqueteId;           
         }
@@ -15,14 +15,14 @@ namespace CondominioApp.Enquetes.App.Aplication.Commands
 
         public override bool EstaValido()
         {
-            ValidationResult = new RemoverEnqueteCommandValidation().Validate(this);
+            ValidationResult = new ApagarEnqueteCommandValidation().Validate(this);
             return ValidationResult.IsValid;
         }
 
 
-        public class RemoverEnqueteCommandValidation : EnqueteValidation<RemoverEnqueteCommand>
+        public class ApagarEnqueteCommandValidation : EnqueteValidation<ApagarEnqueteCommand>
         {
-            public RemoverEnqueteCommandValidation()
+            public ApagarEnqueteCommandValidation()
             {
                 ValidateId();                         
             }

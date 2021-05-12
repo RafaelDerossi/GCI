@@ -1,13 +1,11 @@
 ﻿using CondominioApp.Comunicados.App.Aplication.Commands.Validations;
-using CondominioApp.Core.Enumeradores;
-using CondominioApp.Core.Helpers;
 using System;
 
 namespace CondominioApp.Comunicados.App.Aplication.Commands
 {
-    public class RemoverComunicadoCommand : ComunicadoCommand
+    public class ApagarComunicadoCommand : ComunicadoCommand
     {
-        public RemoverComunicadoCommand(Guid comunicadoId)
+        public ApagarComunicadoCommand(Guid comunicadoId)
         {
             ComunicadoId = comunicadoId;           
         }
@@ -18,14 +16,14 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
             if (!ValidationResult.IsValid)
                 return ValidationResult.IsValid;
 
-            ValidationResult = new RemoverComunicadoCommandValidation().Validate(this);
+            ValidationResult = new ApagarComunicadoCommandValidation().Validate(this);
             return ValidationResult.IsValid;
         }
 
 
-        public class RemoverComunicadoCommandValidation : ComunicadoValidation<RemoverComunicadoCommand>
+        public class ApagarComunicadoCommandValidation : ComunicadoValidation<ApagarComunicadoCommand>
         {
-            public RemoverComunicadoCommandValidation()
+            public ApagarComunicadoCommandValidation()
             {
                 ValidateId();               
             }

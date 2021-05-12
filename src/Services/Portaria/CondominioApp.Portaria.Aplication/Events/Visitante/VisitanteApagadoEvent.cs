@@ -2,9 +2,9 @@
 
 namespace CondominioApp.Portaria.Aplication.Events
 {
-   public class VisitanteRemovidoEvent : VisitanteEvent
+   public class VisitanteApagadoEvent : VisitanteEvent
     {
-        public VisitanteRemovidoEvent(Guid id)
+        public VisitanteApagadoEvent(Guid id)
         {
             Id = id;
         }

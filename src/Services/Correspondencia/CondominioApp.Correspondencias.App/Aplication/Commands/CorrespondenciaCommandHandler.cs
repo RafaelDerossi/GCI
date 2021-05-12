@@ -19,7 +19,7 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
          IRequestHandler<MarcarCorrespondenciaRetiradaCommand, ValidationResult>,
          IRequestHandler<MarcarCorrespondenciaDevolvidaCommand, ValidationResult>,
          IRequestHandler<DispararAlertaDeCorrespondenciaCommand, ValidationResult>,
-         IRequestHandler<RemoverCorrespondenciaCommand, ValidationResult>,
+         IRequestHandler<ApagarCorrespondenciaCommand, ValidationResult>,
          IRequestHandler<GerarExcelCorrespondenciaCommand, ValidationResult>,
          IDisposable
     {
@@ -143,7 +143,7 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
             return await PersistirDados(_CorrespondenciaRepository.UnitOfWork);
         }
 
-        public async Task<ValidationResult> Handle(RemoverCorrespondenciaCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(ApagarCorrespondenciaCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido())
                 return request.ValidationResult;
@@ -155,9 +155,7 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
                 return ValidationResult;
             }
 
-            correspondenciaBd.EnviarParaLixeira();
-
-            _CorrespondenciaRepository.Atualizar(correspondenciaBd);
+            _CorrespondenciaRepository.Apagar(x=>x.Id == correspondenciaBd.Id);
 
             return await PersistirDados(_CorrespondenciaRepository.UnitOfWork);
         }

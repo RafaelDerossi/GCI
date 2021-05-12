@@ -13,7 +13,7 @@ namespace CondominioApp.Principal.Aplication.Commands
     public class GrupoCommandHandler : CommandHandler,
          IRequestHandler<CadastrarGrupoCommand, ValidationResult>,
          IRequestHandler<EditarGrupoCommand, ValidationResult>,
-         IRequestHandler<RemoverGrupoCommand, ValidationResult>, IDisposable
+         IRequestHandler<ApagarGrupoCommand, ValidationResult>, IDisposable
     {
 
         private readonly IPrincipalRepository _condominioRepository;
@@ -85,7 +85,7 @@ namespace CondominioApp.Principal.Aplication.Commands
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }
 
-        public async Task<ValidationResult> Handle(RemoverGrupoCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(ApagarGrupoCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido()) return request.ValidationResult;
 
@@ -97,10 +97,10 @@ namespace CondominioApp.Principal.Aplication.Commands
                 return ValidationResult;
             }
 
-            grupoBd.EnviarParaLixeira();
+            _condominioRepository.ApagarGrupo(x=>x.Id == grupoBd.Id);
 
             grupoBd.AdicionarEvento(
-             new GrupoRemovidoEvent(grupoBd.Id));
+             new GrupoApagadoEvent(grupoBd.Id));
 
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }

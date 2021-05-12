@@ -3,10 +3,10 @@ using System;
 
 namespace CondominioApp.Principal.Aplication.Events
 {
-   public class CondominioRemovidoEvent : CondominioEvent
+   public class CondominioApagadoEvent : CondominioEvent
     {
 
-        public CondominioRemovidoEvent(Guid condominioId)
+        public CondominioApagadoEvent(Guid condominioId)
         {
             CondominioId = condominioId;
         }
