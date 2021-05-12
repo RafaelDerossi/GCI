@@ -24,15 +24,17 @@ namespace CondominioApp.Identidade.Api.Configuration
 
             #region Usuario
             services.AddScoped<IRequestHandler<CadastrarUsuarioCommand, ValidationResult>, UsuarioCommandHandler>();
-            services.AddScoped<IRequestHandler<ExcluirUsuarioCommand, ValidationResult>, UsuarioCommandHandler>();
+            services.AddScoped<IRequestHandler<RemoverUsuarioCommand, ValidationResult>, UsuarioCommandHandler>();
             services.AddScoped<IRequestHandler<AtualizarUltimoLoginUsuarioCommand, ValidationResult>, UsuarioCommandHandler>();
             #endregion
 
             #region Morador
             services.AddScoped<IRequestHandler<CadastrarMoradorCommand, ValidationResult>, MoradorCommandHandler>();
-            services.AddScoped<IRequestHandler<ExcluirMoradorCommand, ValidationResult>, MoradorCommandHandler>();
+            services.AddScoped<IRequestHandler<ApagarMoradorCommand, ValidationResult>, MoradorCommandHandler>();
+            services.AddScoped<IRequestHandler<RemoverMoradorCommand, ValidationResult>, MoradorCommandHandler>();
             services.AddScoped<INotificationHandler<MoradorCadastradoEvent>, MoradorEventHandler>();
-            services.AddScoped<INotificationHandler<MoradorExcluidoEvent>, MoradorEventHandler>();
+            services.AddScoped<INotificationHandler<MoradorApagadoEvent>, MoradorEventHandler>();
+            services.AddScoped<INotificationHandler<MoradorRemovidoEvent>, MoradorEventHandler>();
             #endregion
 
             #region Funcionario

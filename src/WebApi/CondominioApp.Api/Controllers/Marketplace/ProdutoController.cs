@@ -118,5 +118,11 @@ namespace CondominioApp.Api.Controllers.Marketplace
         {
             return CustomResponse(await _AppServiceItemDeVenda.RestauraProdutosDaVitrine(parceiroId));            
         }
+
+        [HttpPut("atualizar-produto")]
+        public async Task<IActionResult> AtualizarProduto([FromBody] ProdutoViewModel viewModel)
+        {
+            return CustomResponse(await _AppServiceProduto.Atualizar(viewModel));
+        }
     }
 }

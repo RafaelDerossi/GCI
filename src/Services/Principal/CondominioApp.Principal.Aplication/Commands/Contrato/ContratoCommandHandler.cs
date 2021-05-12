@@ -49,12 +49,7 @@ namespace CondominioApp.Principal.Aplication.Commands
 
 
             _condominioRepository.AdicionarContrato(contrato);
-            _condominioRepository.Atualizar(condominio);
-            
-
-            contrato.AdicionarEvento(
-                new ContratoCadastradoEvent(contrato.Id, contrato.CondominioId, contrato.DataAssinatura, contrato.Tipo,
-                contrato.Descricao, contrato.Ativo, contrato.Link));            
+            _condominioRepository.Atualizar(condominio);            
 
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }
@@ -88,11 +83,7 @@ namespace CondominioApp.Principal.Aplication.Commands
             if (request.Ativo)
                 contratoBd.Ativar();
 
-            _condominioRepository.Atualizar(condominio);            
-
-            contratoBd.AdicionarEvento(new ContratoEditadoEvent(
-                 contratoBd.Id, contratoBd.CondominioId, contratoBd.DataAssinatura, contratoBd.Tipo,
-                 contratoBd.Descricao, contratoBd.Ativo, contratoBd.Link));
+            _condominioRepository.Atualizar(condominio);                       
 
 
             return await PersistirDados(_condominioRepository.UnitOfWork);
@@ -110,10 +101,7 @@ namespace CondominioApp.Principal.Aplication.Commands
                 return ValidationResult;
             }
 
-            _condominioRepository.ApagarContrato(x => x.Id == contratoBd.Id);
-
-            contratoBd.AdicionarEvento(
-             new ContratoRemovidoEvent(contratoBd.Id));
+            _condominioRepository.ApagarContrato(x => x.Id == contratoBd.Id);           
 
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }

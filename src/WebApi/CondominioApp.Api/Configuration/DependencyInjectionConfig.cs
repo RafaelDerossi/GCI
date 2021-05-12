@@ -321,9 +321,7 @@ namespace CondominioApp.Api.Configuration
             services.AddTransient<IRequestHandler<CadastrarContratoCommand, ValidationResult>, ContratoCommandHandler>();
             services.AddTransient<IRequestHandler<EditarContratoCommand, ValidationResult>, ContratoCommandHandler>();
             services.AddTransient<IRequestHandler<ApagarContratoCommand, ValidationResult>, ContratoCommandHandler>();
-            services.AddTransient<INotificationHandler<ContratoCadastradoEvent>, ContratoEventHandler>();
-            services.AddTransient<INotificationHandler<ContratoEditadoEvent>, ContratoEventHandler>();
-            services.AddTransient<INotificationHandler<ContratoRemovidoEvent>, ContratoEventHandler>();
+            
 
             #endregion
 

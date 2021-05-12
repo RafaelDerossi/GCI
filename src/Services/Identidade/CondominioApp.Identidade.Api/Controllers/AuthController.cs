@@ -371,12 +371,12 @@ namespace CondominioApp.Identidade.Api.Controllers
                 {
                     moradoresBd = moradoresBd.OrderByDescending(m => m.DataDeCadastro);
                     var moradorBd = moradoresBd.FirstOrDefault();
-                    var comandoExcluirMorador = new ExcluirMoradorCommand(moradorBd.Id);
+                    var comandoExcluirMorador = new RemoverMoradorCommand(moradorBd.Id);
                     await _mediatorHandler.EnviarComando(comandoExcluirMorador);
                     await _userManager.DeleteAsync(user);
                 }
 
-                var comandoExcluirUsuario = new ExcluirUsuarioCommand(Guid.Parse(user.Id));
+                var comandoExcluirUsuario = new RemoverUsuarioCommand(Guid.Parse(user.Id));
                 await _mediatorHandler.EnviarComando(comandoExcluirUsuario);
                 await _userManager.DeleteAsync(user);
                 return CustomResponse();
@@ -392,7 +392,7 @@ namespace CondominioApp.Identidade.Api.Controllers
             await CadastrarFuncionario(funcionarioVM, user);
             if (!OperacaoValida())
             {
-                var comandoExcluir = new ExcluirUsuarioCommand(Guid.Parse(user.Id));
+                var comandoExcluir = new RemoverUsuarioCommand(Guid.Parse(user.Id));
                 await _mediatorHandler.EnviarComando(comandoExcluir);
                 await _userManager.DeleteAsync(user);
                 return CustomResponse();
