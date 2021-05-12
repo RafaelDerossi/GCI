@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using CondominioAppMarketplace.Domain;
 using CondominioAppMarketplace.Domain.ValueObjects;
 using CondominioAppMarketplace.App.Interfaces;
 using CondominioAppMarketplace.App.ProdutoFactory;
@@ -83,10 +84,21 @@ namespace CondominioAppMarketplace.App
             var produto = await _repository.ObterPorId(ViewModel.ProdutoId);
 
             produto.setNome(ViewModel.Nome);
-            produto.setChamada(ViewModel.Chamada);
             produto.setDescricao(ViewModel.Descricao);
+            produto.setChamada(ViewModel.Chamada);            
             produto.setEspecificacaoTecnica(ViewModel.EspecificacaoTecnica);
             produto.setUrl(new Url(ViewModel.LinkDoProduto));
+
+            produto.RemoverFotos();
+            foreach (var fotoDoProdutoViewModel in ViewModel.FotosDoProduto)
+            {
+                var FotoDoProduto = new FotoDoProduto
+                    (fotoDoProdutoViewModel.NomeOriginal, fotoDoProdutoViewModel.Principal,
+                     fotoDoProdutoViewModel.NomeDoArquivo);
+                produto.AdicionarFotos(FotoDoProduto);
+            }
+
+            produto.MarcarPrimeiraFotoPrincipal();
 
             _repository.Atualizar(produto);
 

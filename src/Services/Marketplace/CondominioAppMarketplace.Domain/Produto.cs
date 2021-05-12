@@ -112,6 +112,10 @@ namespace CondominioAppMarketplace.Domain
             Fotos.FirstOrDefault(x => x.Id == FotoDoProdutoId).MarcarComoPrincipal();
         }
 
+        public void RemoverFotos()
+        {
+            Fotos.Clear();
+        }
         public ValidationResult Validar()
         {
             var Result = new ProdutoValidation().Validate(this);

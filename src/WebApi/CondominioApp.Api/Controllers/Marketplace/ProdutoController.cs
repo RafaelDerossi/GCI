@@ -124,5 +124,6 @@ namespace CondominioApp.Api.Controllers.Marketplace
         {
             return CustomResponse(await _AppServiceProduto.Atualizar(viewModel));
         }
+        
     }
 }
