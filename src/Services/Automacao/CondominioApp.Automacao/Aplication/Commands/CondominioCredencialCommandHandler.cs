@@ -13,8 +13,8 @@ using System.Threading.Tasks;
 namespace CondominioApp.Automacao.App.Aplication.Commands
 {
     public class CondominioCredencialCommandHandler : CommandHandler,
-         IRequestHandler<CadastrarCondominioCredencialCommand, ValidationResult>,
-         IRequestHandler<EditarCondominioCredencialCommand, ValidationResult>,
+         IRequestHandler<AdicionarCondominioCredencialCommand, ValidationResult>,
+         IRequestHandler<AtualizarCondominioCredencialCommand, ValidationResult>,
          IRequestHandler<ApagarCondominioCredencialCommand, ValidationResult>,
          IDisposable
     {
@@ -27,7 +27,7 @@ namespace CondominioApp.Automacao.App.Aplication.Commands
         }
 
 
-        public async Task<ValidationResult> Handle(CadastrarCondominioCredencialCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(AdicionarCondominioCredencialCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido())
                 return request.ValidationResult;
@@ -47,7 +47,7 @@ namespace CondominioApp.Automacao.App.Aplication.Commands
             return await PersistirDados(_condominioCredencialRepository.UnitOfWork);
         }
 
-        public async Task<ValidationResult> Handle(EditarCondominioCredencialCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(AtualizarCondominioCredencialCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido())
                 return request.ValidationResult;

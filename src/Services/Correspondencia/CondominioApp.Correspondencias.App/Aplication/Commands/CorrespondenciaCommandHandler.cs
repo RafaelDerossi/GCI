@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 namespace CondominioApp.Correspondencias.App.Aplication.Commands
 {
     public class CorrespondenciaCommandHandler : CommandHandler,
-         IRequestHandler<CadastrarCorrespondenciaCommand, ValidationResult>,
+         IRequestHandler<AdicionarCorrespondenciaCommand, ValidationResult>,
          IRequestHandler<MarcarCorrespondenciaVistaCommand, ValidationResult>,
          IRequestHandler<MarcarCorrespondenciaRetiradaCommand, ValidationResult>,
          IRequestHandler<MarcarCorrespondenciaDevolvidaCommand, ValidationResult>,
@@ -32,7 +32,7 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
         }
 
 
-        public async Task<ValidationResult> Handle(CadastrarCorrespondenciaCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(AdicionarCorrespondenciaCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido())
                 return request.ValidationResult;
@@ -203,7 +203,7 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
         }
 
 
-        private Correspondencia CorrespondenciaFactory(CadastrarCorrespondenciaCommand request)
+        private Correspondencia CorrespondenciaFactory(AdicionarCorrespondenciaCommand request)
         {
             var correspondencia = new Correspondencia(
                 request.CondominioId, request.UnidadeId, request.NumeroUnidade, request.Grupo, request.Visto,

@@ -11,8 +11,8 @@ using System.Threading.Tasks;
 namespace CondominioApp.Principal.Aplication.Commands
 {
     public class ContratoCommandHandler : CommandHandler,
-         IRequestHandler<CadastrarContratoCommand, ValidationResult>,
-         IRequestHandler<EditarContratoCommand, ValidationResult>,
+         IRequestHandler<AdicionarContratoCommand, ValidationResult>,
+         IRequestHandler<AtualizarContratoCommand, ValidationResult>,
          IRequestHandler<ApagarContratoCommand, ValidationResult>,
          IDisposable
     {
@@ -25,7 +25,7 @@ namespace CondominioApp.Principal.Aplication.Commands
         }
 
 
-        public async Task<ValidationResult> Handle(CadastrarContratoCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(AdicionarContratoCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido()) return request.ValidationResult;
 
@@ -54,7 +54,7 @@ namespace CondominioApp.Principal.Aplication.Commands
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }
 
-        public async Task<ValidationResult> Handle(EditarContratoCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(AtualizarContratoCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido()) return request.ValidationResult;
 

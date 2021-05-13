@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 namespace CondominioApp.Enquetes.App.Aplication.Commands
 {
     public class EnqueteCommandHandler : CommandHandler,
-         IRequestHandler<CadastrarEnqueteCommand, ValidationResult>,
-         IRequestHandler<EditarEnqueteCommand, ValidationResult>,
-         IRequestHandler<EditarDataFimDaEnqueteCommand, ValidationResult>,
+         IRequestHandler<AdicionarEnqueteCommand, ValidationResult>,
+         IRequestHandler<AtualizarEnqueteCommand, ValidationResult>,
+         IRequestHandler<AtualizarDataFimDaEnqueteCommand, ValidationResult>,
          IRequestHandler<ApagarEnqueteCommand, ValidationResult>,
          IDisposable
     {
@@ -25,7 +25,7 @@ namespace CondominioApp.Enquetes.App.Aplication.Commands
         }
 
 
-        public async Task<ValidationResult> Handle(CadastrarEnqueteCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(AdicionarEnqueteCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido())
                 return request.ValidationResult;
@@ -46,7 +46,7 @@ namespace CondominioApp.Enquetes.App.Aplication.Commands
             return await PersistirDados(_EnqueteRepository.UnitOfWork);
         }
 
-        public async Task<ValidationResult> Handle(EditarEnqueteCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(AtualizarEnqueteCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido())
                 return request.ValidationResult;
@@ -72,7 +72,7 @@ namespace CondominioApp.Enquetes.App.Aplication.Commands
 
             return await PersistirDados(_EnqueteRepository.UnitOfWork);
         }
-        private ValidationResult EditarAlternativasDaEnquete(Enquete enqueteBd, EditarEnqueteCommand request)
+        private ValidationResult EditarAlternativasDaEnquete(Enquete enqueteBd, AtualizarEnqueteCommand request)
         {
             foreach (var item in enqueteBd.Alternativas)
             {
@@ -91,7 +91,7 @@ namespace CondominioApp.Enquetes.App.Aplication.Commands
             return ValidationResult;
         }
 
-        public async Task<ValidationResult> Handle(EditarDataFimDaEnqueteCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(AtualizarDataFimDaEnqueteCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido())
                 return request.ValidationResult;
@@ -131,7 +131,7 @@ namespace CondominioApp.Enquetes.App.Aplication.Commands
 
 
 
-        private Enquete EnqueteFactory(CadastrarEnqueteCommand request)
+        private Enquete EnqueteFactory(AdicionarEnqueteCommand request)
         {
             var enquete = new Enquete(request.Descricao, request.DataInicio, request.DataFim, request.CondominioId, 
                 request.CondominioNome, request.ApenasProprietarios, request.FuncionarioId, request.FuncionarioNome);

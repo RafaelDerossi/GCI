@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
 {
     public class ArquivoCommandHandler : CommandHandler,
-         IRequestHandler<CadastrarArquivoCommand, ValidationResult>,
-         IRequestHandler<EditarArquivoCommand, ValidationResult>,
+         IRequestHandler<AdicionarArquivoCommand, ValidationResult>,
+         IRequestHandler<AtualizarArquivoCommand, ValidationResult>,
          IRequestHandler<AlterarPastaDoArquivoCommand, ValidationResult>,
          IRequestHandler<MarcarArquivoComoPublicoCommand, ValidationResult>,
          IRequestHandler<MarcarArquivoComoPrivadoCommand, ValidationResult>,
@@ -26,7 +26,7 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
         }
 
 
-        public async Task<ValidationResult> Handle(CadastrarArquivoCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(AdicionarArquivoCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido())
                 return request.ValidationResult;           
@@ -45,7 +45,7 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
             return await PersistirDados(_arquivoDigitalRepository.UnitOfWork);
         }
 
-        public async Task<ValidationResult> Handle(EditarArquivoCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(AtualizarArquivoCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido())
                 return request.ValidationResult;
@@ -162,7 +162,7 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
 
 
 
-        private Arquivo ArquivoFactory(CadastrarArquivoCommand request, Guid condominioId)
+        private Arquivo ArquivoFactory(AdicionarArquivoCommand request, Guid condominioId)
         {
             var arquivo = new Arquivo(request.Nome, request.Tamanho, condominioId, request.PastaId, request.Publico, 
                                       request.FuncionarioId, request.NomeFuncionario, request.Titulo, request.Descricao,

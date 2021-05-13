@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 namespace CondominioApp.Ocorrencias.App.Aplication.Commands
 {
     public class RespostaOcorrenciaCommandHandler : CommandHandler,
-         IRequestHandler<CadastrarRespostaOcorrenciaSindicoCommand, ValidationResult>,
-         IRequestHandler<CadastrarRespostaOcorrenciaMoradorCommand, ValidationResult>,
-         IRequestHandler<EditarRespostaOcorrenciaCommand, ValidationResult>,
+         IRequestHandler<AdicionarRespostaOcorrenciaSindicoCommand, ValidationResult>,
+         IRequestHandler<AdicionarRespostaOcorrenciaMoradorCommand, ValidationResult>,
+         IRequestHandler<AtualizarRespostaOcorrenciaCommand, ValidationResult>,
          IRequestHandler<MarcarRespostaOcorrenciaComoVistaCommand, ValidationResult>,
          IRequestHandler<ApagarRespostaOcorrenciaCommand, ValidationResult>,
          IDisposable
@@ -25,7 +25,7 @@ namespace CondominioApp.Ocorrencias.App.Aplication.Commands
         }
 
 
-        public async Task<ValidationResult> Handle(CadastrarRespostaOcorrenciaSindicoCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(AdicionarRespostaOcorrenciaSindicoCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido())
                 return request.ValidationResult;
@@ -55,7 +55,7 @@ namespace CondominioApp.Ocorrencias.App.Aplication.Commands
             return await PersistirDados(_ocorrenciaRepository.UnitOfWork);
         }
 
-        public async Task<ValidationResult> Handle(CadastrarRespostaOcorrenciaMoradorCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(AdicionarRespostaOcorrenciaMoradorCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido())
                 return request.ValidationResult;
@@ -101,7 +101,7 @@ namespace CondominioApp.Ocorrencias.App.Aplication.Commands
             return await PersistirDados(_ocorrenciaRepository.UnitOfWork);
         }
 
-        public async Task<ValidationResult> Handle(EditarRespostaOcorrenciaCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(AtualizarRespostaOcorrenciaCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido())
                 return request.ValidationResult;

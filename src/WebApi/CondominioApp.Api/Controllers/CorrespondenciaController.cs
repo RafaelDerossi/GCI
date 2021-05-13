@@ -98,7 +98,7 @@ namespace CondominioApp.Api.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult> Post(CadastraCorrespondenciaViewModel correspondenciaVM)
+        public async Task<ActionResult> Post(AdicionaCorrespondenciaViewModel correspondenciaVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
@@ -116,7 +116,7 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }
 
-            var comando = new CadastrarCorrespondenciaCommand(
+            var comando = new AdicionarCorrespondenciaCommand(
                  unidade.CondominioId, unidade.Id, unidade.Numero, unidade.GrupoDescricao,
                  correspondenciaVM.Observacao, funcionario.Id, funcionario.NomeCompleto,
                  correspondenciaVM.Foto, correspondenciaVM.NomeOriginal,

@@ -12,7 +12,7 @@ using MediatR;
 namespace CondominioApp.Usuarios.App.Aplication.Commands
 {
     public class MoradorCommandHandler : CommandHandler,        
-        IRequestHandler<CadastrarMoradorCommand, ValidationResult>,
+        IRequestHandler<AdicionarMoradorCommand, ValidationResult>,
         IRequestHandler<RemoverMoradorCommand, ValidationResult>,
         IRequestHandler<MarcarComoUnidadePrincipalCommand, ValidationResult>,
         IRequestHandler<MarcarComoProprietarioCommand, ValidationResult>,
@@ -30,7 +30,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
         }
            
 
-        public async Task<ValidationResult> Handle(CadastrarMoradorCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(AdicionarMoradorCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido()) return request.ValidationResult;
 
@@ -67,7 +67,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
 
             //Evento
             moradorNovo.AdicionarEvento(
-                new MoradorCadastradoEvent(
+                new MoradorAdicionadoEvent(
                     moradorNovo.Id, moradorNovo.UsuarioId, moradorNovo.CondominioId, request.NomeCondominio,
                     moradorNovo.UnidadeId, request.NumeroUnidade, request.AndarUnidade, request.GrupoUnidade,
                     moradorNovo.Proprietario, moradorNovo.Principal));

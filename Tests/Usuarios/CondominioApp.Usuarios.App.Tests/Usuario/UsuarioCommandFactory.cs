@@ -6,30 +6,30 @@ namespace CondominioApp.Usuarios.App.Tests
 {
     public class UsuarioCommandFactory
     {
-        public static CadastrarUsuarioCommand CadastrarUsuarioCommandFactoy()
+        public static AdicionarUsuarioCommand CadastrarUsuarioCommandFactoy()
         {
-            return new CadastrarUsuarioCommand
+            return new AdicionarUsuarioCommand
                 (Guid.NewGuid(), "Nome", "Sobrenome", "alexandre@techdog.com.br", "foto2.jpg", "fotoOriginal.jpg",
                  "874541213", "689.560.890-78", "(21) 99988-5241",
                  "(21) 99988-5241", "logradouro", "lt 30","S/N","","Bairro","Rio de Janeiro",
                  "RJ", new DateTime(1985, 05, 10));
         }
 
-        public static EditarUsuarioCommand EditarUsuarioCommandFactoy()
+        public static AtualizarUsuarioCommand EditarUsuarioCommandFactoy()
         {
-            return new EditarUsuarioCommand
+            return new AtualizarUsuarioCommand
                 (Guid.NewGuid(), "Nome", "Sobrenome", "874541213", "689.560.890-78",
                  "foto.jpg", "original.jpg", "(21) 99988-5241", "(21) 99988-5241", "logradouro", "lt 30", "S/N", "",
                  "Bairro", "Rio de Janeiro", "RJ", new DateTime(1985, 05, 10));
         }
 
 
-        public static CadastrarUsuarioCommand CriarComandoCadastroDeUsuario()
+        public static AdicionarUsuarioCommand CriarComandoCadastroDeUsuario()
         {
             return CadastrarUsuarioCommandFactoy();
         }
 
-        public static CadastrarUsuarioCommand CriarComandoCadastroDeUsuarioSemFoto()
+        public static AdicionarUsuarioCommand CriarComandoCadastroDeUsuarioSemFoto()
         {
             var comando = CadastrarUsuarioCommandFactoy();
             comando.SetFoto("", "");
@@ -37,7 +37,7 @@ namespace CondominioApp.Usuarios.App.Tests
             return comando;
         }
 
-        public static CadastrarUsuarioCommand CriarComandoCadastroDeUsuarioSemNome()
+        public static AdicionarUsuarioCommand CriarComandoCadastroDeUsuarioSemNome()
         {
             var comando = CadastrarUsuarioCommandFactoy();
             comando.SetNome("");
@@ -45,7 +45,7 @@ namespace CondominioApp.Usuarios.App.Tests
             return comando;
         }
 
-        public static CadastrarUsuarioCommand CriarComandoCadastroDeUsuarioSemEmail()
+        public static AdicionarUsuarioCommand CriarComandoCadastroDeUsuarioSemEmail()
         {
             var comando = CadastrarUsuarioCommandFactoy();
             comando.SetEmail("");
@@ -53,7 +53,7 @@ namespace CondominioApp.Usuarios.App.Tests
             return comando;
         }
 
-        public static CadastrarUsuarioCommand CriarComandoCadastroDeUsuarioComEmailInvalido()
+        public static AdicionarUsuarioCommand CriarComandoCadastroDeUsuarioComEmailInvalido()
         {
             var comando = CadastrarUsuarioCommandFactoy();
             comando.SetEmail("alexandre@techdog");
@@ -62,11 +62,11 @@ namespace CondominioApp.Usuarios.App.Tests
             
         }
 
-        public static CadastrarUsuarioCommand CriarComandoCadastroDeUsuarioSemDataDeNascimento()
+        public static AdicionarUsuarioCommand CriarComandoCadastroDeUsuarioSemDataDeNascimento()
         {
             try
             {
-                return new CadastrarUsuarioCommand
+                return new AdicionarUsuarioCommand
                  (Guid.NewGuid(), "Nome", "Sobrenome", "alexandre@techdog.com.br", "foto2.jpg",
                  "fotoOriginal.jpg", "874541213", "689.560.890-78", "(21) 99988-5241", "(21) 99988-5241", "logradouro", "lt 30", "S/N", "", "Bairro",
                  "Rio de Janeiro", "RJ");
@@ -78,7 +78,7 @@ namespace CondominioApp.Usuarios.App.Tests
           
         }
 
-        public static CadastrarUsuarioCommand CriarComandoCadastroDeUsuarioCPFInvalido()
+        public static AdicionarUsuarioCommand CriarComandoCadastroDeUsuarioCPFInvalido()
         {
             var comando = CadastrarUsuarioCommandFactoy();
             comando.SetCpf("689.560.890-77");
@@ -88,7 +88,7 @@ namespace CondominioApp.Usuarios.App.Tests
         }
 
 
-        public static EditarUsuarioCommand CriarComandoEdicaoDeUsuario()
+        public static AtualizarUsuarioCommand CriarComandoEdicaoDeUsuario()
         {
             return EditarUsuarioCommandFactoy();
         }

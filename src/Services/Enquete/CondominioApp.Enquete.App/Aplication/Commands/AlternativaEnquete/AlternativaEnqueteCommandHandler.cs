@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace CondominioApp.Enquetes.App.Aplication.Commands
 {
     public class AlternativaEnqueteCommandHandler : CommandHandler,        
-         IRequestHandler<EditarAlternativaCommand, ValidationResult>,
+         IRequestHandler<AtualizarAlternativaCommand, ValidationResult>,
          IRequestHandler<RemoverAlternativaCommand, ValidationResult>,
          IDisposable
     {
@@ -22,7 +22,7 @@ namespace CondominioApp.Enquetes.App.Aplication.Commands
         }
 
 
-        public async Task<ValidationResult> Handle(EditarAlternativaCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(AtualizarAlternativaCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido())
                 return request.ValidationResult;

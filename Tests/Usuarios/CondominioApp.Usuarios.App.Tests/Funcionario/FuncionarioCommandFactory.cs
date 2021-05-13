@@ -6,38 +6,38 @@ namespace CondominioApp.Usuarios.App.Tests
 {
     public class FuncionarioCommandFactory
     {
-        public static CadastrarFuncionarioCommand CadastrarFuncionarioSindicoCommandFactoy()
+        public static AdicionarFuncionarioCommand CadastrarFuncionarioSindicoCommandFactoy()
         {
-            return new CadastrarFuncionarioCommand
+            return new AdicionarFuncionarioCommand
                 (Guid.NewGuid(), Guid.NewGuid(), "NomeCondominio", "Sindico",
                 "Sindico", Permissao.ADMIN);
         }
-        public static CadastrarFuncionarioCommand CadastrarFuncionarioPorteiroCommandFactoy()
+        public static AdicionarFuncionarioCommand CadastrarFuncionarioPorteiroCommandFactoy()
         {
-            return new CadastrarFuncionarioCommand
+            return new AdicionarFuncionarioCommand
                 (Guid.NewGuid(), Guid.NewGuid(), "NomeCondominio", "Porteiro",
                 "Porteiro", Permissao.USUARIO);
         }
 
-         public static EditarFuncionarioCommand EditarFuncionarioCommandFactoy()
+         public static AtualizarFuncionarioCommand EditarFuncionarioCommandFactoy()
         {
-            return new EditarFuncionarioCommand
+            return new AtualizarFuncionarioCommand
                 (Guid.NewGuid(), "Porteiro", "Porteiro", Permissao.USUARIO);
         }
 
 
-        public static CadastrarFuncionarioCommand CriarComandoCadastroDeSindico()
+        public static AdicionarFuncionarioCommand CriarComandoCadastroDeSindico()
         {
             return CadastrarFuncionarioSindicoCommandFactoy();
         }
 
-        public static CadastrarFuncionarioCommand CriarComandoCadastroDePorteiro()
+        public static AdicionarFuncionarioCommand CriarComandoCadastroDePorteiro()
         {
             return CadastrarFuncionarioPorteiroCommandFactoy();
         }
 
 
-        public static EditarFuncionarioCommand CriarComandoEdicaoDeFuncionario()
+        public static AtualizarFuncionarioCommand CriarComandoEdicaoDeFuncionario()
         {
             return EditarFuncionarioCommandFactoy();
         }

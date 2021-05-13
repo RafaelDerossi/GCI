@@ -12,8 +12,8 @@ using MediatR;
 namespace CondominioApp.Usuarios.App.Aplication.Commands
 {
     public class VeiculoCommandHandler : CommandHandler, 
-        IRequestHandler<CadastrarVeiculoCommand, ValidationResult>,
-        IRequestHandler<EditarVeiculoCommand, ValidationResult>,
+        IRequestHandler<AdicionarVeiculoCommand, ValidationResult>,
+        IRequestHandler<AtualizarVeiculoCommand, ValidationResult>,
         IRequestHandler<ApagarVeiculoCommand, ValidationResult>,
         IDisposable
     {
@@ -24,7 +24,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
             _usuarioRepository = usuarioRepository;
         }
 
-        public async Task<ValidationResult> Handle(CadastrarVeiculoCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(AdicionarVeiculoCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido()) return request.ValidationResult;
 
@@ -57,7 +57,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
 
         }
 
-        public async Task<ValidationResult> Handle(EditarVeiculoCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(AtualizarVeiculoCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido()) return request.ValidationResult;
 

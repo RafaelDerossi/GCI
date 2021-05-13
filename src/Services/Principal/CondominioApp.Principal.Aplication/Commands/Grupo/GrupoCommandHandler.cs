@@ -11,8 +11,8 @@ using System.Threading.Tasks;
 namespace CondominioApp.Principal.Aplication.Commands
 {
     public class GrupoCommandHandler : CommandHandler,
-         IRequestHandler<CadastrarGrupoCommand, ValidationResult>,
-         IRequestHandler<EditarGrupoCommand, ValidationResult>,
+         IRequestHandler<AdicionarGrupoCommand, ValidationResult>,
+         IRequestHandler<AtualizarGrupoCommand, ValidationResult>,
          IRequestHandler<ApagarGrupoCommand, ValidationResult>, IDisposable
     {
 
@@ -24,7 +24,7 @@ namespace CondominioApp.Principal.Aplication.Commands
         }
 
 
-        public async Task<ValidationResult> Handle(CadastrarGrupoCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(AdicionarGrupoCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido()) return request.ValidationResult;
 
@@ -53,7 +53,7 @@ namespace CondominioApp.Principal.Aplication.Commands
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }
 
-        public async Task<ValidationResult> Handle(EditarGrupoCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(AtualizarGrupoCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido()) return request.ValidationResult;
 

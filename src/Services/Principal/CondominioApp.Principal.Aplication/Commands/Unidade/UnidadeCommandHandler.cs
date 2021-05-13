@@ -11,11 +11,11 @@ using System.Threading.Tasks;
 namespace CondominioApp.Principal.Aplication.Commands
 {
     public class UnidadeCommandHandler : CommandHandler,
-         IRequestHandler<CadastrarUnidadeCommand, ValidationResult>,
-         IRequestHandler<EditarUnidadeCommand, ValidationResult>,
+         IRequestHandler<AdicionarUnidadeCommand, ValidationResult>,
+         IRequestHandler<AtualizarUnidadeCommand, ValidationResult>,
          IRequestHandler<ResetCodigoUnidadeCommand, ValidationResult>,
          IRequestHandler<ApagarUnidadeCommand, ValidationResult>,
-         IRequestHandler<EditarVagasDaUnidadeCommand, ValidationResult>,
+         IRequestHandler<AtualizarVagasDaUnidadeCommand, ValidationResult>,
          IDisposable
     {
 
@@ -27,7 +27,7 @@ namespace CondominioApp.Principal.Aplication.Commands
         }
 
 
-        public async Task<ValidationResult> Handle(CadastrarUnidadeCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(AdicionarUnidadeCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido()) return request.ValidationResult;
 
@@ -66,7 +66,7 @@ namespace CondominioApp.Principal.Aplication.Commands
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }
 
-        public async Task<ValidationResult> Handle(EditarUnidadeCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(AtualizarUnidadeCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido()) return request.ValidationResult;
 
@@ -144,7 +144,7 @@ namespace CondominioApp.Principal.Aplication.Commands
 
         }
 
-        public async Task<ValidationResult> Handle(EditarVagasDaUnidadeCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(AtualizarVagasDaUnidadeCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido()) return request.ValidationResult;
 

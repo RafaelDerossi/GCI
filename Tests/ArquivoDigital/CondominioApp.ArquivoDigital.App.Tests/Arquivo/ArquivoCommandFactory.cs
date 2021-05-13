@@ -5,27 +5,27 @@ namespace CondominioApp.ArquivoDigital.App.Tests
 {
     public class ArquivoCommandFactory
     {
-        private static CadastrarArquivoCommand CadastrarArquivoCommandFactoy()
+        private static AdicionarArquivoCommand CadastrarArquivoCommandFactoy()
         {
-            return new CadastrarArquivoCommand
+            return new AdicionarArquivoCommand
                 ("nomeArquivo.txt","NomeOriginal.txt", 10, Guid.NewGuid(), true, Guid.NewGuid(),
                 "Nome do Usuario", "Titulo do Arquivo", "Descricao do Arquivo", Guid.Empty);
         }
 
-        private static EditarArquivoCommand EditarArquivoCommandFactoy()
+        private static AtualizarArquivoCommand EditarArquivoCommandFactoy()
         {
-            return new EditarArquivoCommand
+            return new AtualizarArquivoCommand
                  (Guid.NewGuid(), "Titulo do Arquivo", "Descricao do Arquivo", true,
                  "nomeArquivo.pdf", "nomeOriginal.pdf");
         }
 
 
 
-        public static CadastrarArquivoCommand CriarComando_CadastroDeArquivo()
+        public static AdicionarArquivoCommand CriarComando_CadastroDeArquivo()
         {
             return CadastrarArquivoCommandFactoy();
         }
-        public static CadastrarArquivoCommand CriarComando_CadastroDeArquivo_NomeArquivoSemExtensao()
+        public static AdicionarArquivoCommand CriarComando_CadastroDeArquivo_NomeArquivoSemExtensao()
         {
             var commando = CadastrarArquivoCommandFactoy();
 
@@ -33,7 +33,7 @@ namespace CondominioApp.ArquivoDigital.App.Tests
 
             return commando;
         }
-        public static CadastrarArquivoCommand CriarComando_CadastroDeArquivo_SemNomeArquivo()
+        public static AdicionarArquivoCommand CriarComando_CadastroDeArquivo_SemNomeArquivo()
         {
             var commando = CadastrarArquivoCommandFactoy();
 
@@ -41,7 +41,7 @@ namespace CondominioApp.ArquivoDigital.App.Tests
 
             return commando;
         }
-        public static CadastrarArquivoCommand CriarComando_CadastroDeArquivo_SemTamanho()
+        public static AdicionarArquivoCommand CriarComando_CadastroDeArquivo_SemTamanho()
         {
             var commando = CadastrarArquivoCommandFactoy();
 
@@ -49,7 +49,7 @@ namespace CondominioApp.ArquivoDigital.App.Tests
 
             return commando;
         }       
-        public static CadastrarArquivoCommand CriarComando_CadastroDeArquivo_SemPastaId()
+        public static AdicionarArquivoCommand CriarComando_CadastroDeArquivo_SemPastaId()
         {
             var commando = CadastrarArquivoCommandFactoy();
 
@@ -59,7 +59,7 @@ namespace CondominioApp.ArquivoDigital.App.Tests
         }
 
 
-        public static EditarArquivoCommand CriarComando_EdicaoDeArquivo()
+        public static AtualizarArquivoCommand CriarComando_EdicaoDeArquivo()
         {
             return EditarArquivoCommandFactoy();
         }

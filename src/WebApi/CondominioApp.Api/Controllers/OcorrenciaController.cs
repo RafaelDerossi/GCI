@@ -360,7 +360,7 @@ namespace CondominioApp.Api.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult> Post(CadastraOcorrenciaViewModel ocorrenciaVM)
+        public async Task<ActionResult> Post(AdicionaOcorrenciaViewModel ocorrenciaVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
@@ -378,7 +378,7 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }            
 
-            var comando = CadastrarOcorrenciaCommandFactory(ocorrenciaVM, morador, unidade);
+            var comando = AdicionarOcorrenciaCommandFactory(ocorrenciaVM, morador, unidade);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);            
 
@@ -387,7 +387,7 @@ namespace CondominioApp.Api.Controllers
         }    
 
         [HttpPost("resposta-sindico")]
-        public async Task<ActionResult> PostRespostaSindico(CadastraRespostaOcorrenciaSindicoViewModel respostaVM)
+        public async Task<ActionResult> PostRespostaSindico(AdicionaRespostaOcorrenciaSindicoViewModel respostaVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
@@ -398,7 +398,7 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }
 
-            var comando = CadastrarRespostaOcorrenciaSindicoCommandFactory(respostaVM, funcionario);
+            var comando = AdicionarRespostaOcorrenciaSindicoCommandFactory(respostaVM, funcionario);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
@@ -407,7 +407,7 @@ namespace CondominioApp.Api.Controllers
         }
 
         [HttpPost("resposta-morador")]
-        public async Task<ActionResult> PostRespostaMorador(CadastraRespostaOcorrenciaMoradorViewModel respostaVM)
+        public async Task<ActionResult> PostRespostaMorador(AdicionaRespostaOcorrenciaMoradorViewModel respostaVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
@@ -418,7 +418,7 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }
 
-            var comando = CadastrarRespostaOcorrenciaMoradorCommandFactory(respostaVM, morador);
+            var comando = AdicionarRespostaOcorrenciaMoradorCommandFactory(respostaVM, morador);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
@@ -430,11 +430,11 @@ namespace CondominioApp.Api.Controllers
 
 
         [HttpPut]
-        public async Task<ActionResult> Put(EditaOcorrenciaViewModel ocorrenciaVM)
+        public async Task<ActionResult> Put(AtualizaOcorrenciaViewModel ocorrenciaVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var comando = EditarOcorrenciaCommandFactory(ocorrenciaVM);
+            var comando = AtualizarOcorrenciaCommandFactory(ocorrenciaVM);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
@@ -456,11 +456,11 @@ namespace CondominioApp.Api.Controllers
         }
 
         [HttpPut("resposta")]
-        public async Task<ActionResult> PutResposta(EditarRespostaOcorrenciaViewModel respostaVM)
+        public async Task<ActionResult> PutResposta(AtualizaRespostaOcorrenciaViewModel respostaVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var comando = new EditarRespostaOcorrenciaCommand
+            var comando = new AtualizarRespostaOcorrenciaCommand
                 (respostaVM.Id, respostaVM.MoradorIdFuncionarioId, respostaVM.Descricao, 
                 respostaVM.NomeFoto, respostaVM.NomeOriginalFoto);
 
@@ -516,36 +516,36 @@ namespace CondominioApp.Api.Controllers
             return ocorrenciasVM;
         }
 
-        private CadastrarOcorrenciaCommand CadastrarOcorrenciaCommandFactory
-            (CadastraOcorrenciaViewModel ocorrenciaVM, MoradorFlat morador, UnidadeFlat unidade)
+        private AdicionarOcorrenciaCommand AdicionarOcorrenciaCommandFactory
+            (AdicionaOcorrenciaViewModel ocorrenciaVM, MoradorFlat morador, UnidadeFlat unidade)
         {           
-           return new CadastrarOcorrenciaCommand
+           return new AdicionarOcorrenciaCommand
                 (ocorrenciaVM.Descricao, ocorrenciaVM.NomeOriginalFoto, ocorrenciaVM.NomeFoto,
                  ocorrenciaVM.Publica, unidade.Id, unidade.Numero, unidade.Andar, unidade.GrupoDescricao,
                  ocorrenciaVM.MoradorId, morador.NomeCompleto, unidade.CondominioId, unidade.CondominioNome,
                  ocorrenciaVM.Panico);
         }
 
-        private EditarOcorrenciaCommand EditarOcorrenciaCommandFactory
-           (EditaOcorrenciaViewModel ocorrenciaVM)
+        private AtualizarOcorrenciaCommand AtualizarOcorrenciaCommandFactory
+           (AtualizaOcorrenciaViewModel ocorrenciaVM)
         {
-            return new EditarOcorrenciaCommand
+            return new AtualizarOcorrenciaCommand
                  (ocorrenciaVM.Id, ocorrenciaVM.Descricao, ocorrenciaVM.FotoNomeOriginal, 
                  ocorrenciaVM.FotoNome, ocorrenciaVM.Publica);
         }
 
-        private CadastrarRespostaOcorrenciaSindicoCommand CadastrarRespostaOcorrenciaSindicoCommandFactory
-          (CadastraRespostaOcorrenciaSindicoViewModel respostaVM, FuncionarioFlat funcionario)
+        private AdicionarRespostaOcorrenciaSindicoCommand AdicionarRespostaOcorrenciaSindicoCommandFactory
+          (AdicionaRespostaOcorrenciaSindicoViewModel respostaVM, FuncionarioFlat funcionario)
         {
-            return new CadastrarRespostaOcorrenciaSindicoCommand
+            return new AdicionarRespostaOcorrenciaSindicoCommand
                  (respostaVM.OcorrenciaId, respostaVM.Descricao, respostaVM.FuncionarioId, funcionario.NomeCompleto,
                  respostaVM.FotoNome, respostaVM.FotoNomeOriginal, respostaVM.StatusDaOcorrencia);
         }
 
-        private CadastrarRespostaOcorrenciaMoradorCommand CadastrarRespostaOcorrenciaMoradorCommandFactory
-            (CadastraRespostaOcorrenciaMoradorViewModel respostaVM, MoradorFlat morador)
+        private AdicionarRespostaOcorrenciaMoradorCommand AdicionarRespostaOcorrenciaMoradorCommandFactory
+            (AdicionaRespostaOcorrenciaMoradorViewModel respostaVM, MoradorFlat morador)
         {
-            return new CadastrarRespostaOcorrenciaMoradorCommand
+            return new AdicionarRespostaOcorrenciaMoradorCommand
                  (respostaVM.OcorrenciaId, respostaVM.Descricao, respostaVM.MoradorId, morador.NomeCompleto,
                   respostaVM.FotoNome, respostaVM.FotoNomeOriginal);
         }

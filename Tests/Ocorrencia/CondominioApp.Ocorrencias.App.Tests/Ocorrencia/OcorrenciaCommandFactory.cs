@@ -7,49 +7,49 @@ namespace CondominioApp.Ocorrencias.App.Tests
 {
     public class OcorrenciaCommandFactory
     {
-        private static CadastrarOcorrenciaCommand CadastrarOcorrenciaCommandFactory()
+        private static AdicionarOcorrenciaCommand CadastrarOcorrenciaCommandFactory()
         {
-            return new CadastrarOcorrenciaCommand(
+            return new AdicionarOcorrenciaCommand(
                "Descricao da Ocorrencia", "fotonome.jpg", "fotoNome.jpg", false, Guid.NewGuid(),
                "101", "1", "Grupo", Guid.NewGuid(), "Nome Usuario", Guid.NewGuid(), "Nome do Condominio",
                false);
         }
-        private static EditarOcorrenciaCommand EditarOcorrenciaCommandFactory()
+        private static AtualizarOcorrenciaCommand EditarOcorrenciaCommandFactory()
         {
-            return new EditarOcorrenciaCommand(
+            return new AtualizarOcorrenciaCommand(
                Guid.NewGuid(), "Descricao da Ocorrencia", "fotonome.jpg", "fotoNome.jpg", false);
         }
 
 
-        public static CadastrarOcorrenciaCommand CriarComando_CadastroDeOcorrencia_Privada()
+        public static AdicionarOcorrenciaCommand CriarComando_CadastroDeOcorrencia_Privada()
         {
             return CadastrarOcorrenciaCommandFactory();
         }
-        public static CadastrarOcorrenciaCommand CriarComando_CadastroDeOcorrencia_Publica()
+        public static AdicionarOcorrenciaCommand CriarComando_CadastroDeOcorrencia_Publica()
         {            
             var comando = CadastrarOcorrenciaCommandFactory();
             comando.MarcarComoPublica();         
             return comando;
         }
-        public static CadastrarOcorrenciaCommand CriarComando_CadastroDeOcorrencia_SemDescricao()
+        public static AdicionarOcorrenciaCommand CriarComando_CadastroDeOcorrencia_SemDescricao()
         {
             var comando = CadastrarOcorrenciaCommandFactory();
             comando.SetDescricao("");
             return comando;
         }
-        public static CadastrarOcorrenciaCommand CriarComando_CadastroDeOcorrencia_SemFoto()
+        public static AdicionarOcorrenciaCommand CriarComando_CadastroDeOcorrencia_SemFoto()
         {
             var comando = CadastrarOcorrenciaCommandFactory();
             comando.SetFoto("", "");
             return comando;
         }
-        public static CadastrarOcorrenciaCommand CriarComando_CadastroDeOcorrencia_SemUnidade()
+        public static AdicionarOcorrenciaCommand CriarComando_CadastroDeOcorrencia_SemUnidade()
         {
             var comando = CadastrarOcorrenciaCommandFactory();
             comando.SetUnidadeId(Guid.Empty);
             return comando;
         }
-        public static CadastrarOcorrenciaCommand CriarComando_CadastroDeOcorrencia_SemUsuario()
+        public static AdicionarOcorrenciaCommand CriarComando_CadastroDeOcorrencia_SemUsuario()
         {
             var comando = CadastrarOcorrenciaCommandFactory();
             comando.SetMoradorId(Guid.Empty);
@@ -58,14 +58,14 @@ namespace CondominioApp.Ocorrencias.App.Tests
 
 
 
-        public static EditarOcorrenciaCommand CriarComando_EdicaoDeOcorrencia_Privada()
+        public static AtualizarOcorrenciaCommand CriarComando_EdicaoDeOcorrencia_Privada()
         {
             var comando = EditarOcorrenciaCommandFactory();
             
             return comando;
         }
 
-        public static EditarOcorrenciaCommand CriarComando_EdicaoDeOcorrencia_SemDescricao()
+        public static AtualizarOcorrenciaCommand CriarComando_EdicaoDeOcorrencia_SemDescricao()
         {            
             var comando = EditarOcorrenciaCommandFactory();
 
@@ -74,7 +74,7 @@ namespace CondominioApp.Ocorrencias.App.Tests
             return comando;
         }
 
-        public static EditarOcorrenciaCommand CriarComando_EdicaoDeOcorrencia_SemFoto()
+        public static AtualizarOcorrenciaCommand CriarComando_EdicaoDeOcorrencia_SemFoto()
         {
             var comando = EditarOcorrenciaCommandFactory();
 

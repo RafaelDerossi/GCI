@@ -74,7 +74,7 @@ namespace CondominioApp.Api.Controllers
 
 
         [HttpPost("pasta")]
-        public async Task<ActionResult> PostPasta(CadastraPastaViewModel pastaVM)
+        public async Task<ActionResult> PostPasta(AdicionaPastaViewModel pastaVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
@@ -85,7 +85,7 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }
 
-            var comando = new CadastrarPastaCommand
+            var comando = new AdicionarPastaCommand
                 (pastaVM.Titulo, pastaVM.Descricao, pastaVM.CondominioId, pastaVM.Publica, false);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
@@ -95,11 +95,11 @@ namespace CondominioApp.Api.Controllers
         }
 
         [HttpPut("pasta")]
-        public async Task<ActionResult> PutPasta(EditaPastaViewModel pastaVM)
+        public async Task<ActionResult> PutPasta(AtualizaPastaViewModel pastaVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var comando = new EditarPastaCommand(pastaVM.Id, pastaVM.Titulo, pastaVM.Descricao, pastaVM.Publica);
+            var comando = new AtualizarPastaCommand(pastaVM.Id, pastaVM.Titulo, pastaVM.Descricao, pastaVM.Publica);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
@@ -205,7 +205,7 @@ namespace CondominioApp.Api.Controllers
 
 
         [HttpPost("arquivo")]
-        public async Task<ActionResult> PostArquivo(CadastraArquivoViewModel arquivoVM)
+        public async Task<ActionResult> PostArquivo(AdicionaArquivoViewModel arquivoVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
@@ -216,7 +216,7 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }
 
-            var comando = new CadastrarArquivoCommand
+            var comando = new AdicionarArquivoCommand
                 (arquivoVM.NomeArquivo, arquivoVM.NomeOriginal, arquivoVM.Tamanho, arquivoVM.PastaId, arquivoVM.Publico,
                  funcionario.Id, funcionario.NomeCompleto, arquivoVM.Titulo, arquivoVM.Descricao,
                 Guid.Empty);
@@ -228,11 +228,11 @@ namespace CondominioApp.Api.Controllers
         }
 
         [HttpPut("arquivo")]
-        public async Task<ActionResult> Put(EditaArquivoViewModel arquivoVM)
+        public async Task<ActionResult> Put(AtualizaArquivoViewModel arquivoVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var comando = new EditarArquivoCommand
+            var comando = new AtualizarArquivoCommand
                 (arquivoVM.Id, arquivoVM.Titulo, arquivoVM.Descricao, arquivoVM.Publico,
                  arquivoVM.NomeArquivo, arquivoVM.NomeOriginal);
 
@@ -243,7 +243,7 @@ namespace CondominioApp.Api.Controllers
         }
 
         [HttpPut("alterar-pasta-do-arquivo")]
-        public async Task<ActionResult> PutMarcarArquivoComoPublico(Guid arquivoId, Guid pastaId)
+        public async Task<ActionResult> PutAlterarPastaDoArquivo(Guid arquivoId, Guid pastaId)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 

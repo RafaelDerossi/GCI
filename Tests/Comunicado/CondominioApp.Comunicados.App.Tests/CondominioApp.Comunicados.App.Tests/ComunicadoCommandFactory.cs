@@ -8,16 +8,16 @@ namespace CondominioApp.Comunicados.App.Tests
 {
     public class ComunicadoCommandFactory
     {
-        private static CadastrarComunicadoCommand CadastrarCondominioCommandFactory()
+        private static AdicionarComunicadoCommand CadastrarCondominioCommandFactory()
         {
-            return new CadastrarComunicadoCommand(
+            return new AdicionarComunicadoCommand(
                "Titulo do Comunicado", "Descricao do Comunicado", null, Guid.NewGuid(),
                "Nome do Condominio", Guid.NewGuid(), "Nome do Usuario", VisibilidadeComunicado.PUBLICO,
                CategoriaComunicado.COMUNICADO, false, false, null);
         }
-        private static EditarComunicadoCommand EditarComunicadoCommandFactory()
+        private static AtualizarComunicadoCommand EditarComunicadoCommandFactory()
         {
-            return new EditarComunicadoCommand(
+            return new AtualizarComunicadoCommand(
                 Guid.NewGuid(), "Titulo do Comunicado", "Descricao do Comunicado", null, Guid.NewGuid(),
                 "Nome do Usuario", VisibilidadeComunicado.PUBLICO, CategoriaComunicado.COMUNICADO, false,
                 null);
@@ -25,12 +25,12 @@ namespace CondominioApp.Comunicados.App.Tests
 
 
 
-        public static CadastrarComunicadoCommand CriarComando_CadastroDeComunicado_Publico()
+        public static AdicionarComunicadoCommand CriarComando_CadastroDeComunicado_Publico()
         {
             //Act
             return CadastrarCondominioCommandFactory();
         }
-        public static CadastrarComunicadoCommand CriarComando_CadastroDeComunicado_Proprietario()
+        public static AdicionarComunicadoCommand CriarComando_CadastroDeComunicado_Proprietario()
         {
             //Arrange
             var comando = CadastrarCondominioCommandFactory();
@@ -39,7 +39,7 @@ namespace CondominioApp.Comunicados.App.Tests
             //Act
             return comando;
         }
-        public static CadastrarComunicadoCommand CriarComando_CadastroDeComunicado_Unidade()
+        public static AdicionarComunicadoCommand CriarComando_CadastroDeComunicado_Unidade()
         {
             //Arrange
             var comando = CadastrarCondominioCommandFactory();
@@ -57,7 +57,7 @@ namespace CondominioApp.Comunicados.App.Tests
             //Act
             return comando;
         }
-        public static CadastrarComunicadoCommand CriarComando_CadastroDeComunicado_ProprietarioUnidade()
+        public static AdicionarComunicadoCommand CriarComando_CadastroDeComunicado_ProprietarioUnidade()
         {
             //Arrange
             var comando = CadastrarCondominioCommandFactory();
@@ -78,7 +78,7 @@ namespace CondominioApp.Comunicados.App.Tests
         }
 
 
-        public static CadastrarComunicadoCommand CriarComando_CadastroDeComunicado_Unidade_SemUnidades()
+        public static AdicionarComunicadoCommand CriarComando_CadastroDeComunicado_Unidade_SemUnidades()
         {
             //Arrange
             var comando = CadastrarCondominioCommandFactory();
@@ -88,7 +88,7 @@ namespace CondominioApp.Comunicados.App.Tests
             return comando;
 
         }
-        public static CadastrarComunicadoCommand CriarComando_CadastroDeComunicado_Unidade_ComUnidadeRepetida()
+        public static AdicionarComunicadoCommand CriarComando_CadastroDeComunicado_Unidade_ComUnidadeRepetida()
         {
             //Arrange
             var comando = CadastrarCondominioCommandFactory();
@@ -108,7 +108,7 @@ namespace CondominioApp.Comunicados.App.Tests
             return comando;
 
         }
-        public static CadastrarComunicadoCommand CriarComando_CadastroDeComunicado_ProprietarioUnidade_SemUnidades()
+        public static AdicionarComunicadoCommand CriarComando_CadastroDeComunicado_ProprietarioUnidade_SemUnidades()
         {
             //Arrange
             var comando = CadastrarCondominioCommandFactory();
@@ -117,7 +117,7 @@ namespace CondominioApp.Comunicados.App.Tests
             //Act
             return comando;
         }
-        public static CadastrarComunicadoCommand CriarComando_CadastroDeComunicado_ProprietarioUnidade_ComUnidadeRepetida()
+        public static AdicionarComunicadoCommand CriarComando_CadastroDeComunicado_ProprietarioUnidade_ComUnidadeRepetida()
         {
             //Arrange
             var comando = CadastrarCondominioCommandFactory();
@@ -142,7 +142,7 @@ namespace CondominioApp.Comunicados.App.Tests
 
 
 
-        public static CadastrarComunicadoCommand CriarComando_CadastroDeComunicado_SemTitulo()
+        public static AdicionarComunicadoCommand CriarComando_CadastroDeComunicado_SemTitulo()
         {
             //Arrange
             var comando = CadastrarCondominioCommandFactory();
@@ -152,7 +152,7 @@ namespace CondominioApp.Comunicados.App.Tests
             return comando;
 
         }
-        public static CadastrarComunicadoCommand CriarComando_CadastroDeComunicado_SemDescricao()
+        public static AdicionarComunicadoCommand CriarComando_CadastroDeComunicado_SemDescricao()
         {
             //Arrange
             var comando = CadastrarCondominioCommandFactory();
@@ -162,7 +162,7 @@ namespace CondominioApp.Comunicados.App.Tests
             return comando;
             
         }
-        public static CadastrarComunicadoCommand CriarComando_CadastroDeComunicado_ComDescricaoGrandeDemais()
+        public static AdicionarComunicadoCommand CriarComando_CadastroDeComunicado_ComDescricaoGrandeDemais()
         {
             //Arrange
             var comando = CadastrarCondominioCommandFactory();
@@ -206,7 +206,7 @@ namespace CondominioApp.Comunicados.App.Tests
             return comando;
 
         }
-        public static CadastrarComunicadoCommand CriarComando_CadastroDeComunicado_SemCondominioId()
+        public static AdicionarComunicadoCommand CriarComando_CadastroDeComunicado_SemCondominioId()
         {
             //Arrange
             var comando = CadastrarCondominioCommandFactory();
@@ -216,7 +216,7 @@ namespace CondominioApp.Comunicados.App.Tests
             return comando;
 
         }
-        public static CadastrarComunicadoCommand CriarComando_CadastroDeComunicado_SemNomeDoCondominio()
+        public static AdicionarComunicadoCommand CriarComando_CadastroDeComunicado_SemNomeDoCondominio()
         {
             //Arrange
             var comando = CadastrarCondominioCommandFactory();
@@ -226,7 +226,7 @@ namespace CondominioApp.Comunicados.App.Tests
             return comando;
 
         }
-        public static CadastrarComunicadoCommand CriarComando_CadastroDeComunicado_SemUsuarioId()
+        public static AdicionarComunicadoCommand CriarComando_CadastroDeComunicado_SemUsuarioId()
         {
             //Arrange
             var comando = CadastrarCondominioCommandFactory();
@@ -236,7 +236,7 @@ namespace CondominioApp.Comunicados.App.Tests
             return comando;
 
         }
-        public static CadastrarComunicadoCommand CriarComando_CadastroDeComunicado_SemNomeUsuario()
+        public static AdicionarComunicadoCommand CriarComando_CadastroDeComunicado_SemNomeUsuario()
         {
             //Arrange
             var comando = CadastrarCondominioCommandFactory();
@@ -249,7 +249,7 @@ namespace CondominioApp.Comunicados.App.Tests
 
 
 
-        public static EditarComunicadoCommand CriarComando_EdicaoDeComunicado_Publico()
+        public static AtualizarComunicadoCommand CriarComando_EdicaoDeComunicado_Publico()
         {
             //Arrange
             var comando = EditarComunicadoCommandFactory();
@@ -259,7 +259,7 @@ namespace CondominioApp.Comunicados.App.Tests
 
         }
 
-        public static EditarComunicadoCommand CriarComando_EdicaoDeComunicado_Proprietario()
+        public static AtualizarComunicadoCommand CriarComando_EdicaoDeComunicado_Proprietario()
         {
             //Arrange
             var comando = EditarComunicadoCommandFactory();
@@ -270,7 +270,7 @@ namespace CondominioApp.Comunicados.App.Tests
 
         }
 
-        public static EditarComunicadoCommand CriarComando_EdicaoDeComunicado_Unidade()
+        public static AtualizarComunicadoCommand CriarComando_EdicaoDeComunicado_Unidade()
         {
             //Arrange
             var comando = EditarComunicadoCommandFactory();
@@ -290,7 +290,7 @@ namespace CondominioApp.Comunicados.App.Tests
 
         }
 
-        public static EditarComunicadoCommand CriarComando_EdicaoDeComunicado_ProprietarioUnidade()
+        public static AtualizarComunicadoCommand CriarComando_EdicaoDeComunicado_ProprietarioUnidade()
         {
             //Arrange
             var comando = EditarComunicadoCommandFactory();
@@ -310,7 +310,7 @@ namespace CondominioApp.Comunicados.App.Tests
 
         }
 
-        public static EditarComunicadoCommand CriarComando_EdicaoDeComunicado_Unidade_SemUnidades()
+        public static AtualizarComunicadoCommand CriarComando_EdicaoDeComunicado_Unidade_SemUnidades()
         {
             //Arrange
             var comando = EditarComunicadoCommandFactory();
@@ -321,7 +321,7 @@ namespace CondominioApp.Comunicados.App.Tests
 
         }
 
-        public static EditarComunicadoCommand CriarComando_EdicaoDeComunicado_Unidade_ComUnidadeRepetida()
+        public static AtualizarComunicadoCommand CriarComando_EdicaoDeComunicado_Unidade_ComUnidadeRepetida()
         {
             //Arrange
             var comando = EditarComunicadoCommandFactory();
@@ -341,7 +341,7 @@ namespace CondominioApp.Comunicados.App.Tests
             return comando;
         }
 
-        public static EditarComunicadoCommand CriarComando_EdicaoDeComunicado_ProprietarioUnidade_SemUnidades()
+        public static AtualizarComunicadoCommand CriarComando_EdicaoDeComunicado_ProprietarioUnidade_SemUnidades()
         {
             //Arrange
             var comando = EditarComunicadoCommandFactory();
@@ -352,7 +352,7 @@ namespace CondominioApp.Comunicados.App.Tests
 
         }
 
-        public static EditarComunicadoCommand CriarComando_EdicaoDeComunicado_ProprietarioUnidade_ComUnidadeRepetida()
+        public static AtualizarComunicadoCommand CriarComando_EdicaoDeComunicado_ProprietarioUnidade_ComUnidadeRepetida()
         {
             //Arrange
             var comando = EditarComunicadoCommandFactory();
@@ -374,7 +374,7 @@ namespace CondominioApp.Comunicados.App.Tests
         }
 
 
-        public static EditarComunicadoCommand CriarComando_EdicaoDeComunicado_SemTitulo()
+        public static AtualizarComunicadoCommand CriarComando_EdicaoDeComunicado_SemTitulo()
         {
             //Arrange
             var comando = EditarComunicadoCommandFactory();
@@ -384,7 +384,7 @@ namespace CondominioApp.Comunicados.App.Tests
             return comando;           
         }
 
-        public static EditarComunicadoCommand CriarComando_EdicaoDeComunicado_SemDescricao()
+        public static AtualizarComunicadoCommand CriarComando_EdicaoDeComunicado_SemDescricao()
         {
             //Arrange
             var comando = EditarComunicadoCommandFactory();
@@ -394,7 +394,7 @@ namespace CondominioApp.Comunicados.App.Tests
             return comando;
         }
 
-        public static EditarComunicadoCommand CriarComando_EdicaoDeComunicado_SemFuncionarioId()
+        public static AtualizarComunicadoCommand CriarComando_EdicaoDeComunicado_SemFuncionarioId()
         {
             //Arrange
             var comando = EditarComunicadoCommandFactory();
@@ -404,7 +404,7 @@ namespace CondominioApp.Comunicados.App.Tests
             return comando;
         }
 
-        public static EditarComunicadoCommand CriarComando_EdicaoDeComunicado_SemNomeDoFuncionario()
+        public static AtualizarComunicadoCommand CriarComando_EdicaoDeComunicado_SemNomeDoFuncionario()
         {
             //Arrange
             var comando = EditarComunicadoCommandFactory();
@@ -414,7 +414,7 @@ namespace CondominioApp.Comunicados.App.Tests
             return comando;
         }
 
-        public static EditarComunicadoCommand CriarComando_EdicaoDeComunicado_ComDescricaoGrandeDemais()
+        public static AtualizarComunicadoCommand CriarComando_EdicaoDeComunicado_ComDescricaoGrandeDemais()
         {
             //Arrange
             var comando = EditarComunicadoCommandFactory();

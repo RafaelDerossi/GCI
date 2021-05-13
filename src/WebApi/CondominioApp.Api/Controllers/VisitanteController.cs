@@ -80,7 +80,7 @@ namespace CondominioApp.Api.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult> Post(CadastraVisitanteViewModel visitanteVM)
+        public async Task<ActionResult> Post(AdicionaVisitanteViewModel visitanteVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
@@ -91,7 +91,7 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }
 
-            var comando = CadastrarVisitantePorMoradorCommandFactory(visitanteVM, unidade);
+            var comando = AdicionarVisitantePorMoradorCommandFactory(visitanteVM, unidade);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
@@ -99,11 +99,11 @@ namespace CondominioApp.Api.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> Put(EditaVisitanteViewModel visitanteVM)
+        public async Task<ActionResult> Put(AtualizaVisitanteViewModel visitanteVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var comando = EditarVisitantePorMoradorCommandFactory(visitanteVM);
+            var comando = AtualizarVisitantePorMoradorCommandFactory(visitanteVM);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
@@ -122,20 +122,20 @@ namespace CondominioApp.Api.Controllers
 
 
 
-        private CadastrarVisitantePorMoradorCommand CadastrarVisitantePorMoradorCommandFactory
-            (CadastraVisitanteViewModel viewModel, UnidadeFlat unidade)
+        private AdicionarVisitantePorMoradorCommand AdicionarVisitantePorMoradorCommandFactory
+            (AdicionaVisitanteViewModel viewModel, UnidadeFlat unidade)
         {
-            return new CadastrarVisitantePorMoradorCommand(
+            return new AdicionarVisitantePorMoradorCommand(
                   viewModel.Nome, viewModel.TipoDoDocumento, viewModel.Documento, viewModel.Email, viewModel.Foto,
                   viewModel.NomeOriginalFoto, unidade.CondominioId, unidade.CondominioNome,
                   unidade.Id, unidade.Numero, unidade.Andar, unidade.GrupoDescricao, viewModel.VisitantePermanente,
                   viewModel.QrCode, viewModel.TipoDeVisitante, viewModel.NomeEmpresa, viewModel.TemVeiculo);
         }
 
-        private EditarVisitantePorMoradorCommand EditarVisitantePorMoradorCommandFactory
-            (EditaVisitanteViewModel viewModel)
+        private AtualizarVisitantePorMoradorCommand AtualizarVisitantePorMoradorCommandFactory
+            (AtualizaVisitanteViewModel viewModel)
         {
-            return new EditarVisitantePorMoradorCommand(
+            return new AtualizarVisitantePorMoradorCommand(
                    viewModel.Id, viewModel.Nome, viewModel.TipoDoDocumento, viewModel.Documento, viewModel.Email,
                    viewModel.Foto, viewModel.NomeOriginalFoto, viewModel.VisitantePermanente, viewModel.TipoDeVisitante,
                    viewModel.NomeEmpresa, viewModel.TemVeiculo);

@@ -9,8 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using FluentValidation;
-using FluentValidation.Results;
 using System.Linq;
 using CondominioApp.Usuarios.App.Aplication.Query;
 
@@ -110,13 +108,13 @@ namespace CondominioApp.Api.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult> Post(CadastraUnidadeViewModel unidadeVM)
+        public async Task<ActionResult> Post(AdicionaUnidadeViewModel unidadeVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
                         
             for (int i = unidadeVM.NumeroInicial; i <= unidadeVM.NumeroFinal; i++)
             {
-                var comando = new CadastrarUnidadeCommand(
+                var comando = new AdicionarUnidadeCommand(
                  unidadeVM.Codigo, i.ToString(), unidadeVM.Andar,
                  unidadeVM.Vagas, unidadeVM.Telefone, unidadeVM.Ramal,
                  unidadeVM.Complemento, unidadeVM.GrupoId);
@@ -134,7 +132,7 @@ namespace CondominioApp.Api.Controllers
 
 
         [HttpPut("{Id:Guid}")]
-        public async Task<ActionResult> Put(Guid Id, EditaUnidadeViewModel unidadeVM)
+        public async Task<ActionResult> Put(Guid Id, AtualizaUnidadeViewModel unidadeVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
@@ -144,7 +142,7 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }
 
-            var comando = new EditarUnidadeCommand(
+            var comando = new AtualizarUnidadeCommand(
             unidadeVM.Id, unidadeVM.Numero, unidadeVM.Andar,
             unidadeVM.Vagas, unidadeVM.Telefone, unidadeVM.Ramal, unidadeVM.Complemento);
 
@@ -165,9 +163,9 @@ namespace CondominioApp.Api.Controllers
         }
 
         [HttpPut("atualizar-vagas")]
-        public async Task<ActionResult> PutAtualizarVagas(EditaVagaDeUnidadeViewModel viewModel)
+        public async Task<ActionResult> PutAtualizarVagas(AtualizaVagaDeUnidadeViewModel viewModel)
         {
-            var comando = new EditarVagasDaUnidadeCommand(viewModel.Id, viewModel.Vagas);
+            var comando = new AtualizarVagasDaUnidadeCommand(viewModel.Id, viewModel.Vagas);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 

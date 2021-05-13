@@ -9,59 +9,59 @@ namespace CondominioApp.Principal.Tests
     {
 
         /// CadastroCommand
-        public static CadastrarUnidadeCommand CriarComandoCadastroDeUnidade()
+        public static AdicionarUnidadeCommand CriarComandoCadastroDeUnidade()
         {
-            return new CadastrarUnidadeCommand(null, "101", "1", 2,
+            return new AdicionarUnidadeCommand(null, "101", "1", 2,
                   "(21) 96404-9371", "100", "complemento teste", Guid.NewGuid());            
         }
 
-        public static CadastrarUnidadeCommand CriarComandoCadastroDeUnidadeSemNumero()
+        public static AdicionarUnidadeCommand CriarComandoCadastroDeUnidadeSemNumero()
         {
-            return new CadastrarUnidadeCommand(null, null, "1", 2,
+            return new AdicionarUnidadeCommand(null, null, "1", 2,
                    "(21) 96404-9371", "100", "complemento teste", Guid.NewGuid());
         }           
 
-        public static CadastrarUnidadeCommand CriarComandoCadastroDeUnidadeSemAndar()
+        public static AdicionarUnidadeCommand CriarComandoCadastroDeUnidadeSemAndar()
         {
-            return new CadastrarUnidadeCommand(null, "101", null, 2,
+            return new AdicionarUnidadeCommand(null, "101", null, 2,
                     "(21) 96404-9371", "100", "complemento teste", Guid.NewGuid());           
         }
 
-        public static CadastrarUnidadeCommand CriarComandoCadastroDeUnidadeSemGrupo()
+        public static AdicionarUnidadeCommand CriarComandoCadastroDeUnidadeSemGrupo()
         {
-            return new CadastrarUnidadeCommand(null, "101", "1", 2,
+            return new AdicionarUnidadeCommand(null, "101", "1", 2,
                    "(21) 96404-9371", "100", "complemento teste", Guid.Empty);            
         }
 
-        public static CadastrarUnidadeCommand CriarComandoCadastroDeUnidadeSemTelefone()
+        public static AdicionarUnidadeCommand CriarComandoCadastroDeUnidadeSemTelefone()
         {
-            return new CadastrarUnidadeCommand(null, "101", "1", 2,
+            return new AdicionarUnidadeCommand(null, "101", "1", 2,
                   "", "100", "complemento teste", Guid.NewGuid());
         }
 
 
         /// EditarCommand        
-        public static EditarUnidadeCommand CriarComandoEdicaoDeUnidade()
+        public static AtualizarUnidadeCommand CriarComandoEdicaoDeUnidade()
         {
-            return new EditarUnidadeCommand(Guid.NewGuid(), "101", "1", 2, "(21) 96404-9371",
+            return new AtualizarUnidadeCommand(Guid.NewGuid(), "101", "1", 2, "(21) 96404-9371",
                    "100", "complemento teste");            
         }
 
-        public static EditarUnidadeCommand CriarComandoEdicaoDeUnidadeSemNumero()
+        public static AtualizarUnidadeCommand CriarComandoEdicaoDeUnidadeSemNumero()
         {
-            return new EditarUnidadeCommand(Guid.NewGuid(), "", "1", 2, "(21) 96404-9371",
+            return new AtualizarUnidadeCommand(Guid.NewGuid(), "", "1", 2, "(21) 96404-9371",
                    "100", "complemento teste");
         }
 
-        public static EditarUnidadeCommand CriarComandoEdicaoDeUnidadeSemAndar()
+        public static AtualizarUnidadeCommand CriarComandoEdicaoDeUnidadeSemAndar()
         {
-            return new EditarUnidadeCommand(Guid.NewGuid(), "101", "", 2, "(21) 96404-9371",
+            return new AtualizarUnidadeCommand(Guid.NewGuid(), "101", "", 2, "(21) 96404-9371",
                    "100", "complemento teste");
         }
 
-        public static EditarUnidadeCommand CriarComandoEdicaoDeUnidadeSemTelefone()
+        public static AtualizarUnidadeCommand CriarComandoEdicaoDeUnidadeSemTelefone()
         {
-            return new EditarUnidadeCommand(Guid.NewGuid(), "101", "1", 2, "(21) 96404-9371",
+            return new AtualizarUnidadeCommand(Guid.NewGuid(), "101", "1", 2, "(21) 96404-9371",
                    "100", "complemento teste");
         }
 

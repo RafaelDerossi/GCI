@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace CondominioApp.Usuarios.App.Aplication.Events
 {
     public class MoradorEventHandler : EventHandler,
-        INotificationHandler<MoradorCadastradoEvent>,
+        INotificationHandler<MoradorAdicionadoEvent>,
         INotificationHandler<MoradorRemovidoEvent>,
         INotificationHandler<UnidadeMarcadaComoPrincipalEvent>,
         INotificationHandler<MarcadoComoProprietarioEvent>,
@@ -28,7 +28,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Events
         }
                
 
-        public async Task Handle(MoradorCadastradoEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(MoradorAdicionadoEvent notification, CancellationToken cancellationToken)
         {
             var usuario = await _usuarioRepository.ObterPorId(notification.UsuarioId);
 

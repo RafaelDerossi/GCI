@@ -152,7 +152,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
 
             var areaComum = AreaComumFactory.CriarAreaComum_AprovacaoAutomatica();
 
-            var command = new EditarAreaComumCommand
+            var command = new AtualizarAreaComumCommand
               (areaComum.Id, areaComum.Nome, areaComum.Descricao, areaComum.TermoDeUso,
                areaComum.Capacidade, areaComum.DiasPermitidos, areaComum.AntecedenciaMaximaEmMeses,
                areaComum.AntecedenciaMaximaEmDias, areaComum.AntecedenciaMinimaEmDias,

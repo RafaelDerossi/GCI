@@ -13,8 +13,8 @@ using System.Threading.Tasks;
 namespace CondominioApp.ReservaAreaComum.Aplication.Commands
 {
     public class AreaComumCommandHandler : CommandHandler,
-         IRequestHandler<CadastrarAreaComumCommand, ValidationResult>,
-         IRequestHandler<EditarAreaComumCommand, ValidationResult>,
+         IRequestHandler<AdicionarAreaComumCommand, ValidationResult>,
+         IRequestHandler<AtualizarAreaComumCommand, ValidationResult>,
          IRequestHandler<ApagarAreaComumCommand, ValidationResult>,
          IRequestHandler<AtivarAreaComumCommand, ValidationResult>,
          IRequestHandler<DesativarAreaComumCommand, ValidationResult>,
@@ -29,7 +29,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
         }
 
 
-        public async Task<ValidationResult> Handle(CadastrarAreaComumCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(AdicionarAreaComumCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido()) return request.ValidationResult;
 
@@ -49,7 +49,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
             _areaComumRepository.Adicionar(areaComum);
 
             //Evento
-            areaComum.AdicionarEvento(new AreaComumCadastradaEvent
+            areaComum.AdicionarEvento(new AreaComumAdicionadaEvent
                 (areaComum.Id, areaComum.Nome, areaComum.Descricao, areaComum.TermoDeUso,
                 areaComum.CondominioId, areaComum.NomeCondominio, areaComum.Capacidade,
                 areaComum.DiasPermitidos, areaComum.AntecedenciaMaximaEmMeses,
@@ -65,7 +65,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
         }
 
 
-        public async Task<ValidationResult> Handle(EditarAreaComumCommand request, CancellationToken cancellationToken)  
+        public async Task<ValidationResult> Handle(AtualizarAreaComumCommand request, CancellationToken cancellationToken)  
         {
             if (!request.EstaValido())
                 return request.ValidationResult;
@@ -130,7 +130,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
             _areaComumRepository.Atualizar(areaComum);
 
             //Evento
-            areaComum.AdicionarEvento(new AreaComumEditadaEvent
+            areaComum.AdicionarEvento(new AreaComumAtualizadaEvent
                 (areaComum.Id, areaComum.Nome, areaComum.Descricao, areaComum.TermoDeUso, areaComum.Capacidade,
                 areaComum.DiasPermitidos, areaComum.AntecedenciaMaximaEmMeses, areaComum.AntecedenciaMaximaEmDias,
                 areaComum.AntecedenciaMinimaEmDias, areaComum.AntecedenciaMinimaParaCancelamentoEmDias,
@@ -209,7 +209,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
 
 
 
-        private AreaComum AreaComumFactory(CadastrarAreaComumCommand request)
+        private AreaComum AreaComumFactory(AdicionarAreaComumCommand request)
         {
             return new AreaComum
                 (request.Nome, request.Descricao, request.TermoDeUso, request.CondominioId, request.NomeCondominio,

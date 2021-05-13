@@ -50,11 +50,11 @@ namespace CondominioApp.Api.Controllers
 
         
         [HttpPost("credencial-de-api")]
-        public async Task<ActionResult> Post(CadastraCondominioCredencialViewModel credencialVM)
+        public async Task<ActionResult> Post(AdicionaCondominioCredencialViewModel credencialVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var comando = new CadastrarCondominioCredencialCommand(
+            var comando = new AdicionarCondominioCredencialCommand(
                 credencialVM.Email, credencialVM.Senha, credencialVM.CondominioId, credencialVM.TipoApiAutomacao);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);            
@@ -63,11 +63,11 @@ namespace CondominioApp.Api.Controllers
         }
 
         [HttpPut("credencial-de-api")]
-        public async Task<ActionResult> Put(EditaCondominioCredencialViewModel credencialVM)
+        public async Task<ActionResult> Put(AtualizaCondominioCredencialViewModel credencialVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var comando = new EditarCondominioCredencialCommand
+            var comando = new AtualizarCondominioCredencialCommand
                 (credencialVM.Id, credencialVM.Email, credencialVM.Senha, credencialVM.TipoApiAutomacao);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);

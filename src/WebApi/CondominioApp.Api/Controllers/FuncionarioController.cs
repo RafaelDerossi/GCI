@@ -70,6 +70,7 @@ namespace CondominioApp.Api.Controllers
         }
 
 
+
         [HttpPost("vincular-funcionario-condominio")]
         public async Task<ActionResult> Post(VincularFuncionarioCondominioViewModel vincularViewModel)
         {
@@ -89,7 +90,7 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }
 
-            var comando = new CadastrarFuncionarioCommand
+            var comando = new AdicionarFuncionarioCommand
                 (usuario.Id, condominio.Id, condominio.Nome, vincularViewModel.Atribuicao,
                 vincularViewModel.Funcao, vincularViewModel.Permissao);
 
@@ -104,7 +105,7 @@ namespace CondominioApp.Api.Controllers
         }
 
         [HttpPost("registrar-dispositivo")]
-        public async Task<ActionResult> PostRegistrarDispositivo(CadastraMobileFuncionarioViewModel mobileVM)
+        public async Task<ActionResult> PostRegistrarDispositivo(AdicionaMobileFuncionarioViewModel mobileVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
@@ -118,8 +119,8 @@ namespace CondominioApp.Api.Controllers
 
 
 
-        [HttpPut("editar-funcionario")]
-        public async Task<ActionResult> Put(EditaFuncionarioViewModel editaViewModel)
+        [HttpPut("atualizar")]
+        public async Task<ActionResult> Put(AtualizaFuncionarioViewModel editaViewModel)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
@@ -130,7 +131,7 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }
 
-            var comando = new EditarFuncionarioCommand
+            var comando = new AtualizarFuncionarioCommand
                 (funcionario.Id, editaViewModel.Atribuicao, editaViewModel.Funcao, editaViewModel.Permissao);
 
             var resultado = await _mediatorHandler.EnviarComando(comando);

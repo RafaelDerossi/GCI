@@ -476,26 +476,26 @@ namespace CondominioApp.Identidade.Api.Controllers
         }
 
 
-        private CadastrarMoradorCommand CadastrarMoradorCommandFactory(MoradorRegistroViewModel moradorVM,
+        private AdicionarMoradorCommand CadastrarMoradorCommandFactory(MoradorRegistroViewModel moradorVM,
             CondominioFlat condominio, UnidadeFlat unidade, Guid userId)
         {
-            return new CadastrarMoradorCommand
+            return new AdicionarMoradorCommand
                 (userId, condominio.Id, condominio.Nome, unidade.Id, unidade.Numero, unidade.Andar,
                 unidade.GrupoDescricao, moradorVM.Proprietario, moradorVM.Principal, moradorVM.CriadoPelaAdministracao);
         }        
        
-        private CadastrarFuncionarioCommand CadastrarFuncionarioCommandFactory(FuncionarioRegistroViewModel usuarioRegistro,
+        private AdicionarFuncionarioCommand CadastrarFuncionarioCommandFactory(FuncionarioRegistroViewModel usuarioRegistro,
            CondominioFlat condominio, Guid userId)
         {
-            return new CadastrarFuncionarioCommand
+            return new AdicionarFuncionarioCommand
                 (userId, usuarioRegistro.CondominioId, condominio.Nome, usuarioRegistro.Atribuicao, usuarioRegistro.Funcao,
                  usuarioRegistro.Permissao);
         }
        
-        private CadastrarUsuarioCommand CadastrarUsuarioCommandFactory
+        private AdicionarUsuarioCommand CadastrarUsuarioCommandFactory
             (UsuarioRegistro usuarioRegistro, Guid userId, bool enviarEmailDeConfirmacao)
         {
-            return new CadastrarUsuarioCommand
+            return new AdicionarUsuarioCommand
                 (userId, usuarioRegistro.Nome, usuarioRegistro.Sobrenome, usuarioRegistro.Email,
                  usuarioRegistro.Foto, usuarioRegistro.NomeOriginal, usuarioRegistro.Rg, usuarioRegistro.Cpf,
                  usuarioRegistro.Telefone, usuarioRegistro.Celular, 

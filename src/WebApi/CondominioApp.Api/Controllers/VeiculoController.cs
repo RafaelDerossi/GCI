@@ -103,7 +103,7 @@ namespace CondominioApp.Api.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult> Post(CadastraVeiculoViewModel veiculoVM)
+        public async Task<ActionResult> Post(AdicionaVeiculoViewModel veiculoVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
@@ -114,7 +114,7 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }
 
-            var comando = new CadastrarVeiculoCommand(
+            var comando = new AdicionarVeiculoCommand(
                  veiculoVM.UsuarioId, veiculoVM.Placa, veiculoVM.Modelo, veiculoVM.Cor,
                  unidade.Id, unidade.Numero, unidade.Andar, unidade.GrupoDescricao,
                  unidade.CondominioId, unidade.CondominioNome, veiculoVM.Tag, veiculoVM.Observacao);
@@ -130,11 +130,11 @@ namespace CondominioApp.Api.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> Put(EditaVeiculoViewModel veiculoVM)
+        public async Task<ActionResult> Put(AtualizaVeiculoViewModel veiculoVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
             
-            var comando = new EditarVeiculoCommand(
+            var comando = new AtualizarVeiculoCommand(
                  veiculoVM.veiculoCondominioId, veiculoVM.Placa, veiculoVM.Modelo, veiculoVM.Cor,
                  veiculoVM.Tag, veiculoVM .Observacao);
 

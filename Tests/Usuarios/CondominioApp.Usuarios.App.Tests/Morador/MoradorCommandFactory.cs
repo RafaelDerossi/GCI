@@ -5,19 +5,19 @@ namespace CondominioApp.Usuarios.App.Tests
 {
     public class MoradorCommandFactory
     {
-        public static CadastrarMoradorCommand CadastrarMoradorCommandFactoy()
+        public static AdicionarMoradorCommand CadastrarMoradorCommandFactoy()
         {
-            return new CadastrarMoradorCommand
+            return new AdicionarMoradorCommand
                 (Guid.NewGuid(), Guid.NewGuid(), "NomeCondominio", Guid.NewGuid(),
                 "101", "1", "Bloco A", true, true, true);
         }
 
-        public static CadastrarMoradorCommand CriarComandoCadastroDeMorador()
+        public static AdicionarMoradorCommand CriarComandoCadastroDeMorador()
         {
             return CadastrarMoradorCommandFactoy();
         }
 
-        public static CadastrarMoradorCommand CriarComandoCadastroDeMoradorPeloApp()
+        public static AdicionarMoradorCommand CriarComandoCadastroDeMoradorPeloApp()
         {
             var comando = CadastrarMoradorCommandFactoy();
 

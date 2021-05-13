@@ -5,18 +5,18 @@ namespace CondominioApp.Principal.Tests
 {
     public class CondominioCommandFactory
     {
-        private static CadastrarCondominioCommand CadastrarCondominioCommandFactory()
+        private static AdicionarCondominioCommand CadastrarCondominioCommandFactory()
         {
-            return new CadastrarCondominioCommand("26585345000148", "Condominio TU",
+            return new AdicionarCondominioCommand("26585345000148", "Condominio TU",
                             "Condominio Teste Unitario", "Foto.jpg", "Foto.jpg", "(21) 99796-7038",
                             "Rua...", null, "1001", "23063260", "Bairro", "Cidade", "RJ",
                             0, null, null, null, false, false, false, false, false, false, false, false,
                             false, false, false, false, false, false, false, DateTime.Today.Date,
                             Core.Enumeradores.TipoDePlano.BASIC, "Primeiro Contrato", true, "link");
         }
-        private static EditarCondominioCommand EditarCondominioCommandFactory()
+        private static AtualizarCondominioCommand EditarCondominioCommandFactory()
         {
-            return new EditarCondominioCommand(Guid.NewGuid(), "26585345000148", "Condominio TU",
+            return new AtualizarCondominioCommand(Guid.NewGuid(), "26585345000148", "Condominio TU",
                "Condominio Teste Unitario", "Foto.jpg", "Foto.jpg", "(21) 99796-7038",
                "Rua...", null, "1001", "23063260", "Bairro", "Cidade", "RJ");
         }
@@ -26,14 +26,14 @@ namespace CondominioApp.Principal.Tests
         /// CadastrarCommand
         /// </summary>
         /// <returns></returns>
-        public static CadastrarCondominioCommand CriarComandoCadastroDeCondominio()
+        public static AdicionarCondominioCommand CriarComandoCadastroDeCondominio()
         {
 
            return CadastrarCondominioCommandFactory();
 
         }
 
-        public static CadastrarCondominioCommand CriarComandoCadastroDeCondominioSemNome()
+        public static AdicionarCondominioCommand CriarComandoCadastroDeCondominioSemNome()
         {
             var comando = CadastrarCondominioCommandFactory();
 
@@ -42,7 +42,7 @@ namespace CondominioApp.Principal.Tests
             return comando;
         }
 
-        public static CadastrarCondominioCommand CriarComandoCadastroDeCondominioSemCNPJ()
+        public static AdicionarCondominioCommand CriarComandoCadastroDeCondominioSemCNPJ()
         {
             var comando = CadastrarCondominioCommandFactory();
 
@@ -52,7 +52,7 @@ namespace CondominioApp.Principal.Tests
 
         }
 
-        public static CadastrarCondominioCommand CriarComandoCadastroDeCondominioComCNPJInvalido()
+        public static AdicionarCondominioCommand CriarComandoCadastroDeCondominioComCNPJInvalido()
         {
             var comando = CadastrarCondominioCommandFactory();
 
@@ -61,7 +61,7 @@ namespace CondominioApp.Principal.Tests
             return comando;                      
         }
 
-        public static CadastrarCondominioCommand CriarComandoCadastroDeCondominioSemFoto()
+        public static AdicionarCondominioCommand CriarComandoCadastroDeCondominioSemFoto()
         {
             var comando = CadastrarCondominioCommandFactory();
 
@@ -70,7 +70,7 @@ namespace CondominioApp.Principal.Tests
             return comando;
         }
 
-        public static CadastrarCondominioCommand CriarComandoCadastroDeCondominioSemTelefone()
+        public static AdicionarCondominioCommand CriarComandoCadastroDeCondominioSemTelefone()
         {
             var comando = CadastrarCondominioCommandFactory();
 
@@ -79,7 +79,7 @@ namespace CondominioApp.Principal.Tests
             return comando;           
         }
 
-        public static CadastrarCondominioCommand CriarComandoCadastroDeCondominioComTelefoneInvalido()
+        public static AdicionarCondominioCommand CriarComandoCadastroDeCondominioComTelefoneInvalido()
         {
             var comando = CadastrarCondominioCommandFactory();
 
@@ -88,7 +88,7 @@ namespace CondominioApp.Principal.Tests
             return comando;            
         }
 
-        public static CadastrarCondominioCommand CriarComandoCadastroDeCondominioSemContrato()
+        public static AdicionarCondominioCommand CriarComandoCadastroDeCondominioSemContrato()
         {
             var comando = CadastrarCondominioCommandFactory();
 
@@ -101,12 +101,12 @@ namespace CondominioApp.Principal.Tests
         /// EditarCommand
         /// </summary>
         /// <returns></returns>
-        public static EditarCondominioCommand CriarComandoEdicaoDeCondominio()
+        public static AtualizarCondominioCommand CriarComandoEdicaoDeCondominio()
         {
             return EditarCondominioCommandFactory();
         }
 
-        public static EditarCondominioCommand CriarComandoEdicaoDeCondominioSemCNPJ()
+        public static AtualizarCondominioCommand CriarComandoEdicaoDeCondominioSemCNPJ()
         {
             var comando = EditarCondominioCommandFactory();
 
@@ -115,7 +115,7 @@ namespace CondominioApp.Principal.Tests
             return comando;
         }
 
-        public static EditarCondominioCommand CriarComandoEdicaoDeCondominioComCNPJInvalido()
+        public static AtualizarCondominioCommand CriarComandoEdicaoDeCondominioComCNPJInvalido()
         {
             var comando = EditarCondominioCommandFactory();
 
@@ -124,7 +124,7 @@ namespace CondominioApp.Principal.Tests
             return comando;
         }
 
-        public static EditarCondominioCommand CriarComandoEdicaoDeCondominioSemNome()
+        public static AtualizarCondominioCommand CriarComandoEdicaoDeCondominioSemNome()
         {
             var comando = EditarCondominioCommandFactory();
 
@@ -137,10 +137,10 @@ namespace CondominioApp.Principal.Tests
         /// EditarConfiguracaoCommand
         /// </summary>
         /// <returns></returns>
-        public static EditarConfiguracaoCondominioCommand CriarComandoEdicaoDeConfiguracaoDoCondominio()
+        public static AtualizarConfiguracaoCondominioCommand CriarComandoEdicaoDeConfiguracaoDoCondominio()
         {
 
-            return new EditarConfiguracaoCondominioCommand(Guid.NewGuid(), true, false, true,
+            return new AtualizarConfiguracaoCondominioCommand(Guid.NewGuid(), true, false, true,
                 false, false, false, false, false, false, false, false, false, false, false, false);
 
         }

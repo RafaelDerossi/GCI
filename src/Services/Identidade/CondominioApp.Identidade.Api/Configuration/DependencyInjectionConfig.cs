@@ -23,23 +23,23 @@ namespace CondominioApp.Identidade.Api.Configuration
             services.AddScoped<IMediatorHandler, MediatorHandler>();
 
             #region Usuario
-            services.AddScoped<IRequestHandler<CadastrarUsuarioCommand, ValidationResult>, UsuarioCommandHandler>();
+            services.AddScoped<IRequestHandler<AdicionarUsuarioCommand, ValidationResult>, UsuarioCommandHandler>();
             services.AddScoped<IRequestHandler<RemoverUsuarioCommand, ValidationResult>, UsuarioCommandHandler>();
             services.AddScoped<IRequestHandler<AtualizarUltimoLoginUsuarioCommand, ValidationResult>, UsuarioCommandHandler>();
             #endregion
 
             #region Morador
-            services.AddScoped<IRequestHandler<CadastrarMoradorCommand, ValidationResult>, MoradorCommandHandler>();
+            services.AddScoped<IRequestHandler<AdicionarMoradorCommand, ValidationResult>, MoradorCommandHandler>();
             services.AddScoped<IRequestHandler<ApagarMoradorCommand, ValidationResult>, MoradorCommandHandler>();
             services.AddScoped<IRequestHandler<RemoverMoradorCommand, ValidationResult>, MoradorCommandHandler>();
-            services.AddScoped<INotificationHandler<MoradorCadastradoEvent>, MoradorEventHandler>();
+            services.AddScoped<INotificationHandler<MoradorAdicionadoEvent>, MoradorEventHandler>();
             services.AddScoped<INotificationHandler<MoradorApagadoEvent>, MoradorEventHandler>();
             services.AddScoped<INotificationHandler<MoradorRemovidoEvent>, MoradorEventHandler>();
             #endregion
 
             #region Funcionario
-            services.AddScoped<IRequestHandler<CadastrarFuncionarioCommand, ValidationResult>, FuncionarioCommandHandler>();
-            services.AddScoped<INotificationHandler<FuncionarioCadastradoEvent>, FuncionarioEventHandler>();
+            services.AddScoped<IRequestHandler<AdicionarFuncionarioCommand, ValidationResult>, FuncionarioCommandHandler>();
+            services.AddScoped<INotificationHandler<FuncionarioAdicionadoEvent>, FuncionarioEventHandler>();
             #endregion
 
             #region NotificacaoEmail -Contexto            

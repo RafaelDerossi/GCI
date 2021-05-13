@@ -64,11 +64,11 @@ namespace CondominioApp.Api.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult> Post(CadastraContratoViewModel contratoVM)
+        public async Task<ActionResult> Post(AdicionaContratoViewModel contratoVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var comando = new CadastrarContratoCommand(
+            var comando = new AdicionarContratoCommand(
                  contratoVM.CondominioId, contratoVM.DataDaAssinatura, contratoVM.TipoPlano, contratoVM.Descricao,
                  contratoVM.Ativo, contratoVM.LinkContrato);
                        
@@ -79,11 +79,11 @@ namespace CondominioApp.Api.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> Put(EditaContratoViewModel editaContratoVM)
+        public async Task<ActionResult> Put(AtualizaContratoViewModel editaContratoVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var comando = new EditarContratoCommand
+            var comando = new AtualizarContratoCommand
                 (editaContratoVM.Id, editaContratoVM.DataDaAssinatura, editaContratoVM.TipoPlano,
                 editaContratoVM.Descricao, editaContratoVM.Ativo, editaContratoVM.LinkContrato);
 

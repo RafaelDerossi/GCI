@@ -11,8 +11,8 @@ using MediatR;
 namespace CondominioApp.Usuarios.App.Aplication.Commands
 {
     public class FuncionarioCommandHandler : CommandHandler,                
-        IRequestHandler<CadastrarFuncionarioCommand, ValidationResult>,
-        IRequestHandler<EditarFuncionarioCommand, ValidationResult>,
+        IRequestHandler<AdicionarFuncionarioCommand, ValidationResult>,
+        IRequestHandler<AtualizarFuncionarioCommand, ValidationResult>,
         IRequestHandler<AtivarFuncionarioCommand, ValidationResult>,
         IRequestHandler<DesativarFuncionarioCommand, ValidationResult>,
         IDisposable
@@ -25,7 +25,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
         }
 
        
-        public async Task<ValidationResult> Handle(CadastrarFuncionarioCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(AdicionarFuncionarioCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido()) return request.ValidationResult;
 
@@ -49,7 +49,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
 
             //Evento
             funcionarioNovo.AdicionarEvento(
-               new FuncionarioCadastradoEvent(
+               new FuncionarioAdicionadoEvent(
                    funcionarioNovo.Id, funcionarioNovo.UsuarioId, funcionarioNovo.CondominioId, request.NomeCondominio,
                    funcionarioNovo.Atribuicao, funcionarioNovo.Funcao, funcionarioNovo.Permissao));
             
@@ -60,7 +60,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
 
         }
 
-        public async Task<ValidationResult> Handle(EditarFuncionarioCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(AtualizarFuncionarioCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido()) return request.ValidationResult;
 
@@ -79,7 +79,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
 
             //Evento
             funcionario.AdicionarEvento(
-               new FuncionarioEditadoEvent(
+               new FuncionarioAtualizadoEvent(
                    funcionario.Id, funcionario.Atribuicao, funcionario.Funcao, funcionario.Permissao));
 
             return await PersistirDados(_usuarioRepository.UnitOfWork);

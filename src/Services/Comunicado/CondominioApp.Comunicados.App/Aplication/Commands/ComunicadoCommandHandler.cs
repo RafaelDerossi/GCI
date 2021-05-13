@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 namespace CondominioApp.Comunicados.App.Aplication.Commands
 {
     public class ComunicadoCommandHandler : CommandHandler,
-         IRequestHandler<CadastrarComunicadoCommand, ValidationResult>,
-         IRequestHandler<EditarComunicadoCommand, ValidationResult>,
+         IRequestHandler<AdicionarComunicadoCommand, ValidationResult>,
+         IRequestHandler<AtualizarComunicadoCommand, ValidationResult>,
          IRequestHandler<ApagarComunicadoCommand, ValidationResult>,         
          IDisposable
     {
@@ -23,7 +23,7 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
         }
 
 
-        public async Task<ValidationResult> Handle(CadastrarComunicadoCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(AdicionarComunicadoCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido())
                 return request.ValidationResult;
@@ -44,7 +44,7 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
         }
 
 
-        public async Task<ValidationResult> Handle(EditarComunicadoCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(AtualizarComunicadoCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido())
                 return request.ValidationResult;
@@ -106,7 +106,7 @@ namespace CondominioApp.Comunicados.App.Aplication.Commands
         
 
 
-        private Comunicado ComunicadoFactory(CadastrarComunicadoCommand request)
+        private Comunicado ComunicadoFactory(AdicionarComunicadoCommand request)
         {
             var comunicado = new Comunicado(
                 request.Titulo, request.Descricao, request.DataDeRealizacao, request.CondominioId, 

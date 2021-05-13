@@ -96,15 +96,15 @@ namespace CondominioApp.Api.Configuration
 
             #region ArquivoDigital -Contexto
             //Pasta
-            services.AddTransient<IRequestHandler<CadastrarPastaCommand, ValidationResult>, PastaCommandHandler>();
-            services.AddTransient<IRequestHandler<EditarPastaCommand, ValidationResult>, PastaCommandHandler>();
+            services.AddTransient<IRequestHandler<AdicionarPastaCommand, ValidationResult>, PastaCommandHandler>();
+            services.AddTransient<IRequestHandler<AtualizarPastaCommand, ValidationResult>, PastaCommandHandler>();
             services.AddTransient<IRequestHandler<MarcarPastaComoPublicaCommand, ValidationResult>, PastaCommandHandler>();
             services.AddTransient<IRequestHandler<MarcarPastaComoPrivadaCommand, ValidationResult>, PastaCommandHandler>();
             services.AddTransient<IRequestHandler<ApagarPastaCommand, ValidationResult>, PastaCommandHandler>();
 
             //Arquivo
-            services.AddTransient<IRequestHandler<CadastrarArquivoCommand, ValidationResult>, ArquivoCommandHandler>();
-            services.AddTransient<IRequestHandler<EditarArquivoCommand, ValidationResult>, ArquivoCommandHandler>();
+            services.AddTransient<IRequestHandler<AdicionarArquivoCommand, ValidationResult>, ArquivoCommandHandler>();
+            services.AddTransient<IRequestHandler<AtualizarArquivoCommand, ValidationResult>, ArquivoCommandHandler>();
             services.AddTransient<IRequestHandler<AlterarPastaDoArquivoCommand, ValidationResult>, ArquivoCommandHandler>();
             services.AddTransient<IRequestHandler<MarcarArquivoComoPublicoCommand, ValidationResult>, ArquivoCommandHandler>();
             services.AddTransient<IRequestHandler<MarcarArquivoComoPrivadoCommand, ValidationResult>, ArquivoCommandHandler>();
@@ -116,8 +116,8 @@ namespace CondominioApp.Api.Configuration
             #region Automacao -Contexto
 
             services.AddTransient<IDispositivosServiceFactory, DispositivoServiceFactory>();
-            services.AddTransient<IRequestHandler<CadastrarCondominioCredencialCommand, ValidationResult>, CondominioCredencialCommandHandler>();
-            services.AddTransient<IRequestHandler<EditarCondominioCredencialCommand, ValidationResult>, CondominioCredencialCommandHandler>();
+            services.AddTransient<IRequestHandler<AdicionarCondominioCredencialCommand, ValidationResult>, CondominioCredencialCommandHandler>();
+            services.AddTransient<IRequestHandler<AtualizarCondominioCredencialCommand, ValidationResult>, CondominioCredencialCommandHandler>();
             services.AddTransient<IRequestHandler<ApagarCondominioCredencialCommand, ValidationResult>, CondominioCredencialCommandHandler>();
 
             #endregion
@@ -134,8 +134,8 @@ namespace CondominioApp.Api.Configuration
             #region Comunicado -Contexto
 
             //Comunicado
-            services.AddTransient<IRequestHandler<CadastrarComunicadoCommand, ValidationResult>, ComunicadoCommandHandler>();
-            services.AddTransient<IRequestHandler<EditarComunicadoCommand, ValidationResult>, ComunicadoCommandHandler>();
+            services.AddTransient<IRequestHandler<AdicionarComunicadoCommand, ValidationResult>, ComunicadoCommandHandler>();
+            services.AddTransient<IRequestHandler<AtualizarComunicadoCommand, ValidationResult>, ComunicadoCommandHandler>();
             services.AddTransient<IRequestHandler<ApagarComunicadoCommand, ValidationResult>, ComunicadoCommandHandler>();
 
             #endregion
@@ -144,7 +144,7 @@ namespace CondominioApp.Api.Configuration
             #region Correspondencia -Contexto
 
             //Correspondencia
-            services.AddTransient<IRequestHandler<CadastrarCorrespondenciaCommand, ValidationResult>, CorrespondenciaCommandHandler>();
+            services.AddTransient<IRequestHandler<AdicionarCorrespondenciaCommand, ValidationResult>, CorrespondenciaCommandHandler>();
             services.AddTransient<IRequestHandler<MarcarCorrespondenciaVistaCommand, ValidationResult>, CorrespondenciaCommandHandler>();
             services.AddTransient<IRequestHandler<MarcarCorrespondenciaRetiradaCommand, ValidationResult>, CorrespondenciaCommandHandler>();
             services.AddTransient<IRequestHandler<MarcarCorrespondenciaDevolvidaCommand, ValidationResult>, CorrespondenciaCommandHandler>();
@@ -158,14 +158,14 @@ namespace CondominioApp.Api.Configuration
             #region Enquete -Contexto
 
             //Enquete
-            services.AddTransient<IRequestHandler<CadastrarEnqueteCommand, ValidationResult>, EnqueteCommandHandler>();
-            services.AddTransient<IRequestHandler<EditarEnqueteCommand, ValidationResult>, EnqueteCommandHandler>();
-            services.AddTransient<IRequestHandler<EditarDataFimDaEnqueteCommand, ValidationResult>, EnqueteCommandHandler>();
+            services.AddTransient<IRequestHandler<AdicionarEnqueteCommand, ValidationResult>, EnqueteCommandHandler>();
+            services.AddTransient<IRequestHandler<AtualizarEnqueteCommand, ValidationResult>, EnqueteCommandHandler>();
+            services.AddTransient<IRequestHandler<AtualizarDataFimDaEnqueteCommand, ValidationResult>, EnqueteCommandHandler>();
             services.AddTransient<IRequestHandler<ApagarEnqueteCommand, ValidationResult>, EnqueteCommandHandler>();
             services.AddTransient<INotificationHandler<EnqueteCadastradaEvent>, EnqueteEventHandler>();
 
             //AlternativasEnquete
-            services.AddTransient<IRequestHandler<EditarAlternativaCommand, ValidationResult>, AlternativaEnqueteCommandHandler>();
+            services.AddTransient<IRequestHandler<AtualizarAlternativaCommand, ValidationResult>, AlternativaEnqueteCommandHandler>();
             services.AddTransient<IRequestHandler<RemoverAlternativaCommand, ValidationResult>, AlternativaEnqueteCommandHandler>();
 
             //RespostaEnquete
@@ -228,41 +228,41 @@ namespace CondominioApp.Api.Configuration
 
             #region Ocorrencia -Contexto
             //Ocorrencia
-            services.AddTransient<IRequestHandler<CadastrarOcorrenciaCommand, ValidationResult>, OcorrenciaCommandHandler>();
-            services.AddTransient<IRequestHandler<EditarOcorrenciaCommand, ValidationResult>, OcorrenciaCommandHandler>();
+            services.AddTransient<IRequestHandler<AdicionarOcorrenciaCommand, ValidationResult>, OcorrenciaCommandHandler>();
+            services.AddTransient<IRequestHandler<AtualizarOcorrenciaCommand, ValidationResult>, OcorrenciaCommandHandler>();
             services.AddTransient<IRequestHandler<ApagarOcorrenciaCommand, ValidationResult>, OcorrenciaCommandHandler>();
 
             //Resposta
-            services.AddTransient<IRequestHandler<CadastrarRespostaOcorrenciaMoradorCommand, ValidationResult>, RespostaOcorrenciaCommandHandler>();
-            services.AddTransient<IRequestHandler<CadastrarRespostaOcorrenciaSindicoCommand, ValidationResult>, RespostaOcorrenciaCommandHandler>();
+            services.AddTransient<IRequestHandler<AdicionarRespostaOcorrenciaMoradorCommand, ValidationResult>, RespostaOcorrenciaCommandHandler>();
+            services.AddTransient<IRequestHandler<AdicionarRespostaOcorrenciaSindicoCommand, ValidationResult>, RespostaOcorrenciaCommandHandler>();
             services.AddTransient<IRequestHandler<MarcarRespostaOcorrenciaComoVistaCommand, ValidationResult>, RespostaOcorrenciaCommandHandler>();
-            services.AddTransient<IRequestHandler<EditarRespostaOcorrenciaCommand, ValidationResult>, RespostaOcorrenciaCommandHandler>();
+            services.AddTransient<IRequestHandler<AtualizarRespostaOcorrenciaCommand, ValidationResult>, RespostaOcorrenciaCommandHandler>();
             #endregion
 
 
             #region Portaria -Contexto
 
             //Visitante                        
-            services.AddTransient<IRequestHandler<CadastrarVisitantePorMoradorCommand, ValidationResult>, VisitanteCommandHandler>();
-            services.AddTransient<IRequestHandler<CadastrarVisitantePorPorteiroCommand, ValidationResult>, VisitanteCommandHandler>();
-            services.AddTransient<IRequestHandler<EditarVisitantePorMoradorCommand, ValidationResult>, VisitanteCommandHandler>();
-            services.AddTransient<IRequestHandler<EditarVisitantePorPorteiroCommand, ValidationResult>, VisitanteCommandHandler>();
+            services.AddTransient<IRequestHandler<AdicionarVisitantePorMoradorCommand, ValidationResult>, VisitanteCommandHandler>();
+            services.AddTransient<IRequestHandler<AdicionarVisitantePorPorteiroCommand, ValidationResult>, VisitanteCommandHandler>();
+            services.AddTransient<IRequestHandler<AtualizarVisitantePorMoradorCommand, ValidationResult>, VisitanteCommandHandler>();
+            services.AddTransient<IRequestHandler<AtualizarVisitantePorPorteiroCommand, ValidationResult>, VisitanteCommandHandler>();
             services.AddTransient<IRequestHandler<ApagarVisitanteCommand, ValidationResult>, VisitanteCommandHandler>();
-            services.AddTransient<INotificationHandler<VisitanteCadastradoEvent>, VisitanteEventHandler>();
-            services.AddTransient<INotificationHandler<VisitanteEditadoEvent>, VisitanteEventHandler>();
+            services.AddTransient<INotificationHandler<VisitanteAdicionadoEvent>, VisitanteEventHandler>();
+            services.AddTransient<INotificationHandler<VisitanteAtualizadoEvent>, VisitanteEventHandler>();
             services.AddTransient<INotificationHandler<VisitanteApagadoEvent>, VisitanteEventHandler>();
 
             //Visita
-            services.AddScoped<IRequestHandler<CadastrarVisitaPorPorteiroCommand, ValidationResult>, VisitaCommandHandler>();
-            services.AddScoped<IRequestHandler<CadastrarVisitaPorMoradorCommand, ValidationResult>, VisitaCommandHandler>();
-            services.AddScoped<IRequestHandler<EditarVisitaCommand, ValidationResult>, VisitaCommandHandler>();
+            services.AddScoped<IRequestHandler<AdicionarVisitaPorPorteiroCommand, ValidationResult>, VisitaCommandHandler>();
+            services.AddScoped<IRequestHandler<AdicionarVisitaPorMoradorCommand, ValidationResult>, VisitaCommandHandler>();
+            services.AddScoped<IRequestHandler<AtualizarVisitaCommand, ValidationResult>, VisitaCommandHandler>();
             services.AddScoped<IRequestHandler<ApagarVisitaCommand, ValidationResult>, VisitaCommandHandler>();
             services.AddScoped<IRequestHandler<AprovarVisitaCommand, ValidationResult>, VisitaCommandHandler>();
             services.AddScoped<IRequestHandler<ReprovarVisitaCommand, ValidationResult>, VisitaCommandHandler>();
             services.AddScoped<IRequestHandler<IniciarVisitaCommand, ValidationResult>, VisitaCommandHandler>();
             services.AddScoped<IRequestHandler<TerminarVisitaCommand, ValidationResult>, VisitaCommandHandler>();
-            services.AddScoped<INotificationHandler<VisitaCadastradaEvent>, VisitaEventHandler>();
-            services.AddScoped<INotificationHandler<VisitaEditadaEvent>, VisitaEventHandler>();
+            services.AddScoped<INotificationHandler<VisitaAdicionadaEvent>, VisitaEventHandler>();
+            services.AddScoped<INotificationHandler<VisitaAtualizadaEvent>, VisitaEventHandler>();
             services.AddScoped<INotificationHandler<VisitaApagadaEvent>, VisitaEventHandler>();
             services.AddScoped<INotificationHandler<VisitaAprovadaEvent>, VisitaEventHandler>();
             services.AddScoped<INotificationHandler<VisitaReprovadaEvent>, VisitaEventHandler>();
@@ -285,9 +285,9 @@ namespace CondominioApp.Api.Configuration
             #region Principal -Contexto
 
             //Condominio
-            services.AddTransient<IRequestHandler<CadastrarCondominioCommand, ValidationResult>, CondominioCommandHandler>();
-            services.AddTransient<IRequestHandler<EditarCondominioCommand, ValidationResult>, CondominioCommandHandler>();
-            services.AddTransient<IRequestHandler<EditarConfiguracaoCondominioCommand, ValidationResult>, CondominioCommandHandler>();
+            services.AddTransient<IRequestHandler<AdicionarCondominioCommand, ValidationResult>, CondominioCommandHandler>();
+            services.AddTransient<IRequestHandler<AtualizarCondominioCommand, ValidationResult>, CondominioCommandHandler>();
+            services.AddTransient<IRequestHandler<AtualizarConfiguracaoCondominioCommand, ValidationResult>, CondominioCommandHandler>();
             services.AddTransient<IRequestHandler<ApagarCondominioCommand, ValidationResult>, CondominioCommandHandler>();
             services.AddTransient<IRequestHandler<DefinirSindicoDoCondominioCommand, ValidationResult>, CondominioCommandHandler>();
             services.AddTransient<INotificationHandler<CondominioCadastradoEvent>, CondominioEventHandler>();
@@ -298,19 +298,19 @@ namespace CondominioApp.Api.Configuration
 
 
             //Grupo
-            services.AddTransient<IRequestHandler<CadastrarGrupoCommand, ValidationResult>, GrupoCommandHandler>();
-            services.AddTransient<IRequestHandler<EditarGrupoCommand, ValidationResult>, GrupoCommandHandler>();
+            services.AddTransient<IRequestHandler<AdicionarGrupoCommand, ValidationResult>, GrupoCommandHandler>();
+            services.AddTransient<IRequestHandler<AtualizarGrupoCommand, ValidationResult>, GrupoCommandHandler>();
             services.AddTransient<IRequestHandler<ApagarGrupoCommand, ValidationResult>, GrupoCommandHandler>();
             services.AddTransient<INotificationHandler<GrupoCadastradoEvent>, GrupoEventHandler>();
             services.AddTransient<INotificationHandler<GrupoEditadoEvent>, GrupoEventHandler>();
             services.AddTransient<INotificationHandler<GrupoApagadoEvent>, GrupoEventHandler>();
 
             //Unidades
-            services.AddTransient<IRequestHandler<CadastrarUnidadeCommand, ValidationResult>, UnidadeCommandHandler>();
-            services.AddTransient<IRequestHandler<EditarUnidadeCommand, ValidationResult>, UnidadeCommandHandler>();
+            services.AddTransient<IRequestHandler<AdicionarUnidadeCommand, ValidationResult>, UnidadeCommandHandler>();
+            services.AddTransient<IRequestHandler<AtualizarUnidadeCommand, ValidationResult>, UnidadeCommandHandler>();
             services.AddTransient<IRequestHandler<ResetCodigoUnidadeCommand, ValidationResult>, UnidadeCommandHandler>();
             services.AddTransient<IRequestHandler<ApagarUnidadeCommand, ValidationResult>, UnidadeCommandHandler>();
-            services.AddTransient<IRequestHandler<EditarVagasDaUnidadeCommand, ValidationResult>, UnidadeCommandHandler>();
+            services.AddTransient<IRequestHandler<AtualizarVagasDaUnidadeCommand, ValidationResult>, UnidadeCommandHandler>();
             services.AddTransient<INotificationHandler<UnidadeCadastradaEvent>, UnidadeEventHandler>();
             services.AddTransient<INotificationHandler<UnidadeEditadaEvent>, UnidadeEventHandler>();
             services.AddTransient<INotificationHandler<CodigoUnidadeResetadoEvent>, UnidadeEventHandler>();
@@ -318,8 +318,8 @@ namespace CondominioApp.Api.Configuration
             services.AddTransient<INotificationHandler<VagaDeUnidadeEditadaEvent>, UnidadeEventHandler>();
 
             //Contratos
-            services.AddTransient<IRequestHandler<CadastrarContratoCommand, ValidationResult>, ContratoCommandHandler>();
-            services.AddTransient<IRequestHandler<EditarContratoCommand, ValidationResult>, ContratoCommandHandler>();
+            services.AddTransient<IRequestHandler<AdicionarContratoCommand, ValidationResult>, ContratoCommandHandler>();
+            services.AddTransient<IRequestHandler<AtualizarContratoCommand, ValidationResult>, ContratoCommandHandler>();
             services.AddTransient<IRequestHandler<ApagarContratoCommand, ValidationResult>, ContratoCommandHandler>();
             
 
@@ -329,13 +329,13 @@ namespace CondominioApp.Api.Configuration
             #region ReservaAreaComum -Contexto
 
             //Area Comum
-            services.AddTransient<IRequestHandler<CadastrarAreaComumCommand, ValidationResult>, AreaComumCommandHandler>();
-            services.AddTransient<IRequestHandler<EditarAreaComumCommand, ValidationResult>, AreaComumCommandHandler>();
+            services.AddTransient<IRequestHandler<AdicionarAreaComumCommand, ValidationResult>, AreaComumCommandHandler>();
+            services.AddTransient<IRequestHandler<AtualizarAreaComumCommand, ValidationResult>, AreaComumCommandHandler>();
             services.AddTransient<IRequestHandler<ApagarAreaComumCommand, ValidationResult>, AreaComumCommandHandler>();
             services.AddTransient<IRequestHandler<AtivarAreaComumCommand, ValidationResult>, AreaComumCommandHandler>();
             services.AddTransient<IRequestHandler<DesativarAreaComumCommand, ValidationResult>, AreaComumCommandHandler>();            
-            services.AddTransient<INotificationHandler<AreaComumCadastradaEvent>, AreaComumEventHandler>();
-            services.AddTransient<INotificationHandler<AreaComumEditadaEvent>, AreaComumEventHandler>();
+            services.AddTransient<INotificationHandler<AreaComumAdicionadaEvent>, AreaComumEventHandler>();
+            services.AddTransient<INotificationHandler<AreaComumAtualizadaEvent>, AreaComumEventHandler>();
             services.AddTransient<INotificationHandler<AreaComumAtivadaEvent>, AreaComumEventHandler>();
             services.AddTransient<INotificationHandler<AreaComumDesativadaEvent>, AreaComumEventHandler>();
             services.AddTransient<INotificationHandler<AreaComumApagadaEvent>, AreaComumEventHandler>();
@@ -397,7 +397,7 @@ namespace CondominioApp.Api.Configuration
 
             #region Usuarios -Context
             //Morador
-            services.AddTransient<IRequestHandler<CadastrarMoradorCommand, ValidationResult>, MoradorCommandHandler>();
+            services.AddTransient<IRequestHandler<AdicionarMoradorCommand, ValidationResult>, MoradorCommandHandler>();
             services.AddTransient<IRequestHandler<RemoverMoradorCommand, ValidationResult>, MoradorCommandHandler>();
             services.AddTransient<IRequestHandler<MarcarComoUnidadePrincipalCommand, ValidationResult>, MoradorCommandHandler>();
             services.AddTransient<IRequestHandler<MarcarComoProprietarioCommand, ValidationResult>, MoradorCommandHandler>();
@@ -405,7 +405,7 @@ namespace CondominioApp.Api.Configuration
             services.AddTransient<IRequestHandler<ApagarMoradorCommand, ValidationResult>, MoradorCommandHandler>();
             services.AddTransient<IRequestHandler<AtivarMoradorCommand, ValidationResult>, MoradorCommandHandler>();
             services.AddTransient<IRequestHandler<DesativarMoradorCommand, ValidationResult>, MoradorCommandHandler>();
-            services.AddTransient<INotificationHandler<MoradorCadastradoEvent>, MoradorEventHandler>();
+            services.AddTransient<INotificationHandler<MoradorAdicionadoEvent>, MoradorEventHandler>();
             services.AddTransient<INotificationHandler<UnidadeMarcadaComoPrincipalEvent>, MoradorEventHandler>();
             services.AddTransient<INotificationHandler<MarcadoComoProprietarioEvent>, MoradorEventHandler>();
             services.AddTransient<INotificationHandler<DesmarcadoComoProprietarioEvent>, MoradorEventHandler>();
@@ -415,26 +415,26 @@ namespace CondominioApp.Api.Configuration
             services.AddTransient<INotificationHandler<MoradorDesativadoEvent>, MoradorEventHandler>();
 
             //Funcionario
-            services.AddTransient<IRequestHandler<CadastrarFuncionarioCommand, ValidationResult>, FuncionarioCommandHandler>();            
-            services.AddTransient<IRequestHandler<EditarFuncionarioCommand, ValidationResult>, FuncionarioCommandHandler>();
+            services.AddTransient<IRequestHandler<AdicionarFuncionarioCommand, ValidationResult>, FuncionarioCommandHandler>();            
+            services.AddTransient<IRequestHandler<AtualizarFuncionarioCommand, ValidationResult>, FuncionarioCommandHandler>();
             services.AddTransient<IRequestHandler<AtivarFuncionarioCommand, ValidationResult>, FuncionarioCommandHandler>();
             services.AddTransient<IRequestHandler<DesativarFuncionarioCommand, ValidationResult>, FuncionarioCommandHandler>();
-            services.AddTransient<INotificationHandler<FuncionarioCadastradoEvent>, FuncionarioEventHandler>();
-            services.AddTransient<INotificationHandler<FuncionarioEditadoEvent>, FuncionarioEventHandler>();
+            services.AddTransient<INotificationHandler<FuncionarioAdicionadoEvent>, FuncionarioEventHandler>();
+            services.AddTransient<INotificationHandler<FuncionarioAtualizadoEvent>, FuncionarioEventHandler>();
             services.AddTransient<INotificationHandler<FuncionarioAtivadoEvent>, FuncionarioEventHandler>();
             services.AddTransient<INotificationHandler<FuncionarioDesativadoEvent>, FuncionarioEventHandler>();
 
             //Usuario
-            services.AddTransient<IRequestHandler<CadastrarUsuarioCommand, ValidationResult>, UsuarioCommandHandler>();
-            services.AddTransient<IRequestHandler<EditarUsuarioCommand, ValidationResult>, UsuarioCommandHandler>();
+            services.AddTransient<IRequestHandler<AdicionarUsuarioCommand, ValidationResult>, UsuarioCommandHandler>();
+            services.AddTransient<IRequestHandler<AtualizarUsuarioCommand, ValidationResult>, UsuarioCommandHandler>();
             services.AddTransient<IRequestHandler<RemoverUsuarioCommand, ValidationResult>, UsuarioCommandHandler>();
             services.AddTransient<IRequestHandler<AtualizarUltimoLoginUsuarioCommand, ValidationResult>, UsuarioCommandHandler>();
             services.AddTransient<INotificationHandler<UsuarioEditadoEvent>, UsuarioEventHandler>();            
 
             //Veiculo
-            services.AddTransient<IRequestHandler<CadastrarVeiculoCommand, ValidationResult>, VeiculoCommandHandler>();
+            services.AddTransient<IRequestHandler<AdicionarVeiculoCommand, ValidationResult>, VeiculoCommandHandler>();
             services.AddTransient<IRequestHandler<ApagarVeiculoCommand, ValidationResult>, VeiculoCommandHandler>();
-            services.AddTransient<IRequestHandler<EditarVeiculoCommand, ValidationResult>, VeiculoCommandHandler>();            
+            services.AddTransient<IRequestHandler<AtualizarVeiculoCommand, ValidationResult>, VeiculoCommandHandler>();            
             services.AddTransient<INotificationHandler<VeiculoCadastradoEvent>, VeiculoEventHandler>();
             services.AddTransient<INotificationHandler<UsuarioDoVeiculoNoCondominioEditadoEvent>, VeiculoEventHandler>();
             services.AddTransient<INotificationHandler<VeiculoRemovidoEvent>, VeiculoEventHandler>();

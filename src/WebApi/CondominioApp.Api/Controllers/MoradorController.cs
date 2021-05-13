@@ -104,7 +104,7 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }
 
-            var comando = new CadastrarMoradorCommand
+            var comando = new AdicionarMoradorCommand
                 (usuario.Id, unidade.CondominioId, unidade.CondominioNome, unidade.Id,
                 unidade.Numero, unidade.Andar, unidade.GrupoDescricao, vincularViewModel.Proprietario,
                 vincularViewModel.Principal, vincularViewModel.CriadoPelaAdministracao);
@@ -120,7 +120,7 @@ namespace CondominioApp.Api.Controllers
         }
 
         [HttpPost("registrar-dispositivo")]
-        public async Task<ActionResult> PostRegistrarDispositivo(CadastraMobileMoradorViewModel mobileVM)
+        public async Task<ActionResult> PostRegistrarDispositivo(AdicionaMobileMoradorViewModel mobileVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
@@ -132,6 +132,7 @@ namespace CondominioApp.Api.Controllers
             return CustomResponse(result);
 
         }
+
 
 
         [HttpPut("marcar-como-unidade-principal/{moradorId:Guid}")]

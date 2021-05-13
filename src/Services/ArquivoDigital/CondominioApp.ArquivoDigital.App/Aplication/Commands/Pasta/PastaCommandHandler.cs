@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
 {
     public class PastaCommandHandler : CommandHandler,
-         IRequestHandler<CadastrarPastaCommand, ValidationResult>,
-         IRequestHandler<EditarPastaCommand, ValidationResult>,
+         IRequestHandler<AdicionarPastaCommand, ValidationResult>,
+         IRequestHandler<AtualizarPastaCommand, ValidationResult>,
          IRequestHandler<MarcarPastaComoPublicaCommand, ValidationResult>,
          IRequestHandler<MarcarPastaComoPrivadaCommand, ValidationResult>,
          IRequestHandler<ApagarPastaCommand, ValidationResult>,
@@ -25,7 +25,7 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
         }
 
 
-        public async Task<ValidationResult> Handle(CadastrarPastaCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(AdicionarPastaCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido())
                 return request.ValidationResult;
@@ -37,7 +37,7 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
             return await PersistirDados(_arquivoDigitalRepository.UnitOfWork);
         }
 
-        public async Task<ValidationResult> Handle(EditarPastaCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(AtualizarPastaCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido())
                 return request.ValidationResult;
@@ -124,7 +124,7 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
 
 
 
-        private Pasta PastaFactory(CadastrarPastaCommand request)
+        private Pasta PastaFactory(AdicionarPastaCommand request)
         {
             var pasta = new Pasta
                 (request.Titulo, request.Descricao, request.CondominioId, request.Publica,

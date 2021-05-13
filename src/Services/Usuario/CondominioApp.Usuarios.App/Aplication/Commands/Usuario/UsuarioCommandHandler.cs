@@ -11,9 +11,9 @@ using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.NotificacaoEm
 namespace CondominioApp.Usuarios.App.Aplication.Commands
 {
     public class UsuarioCommandHandler : CommandHandler,
-        IRequestHandler<CadastrarUsuarioCommand, ValidationResult>,
-        IRequestHandler<EditarUsuarioCommand, ValidationResult>,
-        IRequestHandler<CadastrarResponsavelDaLojaCommand, ValidationResult>,
+        IRequestHandler<AdicionarUsuarioCommand, ValidationResult>,
+        IRequestHandler<AtualizarUsuarioCommand, ValidationResult>,
+        IRequestHandler<AdicionarResponsavelDaLojaCommand, ValidationResult>,
         IRequestHandler<RemoverUsuarioCommand, ValidationResult>,
         IRequestHandler<AtualizarUltimoLoginUsuarioCommand, ValidationResult>,        
         IDisposable
@@ -25,7 +25,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
             _usuarioRepository = usuarioRepository;
         }
 
-        public async Task<ValidationResult> Handle(CadastrarUsuarioCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(AdicionarUsuarioCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido()) return request.ValidationResult;
 
@@ -50,7 +50,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
 
         }
 
-        public async Task<ValidationResult> Handle(EditarUsuarioCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(AtualizarUsuarioCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido()) return request.ValidationResult;
 
@@ -83,7 +83,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
 
         }
 
-        public async Task<ValidationResult> Handle(CadastrarResponsavelDaLojaCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(AdicionarResponsavelDaLojaCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido()) return request.ValidationResult;
 

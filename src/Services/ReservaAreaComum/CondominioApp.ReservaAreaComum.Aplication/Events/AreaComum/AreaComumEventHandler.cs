@@ -10,8 +10,8 @@ using System.Threading.Tasks;
 namespace CondominioApp.ReservaAreaComum.Aplication.Events
 {
     public class AreaComumEventHandler : EventHandler,
-         INotificationHandler<AreaComumCadastradaEvent>,
-         INotificationHandler<AreaComumEditadaEvent>,
+         INotificationHandler<AreaComumAdicionadaEvent>,
+         INotificationHandler<AreaComumAtualizadaEvent>,
          INotificationHandler<AreaComumAtivadaEvent>,
          INotificationHandler<AreaComumDesativadaEvent>,
         INotificationHandler<AreaComumApagadaEvent>,
@@ -27,7 +27,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Events
         }
 
 
-        public async Task Handle(AreaComumCadastradaEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(AreaComumAdicionadaEvent notification, CancellationToken cancellationToken)
         {
             var areaComumFlat = new AreaComumFlat
                 (notification.Id,
@@ -57,7 +57,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Events
 
         }
 
-        public async Task Handle(AreaComumEditadaEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(AreaComumAtualizadaEvent notification, CancellationToken cancellationToken)
         {
             var areaComumFlat = await _reservaAreaComumQueryRepository.ObterPorId(notification.Id);
             if (areaComumFlat == null)

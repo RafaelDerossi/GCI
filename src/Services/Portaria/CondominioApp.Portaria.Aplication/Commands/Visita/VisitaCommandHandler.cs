@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 namespace CondominioApp.Portaria.Aplication.Commands
 {
     public class VisitaCommandHandler : CommandHandler,
-         IRequestHandler<CadastrarVisitaPorPorteiroCommand, ValidationResult>,
-         IRequestHandler<CadastrarVisitaPorMoradorCommand, ValidationResult>,
-         IRequestHandler<EditarVisitaCommand, ValidationResult>,
+         IRequestHandler<AdicionarVisitaPorPorteiroCommand, ValidationResult>,
+         IRequestHandler<AdicionarVisitaPorMoradorCommand, ValidationResult>,
+         IRequestHandler<AtualizarVisitaCommand, ValidationResult>,
          IRequestHandler<ApagarVisitaCommand, ValidationResult>,
          IRequestHandler<AprovarVisitaCommand, ValidationResult>,
          IRequestHandler<ReprovarVisitaCommand, ValidationResult>,
@@ -29,7 +29,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
         }
 
 
-        public async Task<ValidationResult> Handle(CadastrarVisitaPorPorteiroCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(AdicionarVisitaPorPorteiroCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido()) return request.ValidationResult;
 
@@ -39,7 +39,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
 
             //Evento
             visita.AdicionarEvento(
-              new VisitaCadastradaEvent(
+              new VisitaAdicionadaEvent(
                   visita.Id, visita.DataDeEntrada, visita.Observacao, visita.Status, visita.VisitanteId,
                   visita.NomeVisitante, visita.TipoDeDocumentoVisitante, visita.Documento,
                   visita.EmailVisitante, visita.FotoVisitante, visita.TipoDeVisitante,
@@ -52,7 +52,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
             return await PersistirDados(_portariaRepository.UnitOfWork);
         }
 
-        public async Task<ValidationResult> Handle(CadastrarVisitaPorMoradorCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(AdicionarVisitaPorMoradorCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido()) return request.ValidationResult;
 
@@ -69,7 +69,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
 
             //Evento
             visita.AdicionarEvento(
-              new VisitaCadastradaEvent(
+              new VisitaAdicionadaEvent(
                   visita.Id, visita.DataDeEntrada, visita.Observacao, visita.Status, visita.VisitanteId,
                   visita.NomeVisitante, visita.TipoDeDocumentoVisitante, visita.Documento,
                   visita.EmailVisitante, visita.FotoVisitante, visita.TipoDeVisitante,
@@ -81,7 +81,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
             return await PersistirDados(_portariaRepository.UnitOfWork);
         }
 
-        public async Task<ValidationResult> Handle(EditarVisitaCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(AtualizarVisitaCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido()) return request.ValidationResult;
 
@@ -104,7 +104,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
 
             //Evento
             visitaBd.AdicionarEvento(
-                 new VisitaEditadaEvent(
+                 new VisitaAtualizadaEvent(
                      request.Id, request.Observacao, request.NomeVisitante, request.TipoDeDocumentoVisitante,
                      request.DocumentoVisitante, request.EmailVisitante, request.FotoVisitante,
                      request.TipoDeVisitante, request.NomeEmpresaVisitante, request.UnidadeId,
@@ -242,7 +242,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
 
 
         
-        private Visita VisitaFactory(CadastrarVisitaPorPorteiroCommand request)
+        private Visita VisitaFactory(AdicionarVisitaPorPorteiroCommand request)
         {
             return new Visita
                 (request.DataDeEntrada, request.Observacao, request.Status,
@@ -253,7 +253,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
                  request.MoradorId);
         }
 
-        private Visita VisitaFactory(CadastrarVisitaPorMoradorCommand request, Visitante visitante)
+        private Visita VisitaFactory(AdicionarVisitaPorMoradorCommand request, Visitante visitante)
         {           
             return new Visita
                 (request.DataDeEntrada, request.Observacao, request.Status,

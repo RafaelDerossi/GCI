@@ -42,11 +42,11 @@ namespace CondominioApp.Api.Controllers
         }            
 
         [HttpPut]
-        public async Task<ActionResult> Put(EditaUsuarioViewModel usuarioVM)
+        public async Task<ActionResult> Put(AtualizaUsuarioViewModel usuarioVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-           var editarComando = new EditarUsuarioCommand
+           var editarComando = new AtualizarUsuarioCommand
                 (usuarioVM.Id, usuarioVM.Nome, usuarioVM.Sobrenome,
                  usuarioVM.Rg, usuarioVM.Cpf, usuarioVM.Foto, usuarioVM.NomeOriginal,
                  usuarioVM.Celular, usuarioVM.Telefone, usuarioVM.Logradouro,

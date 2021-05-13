@@ -12,9 +12,9 @@ using System.Linq;
 namespace CondominioApp.Principal.Aplication.Commands
 {
     public class CondominioCommandHandler : CommandHandler,
-         IRequestHandler<CadastrarCondominioCommand, ValidationResult>,
-         IRequestHandler<EditarCondominioCommand, ValidationResult>,
-         IRequestHandler<EditarConfiguracaoCondominioCommand, ValidationResult>,
+         IRequestHandler<AdicionarCondominioCommand, ValidationResult>,
+         IRequestHandler<AtualizarCondominioCommand, ValidationResult>,
+         IRequestHandler<AtualizarConfiguracaoCondominioCommand, ValidationResult>,
          IRequestHandler<ApagarCondominioCommand, ValidationResult>,
          IRequestHandler<DefinirSindicoDoCondominioCommand, ValidationResult>,
          IDisposable
@@ -28,7 +28,7 @@ namespace CondominioApp.Principal.Aplication.Commands
         }
 
 
-        public async Task<ValidationResult> Handle(CadastrarCondominioCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(AdicionarCondominioCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido())
                 return request.ValidationResult;
@@ -51,7 +51,7 @@ namespace CondominioApp.Principal.Aplication.Commands
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }
 
-        public async Task<ValidationResult> Handle(EditarCondominioCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(AtualizarCondominioCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido()) return request.ValidationResult;
             
@@ -85,7 +85,7 @@ namespace CondominioApp.Principal.Aplication.Commands
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }
 
-        public async Task<ValidationResult> Handle(EditarConfiguracaoCondominioCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(AtualizarConfiguracaoCondominioCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido())
                 return request.ValidationResult;
@@ -239,7 +239,7 @@ namespace CondominioApp.Principal.Aplication.Commands
         }
 
 
-        private Condominio CondominioFactory(CadastrarCondominioCommand request)
+        private Condominio CondominioFactory(AdicionarCondominioCommand request)
         {
             var condominio = new Condominio(request.Cnpj, request.Nome, request.Descricao, request.LogoMarca, 
                 request.Telefone, request.Endereco, request.RefereciaId, request.LinkGeraBoleto, request.BoletoFolder,

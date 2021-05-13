@@ -114,8 +114,8 @@ namespace CondominioApp.Api.Controllers
 
 
 
-        [HttpPost("cadastrar-como-morador")]
-        public async Task<ActionResult> PostComoMorador(CadastraReservaMoradorViewModel reservaVM)
+        [HttpPost("solicitar-como-morador")]
+        public async Task<ActionResult> PostComoMorador(AdicionaReservaMoradorViewModel reservaVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
@@ -133,15 +133,15 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }
 
-            var comando = CadastrarReservaComoMoradorCommandFactory(reservaVM, unidade, morador);
+            var comando = SolicitarReservaComoMoradorCommandFactory(reservaVM, unidade, morador);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
             return CustomResponse(Resultado);
         }
 
-        [HttpPost("cadastrar-como-administrador")]
-        public async Task<ActionResult> PostComoAdministrador(CadastraReservaAdmViewModel reservaVM)
+        [HttpPost("solicitar-como-administrador")]
+        public async Task<ActionResult> PostComoAdministrador(AdicionaReservaAdmViewModel reservaVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
@@ -166,7 +166,7 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }
 
-            var comando = CadastrarReservaComoAdministradorCommandFactory(reservaVM, unidade, morador, funcionario);
+            var comando = SolicitarReservaComoAdministradorCommandFactory(reservaVM, unidade, morador, funcionario);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
@@ -176,7 +176,7 @@ namespace CondominioApp.Api.Controllers
 
 
         [HttpPut("aprovar")]
-        public async Task<ActionResult> PutAprovar(AprovarReservaAdmViewModel reservaVM)
+        public async Task<ActionResult> PutAprovar(AprovaReservaAdmViewModel reservaVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
@@ -196,7 +196,7 @@ namespace CondominioApp.Api.Controllers
         }
 
         [HttpPut("reprovar")]
-        public async Task<ActionResult> PutReprovar(ReprovarReservaAdmViewModel reservaVM)
+        public async Task<ActionResult> PutReprovar(ReprovaReservaAdmViewModel reservaVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
@@ -218,7 +218,7 @@ namespace CondominioApp.Api.Controllers
 
 
         [HttpDelete("cancelar-como-usuario")]
-        public async Task<ActionResult> CancelarComoUsuario(CancelarReservaMoradorViewModel reservaVM)
+        public async Task<ActionResult> CancelarComoUsuario(CancelaReservaMoradorViewModel reservaVM)
         {
 
             var morador = await _usuarioQuery.ObterMoradorPorId(reservaVM.MoradorId);
@@ -242,7 +242,7 @@ namespace CondominioApp.Api.Controllers
         }
 
         [HttpDelete("cancelar-como-administrador")]
-        public async Task<ActionResult> CancelarComoAdministrador(CancelarReservaAdmViewModel reservaVM)
+        public async Task<ActionResult> CancelarComoAdministrador(CancelaReservaAdmViewModel reservaVM)
         {
             var funcionario = await _usuarioQuery.ObterFuncionarioPorId(reservaVM.FuncionarioId);
             if (funcionario == null)
@@ -268,8 +268,8 @@ namespace CondominioApp.Api.Controllers
 
 
 
-        private SolicitarReservaComoMoradorCommand CadastrarReservaComoMoradorCommandFactory
-            (CadastraReservaMoradorViewModel reservaVM, UnidadeFlat unidade, MoradorFlat morador)
+        private SolicitarReservaComoMoradorCommand SolicitarReservaComoMoradorCommandFactory
+            (AdicionaReservaMoradorViewModel reservaVM, UnidadeFlat unidade, MoradorFlat morador)
         {            
             return new SolicitarReservaComoMoradorCommand(
                   reservaVM.AreaComumId, reservaVM.Observacao, unidade.Id, unidade.Numero,
@@ -278,8 +278,8 @@ namespace CondominioApp.Api.Controllers
                   reservaVM.Preco, reservaVM.Origem, false);
         }
 
-        private SolicitarReservaComoAdministradorCommand CadastrarReservaComoAdministradorCommandFactory
-           (CadastraReservaAdmViewModel reservaVM, UnidadeFlat unidade, MoradorFlat morador, FuncionarioFlat funcionario)
+        private SolicitarReservaComoAdministradorCommand SolicitarReservaComoAdministradorCommandFactory
+           (AdicionaReservaAdmViewModel reservaVM, UnidadeFlat unidade, MoradorFlat morador, FuncionarioFlat funcionario)
         {
             return new SolicitarReservaComoAdministradorCommand(
                   reservaVM.AreaComumId, reservaVM.Observacao, unidade.Id, unidade.Numero,

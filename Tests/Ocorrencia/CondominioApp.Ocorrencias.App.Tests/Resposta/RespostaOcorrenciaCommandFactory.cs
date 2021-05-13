@@ -7,35 +7,35 @@ namespace CondominioApp.Ocorrencias.App.Tests
 {
     public class RespostaOcorrenciaCommandFactory
     {
-        private static CadastrarRespostaOcorrenciaSindicoCommand CadastrarRespostaOcorrenciaSindicoCommandFactory()
+        private static AdicionarRespostaOcorrenciaSindicoCommand CadastrarRespostaOcorrenciaSindicoCommandFactory()
         {
-            return new CadastrarRespostaOcorrenciaSindicoCommand(
+            return new AdicionarRespostaOcorrenciaSindicoCommand(
                 Guid.NewGuid(), "Descricao da Ocorrencia", Guid.NewGuid(), "Nome do Usuario", "fotonome.jpg",
                 "fotoNome.jpg", StatusDaOcorrencia.EM_ANDAMENTO);
         }
         
-        private static CadastrarRespostaOcorrenciaMoradorCommand CadastrarRespostaOcorrenciaMoradorCommandFactory()
+        private static AdicionarRespostaOcorrenciaMoradorCommand CadastrarRespostaOcorrenciaMoradorCommandFactory()
         {
-            return new CadastrarRespostaOcorrenciaMoradorCommand(
+            return new AdicionarRespostaOcorrenciaMoradorCommand(
                 Guid.NewGuid(), "Descricao da Ocorrencia", Guid.NewGuid(), "Nome do Usuario", "fotonome.jpg",
                 "fotoNome.jpg");
         }
 
-        private static EditarRespostaOcorrenciaCommand EditarRespostaOcorrenciaCommandFactory()
+        private static AtualizarRespostaOcorrenciaCommand EditarRespostaOcorrenciaCommandFactory()
         {
-            return new EditarRespostaOcorrenciaCommand(
+            return new AtualizarRespostaOcorrenciaCommand(
                 Guid.NewGuid(), Guid.NewGuid(), "Nova Descricao", "fotonome.jpg",
                 "fotoNome.jpg");
         }
 
 
 
-        public static CadastrarRespostaOcorrenciaSindicoCommand CriarComando_CadastroDeRespostaOcorrenciaSindico()
+        public static AdicionarRespostaOcorrenciaSindicoCommand CriarComando_CadastroDeRespostaOcorrenciaSindico()
         {
             return CadastrarRespostaOcorrenciaSindicoCommandFactory();
         }
 
-        public static CadastrarRespostaOcorrenciaSindicoCommand CriarComando_CadastroDeRespostaOcorrenciaSindico_SemDescricao()
+        public static AdicionarRespostaOcorrenciaSindicoCommand CriarComando_CadastroDeRespostaOcorrenciaSindico_SemDescricao()
         {
             var comando = CadastrarRespostaOcorrenciaSindicoCommandFactory();
 
@@ -44,7 +44,7 @@ namespace CondominioApp.Ocorrencias.App.Tests
             return comando;
         }
 
-        public static CadastrarRespostaOcorrenciaSindicoCommand CriarComando_CadastroDeRespostaOcorrenciaSindico_SemUsuario()
+        public static AdicionarRespostaOcorrenciaSindicoCommand CriarComando_CadastroDeRespostaOcorrenciaSindico_SemUsuario()
         {
             var comando = CadastrarRespostaOcorrenciaSindicoCommandFactory();
 
@@ -53,7 +53,7 @@ namespace CondominioApp.Ocorrencias.App.Tests
             return comando;
         }
 
-        public static CadastrarRespostaOcorrenciaSindicoCommand CriarComando_CadastroDeRespostaOcorrenciaSindico_SemFoto()
+        public static AdicionarRespostaOcorrenciaSindicoCommand CriarComando_CadastroDeRespostaOcorrenciaSindico_SemFoto()
         {
             var comando = CadastrarRespostaOcorrenciaSindicoCommandFactory();
 
@@ -62,7 +62,7 @@ namespace CondominioApp.Ocorrencias.App.Tests
             return comando;
         }
 
-        public static CadastrarRespostaOcorrenciaSindicoCommand CriarComando_CadastroDeRespostaOcorrenciaSindico_Resolvido()
+        public static AdicionarRespostaOcorrenciaSindicoCommand CriarComando_CadastroDeRespostaOcorrenciaSindico_Resolvido()
         {
             var comando = CadastrarRespostaOcorrenciaSindicoCommandFactory();
 
@@ -72,12 +72,12 @@ namespace CondominioApp.Ocorrencias.App.Tests
         }
 
 
-        public static CadastrarRespostaOcorrenciaMoradorCommand CriarComando_CadastroDeRespostaOcorrenciaMorador()
+        public static AdicionarRespostaOcorrenciaMoradorCommand CriarComando_CadastroDeRespostaOcorrenciaMorador()
         {
             return CadastrarRespostaOcorrenciaMoradorCommandFactory();
         }
 
-        public static CadastrarRespostaOcorrenciaMoradorCommand CriarComando_CadastroDeRespostaOcorrenciaMorador_SemDescricao()
+        public static AdicionarRespostaOcorrenciaMoradorCommand CriarComando_CadastroDeRespostaOcorrenciaMorador_SemDescricao()
         {
             var comando = CadastrarRespostaOcorrenciaMoradorCommandFactory();
 
@@ -86,7 +86,7 @@ namespace CondominioApp.Ocorrencias.App.Tests
             return comando;
         }
 
-        public static CadastrarRespostaOcorrenciaMoradorCommand CriarComando_CadastroDeRespostaOcorrenciaMorador_SemUsuario()
+        public static AdicionarRespostaOcorrenciaMoradorCommand CriarComando_CadastroDeRespostaOcorrenciaMorador_SemUsuario()
         {
             var comando = CadastrarRespostaOcorrenciaMoradorCommandFactory();
 
@@ -95,7 +95,7 @@ namespace CondominioApp.Ocorrencias.App.Tests
             return comando;
         }
 
-        public static CadastrarRespostaOcorrenciaMoradorCommand CriarComando_CadastroDeRespostaOcorrenciaMorador_SemFoto()
+        public static AdicionarRespostaOcorrenciaMoradorCommand CriarComando_CadastroDeRespostaOcorrenciaMorador_SemFoto()
         {
             var comando = CadastrarRespostaOcorrenciaMoradorCommandFactory();
 
@@ -106,7 +106,7 @@ namespace CondominioApp.Ocorrencias.App.Tests
 
 
 
-        public static EditarRespostaOcorrenciaCommand CriarComando_EdicaoDeRespostaOcorrencia()
+        public static AtualizarRespostaOcorrenciaCommand CriarComando_EdicaoDeRespostaOcorrencia()
         {
             return EditarRespostaOcorrenciaCommandFactory();
         }

@@ -53,11 +53,11 @@ namespace CondominioApp.Api.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult> Post(CadastraGrupoViewModel grupoVM)
+        public async Task<ActionResult> Post(AdicionaGrupoViewModel grupoVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var comando = new CadastrarGrupoCommand(
+            var comando = new AdicionarGrupoCommand(
                  grupoVM.Descricao, grupoVM.CondominioId);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
@@ -67,11 +67,11 @@ namespace CondominioApp.Api.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> Put(EditaGrupoViewModel grupoVM)
+        public async Task<ActionResult> Put(AtualizaGrupoViewModel grupoVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var comando = new EditarGrupoCommand(
+            var comando = new AtualizarGrupoCommand(
                 grupoVM.Id, grupoVM.Descricao);
 
 

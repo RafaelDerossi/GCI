@@ -8,23 +8,23 @@ namespace CondominioApp.Correspondencias.App.Tests
 {
     public class CorrespondenciaCommandFactory
     {
-        public static CadastrarCorrespondenciaCommand CriarComandoCadastroDeCorrespondenciaFactory()
+        public static AdicionarCorrespondenciaCommand CriarComandoCadastroDeCorrespondenciaFactory()
         {
             //Act
-            return new CadastrarCorrespondenciaCommand(
+            return new AdicionarCorrespondenciaCommand(
                 Guid.NewGuid(), Guid.NewGuid(), "101", "Bloco", null, Guid.NewGuid(),
                 "Rafael", null, null, null, DataHoraDeBrasilia.Get(), "Caixa",
                 StatusCorrespondencia.PENDENTE, "", null);
         }
 
-        public static CadastrarCorrespondenciaCommand CriarComandoCadastroDeCorrespondencia()
+        public static AdicionarCorrespondenciaCommand CriarComandoCadastroDeCorrespondencia()
         {
             var comando = CriarComandoCadastroDeCorrespondenciaFactory();
 
             return comando;
         }
 
-        public static CadastrarCorrespondenciaCommand CriarComandoCadastroDeCorrespondenciaSemCondominio()
+        public static AdicionarCorrespondenciaCommand CriarComandoCadastroDeCorrespondenciaSemCondominio()
         {
             var comando = CriarComandoCadastroDeCorrespondenciaFactory();
 
@@ -33,7 +33,7 @@ namespace CondominioApp.Correspondencias.App.Tests
             return comando;
         }
 
-        public static CadastrarCorrespondenciaCommand CriarComandoCadastroDeCorrespondenciaSemUnidadeId()
+        public static AdicionarCorrespondenciaCommand CriarComandoCadastroDeCorrespondenciaSemUnidadeId()
         {
             var comando = CriarComandoCadastroDeCorrespondenciaFactory();
 
@@ -42,7 +42,7 @@ namespace CondominioApp.Correspondencias.App.Tests
             return comando;
         }
 
-        public static CadastrarCorrespondenciaCommand CriarComandoCadastroDeCorrespondenciaSemNumeroUnidade()
+        public static AdicionarCorrespondenciaCommand CriarComandoCadastroDeCorrespondenciaSemNumeroUnidade()
         {
             var comando = CriarComandoCadastroDeCorrespondenciaFactory();
             
@@ -51,7 +51,7 @@ namespace CondominioApp.Correspondencias.App.Tests
             return comando;
         }
 
-        public static CadastrarCorrespondenciaCommand CriarComandoCadastroDeCorrespondenciaSemBloco()
+        public static AdicionarCorrespondenciaCommand CriarComandoCadastroDeCorrespondenciaSemBloco()
         {
             var comando = CriarComandoCadastroDeCorrespondenciaFactory();
 
@@ -60,7 +60,7 @@ namespace CondominioApp.Correspondencias.App.Tests
             return comando;
         }
 
-        public static CadastrarCorrespondenciaCommand CriarComandoCadastroDeCorrespondenciaSemFuncionarioId()
+        public static AdicionarCorrespondenciaCommand CriarComandoCadastroDeCorrespondenciaSemFuncionarioId()
         {
             var comando = CriarComandoCadastroDeCorrespondenciaFactory();
 
@@ -69,7 +69,7 @@ namespace CondominioApp.Correspondencias.App.Tests
             return comando;
         }
 
-        public static CadastrarCorrespondenciaCommand CriarComandoCadastroDeCorrespondenciaSemNomeFuncionario()
+        public static AdicionarCorrespondenciaCommand CriarComandoCadastroDeCorrespondenciaSemNomeFuncionario()
         {
             var comando = CriarComandoCadastroDeCorrespondenciaFactory();
 

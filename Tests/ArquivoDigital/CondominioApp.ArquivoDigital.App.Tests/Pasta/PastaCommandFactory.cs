@@ -6,33 +6,33 @@ namespace CondominioApp.ArquivoDigital.App.Tests
 {
     public class PastaCommandFactory
     {
-        private static CadastrarPastaCommand CadastrarPastaCommandFactoy()
+        private static AdicionarPastaCommand CadastrarPastaCommandFactoy()
         {
-            return new CadastrarPastaCommand
+            return new AdicionarPastaCommand
                 ("Titulo", "Descricao", Guid.NewGuid(), true);
         }
 
-        private static EditarPastaCommand EditarPastaCommandFactoy()
+        private static AtualizarPastaCommand EditarPastaCommandFactoy()
         {
-            return new EditarPastaCommand
+            return new AtualizarPastaCommand
                  (Guid.NewGuid(), "Titulo", "Descricao", true);
         }
 
 
 
-        public static CadastrarPastaCommand CriarComando_CadastroDePasta()
+        public static AdicionarPastaCommand CriarComando_CadastroDePasta()
         {
             return CadastrarPastaCommandFactoy();
         }
 
-        public static CadastrarPastaCommand CriarComando_CadastroDePasta_SemTitulo()
+        public static AdicionarPastaCommand CriarComando_CadastroDePasta_SemTitulo()
         {
             var comando = CadastrarPastaCommandFactoy();
             comando.SetTitulo("");
             return comando;
         }
 
-        public static CadastrarPastaCommand CriarComando_CadastroDePasta_SemCondominioId()
+        public static AdicionarPastaCommand CriarComando_CadastroDePasta_SemCondominioId()
         {
             var comando = CadastrarPastaCommandFactoy();
             comando.SetCondominioId(Guid.Empty);
@@ -41,12 +41,12 @@ namespace CondominioApp.ArquivoDigital.App.Tests
 
 
 
-        public static EditarPastaCommand CriarComando_EdicaoDePasta()
+        public static AtualizarPastaCommand CriarComando_EdicaoDePasta()
         {
             return EditarPastaCommandFactoy();
         }
 
-        public static EditarPastaCommand CriarComando_EdicaoDePasta_SemTitulo()
+        public static AtualizarPastaCommand CriarComando_EdicaoDePasta_SemTitulo()
         {
             var comando = EditarPastaCommandFactoy();
             comando.SetTitulo("");

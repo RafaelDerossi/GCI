@@ -11,10 +11,10 @@ using System.Threading.Tasks;
 namespace CondominioApp.Portaria.Aplication.Commands
 {
     public class VisitanteCommandHandler : CommandHandler,
-         IRequestHandler<CadastrarVisitantePorMoradorCommand, ValidationResult>,
-         IRequestHandler<CadastrarVisitantePorPorteiroCommand, ValidationResult>,
-         IRequestHandler<EditarVisitantePorMoradorCommand, ValidationResult>,
-         IRequestHandler<EditarVisitantePorPorteiroCommand, ValidationResult>,
+         IRequestHandler<AdicionarVisitantePorMoradorCommand, ValidationResult>,
+         IRequestHandler<AdicionarVisitantePorPorteiroCommand, ValidationResult>,
+         IRequestHandler<AtualizarVisitantePorMoradorCommand, ValidationResult>,
+         IRequestHandler<AtualizarVisitantePorPorteiroCommand, ValidationResult>,
          IRequestHandler<ApagarVisitanteCommand, ValidationResult>,
          IDisposable
     {
@@ -26,7 +26,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
         }
 
 
-        public async Task<ValidationResult> Handle(CadastrarVisitantePorMoradorCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(AdicionarVisitantePorMoradorCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido())
                 return request.ValidationResult;
@@ -48,7 +48,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
 
             return await PersistirDados(_visitanteRepository.UnitOfWork);
         }
-        public async Task<ValidationResult> Handle(CadastrarVisitantePorPorteiroCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(AdicionarVisitantePorPorteiroCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido())
                 return request.ValidationResult;
@@ -75,7 +75,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
 
             return await PersistirDados(_visitanteRepository.UnitOfWork);
         }
-        public async Task<ValidationResult> Handle(EditarVisitantePorMoradorCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(AtualizarVisitantePorMoradorCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido()) return request.ValidationResult;
 
@@ -118,7 +118,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
 
             return await PersistirDados(_visitanteRepository.UnitOfWork);
         }
-        public async Task<ValidationResult> Handle(EditarVisitantePorPorteiroCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(AtualizarVisitantePorPorteiroCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido()) return request.ValidationResult;
 
@@ -190,7 +190,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
         private void AdicionarEventoVisitanteCadastrado(Visitante visitante, VisitanteCommand request)
         {
             visitante.AdicionarEvento(
-                new VisitanteCadastradoEvent(
+                new VisitanteAdicionadoEvent(
                     visitante.Id, visitante.Nome, visitante.TipoDeDocumento, visitante.Documento, visitante.Email,
                     visitante.Foto, visitante.CondominioId, request.NomeCondominio, visitante.UnidadeId,
                     request.NumeroUnidade, request.AndarUnidade, request.GrupoUnidade, visitante.VisitantePermanente,
@@ -200,7 +200,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
         private void AdicionarEventoVisitanteEditado(Visitante visitante)
         {
             visitante.AdicionarEvento(
-                 new VisitanteEditadoEvent(
+                 new VisitanteAtualizadoEvent(
                      visitante.Id, visitante.Nome, visitante.TipoDeDocumento, visitante.Documento,
                      visitante.Email, visitante.Foto, visitante.VisitantePermanente, visitante.TipoDeVisitante,
                      visitante.NomeEmpresa, visitante.TemVeiculo));

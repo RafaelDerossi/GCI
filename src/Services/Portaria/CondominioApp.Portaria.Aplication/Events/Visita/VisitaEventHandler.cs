@@ -9,8 +9,8 @@ using MediatR;
 namespace CondominioApp.Portaria.Aplication.Events
 {
     public class VisitaEventHandler : EventHandler,
-        INotificationHandler<VisitaCadastradaEvent>,
-        INotificationHandler<VisitaEditadaEvent>,
+        INotificationHandler<VisitaAdicionadaEvent>,
+        INotificationHandler<VisitaAtualizadaEvent>,
         INotificationHandler<VisitaApagadaEvent>,
         INotificationHandler<VisitaAprovadaEvent>,
         INotificationHandler<VisitaReprovadaEvent>,
@@ -27,7 +27,7 @@ namespace CondominioApp.Portaria.Aplication.Events
         }
 
 
-        public async Task Handle(VisitaCadastradaEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(VisitaAdicionadaEvent notification, CancellationToken cancellationToken)
         {
             var visitaFlat = VisitaFlatFactory(notification);
             
@@ -36,7 +36,7 @@ namespace CondominioApp.Portaria.Aplication.Events
             await PersistirDados(_visitanteQueryRepository.UnitOfWork);
         }
 
-        public async Task Handle(VisitaEditadaEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(VisitaAtualizadaEvent notification, CancellationToken cancellationToken)
         {
             var visitaFlat = await _visitanteQueryRepository.ObterVisitaPorId(notification.Id);
             if (visitaFlat != null)

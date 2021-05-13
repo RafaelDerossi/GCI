@@ -6,14 +6,14 @@ namespace CondominioApp.Usuarios.App.Tests
 {
     public class MoradorEventFactory
     {
-        public static MoradorCadastradoEvent MoradorCadastradoEventFactory()
+        public static MoradorAdicionadoEvent MoradorCadastradoEventFactory()
         {
-            return new MoradorCadastradoEvent
+            return new MoradorAdicionadoEvent
                 (Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(), "Nome condominio", Guid.NewGuid(), "101", "1", "Bloco A",
                  true, true);
         }
 
-        public static MoradorCadastradoEvent CriarEventoCadastroDeMorador()
+        public static MoradorAdicionadoEvent CriarEventoCadastroDeMorador()
         {
             return MoradorCadastradoEventFactory();
         }        

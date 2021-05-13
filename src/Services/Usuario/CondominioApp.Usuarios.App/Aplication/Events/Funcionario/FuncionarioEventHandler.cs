@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 namespace CondominioApp.Usuarios.App.Aplication.Events
 {
     public class FuncionarioEventHandler : EventHandler,        
-        INotificationHandler<FuncionarioCadastradoEvent>,
-        INotificationHandler<FuncionarioEditadoEvent>,
+        INotificationHandler<FuncionarioAdicionadoEvent>,
+        INotificationHandler<FuncionarioAtualizadoEvent>,
         INotificationHandler<FuncionarioAtivadoEvent>,
         INotificationHandler<FuncionarioDesativadoEvent>,
         System.IDisposable
@@ -24,7 +24,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Events
         }
                
 
-        public async Task Handle(FuncionarioCadastradoEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(FuncionarioAdicionadoEvent notification, CancellationToken cancellationToken)
         {
             var usuario = await _usuarioRepository.ObterPorId(notification.UsuarioId);
             
@@ -41,7 +41,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Events
             await PersistirDados(_funcionarioQueryRepository.UnitOfWork);
         }
 
-        public async Task Handle(FuncionarioEditadoEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(FuncionarioAtualizadoEvent notification, CancellationToken cancellationToken)
         {
             var funcionarioFlat =await _funcionarioQueryRepository.ObterPorId(notification.Id);
 

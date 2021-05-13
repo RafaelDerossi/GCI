@@ -8,7 +8,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
 {
     public class AreaComumCommandFactory
     {
-        public static CadastrarAreaComumCommand CadastrarAreaComumCommandFactory()
+        public static AdicionarAreaComumCommand CadastrarAreaComumCommandFactory()
         {
             var listaPeriodos = new List<Periodo>();
 
@@ -17,14 +17,14 @@ namespace CondominioApp.ReservaAreaComum.Tests
             periodo = new Periodo("13:00", "17:00", 150, true);
             listaPeriodos.Add(periodo);
 
-            var comando = new CadastrarAreaComumCommand
+            var comando = new AdicionarAreaComumCommand
                 ("Area Comum", "Descricao da area comum", "Termo de Uso", Guid.NewGuid(),
                 "Nome do condominio", 10, "SATURDAY|SUNDAY", 0, 0, 0, 0, false, true, "",
                 true, "", 0, false, 0, 0, "", listaPeriodos);
 
             return comando;
         }
-        public static EditarAreaComumCommand EditarAreaComumCommandFactory()
+        public static AtualizarAreaComumCommand EditarAreaComumCommandFactory()
         {
             var listaPeriodos = new List<Periodo>();
 
@@ -33,7 +33,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             periodo = new Periodo("13:00", "17:00", 150, true);
             listaPeriodos.Add(periodo);
 
-            var comando = new EditarAreaComumCommand
+            var comando = new AtualizarAreaComumCommand
                 (Guid.NewGuid(), "Area Comum", "Descricao da area comum", "Termo de Uso",
                 10, "SATURDAY|SUNDAY", 0, 0, 0, 0, false, true, "", "", 0, false, 0, 0,
                 "", listaPeriodos);
@@ -44,12 +44,12 @@ namespace CondominioApp.ReservaAreaComum.Tests
 
         
         /// CadastrarAreaComumCommand        
-        public static CadastrarAreaComumCommand CriarComandoCadastroDeAreaComum()
+        public static AdicionarAreaComumCommand CriarComandoCadastroDeAreaComum()
         {
             return CadastrarAreaComumCommandFactory();
         }
 
-        public static CadastrarAreaComumCommand CriarComandoCadastroDeAreaComum_SemNome()
+        public static AdicionarAreaComumCommand CriarComandoCadastroDeAreaComum_SemNome()
         {
 
             var comando = CadastrarAreaComumCommandFactory();
@@ -60,7 +60,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
 
         }
 
-        public static CadastrarAreaComumCommand CriarComandoCadastroDeAreaComum_SemCondominioId()
+        public static AdicionarAreaComumCommand CriarComandoCadastroDeAreaComum_SemCondominioId()
         {
             var comando = CadastrarAreaComumCommandFactory();
 
@@ -69,7 +69,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             return comando;
         }
 
-        public static CadastrarAreaComumCommand CriarComandoCadastroDeAreaComum_SemNomeDoCondominio()
+        public static AdicionarAreaComumCommand CriarComandoCadastroDeAreaComum_SemNomeDoCondominio()
         {
             var comando = CadastrarAreaComumCommandFactory();
 
@@ -78,7 +78,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             return comando;
         }
 
-        public static CadastrarAreaComumCommand CriarComandoCadastroDeAreaComum_SemDiasPermitidos()
+        public static AdicionarAreaComumCommand CriarComandoCadastroDeAreaComum_SemDiasPermitidos()
         {
             var comando = CadastrarAreaComumCommandFactory();
 
@@ -87,7 +87,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             return comando;
         }
 
-        public static CadastrarAreaComumCommand CriarComandoCadastroDeAreaComum_AntecedenciaMaximaEmMesesInvalida()
+        public static AdicionarAreaComumCommand CriarComandoCadastroDeAreaComum_AntecedenciaMaximaEmMesesInvalida()
         {
             var comando = CadastrarAreaComumCommandFactory();
 
@@ -96,7 +96,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             return comando;
         }
 
-        public static CadastrarAreaComumCommand CriarComandoCadastroDeAreaComum_AntecedenciaMaximaEmDiasInvalida()
+        public static AdicionarAreaComumCommand CriarComandoCadastroDeAreaComum_AntecedenciaMaximaEmDiasInvalida()
         {
             var comando = CadastrarAreaComumCommandFactory();
 
@@ -105,7 +105,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             return comando;
         }
 
-        public static CadastrarAreaComumCommand CriarComandoCadastroDeAreaComum_AntecedenciaMinimaInvalida()
+        public static AdicionarAreaComumCommand CriarComandoCadastroDeAreaComum_AntecedenciaMinimaInvalida()
         {
             var comando = CadastrarAreaComumCommandFactory();
 
@@ -114,7 +114,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             return comando;
         }
 
-        public static CadastrarAreaComumCommand CriarComandoCadastroDeAreaComum_AntecedenciaMinimaParaCancelamentoInvalida()
+        public static AdicionarAreaComumCommand CriarComandoCadastroDeAreaComum_AntecedenciaMinimaParaCancelamentoInvalida()
         {
             var comando = CadastrarAreaComumCommandFactory();
 
@@ -123,7 +123,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             return comando;
         }
 
-        public static CadastrarAreaComumCommand CriarComandoCadastroDeAreaComum_NumeroLimiteDeReservaPorUnidadeInvalido()
+        public static AdicionarAreaComumCommand CriarComandoCadastroDeAreaComum_NumeroLimiteDeReservaPorUnidadeInvalido()
         {
             var comando = CadastrarAreaComumCommandFactory();
 
@@ -132,7 +132,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             return comando;
         }
 
-        public static CadastrarAreaComumCommand CriarComandoCadastroDeAreaComum_NumeroLimiteDeReservaSobrepostaInvalido()
+        public static AdicionarAreaComumCommand CriarComandoCadastroDeAreaComum_NumeroLimiteDeReservaSobrepostaInvalido()
         {
             var comando = CadastrarAreaComumCommandFactory();
 
@@ -141,7 +141,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             return comando;
         }
 
-        public static CadastrarAreaComumCommand CriarComandoCadastroDeAreaComum_NumeroLimiteDeReservaSobrepostaPorUnidadeInvalido()
+        public static AdicionarAreaComumCommand CriarComandoCadastroDeAreaComum_NumeroLimiteDeReservaSobrepostaPorUnidadeInvalido()
         {
             var comando = CadastrarAreaComumCommandFactory();
 
@@ -150,7 +150,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             return comando;
         }
 
-        public static CadastrarAreaComumCommand CriarComandoCadastroDeAreaComum_PeriodoPernoite()
+        public static AdicionarAreaComumCommand CriarComandoCadastroDeAreaComum_PeriodoPernoite()
         {
             var periodo = new Periodo("17:00", "02:00", 150, true);              
 
@@ -163,7 +163,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             return comando;
         }
 
-        public static CadastrarAreaComumCommand CriarComandoCadastroDeAreaComum_PeriodoSemHoraInicio()
+        public static AdicionarAreaComumCommand CriarComandoCadastroDeAreaComum_PeriodoSemHoraInicio()
         {
             var periodo = new Periodo("", "12:00", 150, true);
 
@@ -176,7 +176,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             return comando;
         }
 
-        public static CadastrarAreaComumCommand CriarComandoCadastroDeAreaComum_PeriodoComHoraInicioInvalido()
+        public static AdicionarAreaComumCommand CriarComandoCadastroDeAreaComum_PeriodoComHoraInicioInvalido()
         {
             var periodo = new Periodo("30:00", "12:00", 150, true);
 
@@ -189,7 +189,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             return comando;
         }
 
-        public static CadastrarAreaComumCommand CriarComandoCadastroDeAreaComum_PeriodoSemHoraFim()
+        public static AdicionarAreaComumCommand CriarComandoCadastroDeAreaComum_PeriodoSemHoraFim()
         {
             var periodo = new Periodo("08:00", "", 150, true);
 
@@ -202,7 +202,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             return comando;
         }
 
-        public static CadastrarAreaComumCommand CriarComandoCadastroDeAreaComum_PeriodoComHoraFimInvalido()
+        public static AdicionarAreaComumCommand CriarComandoCadastroDeAreaComum_PeriodoComHoraFimInvalido()
         {
             var periodo = new Periodo("08:00", "30:00", 150, true);
 
@@ -215,7 +215,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             return comando;
         }
 
-        public static CadastrarAreaComumCommand CriarComandoCadastroDeAreaComum_PeriodosConflitantesInvalido()
+        public static AdicionarAreaComumCommand CriarComandoCadastroDeAreaComum_PeriodosConflitantesInvalido()
         {
             var periodo1 = new Periodo("07:00", "14:00", 150, true);
             var periodo2 = new Periodo("13:00", "18:00", 150, true);           
@@ -231,7 +231,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
 
         }
 
-        public static CadastrarAreaComumCommand CriarComandoCadastroDeAreaComum_PeriodosInvertidosConflitantesInvalido()
+        public static AdicionarAreaComumCommand CriarComandoCadastroDeAreaComum_PeriodosInvertidosConflitantesInvalido()
         {
             var periodo1 = new Periodo("13:00", "18:00", 150, true);
             var periodo2 = new Periodo("07:00", "14:00", 150, true);
@@ -246,7 +246,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             return comando;
         }
 
-        public static CadastrarAreaComumCommand CriarComandoCadastroDeAreaComum_PeriodosPernoiteConflitantesInvalido()
+        public static AdicionarAreaComumCommand CriarComandoCadastroDeAreaComum_PeriodosPernoiteConflitantesInvalido()
         {
             var periodo1 = new Periodo("18:00", "02:00", 150, true);
             var periodo2 = new Periodo("15:00", "20:00", 150, true);
@@ -261,7 +261,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             return comando;
         }
 
-        public static CadastrarAreaComumCommand CriarComandoCadastroDeAreaComum_PeriodosValido()
+        public static AdicionarAreaComumCommand CriarComandoCadastroDeAreaComum_PeriodosValido()
         {
             var periodo1 = new Periodo("13:00", "18:00", 150, true);
             var periodo2 = new Periodo("07:00", "12:00", 150, true);
@@ -276,7 +276,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             return comando;
         }
 
-        public static CadastrarAreaComumCommand CriarComandoCadastroDeAreaComum_PeriodosPernoiteValido()
+        public static AdicionarAreaComumCommand CriarComandoCadastroDeAreaComum_PeriodosPernoiteValido()
         {
             var periodo1 = new Periodo("20:00", "02:00", 150, true);
             var periodo2 = new Periodo("07:00", "18:00", 150, true);
@@ -297,13 +297,13 @@ namespace CondominioApp.ReservaAreaComum.Tests
 
         
         /// EditarAreaComumCommand        
-        public static EditarAreaComumCommand CriarComandoEdicaoDeAreaComum()
+        public static AtualizarAreaComumCommand CriarComandoEdicaoDeAreaComum()
         {
             var comando = EditarAreaComumCommandFactory();
             return comando;
         }
 
-        public static EditarAreaComumCommand CriarComandoEdicaoDeAreaComum_SemNome()
+        public static AtualizarAreaComumCommand CriarComandoEdicaoDeAreaComum_SemNome()
         {
             var comando = EditarAreaComumCommandFactory();
 
@@ -312,7 +312,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             return comando;
         }
 
-        public static EditarAreaComumCommand CriarComandoEdicaoDeAreaComum_SemDiasPermitidos()
+        public static AtualizarAreaComumCommand CriarComandoEdicaoDeAreaComum_SemDiasPermitidos()
         {
             var comando = EditarAreaComumCommandFactory();
 
@@ -321,7 +321,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             return comando;
         }
 
-        public static EditarAreaComumCommand CriarComandoEdicaoDeAreaComum_AntecedenciaMaximaEmMesesInvalida()
+        public static AtualizarAreaComumCommand CriarComandoEdicaoDeAreaComum_AntecedenciaMaximaEmMesesInvalida()
         {
             var comando = EditarAreaComumCommandFactory();
 
@@ -330,7 +330,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             return comando;
         }
 
-        public static EditarAreaComumCommand CriarComandoEdicaoDeAreaComum_AntecedenciaMaximaEmDiasInvalida()
+        public static AtualizarAreaComumCommand CriarComandoEdicaoDeAreaComum_AntecedenciaMaximaEmDiasInvalida()
         {
             var comando = EditarAreaComumCommandFactory();
 
@@ -339,7 +339,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             return comando;
         }
 
-        public static EditarAreaComumCommand CriarComandoEdicaoDeAreaComum_AntecedenciaMinimaInvalida()
+        public static AtualizarAreaComumCommand CriarComandoEdicaoDeAreaComum_AntecedenciaMinimaInvalida()
         {
             var comando = EditarAreaComumCommandFactory();
 
@@ -348,7 +348,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             return comando;
         }
 
-        public static EditarAreaComumCommand CriarComandoEdicaoDeAreaComum_AntecedenciaMinimaParaCancelamentoInvalida()
+        public static AtualizarAreaComumCommand CriarComandoEdicaoDeAreaComum_AntecedenciaMinimaParaCancelamentoInvalida()
         {
             var comando = EditarAreaComumCommandFactory();
 
@@ -357,7 +357,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             return comando;
         }
 
-        public static EditarAreaComumCommand CriarComandoEdicaoDeAreaComum_NumeroLimiteDeReservaInvalida()
+        public static AtualizarAreaComumCommand CriarComandoEdicaoDeAreaComum_NumeroLimiteDeReservaInvalida()
         {
             var comando = EditarAreaComumCommandFactory();
 
@@ -366,7 +366,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             return comando;
         }
 
-        public static EditarAreaComumCommand CriarComandoEdicaoDeAreaComum_NumeroLimiteDeReservaSobrepostaInvalida()
+        public static AtualizarAreaComumCommand CriarComandoEdicaoDeAreaComum_NumeroLimiteDeReservaSobrepostaInvalida()
         {
             var comando = EditarAreaComumCommandFactory();
 
@@ -375,7 +375,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             return comando;
         }
 
-        public static EditarAreaComumCommand CriarComandoEdicaoDeAreaComum_NumeroLimiteDeReservaSobrepostaPorUnidadeInvalida()
+        public static AtualizarAreaComumCommand CriarComandoEdicaoDeAreaComum_NumeroLimiteDeReservaSobrepostaPorUnidadeInvalida()
         {
             var comando = EditarAreaComumCommandFactory();
 
@@ -384,7 +384,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             return comando;
         }
 
-        public static EditarAreaComumCommand CriarComandoEdicaoDeAreaComum_PeriodoPernoite()
+        public static AtualizarAreaComumCommand CriarComandoEdicaoDeAreaComum_PeriodoPernoite()
         {
             var periodo = new Periodo("17:00", "02:00", 150, true);
             
@@ -396,7 +396,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             return comando;
         }
 
-        public static EditarAreaComumCommand CriarComandoEdicaoDeAreaComum_PeriodoSemHoraInicio()
+        public static AtualizarAreaComumCommand CriarComandoEdicaoDeAreaComum_PeriodoSemHoraInicio()
         {
             var periodo = new Periodo("", "17:00", 150, true);          
 
@@ -408,7 +408,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             return comando;
         }
 
-        public static EditarAreaComumCommand CriarComandoEdicaoDeAreaComum_PeriodoComHoraInicioInvalida()
+        public static AtualizarAreaComumCommand CriarComandoEdicaoDeAreaComum_PeriodoComHoraInicioInvalida()
         {
             var periodo = new Periodo("30:00", "17:00", 150, true);
 
@@ -420,7 +420,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             return comando;
         }
 
-        public static EditarAreaComumCommand CriarComandoEdicaoDeAreaComum_PeriodoSemHoraFim()
+        public static AtualizarAreaComumCommand CriarComandoEdicaoDeAreaComum_PeriodoSemHoraFim()
         {
             var periodo = new Periodo("08:00", "", 150, true);
 
@@ -432,7 +432,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             return comando;
         }
 
-        public static EditarAreaComumCommand CriarComandoEdicaoDeAreaComum_PeriodoComHoraFimInvalida()
+        public static AtualizarAreaComumCommand CriarComandoEdicaoDeAreaComum_PeriodoComHoraFimInvalida()
         {
             var periodo = new Periodo("08:00", "30:00", 150, true);
 

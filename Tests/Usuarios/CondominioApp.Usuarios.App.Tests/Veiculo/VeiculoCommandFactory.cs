@@ -5,19 +5,19 @@ namespace CondominioApp.Usuarios.App.Tests
 {
     public class VeiculoCommandFactory
     {
-        private static CadastrarVeiculoCommand CadastrarVeiculoCommandFactory()
+        private static AdicionarVeiculoCommand CadastrarVeiculoCommandFactory()
         {
-            return new CadastrarVeiculoCommand
+            return new AdicionarVeiculoCommand
                 (Guid.NewGuid(),"LMG8922","Modelo","Cor", Guid.NewGuid(),"101","1","Bloco A",
                 Guid.NewGuid(), "Nome do Condominio", "", "");
         }
 
-        public static CadastrarVeiculoCommand CriarComandoCadastroDeVeiculo()
+        public static AdicionarVeiculoCommand CriarComandoCadastroDeVeiculo()
         {
             return CadastrarVeiculoCommandFactory();
         }
 
-        public static CadastrarVeiculoCommand CriarComandoCadastroDeVeiculoComPlacaInvalida()
+        public static AdicionarVeiculoCommand CriarComandoCadastroDeVeiculoComPlacaInvalida()
         {
             var comando = CadastrarVeiculoCommandFactory();
 
@@ -26,7 +26,7 @@ namespace CondominioApp.Usuarios.App.Tests
             return comando;
         }
 
-        public static CadastrarVeiculoCommand CriarComandoCadastroDeVeiculoSemPlaca()
+        public static AdicionarVeiculoCommand CriarComandoCadastroDeVeiculoSemPlaca()
         {
             var comando = CadastrarVeiculoCommandFactory();
 
@@ -35,7 +35,7 @@ namespace CondominioApp.Usuarios.App.Tests
             return comando;
         }
 
-        public static CadastrarVeiculoCommand CriarComandoCadastroDeVeiculoSemModelo()
+        public static AdicionarVeiculoCommand CriarComandoCadastroDeVeiculoSemModelo()
         {
             var comando = CadastrarVeiculoCommandFactory();
 
@@ -44,7 +44,7 @@ namespace CondominioApp.Usuarios.App.Tests
             return comando;
         }
 
-        public static CadastrarVeiculoCommand CriarComandoCadastroDeVeiculoSemCor()
+        public static AdicionarVeiculoCommand CriarComandoCadastroDeVeiculoSemCor()
         {
             var comando = CadastrarVeiculoCommandFactory();
 

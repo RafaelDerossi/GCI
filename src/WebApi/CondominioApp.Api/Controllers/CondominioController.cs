@@ -73,11 +73,11 @@ namespace CondominioApp.Api.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult> Post(CadastraCondominioViewModel condominioVM)
+        public async Task<ActionResult> Post(AdicionaCondominioViewModel condominioVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var comando = new CadastrarCondominioCommand(
+            var comando = new AdicionarCondominioCommand(
                  condominioVM.Cnpj, condominioVM.Nome, condominioVM.Descricao, condominioVM.LogoMarca,
                  condominioVM.NomeOriginal, condominioVM.Telefone, condominioVM.Logradouro, condominioVM.Complemento,
                  condominioVM.Numero, condominioVM.Cep, condominioVM.Bairro, condominioVM.Cidade, condominioVM.Estado,
@@ -95,11 +95,11 @@ namespace CondominioApp.Api.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> Put(EditaCondominioViewModel EditaCondominioVM)
+        public async Task<ActionResult> Put(AtualizaCondominioViewModel EditaCondominioVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var comando = new EditarCondominioCommand(
+            var comando = new AtualizarCondominioCommand(
                  EditaCondominioVM.Id, EditaCondominioVM.Cnpj, EditaCondominioVM.Nome,
                  EditaCondominioVM.Descricao, EditaCondominioVM.LogoMarca, EditaCondominioVM.NomeOriginal,
                  EditaCondominioVM.Telefone, EditaCondominioVM.Logradouro, EditaCondominioVM.Complemento,
@@ -112,11 +112,11 @@ namespace CondominioApp.Api.Controllers
         }
 
         [HttpPut("configuracao")]
-        public async Task<ActionResult> PutConfiguracao(EditaConfiguracaoCondominioViewModel EditaCondominioVM)
+        public async Task<ActionResult> PutConfiguracao(AtualizaConfiguracaoCondominioViewModel EditaCondominioVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var comando = new EditarConfiguracaoCondominioCommand(
+            var comando = new AtualizarConfiguracaoCondominioCommand(
                  EditaCondominioVM.Id, EditaCondominioVM.Portaria, EditaCondominioVM.PortariaMorador,
                  EditaCondominioVM.Classificado, EditaCondominioVM.ClassificadoMorador, EditaCondominioVM.Mural,
                  EditaCondominioVM.MuralMorador, EditaCondominioVM.Chat, EditaCondominioVM.ChatMorador, 

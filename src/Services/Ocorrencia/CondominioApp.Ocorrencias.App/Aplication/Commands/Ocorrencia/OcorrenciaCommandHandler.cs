@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 namespace CondominioApp.Ocorrencias.App.Aplication.Commands
 {
     public class OcorrenciaCommandHandler : CommandHandler,
-         IRequestHandler<CadastrarOcorrenciaCommand, ValidationResult>,
-         IRequestHandler<EditarOcorrenciaCommand, ValidationResult>,
+         IRequestHandler<AdicionarOcorrenciaCommand, ValidationResult>,
+         IRequestHandler<AtualizarOcorrenciaCommand, ValidationResult>,
          IRequestHandler<ApagarOcorrenciaCommand, ValidationResult>,
          IDisposable
     {
@@ -23,7 +23,7 @@ namespace CondominioApp.Ocorrencias.App.Aplication.Commands
         }
 
 
-        public async Task<ValidationResult> Handle(CadastrarOcorrenciaCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(AdicionarOcorrenciaCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido())
                 return request.ValidationResult;
@@ -39,7 +39,7 @@ namespace CondominioApp.Ocorrencias.App.Aplication.Commands
             return await PersistirDados(_ocorrenciaRepository.UnitOfWork);
         }
 
-        public async Task<ValidationResult> Handle(EditarOcorrenciaCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(AtualizarOcorrenciaCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido())
                 return request.ValidationResult;
@@ -92,7 +92,7 @@ namespace CondominioApp.Ocorrencias.App.Aplication.Commands
 
 
 
-        private Ocorrencia OcorrenciaFactory(CadastrarOcorrenciaCommand request)
+        private Ocorrencia OcorrenciaFactory(AdicionarOcorrenciaCommand request)
         {
             var ocorrencia = new Ocorrencia(
                 request.Descricao, request.Foto, request.Publica, request.UnidadeId, request.MoradorId,

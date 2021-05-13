@@ -8,7 +8,7 @@ namespace CondominioApp.Enquetes.App.Tests
 {
     public class EnqueteCommandFactory
     {
-        public static CadastrarEnqueteCommand CriarComandoCadastroDeEnqueteFactory_ComDuasAlternativas()
+        public static AdicionarEnqueteCommand CriarComandoCadastroDeEnqueteFactory_ComDuasAlternativas()
         {
             //Arrange            
             var alternativas = new List<AlternativaEnquete>
@@ -18,25 +18,25 @@ namespace CondominioApp.Enquetes.App.Tests
             };
 
             //Act
-            return new CadastrarEnqueteCommand(
+            return new AdicionarEnqueteCommand(
                 "SIM ou NAO?", DateTime.Now, DateTime.Now.AddDays(30), Guid.NewGuid(),
                 "Nome do Condominio", Guid.NewGuid(), "Nome do Usuario", false, alternativas);
         }
-        public static CadastrarEnqueteCommand CriarComandoCadastroDeEnqueteFactory_SemAlternativas()
+        public static AdicionarEnqueteCommand CriarComandoCadastroDeEnqueteFactory_SemAlternativas()
         {
-            return new CadastrarEnqueteCommand(
+            return new AdicionarEnqueteCommand(
                 "SIM ou NAO?", DateTime.Now, DateTime.Now.AddDays(30), Guid.NewGuid(),
                 "Nome do Condominio", Guid.NewGuid(), "Nome do Usuario", false, null);
         }
 
 
 
-        public static CadastrarEnqueteCommand CriarComandoCadastroDeEnquete()
+        public static AdicionarEnqueteCommand CriarComandoCadastroDeEnquete()
         {
             return CriarComandoCadastroDeEnqueteFactory_ComDuasAlternativas();
         }
 
-        public static CadastrarEnqueteCommand CriarComandoCadastroDeEnqueteComMenosDeDuasAlternativas()
+        public static AdicionarEnqueteCommand CriarComandoCadastroDeEnqueteComMenosDeDuasAlternativas()
         {
             var alternativas = new List<AlternativaEnquete>
             {
@@ -49,14 +49,14 @@ namespace CondominioApp.Enquetes.App.Tests
             return comando;
         }
 
-        public static CadastrarEnqueteCommand CriarComandoCadastroDeEnqueteSemAlternativas()
+        public static AdicionarEnqueteCommand CriarComandoCadastroDeEnqueteSemAlternativas()
         {
             var comando = CriarComandoCadastroDeEnqueteFactory_SemAlternativas();
             return comando;
         }
        
 
-        public static CadastrarEnqueteCommand CriarComandoCadastroDeEnqueteJaTerminada()
+        public static AdicionarEnqueteCommand CriarComandoCadastroDeEnqueteJaTerminada()
         {
             var comando = CriarComandoCadastroDeEnqueteFactory_ComDuasAlternativas();
             comando.SetDataInicio(DateTime.Now.AddDays(-3));
@@ -64,7 +64,7 @@ namespace CondominioApp.Enquetes.App.Tests
             return comando;
         }
 
-        public static CadastrarEnqueteCommand CriarComandoCadastroDeEnqueteComDataInicialPosteriorAFinal()
+        public static AdicionarEnqueteCommand CriarComandoCadastroDeEnqueteComDataInicialPosteriorAFinal()
         {
             var comando = CriarComandoCadastroDeEnqueteFactory_ComDuasAlternativas();
             comando.SetDataInicio(DateTime.Now.AddDays(3));
@@ -72,21 +72,21 @@ namespace CondominioApp.Enquetes.App.Tests
             return comando;
         }
 
-        public static CadastrarEnqueteCommand CriarComandoCadastroDeEnqueteSemDescricao()
+        public static AdicionarEnqueteCommand CriarComandoCadastroDeEnqueteSemDescricao()
         {
             var comando = CriarComandoCadastroDeEnqueteFactory_ComDuasAlternativas();
             comando.SetDescricao("");            
             return comando;
         }
 
-        public static CadastrarEnqueteCommand CriarComandoCadastroDeEnqueteSemCondominioId()
+        public static AdicionarEnqueteCommand CriarComandoCadastroDeEnqueteSemCondominioId()
         {
             var comando = CriarComandoCadastroDeEnqueteFactory_ComDuasAlternativas();
             comando.SetCondominioId(Guid.Empty);
             return comando;
         }       
 
-        public static CadastrarEnqueteCommand CriarComandoCadastroDeEnqueteSemFuncionarioId()
+        public static AdicionarEnqueteCommand CriarComandoCadastroDeEnqueteSemFuncionarioId()
         {
             var comando = CriarComandoCadastroDeEnqueteFactory_ComDuasAlternativas();
             comando.SetFuncionarioId(Guid.Empty);
@@ -94,7 +94,7 @@ namespace CondominioApp.Enquetes.App.Tests
         }
         
 
-        public static EditarEnqueteCommand CriarComandoEdicaoDeEnquete()
+        public static AtualizarEnqueteCommand CriarComandoEdicaoDeEnquete()
         {
             var alternativas = new List<AlternativaEnquete>
             {
@@ -102,7 +102,7 @@ namespace CondominioApp.Enquetes.App.Tests
                 new AlternativaEnquete("NAO", 2)
             };
 
-            return new EditarEnqueteCommand
+            return new AtualizarEnqueteCommand
                 (Guid.NewGuid(), "SIM ou NAO?", DateTime.Now, DateTime.Now.AddDays(30),
                 false, alternativas);
         }

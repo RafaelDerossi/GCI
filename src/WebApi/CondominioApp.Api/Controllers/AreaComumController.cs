@@ -61,7 +61,7 @@ namespace CondominioApp.Api.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult> Post(CadastraAreaComumViewModel areaComumVM)
+        public async Task<ActionResult> Post(AdicionaAreaComumViewModel areaComumVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
@@ -72,7 +72,7 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }
 
-            var comando = CadastrarAreaComumCommandFactory(areaComumVM, condominio);
+            var comando = AdicionarAreaComumCommandFactory(areaComumVM, condominio);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
@@ -80,11 +80,11 @@ namespace CondominioApp.Api.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> Put(EditaAreaComumViewModel areaComumVM)
+        public async Task<ActionResult> Put(AtualizaAreaComumViewModel areaComumVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var comando = EditarAreaComumCommandFactory(areaComumVM);
+            var comando = AtualizarAreaComumCommandFactory(areaComumVM);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
@@ -125,7 +125,7 @@ namespace CondominioApp.Api.Controllers
 
 
 
-        private CadastrarAreaComumCommand CadastrarAreaComumCommandFactory(CadastraAreaComumViewModel areaComumVM, CondominioFlat condominio)
+        private AdicionarAreaComumCommand AdicionarAreaComumCommandFactory(AdicionaAreaComumViewModel areaComumVM, CondominioFlat condominio)
         {
             var listaPeriodos = new List<Periodo>();
             if (areaComumVM.Periodos != null)
@@ -136,7 +136,7 @@ namespace CondominioApp.Api.Controllers
                     listaPeriodos.Add(periodo);
                 }
             }
-           return new CadastrarAreaComumCommand(
+           return new AdicionarAreaComumCommand(
                  areaComumVM.Nome, areaComumVM.Descricao, areaComumVM.TermoDeUso, condominio.Id,
                  condominio.Nome, areaComumVM.Capacidade, areaComumVM.DiasPermitidos,
                  areaComumVM.AntecedenciaMaximaEmMeses, areaComumVM.AntecedenciaMaximaEmDias,
@@ -148,7 +148,7 @@ namespace CondominioApp.Api.Controllers
                  areaComumVM.TempoDeIntervaloEntreReservasPorUnidade, listaPeriodos);
         }
 
-        private EditarAreaComumCommand EditarAreaComumCommandFactory(EditaAreaComumViewModel areaComumVM)
+        private AtualizarAreaComumCommand AtualizarAreaComumCommandFactory(AtualizaAreaComumViewModel areaComumVM)
         {
             var listaPeriodos = new List<Periodo>();
             if (areaComumVM.Periodos != null)
@@ -159,7 +159,7 @@ namespace CondominioApp.Api.Controllers
                     listaPeriodos.Add(periodo);
                 }
             }
-            return new EditarAreaComumCommand(
+            return new AtualizarAreaComumCommand(
                   areaComumVM.Id, areaComumVM.Nome, areaComumVM.Descricao, areaComumVM.TermoDeUso, 
                   areaComumVM.Capacidade, areaComumVM.DiasPermitidos, areaComumVM.AntecedenciaMaximaEmMeses,
                   areaComumVM.AntecedenciaMaximaEmDias, areaComumVM.AntecedenciaMinimaEmDias, 
