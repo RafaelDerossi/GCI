@@ -20,12 +20,16 @@ namespace CondominioAppMarketplace.Infra.Data
 
         public DbSet<Produto> Produtos { get; set; }
 
+        public DbSet<FotoDoProduto> FotosDosProdutos { get; set; }
+
         public DbSet<Lead> Leads { get; set; }
 
         public DbSet<ItemDeVenda> ItensDeVenda { get; set; }
 
         public DbSet<Vendedor> Vendedores { get; set; }
+
         
+
         public MarketplaceContext(DbContextOptions<MarketplaceContext> options, IMediatorHandler mediatorHandler) : base(options)
         {
             _mediatorHandler = mediatorHandler;

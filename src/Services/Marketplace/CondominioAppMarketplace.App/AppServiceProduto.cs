@@ -89,13 +89,20 @@ namespace CondominioAppMarketplace.App
             produto.setEspecificacaoTecnica(ViewModel.EspecificacaoTecnica);
             produto.setUrl(new Url(ViewModel.LinkDoProduto));
 
+
+            foreach (var foto in produto.Fotos)
+            {
+                _repository.RemoverFoto(foto);
+            }
             produto.RemoverFotos();
+
             foreach (var fotoDoProdutoViewModel in ViewModel.FotosDoProduto)
             {
                 var FotoDoProduto = new FotoDoProduto
                     (fotoDoProdutoViewModel.NomeOriginal, fotoDoProdutoViewModel.Principal,
                      fotoDoProdutoViewModel.NomeDoArquivo);
                 produto.AdicionarFotos(FotoDoProduto);
+                _repository.AdicionarFoto(FotoDoProduto);
             }
 
             produto.MarcarPrimeiraFotoPrincipal();

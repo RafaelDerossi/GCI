@@ -27,6 +27,6 @@ namespace CondominioApp.Core.Data
 
         void Atualizar(TEntity entity);
 
-        void Apagar(Func<TEntity, bool> predicate);
+        void Apagar(Func<TEntity, bool> predicate);        
     }
 }

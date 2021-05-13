@@ -69,13 +69,24 @@ namespace CondominioAppMarketplace.Infra.Repositories
 
         public async Task<Produto> ObterPorId(Guid Id)
         {
-            return await _ContextoBanco.Produtos.FindAsync(Id);
+            return await _ContextoBanco.Produtos.Include(p => p.Fotos).FirstOrDefaultAsync(p => p.Id == Id);
         }
 
         public async Task<IEnumerable<Produto>> ObterTodos()
         {
             return await _ContextoBanco.Produtos.ToListAsync();
         }
+
+
+        public void AdicionarFoto(FotoDoProduto foto)
+        {
+            _ContextoBanco.FotosDosProdutos.Add(foto);
+        }
+        public void RemoverFoto(FotoDoProduto foto)
+        {
+            _ContextoBanco.FotosDosProdutos.Remove(foto);
+        }
+
         public void Dispose()
         {
             _ContextoBanco?.Dispose();

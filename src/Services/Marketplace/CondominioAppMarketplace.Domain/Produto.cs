@@ -114,6 +114,8 @@ namespace CondominioAppMarketplace.Domain
 
         public void RemoverFotos()
         {
+            if (Fotos == null)
+                Fotos = new List<FotoDoProduto>();
             Fotos.Clear();
         }
         public ValidationResult Validar()
