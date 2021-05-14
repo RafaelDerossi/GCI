@@ -21,7 +21,7 @@ namespace CondominioApp.Api.Controllers
         private readonly IArquivoDigitalQuery _arquivoDigitalQuery;
         public readonly IMapper _mapper;
         private readonly IPrincipalQuery _principalQuery;
-        private readonly IUsuarioQuery _usuarioQuery;
+        private readonly IUsuarioQuery _usuarioQuery;        
 
         public ArquivoDigitalController
             (IMediatorHandler mediatorHandler, IArquivoDigitalQuery arquivoDigitalQuery,
@@ -205,21 +205,20 @@ namespace CondominioApp.Api.Controllers
 
 
         [HttpPost("arquivo")]
-        public async Task<ActionResult> PostArquivo(AdicionaArquivoViewModel arquivoVM)
+        public async Task<ActionResult> PostArquivo([FromForm]AdicionaArquivoViewModel viewModel)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var funcionario = await _usuarioQuery.ObterFuncionarioPorId(arquivoVM.FuncionarioId);
+            var funcionario = await _usuarioQuery.ObterFuncionarioPorId(viewModel.FuncionarioId);
             if (funcionario == null)
             {
                 AdicionarErroProcessamento("Funcionário não encontrado!");
                 return CustomResponse();
-            }
-
+            }            
+                
             var comando = new AdicionarArquivoCommand
-                (arquivoVM.NomeArquivo, arquivoVM.NomeOriginal, arquivoVM.Tamanho, arquivoVM.PastaId, arquivoVM.Publico,
-                 funcionario.Id, funcionario.NomeCompleto, arquivoVM.Titulo, arquivoVM.Descricao,
-                Guid.Empty);
+                (viewModel.PastaId, viewModel.Publico, funcionario.Id, funcionario.NomeCompleto, viewModel.Titulo,
+                 viewModel.Descricao, Guid.Empty, viewModel.Arquivo);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
@@ -234,7 +233,7 @@ namespace CondominioApp.Api.Controllers
 
             var comando = new AtualizarArquivoCommand
                 (arquivoVM.Id, arquivoVM.Titulo, arquivoVM.Descricao, arquivoVM.Publico,
-                 arquivoVM.NomeArquivo, arquivoVM.NomeOriginal);
+                 arquivoVM.NomeOriginal);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 

@@ -1,4 +1,6 @@
 ﻿using CondominioApp.ArquivoDigital.App.Models;
+using CondominioApp.ArquivoDigital.App.ValueObjects;
+using CondominioApp.ArquivoDigital.AzureStorageBlob.Services;
 using CondominioApp.Core.Messages;
 using FluentValidation.Results;
 using MediatR;
@@ -19,10 +21,13 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
     {
 
         private readonly IArquivoDigitalRepository _arquivoDigitalRepository;
+        private readonly IAzureStorageService _azureStorageService;
 
-        public ArquivoCommandHandler(IArquivoDigitalRepository arquivoDigitalRepository)
+        public ArquivoCommandHandler
+            (IArquivoDigitalRepository arquivoDigitalRepository, IAzureStorageService azureStorageService)
         {
             _arquivoDigitalRepository = arquivoDigitalRepository;
+            _azureStorageService = azureStorageService;
         }
 
 
@@ -37,6 +42,22 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
                 AdicionarErro("Pasta não encontrada!");
                 return ValidationResult;
             }
+            
+            using (var stream = request.Arquivo.OpenReadStream())
+            {
+                var retorno = await _azureStorageService.SubirArquivo
+                    (stream, ObterNomeDoArquivoComPasta(request.Nome, pasta));
+
+                if (!retorno.ValidationResult.IsValid)
+                {
+                    return retorno.ValidationResult;
+                }
+
+                request.SetUrl(retorno.Url);
+                if (!request.EstaValido())
+                    return request.ValidationResult;
+            }                
+
 
             var arquivo = ArquivoFactory(request, pasta.CondominioId);
 
@@ -164,20 +185,24 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
 
         private Arquivo ArquivoFactory(AdicionarArquivoCommand request, Guid condominioId)
         {
-            var arquivo = new Arquivo(request.Nome, request.Tamanho, condominioId, request.PastaId, request.Publico, 
-                                      request.FuncionarioId, request.NomeFuncionario, request.Titulo, request.Descricao,
-                                      request.AnexadoPorId);
+            var arquivo = new Arquivo
+                (request.Nome, request.Tamanho, condominioId, request.PastaId, request.Publico, 
+                 request.FuncionarioId, request.NomeFuncionario, request.Titulo, request.Descricao,
+                 request.AnexadoPorId, request.Url);
 
             arquivo.SetEntidadeId(request.Id);
             return arquivo;
         }
 
-
+        private string ObterNomeDoArquivoComPasta(NomeArquivo nomeArquivo, Pasta pasta)
+        {
+            return $"{pasta.CondominioId}/{nomeArquivo.NomeDoArquivo}";
+        }
+        
         public void Dispose()
         {
             _arquivoDigitalRepository?.Dispose();
         }
-
 
     }
 }

@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Building Blocks\CondominioApp.Core\CondominioApp.Core.csproj" />
+    <ProjectReference Include="..\CondominioApp.ArquivoDigital.AzureStorageBlob\CondominioApp.ArquivoDigital.AzureStorageBlob.csproj" />
   </ItemGroup>
 
 </Project>

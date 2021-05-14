@@ -38,6 +38,7 @@
     <ProjectReference Include="..\..\Building Blocks\CondominioApp.Core\CondominioApp.Core.csproj" />
     <ProjectReference Include="..\..\Building Blocks\CondominioApp.WebApi.Core\CondominioApp.WebApi.Core.csproj" />
     <ProjectReference Include="..\..\Services\ArquivoDigital\CondominioApp.ArquivoDigital.App\CondominioApp.ArquivoDigital.App.csproj" />
+    <ProjectReference Include="..\..\Services\ArquivoDigital\CondominioApp.ArquivoDigital.AzureStorageBlob\CondominioApp.ArquivoDigital.AzureStorageBlob.csproj" />
     <ProjectReference Include="..\..\Services\Automacao\CondominioApp.Automacao\CondominioApp.Automacao.App.csproj" />
     <ProjectReference Include="..\..\Services\BaseSoftware\CondominioApp.BS.App\CondominioApp.BS.App.csproj" />
     <ProjectReference Include="..\..\Services\Comunicado\CondominioApp.Comunicados.App\CondominioApp.Comunicados.App.csproj" />

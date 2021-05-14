@@ -1,5 +1,6 @@
 ﻿using CondominioApp.ArquivoDigital.App.Models;
 using CondominioApp.ArquivoDigital.App.ValueObjects;
+using CondominioApp.Usuarios.App.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -52,6 +53,14 @@ namespace CondominioApp.ArquivoDigital.App.Data.Mapping
             builder.Property(u => u.Titulo).HasColumnType($"varchar(50)");
 
             builder.Property(u => u.Descricao).HasColumnType($"varchar({Arquivo.Max})");
+
+            builder.OwnsOne(u => u.Url, url =>
+            {
+                 url.Property(u => u.Endereco)
+                    .HasMaxLength(Url.TamanhoMaximo)
+                    .HasColumnName("Url")
+                    .HasColumnType($"varchar({Url.TamanhoMaximo})");
+            });
 
         }
     }

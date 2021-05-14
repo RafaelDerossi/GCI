@@ -1,15 +1,10 @@
 ﻿using System;
+using Microsoft.AspNetCore.Http;
 
 namespace CondominioApp.ArquivoDigital.App.Models
 {
     public class AdicionaArquivoViewModel
     {
-        public string NomeArquivo { get; set; }
-
-        public string NomeOriginal { get; set; }
-
-        public int Tamanho { get; set; }       
-
         public Guid PastaId { get; set; }
 
         public bool Publico { get; set; }
@@ -19,6 +14,8 @@ namespace CondominioApp.ArquivoDigital.App.Models
         public string Titulo { get; set; }
 
         public string Descricao { get; set; }
+
+        public IFormFile Arquivo { get; set; }
 
     }
 }

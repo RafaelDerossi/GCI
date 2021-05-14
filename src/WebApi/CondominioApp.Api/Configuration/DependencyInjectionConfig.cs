@@ -84,6 +84,8 @@ using CondominioApp.ReservaAreaComum.Domain.ReservasStrategy.RegrasParaCancelame
 using CondominioApp.ReservaAreaComum.Domain.ReservasStrategy.RegrasParaCancelamento.Regras;
 using CondominioApp.NotificacaoPush.App.Events;
 using CondominioApp.NotificacaoPush.App.Aplication.Commands;
+using CondominioApp.ArquivoDigital.AzureStorageBlob.Models;
+using CondominioApp.ArquivoDigital.AzureStorageBlob.Services;
 
 namespace CondominioApp.Api.Configuration
 {
@@ -103,6 +105,8 @@ namespace CondominioApp.Api.Configuration
             services.AddTransient<IRequestHandler<ApagarPastaCommand, ValidationResult>, PastaCommandHandler>();
 
             //Arquivo
+            services.AddTransient<IAzureStorage, AzureStorage>();
+            services.AddTransient<IAzureStorageService, AzureStorageService>();
             services.AddTransient<IRequestHandler<AdicionarArquivoCommand, ValidationResult>, ArquivoCommandHandler>();
             services.AddTransient<IRequestHandler<AtualizarArquivoCommand, ValidationResult>, ArquivoCommandHandler>();
             services.AddTransient<IRequestHandler<AlterarPastaDoArquivoCommand, ValidationResult>, ArquivoCommandHandler>();
@@ -487,7 +491,6 @@ namespace CondominioApp.Api.Configuration
             services.AddTransient<IReservaAreaComumQueryRepository, ReservaAreaComumQueryRepository>();            
             services.AddTransient<IVeiculoQueryRepository, VeiculoQueryRepository>();
             #endregion
-
 
             
         }

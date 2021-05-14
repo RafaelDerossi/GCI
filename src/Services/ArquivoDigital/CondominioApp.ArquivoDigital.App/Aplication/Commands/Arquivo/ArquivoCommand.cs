@@ -1,5 +1,8 @@
 ﻿using CondominioApp.ArquivoDigital.App.ValueObjects;
+using CondominioApp.ArquivoDigital.AzureStorageBlob.Helpers;
 using CondominioApp.Core.Messages;
+using CondominioApp.Usuarios.App.ValueObjects;
+using Microsoft.AspNetCore.Http;
 using System;
 
 namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
@@ -10,7 +13,7 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
 
         public NomeArquivo Nome { get; protected set; }
 
-        public int Tamanho { get; protected set; }       
+        public double Tamanho { get; protected set; }
 
         public Guid PastaId { get; protected set; }
 
@@ -26,21 +29,30 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
 
         public Guid AnexadoPorId { get; protected set; }
 
+        public IFormFile Arquivo { get; protected set; }
+
+        public Url Url { get; protected set; }
 
 
-        public void SetNome(string nomeArquivo, string nomeOriginal)
+
+        public void SetNome(string nomeOriginal)
         {
             try
             {
-                Nome = new NomeArquivo(nomeArquivo, nomeOriginal);
+                Nome = new NomeArquivo(nomeOriginal, Id);
             }
             catch (Exception e)
             {
                 AdicionarErrosDeProcessamentoDoComando(e.Message);
             }
         }
-       
-        public void SetTamanho(int tamanho) => Tamanho = tamanho;        
+
+        public void SetTamanho(long tamanhoEmBytes)
+        {
+            Tamanho = StorageHelper.ConverterBytesEmMegabytes(tamanhoEmBytes);
+            if (Tamanho > 100)
+                AdicionarErrosDeProcessamentoDoComando("Tamanho máximo do arquivo é de 100MB.");
+        }
 
         public void SetPastaId(Guid pastaId) => PastaId = pastaId;
 
@@ -59,6 +71,31 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
         public void SetDescricao(string descricao) => Descricao = descricao;
 
         public void SetAnexadoPorId(Guid id) => AnexadoPorId = id;
+
+        public void SetArquivo(IFormFile arquivo)
+        {
+            if (!StorageHelper.VerificaTipoDoArquivoPermitido(arquivo.FileName))
+            {
+                AdicionarErrosDeProcessamentoDoComando("Formato do arquivo não suportado.");
+            }
+            if (arquivo.Length <= 0)
+            {
+                AdicionarErrosDeProcessamentoDoComando("Informe um arquivo!");
+            }
+            Arquivo = arquivo;
+        }
+
+        public void SetUrl(string url)
+        {
+            try
+            {
+                Url = new Url(url);
+            }
+            catch (Exception e)
+            {
+                AdicionarErrosDeProcessamentoDoComando(e.Message);
+            }
+        }        
 
     }
 }

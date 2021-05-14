@@ -1,5 +1,6 @@
 ﻿using CondominioApp.ArquivoDigital.App.ValueObjects;
 using CondominioApp.Core.DomainObjects;
+using CondominioApp.Usuarios.App.ValueObjects;
 using System;
 
 namespace CondominioApp.ArquivoDigital.App.Models
@@ -10,7 +11,7 @@ namespace CondominioApp.ArquivoDigital.App.Models
 
         public NomeArquivo Nome { get; private set; }        
 
-        public int Tamanho { get; private set; }
+        public double Tamanho { get; private set; }
 
         public Guid CondominioId { get; private set; }
 
@@ -28,13 +29,16 @@ namespace CondominioApp.ArquivoDigital.App.Models
 
         public Guid AnexadoPorId { get; private set; }
 
+        public Url Url { get; private set; }
+
         public Arquivo()
         {
         }
 
         public Arquivo
-            (NomeArquivo nome, int tamanho, Guid condominioId, Guid pastaId, bool publico,
-            Guid usuarioId, string nomeUsuario, string titulo, string descricao, Guid anexadoPorId)
+            (NomeArquivo nome, double tamanho, Guid condominioId, Guid pastaId, bool publico,
+             Guid usuarioId, string nomeUsuario, string titulo, string descricao,
+             Guid anexadoPorId, Url url)
         {
             Nome = nome;
             Tamanho = tamanho;
@@ -46,6 +50,7 @@ namespace CondominioApp.ArquivoDigital.App.Models
             Titulo = titulo;
             Descricao = descricao;
             AnexadoPorId = anexadoPorId;
+            Url = url;
         }
 
         public void SetNome(NomeArquivo nome) => Nome = nome;
@@ -71,5 +76,7 @@ namespace CondominioApp.ArquivoDigital.App.Models
         public void SetDescricao(string descricao) => Descricao = descricao;
 
         public void SetAnexadoPorId(Guid id) => AnexadoPorId = id;
+
+        public void SetUrl(Url url) => Url = url;
     }
 }

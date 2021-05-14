@@ -14,10 +14,10 @@ namespace CondominioApp.ArquivoDigital.App.ValueObjects
 
         protected NomeArquivo() { }
 
-        public NomeArquivo(string nomeArquivo, string nomeOriginal)
+        public NomeArquivo(string nomeOriginal, Guid arquivoId)
         {
             SetNomeOriginal(nomeOriginal);
-            SetNomeDoArquivo(nomeArquivo);
+            SetNomeDoArquivo(nomeOriginal, arquivoId);
         }
 
         public void SetNomeOriginal(string nomeOriginal)
@@ -26,24 +26,24 @@ namespace CondominioApp.ArquivoDigital.App.ValueObjects
             {
                 throw new DomainException("Nome original do arquivo não informado!");
             }
-            NomeOriginal = nomeOriginal;
-        }
 
-        public void SetNomeDoArquivo(string nomeArquivo)
-        {
-            if (string.IsNullOrEmpty(nomeArquivo))
-            {
-                throw new DomainException("Nome do arquivo não informado!");
-            }
-
-            string Extensao = Path.GetExtension(nomeArquivo);
+            string Extensao = Path.GetExtension(nomeOriginal);
 
             if (Extensao == null || Extensao == "") throw new DomainException("Tipo de arquivo inválido!");
 
             ExtensaoDoArquivo = Extensao.Replace(".", "");
 
-            NomeDoArquivo = nomeArquivo;
-            
+            NomeOriginal = nomeOriginal;
+        }
+
+        public void SetNomeDoArquivo(string nomeArquivo, Guid arquivoId)
+        {
+            if (string.IsNullOrEmpty(nomeArquivo))
+            {
+                throw new DomainException("Nome do arquivo não informado!");
+            }           
+
+            NomeDoArquivo = $"{arquivoId}.{ExtensaoDoArquivo}";            
         }
     }
 }

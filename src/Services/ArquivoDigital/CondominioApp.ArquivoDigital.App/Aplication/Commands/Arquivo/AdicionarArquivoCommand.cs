@@ -1,5 +1,5 @@
 ﻿using CondominioApp.ArquivoDigital.App.Aplication.Commands.Validations;
-using FluentValidation;
+using Microsoft.AspNetCore.Http;
 using System;
 
 namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
@@ -8,11 +8,10 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
     {
 
         public AdicionarArquivoCommand
-            (string nomeArquivo, string nomeOriginal, int tamanho, Guid pastaId, bool publico, Guid funcionarioId,
-             string nomeFuncionario, string titulo, string descricao, Guid anexadoId)
+            (Guid pastaId, bool publico, Guid funcionarioId, string nomeFuncionario,
+             string titulo, string descricao, Guid anexadoId, IFormFile arquivo)
         {
-            Id = Guid.NewGuid();            
-            Tamanho = tamanho;
+            Id = Guid.NewGuid();
             PastaId = pastaId;
             Publico = publico;
             FuncionarioId = funcionarioId;
@@ -20,7 +19,9 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
             Titulo = titulo;
             Descricao = descricao;
             AnexadoPorId = anexadoId;
-            SetNome(nomeArquivo, nomeOriginal);
+            SetArquivo(arquivo);
+            SetNome(arquivo.FileName);
+            SetTamanho(arquivo.Length);
         }
 
 
@@ -44,7 +45,7 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
                 ValidateUsuarioId();
                 ValidateNomeUsuario();
                 ValidateTitulo();
-                ValidateDescricao();
+                ValidateDescricao();                
             }
         }
 

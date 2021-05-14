@@ -131,6 +131,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioApp.Ocorrencias.A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioApp.Usuarios.App", "src\Services\Usuario\CondominioApp.Usuarios.App\CondominioApp.Usuarios.App.csproj", "{73A06D34-E7CF-4276-9F58-139E6D4C2FA2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CondominioApp.ArquivoDigital.AzureStorageBlob", "src\Services\ArquivoDigital\CondominioApp.ArquivoDigital.AzureStorageBlob\CondominioApp.ArquivoDigital.AzureStorageBlob.csproj", "{E2878EF0-E89A-4F58-9451-BEDE0AC5A8A0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -301,6 +303,10 @@ Global
 		{73A06D34-E7CF-4276-9F58-139E6D4C2FA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{73A06D34-E7CF-4276-9F58-139E6D4C2FA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{73A06D34-E7CF-4276-9F58-139E6D4C2FA2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2878EF0-E89A-4F58-9451-BEDE0AC5A8A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2878EF0-E89A-4F58-9451-BEDE0AC5A8A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2878EF0-E89A-4F58-9451-BEDE0AC5A8A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2878EF0-E89A-4F58-9451-BEDE0AC5A8A0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -369,6 +375,7 @@ Global
 		{26FA76F6-123A-4B61-A806-065451C4C25C} = {B704BCDD-5A92-480C-B860-7FED4ECB258F}
 		{4193A7FC-080F-4A1C-BE74-305A1C570C71} = {051643B1-C01E-486C-9D69-EB23705FA284}
 		{73A06D34-E7CF-4276-9F58-139E6D4C2FA2} = {73DA058E-257C-4A32-9CB5-DA87F9A3B74A}
+		{E2878EF0-E89A-4F58-9451-BEDE0AC5A8A0} = {190C09E3-9AEB-45D8-B1D5-9559B79EFDBE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DA60CBD7-8A6E-436D-B07E-D654D162CE4B}

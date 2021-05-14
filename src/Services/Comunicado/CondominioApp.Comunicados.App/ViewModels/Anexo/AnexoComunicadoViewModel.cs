@@ -12,10 +12,11 @@ namespace CondominioApp.Comunicados.App.ViewModels
 
         public string Extensao { get; set; }
 
-        public int Tamanho { get; set; }
+        public double Tamanho { get; set; }
 
 
-        public AnexoComunicadoViewModel(Guid arquivoId, string nomeArquivo, string nomeOriginal, string extensao, int tamanho)
+        public AnexoComunicadoViewModel
+            (Guid arquivoId, string nomeArquivo, string nomeOriginal, string extensao, double tamanho)
         {
             ArquivoId = arquivoId;
             NomeArquivo = nomeArquivo;

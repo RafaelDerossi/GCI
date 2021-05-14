@@ -8,13 +8,13 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
     {
 
         public AtualizarArquivoCommand
-            (Guid id, string titulo, string descricao,  bool publico, string nomeArquivo, string nomeOriginal)
+            (Guid id, string titulo, string descricao,  bool publico, string nomeOriginal)
         {
             Id = id;
             Titulo = titulo;
             Descricao = descricao;
             Publico = publico;
-            SetNome(nomeArquivo, nomeOriginal);
+            SetNome(nomeOriginal);
         }
 
 
