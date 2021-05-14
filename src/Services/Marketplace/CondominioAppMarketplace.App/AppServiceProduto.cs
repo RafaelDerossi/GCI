@@ -103,9 +103,7 @@ namespace CondominioAppMarketplace.App
                      fotoDoProdutoViewModel.NomeDoArquivo);
                 produto.AdicionarFotos(FotoDoProduto);
                 _repository.AdicionarFoto(FotoDoProduto);
-            }
-
-            produto.MarcarPrimeiraFotoPrincipal();
+            }            
 
             _repository.Atualizar(produto);
 
