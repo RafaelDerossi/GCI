@@ -20,6 +20,9 @@ namespace CondominioApp.ArquivoDigital.App.Data.Mapping
 
             builder.Property(u => u.Publica).IsRequired();
 
+            builder.Property(u => u.PastaMaeId)
+                   .HasColumnName("PastaId");
+
             builder
                .HasIndex(x => new { x.Titulo, x.CondominioId })
                .IsUnique();

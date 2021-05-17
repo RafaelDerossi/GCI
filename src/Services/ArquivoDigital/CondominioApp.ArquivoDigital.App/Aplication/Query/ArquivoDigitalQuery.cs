@@ -46,6 +46,12 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Query
             return retorno.FirstOrDefault();
         }
 
+        public async Task<Pasta> ObterPastaComConteudo(Guid pastaId)
+        {
+            return await _arquivoDigitalRepository
+                .ObterPorIdComConteudo(pastaId);
+        }
+
         #endregion
 
 

@@ -98,7 +98,9 @@ namespace CondominioApp.Api.Configuration
 
             #region ArquivoDigital -Contexto
             //Pasta
-            services.AddTransient<IRequestHandler<AdicionarPastaCommand, ValidationResult>, PastaCommandHandler>();
+            services.AddTransient<IRequestHandler<AdicionarPastaRaizCommand, ValidationResult>, PastaCommandHandler>();
+            services.AddTransient<IRequestHandler<AdicionarSubPastaCommand, ValidationResult>, PastaCommandHandler>();
+            services.AddTransient<IRequestHandler<AdicionarPastaDeSistemaCommand, ValidationResult>, PastaCommandHandler>();
             services.AddTransient<IRequestHandler<AtualizarPastaCommand, ValidationResult>, PastaCommandHandler>();
             services.AddTransient<IRequestHandler<MarcarPastaComoPublicaCommand, ValidationResult>, PastaCommandHandler>();
             services.AddTransient<IRequestHandler<MarcarPastaComoPrivadaCommand, ValidationResult>, PastaCommandHandler>();

@@ -1,23 +1,18 @@
 ﻿using CondominioApp.ArquivoDigital.App.Aplication.Commands.Validations;
-using CondominioApp.Core.Enumeradores;
-using FluentValidation;
 using System;
 
 namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
 {
-    public class AdicionarPastaCommand : PastaCommand
+    public class AdicionarPastaRaizCommand : PastaCommand
     {
 
-        public AdicionarPastaCommand(string titulo, string descricao, Guid condominioId, bool publica,
-            bool pastaDoSistema = false, CategoriaDaPastaDeSistema categoriaDaPastaDeSistema = 0)
+        public AdicionarPastaRaizCommand(string titulo, string descricao, Guid condominioId, bool publica)
         {
             Id = Guid.NewGuid();
             Titulo = titulo;
             Descricao = descricao;
             CondominioId = condominioId;
             Publica = publica;
-            PastaDoSistema = pastaDoSistema;
-            CategoriaDaPastaDeSistema = categoriaDaPastaDeSistema;
         }
 
 
@@ -31,7 +26,7 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
         }
 
 
-        public class AdicionarPastaCommandValidation : PastaValidation<AdicionarPastaCommand>
+        public class AdicionarPastaCommandValidation : PastaValidation<AdicionarPastaRaizCommand>
         {
             public AdicionarPastaCommandValidation()
             {

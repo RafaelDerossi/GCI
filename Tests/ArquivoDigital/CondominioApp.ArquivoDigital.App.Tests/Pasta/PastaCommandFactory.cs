@@ -6,9 +6,9 @@ namespace CondominioApp.ArquivoDigital.App.Tests
 {
     public class PastaCommandFactory
     {
-        private static AdicionarPastaCommand CadastrarPastaCommandFactoy()
+        private static AdicionarPastaRaizCommand CadastrarPastaCommandFactoy()
         {
-            return new AdicionarPastaCommand
+            return new AdicionarPastaRaizCommand
                 ("Titulo", "Descricao", Guid.NewGuid(), true);
         }
 
@@ -20,19 +20,19 @@ namespace CondominioApp.ArquivoDigital.App.Tests
 
 
 
-        public static AdicionarPastaCommand CriarComando_CadastroDePasta()
+        public static AdicionarPastaRaizCommand CriarComando_CadastroDePasta()
         {
             return CadastrarPastaCommandFactoy();
         }
 
-        public static AdicionarPastaCommand CriarComando_CadastroDePasta_SemTitulo()
+        public static AdicionarPastaRaizCommand CriarComando_CadastroDePasta_SemTitulo()
         {
             var comando = CadastrarPastaCommandFactoy();
             comando.SetTitulo("");
             return comando;
         }
 
-        public static AdicionarPastaCommand CriarComando_CadastroDePasta_SemCondominioId()
+        public static AdicionarPastaRaizCommand CriarComando_CadastroDePasta_SemCondominioId()
         {
             var comando = CadastrarPastaCommandFactoy();
             comando.SetCondominioId(Guid.Empty);

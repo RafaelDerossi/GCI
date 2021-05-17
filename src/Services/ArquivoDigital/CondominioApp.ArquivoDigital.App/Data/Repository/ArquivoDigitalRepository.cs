@@ -27,10 +27,18 @@ namespace CondominioApp.Principal.Infra.Data.Repository
         
         public async Task<Pasta> ObterPorId(Guid id)
         {
-          return await _context.Pastas
-                .Include(p=>p.Arquivos)
+          return await _context.Pastas                
                 .Where(p => p.Id == id && !p.Lixeira)
                 .FirstOrDefaultAsync();
+        }
+
+        public async Task<Pasta> ObterPorIdComConteudo(Guid id)
+        {
+            return await _context.Pastas
+                  .Include(p => p.Arquivos)
+                  .Include(p => p.Pastas)
+                  .Where(p => p.Id == id && !p.Lixeira)
+                  .FirstOrDefaultAsync();
         }
 
         public async Task<IEnumerable<Pasta>> Obter(Expression<Func<Pasta, bool>> expression, bool OrderByDesc = false, int take = 0)

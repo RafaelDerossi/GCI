@@ -34,6 +34,7 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
         public Url Url { get; protected set; }
 
 
+        public void SetId(Guid id) => Id = id;
 
         public void SetNome(string nomeOriginal)
         {

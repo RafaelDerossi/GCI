@@ -2,7 +2,7 @@
 
 namespace CondominioApp.ArquivoDigital.App.Models
 {
-    public class AdicionaPastaViewModel
+    public class AdicionaPastaRaizViewModel
     {        
         public string Titulo { get; set; }
 
@@ -10,7 +10,7 @@ namespace CondominioApp.ArquivoDigital.App.Models
 
         public Guid CondominioId { get; set; }
 
-        public bool Publica { get; set; }        
-
+        public bool Publica { get; set; }
+        
     }
 }

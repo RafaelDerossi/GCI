@@ -3,21 +3,27 @@ using Moq.AutoMock;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
-using System;
 using CondominioApp.ArquivoDigital.App.Aplication.Commands;
 using CondominioApp.ArquivoDigital.App.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Internal;
+using System.IO;
+using CondominioApp.ArquivoDigital.AzureStorageBlob.Services;
+using CondominioApp.ArquivoDigital.AzureStorageBlob.Models;
+using FluentValidation.Results;
+using System;
 
 namespace CondominioApp.ArquivoDigital.App.Tests
 {
    public class ArquivoCommandHandlerTests
     {
         private readonly AutoMocker _mocker;
-        private readonly ArquivoCommandHandler _arquivoCommandCommandHandler;
+        private readonly ArquivoCommandHandler _arquivoCommandCommandHandler;        
 
         public ArquivoCommandHandlerTests()
         {
             _mocker = new AutoMocker();
-            _arquivoCommandCommandHandler = _mocker.CreateInstance<ArquivoCommandHandler>();
+            _arquivoCommandCommandHandler = _mocker.CreateInstance<ArquivoCommandHandler>();            
         }
 
         [Fact(DisplayName = "Adicionar Arquivo Válido")]
@@ -28,9 +34,19 @@ namespace CondominioApp.ArquivoDigital.App.Tests
             var pasta = PastaFactoryTests.Criar_Pasta_Valida();
             var comando = ArquivoCommandFactory.CriarComando_CadastroDeArquivo();
             pasta.SetEntidadeId(comando.PastaId);
+            
+            var retornoDoSubirArquivo = new RetornoDoSubirArquivo
+            {
+                Url = "",
+                ValidationResult = new ValidationResult()
+            };
 
+            
             _mocker.GetMock<IArquivoDigitalRepository>().Setup(r => r.ObterPorId(comando.PastaId))
-               .Returns(Task.FromResult(pasta));
+               .Returns(Task.FromResult(pasta));           
+
+            _mocker.GetMock<IAzureStorageService>().Setup(r => r.SubirArquivo(comando.Arquivo, $"{pasta.CondominioId}/{comando.Id}.pdf"))
+                .Returns(Task.FromResult(retornoDoSubirArquivo));
 
             _mocker.GetMock<IArquivoDigitalRepository>().Setup(r => r.UnitOfWork.Commit())
                .Returns(Task.FromResult(true));

@@ -1,16 +1,26 @@
 ﻿using System;
+using System.IO;
 using CondominioApp.ArquivoDigital.App.Aplication.Commands;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Internal;
 
 namespace CondominioApp.ArquivoDigital.App.Tests
 {
     public class ArquivoCommandFactory
-    {
+    {        
         private static AdicionarArquivoCommand CadastrarArquivoCommandFactoy()
-        {
+        {            
+            var fileStream = File.OpenRead("anexo-teste.pdf");
+            var arquivo = new FormFile(fileStream, 0, fileStream.Length, null, Path.GetFileName(fileStream.Name))
+            {
+                Headers = new HeaderDictionary(),
+                ContentType = "application/pdf"
+            };            
+
             return new AdicionarArquivoCommand
-                (Guid.NewGuid(), true, Guid.NewGuid(), "Nome do Usuario",
-                 "Titulo do Arquivo", "Descricao do Arquivo", Guid.Empty,
-                 null);
+            (Guid.NewGuid(), true, Guid.NewGuid(), "Nome do Usuario",
+             "Titulo do Arquivo", "Descricao do Arquivo", Guid.Empty,
+             arquivo);
         }
 
         private static AtualizarArquivoCommand EditarArquivoCommandFactoy()

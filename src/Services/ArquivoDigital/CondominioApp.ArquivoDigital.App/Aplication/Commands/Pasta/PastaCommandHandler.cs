@@ -9,7 +9,9 @@ using System.Threading.Tasks;
 namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
 {
     public class PastaCommandHandler : CommandHandler,
-         IRequestHandler<AdicionarPastaCommand, ValidationResult>,
+         IRequestHandler<AdicionarPastaRaizCommand, ValidationResult>,
+         IRequestHandler<AdicionarSubPastaCommand, ValidationResult>,
+         IRequestHandler<AdicionarPastaDeSistemaCommand, ValidationResult>,
          IRequestHandler<AtualizarPastaCommand, ValidationResult>,
          IRequestHandler<MarcarPastaComoPublicaCommand, ValidationResult>,
          IRequestHandler<MarcarPastaComoPrivadaCommand, ValidationResult>,
@@ -25,14 +27,38 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
         }
 
 
-        public async Task<ValidationResult> Handle(AdicionarPastaCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(AdicionarPastaRaizCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido())
                 return request.ValidationResult;
 
-            var pasta = PastaFactory(request);            
+            var pasta = PastaRaizFactory(request);            
 
             _arquivoDigitalRepository.Adicionar(pasta);           
+
+            return await PersistirDados(_arquivoDigitalRepository.UnitOfWork);
+        }
+
+        public async Task<ValidationResult> Handle(AdicionarSubPastaCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido())
+                return request.ValidationResult;
+
+            var pasta = SubPastaFactory(request);
+
+            _arquivoDigitalRepository.Adicionar(pasta);
+
+            return await PersistirDados(_arquivoDigitalRepository.UnitOfWork);
+        }
+
+        public async Task<ValidationResult> Handle(AdicionarPastaDeSistemaCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido())
+                return request.ValidationResult;
+
+            var pasta = PastaDeSistemaFactory(request);
+
+            _arquivoDigitalRepository.Adicionar(pasta);
 
             return await PersistirDados(_arquivoDigitalRepository.UnitOfWork);
         }
@@ -124,17 +150,38 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
 
 
 
-        private Pasta PastaFactory(AdicionarPastaCommand request)
+        private Pasta PastaRaizFactory(AdicionarPastaRaizCommand request)
         {
             var pasta = new Pasta
                 (request.Titulo, request.Descricao, request.CondominioId, request.Publica,
-                request.PastaDoSistema, request.CategoriaDaPastaDeSistema);
+                 false, 0, true, Guid.Empty);
 
             pasta.SetEntidadeId(request.Id);
 
             return pasta;
         }
 
+        private Pasta SubPastaFactory(AdicionarSubPastaCommand request)
+        {
+            var pasta = new Pasta
+                (request.Titulo, request.Descricao, request.CondominioId, request.Publica,
+                 false, 0, false, request.PastaMaeId);
+
+            pasta.SetEntidadeId(request.Id);
+
+            return pasta;
+        }
+
+        private Pasta PastaDeSistemaFactory(AdicionarPastaDeSistemaCommand request)
+        {
+            var pasta = new Pasta
+                (request.Titulo, request.Descricao, request.CondominioId, true, true,
+                 request.CategoriaDaPastaDeSistema, true, Guid.Empty);
+
+            pasta.SetEntidadeId(request.Id);
+
+            return pasta;
+        }
 
         public void Dispose()
         {

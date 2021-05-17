@@ -35,6 +35,18 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands.Validations
                 .NotEqual(Guid.Empty)
                 .WithMessage("Condominio não pode estar vazio!");
         }
-     
+
+        protected void ValidatePastaRaiz()
+        {
+            RuleFor(c => c.PastaRaiz)
+                .NotNull()
+                .WithMessage("Pasta Raiz não pode estar vazio!");
+        }
+
+        protected void ValidatePastaMae()
+        {
+            RuleFor(c => c.PastaMaeId)
+                .NotEqual(Guid.Empty);
+        }
     }
 }

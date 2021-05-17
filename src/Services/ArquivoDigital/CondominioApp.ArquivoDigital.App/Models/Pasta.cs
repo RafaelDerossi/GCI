@@ -20,30 +20,41 @@ namespace CondominioApp.ArquivoDigital.App.Models
 
         public bool PastaDoSistema { get; private set; }
 
+        public bool PastaRaiz { get; private set; }
+
+        public Guid PastaMaeId { get; private set; }
+
         public CategoriaDaPastaDeSistema CategoriaDaPastaDeSistema { get; private set; }
 
 
 
-        private readonly List<Arquivo> _Arquivo;
+        private readonly List<Arquivo> _Arquivos;
+        public IReadOnlyCollection<Arquivo> Arquivos => _Arquivos;
 
-        public IReadOnlyCollection<Arquivo> Arquivos => _Arquivo;
 
+        private readonly List<Pasta> _Pastas;
+        public IReadOnlyCollection<Pasta> Pastas => _Pastas;
 
         public Pasta()
         {
-            _Arquivo = new List<Arquivo>();
+            _Arquivos = new List<Arquivo>();
+            _Pastas = new List<Pasta>();
         }
 
         public Pasta(string titulo, string descricao, Guid condominioId, bool publica,
-            bool pastaDoSistema, CategoriaDaPastaDeSistema categoriaDaPastaDeSistema)
+                     bool pastaDoSistema, CategoriaDaPastaDeSistema categoriaDaPastaDeSistema,
+                     bool pastaRaiz, Guid pastaMaeId)
         {            
-            _Arquivo = new List<Arquivo>();
+            _Arquivos = new List<Arquivo>();
+            _Pastas = new List<Pasta>();
             Titulo = titulo;
             Descricao = descricao;
             CondominioId = condominioId;
             Publica = publica;
             PastaDoSistema = pastaDoSistema;
             CategoriaDaPastaDeSistema = categoriaDaPastaDeSistema;
+            PastaRaiz = pastaRaiz;
+            PastaMaeId = pastaMaeId;
         }
 
 

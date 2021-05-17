@@ -1,11 +1,12 @@
 ﻿using CondominioApp.Core.DomainObjects;
+using CondominioApp.Core.Enumeradores;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace CondominioApp.ArquivoDigital.App.Models
 {
-   public class PastaViewModel
+   public class ConteudoPastaViewModel
     {
         public Guid Id { get; set; }
 
@@ -23,7 +24,18 @@ namespace CondominioApp.ArquivoDigital.App.Models
 
         public bool Publica { get; set; }
 
+        public bool PastaDoSistema { get; set; }
+
+        public bool PastaRaiz { get; set; }
+
+        public Guid PastaMaeId { get; set; }
+
+        public CategoriaDaPastaDeSistema CategoriaDaPastaDeSistema { get; private set; }
+
+
         public IEnumerable<ArquivoViewModel> Arquivos { get; set; }
+
+        public IEnumerable<SubPastaViewModel> Subpastas { get; set; }
 
     }
 }

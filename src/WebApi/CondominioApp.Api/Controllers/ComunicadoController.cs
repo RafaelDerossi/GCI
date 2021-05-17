@@ -334,12 +334,12 @@ namespace CondominioApp.Api.Controllers
             }
         }        
 
-        private AdicionarPastaCommand AdicionarPastaCommandFactory
+        private AdicionarPastaDeSistemaCommand AdicionarPastaDeSistemaCommandFactory
             (Guid condominioId, CategoriaDaPastaDeSistema categoriaDaPastaDeSistema)
         {
-            return new AdicionarPastaCommand
+            return new AdicionarPastaDeSistemaCommand
                 (categoriaDaPastaDeSistema.ToString(), "Pasta de ocorrências do sistema",
-                condominioId, true, true, categoriaDaPastaDeSistema);
+                 condominioId, categoriaDaPastaDeSistema);
         }
 
         private AdicionarArquivoCommand AdicionarArquivoCommandFactory
@@ -383,7 +383,7 @@ namespace CondominioApp.Api.Controllers
 
             if (pasta == null)
             {
-                var comandoCadastrarPasta = AdicionarPastaCommandFactory(comando.CondominioId, categoriaDaPastaDoSistema);
+                var comandoCadastrarPasta = AdicionarPastaDeSistemaCommandFactory(comando.CondominioId, categoriaDaPastaDoSistema);
                 var ResultadoCadastroPasta = await _mediatorHandler.EnviarComando(comandoCadastrarPasta);
                 if (!ResultadoCadastroPasta.IsValid)
                     CustomResponse(ResultadoCadastroPasta);

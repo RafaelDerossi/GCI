@@ -8,6 +8,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
+
 namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
 {
     public class ArquivoCommandHandler : CommandHandler,
@@ -42,21 +43,19 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
                 AdicionarErro("Pasta não encontrada!");
                 return ValidationResult;
             }
+
+            var retorno = await _azureStorageService.SubirArquivo
+                (request.Arquivo, ObterNomeDoArquivoComPasta(request.Nome, pasta));
             
-            using (var stream = request.Arquivo.OpenReadStream())
+            if (!retorno.ValidationResult.IsValid)
             {
-                var retorno = await _azureStorageService.SubirArquivo
-                    (stream, ObterNomeDoArquivoComPasta(request.Nome, pasta));
-
-                if (!retorno.ValidationResult.IsValid)
-                {
-                    return retorno.ValidationResult;
-                }
-
-                request.SetUrl(retorno.Url);
-                if (!request.EstaValido())
-                    return request.ValidationResult;
-            }                
+                return retorno.ValidationResult;
+            }
+            
+            request.SetUrl(retorno.Url);
+            if (!request.EstaValido())
+                return request.ValidationResult;
+                                       
 
 
             var arquivo = ArquivoFactory(request, pasta.CondominioId);

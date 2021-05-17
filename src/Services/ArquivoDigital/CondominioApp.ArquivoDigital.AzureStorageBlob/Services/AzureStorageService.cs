@@ -3,6 +3,7 @@ using CondominioApp.ArquivoDigital.AzureStorageBlob.Models;
 using System.IO;
 using System.Threading.Tasks;
 using FluentValidation.Results;
+using Microsoft.AspNetCore.Http;
 
 namespace CondominioApp.ArquivoDigital.AzureStorageBlob.Services
 {
@@ -17,8 +18,9 @@ namespace CondominioApp.ArquivoDigital.AzureStorageBlob.Services
             ValidationResult = new ValidationResult();
         }
 
-        public async Task<RetornoDoSubirArquivo> SubirArquivo(Stream stream, string nomeDoArquivo)
+        public async Task<RetornoDoSubirArquivo> SubirArquivo(IFormFile arquivo, string nomeDoArquivo)
         {
+            using var stream = arquivo.OpenReadStream();
             string url = "";
             try
             {

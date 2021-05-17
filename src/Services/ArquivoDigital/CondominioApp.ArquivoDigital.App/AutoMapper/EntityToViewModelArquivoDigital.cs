@@ -8,7 +8,7 @@ namespace CondominioApp.ArquivoDigital.App.AutoMapper
     {
         public EntityToViewModelArquivoDigital()
         {
-            CreateMap<Pasta, PastaViewModel>();
+            CreateMap<Pasta, SubPastaViewModel>();
 
             CreateMap<Arquivo, ArquivoViewModel>()
                 .ForMember(m => m.DataDeCadastro, cfg => cfg.MapFrom(x => x.DataDeCadastroFormatada))

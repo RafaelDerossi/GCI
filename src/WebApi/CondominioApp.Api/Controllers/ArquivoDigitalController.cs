@@ -35,25 +35,10 @@ namespace CondominioApp.Api.Controllers
         }
 
 
-        #region Pasta
+        #region Pasta        
 
-        [HttpGet("pasta/{id:Guid}")]
-        public async Task<ActionResult<PastaViewModel>> ObterPorId(Guid id)
-        {
-            var pasta = await _arquivoDigitalQuery.ObterPorId(id);
-            if (pasta == null)
-            {
-                AdicionarErroProcessamento("Pasta não encontrada.");
-                return CustomResponse();
-            }
-
-            var pastaVM = _mapper.Map<PastaViewModel>(pasta);
-
-            return pastaVM;
-        }
-
-        [HttpGet("pastas-por-condominio/{condominioId:Guid}")]
-        public async Task<ActionResult<IEnumerable<PastaViewModel>>> ObterPastasPorCondominio(Guid condominioId)
+        [HttpGet("raiz-por-condominio/{condominioId:Guid}")]
+        public async Task<ActionResult<IEnumerable<SubPastaViewModel>>> ObterPastasRaizPorCondominio(Guid condominioId)
         {
             var pastas = await _arquivoDigitalQuery.ObterPorCondominio(condominioId);
             if (pastas.Count() == 0)
@@ -62,10 +47,29 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }
 
-            var pastasVM = new List<PastaViewModel>();
+            var pastasVM = new List<SubPastaViewModel>();
             foreach (Pasta item in pastas)
             {
-                var pastaVM = _mapper.Map<PastaViewModel>(item);
+                var pastaVM = _mapper.Map<SubPastaViewModel>(item);
+                pastasVM.Add(pastaVM);
+            }
+            return pastasVM;
+        }
+
+        [HttpGet("conteudo/{pastaId:Guid}")]
+        public async Task<ActionResult<IEnumerable<ConteudoPastaViewModel>>> ObterConteudoDaPasta(Guid pastaId)
+        {
+            var pastas = await _arquivoDigitalQuery.ObterPastaComConteudo(pastaId);
+            if (pastas == null)
+            {
+                AdicionarErroProcessamento("Nenhum registro encontrado.");
+                return CustomResponse();
+            }
+
+            var pastasVM = new List<SubPastaViewModel>();
+            foreach (Pasta item in pastas)
+            {
+                var pastaVM = _mapper.Map<SubPastaViewModel>(item);
                 pastasVM.Add(pastaVM);
             }
             return pastasVM;
@@ -73,26 +77,41 @@ namespace CondominioApp.Api.Controllers
 
 
 
-        [HttpPost("pasta")]
-        public async Task<ActionResult> PostPasta(AdicionaPastaViewModel pastaVM)
+        [HttpPost("pasta-raiz")]
+        public async Task<ActionResult> PostPastaRaiz(AdicionaPastaRaizViewModel viewModel)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var condominio = await _principalQuery.ObterPorId(pastaVM.CondominioId);
+            var condominio = await _principalQuery.ObterPorId(viewModel.CondominioId);
             if (condominio == null)
             {
                 AdicionarErroProcessamento("Condominio não encontrado!");
                 return CustomResponse();
             }
 
-            var comando = new AdicionarPastaCommand
-                (pastaVM.Titulo, pastaVM.Descricao, pastaVM.CondominioId, pastaVM.Publica, false);
+            var comando = new AdicionarPastaRaizCommand
+                (viewModel.Titulo, viewModel.Descricao, viewModel.CondominioId, viewModel.Publica);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
             return CustomResponse(Resultado);
 
         }
+
+        [HttpPost("subpasta")]
+        public async Task<ActionResult> PostSubPasta(AdicionaSubPastaViewModel viewModel)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);            
+
+            var comando = new AdicionarSubPastaCommand
+                (viewModel.Titulo, viewModel.Descricao, viewModel.Publica, viewModel.PastaMaeId);
+
+            var Resultado = await _mediatorHandler.EnviarComando(comando);
+
+            return CustomResponse(Resultado);
+
+        }
+
 
         [HttpPut("pasta")]
         public async Task<ActionResult> PutPasta(AtualizaPastaViewModel pastaVM)
