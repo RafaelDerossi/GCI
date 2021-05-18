@@ -16,6 +16,8 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
          IRequestHandler<MarcarPastaComoPublicaCommand, ValidationResult>,
          IRequestHandler<MarcarPastaComoPrivadaCommand, ValidationResult>,
          IRequestHandler<ApagarPastaCommand, ValidationResult>,
+         IRequestHandler<MoverPastaParaRaizCommand, ValidationResult>,
+         IRequestHandler<MoverSubPastaCommand, ValidationResult>,
          IDisposable
     {
 
@@ -151,6 +153,55 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
             }
 
             _arquivoDigitalRepository.Apagar(x => x.Id == pastaBd.Id);
+
+            return await PersistirDados(_arquivoDigitalRepository.UnitOfWork);
+        }
+
+        public async Task<ValidationResult> Handle(MoverPastaParaRaizCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido())
+                return request.ValidationResult;
+
+
+            var pastaBd = await _arquivoDigitalRepository.ObterPorId(request.Id);
+            if (pastaBd == null)
+            {
+                AdicionarErro("Pasta não encontrada.");
+                return ValidationResult;
+            }
+
+            pastaBd.SetPastaMaeId(null);            
+            pastaBd.MarcarComoPastaRaiz();
+
+            _arquivoDigitalRepository.Atualizar(pastaBd);
+
+            return await PersistirDados(_arquivoDigitalRepository.UnitOfWork);
+        }
+
+        public async Task<ValidationResult> Handle(MoverSubPastaCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido())
+                return request.ValidationResult;
+
+
+            var pastaBd = await _arquivoDigitalRepository.ObterPorId(request.Id);
+            if (pastaBd == null)
+            {
+                AdicionarErro("Pasta não encontrada.");
+                return ValidationResult;
+            }
+
+            var pastaMaeBd = await _arquivoDigitalRepository.ObterPorId((Guid)request.PastaMaeId);
+            if (pastaMaeBd == null)
+            {
+                AdicionarErro("Pasta Mãe não encontrada.");
+                return ValidationResult;
+            }
+
+            pastaBd.SetPastaMaeId(request.PastaMaeId);
+            pastaBd.MarcarComoSubPasta();            
+
+            _arquivoDigitalRepository.Atualizar(pastaBd);
 
             return await PersistirDados(_arquivoDigitalRepository.UnitOfWork);
         }

@@ -71,5 +71,11 @@ namespace CondominioApp.ArquivoDigital.App.Models
         public void MarcarComoPrivada() => Publica = false;
 
         public void MarcarComoPastaDoSistema() => PastaDoSistema = true;
+
+        public void SetPastaMaeId(Guid? id) => PastaMaeId = id;
+
+        public void MarcarComoPastaRaiz() => PastaRaiz = true;
+
+        public void MarcarComoSubPasta() => PastaRaiz = false;
     }
 }

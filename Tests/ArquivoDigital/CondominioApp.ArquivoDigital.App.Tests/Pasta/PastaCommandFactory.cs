@@ -6,35 +6,92 @@ namespace CondominioApp.ArquivoDigital.App.Tests
 {
     public class PastaCommandFactory
     {
-        private static AdicionarPastaRaizCommand CadastrarPastaCommandFactoy()
+        private static AdicionarPastaRaizCommand CadastrarPastaRaizCommandFactory()
         {
             return new AdicionarPastaRaizCommand
                 ("Titulo", "Descricao", Guid.NewGuid(), true);
         }
+        private static AdicionarSubPastaCommand CadastrarSubPastaCommandFactory()
+        {
+            return new AdicionarSubPastaCommand
+                ("Titulo", "Descricao", true, Guid.NewGuid());
+        }
+        private static AdicionarPastaDeSistemaCommand CadastrarPastaDeSistemaCommandFactory()
+        {
+            return new AdicionarPastaDeSistemaCommand
+                ("Titulo", "Descricao", Guid.NewGuid(), CategoriaDaPastaDeSistema.COMUNICADO);
+        }
 
-        private static AtualizarPastaCommand EditarPastaCommandFactoy()
+
+        private static AtualizarPastaCommand EditarPastaCommandFactory()
         {
             return new AtualizarPastaCommand
                  (Guid.NewGuid(), "Titulo", "Descricao", true);
         }
 
-
-
-        public static AdicionarPastaRaizCommand CriarComando_CadastroDePasta()
+        private static MoverPastaParaRaizCommand MoverPastaParaRaizCommandFactory()
         {
-            return CadastrarPastaCommandFactoy();
+            return new MoverPastaParaRaizCommand
+                 (Guid.NewGuid());
         }
 
-        public static AdicionarPastaRaizCommand CriarComando_CadastroDePasta_SemTitulo()
+        private static MoverSubPastaCommand MoverSubPastaCommandFactory()
         {
-            var comando = CadastrarPastaCommandFactoy();
+            return new MoverSubPastaCommand
+                 (Guid.NewGuid(), Guid.NewGuid());
+        }
+
+
+
+        public static AdicionarPastaRaizCommand CriarComando_CadastroDePastaRaiz()
+        {
+            return CadastrarPastaRaizCommandFactory();
+        }
+        public static AdicionarPastaRaizCommand CriarComando_CadastroDePastaRaiz_SemTitulo()
+        {
+            var comando = CadastrarPastaRaizCommandFactory();
             comando.SetTitulo("");
             return comando;
         }
-
-        public static AdicionarPastaRaizCommand CriarComando_CadastroDePasta_SemCondominioId()
+        public static AdicionarPastaRaizCommand CriarComando_CadastroDePastaRaiz_SemCondominioId()
         {
-            var comando = CadastrarPastaCommandFactoy();
+            var comando = CadastrarPastaRaizCommandFactory();
+            comando.SetCondominioId(Guid.Empty);
+            return comando;
+        }
+
+
+        public static AdicionarSubPastaCommand CriarComando_CadastroDeSubPasta()
+        {
+            return CadastrarSubPastaCommandFactory();
+        }
+        public static AdicionarSubPastaCommand CriarComando_CadastroDeSubPasta_SemTitulo()
+        {
+            var comando = CadastrarSubPastaCommandFactory();
+            comando.SetTitulo("");
+            return comando;
+        }
+        public static AdicionarSubPastaCommand CriarComando_CadastroDeSubPasta_SemPastaMaeId()
+        {
+            var comando = CadastrarSubPastaCommandFactory();
+            comando.SetPastaMaeId(null);
+            return comando;
+        }
+
+
+        public static AdicionarPastaDeSistemaCommand CriarComando_CadastroDePastaDeSistema()
+        {
+            return CadastrarPastaDeSistemaCommandFactory();
+        }
+        public static AdicionarPastaDeSistemaCommand CriarComando_CadastroDePastaDeSistema_SemTitulo()
+        {
+            var comando = CadastrarPastaDeSistemaCommandFactory();
+            comando.SetTitulo("");
+            return comando;
+        }
+        public static AdicionarPastaDeSistemaCommand CriarComando_CadastroDePastaDeSistema_SemCondominioId()
+        {
+            var comando = CadastrarPastaDeSistemaCommandFactory();
             comando.SetCondominioId(Guid.Empty);
             return comando;
         }
@@ -43,23 +100,28 @@ namespace CondominioApp.ArquivoDigital.App.Tests
 
         public static AtualizarPastaCommand CriarComando_EdicaoDePasta()
         {
-            return EditarPastaCommandFactoy();
+            return EditarPastaCommandFactory();
         }
-
         public static AtualizarPastaCommand CriarComando_EdicaoDePasta_SemTitulo()
         {
-            var comando = EditarPastaCommandFactoy();
+            var comando = EditarPastaCommandFactory();
             comando.SetTitulo("");
             return comando;
         }
-
+        public static MoverPastaParaRaizCommand CriarComando_MoverPastaParaRaiz()
+        {
+            return MoverPastaParaRaizCommandFactory();
+        }
+        public static MoverSubPastaCommand CriarComando_MoverParaSubPasta()
+        {
+            return MoverSubPastaCommandFactory();
+        }
 
 
         public static MarcarPastaComoPublicaCommand CriarComandoMarcarPastaComoPublica()
         {
             return new MarcarPastaComoPublicaCommand(Guid.NewGuid());
         }
-
         public static MarcarPastaComoPrivadaCommand CriarComandoMarcarPastaComoPrivada()
         {
             return new MarcarPastaComoPrivadaCommand(Guid.NewGuid());

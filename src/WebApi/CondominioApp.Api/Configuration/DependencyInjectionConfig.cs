@@ -105,6 +105,8 @@ namespace CondominioApp.Api.Configuration
             services.AddTransient<IRequestHandler<MarcarPastaComoPublicaCommand, ValidationResult>, PastaCommandHandler>();
             services.AddTransient<IRequestHandler<MarcarPastaComoPrivadaCommand, ValidationResult>, PastaCommandHandler>();
             services.AddTransient<IRequestHandler<ApagarPastaCommand, ValidationResult>, PastaCommandHandler>();
+            services.AddTransient<IRequestHandler<MoverPastaParaRaizCommand, ValidationResult>, PastaCommandHandler>();
+            services.AddTransient<IRequestHandler<MoverSubPastaCommand, ValidationResult>, PastaCommandHandler>();
 
             //Arquivo
             services.AddTransient<IAzureStorage, AzureStorage>();

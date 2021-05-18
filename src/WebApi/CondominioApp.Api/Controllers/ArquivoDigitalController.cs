@@ -153,8 +153,31 @@ namespace CondominioApp.Api.Controllers
             return CustomResponse(Resultado);
         }
 
+        [HttpPut("mover-pasta-para-raiz/{pastaId:Guid}")]
+        public async Task<ActionResult> PutMoverParaRaiz(Guid pastaId)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-        
+            var comando = new MoverPastaParaRaizCommand(pastaId);
+
+            var Resultado = await _mediatorHandler.EnviarComando(comando);
+
+            return CustomResponse(Resultado);
+        }
+
+        [HttpPut("mover-subpasta")]
+        public async Task<ActionResult> PutMoverParaRaiz(Guid pastaId, Guid pastaMaeId)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            var comando = new MoverSubPastaCommand(pastaId, pastaMaeId);
+
+            var Resultado = await _mediatorHandler.EnviarComando(comando);
+
+            return CustomResponse(Resultado);
+        }
+
+
         [HttpDelete("pasta/{pastaId:Guid}")]
         public async Task<ActionResult> DeletePasta(Guid pastaId)
         {

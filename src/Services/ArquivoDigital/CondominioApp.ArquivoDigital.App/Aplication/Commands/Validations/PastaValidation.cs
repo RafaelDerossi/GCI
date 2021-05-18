@@ -46,6 +46,7 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands.Validations
         protected void ValidatePastaMae()
         {
             RuleFor(c => c.PastaMaeId)
+                .NotNull()
                 .NotEqual(Guid.Empty);
         }
     }
