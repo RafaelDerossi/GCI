@@ -22,7 +22,11 @@ namespace CondominioApp.ArquivoDigital.App.Models
 
         public bool PastaRaiz { get; private set; }
 
-        public Guid PastaMaeId { get; private set; }
+        /// <summary>
+        /// Id da Pasta Mãe
+        /// </summary>
+        public Guid? PastaMaeId { get; private set; }
+        public Pasta PastaMae { get; private set; }
 
         public CategoriaDaPastaDeSistema CategoriaDaPastaDeSistema { get; private set; }
 
@@ -43,7 +47,7 @@ namespace CondominioApp.ArquivoDigital.App.Models
 
         public Pasta(string titulo, string descricao, Guid condominioId, bool publica,
                      bool pastaDoSistema, CategoriaDaPastaDeSistema categoriaDaPastaDeSistema,
-                     bool pastaRaiz, Guid pastaMaeId)
+                     bool pastaRaiz, Guid? pastaMaeId)
         {            
             _Arquivos = new List<Arquivo>();
             _Pastas = new List<Pasta>();

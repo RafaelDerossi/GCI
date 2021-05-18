@@ -11,13 +11,15 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Query
         #region Pasta
         Task<Pasta> ObterPorId(Guid Id);
 
-        Task<Pasta> ObterPastaComConteudo(Guid pastaId)
+        Task<Pasta> ObterPastaComConteudo(Guid pastaId);
 
         Task<IEnumerable<Pasta>> ObterTodos();
 
         Task<IEnumerable<Pasta>> ObterRemovidos();
 
         Task<IEnumerable<Pasta>> ObterPorCondominio(Guid condominioId);
+
+        Task<IEnumerable<Pasta>> ObterPastasRaizesPorCondominio(Guid condominioId);
 
         Task<Pasta> ObterPastaDeSistema(CategoriaDaPastaDeSistema categoriaDaPastaDeSistema, Guid condominioId);
         #endregion

@@ -44,7 +44,14 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
             if (!request.EstaValido())
                 return request.ValidationResult;
 
-            var pasta = SubPastaFactory(request);
+            var pastaMae = await _arquivoDigitalRepository.ObterPorId((Guid)(request.PastaMaeId));
+            if (pastaMae == null)
+            {
+                AdicionarErro("Pasta mãe não encontrada.");
+                return ValidationResult;
+            }
+
+            var pasta = SubPastaFactory(request, pastaMae.CondominioId);
 
             _arquivoDigitalRepository.Adicionar(pasta);
 
@@ -154,17 +161,17 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
         {
             var pasta = new Pasta
                 (request.Titulo, request.Descricao, request.CondominioId, request.Publica,
-                 false, 0, true, Guid.Empty);
+                 false, 0, true, null);
 
             pasta.SetEntidadeId(request.Id);
 
             return pasta;
         }
 
-        private Pasta SubPastaFactory(AdicionarSubPastaCommand request)
+        private Pasta SubPastaFactory(AdicionarSubPastaCommand request, Guid condominioId)
         {
             var pasta = new Pasta
-                (request.Titulo, request.Descricao, request.CondominioId, request.Publica,
+                (request.Titulo, request.Descricao, condominioId, request.Publica,
                  false, 0, false, request.PastaMaeId);
 
             pasta.SetEntidadeId(request.Id);
@@ -176,7 +183,7 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
         {
             var pasta = new Pasta
                 (request.Titulo, request.Descricao, request.CondominioId, true, true,
-                 request.CategoriaDaPastaDeSistema, true, Guid.Empty);
+                 request.CategoriaDaPastaDeSistema, true, null);
 
             pasta.SetEntidadeId(request.Id);
 

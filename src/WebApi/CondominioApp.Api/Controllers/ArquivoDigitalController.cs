@@ -35,12 +35,12 @@ namespace CondominioApp.Api.Controllers
         }
 
 
-        #region Pasta        
+        #region Pasta
 
         [HttpGet("raiz-por-condominio/{condominioId:Guid}")]
-        public async Task<ActionResult<IEnumerable<SubPastaViewModel>>> ObterPastasRaizPorCondominio(Guid condominioId)
+        public async Task<ActionResult<IEnumerable<SubPastaViewModel>>> ObterPastasRaizesPorCondominio(Guid condominioId)
         {
-            var pastas = await _arquivoDigitalQuery.ObterPorCondominio(condominioId);
+            var pastas = await _arquivoDigitalQuery.ObterPastasRaizesPorCondominio(condominioId);
             if (pastas.Count() == 0)
             {
                 AdicionarErroProcessamento("Nenhum registro encontrado.");
@@ -57,22 +57,25 @@ namespace CondominioApp.Api.Controllers
         }
 
         [HttpGet("conteudo/{pastaId:Guid}")]
-        public async Task<ActionResult<IEnumerable<ConteudoPastaViewModel>>> ObterConteudoDaPasta(Guid pastaId)
+        public async Task<ActionResult<ConteudoPastaViewModel>> ObterConteudoDaPasta(Guid pastaId)
         {
-            var pastas = await _arquivoDigitalQuery.ObterPastaComConteudo(pastaId);
-            if (pastas == null)
+            var pasta = await _arquivoDigitalQuery.ObterPastaComConteudo(pastaId);
+            if (pasta == null)
             {
                 AdicionarErroProcessamento("Nenhum registro encontrado.");
                 return CustomResponse();
             }
 
-            var pastasVM = new List<SubPastaViewModel>();
-            foreach (Pasta item in pastas)
+            ConteudoPastaViewModel conteudoPastaViewModel = _mapper.Map<ConteudoPastaViewModel>(pasta);
+            conteudoPastaViewModel.Subpastas = new List<SubPastaViewModel>();
+            foreach (var subpasta in pasta.Pastas)
             {
-                var pastaVM = _mapper.Map<SubPastaViewModel>(item);
-                pastasVM.Add(pastaVM);
+                var subpastaViewModel = _mapper.Map<SubPastaViewModel>(subpasta);
+                conteudoPastaViewModel.Subpastas.Add(subpastaViewModel);
             }
-            return pastasVM;
+            
+            
+            return conteudoPastaViewModel;
         }
 
 

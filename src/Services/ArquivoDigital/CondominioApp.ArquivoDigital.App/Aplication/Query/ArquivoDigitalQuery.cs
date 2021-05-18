@@ -38,6 +38,11 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Query
             return await _arquivoDigitalRepository.Obter(e => e.CondominioId == condominioId && !e.Lixeira);
         }
 
+        public async Task<IEnumerable<Pasta>> ObterPastasRaizesPorCondominio(Guid condominioId)
+        {
+            return await _arquivoDigitalRepository.Obter(e => e.CondominioId == condominioId && e.PastaRaiz && !e.Lixeira);
+        }
+
         public async Task<Pasta> ObterPastaDeSistema(CategoriaDaPastaDeSistema categoriaDaPastaDeSistema, Guid condominioId)
         {
             var retorno = await _arquivoDigitalRepository

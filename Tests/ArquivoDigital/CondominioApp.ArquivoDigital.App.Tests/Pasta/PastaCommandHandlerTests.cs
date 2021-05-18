@@ -46,7 +46,7 @@ namespace CondominioApp.ArquivoDigital.App.Tests
         {
             //Arrange
             var comando = PastaCommandFactory.CriarComando_EdicaoDePasta();
-            var pasta = PastaFactoryTests.Criar_Pasta_Valida();
+            var pasta = PastaFactoryTests.Criar_Pasta_raiz_Valida();
             pasta.SetEntidadeId(comando.Id);           
             
 
@@ -72,7 +72,7 @@ namespace CondominioApp.ArquivoDigital.App.Tests
         {
             //Arrange
             var comando = PastaCommandFactory.CriarComandoMarcarPastaComoPublica();
-            var pasta =PastaFactoryTests.Criar_Pasta_Valida();
+            var pasta =PastaFactoryTests.Criar_Pasta_raiz_Valida();
             pasta.SetEntidadeId(comando.Id);
                        
 
@@ -98,7 +98,7 @@ namespace CondominioApp.ArquivoDigital.App.Tests
         {
             //Arrange
             var comando = PastaCommandFactory.CriarComandoMarcarPastaComoPrivada();
-            var pasta = PastaFactoryTests.Criar_Pasta_Valida();
+            var pasta = PastaFactoryTests.Criar_Pasta_raiz_Valida();
             pasta.SetEntidadeId(comando.Id);
 
 

@@ -33,7 +33,6 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
             {
                 ValidateTitulo();
                 ValidateDescricao();                
-                ValidateCondominioId();                
                 ValidatePublica();
                 ValidatePastaMae();
             }

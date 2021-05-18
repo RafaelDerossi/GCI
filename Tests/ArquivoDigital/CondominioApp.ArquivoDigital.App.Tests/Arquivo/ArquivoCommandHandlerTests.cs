@@ -31,7 +31,7 @@ namespace CondominioApp.ArquivoDigital.App.Tests
         public async Task AdicionarArquivo_CommandoValido_DevePassarNaValidacao()
         {
             //Arrange
-            var pasta = PastaFactoryTests.Criar_Pasta_Valida();
+            var pasta = PastaFactoryTests.Criar_Pasta_raiz_Valida();
             var comando = ArquivoCommandFactory.CriarComando_CadastroDeArquivo();
             pasta.SetEntidadeId(comando.PastaId);
             
@@ -92,7 +92,7 @@ namespace CondominioApp.ArquivoDigital.App.Tests
         {
             //Arrange
             var comando = ArquivoCommandFactory.CriarComando_EdicaoDeArquivo();
-            var pasta = PastaFactoryTests.Criar_Pasta_Valida();
+            var pasta = PastaFactoryTests.Criar_Pasta_raiz_Valida();
             pasta.SetEntidadeId(comando.PastaId);
             var arquivo = ArquivoFactoryTests.Criar_Arquivo_Valido();            
             arquivo.SetEntidadeId(comando.Id);

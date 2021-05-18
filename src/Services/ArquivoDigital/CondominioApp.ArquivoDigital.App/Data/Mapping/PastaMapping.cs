@@ -8,9 +8,14 @@ namespace CondominioApp.ArquivoDigital.App.Data.Mapping
     {
         public void Configure(EntityTypeBuilder<Pasta> builder)
         {
-            builder.HasKey(u => u.Id);
-
             builder.ToTable("Pastas");
+
+            builder.HasMany(p => p.Pastas)
+                   .WithOne(p => p.PastaMae)
+                   .HasForeignKey(p => p.PastaMaeId)
+                   .OnDelete(DeleteBehavior.NoAction);
+
+            builder.HasKey(u => u.Id);
 
             builder.Property(u => u.Titulo).IsRequired().HasColumnType($"varchar(50)");
 
@@ -18,10 +23,7 @@ namespace CondominioApp.ArquivoDigital.App.Data.Mapping
 
             builder.Property(u => u.CondominioId).IsRequired();            
 
-            builder.Property(u => u.Publica).IsRequired();
-
-            builder.Property(u => u.PastaMaeId)
-                   .HasColumnName("PastaId");
+            builder.Property(u => u.Publica).IsRequired();            
 
             builder
                .HasIndex(x => new { x.Titulo, x.CondominioId })

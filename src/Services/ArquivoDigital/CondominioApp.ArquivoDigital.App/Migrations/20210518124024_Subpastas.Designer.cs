@@ -4,14 +4,16 @@ using CondominioApp.ArquivoDigital.App.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CondominioApp.ArquivoDigital.App.Migrations
 {
     [DbContext(typeof(ArquivoDigitalContextDB))]
-    partial class ArquivoDigitalContextDBModelSnapshot : ModelSnapshot
+    [Migration("20210518124024_Subpastas")]
+    partial class Subpastas
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -97,7 +99,7 @@ namespace CondominioApp.ArquivoDigital.App.Migrations
                     b.Property<bool>("PastaDoSistema")
                         .HasColumnType("bit");
 
-                    b.Property<Guid?>("PastaMaeId")
+                    b.Property<Guid>("PastaId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("PastaRaiz")
@@ -112,7 +114,7 @@ namespace CondominioApp.ArquivoDigital.App.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PastaMaeId");
+                    b.HasIndex("PastaId");
 
                     b.HasIndex("Titulo", "CondominioId")
                         .IsUnique();
@@ -180,10 +182,11 @@ namespace CondominioApp.ArquivoDigital.App.Migrations
 
             modelBuilder.Entity("CondominioApp.ArquivoDigital.App.Models.Pasta", b =>
                 {
-                    b.HasOne("CondominioApp.ArquivoDigital.App.Models.Pasta", "PastaMae")
+                    b.HasOne("CondominioApp.ArquivoDigital.App.Models.Pasta", null)
                         .WithMany("Pastas")
-                        .HasForeignKey("PastaMaeId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .HasForeignKey("PastaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

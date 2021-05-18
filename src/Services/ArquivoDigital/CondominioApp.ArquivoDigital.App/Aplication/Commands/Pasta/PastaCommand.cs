@@ -25,7 +25,7 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
 
         public bool PastaRaiz { get; protected set; }
 
-        public Guid PastaMaeId { get; protected set; }
+        public Guid? PastaMaeId { get; protected set; }
 
 
 

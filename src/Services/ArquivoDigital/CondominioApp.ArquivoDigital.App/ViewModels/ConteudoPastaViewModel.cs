@@ -33,9 +33,9 @@ namespace CondominioApp.ArquivoDigital.App.Models
         public CategoriaDaPastaDeSistema CategoriaDaPastaDeSistema { get; private set; }
 
 
-        public IEnumerable<ArquivoViewModel> Arquivos { get; set; }
+        public List<ArquivoViewModel> Arquivos { get; set; }
 
-        public IEnumerable<SubPastaViewModel> Subpastas { get; set; }
+        public List<SubPastaViewModel> Subpastas { get; set; }
 
     }
 }
