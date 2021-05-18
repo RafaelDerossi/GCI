@@ -10,8 +10,7 @@ namespace CondominioApp.NotificacaoEmail.Api.Email
     public class EmailComunicadoComAnexo : ServicoDeEmail
     {
         private readonly string _assunto = "Novo Comunicado";        
-        private readonly ComunicadoDTO _comunicado;       
-        private readonly string _caminhoAnexo = "https://condominioappstorage.blob.core.windows.net/condominioapp/Uploads/";
+        private readonly ComunicadoDTO _comunicado;        
         private readonly string _logoCondominioApp = "https://condominioappstorage.blob.core.windows.net/condominioapp/Uploads/usuario/572d0886-11c4-4fb3-b806-0d7cf6695bc8.png";
 
         public EmailComunicadoComAnexo(ComunicadoDTO comunicado)
@@ -20,7 +19,7 @@ namespace CondominioApp.NotificacaoEmail.Api.Email
 
             var conteudo = SubstituirValores();
 
-            ConstruirEmail(_assunto, conteudo);
+            ConstruirEmail(_assunto, conteudo);            
         }
 
         public override string SubstituirValores()
@@ -53,7 +52,7 @@ namespace CondominioApp.NotificacaoEmail.Api.Email
 
             foreach (var item in arquivos)
             {
-                var caminho = $"{_caminhoAnexo}{item.Nome}";
+                var caminho = $"{item.Url}";
                 if (item.Extensao == "jpg" || item.Extensao == "jpeg" || item.Extensao == "png")
                 {
                     var html = $@"<br /><br /><table cellpadding = ""0"" cellspacing = ""0"" width = ""100%"" role = ""presentation"" style = ""mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"">
@@ -82,7 +81,7 @@ namespace CondominioApp.NotificacaoEmail.Api.Email
 
             foreach (var item in arquivos)
             {
-                var caminho = $"{_caminhoAnexo}{item.Nome}";
+                var caminho = $"{item.Url}";
                 if (item.Extensao != "jpg" && item.Extensao != "jpeg" && item.Extensao != "png")                
                 {                   
                     var html = @$"<a download={item.Nome} href=""{caminho}"" class=""es-button"" target=""_blank"" style=""margin-bottom:5px !important;mso-style-priority:100 !important;text-decoration:none;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:18px;color:#FFFFFF;border-style:solid;border-color:#253066;border-width:10px 20px 10px 20px;display:inline-block;background:#253066;border-radius:0px;font-weight:normal;font-style:normal;line-height:22px;width:auto;text-align:center""> Anexo</a>";

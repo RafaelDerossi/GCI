@@ -29,9 +29,7 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
 
         public Guid AnexadoPorId { get; protected set; }
 
-        public IFormFile Arquivo { get; protected set; }
-
-        public Url Url { get; protected set; }
+        public IFormFile Arquivo { get; protected set; }        
 
 
         public void SetId(Guid id) => Id = id;
@@ -85,18 +83,6 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
             }
             Arquivo = arquivo;
         }
-
-        public void SetUrl(string url)
-        {
-            try
-            {
-                Url = new Url(url);
-            }
-            catch (Exception e)
-            {
-                AdicionarErrosDeProcessamentoDoComando(e.Message);
-            }
-        }        
-
+        
     }
 }

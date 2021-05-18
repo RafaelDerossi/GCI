@@ -54,14 +54,6 @@ namespace CondominioApp.ArquivoDigital.App.Data.Mapping
 
             builder.Property(u => u.Descricao).HasColumnType($"varchar({Arquivo.Max})");
 
-            builder.OwnsOne(u => u.Url, url =>
-            {
-                 url.Property(u => u.Endereco)
-                    .HasMaxLength(Url.TamanhoMaximo)
-                    .HasColumnName("Url")
-                    .HasColumnType($"varchar({Url.TamanhoMaximo})");
-            });
-
         }
     }
 }

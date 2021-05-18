@@ -18,7 +18,7 @@ namespace CondominioApp.ArquivoDigital.AzureStorageBlob.Services
             ValidationResult = new ValidationResult();
         }
 
-        public async Task<RetornoDoSubirArquivo> SubirArquivo(IFormFile arquivo, string nomeDoArquivo)
+        public async Task<ValidationResult> SubirArquivo(IFormFile arquivo, string nomeDoArquivo)
         {
             using var stream = arquivo.OpenReadStream();
             string url = "";
@@ -31,11 +31,7 @@ namespace CondominioApp.ArquivoDigital.AzureStorageBlob.Services
                 AdicionarErros(ex.Message);
             }           
 
-            return new RetornoDoSubirArquivo()
-            {
-                Url = url,
-                ValidationResult = ValidationResult
-            };
+            return ValidationResult;
         }
 
         public bool VerificaTipoDoArquivoPermitido(string nomeDoArquivo)

@@ -35,11 +35,7 @@ namespace CondominioApp.ArquivoDigital.App.Tests
             var comando = ArquivoCommandFactory.CriarComando_CadastroDeArquivo();
             pasta.SetEntidadeId(comando.PastaId);
             
-            var retornoDoSubirArquivo = new RetornoDoSubirArquivo
-            {
-                Url = "",
-                ValidationResult = new ValidationResult()
-            };
+            var retornoDoSubirArquivo = new ValidationResult();
 
             
             _mocker.GetMock<IArquivoDigitalRepository>().Setup(r => r.ObterPorId(comando.PastaId))

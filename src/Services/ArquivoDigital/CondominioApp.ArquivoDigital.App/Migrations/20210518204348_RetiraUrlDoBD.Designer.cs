@@ -4,14 +4,16 @@ using CondominioApp.ArquivoDigital.App.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CondominioApp.ArquivoDigital.App.Migrations
 {
     [DbContext(typeof(ArquivoDigitalContextDB))]
-    partial class ArquivoDigitalContextDBModelSnapshot : ModelSnapshot
+    [Migration("20210518204348_RetiraUrlDoBD")]
+    partial class RetiraUrlDoBD
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

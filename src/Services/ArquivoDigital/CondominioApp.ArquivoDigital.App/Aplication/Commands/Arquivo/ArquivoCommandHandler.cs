@@ -47,12 +47,9 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
             var retorno = await _azureStorageService.SubirArquivo
                 (request.Arquivo, ObterNomeDoArquivoComPasta(request.Nome, pasta));
             
-            if (!retorno.ValidationResult.IsValid)
-            {
-                return retorno.ValidationResult;
-            }
+            if (!retorno.IsValid)
+                return retorno;            
             
-            request.SetUrl(retorno.Url);
             if (!request.EstaValido())
                 return request.ValidationResult;
                                        
@@ -187,7 +184,7 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
             var arquivo = new Arquivo
                 (request.Nome, request.Tamanho, condominioId, request.PastaId, request.Publico, 
                  request.FuncionarioId, request.NomeFuncionario, request.Titulo, request.Descricao,
-                 request.AnexadoPorId, request.Url);
+                 request.AnexadoPorId);
 
             arquivo.SetEntidadeId(request.Id);
             return arquivo;

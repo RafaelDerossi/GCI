@@ -19,7 +19,7 @@ namespace CondominioApp.ArquivoDigital.App.AutoMapper
                 .ForMember(m => m.NomeArquivo, cfg => cfg.MapFrom(x => x.Nome.NomeDoArquivo))
                 .ForMember(m => m.Extensao, cfg => cfg.MapFrom(x => x.Nome.ExtensaoDoArquivo))
                 .ForMember(m => m.Publico, cfg => cfg.MapFrom(x => x.Publico))
-                .ForMember(m => m.Url, cfg => cfg.MapFrom(x => x.Url.Endereco));
+                .ForMember(m => m.Url, cfg => cfg.MapFrom(x => x.Url));
             
         }
     }

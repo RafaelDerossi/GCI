@@ -8,6 +8,8 @@ namespace CondominioApp.ArquivoDigital.App.Models
   public class Arquivo : Entity
     {
         public const int Max = 200;
+        public const string Path = @"https://condominioappstorage.blob.core.windows.net/condominioapp/Uploads\";
+
 
         public NomeArquivo Nome { get; private set; }        
 
@@ -29,7 +31,13 @@ namespace CondominioApp.ArquivoDigital.App.Models
 
         public Guid AnexadoPorId { get; private set; }
 
-        public Url Url { get; private set; }
+        public string Url 
+        {
+            get
+            {
+                return $@"{Path}{CondominioId}\{Nome.NomeDoArquivo}";
+            }
+        }
 
         public Arquivo()
         {
@@ -38,7 +46,7 @@ namespace CondominioApp.ArquivoDigital.App.Models
         public Arquivo
             (NomeArquivo nome, double tamanho, Guid condominioId, Guid pastaId, bool publico,
              Guid usuarioId, string nomeUsuario, string titulo, string descricao,
-             Guid anexadoPorId, Url url)
+             Guid anexadoPorId)
         {
             Nome = nome;
             Tamanho = tamanho;
@@ -50,7 +58,6 @@ namespace CondominioApp.ArquivoDigital.App.Models
             Titulo = titulo;
             Descricao = descricao;
             AnexadoPorId = anexadoPorId;
-            Url = url;
         }
 
         public void SetNome(NomeArquivo nome) => Nome = nome;
@@ -76,7 +83,6 @@ namespace CondominioApp.ArquivoDigital.App.Models
         public void SetDescricao(string descricao) => Descricao = descricao;
 
         public void SetAnexadoPorId(Guid id) => AnexadoPorId = id;
-
-        public void SetUrl(Url url) => Url = url;
+        
     }
 }

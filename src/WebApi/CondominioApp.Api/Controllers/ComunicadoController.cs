@@ -367,7 +367,7 @@ namespace CondominioApp.Api.Controllers
             {
                 var anexoVM = new AnexoComunicadoViewModel
                     (item.Id, item.Nome.NomeDoArquivo, item.Nome.NomeOriginal,
-                     item.Nome.ExtensaoDoArquivo, item.Tamanho, item.Url.Endereco);                
+                     item.Nome.ExtensaoDoArquivo, item.Tamanho, item.Url);                
                 anexosVM.Add(anexoVM);
             }
 

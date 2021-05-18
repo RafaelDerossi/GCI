@@ -56,10 +56,5 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands.Validations
                 .Length(0, 200).WithMessage("Descrição do arquivo deve ter até 200 caracteres!");
         }
 
-        protected void ValidateUrl()
-        {
-            RuleFor(c => c.Url)
-               .NotNull();
-        }
     }
 }

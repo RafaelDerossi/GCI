@@ -66,7 +66,7 @@ namespace CondominioApp.NotificacaoEmail.Aplication.Events
             var arquivos = await _arquivoDigitalQuery.ObterArquivosPorAnexadoPorId(notification.Id);
             foreach (var arq in arquivos)
             {
-                var arquivo = new ArquivoDTO(arq.Nome.NomeDoArquivo, arq.Nome.ExtensaoDoArquivo);
+                var arquivo = new ArquivoDTO(arq.Nome.NomeDoArquivo, arq.Nome.ExtensaoDoArquivo, arq.Url);
                 anexos.Add(arquivo);
             }
 
