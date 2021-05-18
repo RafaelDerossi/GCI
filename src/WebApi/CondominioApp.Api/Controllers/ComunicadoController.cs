@@ -14,6 +14,7 @@ using CondominioApp.Usuarios.App.Aplication.Query;
 using CondominioApp.Usuarios.App.FlatModel;
 using CondominioApp.Usuarios.App.Models;
 using CondominioApp.WebApi.Core.Controllers;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -96,7 +97,6 @@ namespace CondominioApp.Api.Controllers
             return comunicadosVM;
         }
 
-
         [HttpGet("por-condominio-e-usuario")]
         public async Task<ActionResult<IEnumerable<ComunicadoViewModel>>> ObterPorCondominioEUsuario(
             Guid condominioId, Guid usuarioId)
@@ -131,7 +131,7 @@ namespace CondominioApp.Api.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult> Post(AdicionaComunicadoViewModel comunicadoVM)
+        public async Task<ActionResult> Post([FromForm]AdicionaComunicadoViewModel comunicadoVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
@@ -171,7 +171,7 @@ namespace CondominioApp.Api.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> Put(AtualizaComunicadoViewModel comunicadoVM)
+        public async Task<ActionResult> Put([FromForm]AtualizaComunicadoViewModel comunicadoVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
                         
@@ -319,13 +319,13 @@ namespace CondominioApp.Api.Controllers
 
 
         private async Task SalvarAnexos
-            (List<AdicionaAnexoComunicadoViewModel> anexos, ComunicadoCommand comando)
+            (List<IFormFile> anexos, ComunicadoCommand comando)
         {
             var pasta = await ObterPastaDoSistema(comando);
 
             await ApagarAnexos(comando);
 
-            foreach (AdicionaAnexoComunicadoViewModel anexo in anexos)
+            foreach (IFormFile anexo in anexos)
             {
                 var comandoCadastraArquivo = AdicionarArquivoCommandFactory(anexo, comando, pasta.Id);
                 var ResultadoCadastroArquivo = await _mediatorHandler.EnviarComando(comandoCadastraArquivo);
@@ -343,7 +343,7 @@ namespace CondominioApp.Api.Controllers
         }
 
         private AdicionarArquivoCommand AdicionarArquivoCommandFactory
-            (AdicionaAnexoComunicadoViewModel anexo, ComunicadoCommand comunicadoCommand, Guid pastaId)
+            (IFormFile anexo, ComunicadoCommand comunicadoCommand, Guid pastaId)
         {
             var arquivoPublico = false;
             if (comunicadoCommand.Visibilidade == VisibilidadeComunicado.PUBLICO)
@@ -351,7 +351,7 @@ namespace CondominioApp.Api.Controllers
 
             return new AdicionarArquivoCommand
                 (pastaId, arquivoPublico, comunicadoCommand.FuncionarioId, comunicadoCommand.NomeFuncionario,
-                 "Anexo de Comunicado", "", comunicadoCommand.ComunicadoId, anexo.Arquivo);
+                 "Anexo de Comunicado", "", comunicadoCommand.ComunicadoId, anexo);
         }
 
 
@@ -367,7 +367,7 @@ namespace CondominioApp.Api.Controllers
             {
                 var anexoVM = new AnexoComunicadoViewModel
                     (item.Id, item.Nome.NomeDoArquivo, item.Nome.NomeOriginal,
-                     item.Nome.ExtensaoDoArquivo, item.Tamanho);                
+                     item.Nome.ExtensaoDoArquivo, item.Tamanho, item.Url.Endereco);                
                 anexosVM.Add(anexoVM);
             }
 

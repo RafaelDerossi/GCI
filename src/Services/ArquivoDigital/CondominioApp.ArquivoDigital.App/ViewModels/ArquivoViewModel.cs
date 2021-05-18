@@ -37,5 +37,6 @@ namespace CondominioApp.ArquivoDigital.App.Models
 
         public string Descricao { get; set; }
 
+        public string Url { get; set; }
     }
 }

@@ -1,12 +1,15 @@
 ﻿using CondominioApp.Core.Enumeradores;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace CondominioApp.Comunicados.App.ViewModels
 {
-    public class AdicionaComunicadoViewModel
+   public class AtualizaComunicadoViewModel
     {
+        public Guid ComunicadoId { get; set; }
+
         public IEnumerable<Guid> UnidadesId { get; set; }
 
         public string Titulo { get; set; }
@@ -19,11 +22,9 @@ namespace CondominioApp.Comunicados.App.ViewModels
 
         public VisibilidadeComunicado Visibilidade { get; set; }
 
-        public CategoriaComunicado Categoria { get; set; }
+        public CategoriaComunicado Categoria { get; set; }        
 
-        public bool CriadoPelaAdministradora { get; set; }
-
-        public IEnumerable<AdicionaAnexoComunicadoViewModel> Anexos { get; set; }
+        public IEnumerable<IFormFile> Anexos { get; set; }
 
         public bool TemAnexos
         {
@@ -36,6 +37,7 @@ namespace CondominioApp.Comunicados.App.ViewModels
                 }
                 return temAnexos;
             }
-        }       
+        }
+                
     }
 }

@@ -14,15 +14,18 @@ namespace CondominioApp.Comunicados.App.ViewModels
 
         public double Tamanho { get; set; }
 
+        public string Url { get; set; }
+
 
         public AnexoComunicadoViewModel
-            (Guid arquivoId, string nomeArquivo, string nomeOriginal, string extensao, double tamanho)
+            (Guid arquivoId, string nomeArquivo, string nomeOriginal, string extensao, double tamanho, string url)
         {
             ArquivoId = arquivoId;
             NomeArquivo = nomeArquivo;
             NomeOriginal = nomeOriginal;
             Extensao = extensao;
             Tamanho = tamanho;
+            Url = url;
         }
     }
 }
