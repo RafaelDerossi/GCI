@@ -351,7 +351,7 @@ namespace CondominioApp.Api.Controllers
 
             return new AdicionarArquivoCommand
                 (pastaId, arquivoPublico, comunicadoCommand.FuncionarioId, comunicadoCommand.NomeFuncionario,
-                 "Anexo de Comunicado", "", comunicadoCommand.ComunicadoId, null);
+                 "Anexo de Comunicado", "", comunicadoCommand.ComunicadoId, anexo.Arquivo);
         }
 
 
