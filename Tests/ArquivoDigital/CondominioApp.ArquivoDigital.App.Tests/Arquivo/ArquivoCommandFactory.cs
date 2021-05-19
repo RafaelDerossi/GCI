@@ -10,7 +10,8 @@ namespace CondominioApp.ArquivoDigital.App.Tests
     {        
         private static AdicionarArquivoCommand CadastrarArquivoCommandFactoy()
         {            
-            var fileStream = File.OpenRead("anexo-teste.pdf");
+            
+            var fileStream = File.OpenRead("./wwwroot/anexo-teste.pdf");
             var arquivo = new FormFile(fileStream, 0, fileStream.Length, null, Path.GetFileName(fileStream.Name))
             {
                 Headers = new HeaderDictionary(),
