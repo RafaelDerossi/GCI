@@ -8,14 +8,14 @@ namespace CondominioApp.Ocorrencias.App.Aplication.Commands
     {
         public AdicionarRespostaOcorrenciaMoradorCommand
             (Guid ocorrenciaId, string descricao, Guid moradorIdFuncionarioId, string nomeUsuario,
-             string fotoNome, string fotoNomeOriginal)
+             string fotoNomeOriginal)
         {
             OcorrenciaId = ocorrenciaId;
             Descricao = descricao;
             TipoAutor = TipoDoAutor.MORADOR;
             MoradorIdFuncionarioId = moradorIdFuncionarioId;
             NomeUsuario = nomeUsuario;
-            SetFoto(fotoNomeOriginal, fotoNome);            
+            SetFoto(fotoNomeOriginal);            
         }
 
 

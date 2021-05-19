@@ -1,8 +1,6 @@
 ﻿using CondominioApp.Core.Enumeradores;
 using CondominioApp.Ocorrencias.App.Models;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CondominioApp.Ocorrencias.App.Tests
 {
@@ -11,7 +9,7 @@ namespace CondominioApp.Ocorrencias.App.Tests
         private static Ocorrencia Factory()
         {
             return new Ocorrencia
-                ("Descrição da ocorrencia", new App.ValueObjects.Foto("foto.jpg", "foto.jpg"),
+                ("Descrição da ocorrencia", new App.ValueObjects.Foto("foto.jpg"),
                 false, Guid.NewGuid(), Guid.NewGuid(), "Nome do Morador", Guid.NewGuid(), false);
         }
 

@@ -45,6 +45,14 @@ namespace CondominioApp.ArquivoDigital.App.Tests
 
             return commando;
         }
+        public static AdicionarArquivoCommand CriarComando_CadastroDeArquivo_SemArquivo()
+        {
+            var commando = CadastrarArquivoCommandFactoy();
+
+            commando.SetArquivo(null);
+
+            return commando;
+        }
         public static AdicionarArquivoCommand CriarComando_CadastroDeArquivo_SemNomeArquivo()
         {
             var commando = CadastrarArquivoCommandFactoy();

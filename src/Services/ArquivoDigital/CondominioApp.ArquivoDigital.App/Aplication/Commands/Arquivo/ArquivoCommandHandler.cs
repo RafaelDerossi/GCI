@@ -45,7 +45,7 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
             }
 
             var retorno = await _azureStorageService.SubirArquivo
-                (request.Arquivo, ObterNomeDoArquivoComPasta(request.Nome, pasta));
+                (request.Arquivo, request.Nome.NomeDoArquivo, pasta.CondominioId);
             
             if (!retorno.IsValid)
                 return retorno;            
@@ -188,12 +188,7 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
 
             arquivo.SetEntidadeId(request.Id);
             return arquivo;
-        }
-
-        private string ObterNomeDoArquivoComPasta(NomeArquivo nomeArquivo, Pasta pasta)
-        {
-            return $"{pasta.CondominioId}/{nomeArquivo.NomeDoArquivo}";
-        }
+        }      
         
         public void Dispose()
         {

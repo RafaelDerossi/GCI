@@ -23,11 +23,11 @@ namespace CondominioApp.Ocorrencias.App.Aplication.Commands
 
         public void SetDescricao(string descricao) => Descricao = descricao;
 
-        public void SetFoto(string nomeOriginalfoto, string nomeFoto)
+        public void SetFoto(string nomeOriginalfoto)
         {
             try
             {
-                Foto = new Foto(nomeOriginalfoto, nomeFoto);
+                Foto = new Foto(nomeOriginalfoto);
             }
             catch (Exception e)
             {

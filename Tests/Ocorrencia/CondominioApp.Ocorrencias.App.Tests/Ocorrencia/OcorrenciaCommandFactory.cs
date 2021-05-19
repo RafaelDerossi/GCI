@@ -10,14 +10,14 @@ namespace CondominioApp.Ocorrencias.App.Tests
         private static AdicionarOcorrenciaCommand CadastrarOcorrenciaCommandFactory()
         {
             return new AdicionarOcorrenciaCommand(
-               "Descricao da Ocorrencia", "fotonome.jpg", "fotoNome.jpg", false, Guid.NewGuid(),
+               "Descricao da Ocorrencia", "fotonome.jpg", false, Guid.NewGuid(),
                "101", "1", "Grupo", Guid.NewGuid(), "Nome Usuario", Guid.NewGuid(), "Nome do Condominio",
                false);
         }
         private static AtualizarOcorrenciaCommand EditarOcorrenciaCommandFactory()
         {
             return new AtualizarOcorrenciaCommand(
-               Guid.NewGuid(), "Descricao da Ocorrencia", "fotonome.jpg", "fotoNome.jpg", false);
+               Guid.NewGuid(), "Descricao da Ocorrencia", "fotonome.jpg", false);
         }
 
 
@@ -40,7 +40,7 @@ namespace CondominioApp.Ocorrencias.App.Tests
         public static AdicionarOcorrenciaCommand CriarComando_CadastroDeOcorrencia_SemFoto()
         {
             var comando = CadastrarOcorrenciaCommandFactory();
-            comando.SetFoto("", "");
+            comando.SetFoto("");
             return comando;
         }
         public static AdicionarOcorrenciaCommand CriarComando_CadastroDeOcorrencia_SemUnidade()
@@ -78,7 +78,7 @@ namespace CondominioApp.Ocorrencias.App.Tests
         {
             var comando = EditarOcorrenciaCommandFactory();
 
-            comando.SetFoto("","");
+            comando.SetFoto("");
 
             return comando;
         }

@@ -11,21 +11,19 @@ namespace CondominioApp.Ocorrencias.App.Tests
         {
             return new AdicionarRespostaOcorrenciaSindicoCommand(
                 Guid.NewGuid(), "Descricao da Ocorrencia", Guid.NewGuid(), "Nome do Usuario", "fotonome.jpg",
-                "fotoNome.jpg", StatusDaOcorrencia.EM_ANDAMENTO);
+                StatusDaOcorrencia.EM_ANDAMENTO);
         }
         
         private static AdicionarRespostaOcorrenciaMoradorCommand CadastrarRespostaOcorrenciaMoradorCommandFactory()
         {
             return new AdicionarRespostaOcorrenciaMoradorCommand(
-                Guid.NewGuid(), "Descricao da Ocorrencia", Guid.NewGuid(), "Nome do Usuario", "fotonome.jpg",
-                "fotoNome.jpg");
+                Guid.NewGuid(), "Descricao da Ocorrencia", Guid.NewGuid(), "Nome do Usuario", "fotoNome.jpg");
         }
 
         private static AtualizarRespostaOcorrenciaCommand EditarRespostaOcorrenciaCommandFactory()
         {
             return new AtualizarRespostaOcorrenciaCommand(
-                Guid.NewGuid(), Guid.NewGuid(), "Nova Descricao", "fotonome.jpg",
-                "fotoNome.jpg");
+                Guid.NewGuid(), Guid.NewGuid(), "Nova Descricao", "fotonome.jpg");
         }
 
 
@@ -57,7 +55,7 @@ namespace CondominioApp.Ocorrencias.App.Tests
         {
             var comando = CadastrarRespostaOcorrenciaSindicoCommandFactory();
 
-            comando.SetFoto("", "");
+            comando.SetFoto("");
 
             return comando;
         }
@@ -99,7 +97,7 @@ namespace CondominioApp.Ocorrencias.App.Tests
         {
             var comando = CadastrarRespostaOcorrenciaMoradorCommandFactory();
 
-            comando.SetFoto("", "");
+            comando.SetFoto("");
 
             return comando;
         }

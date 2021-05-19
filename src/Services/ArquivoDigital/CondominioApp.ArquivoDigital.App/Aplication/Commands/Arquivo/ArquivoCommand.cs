@@ -73,14 +73,16 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
 
         public void SetArquivo(IFormFile arquivo)
         {
+            if (arquivo == null || arquivo.Length <= 0)
+            {
+                AdicionarErrosDeProcessamentoDoComando("Informe um arquivo!");
+                return;
+            }
             if (!StorageHelper.VerificaTipoDoArquivoPermitido(arquivo.FileName))
             {
                 AdicionarErrosDeProcessamentoDoComando("Formato do arquivo não suportado.");
-            }
-            if (arquivo.Length <= 0)
-            {
-                AdicionarErrosDeProcessamentoDoComando("Informe um arquivo!");
-            }
+                return;
+            }           
             Arquivo = arquivo;
         }
         

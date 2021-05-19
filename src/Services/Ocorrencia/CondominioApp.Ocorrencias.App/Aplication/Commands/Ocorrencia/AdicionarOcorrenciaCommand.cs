@@ -6,10 +6,9 @@ namespace CondominioApp.Ocorrencias.App.Aplication.Commands
     public class AdicionarOcorrenciaCommand : OcorrenciaCommand
     {
         public AdicionarOcorrenciaCommand
-            (string descricao, string nomeOriginalfoto, string nomefoto,
-            bool publica, Guid unidadeId, string numeroUnidade, string andarUnidade,
-            string grupoUnidade, Guid moradorId, string nomeMorador, Guid condominioId,
-            string nomeCondominio, bool panico)
+            (string descricao, string nomeOriginalfoto, bool publica, Guid unidadeId,
+             string numeroUnidade, string andarUnidade, string grupoUnidade, Guid moradorId,
+             string nomeMorador, Guid condominioId, string nomeCondominio, bool panico)
         {            
             Descricao = descricao;            
             Publica = publica;            
@@ -22,7 +21,7 @@ namespace CondominioApp.Ocorrencias.App.Aplication.Commands
             CondominioId = condominioId;
             NomeCondominio = nomeCondominio;
             Panico = panico;            
-            SetFoto(nomeOriginalfoto, nomefoto);
+            SetFoto(nomeOriginalfoto);
         }
 
 

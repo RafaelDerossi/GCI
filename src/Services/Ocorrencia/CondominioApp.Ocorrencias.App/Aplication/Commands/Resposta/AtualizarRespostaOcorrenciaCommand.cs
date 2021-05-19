@@ -7,12 +7,12 @@ namespace CondominioApp.Ocorrencias.App.Aplication.Commands
     public class AtualizarRespostaOcorrenciaCommand : RespostaOcorrenciaCommand
     {
         public AtualizarRespostaOcorrenciaCommand
-            (Guid id, Guid moradorIdFuncionarioId, string descricao, string fotoNome, string fotoNomeOriginal)
+            (Guid id, Guid moradorIdFuncionarioId, string descricao, string fotoNomeOriginal)
         {
             Id = id;
             MoradorIdFuncionarioId = moradorIdFuncionarioId;
             Descricao = descricao;          
-            SetFoto(fotoNomeOriginal, fotoNome);            
+            SetFoto(fotoNomeOriginal);            
         }
 
 
