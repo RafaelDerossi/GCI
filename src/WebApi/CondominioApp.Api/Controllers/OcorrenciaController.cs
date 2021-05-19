@@ -386,7 +386,6 @@ namespace CondominioApp.Api.Controllers
             var Resultado = await _mediatorHandler.EnviarComando(comando);            
 
             return CustomResponse(Resultado);
-
         }    
 
         [HttpPost("resposta-sindico")]
