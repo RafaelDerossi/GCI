@@ -12,7 +12,7 @@ namespace CondominioApp.ArquivoDigital.App.Tests
         {
             byte[] numbers = { 0, 16, 104, 213 };
             var memoryStream = new MemoryStream(numbers);           
-            var arquivo = new FormFile(memoryStream, 0, memoryStream.Length, null, Path.GetFileName("anexoTeste.pdf"))
+            var arquivo = new FormFile(memoryStream, 0, memoryStream.Length, null, "anexoTeste.pdf")
             {
                 Headers = new HeaderDictionary(),
                 ContentType = "application/pdf"
