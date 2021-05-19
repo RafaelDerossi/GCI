@@ -49,5 +49,6 @@ namespace CondominioApp.Ocorrencias.App.ViewModels
                     return "Pendente";
             }
         }        
+
     }
 }
