@@ -12,6 +12,8 @@ namespace CondominioApp.ArquivoDigital.AzureStorageBlob.Helpers
 {
     public class StorageHelper
     {
+        public readonly static string PathStorage = @"https://condominioappstorage.blob.core.windows.net/condominioapp/Uploads\";
+
         public static async Task<string> UploadFileToStorage(Stream fileStream, string fileName,
             IAzureStorage storage)
         {

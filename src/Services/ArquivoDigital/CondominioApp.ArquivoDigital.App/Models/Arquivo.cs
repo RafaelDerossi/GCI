@@ -1,4 +1,5 @@
 ﻿using CondominioApp.ArquivoDigital.App.ValueObjects;
+using CondominioApp.ArquivoDigital.AzureStorageBlob.Helpers;
 using CondominioApp.Core.DomainObjects;
 using CondominioApp.Usuarios.App.ValueObjects;
 using System;
@@ -8,8 +9,6 @@ namespace CondominioApp.ArquivoDigital.App.Models
   public class Arquivo : Entity
     {
         public const int Max = 200;
-        public const string Path = @"https://condominioappstorage.blob.core.windows.net/condominioapp/Uploads\";
-
 
         public NomeArquivo Nome { get; private set; }        
 
@@ -35,7 +34,7 @@ namespace CondominioApp.ArquivoDigital.App.Models
         {
             get
             {
-                return $@"{Path}{CondominioId}\{Nome.NomeDoArquivo}";
+                return $@"{StorageHelper.PathStorage}{CondominioId}\{Nome.NomeDoArquivo}";
             }
         }
 
