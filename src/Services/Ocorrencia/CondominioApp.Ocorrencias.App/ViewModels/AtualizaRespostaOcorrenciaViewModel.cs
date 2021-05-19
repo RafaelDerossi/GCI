@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 
 namespace CondominioApp.Ocorrencias.App.Models
 {
@@ -6,13 +7,10 @@ namespace CondominioApp.Ocorrencias.App.Models
     {
         public Guid Id { get; set; }
       
-        public string Descricao { get; set; }
-
-        public string NomeOriginalFoto { get; set; }
-
-        public string NomeFoto { get; set; }
+        public string Descricao { get; set; }       
 
         public Guid MoradorIdFuncionarioId { get; set; }
 
+        public IFormFile ArquivoFoto { get; set; }
     }
 }

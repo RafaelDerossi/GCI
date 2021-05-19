@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 
 namespace CondominioApp.Ocorrencias.App.ViewModels
 {
@@ -6,15 +7,11 @@ namespace CondominioApp.Ocorrencias.App.ViewModels
     {
         public Guid Id { get; set; }
 
-        public string Descricao { get; set; }
-
-        public string FotoNome { get; set; }
-
-        public string FotoNomeOriginal { get; set; }
+        public string Descricao { get; set; }        
 
         public bool Publica { get; set; }
 
-       
-        
+        public IFormFile ArquivoFoto { get; set; }
+
     }
 }

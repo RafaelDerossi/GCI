@@ -509,7 +509,7 @@ namespace CondominioApp.Api.Controllers
 
                 var morador = _usuarioQuery.ObterMoradorPorId(ocorrencia.MoradorId).Result;
                 ocorrenciaVM.NomeMorador = morador.NomeCompleto;
-                ocorrenciaVM.FotoMorador = morador.Foto;
+                ocorrenciaVM.FotoMoradorUrl = morador.Foto;
 
                 ocorrenciasVM.Add(ocorrenciaVM);
             }

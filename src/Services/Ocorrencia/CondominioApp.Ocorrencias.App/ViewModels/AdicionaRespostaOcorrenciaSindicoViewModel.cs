@@ -1,4 +1,5 @@
 ﻿using CondominioApp.Core.Enumeradores;
+using Microsoft.AspNetCore.Http;
 using System;
 
 namespace CondominioApp.Ocorrencias.App.Models
@@ -9,11 +10,9 @@ namespace CondominioApp.Ocorrencias.App.Models
 
         public string Descricao { get; set; }
 
-        public Guid FuncionarioId { get; set; }                
+        public Guid FuncionarioId { get; set; }
 
-        public string FotoNome { get; set; }
-
-        public string FotoNomeOriginal { get; set; }
+        public IFormFile ArquivoFoto { get; set; }
 
         public StatusDaOcorrencia StatusDaOcorrencia { get; set; }
 

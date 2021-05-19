@@ -1,7 +1,4 @@
-﻿using CondominioApp.Core.DomainObjects;
-using CondominioApp.Core.Enumeradores;
-using CondominioApp.Ocorrencias.App.ValueObjects;
-using System;
+﻿using System;
 
 namespace CondominioApp.Ocorrencias.App.Models
 {
@@ -23,8 +20,10 @@ namespace CondominioApp.Ocorrencias.App.Models
 
         public string NomeUsuario { get; set; }
 
+        public string FotoUsuarioUrl { get; set; }
+
         public bool Visto { get; set; }
 
-        public string Foto { get; set; }
+        public string FotoUrl { get; set; }
     }
 }

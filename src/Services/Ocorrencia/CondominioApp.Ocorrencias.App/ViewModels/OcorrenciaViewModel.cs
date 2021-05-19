@@ -17,11 +17,11 @@ namespace CondominioApp.Ocorrencias.App.ViewModels
 
         public string Descricao { get; set; }
 
-        public string Foto { get; set; }
+        public string FotoUrl { get; set; }
 
         public bool Publica { get; set; }
 
-        public StatusDaOcorrencia Status { get; set; }                
+        public StatusDaOcorrencia Status { get; set; }
 
         public DateTime? DataResolucao { get; set; }
 
@@ -31,11 +31,11 @@ namespace CondominioApp.Ocorrencias.App.ViewModels
 
         public string NomeMorador { get; set; }
 
-        public string FotoMorador { get; set; }
+        public string FotoMoradorUrl { get; set; }
 
-        public Guid CondominioId { get; set; }       
+        public Guid CondominioId { get; set; }
         
-        public bool Panico { get;  set; }              
+        public bool Panico { get;  set; }
 
         public string StatusDescricao
         {
@@ -49,7 +49,6 @@ namespace CondominioApp.Ocorrencias.App.ViewModels
                     return "Pendente";
             }
         }
-
         
     }
 }
