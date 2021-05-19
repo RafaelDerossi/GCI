@@ -40,6 +40,8 @@ namespace CondominioApp.Api.Controllers
         }
 
 
+        #region GETs
+        
         [HttpGet("por-morador-ou-publicas/{moradorId:Guid}")]
         public async Task<ActionResult<IEnumerable<OcorrenciaViewModel>>> ObterPorMoradorOuPublicas(Guid moradorId)
         {
@@ -355,10 +357,11 @@ namespace CondominioApp.Api.Controllers
             return respostasVM;
         }
 
+        #endregion
 
 
-
-
+        #region POSTs
+        
         [HttpPost]
         public async Task<ActionResult> Post(AdicionaOcorrenciaViewModel ocorrenciaVM)
         {
@@ -426,9 +429,11 @@ namespace CondominioApp.Api.Controllers
 
         }
 
+        #endregion
 
 
-
+        #region PUTs
+        
         [HttpPut]
         public async Task<ActionResult> Put(AtualizaOcorrenciaViewModel ocorrenciaVM)
         {
@@ -470,8 +475,10 @@ namespace CondominioApp.Api.Controllers
 
         }
 
+        #endregion
 
 
+        #region Delete
         [HttpDelete("remover/{ocorrenciaId:Guid}")]
         public async Task<ActionResult> RemoverOcorrencia(Guid ocorrenciaId)
         {
@@ -497,8 +504,11 @@ namespace CondominioApp.Api.Controllers
             return CustomResponse(Resultado);
 
         }
+        #endregion
 
 
+
+        #region Metodos Auxiliares        
 
         private List<OcorrenciaViewModel> MapperListEntityToViewModel(IEnumerable<Ocorrencia> ocorrencias)
         {
@@ -549,7 +559,8 @@ namespace CondominioApp.Api.Controllers
                  (respostaVM.OcorrenciaId, respostaVM.Descricao, respostaVM.MoradorId, morador.NomeCompleto,
                   respostaVM.FotoNome, respostaVM.FotoNomeOriginal);
         }
-      
+
+        #endregion
 
     }
 }
