@@ -1,4 +1,5 @@
 ﻿using CondominioApp.Core.DomainObjects;
+using CondominioApp.Core.Helpers;
 using CondominioApp.Usuarios.App.ValueObjects;
 using System;
 
@@ -103,6 +104,14 @@ namespace CondominioApp.Usuarios.App.FlatModel
                 if (Celular != null && Celular.Length == 11)
                     return $"({Celular.Substring(0, 2)}) {Celular.Substring(2, 5)}-{Celular.Substring(7, 4)}";
                 return Celular;
+            }
+        }
+
+        public string Url
+        {
+            get
+            {
+                return StoragePaths.ObterUrlDeArquivo("usuario", Foto);
             }
         }
 

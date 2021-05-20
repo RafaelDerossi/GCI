@@ -1,4 +1,6 @@
-﻿using CondominioApp.Core.Mediator;
+﻿using CondominioApp.ArquivoDigital.AzureStorageBlob.Models;
+using CondominioApp.ArquivoDigital.AzureStorageBlob.Services;
+using CondominioApp.Core.Mediator;
 using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.NotificacaoEmailIntegrationEvent.Usuario;
 using CondominioApp.NotificacaoEmail.Aplication.Events;
 using CondominioApp.Principal.Aplication.Query;
@@ -22,6 +24,10 @@ namespace CondominioApp.Identidade.Api.Configuration
         {
             services.AddScoped<IMediatorHandler, MediatorHandler>();
 
+            #region Arquivo
+            services.AddTransient<IAzureStorage, AzureStorage>();
+            services.AddTransient<IAzureStorageService, AzureStorageService>();
+            #endregion
             #region Usuario
             services.AddScoped<IRequestHandler<AdicionarUsuarioCommand, ValidationResult>, UsuarioCommandHandler>();
             services.AddScoped<IRequestHandler<RemoverUsuarioCommand, ValidationResult>, UsuarioCommandHandler>();

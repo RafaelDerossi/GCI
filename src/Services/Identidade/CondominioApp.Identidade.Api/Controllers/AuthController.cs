@@ -5,7 +5,9 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using CondominioApp.ArquivoDigital.AzureStorageBlob.Services;
 using CondominioApp.Core.Enumeradores;
+using CondominioApp.Core.Helpers;
 using CondominioApp.Core.Mediator;
 using CondominioApp.Identidade.Api.Models;
 using CondominioApp.NotificacaoEmail.Api.Email;
@@ -33,13 +35,15 @@ namespace CondominioApp.Identidade.Api.Controllers
         private readonly IMediatorHandler _mediatorHandler;
         private readonly IPrincipalQuery _condominioQuery;
         private readonly IUsuarioQuery _usuarioQuery;
+        private readonly IAzureStorageService _azureStorageService;
 
         public AuthController(SignInManager<IdentityUser> signInManager,
                               UserManager<IdentityUser> userManager,
                               IOptions<AppSettings> appSettings,
                               IMediatorHandler mediatorHandler,
                               IPrincipalQuery condominioQuery,
-                              IUsuarioQuery usuarioQuery)
+                              IUsuarioQuery usuarioQuery,
+                              IAzureStorageService azureStorageService)
         {
             _signInManager = signInManager;
             _userManager = userManager;
@@ -47,7 +51,8 @@ namespace CondominioApp.Identidade.Api.Controllers
             _mediatorHandler = mediatorHandler;
             _condominioQuery = condominioQuery;
             _usuarioQuery = usuarioQuery;
-        }
+            _azureStorageService = azureStorageService;
+    }
 
 
         [HttpPut("{Id:Guid}")]
@@ -106,7 +111,7 @@ namespace CondominioApp.Identidade.Api.Controllers
 
         
         [HttpPost("nova-conta")]
-        public async Task<ActionResult> NovaConta(UsuarioRegistroViewModel usuarioRegistroVM)
+        public async Task<ActionResult> NovaConta([FromForm]UsuarioRegistroViewModel usuarioRegistroVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
@@ -134,7 +139,7 @@ namespace CondominioApp.Identidade.Api.Controllers
         }       
 
         [HttpPost("nova-conta-morador")]
-        public async Task<ActionResult> NovaContaMorador(MoradorRegistroViewModel moradorVM)
+        public async Task<ActionResult> NovaContaMorador([FromForm]MoradorRegistroViewModel moradorVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
             
@@ -157,7 +162,7 @@ namespace CondominioApp.Identidade.Api.Controllers
         }
 
         [HttpPost("nova-conta-funcionario")]
-        public async Task<ActionResult> NovaContaFuncionario(FuncionarioRegistroViewModel funcionarioVM)
+        public async Task<ActionResult> NovaContaFuncionario([FromForm]FuncionarioRegistroViewModel funcionarioVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
@@ -253,6 +258,7 @@ namespace CondominioApp.Identidade.Api.Controllers
 
 
 
+        #region MétodosAuxiliares
 
         private async Task<UsuarioRespostaLoginViewModel> GerarJwt(string login)
         {
@@ -323,7 +329,7 @@ namespace CondominioApp.Identidade.Api.Controllers
 
 
 
-        #region MétodosAuxiliares
+        
         private async Task VerificaSeClaimEstaCadastrado(IdentityUser user, TipoDeUsuario tipoDeUsuario)
         {
             var claims = await _userManager.GetClaimsAsync(user);
@@ -410,6 +416,20 @@ namespace CondominioApp.Identidade.Api.Controllers
         {
             var comando = CadastrarUsuarioCommandFactory
                 (usuarioRegistro, Guid.Parse(user.Id), enviarEmailDeConfirmacao);
+
+            if (usuarioRegistro.ArquivoFoto != null && comando.EstaValido())
+            {
+                var retorno = await _azureStorageService.SubirArquivo
+                              (usuarioRegistro.ArquivoFoto, comando.Foto.NomeDoArquivo, "usuario");
+                if (!retorno.IsValid)
+                {
+                    AdicionarErroProcessamento("Falha ao carregar foto!");
+                    foreach (var item in retorno.Errors)
+                        AdicionarErroProcessamento(item.ErrorMessage);
+                    await _userManager.DeleteAsync(user);
+                }
+            }
+
             var resultado = await _mediatorHandler.EnviarComando(comando);
             if (!resultado.IsValid)
             {
@@ -495,9 +515,11 @@ namespace CondominioApp.Identidade.Api.Controllers
         private AdicionarUsuarioCommand CadastrarUsuarioCommandFactory
             (UsuarioRegistro usuarioRegistro, Guid userId, bool enviarEmailDeConfirmacao)
         {
+            var nomeArquivo = StoragePaths.ObterNomeDoArquivo(usuarioRegistro.ArquivoFoto);
+
             return new AdicionarUsuarioCommand
                 (userId, usuarioRegistro.Nome, usuarioRegistro.Sobrenome, usuarioRegistro.Email,
-                 usuarioRegistro.Foto, usuarioRegistro.NomeOriginal, usuarioRegistro.Rg, usuarioRegistro.Cpf,
+                 nomeArquivo, usuarioRegistro.Rg, usuarioRegistro.Cpf,
                  usuarioRegistro.Telefone, usuarioRegistro.Celular, 
                  usuarioRegistro.Logradouro, usuarioRegistro.Complemento, usuarioRegistro.Numero,
                  usuarioRegistro.Cep, usuarioRegistro.Bairro, usuarioRegistro.Cidade, usuarioRegistro.Estado,

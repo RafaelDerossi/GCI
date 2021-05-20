@@ -1,7 +1,6 @@
 ﻿using CondominioApp.ArquivoDigital.App.ValueObjects;
-using CondominioApp.ArquivoDigital.AzureStorageBlob.Helpers;
 using CondominioApp.Core.DomainObjects;
-using CondominioApp.Usuarios.App.ValueObjects;
+using CondominioApp.Core.Helpers;
 using System;
 
 namespace CondominioApp.ArquivoDigital.App.Models
@@ -34,7 +33,7 @@ namespace CondominioApp.ArquivoDigital.App.Models
         {
             get
             {
-                return $@"{StorageHelper.PathStorage}{CondominioId}\{Nome.NomeDoArquivo}";
+                return StoragePaths.ObterUrlDeArquivo(CondominioId.ToString(), Nome.NomeDoArquivo);
             }
         }
 

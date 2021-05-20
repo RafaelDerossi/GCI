@@ -8,7 +8,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
     {
 
         public AtualizarMoradorCommand(Guid usuarioId, string nome, string sobrenome, string email,
-            string rg = null, string cpf = null, string cel = null, string foto = null,
+            string rg = null, string cpf = null, string cel = null,
             string nomeOriginal = null, DateTime? dataNascimento = null)
         {
             UsuarioId = usuarioId;
@@ -22,7 +22,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
             SetCpf(cpf);
             SetCelular(cel);
             SetEmail(email);
-            SetFoto(foto, nomeOriginal);
+            SetFoto(nomeOriginal);
         }
         
         public override bool EstaValido()

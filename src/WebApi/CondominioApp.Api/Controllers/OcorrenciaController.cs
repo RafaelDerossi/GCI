@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CondominioApp.ArquivoDigital.AzureStorageBlob.Services;
 using CondominioApp.Core.Enumeradores;
+using CondominioApp.Core.Helpers;
 using CondominioApp.Core.Mediator;
 using CondominioApp.Ocorrencias.App.Aplication.Commands;
 using CondominioApp.Ocorrencias.App.Aplication.Query;
@@ -10,7 +11,6 @@ using CondominioApp.Principal.Aplication.Query.Interfaces;
 using CondominioApp.Principal.Domain.FlatModel;
 using CondominioApp.Usuarios.App.Aplication.Query;
 using CondominioApp.Usuarios.App.FlatModel;
-using CondominioApp.Usuarios.App.Models;
 using CondominioApp.WebApi.Core.Controllers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -201,9 +201,6 @@ namespace CondominioApp.Api.Controllers
 
 
 
-
-
-
         [HttpGet("por-unidade/{unidadeId:Guid}")]
         public async Task<ActionResult<IEnumerable<OcorrenciaViewModel>>> ObterPorUnidade(Guid unidadeId)
         {
@@ -354,11 +351,22 @@ namespace CondominioApp.Api.Controllers
         [HttpGet("respostas-por-ocorrencia/{ocorrenciaId:Guid}")]
         public async Task<ActionResult<IEnumerable<RespostaOcorrenciaViewModel>>> ObterRespostasPorOcorrencia(Guid ocorrenciaId)
         {
+            var ocorrencia = await _ocorrenciaQuery.ObterPorId(ocorrenciaId);
+            if (ocorrencia == null)
+            {
+                AdicionarErroProcessamento("Ocorrência não encontrada!");
+                return CustomResponse();
+            }
+
             var respostas = await _ocorrenciaQuery.ObterRespostasPorOcorrencia(ocorrenciaId);
             
             var respostasVM = new List<RespostaOcorrenciaViewModel>();
             foreach (RespostaOcorrencia resposta in respostas)
-                respostasVM.Add(_mapper.Map<RespostaOcorrenciaViewModel>(resposta));
+            {
+                var respostaViewModel = _mapper.Map<RespostaOcorrenciaViewModel>(resposta);
+                respostaViewModel.FotoUrl = StoragePaths.ObterUrlDeArquivo(ocorrencia.CondominioId.ToString(), resposta.Foto.NomeDoArquivo);
+                respostasVM.Add(respostaViewModel);
+            }                
 
             return respostasVM;
         }
@@ -369,7 +377,7 @@ namespace CondominioApp.Api.Controllers
         #region POSTs
         
         [HttpPost]
-        public async Task<ActionResult> Post(AdicionaOcorrenciaViewModel ocorrenciaVM)
+        public async Task<ActionResult> Post([FromForm]AdicionaOcorrenciaViewModel ocorrenciaVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
@@ -392,7 +400,7 @@ namespace CondominioApp.Api.Controllers
             if (ocorrenciaVM.ArquivoFoto != null && comando.EstaValido())
             {
                 var retorno = await _azureStorageService.SubirArquivo
-                              (ocorrenciaVM.ArquivoFoto, comando.Foto.NomeDoArquivo, unidade.CondominioId);
+                              (ocorrenciaVM.ArquivoFoto, comando.Foto.NomeDoArquivo, unidade.CondominioId.ToString());
                 if (!retorno.IsValid)
                 {
                     AdicionarErroProcessamento("Falha ao carregar foto!");
@@ -406,7 +414,7 @@ namespace CondominioApp.Api.Controllers
         }    
 
         [HttpPost("resposta-sindico")]
-        public async Task<ActionResult> PostRespostaSindico(AdicionaRespostaOcorrenciaSindicoViewModel respostaVM)
+        public async Task<ActionResult> PostRespostaSindico([FromForm]AdicionaRespostaOcorrenciaSindicoViewModel respostaVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
@@ -422,7 +430,7 @@ namespace CondominioApp.Api.Controllers
             if (respostaVM.ArquivoFoto != null && comando.EstaValido())
             {
                 var retorno = await _azureStorageService.SubirArquivo
-                              (respostaVM.ArquivoFoto, comando.Foto.NomeDoArquivo, funcionario.CondominioId);
+                              (respostaVM.ArquivoFoto, comando.Foto.NomeDoArquivo, funcionario.CondominioId.ToString());
                 if (!retorno.IsValid)
                 {
                     AdicionarErroProcessamento("Falha ao carregar foto!");
@@ -437,7 +445,7 @@ namespace CondominioApp.Api.Controllers
         }
 
         [HttpPost("resposta-morador")]
-        public async Task<ActionResult> PostRespostaMorador(AdicionaRespostaOcorrenciaMoradorViewModel respostaVM)
+        public async Task<ActionResult> PostRespostaMorador([FromForm]AdicionaRespostaOcorrenciaMoradorViewModel respostaVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
@@ -462,7 +470,7 @@ namespace CondominioApp.Api.Controllers
         #region PUTs
         
         [HttpPut]
-        public async Task<ActionResult> Put(AtualizaOcorrenciaViewModel ocorrenciaVM)
+        public async Task<ActionResult> Put([FromForm]AtualizaOcorrenciaViewModel ocorrenciaVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
@@ -478,7 +486,7 @@ namespace CondominioApp.Api.Controllers
             if (ocorrenciaVM.ArquivoFoto != null && comando.EstaValido())
             {
                 var retorno = await _azureStorageService.SubirArquivo
-                              (ocorrenciaVM.ArquivoFoto, comando.Foto.NomeDoArquivo, ocorrencia.CondominioId);
+                              (ocorrenciaVM.ArquivoFoto, comando.Foto.NomeDoArquivo, ocorrencia.CondominioId.ToString());
                 if (!retorno.IsValid)
                 {
                     AdicionarErroProcessamento("Falha ao carregar foto!");
@@ -506,7 +514,7 @@ namespace CondominioApp.Api.Controllers
         }
 
         [HttpPut("resposta")]
-        public async Task<ActionResult> PutResposta(AtualizaRespostaOcorrenciaViewModel respostaVM)
+        public async Task<ActionResult> PutResposta([FromForm]AtualizaRespostaOcorrenciaViewModel respostaVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
@@ -517,7 +525,7 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }
 
-            var nomeArquivo = ObterNomeDoArquivo(respostaVM.ArquivoFoto);
+            var nomeArquivo = StoragePaths.ObterNomeDoArquivo(respostaVM.ArquivoFoto);
 
             var comando = new AtualizarRespostaOcorrenciaCommand
                 (respostaVM.Id, respostaVM.MoradorIdFuncionarioId, respostaVM.Descricao,
@@ -526,7 +534,7 @@ namespace CondominioApp.Api.Controllers
             if (respostaVM.ArquivoFoto != null && comando.EstaValido())
             {
                 var retorno = await _azureStorageService.SubirArquivo
-                              (respostaVM.ArquivoFoto, comando.Foto.NomeDoArquivo, resposta.CondominioId);
+                              (respostaVM.ArquivoFoto, comando.Foto.NomeDoArquivo, resposta.CondominioId.ToString());
                 if (!retorno.IsValid)
                 {
                     AdicionarErroProcessamento("Falha ao carregar foto!");
@@ -584,7 +592,7 @@ namespace CondominioApp.Api.Controllers
 
                 var morador = _usuarioQuery.ObterMoradorPorId(ocorrencia.MoradorId).Result;
                 ocorrenciaVM.NomeMorador = morador.NomeCompleto;
-                ocorrenciaVM.FotoMoradorUrl = morador.Foto;
+                ocorrenciaVM.FotoMoradorUrl = morador.Url;
 
                 ocorrenciasVM.Add(ocorrenciaVM);
             }
@@ -594,7 +602,7 @@ namespace CondominioApp.Api.Controllers
         private AdicionarOcorrenciaCommand AdicionarOcorrenciaCommandFactory
             (AdicionaOcorrenciaViewModel ocorrenciaVM, MoradorFlat morador, UnidadeFlat unidade)
         {
-            var nomeArquivo = ObterNomeDoArquivo(ocorrenciaVM.ArquivoFoto);
+            var nomeArquivo = StoragePaths.ObterNomeDoArquivo(ocorrenciaVM.ArquivoFoto);
 
             return new AdicionarOcorrenciaCommand
                 (ocorrenciaVM.Descricao, nomeArquivo, ocorrenciaVM.Publica,
@@ -605,7 +613,7 @@ namespace CondominioApp.Api.Controllers
         private AtualizarOcorrenciaCommand AtualizarOcorrenciaCommandFactory
            (AtualizaOcorrenciaViewModel ocorrenciaVM)
         {
-            var nomeArquivo = ObterNomeDoArquivo(ocorrenciaVM.ArquivoFoto);
+            var nomeArquivo = StoragePaths.ObterNomeDoArquivo(ocorrenciaVM.ArquivoFoto);
 
             return new AtualizarOcorrenciaCommand
                  (ocorrenciaVM.Id, ocorrenciaVM.Descricao, nomeArquivo, ocorrenciaVM.Publica);
@@ -614,7 +622,7 @@ namespace CondominioApp.Api.Controllers
         private AdicionarRespostaOcorrenciaSindicoCommand AdicionarRespostaOcorrenciaSindicoCommandFactory
           (AdicionaRespostaOcorrenciaSindicoViewModel respostaVM, FuncionarioFlat funcionario)
         {
-            var nomeArquivo = ObterNomeDoArquivo(respostaVM.ArquivoFoto);
+            var nomeArquivo = StoragePaths.ObterNomeDoArquivo(respostaVM.ArquivoFoto);
 
             return new AdicionarRespostaOcorrenciaSindicoCommand
                  (respostaVM.OcorrenciaId, respostaVM.Descricao, respostaVM.FuncionarioId,
@@ -624,23 +632,13 @@ namespace CondominioApp.Api.Controllers
         private AdicionarRespostaOcorrenciaMoradorCommand AdicionarRespostaOcorrenciaMoradorCommandFactory
             (AdicionaRespostaOcorrenciaMoradorViewModel respostaVM, MoradorFlat morador)
         {
-            var nomeArquivo = ObterNomeDoArquivo(respostaVM.ArquivoFoto);
+            var nomeArquivo = StoragePaths.ObterNomeDoArquivo(respostaVM.ArquivoFoto);
 
             return new AdicionarRespostaOcorrenciaMoradorCommand
                  (respostaVM.OcorrenciaId, respostaVM.Descricao, respostaVM.MoradorId, morador.NomeCompleto,
                   nomeArquivo);
         }
-
-
-        private string ObterNomeDoArquivo(IFormFile arquivo)
-        {
-            var nomeArquivo = "SemFoto.png";
-            if (arquivo != null)
-            {
-                nomeArquivo = arquivo.FileName;
-            }
-            return nomeArquivo;
-        }
+                       
 
         #endregion
 

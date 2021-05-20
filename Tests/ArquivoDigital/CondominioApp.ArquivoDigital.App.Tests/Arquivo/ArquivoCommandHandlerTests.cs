@@ -41,7 +41,7 @@ namespace CondominioApp.ArquivoDigital.App.Tests
             _mocker.GetMock<IArquivoDigitalRepository>().Setup(r => r.ObterPorId(comando.PastaId))
                .Returns(Task.FromResult(pasta));           
 
-            _mocker.GetMock<IAzureStorageService>().Setup(r => r.SubirArquivo(comando.Arquivo,$"{comando.Id}.pdf", pasta.CondominioId))
+            _mocker.GetMock<IAzureStorageService>().Setup(r => r.SubirArquivo(comando.Arquivo,$"{comando.Id}.pdf", pasta.CondominioId.ToString()))
                 .Returns(Task.FromResult(retornoDoSubirArquivo));
 
             _mocker.GetMock<IArquivoDigitalRepository>().Setup(r => r.UnitOfWork.Commit())

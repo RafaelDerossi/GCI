@@ -19,14 +19,12 @@ namespace CondominioApp.ArquivoDigital.AzureStorageBlob.Services
             ValidationResult = new ValidationResult();
         }
 
-        public async Task<ValidationResult> SubirArquivo(IFormFile arquivo, string nomeDoArquivo, Guid condominioId)
+        public async Task<ValidationResult> SubirArquivo(IFormFile arquivo, string nomeDoArquivo, string pasta)
         {
-            var caminhoDoArquivo = ObterCaminhoDoArquivo(nomeDoArquivo, condominioId);
-            using var stream = arquivo.OpenReadStream();
-            string url = "";
+            var caminhoDoArquivo = ObterCaminhoDoArquivo(nomeDoArquivo, pasta);                        
             try
             {
-                url = await StorageHelper.UploadFileToStorage(stream, caminhoDoArquivo, _storage);
+               await StorageHelper.UploadFileToStorage(arquivo, caminhoDoArquivo, _storage);
             }
             catch (System.Exception ex)
             {
@@ -46,9 +44,9 @@ namespace CondominioApp.ArquivoDigital.AzureStorageBlob.Services
             ValidationResult.Errors.Add(new ValidationFailure(string.Empty, mensagem));
         }
 
-        private string ObterCaminhoDoArquivo(string nomeDoArquivo, Guid condominioId)
+        private string ObterCaminhoDoArquivo(string nomeDoArquivo, string pasta)
         {
-            return $"{condominioId}/{nomeDoArquivo}";
+            return $"{pasta}/{nomeDoArquivo}";
         }
     }
 }

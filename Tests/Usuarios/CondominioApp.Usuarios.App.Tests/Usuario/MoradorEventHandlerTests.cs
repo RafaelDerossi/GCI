@@ -27,7 +27,7 @@ namespace CondominioApp.Usuarios.App.Tests
         {
             //Arrange
            var usuario = new Usuario("Nome", "sobrenome", "52145256", new Telefone("(21) 99796-7038"),
-               new Email("alexandre@techdog.com.br"), new Foto("Foto.jpg", "Foto.jpg"));
+               new Email("alexandre@techdog.com.br"), new Foto("Foto.jpg"));
 
             var evento = MoradorEventFactory.CriarEventoCadastroDeMorador();
 

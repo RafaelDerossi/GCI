@@ -1,5 +1,4 @@
 ﻿using System;
-using CondominioApp.Core.Enumeradores;
 using CondominioApp.Usuarios.App.Aplication.Commands.Validations;
 
 namespace CondominioApp.Usuarios.App.Aplication.Commands
@@ -7,7 +6,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
     public class AdicionarUsuarioCommand : UsuarioCommand
     {
         public AdicionarUsuarioCommand(Guid usuarioId, string nome, string sobrenome, string email,           
-            string foto, string nomeOriginal, string rg, string cpf, string tel = null,
+            string nomeOriginalFoto, string rg, string cpf, string tel = null,
             string cel = null, string logradouro = null, string complemento = null, string numeroEndereco = null,
             string cep = null, string bairro = null, string cidade = null, string estado = null,
             DateTime? dataNascimento = null, bool enviarEmailDeConfirmacao = true)
@@ -23,7 +22,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
             SetCelular(cel);
             SetTelefone(tel);
             SetEmail(email);
-            SetFoto(foto, nomeOriginal);
+            SetFoto(nomeOriginalFoto);
             SetEndereco(logradouro, complemento, numeroEndereco, cep, bairro, cidade, estado);
 
         }

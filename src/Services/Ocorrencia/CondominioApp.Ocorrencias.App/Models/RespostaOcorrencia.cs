@@ -1,5 +1,6 @@
 ﻿using CondominioApp.Core.DomainObjects;
 using CondominioApp.Core.Enumeradores;
+using CondominioApp.Core.Helpers;
 using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.NotificacaoEmailIntegrationEvent.Ocorrencia;
 using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.NotificacaoPushIntegrationEvents;
 using CondominioApp.Ocorrencias.App.ValueObjects;
@@ -22,7 +23,7 @@ namespace CondominioApp.Ocorrencias.App.Models
 
         public bool Visto { get; private set; }
 
-        public Foto Foto { get; private set; }
+        public Foto Foto { get; private set; }        
 
         public RespostaOcorrencia()
         {
@@ -143,6 +144,6 @@ namespace CondominioApp.Ocorrencias.App.Models
                 (titulo, descricaoDaOcorrencia, Descricao, NomeUsuario, statusDaOcorrencia.ToString(),
                  DataDeCadastroFormatada, Foto.NomeDoArquivo, condominioId));
         }
-
+                
     } 
 }

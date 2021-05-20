@@ -9,7 +9,7 @@ namespace CondominioApp.Usuarios.App.Tests
         public static AdicionarUsuarioCommand CadastrarUsuarioCommandFactoy()
         {
             return new AdicionarUsuarioCommand
-                (Guid.NewGuid(), "Nome", "Sobrenome", "alexandre@techdog.com.br", "foto2.jpg", "fotoOriginal.jpg",
+                (Guid.NewGuid(), "Nome", "Sobrenome", "alexandre@techdog.com.br", "fotoOriginal.jpg",
                  "874541213", "689.560.890-78", "(21) 99988-5241",
                  "(21) 99988-5241", "logradouro", "lt 30","S/N","","Bairro","Rio de Janeiro",
                  "RJ", new DateTime(1985, 05, 10));
@@ -19,8 +19,8 @@ namespace CondominioApp.Usuarios.App.Tests
         {
             return new AtualizarUsuarioCommand
                 (Guid.NewGuid(), "Nome", "Sobrenome", "874541213", "689.560.890-78",
-                 "foto.jpg", "original.jpg", "(21) 99988-5241", "(21) 99988-5241", "logradouro", "lt 30", "S/N", "",
-                 "Bairro", "Rio de Janeiro", "RJ", new DateTime(1985, 05, 10));
+                 "original.jpg", "(21) 99988-5241", "(21) 99988-5241", "logradouro",
+                 "lt 30", "S/N", "", "Bairro", "Rio de Janeiro", "RJ", new DateTime(1985, 05, 10));
         }
 
 
@@ -32,7 +32,7 @@ namespace CondominioApp.Usuarios.App.Tests
         public static AdicionarUsuarioCommand CriarComandoCadastroDeUsuarioSemFoto()
         {
             var comando = CadastrarUsuarioCommandFactoy();
-            comando.SetFoto("", "");
+            comando.SetFoto("");
 
             return comando;
         }
@@ -67,8 +67,7 @@ namespace CondominioApp.Usuarios.App.Tests
             try
             {
                 return new AdicionarUsuarioCommand
-                 (Guid.NewGuid(), "Nome", "Sobrenome", "alexandre@techdog.com.br", "foto2.jpg",
-                 "fotoOriginal.jpg", "874541213", "689.560.890-78", "(21) 99988-5241", "(21) 99988-5241", "logradouro", "lt 30", "S/N", "", "Bairro",
+                 (Guid.NewGuid(), "Nome", "Sobrenome", "alexandre@techdog.com.br", "fotoOriginal.jpg", "874541213", "689.560.890-78", "(21) 99988-5241", "(21) 99988-5241", "logradouro", "lt 30", "S/N", "", "Bairro",
                  "Rio de Janeiro", "RJ");
             }
             catch (Exception)

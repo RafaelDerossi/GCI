@@ -116,11 +116,11 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
             }
         }
 
-        public void SetFoto(string foto, string nomeOriginal)
+        public void SetFoto(string nomeOriginal)
         {
             try
             {
-                Foto = new Foto(nomeOriginal, foto);
+                Foto = new Foto(nomeOriginal);
             }
             catch (Exception e)
             {

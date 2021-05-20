@@ -13,13 +13,13 @@ namespace CondominioApp.Ocorrencias.App.Tests
         {
             return new RespostaOcorrencia
                 (Guid.NewGuid(), "Descrição da Resposta", TipoDoAutor.ADMINISTRACAO,
-                Guid.NewGuid(), "Nome do Usuario", false, new Foto("imagem.jpg","imagem.jpg"));
+                Guid.NewGuid(), "Nome do Usuario", false, new Foto("imagem.jpg"));
         }
         private static RespostaOcorrencia FactoryMorador()
         {
             return new RespostaOcorrencia
                 (Guid.NewGuid(), "Descrição da Resposta", TipoDoAutor.MORADOR,
-                Guid.NewGuid(), "Nome do Usuario", false, new Foto("imagem.jpg", "imagem.jpg"));
+                Guid.NewGuid(), "Nome do Usuario", false, new Foto("imagem.jpg"));
         }
 
         public static RespostaOcorrencia Criar_RespostaOcorrencia_Sindico_Valida()

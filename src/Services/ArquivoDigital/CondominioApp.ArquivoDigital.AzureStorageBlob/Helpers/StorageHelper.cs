@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using CondominioApp.ArquivoDigital.AzureStorageBlob.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Auth;
 
@@ -12,18 +13,18 @@ namespace CondominioApp.ArquivoDigital.AzureStorageBlob.Helpers
 {
     public class StorageHelper
     {
-        public readonly static string PathStorage = @"https://condominioappstorage.blob.core.windows.net/condominioapp/Uploads\";
-        public readonly static string PathSemFoto = @"https://i.imgur.com/gxXxUm7.png";
-
-        public static async Task<string> UploadFileToStorage(Stream fileStream, string fileName,
+        public static async Task<string> UploadFileToStorage(IFormFile arquivo, string fileName,
             IAzureStorage storage)
-        {
+        {            
             var storageCredentials = new StorageCredentials(storage.AccountName, storage.AccountKey);
             var storageAccount = new CloudStorageAccount(storageCredentials, true);
             var blobClient = storageAccount.CreateCloudBlobClient();
             var container = blobClient.GetContainerReference(storage.Container);
             fileName = string.Concat(@"Uploads\", fileName);
             var blockBlob = container.GetBlockBlobReference(fileName);
+            blockBlob.Properties.ContentType = arquivo.ContentType;
+
+            using var fileStream = arquivo.OpenReadStream();
 
             await blockBlob.UploadFromStreamAsync(fileStream);
          

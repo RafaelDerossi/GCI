@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using CondominioApp.Core.Enumeradores;
+using Microsoft.AspNetCore.Http;
 
 namespace CondominioApp.Identidade.Api.Models
 {
@@ -39,9 +40,7 @@ namespace CondominioApp.Identidade.Api.Models
 
         public DateTime? DataNascimento { get; set; }
 
-        public string Foto { get; set; }
-
-        public string NomeOriginal { get; set; }
+        public IFormFile ArquivoFoto { get; set; }        
 
 
         //Endereço

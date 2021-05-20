@@ -7,7 +7,7 @@ namespace CondominioApp.ArquivoDigital.AzureStorageBlob.Services
 {
     public interface IAzureStorageService
     {
-        Task<ValidationResult> SubirArquivo(IFormFile arquivo, string nomeDoArquivo, Guid condominioId);
+        Task<ValidationResult> SubirArquivo(IFormFile arquivo, string nomeDoArquivo, string pasta);
 
         bool VerificaTipoDoArquivoPermitido(string nomeDoArquivo);
        

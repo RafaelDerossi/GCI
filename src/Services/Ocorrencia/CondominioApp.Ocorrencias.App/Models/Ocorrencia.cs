@@ -34,6 +34,15 @@ namespace CondominioApp.Ocorrencias.App.Models
         public IReadOnlyCollection<RespostaOcorrencia> Respostas => _Respostas;
 
 
+        public string Url
+        {
+            get
+            {
+                return StoragePaths.ObterUrlDeArquivo(CondominioId.ToString(), Foto.NomeDoArquivo);
+            }
+        }
+
+
         public Ocorrencia()
         {
             _Respostas = new List<RespostaOcorrencia>();

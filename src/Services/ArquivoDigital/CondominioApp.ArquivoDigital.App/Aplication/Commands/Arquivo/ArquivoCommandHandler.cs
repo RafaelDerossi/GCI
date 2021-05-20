@@ -45,7 +45,7 @@ namespace CondominioApp.ArquivoDigital.App.Aplication.Commands
             }
 
             var retorno = await _azureStorageService.SubirArquivo
-                (request.Arquivo, request.Nome.NomeDoArquivo, pasta.CondominioId);
+                (request.Arquivo, request.Nome.NomeDoArquivo, pasta.CondominioId.ToString());
             
             if (!retorno.IsValid)
                 return retorno;            

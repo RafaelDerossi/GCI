@@ -8,10 +8,10 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
     {
 
         public AtualizarUsuarioCommand(Guid usuarioId, string nome, string sobrenome,
-            string rg = null, string cpf = null, string foto = null, string nomeOriginal = null,
+            string rg = null, string cpf = null, string nomeOriginal = null,
             string cel = null, string tel = null, string logradouro = null, string complemento = null,
             string numero = null, string cep = null, string bairro = null, string cidade = null,
-            string estado = null, DateTime ? dataNascimento = null)
+            string estado = null, DateTime? dataNascimento = null)
         {
             UsuarioId = usuarioId;
             Nome = nome;
@@ -22,7 +22,7 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
             Permissao = Permissao.USUARIO;
             
             SetCpf(cpf);
-            SetFoto(foto, nomeOriginal);
+            SetFoto(nomeOriginal);
             SetTelefone(tel);
             SetCelular(cel);
             SetEndereco(logradouro, complemento, numero, cep, bairro, cidade, estado);
