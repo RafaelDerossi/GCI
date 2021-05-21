@@ -207,7 +207,7 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
         {
             var correspondencia = new Correspondencia(
                 request.CondominioId, request.UnidadeId, request.NumeroUnidade, request.Grupo, request.Visto,
-                request.NomeRetirante, request.Observacao, request.DataDaRetirada, request.FuncionarioId, request.NomeFuncionario, request.Foto,
+                request.NomeRetirante, request.Observacao, request.DataDaRetirada, request.FuncionarioId, request.NomeFuncionario, request.FotoCorrespondencia,
                 request.NumeroRastreamentoCorreio, request.DataDeChegada, request.QuantidadeDeAlertasFeitos,
                 request.TipoDeCorrespondencia, request.Status);
 

@@ -33,7 +33,7 @@ namespace CondominioApp.Correspondencias.App.Models
 
         public string NomeFuncionario { get; private set; }
 
-        public Foto Foto { get; private set; }
+        public Foto FotoCorrespondencia { get; private set; }
 
         public string NumeroRastreamentoCorreio { get; private set; }
 
@@ -45,7 +45,11 @@ namespace CondominioApp.Correspondencias.App.Models
 
         public StatusCorrespondencia Status { get; private set; }
 
+        public string CodigoDeVerificacao { get; private set; }
 
+        public Foto FotoRetirante { get; private set; }
+
+        public Foto AssinaturaDigital { get; private set; }
 
         /// <summary>
         /// Construtores
@@ -53,10 +57,14 @@ namespace CondominioApp.Correspondencias.App.Models
         protected Correspondencia()
         {
         }
-        public Correspondencia(Guid condominioId, Guid unidadeId, string numeroUnidade, string bloco, bool visto, 
-            string nomeRetirante, string observacao, DateTime? dataDaRetirada, Guid funcionarioId, 
-            string nomeFuncionario, Foto foto, string numeroRastreamentoCorreio, DateTime dataDeChegada, 
-            int quantidadeDeAlertasFeitos, string tipoDeCorrespondencia, StatusCorrespondencia status)
+
+        public Correspondencia
+            (Guid condominioId, Guid unidadeId, string numeroUnidade, string bloco, bool visto,
+             string nomeRetirante, string observacao, DateTime? dataDaRetirada, Guid funcionarioId,
+             string nomeFuncionario, Foto fotoCorrespondencia, string numeroRastreamentoCorreio,
+             DateTime dataDeChegada, int quantidadeDeAlertasFeitos, string tipoDeCorrespondencia,
+             StatusCorrespondencia status, string codigoDeVerificacao, Foto fotoRetirante,
+             Foto assinaturaDigital)
         {
             CondominioId = condominioId;
             UnidadeId = unidadeId;
@@ -68,13 +76,17 @@ namespace CondominioApp.Correspondencias.App.Models
             DataDaRetirada = dataDaRetirada;
             FuncionarioId = funcionarioId;
             NomeFuncionario = nomeFuncionario;
-            Foto = foto;
+            FotoCorrespondencia = fotoCorrespondencia;
             NumeroRastreamentoCorreio = numeroRastreamentoCorreio;
             DataDeChegada = dataDeChegada;
             QuantidadeDeAlertasFeitos = quantidadeDeAlertasFeitos;
             TipoDeCorrespondencia = tipoDeCorrespondencia;
             Status = status;
+            CodigoDeVerificacao = codigoDeVerificacao;
+            FotoRetirante = fotoRetirante;
+            AssinaturaDigital = assinaturaDigital;
         }
+
 
 
         ///Metodos Set
@@ -101,7 +113,7 @@ namespace CondominioApp.Correspondencias.App.Models
 
         public void SetNomeFuncionario(string nomeUsuario) => NomeFuncionario = nomeUsuario;
 
-        public void SetFoto(Foto foto) => Foto = foto;
+        public void SetFoto(Foto foto) => FotoCorrespondencia = foto;
 
         public void SetNumeroRastreamentoCorreio(string numeroRastreamento) => NumeroRastreamentoCorreio = numeroRastreamento;
 
@@ -190,6 +202,11 @@ namespace CondominioApp.Correspondencias.App.Models
             QuantidadeDeAlertasFeitos += 1;
 
             return ValidationResult;
+        }
+
+        public void ResetCodigo()
+        {
+            CodigoDeVerificacao = Id.ToString().Substring(0, 4) + DateTime.Now.Minute.ToString("D2") + DateTime.Now.Second.ToString("D2");
         }
 
 

@@ -29,7 +29,7 @@ namespace CondominioApp.Correspondencias.App.Data.Mapping
 
             builder.Property(u => u.NomeFuncionario).HasColumnType($"varchar({Correspondencia.Max})");
 
-            builder.OwnsOne(u => u.Foto, ft =>
+            builder.OwnsOne(u => u.FotoCorrespondencia, ft =>
             {
                 ft.Property(u => u.NomeDoArquivo)
                     .HasMaxLength(Foto.NomeFotoMaximo)

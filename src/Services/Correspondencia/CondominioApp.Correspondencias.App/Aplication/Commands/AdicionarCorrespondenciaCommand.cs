@@ -8,10 +8,10 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
     public class AdicionarCorrespondenciaCommand : CorrespondenciaCommand
     {
         public AdicionarCorrespondenciaCommand(
-            Guid condominioId, Guid unidadeId, string numeroUnidade, string bloco, string observacao, Guid funcionarioId, 
-            string nomeFuncionario, string foto, string nomeOriginal, string numeroRastreamentoCorreio,
-            DateTime dataDeChegada, string tipoDeCorrespondencia, StatusCorrespondencia status,
-            string nomeRetirante, DateTime? dataDaRetirada)
+            Guid condominioId, Guid unidadeId, string numeroUnidade, string bloco, string observacao,
+            Guid funcionarioId, string nomeFuncionario, string nomeOriginalFotoCorrespondencia,
+            string numeroRastreamentoCorreio, DateTime dataDeChegada, string tipoDeCorrespondencia,
+            StatusCorrespondencia status, string nomeRetirante, DateTime? dataDaRetirada)
         {
             CondominioId = condominioId;
             UnidadeId = unidadeId;
@@ -25,7 +25,7 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
             NomeRetirante = nomeRetirante;         
             QuantidadeDeAlertasFeitos = 1;
 
-            SetFoto(foto, nomeOriginal);
+            SetFotoCorrespondencia(nomeOriginalFotoCorrespondencia);
             SetNaoVisto();
             SetStatus(status);
             SetDataDeChegada(dataDeChegada);

@@ -32,7 +32,7 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
 
         public string NomeFuncionario { get; protected set; }
 
-        public Foto Foto { get; protected set; }
+        public Foto FotoCorrespondencia { get; protected set; }
 
         public string NumeroRastreamentoCorreio { get; protected set; }
 
@@ -42,13 +42,21 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
 
         public string TipoDeCorrespondencia { get; protected set; }
 
-        public StatusCorrespondencia Status { get; private set; }
+        public StatusCorrespondencia Status { get; protected set; }
 
-        public void SetFoto(string foto, string nomeOriginal)
+        public string CodigoDeVerificacao { get; protected set; }
+
+        public Foto FotoRetirante { get; protected set; }
+
+        public Foto AssinaturaDigital { get; protected set; }
+
+
+
+        public void SetFotoCorrespondencia(string nomeOriginal)
         {
             try
             {
-                Foto = new Foto(nomeOriginal, foto);
+                FotoCorrespondencia = new Foto(nomeOriginal);
             }
             catch (Exception e)
             {
