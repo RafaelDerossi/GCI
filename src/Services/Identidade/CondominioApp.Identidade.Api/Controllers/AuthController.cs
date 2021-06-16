@@ -79,7 +79,10 @@ namespace CondominioApp.Identidade.Api.Controllers
             if (!ModelState.IsValid) return CustomResponse(ModelState);
             var user = await _userManager.FindByEmailAsync(UsuarioModel.Email);
             if (user == null)
-                return CustomResponse("Email não encontrado");
+            {
+                AdicionarErroProcessamento("Email não encontrado");
+                return CustomResponse();
+            }                
 
             var token = await _userManager.GeneratePasswordResetTokenAsync(user);
             
@@ -96,7 +99,10 @@ namespace CondominioApp.Identidade.Api.Controllers
 
             var user = await _userManager.FindByEmailAsync(usuarioViewModel.Email);
             if (user == null)
-                return CustomResponse("Usuário não encontrado");
+            {
+                AdicionarErroProcessamento("Usuário não encontrado");
+                return CustomResponse();
+            }            
             var resetPassResult = await _userManager.ResetPasswordAsync(user, usuarioViewModel.Token, usuarioViewModel.Senha);
 
             if (resetPassResult.Succeeded) return CustomResponse();
