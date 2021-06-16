@@ -170,6 +170,7 @@ namespace CondominioApp.Api.Controllers
 
         }
 
+
         [HttpPut]
         public async Task<ActionResult> Put([FromForm]AtualizaComunicadoViewModel comunicadoVM)
         {
