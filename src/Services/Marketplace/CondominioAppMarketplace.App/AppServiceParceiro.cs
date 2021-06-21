@@ -156,9 +156,18 @@ namespace CondominioAppMarketplace.App
         public async Task<ValidationResult> Atualizar(ParceiroViewModel ViewModel)
         {
             var Parceiro = await _repository.ObterPorId(ViewModel.ParceiroId);
+            if (Parceiro == null)
+            {
+                AdicionarErro("Parceiro não encontrado!");
+                return ValidationResult;
+            }
 
             if (!ViewModel.PreCadastro)
+            {
                 Parceiro.SetContrato(ViewModel.ContratoDataDeInicio, ViewModel.ContratoDataDeRenovacao, ViewModel.ContratoDescricao);
+                Parceiro.SetCategoria(ViewModel.Categoria);
+            }
+                
             
             try
             {
