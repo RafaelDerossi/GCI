@@ -48,7 +48,7 @@ namespace CondominioApp.Api.Configuration
               options.UseSqlServer(configuration.GetConnectionString("EnqueteConnection")), ServiceLifetime.Transient, ServiceLifetime.Transient);
 
             services.AddDbContext<CorrespondenciaContextDB>(options =>
-              options.UseSqlServer(configuration.GetConnectionString("CorrespondenciaConnection")));
+              options.UseSqlServer(configuration.GetConnectionString("CorrespondenciaConnection")), ServiceLifetime.Transient, ServiceLifetime.Transient);
 
             services.AddDbContext<ComunicadoContextDB>(options =>
               options.UseSqlServer(configuration.GetConnectionString("ComunicadoConnection")), ServiceLifetime.Transient, ServiceLifetime.Transient);

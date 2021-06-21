@@ -477,7 +477,7 @@ namespace CondominioApp.Api.Configuration
             services.AddTransient<IArquivoDigitalRepository, ArquivoDigitalRepository>();
             services.AddScoped<IAutomacaoRepository, AutomacaoRepository>();
             services.AddTransient<IComunidadoRepository, ComunicadoRepository>();
-            services.AddScoped<ICorrespondenciaRepository, CorrespondenciaRepository>();
+            services.AddTransient<ICorrespondenciaRepository, CorrespondenciaRepository>();
             services.AddTransient<IEnqueteRepository, EnqueteRepository>();
             services.AddScoped<ILeadRepository, LeadRepository>();
             services.AddTransient<IOcorrenciaRepository, OcorrenciaRepository>();

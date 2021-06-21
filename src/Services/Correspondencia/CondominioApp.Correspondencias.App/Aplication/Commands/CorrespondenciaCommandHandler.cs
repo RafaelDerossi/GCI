@@ -171,18 +171,22 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
             {                
                 var correspondencia = await _CorrespondenciaRepository.ObterPorId(correspondenciaId);
 
-                if (!correspondencia.Lixeira)
+                if (correspondencia != null)
                 {
-                    var CorrespondenciaDTO = new CorrespondenciaExcelDTO
+                    if (!correspondencia.Lixeira)
                     {
-                        DataDaChegada = correspondencia.DataDeCadastroFormatada,
-                        EntreguePor = correspondencia.NomeFuncionario,
-                        DataDaRetirada = correspondencia.DataDaRetirada.ToString(),
-                        RetiradoPor = correspondencia.NomeRetirante,
-                        Observacao = correspondencia.Observacao
-                    };
-                    listaCorrespondencias.Add(CorrespondenciaDTO);
-                }              
+                        var CorrespondenciaDTO = new CorrespondenciaExcelDTO
+                        {
+                            DataDaChegada = correspondencia.DataDeCadastroFormatada,
+                            EntreguePor = correspondencia.NomeFuncionario,
+                            DataDaRetirada = correspondencia.DataDaRetirada.ToString(),
+                            RetiradoPor = correspondencia.NomeRetirante,
+                            Observacao = correspondencia.Observacao
+                        };
+                        listaCorrespondencias.Add(CorrespondenciaDTO);
+                    }
+                }
+                
             }
 
             List<string> cabecalho = new List<string>
