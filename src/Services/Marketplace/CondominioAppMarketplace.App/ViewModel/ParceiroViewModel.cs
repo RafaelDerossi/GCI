@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CondominioApp.Core.Enumeradores;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -58,5 +59,7 @@ namespace CondominioAppMarketplace.App.ViewModel
         public string DataDeCadastroFormatada { get; set; }
 
         public string DataDeAlteracaoFormatada { get; set; }
+
+        public CategoriaParceiro Categoria { get; set; }
     }
 }

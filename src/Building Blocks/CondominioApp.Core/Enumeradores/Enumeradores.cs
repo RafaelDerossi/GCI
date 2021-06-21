@@ -165,4 +165,10 @@
         EXPIRADA = 7,
         REMOVIDA = 8
     }
+
+    public enum CategoriaParceiro
+    {
+        PADRAO = 0,
+        CLUBE_DE_VANTAGENS = 1
+    }
 }
