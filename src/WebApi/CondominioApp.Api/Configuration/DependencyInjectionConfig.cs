@@ -261,21 +261,21 @@ namespace CondominioApp.Api.Configuration
             services.AddTransient<INotificationHandler<VisitanteApagadoEvent>, VisitanteEventHandler>();
 
             //Visita
-            services.AddScoped<IRequestHandler<AdicionarVisitaPorPorteiroCommand, ValidationResult>, VisitaCommandHandler>();
-            services.AddScoped<IRequestHandler<AdicionarVisitaPorMoradorCommand, ValidationResult>, VisitaCommandHandler>();
-            services.AddScoped<IRequestHandler<AtualizarVisitaCommand, ValidationResult>, VisitaCommandHandler>();
-            services.AddScoped<IRequestHandler<ApagarVisitaCommand, ValidationResult>, VisitaCommandHandler>();
-            services.AddScoped<IRequestHandler<AprovarVisitaCommand, ValidationResult>, VisitaCommandHandler>();
-            services.AddScoped<IRequestHandler<ReprovarVisitaCommand, ValidationResult>, VisitaCommandHandler>();
-            services.AddScoped<IRequestHandler<IniciarVisitaCommand, ValidationResult>, VisitaCommandHandler>();
-            services.AddScoped<IRequestHandler<TerminarVisitaCommand, ValidationResult>, VisitaCommandHandler>();
-            services.AddScoped<INotificationHandler<VisitaAdicionadaEvent>, VisitaEventHandler>();
-            services.AddScoped<INotificationHandler<VisitaAtualizadaEvent>, VisitaEventHandler>();
-            services.AddScoped<INotificationHandler<VisitaApagadaEvent>, VisitaEventHandler>();
-            services.AddScoped<INotificationHandler<VisitaAprovadaEvent>, VisitaEventHandler>();
-            services.AddScoped<INotificationHandler<VisitaReprovadaEvent>, VisitaEventHandler>();
-            services.AddScoped<INotificationHandler<VisitaIniciadaEvent>, VisitaEventHandler>();
-            services.AddScoped<INotificationHandler<VisitaTerminadaEvent>, VisitaEventHandler>();
+            services.AddTransient<IRequestHandler<AdicionarVisitaPorPorteiroCommand, ValidationResult>, VisitaCommandHandler>();
+            services.AddTransient<IRequestHandler<AdicionarVisitaPorMoradorCommand, ValidationResult>, VisitaCommandHandler>();
+            services.AddTransient<IRequestHandler<AtualizarVisitaCommand, ValidationResult>, VisitaCommandHandler>();
+            services.AddTransient<IRequestHandler<ApagarVisitaCommand, ValidationResult>, VisitaCommandHandler>();
+            services.AddTransient<IRequestHandler<AprovarVisitaCommand, ValidationResult>, VisitaCommandHandler>();
+            services.AddTransient<IRequestHandler<ReprovarVisitaCommand, ValidationResult>, VisitaCommandHandler>();
+            services.AddTransient<IRequestHandler<IniciarVisitaCommand, ValidationResult>, VisitaCommandHandler>();
+            services.AddTransient<IRequestHandler<TerminarVisitaCommand, ValidationResult>, VisitaCommandHandler>();
+            services.AddTransient<INotificationHandler<VisitaAdicionadaEvent>, VisitaEventHandler>();
+            services.AddTransient<INotificationHandler<VisitaAtualizadaEvent>, VisitaEventHandler>();
+            services.AddTransient<INotificationHandler<VisitaApagadaEvent>, VisitaEventHandler>();
+            services.AddTransient<INotificationHandler<VisitaAprovadaEvent>, VisitaEventHandler>();
+            services.AddTransient<INotificationHandler<VisitaReprovadaEvent>, VisitaEventHandler>();
+            services.AddTransient<INotificationHandler<VisitaIniciadaEvent>, VisitaEventHandler>();
+            services.AddTransient<INotificationHandler<VisitaTerminadaEvent>, VisitaEventHandler>();
 
             #endregion
             
@@ -465,7 +465,7 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<ICorrespondenciaQuery, CorrespondenciaQuery>();
             services.AddTransient<IEnqueteQuery, EnqueteQuery>();
             services.AddScoped<IOcorrenciaQuery, OcorrenciaQuery>();
-            services.AddScoped<IPortariaQuery, PortariaQuery>();
+            services.AddTransient<IPortariaQuery, PortariaQuery>();
             services.AddTransient<IPrincipalQuery, PrincipalQuery>();
             services.AddTransient<IReservaAreaComumQuery, ReservaAreaComumQuery>();
             services.AddScoped<IQueryLead, QueryLead>();
@@ -481,7 +481,7 @@ namespace CondominioApp.Api.Configuration
             services.AddTransient<IEnqueteRepository, EnqueteRepository>();
             services.AddScoped<ILeadRepository, LeadRepository>();
             services.AddTransient<IOcorrenciaRepository, OcorrenciaRepository>();
-            services.AddScoped<IPortariaRepository, PortariaRepository>();
+            services.AddTransient<IPortariaRepository, PortariaRepository>();
             services.AddTransient<IPrincipalRepository, PrincipalRepository>();            
             services.AddTransient<IReservaAreaComumRepository, ReservaAreaComumRepository>();
             services.AddTransient<IUsuarioRepository, UsuarioRepository>();
@@ -490,7 +490,7 @@ namespace CondominioApp.Api.Configuration
             #region Repositórios Query               
             services.AddTransient<IFuncionarioQueryRepository, FuncionarioQueryRepository>();
             services.AddTransient<IMoradorQueryRepository, MoradorQueryRepository>();
-            services.AddScoped<IPortariaQueryRepository, PortariaQueryRepository>();
+            services.AddTransient<IPortariaQueryRepository, PortariaQueryRepository>();
             services.AddTransient<IPrincipalQueryRepository, PrincipalQueryRepository>();                        
             services.AddTransient<IReservaAreaComumQueryRepository, ReservaAreaComumQueryRepository>();            
             services.AddTransient<IVeiculoQueryRepository, VeiculoQueryRepository>();

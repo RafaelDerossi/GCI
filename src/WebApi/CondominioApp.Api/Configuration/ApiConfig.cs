@@ -57,7 +57,7 @@ namespace CondominioApp.Api.Configuration
              options.UseSqlServer(configuration.GetConnectionString("ReservaAreaComumConnection")), ServiceLifetime.Transient, ServiceLifetime.Transient);
 
             services.AddDbContext<PortariaContextDB>(options =>
-              options.UseSqlServer(configuration.GetConnectionString("PortariaConnection")));          
+              options.UseSqlServer(configuration.GetConnectionString("PortariaConnection")), ServiceLifetime.Transient, ServiceLifetime.Transient);
 
             services.AddDbContext<AutomacaoContextDB>(options =>
               options.UseSqlServer(configuration.GetConnectionString("AutomacaoConnection")));

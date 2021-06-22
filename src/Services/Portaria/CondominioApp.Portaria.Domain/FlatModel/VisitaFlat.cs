@@ -22,6 +22,7 @@ namespace CondominioApp.Portaria.Domain.FlatModel
         public DateTime DataDeSaida { get; private set; }
 
         public StatusVisita Status { get; private set; }
+
         public string DescricaoStatus
         {
             get
@@ -32,10 +33,18 @@ namespace CondominioApp.Portaria.Domain.FlatModel
                 if (Status == StatusVisita.APROVADA && DataDeEntrada.Date < DataHoraDeBrasilia.Get().Date)
                     return "Expirada";
 
-                if (Status == StatusVisita.PENDENTE)
-                    return "Pendente";
 
-                return DescricaoStatus;
+                return Status switch
+                {
+                    StatusVisita.PENDENTE => "Pendente",
+                    StatusVisita.APROVADA => "Aprovada",
+                    StatusVisita.REPROVADA => "Reprovada",
+                    StatusVisita.INICIADA => "Iniciada",
+                    StatusVisita.TERMINADA => "Terminada",
+                    StatusVisita.EXPIRADA => "Expirada",
+                    _ => "Pendente",
+                };
+                
             }
             private set { }
         }    
