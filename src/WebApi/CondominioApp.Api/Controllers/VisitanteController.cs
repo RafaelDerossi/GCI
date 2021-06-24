@@ -35,7 +35,7 @@ namespace CondominioApp.Api.Controllers
             var visitante = await _portariaQuery.ObterPorId(id);
             if (visitante == null)
             {
-                AdicionarErroProcessamento("Contrato não encontrado.");
+                AdicionarErroProcessamento("Visitante não encontrado.");
                 return CustomResponse();
             }
             return visitante;
