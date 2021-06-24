@@ -124,6 +124,12 @@ namespace CondominioApp.Api.Controllers.Marketplace
         {
             return CustomResponse(await _AppServiceProduto.Atualizar(viewModel));
         }
-        
+
+        [HttpPut("atualizar-item-de-venda")]
+        public async Task<IActionResult> AtualizarItemDeVenda(AtualizaItemDeVendaViewModel viewModel)
+        {
+            return CustomResponse(await _AppServiceItemDeVenda.AtualizarItemDeVenda(viewModel));
+        }
+
     }
 }
