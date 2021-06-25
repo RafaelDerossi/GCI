@@ -60,7 +60,7 @@ namespace CondominioApp.Api.Configuration
               options.UseSqlServer(configuration.GetConnectionString("PortariaConnection")), ServiceLifetime.Transient, ServiceLifetime.Transient);
 
             services.AddDbContext<AutomacaoContextDB>(options =>
-              options.UseSqlServer(configuration.GetConnectionString("AutomacaoConnection")));
+              options.UseSqlServer(configuration.GetConnectionString("AutomacaoConnection")), ServiceLifetime.Transient, ServiceLifetime.Transient);
 
             services.AddDbContext<ArquivoDigitalContextDB>(options =>
               options.UseSqlServer(configuration.GetConnectionString("ArquivoDigitalConnection")), ServiceLifetime.Transient, ServiceLifetime.Transient);

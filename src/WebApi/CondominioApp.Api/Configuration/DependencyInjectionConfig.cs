@@ -460,7 +460,7 @@ namespace CondominioApp.Api.Configuration
 
             #region Querys     
             services.AddTransient<IArquivoDigitalQuery, ArquivoDigitalQuery>();
-            services.AddScoped<IAutomacaoQuery, AutomacaoQuery>();
+            services.AddTransient<IAutomacaoQuery, AutomacaoQuery>();
             services.AddScoped<IComunicadoQuery, ComunicadoQuery>();
             services.AddScoped<ICorrespondenciaQuery, CorrespondenciaQuery>();
             services.AddTransient<IEnqueteQuery, EnqueteQuery>();
@@ -475,7 +475,7 @@ namespace CondominioApp.Api.Configuration
 
             #region Repositórios            
             services.AddTransient<IArquivoDigitalRepository, ArquivoDigitalRepository>();
-            services.AddScoped<IAutomacaoRepository, AutomacaoRepository>();
+            services.AddTransient<IAutomacaoRepository, AutomacaoRepository>();
             services.AddTransient<IComunidadoRepository, ComunicadoRepository>();
             services.AddTransient<ICorrespondenciaRepository, CorrespondenciaRepository>();
             services.AddTransient<IEnqueteRepository, EnqueteRepository>();

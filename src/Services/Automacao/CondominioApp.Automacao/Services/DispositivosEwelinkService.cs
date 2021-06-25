@@ -28,9 +28,21 @@ namespace CondominioApp.Automacao.Services
 
         public async Task<IEnumerable<DispositivoViewModel>> ObterDispositivos()
         {
+            if (_credencial == null)
+                return null;
+
             var ewelink = new Ewelink(_credencial.Email.Endereco, _credencial.SenhaDescriptografa, Regiao);
-            await ewelink.GetCredentials();
-            await ewelink.GetDevices();
+
+            try
+            {
+                await ewelink.GetCredentials();
+                await ewelink.GetDevices();
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+            
 
             var dispositivos = new List<DispositivoViewModel>();
             if (ewelink.Devices.Length > 0)
