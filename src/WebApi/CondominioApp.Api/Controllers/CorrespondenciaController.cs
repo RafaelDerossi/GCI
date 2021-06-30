@@ -77,7 +77,7 @@ namespace CondominioApp.Api.Controllers
         }
 
         [HttpGet("por-condominio-periodo-e-status")]
-        public async Task<ActionResult<IEnumerable<CorrespondenciaViewModel>>> ObterEnquetesAtivasPorCondominio(
+        public async Task<ActionResult<IEnumerable<CorrespondenciaViewModel>>> ObterPorCondominioPeriodoEStatus(
             Guid condominioId, DateTime dataInicio, DateTime dataFim, StatusCorrespondencia status)
         {
             var correspondencias = await _correspondenciaQuery.ObterPorCondominioPeriodoEStatus(
