@@ -156,9 +156,18 @@ namespace CondominioAppMarketplace.App
         public async Task<ValidationResult> Atualizar(ParceiroViewModel ViewModel)
         {
             var Parceiro = await _repository.ObterPorId(ViewModel.ParceiroId);
+            if (Parceiro == null)
+            {
+                AdicionarErro("Parceiro não encontrado!");
+                return ValidationResult;
+            }
 
             if (!ViewModel.PreCadastro)
+            {
                 Parceiro.SetContrato(ViewModel.ContratoDataDeInicio, ViewModel.ContratoDataDeRenovacao, ViewModel.ContratoDescricao);
+                Parceiro.SetCategoria(ViewModel.Categoria);
+            }
+                
             
             try
             {
@@ -175,6 +184,9 @@ namespace CondominioAppMarketplace.App
 
                 Parceiro.setCorDoLayout(ViewModel.Cor);
                 Parceiro.setLogoMarca(ViewModel.LogoMarca);
+
+                Parceiro.SetCategoria(ViewModel.Categoria);
+
             }
             catch (Exception ex)
             {
@@ -274,7 +286,7 @@ namespace CondominioAppMarketplace.App
                                    ViewModel.EmailDoResponsavel, ViewModel.TelefoneCelular, ViewModel.TelefoneFixo, ViewModel.LogoMarca,
                                    ViewModel.Cor, ViewModel.Logradouro, ViewModel.Complemento, ViewModel.Numero, ViewModel.Cep, ViewModel.Bairro,
                                    ViewModel.Cidade, ViewModel.Estado, ViewModel.ContratoDataDeInicio, ViewModel.ContratoDataDeRenovacao,
-                                   ViewModel.ContratoDescricao, ViewModel.PreCadastro, ViewModel.Whatsapp);
+                                   ViewModel.ContratoDescricao, ViewModel.PreCadastro, ViewModel.Whatsapp, ViewModel.Categoria);
 
                 return parceiro;
             }

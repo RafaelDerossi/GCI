@@ -26,7 +26,7 @@ namespace CondominioApp.Correspondencias.App.Aplication.Query
         {
             return await _correspondenciaRepository.Obter(
                 c=>c.UnidadeId == unidadeId && 
-                c.DataDeCadastro>=dataInicio && c.DataDeCadastro<=dataFim && 
+                c.DataDeCadastro.Date >= dataInicio.Date && c.DataDeCadastro.Date <= dataFim.Date && 
                 !c.Lixeira);
         }
 
@@ -35,7 +35,7 @@ namespace CondominioApp.Correspondencias.App.Aplication.Query
         {           
             return await _correspondenciaRepository.Obter(
                  c => c.CondominioId == condominioId &&
-                 c.DataDeCadastro >= dataInicio && c.DataDeCadastro <= dataFim &&
+                 c.DataDeCadastro.Date >= dataInicio.Date && c.DataDeCadastro.Date <= dataFim.Date &&
                  c.Status == status &&
                  !c.Lixeira);
         }        

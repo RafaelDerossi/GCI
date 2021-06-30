@@ -48,7 +48,7 @@ namespace CondominioApp.Api.Configuration
               options.UseSqlServer(configuration.GetConnectionString("EnqueteConnection")), ServiceLifetime.Transient, ServiceLifetime.Transient);
 
             services.AddDbContext<CorrespondenciaContextDB>(options =>
-              options.UseSqlServer(configuration.GetConnectionString("CorrespondenciaConnection")));
+              options.UseSqlServer(configuration.GetConnectionString("CorrespondenciaConnection")), ServiceLifetime.Transient, ServiceLifetime.Transient);
 
             services.AddDbContext<ComunicadoContextDB>(options =>
               options.UseSqlServer(configuration.GetConnectionString("ComunicadoConnection")), ServiceLifetime.Transient, ServiceLifetime.Transient);
@@ -57,10 +57,10 @@ namespace CondominioApp.Api.Configuration
              options.UseSqlServer(configuration.GetConnectionString("ReservaAreaComumConnection")), ServiceLifetime.Transient, ServiceLifetime.Transient);
 
             services.AddDbContext<PortariaContextDB>(options =>
-              options.UseSqlServer(configuration.GetConnectionString("PortariaConnection")));          
+              options.UseSqlServer(configuration.GetConnectionString("PortariaConnection")), ServiceLifetime.Transient, ServiceLifetime.Transient);
 
             services.AddDbContext<AutomacaoContextDB>(options =>
-              options.UseSqlServer(configuration.GetConnectionString("AutomacaoConnection")));
+              options.UseSqlServer(configuration.GetConnectionString("AutomacaoConnection")), ServiceLifetime.Transient, ServiceLifetime.Transient);
 
             services.AddDbContext<ArquivoDigitalContextDB>(options =>
               options.UseSqlServer(configuration.GetConnectionString("ArquivoDigitalConnection")), ServiceLifetime.Transient, ServiceLifetime.Transient);

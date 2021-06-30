@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using CondominioApp.Core.DomainObjects;
+using CondominioApp.Core.Enumeradores;
 using CondominioAppMarketplace.Domain.ValueObjects;
 using FluentValidation;
 using FluentValidation.Results;
@@ -30,6 +31,9 @@ namespace CondominioAppMarketplace.Domain
         public string Cor { get; private set; }
 
         public bool PreCadastro { get; private set; }
+
+
+        public CategoriaParceiro Categoria { get; set; }
 
         public Cnpj Cnpj { get; private set; }
 
@@ -62,7 +66,7 @@ namespace CondominioAppMarketplace.Domain
              string email, string telefoneCelular, string telefoneFixo, string logoMarca, string cor,
              string logradouro, string complemento, string numero, string cep, string bairro,
              string cidade, string estado, DateTime dataInicio, DateTime dataRenovacao, string descricaoContrato,
-             bool preCadastro, bool whatsApp)
+             bool preCadastro, bool whatsApp, CategoriaParceiro categoria)
         {
 
             _Vendedores = new List<Vendedor>();
@@ -76,6 +80,7 @@ namespace CondominioAppMarketplace.Domain
             Cor = cor;            
             LogoMarca = logoMarca;
             Cor = cor;
+            Categoria = categoria;
 
             SetTelefoneMovel(telefoneCelular, whatsApp);
             SetTelefoneFixo(telefoneFixo);
@@ -133,7 +138,10 @@ namespace CondominioAppMarketplace.Domain
         {
             Cnpj = new Cnpj(cnpj);
         }
-       
+
+        public void SetCategoria(CategoriaParceiro categoria) => Categoria = categoria;
+
+
         public ValidationResult Contratar(Vendedor vendedor)
         {
             if (_Vendedores.Any(x => x.Email.Endereco == vendedor.Email.Endereco))

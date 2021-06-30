@@ -10,8 +10,10 @@ using CondominioApp.Usuarios.App.Aplication.Query;
 using CondominioApp.WebApi.Core.Controllers;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.StaticFiles;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -75,7 +77,7 @@ namespace CondominioApp.Api.Controllers
         }
 
         [HttpGet("por-condominio-periodo-e-status")]
-        public async Task<ActionResult<IEnumerable<CorrespondenciaViewModel>>> ObterEnquetesAtivasPorCondominio(
+        public async Task<ActionResult<IEnumerable<CorrespondenciaViewModel>>> ObterPorCondominioPeriodoEStatus(
             Guid condominioId, DateTime dataInicio, DateTime dataFim, StatusCorrespondencia status)
         {
             var correspondencias = await _correspondenciaQuery.ObterPorCondominioPeriodoEStatus(
@@ -204,14 +206,28 @@ namespace CondominioApp.Api.Controllers
         public async Task<ActionResult> GerarExcel(List<Guid> lstCorrespondencias)
         {
             string sWebRootFolder = _webHostEnvironment.WebRootPath;
-            string nomeDoArquivo = @"/" + Guid.NewGuid().ToString() + ".xlsx";
+            string nomeDoArquivo = @"/" + Guid.NewGuid().ToString();            
 
             var comando = new GerarExcelCorrespondenciaCommand(lstCorrespondencias, sWebRootFolder, nomeDoArquivo);
+
+            nomeDoArquivo = $"{nomeDoArquivo}.xlsx";
+            string caminhoCompleto = $"{sWebRootFolder}/Download/Temp{nomeDoArquivo}";
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
             
             if (Resultado.IsValid)
+            {
+                //Rotina para retornar o arquivo
+                //var provider = new FileExtensionContentTypeProvider();
+                //if (!provider.TryGetContentType(caminhoCompleto, out var contentType))
+                //{
+                    //contentType = "application/octet-stream";
+                //}
+                //var bytes = await System.IO.File.ReadAllBytesAsync(caminhoCompleto);
+                //return File(bytes, contentType, Path.GetFileName(caminhoCompleto));
+                
                 return CustomResponse(nomeDoArquivo);
+            }            
 
             return CustomResponse(Resultado);
         }

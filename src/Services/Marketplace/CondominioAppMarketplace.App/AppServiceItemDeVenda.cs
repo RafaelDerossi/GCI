@@ -125,6 +125,18 @@ namespace CondominioAppMarketplace.App
             return await PersistirDados(_repository.UnitOfWork);
         }
 
+        public async Task<ValidationResult> AtualizarItemDeVenda(AtualizaItemDeVendaViewModel viewModel)
+        {
+            var itemDeVenda = await _repository.ObterPorId(viewModel.Id);
+
+            itemDeVenda.SetPorcentagemDeDesconto(viewModel.PorcentagemDeDesconto);
+            itemDeVenda.SetPreco(viewModel.PrecoDoProduto);
+
+            _repository.Atualizar(itemDeVenda);
+
+            return await PersistirDados(_repository.UnitOfWork);
+        }
+
         public async Task<ValidationResult> ReconfigurarIntervalos(Guid ItemDeVendaId, DateTime DataDeInicio, DateTime DataDeFim)
         {
             var ItemDeVenda = await _repository.ObterPorId(ItemDeVendaId);

@@ -29,5 +29,7 @@ namespace CondominioAppMarketplace.App.Interfaces
         Task<ValidationResult> RestauraProdutosDaVitrine(Guid ParceiroId);
 
         Task<ValidationResult> ReconfigurarIntervalos(Guid ItemDeVendaId, DateTime DataDeInicio, DateTime DataDeFim);
+
+        Task<ValidationResult> AtualizarItemDeVenda(AtualizaItemDeVendaViewModel viewModel);
     }
 }

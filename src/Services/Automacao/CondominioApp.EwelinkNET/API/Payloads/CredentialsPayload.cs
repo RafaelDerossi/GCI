@@ -11,32 +11,32 @@ namespace EwelinkNet.Payloads
 {
     internal class CredentialsPayload
     {
-        public string Email { get; internal set; }
-        public string Password { get; internal set;}
-        public string Version { get; internal set; }
-        public string Ts { get; internal set; }
-        public string Nonce { get; internal set; }
-        public string Appid { get; internal set; }
-        public string Imei { get; internal set; }
-        public string Os { get; internal set; }
-        public string Model { get; internal set;}
-        public string RomVersion { get; internal set; }
-        public string AppVersion { get; internal set; }
+        public string email { get; internal set; }
+        public string password { get; internal set; }
+        public string version { get; internal set; }
+        public string ts { get; internal set; }
+        public string nonce { get; internal set; }
+        public string appid { get; internal set; }
+        public string imei { get; internal set; }
+        public string os { get; internal set; }
+        public string model { get; internal set; }
+        public string romVersion { get; internal set; }
+        public string appVersion { get; internal set; }
 
 
         internal CredentialsPayload(string email, string password)
         {
-            this.Email = email;
-            this.Password = password;
-            Version = AppData.VERSION;
-            Ts = EwelinkHelper.MakeTimestamp();
-            Nonce = EwelinkHelper.MakeNonce();
-            Os = AppData.OS;
-            Appid = AppData.APP_ID;
-            Imei = EwelinkHelper.MakeFakeImei();
-            Model = AppData.MODEL;
-            RomVersion = AppData.ROM_VERSION;
-            AppVersion = AppData.APP_VERSION;
+            this.email = email;
+            this.password = password;
+            version = AppData.VERSION;
+            ts = EwelinkHelper.MakeTimestamp();
+            nonce = EwelinkHelper.MakeNonce();
+            os = AppData.OS;
+            appid = AppData.APP_ID;
+            imei = EwelinkHelper.MakeFakeImei();
+            model = AppData.MODEL;
+            romVersion = AppData.ROM_VERSION;
+            appVersion = AppData.APP_VERSION;
         }
 
     }

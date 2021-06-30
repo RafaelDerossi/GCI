@@ -62,6 +62,9 @@ namespace EwelinkNet
             var response = await API.Rest.GetCredentials(url, email, password);
             Credentials = JsonConvert.DeserializeObject<Credentials>(response);
 
+            if (Credentials.user == null)
+                return;
+
             at = Credentials.at;
             email = Credentials.user.email;
             password = Credentials.user.password;
@@ -70,7 +73,7 @@ namespace EwelinkNet
 
         public async Task<string> GetRegion()
         {
-            var url = Constants.URLs.GetApiUrl("us");
+            var url = Constants.URLs.GetApiUrl(region);
 
             var response = await API.Rest.GetCredentials(url, email, password);
             dynamic credentials = JsonConvert.DeserializeObject<ExpandoObject>(response);
@@ -109,7 +112,15 @@ namespace EwelinkNet
 
         private void CreateDevices(string json)
         {
-            CreateDevices(JsonConvert.DeserializeObject<DeviceList>(json).devicelist.ToArray());
+            try
+            {
+                CreateDevices(JsonConvert.DeserializeObject<DeviceList>(json).devicelist.ToArray());
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            
         }
 
         

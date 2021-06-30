@@ -18,7 +18,7 @@ namespace EwelinkNet.API
         {
             var client = new RestClient(url);
 
-            var payload = new Payloads.CredentialsPayload(email, password);
+            var payload = new Payloads.CredentialsPayload(email, password);            
             var body = JsonConvert.SerializeObject(payload);
             var signature = CryptoHelper.MakeAuthorizationSign(body);
 

@@ -38,6 +38,7 @@ namespace CondominioApp.Automacao.App.Aplication.Query
             return lista.FirstOrDefault();
         }
 
+
         public async Task<bool> VerificaSeJaEstaCadastrado(Guid condominioId, TipoApiAutomacao tipoApiAutomacao)
         {
             return await _condominioCredencialRepository.VerificaSeJaEstaCadastrado(condominioId, tipoApiAutomacao);

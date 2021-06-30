@@ -10,6 +10,7 @@ using CondominioApp.Automacao.App.Aplication.Commands;
 using CondominioApp.Core.Enumeradores;
 using CondominioApp.Automacao.App.Factory;
 using CondominioApp.Automacao.App.Services.Interfaces;
+using CondominioApp.Automacao.App.Aplication.Query;
 
 namespace CondominioApp.Api.Controllers
 {
@@ -18,24 +19,66 @@ namespace CondominioApp.Api.Controllers
     {
         private readonly IMediatorHandler _mediatorHandler;
         private readonly IDispositivosServiceFactory _dispositivosServiceFactory;
+        private readonly IAutomacaoQuery _automacaoQuery;
 
-        public AutomacaoController(IMediatorHandler mediatorHandler, IDispositivosServiceFactory dispositivosServiceFactory)
+        public AutomacaoController
+            (IMediatorHandler mediatorHandler, IDispositivosServiceFactory dispositivosServiceFactory, IAutomacaoQuery automacaoQuery)
         {
             _mediatorHandler = mediatorHandler;
             _dispositivosServiceFactory = dispositivosServiceFactory;
+            _automacaoQuery = automacaoQuery;
         }
 
-       
 
+
+        [HttpGet("obter-credencial")]
+        public async Task<ActionResult<CondominioCredencialViewModel>> ObterCredencial(Guid condominioId)
+        {
+            var credencial = await _automacaoQuery.ObterPorCondominioETipoApi(condominioId, TipoApiAutomacao.EWELINK);
+            if (credencial == null)
+            {
+                AdicionarErroProcessamento("Nenhum registro encontrado.");
+                return CustomResponse();
+            }
+
+            var credencialViewModel = new CondominioCredencialViewModel(credencial);
+
+            return credencialViewModel;
+        }
+
+        
         [HttpGet("obter-dispositivos")]
         public async Task<ActionResult<IEnumerable<DispositivoViewModel>>> ObterDispositivos(Guid condominioId)
         {
-            IDispositivosService dispositivoService = await _dispositivosServiceFactory.Fabricar(TipoApiAutomacao.EWELINK, condominioId);
+            IDispositivosService dispositivoService;
+            try
+            {
+                dispositivoService = await _dispositivosServiceFactory.Fabricar(TipoApiAutomacao.EWELINK, condominioId);
+            }
+            catch (Exception e)
+            {
+                AdicionarErroProcessamento(e.Message);
+                return CustomResponse();
+            }
 
-            var dispositivos = await dispositivoService.ObterDispositivos();
+            try
+            {
+                var dispositivos = await dispositivoService.ObterDispositivos();
+                if (dispositivos == null)
+                {
+                    AdicionarErroProcessamento("Nenhum registro encontrado.");
+                    return CustomResponse();
+                }
 
-            return dispositivos.ToList();            
+                return dispositivos.ToList();
+            }
+            catch (Exception e)
+            {
+                AdicionarErroProcessamento(e.Message);
+                return CustomResponse();
+            }                  
         }
+
 
         [HttpGet("ligar-desligar-dispositivo")]
         public async Task<ActionResult> LigarDesligarDispositivo(Guid condominioId, string deviceId)
