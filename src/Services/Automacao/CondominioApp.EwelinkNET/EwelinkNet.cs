@@ -1,20 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.Serialization.Json;
-using System.Text;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
-using System.Threading;
 using EwelinkNet.Classes;
 using EwelinkNet.Helpers.Extensions;
 using System.Dynamic;
-using EwelinkNet.Payloads;
 using EwelinkNet.API.Responses;
-using Mapster;
 using EwelinkNet.Classes.Events;
 using WebSocketSharp;
 using System.Linq;
-using System.Net;
+using System.Threading;
 
 namespace EwelinkNet
 {
@@ -42,18 +37,20 @@ namespace EwelinkNet
         [JsonIgnore]
         internal API.WebSocket webSocket = new API.WebSocket();
 
+        [JsonIgnore]
+        internal Guid CondominioId { get; private set; }
 
-        public Ewelink(string email, string password, string region = "us")
+        public Ewelink(string email, string password, Guid condominioId, string region = "us")
         {
             this.email = email;
             this.password = password;
             this.region = region;
-        }
+            CondominioId = condominioId;
 
-        public Ewelink(string credentialsFile)
-        {
-            RestoreCredenditalsFromFile(credentialsFile);
-        }
+            RestoreCredenditalsFromFile();
+
+            RestoreDevicesFromFile();            
+        }      
 
         public async Task GetCredentials()
         {
@@ -65,10 +62,10 @@ namespace EwelinkNet
             if (Credentials.user == null)
                 return;
 
-            at = Credentials.at;
-            email = Credentials.user.email;
-            password = Credentials.user.password;
-            apikey = at = Credentials.user.apikey;            
+            at = Credentials.at;            
+            apikey = at = Credentials.user.apikey;
+
+            StoreCredenditalsToFile();
         }
 
         public async Task<string> GetRegion()
@@ -81,13 +78,41 @@ namespace EwelinkNet
             return region;
         }
 
-        public void StoreCredenditalsFromFile(string filename = "credentials.json") => System.IO.File.WriteAllText(filename, Credentials.AsJson());
+        public void StoreCredenditalsToFile()        
+        {
+            var filename = $"credentials_{CondominioId}.json";
+            System.IO.File.WriteAllText(filename, Credentials.AsJson()); 
+        }
 
-        public void RestoreCredenditalsFromFile(string filename = "credentials.json") => Credentials = System.IO.File.ReadAllText(filename).FromJson<Credentials>();
+        public void RestoreCredenditalsFromFile()
+        {
+            var filename = $"credentials_{CondominioId}.json";
+            if (System.IO.File.Exists(filename))
+            {
+                Credentials = System.IO.File.ReadAllText(filename).FromJson<Credentials>();
+                if (Credentials != null)
+                {
+                    at = Credentials.at;                    
+                    apikey = Credentials.user.apikey;
+                }
+            }            
+        }
 
-        public void StoreDevicesToFile(string filename = "devices.json") => System.IO.File.WriteAllText(filename, Devices.AsJson());
+        public void StoreDevicesToFile()
+        {
+            var filename = $"devices_{CondominioId}.json";
+            System.IO.File.WriteAllText(filename, Devices.AsJson());
+        }
 
-        public void RestoreDevicesFromFile(string filename = "devices.json") => CreateDevices(System.IO.File.ReadAllText(filename).FromJson<Device[]>());
+        public void RestoreDevicesFromFile()
+        {
+            var filename = $"devices_{CondominioId}.json";
+            if (System.IO.File.Exists(filename))
+            {
+                CreateDevices(System.IO.File.ReadAllText(filename).FromJson<Device[]>());
+            }                
+        }
+        
 
         public void RestoreArpTableFromFile(string filename = "arp-table.json") => Arptable.RestoreFromFile(filename);
 
@@ -98,18 +123,11 @@ namespace EwelinkNet
 
             var response = await API.Rest.GetDevices(url, Credentials.at);            
 
-            CreateDevices(response);           
+            CreateDevices(response);
+
+            StoreDevicesToFile();
         }
-
-        public void ToggleDevice(string deviceId)
-        {
-            var device = Devices.First(x => x.deviceid == deviceId) as SwitchDevice;            
-
-            device.Toggle();
-
-            Thread.Sleep(500);
-        }
-
+        
         private void CreateDevices(string json)
         {
             try
@@ -119,11 +137,38 @@ namespace EwelinkNet
             catch (Exception)
             {
                 throw;
-            }
-            
+            }           
         }
 
-        
+        public void ToggleDevice(string deviceId)
+        {
+            var deviceSwitch = Devices.First(x => x.deviceid == deviceId) as SwitchDevice;
+            var device = Devices.First(x => x.deviceid == deviceId);
+
+            var state = device.deviceStatus;
+            if (state == null)
+            {
+                state = deviceSwitch.GetState();                
+            }
+
+            if (state == "on")
+            {
+                deviceSwitch.TurnOff();
+                Thread.Sleep(500);
+                device.deviceStatus = "off";
+            }
+            else
+            {
+                deviceSwitch.TurnOn();
+                Thread.Sleep(500);
+                device.deviceStatus = "on";
+            }
+
+            StoreDevicesToFile();
+        }
+
+
+
         private Dictionary<string, Device> deviceCache = new Dictionary<string, Device>();
 
         private void CreateDevices(Device[] devices)

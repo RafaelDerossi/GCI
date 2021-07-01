@@ -1,5 +1,4 @@
-﻿using CondominioApp.Automacao.Models;
-using CondominioApp.Automacao.ViewModel;
+﻿using CondominioApp.Automacao.ViewModel;
 using CondominioApp.Core.Service;
 using FluentValidation.Results;
 using System.Collections.Generic;
@@ -9,8 +8,10 @@ namespace CondominioApp.Automacao.App.Services.Interfaces
 {
    public interface IDispositivosService : IServiceBase
     {
+        ValidationResult ValidationResult { get; }
+
         Task<IEnumerable<DispositivoViewModel>> ObterDispositivos();
 
-        Task<ValidationResult> LigarDesligarDispositivo(string dispositivoId);
+        ValidationResult LigarDesligarDispositivo(string dispositivoId);
     }
 }

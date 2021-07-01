@@ -50,33 +50,20 @@ namespace CondominioApp.Api.Controllers
         [HttpGet("obter-dispositivos")]
         public async Task<ActionResult<IEnumerable<DispositivoViewModel>>> ObterDispositivos(Guid condominioId)
         {
-            IDispositivosService dispositivoService;
-            try
-            {
-                dispositivoService = await _dispositivosServiceFactory.Fabricar(TipoApiAutomacao.EWELINK, condominioId);
+            var dispositivoService = await _dispositivosServiceFactory.Fabricar(TipoApiAutomacao.EWELINK, condominioId);
+
+            var dispositivos = await dispositivoService.ObterDispositivos();
+            if (!dispositivoService.EstaValido())
+            {                
+                return CustomResponse(dispositivoService.ValidationResult);
             }
-            catch (Exception e)
+            if (dispositivos == null)
             {
-                AdicionarErroProcessamento(e.Message);
+                AdicionarErroProcessamento("Nenhum registro encontrado.");
                 return CustomResponse();
             }
 
-            try
-            {
-                var dispositivos = await dispositivoService.ObterDispositivos();
-                if (dispositivos == null)
-                {
-                    AdicionarErroProcessamento("Nenhum registro encontrado.");
-                    return CustomResponse();
-                }
-
-                return dispositivos.ToList();
-            }
-            catch (Exception e)
-            {
-                AdicionarErroProcessamento(e.Message);
-                return CustomResponse();
-            }                  
+            return dispositivos.ToList();            
         }
 
 
@@ -85,7 +72,7 @@ namespace CondominioApp.Api.Controllers
         {
             IDispositivosService dispositivoService = await _dispositivosServiceFactory.Fabricar(TipoApiAutomacao.EWELINK, condominioId);
 
-            var retorno = await dispositivoService.LigarDesligarDispositivo(deviceId);
+            var retorno = dispositivoService.LigarDesligarDispositivo(deviceId);
 
             return CustomResponse(retorno);           
         }

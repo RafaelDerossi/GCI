@@ -14,35 +14,34 @@ namespace CondominioApp.Automacao.Services
     {
         private readonly string Regiao = "us";
 
-        private readonly CondominioCredencial _credencial;
+        private readonly CondominioCredencial _credencialDoCondominio;
         
 
         public DispositivosEwelinkService()
         {
         }
-        public DispositivosEwelinkService(CondominioCredencial credencial)
+
+        public DispositivosEwelinkService(CondominioCredencial credencialDoCondominio)
         {
-            _credencial = credencial;            
+            _credencialDoCondominio = credencialDoCondominio;            
         }
 
 
         public async Task<IEnumerable<DispositivoViewModel>> ObterDispositivos()
         {
-            if (_credencial == null)
+            if (_credencialDoCondominio == null)
+            {
+                AdicionarErrosDeProcessamento("Credencial do Condomínio não encontrada no banco de dados.");
                 return null;
+            }                
 
-            var ewelink = new Ewelink(_credencial.Email.Endereco, _credencial.SenhaDescriptografa, Regiao);
+            var ewelink = new Ewelink
+                (_credencialDoCondominio.Email.Endereco, _credencialDoCondominio.SenhaDescriptografa,
+                 _credencialDoCondominio.CondominioId, Regiao);
 
-            try
-            {
-                await ewelink.GetCredentials();
-                await ewelink.GetDevices();
-            }
-            catch (System.Exception)
-            {
-                throw;
-            }
-            
+            await ewelink.GetCredentials();
+
+            await ewelink.GetDevices();            
 
             var dispositivos = new List<DispositivoViewModel>();
             if (ewelink.Devices.Length > 0)
@@ -78,37 +77,18 @@ namespace CondominioApp.Automacao.Services
         }
     
 
-        public async Task<ValidationResult> LigarDesligarDispositivo(string dispositivoId)
+        public ValidationResult LigarDesligarDispositivo(string dispositivoId)
         {            
-            if (_credencial == null)
+            if (_credencialDoCondominio == null)
             {
-                AdicionarErrosDeProcessamento("Credencial não encontrada no banco de dados.");
+                AdicionarErrosDeProcessamento("Credencial do Condomínio não encontrada no banco de dados.");
                 return ValidationResult;
             }
 
-            var ewelink = new Ewelink(_credencial.Email.Endereco, _credencial.SenhaDescriptografa, Regiao);            
+            var ewelink = new Ewelink
+                (_credencialDoCondominio.Email.Endereco, _credencialDoCondominio.SenhaDescriptografa,
+                 _credencialDoCondominio.CondominioId, Regiao);
 
-            await ewelink.GetCredentials();
-
-            if (ewelink.at == null)
-            {
-                AdicionarErrosDeProcessamento("Credencial não encontrada na API.");
-                return ValidationResult;
-            }
-
-            await ewelink.GetDevices();
-
-            if (ewelink.Devices == null || ewelink.Devices.Length == 0)
-            {
-                AdicionarErrosDeProcessamento("Nenhum dispositivo encontrado nesta conta.");
-                return ValidationResult;
-            }
-
-            if (ewelink.Devices.Count(x => x.deviceid == dispositivoId) == 0)
-            {
-                AdicionarErrosDeProcessamento("Dispositivo não encontrado.");
-                return ValidationResult;
-            }
 
             ewelink.OpenWebSocket();
 
