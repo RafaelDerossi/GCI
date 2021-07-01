@@ -16,7 +16,8 @@ namespace CondominioApp.Automacao.App.Models
     {
         private readonly IMediatorHandler _mediatorHandler;
 
-        public DbSet<CondominioCredencial> CondominiosCredenciais { get; set; }        
+        public DbSet<CondominioCredencial> CondominiosCredenciais { get; set; }
+        public DbSet<DispositivoWebhook> DispositivosWebhooks { get; set; }
 
         public AutomacaoContextDB(DbContextOptions<AutomacaoContextDB> options, IMediatorHandler mediatorHandler)
             : base(options)

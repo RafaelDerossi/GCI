@@ -9,5 +9,17 @@ namespace CondominioApp.Automacao.App.Models
     public interface IAutomacaoRepository : IRepository<CondominioCredencial>
     {
         Task<bool> VerificaSeJaEstaCadastrado(Guid condominioId, TipoApiAutomacao tipoApiAutomacao);
+
+
+        #region DispositivoWebhook
+        Task<bool> VerificaDispositivoWebhookJaEstaCadastrado(Guid condominioId, string nome);
+
+        void AdicionarDispositivoWebhook(DispositivoWebhook entity);
+
+        void AtualizarDispositivoWebhook(DispositivoWebhook entity);
+
+        void Apagar(Func<DispositivoWebhook, bool> predicate);
+
+        #endregion
     }
 }
