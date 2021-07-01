@@ -40,6 +40,11 @@ namespace EwelinkNet
         [JsonIgnore]
         internal Guid CondominioId { get; private set; }
 
+        [JsonIgnore]
+        internal string pasta = "wwwroot/ewelink/";
+
+
+
         public Ewelink(string email, string password, Guid condominioId, string region = "us")
         {
             this.email = email;
@@ -80,13 +85,24 @@ namespace EwelinkNet
 
         public void StoreCredenditalsToFile()        
         {
-            var filename = $"credentials_{CondominioId}.json";
+            if (!System.IO.Directory.Exists(pasta))
+            {
+                try
+                {
+                    System.IO.Directory.CreateDirectory(pasta);
+                }
+                catch (Exception)
+                {
+                }
+            }
+
+            var filename = $"{pasta}credentials_{CondominioId}.json";
             System.IO.File.WriteAllText(filename, Credentials.AsJson()); 
         }
 
         public void RestoreCredenditalsFromFile()
         {
-            var filename = $"credentials_{CondominioId}.json";
+            var filename = $"{pasta}credentials_{CondominioId}.json";
             if (System.IO.File.Exists(filename))
             {
                 Credentials = System.IO.File.ReadAllText(filename).FromJson<Credentials>();
@@ -100,13 +116,13 @@ namespace EwelinkNet
 
         public void StoreDevicesToFile()
         {
-            var filename = $"devices_{CondominioId}.json";
+            var filename = $"{pasta}devices_{CondominioId}.json";
             System.IO.File.WriteAllText(filename, Devices.AsJson());
         }
 
         public void RestoreDevicesFromFile()
         {
-            var filename = $"devices_{CondominioId}.json";
+            var filename = $"{pasta}devices_{CondominioId}.json";
             if (System.IO.File.Exists(filename))
             {
                 CreateDevices(System.IO.File.ReadAllText(filename).FromJson<Device[]>());

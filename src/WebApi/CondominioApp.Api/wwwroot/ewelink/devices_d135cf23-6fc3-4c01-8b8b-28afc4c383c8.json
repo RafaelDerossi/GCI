@@ -559,7 +559,7 @@
         ],
         "alexa": []
       },
-      "switch": "on",
+      "switch": "off",
       "fwVersion": "3.5.1",
       "rssi": -48,
       "staMac": "84:0D:8E:57:49:AE",
