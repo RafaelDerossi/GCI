@@ -7,6 +7,7 @@ using CondominioApp.Automacao.ViewModel;
 using CondominioApp.Automacao.Models;
 using CondominioApp.Automacao.App.Services.Interfaces;
 using CondominioApp.Core.Service;
+using CondominioApp.Core.Enumeradores;
 
 namespace CondominioApp.Automacao.Services
 {
@@ -67,7 +68,8 @@ namespace CondominioApp.Automacao.Services
                         NomeDaMarca = ewelink.Devices[i].brandName,
                         MostraMarca = ewelink.Devices[i].showBrand,
                         UrlDaLogoDaMarca = ewelink.Devices[i].brandLogoUrl,
-                        ModeloDoProduto = ewelink.Devices[i].productModel
+                        ModeloDoProduto = ewelink.Devices[i].productModel,
+                        TipoAutomacao = TipoApiAutomacao.EWELINK
                     };
 
                     dispositivos.Add(dispositivo);

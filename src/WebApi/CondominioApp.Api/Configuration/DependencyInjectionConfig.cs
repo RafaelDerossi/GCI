@@ -128,6 +128,11 @@ namespace CondominioApp.Api.Configuration
             services.AddTransient<IRequestHandler<AtualizarCondominioCredencialCommand, ValidationResult>, CondominioCredencialCommandHandler>();
             services.AddTransient<IRequestHandler<ApagarCondominioCredencialCommand, ValidationResult>, CondominioCredencialCommandHandler>();
 
+            services.AddTransient<IRequestHandler<AdicionarDispositivoWebhookCommand, ValidationResult>, DispositivoWebhookCommandHandler>();
+            services.AddTransient<IRequestHandler<AtualizarDispositivoWebhookCommand, ValidationResult>, DispositivoWebhookCommandHandler>();
+            services.AddTransient<IRequestHandler<ApagarDispositivoWebhookCommand, ValidationResult>, DispositivoWebhookCommandHandler>();
+            services.AddTransient<IRequestHandler<LigarDesligarDispositivoWebhookCommand, ValidationResult>, DispositivoWebhookCommandHandler>();
+
             #endregion
 
 

@@ -14,7 +14,9 @@ namespace CondominioApp.Automacao.Models
 
         public Url UrlDesligar { get; private set; }
 
-        public Guid CondominioId { get; private set; }        
+        public Guid CondominioId { get; private set; }
+
+        public bool Ligado { get; private set; }
 
         public DispositivoWebhook()
         {
@@ -39,5 +41,8 @@ namespace CondominioApp.Automacao.Models
             CondominioId = condominioId;         
         }
 
+        public void Ligar() => Ligado = true;
+
+        public void Desligar() => Ligado = false;
     }
 }

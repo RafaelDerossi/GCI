@@ -105,7 +105,8 @@
 
     public enum TipoApiAutomacao
     {
-        EWELINK = 1
+        EWELINK = 1,
+        WEBHOOK = 2
     }
 
     public enum TipoDePush

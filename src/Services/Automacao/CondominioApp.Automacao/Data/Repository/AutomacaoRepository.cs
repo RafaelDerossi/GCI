@@ -101,6 +101,18 @@ namespace CondominioApp.Automacao.App.Data.Repository
 
 
         #region DispositivoWebhook
+        public async Task<DispositivoWebhook> ObterDispositivoWebhookPorId(Guid Id)
+        {
+            return await _context.DispositivosWebhooks
+                .FirstOrDefaultAsync(u => u.Id == Id && !u.Lixeira);
+        }
+
+        public async Task<IEnumerable<DispositivoWebhook>> ObterDispositivoWebhookPorCondominioId(Guid condominioId)
+        {
+            return await _context.DispositivosWebhooks
+                .Where(u => u.CondominioId == condominioId && !u.Lixeira).ToListAsync();
+        }
+
         public async Task<bool> VerificaDispositivoWebhookJaEstaCadastrado(Guid condominioId, string nome)
         {
             var retorno = await _context.DispositivosWebhooks.Where
@@ -123,7 +135,7 @@ namespace CondominioApp.Automacao.App.Data.Repository
             _context.DispositivosWebhooks.Update(entity);
         }
 
-        public void Apagar(Func<DispositivoWebhook, bool> predicate)
+        public void ApagarDispositivoWebhook(Func<DispositivoWebhook, bool> predicate)
         {
             _context.DispositivosWebhooks.Where(predicate).ToList().ForEach(del => del.EnviarParaLixeira());
         }

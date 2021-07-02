@@ -9,20 +9,22 @@ namespace CondominioApp.Automacao.App.Factory
 {
    public class DispositivoServiceFactory : IDispositivosServiceFactory
     {
-        private readonly IAutomacaoQuery _condominioCredencialQuery;
+        private readonly IAutomacaoQuery _automacaoQuery;
 
         public DispositivoServiceFactory(IAutomacaoQuery condominioCredencialQuery)
         {
-            _condominioCredencialQuery = condominioCredencialQuery;            
+            _automacaoQuery = condominioCredencialQuery;            
         }
         
         public async Task<IDispositivosService> Fabricar(TipoApiAutomacao tipoApiAutomacao, Guid condominioId)
         {
-            var credencial = await _condominioCredencialQuery.ObterPorCondominioETipoApi(condominioId, tipoApiAutomacao);
             if (tipoApiAutomacao == TipoApiAutomacao.EWELINK)
-                return new DispositivosEwelinkService(credencial);
+            {
+                var credencial = await _automacaoQuery.ObterPorCondominioETipoApi(condominioId, tipoApiAutomacao);
+                return new DispositivosEwelinkService(credencial);               
+            }                       
 
-            return new DispositivosEwelinkService();
+            return new DispositivosWebhookService(condominioId, _automacaoQuery);       
         }
     }
 }

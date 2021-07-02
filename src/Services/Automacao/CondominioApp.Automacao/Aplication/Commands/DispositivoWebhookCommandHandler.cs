@@ -13,6 +13,7 @@ namespace CondominioApp.Automacao.App.Aplication.Commands
          IRequestHandler<AdicionarDispositivoWebhookCommand, ValidationResult>,
          IRequestHandler<AtualizarDispositivoWebhookCommand, ValidationResult>,
          IRequestHandler<ApagarDispositivoWebhookCommand, ValidationResult>,
+         IRequestHandler<LigarDesligarDispositivoWebhookCommand, ValidationResult>,
          IDisposable
     {
 
@@ -49,16 +50,26 @@ namespace CondominioApp.Automacao.App.Aplication.Commands
             if (!request.EstaValido())
                 return request.ValidationResult;
 
-            var credencial = await _condominioCredencialRepository.ObterPorId(request.Id);
-            if (credencial == null)
+            var dispositivo = await _condominioCredencialRepository.ObterDispositivoWebhookPorId(request.Id);
+            if (dispositivo == null)
             {
-                AdicionarErro("Credencial não encontrada!");
+                AdicionarErro("Dispositivo não encontrado!");
                 return ValidationResult;
             }
+            if (dispositivo.Nome != request.Nome)
+            {
+               if (await _condominioCredencialRepository.VerificaDispositivoWebhookJaEstaCadastrado(request.CondominioId, request.Nome))
+                {
+                    AdicionarErro("Dispositivo com o mesmo nome ja cadastrado!");
+                    return ValidationResult;
+                }
+            }
 
-            credencial.SetCredencial(request.Email, request.Senha, request.TipoApiAutomacao);
+            dispositivo.SetNome(request.Nome);
+            dispositivo.SetUrlLigar(request.UrlLigar);
+            dispositivo.SetUrlLigar(request.UrlDesligar);
 
-            _condominioCredencialRepository.Atualizar(credencial);
+            _condominioCredencialRepository.AtualizarDispositivoWebhook(dispositivo);
 
             return await PersistirDados(_condominioCredencialRepository.UnitOfWork);
         }
@@ -68,18 +79,39 @@ namespace CondominioApp.Automacao.App.Aplication.Commands
             if (!request.EstaValido())
                 return request.ValidationResult;
 
-            var credencial = await _condominioCredencialRepository.ObterPorId(request.Id);
-            if (credencial == null)
+            var dispositivo = await _condominioCredencialRepository.ObterDispositivoWebhookPorId(request.Id);
+            if (dispositivo == null)
             {
-                AdicionarErro("Credencial não encontrada!");
+                AdicionarErro("Dispositivo não encontrado!");
                 return ValidationResult;
             }
 
-            _condominioCredencialRepository.Apagar(x => x.Id == credencial.Id);
+            _condominioCredencialRepository.ApagarDispositivoWebhook(x => x.Id == dispositivo.Id);
 
             return await PersistirDados(_condominioCredencialRepository.UnitOfWork);
         }
 
+        public async Task<ValidationResult> Handle(LigarDesligarDispositivoWebhookCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido())
+                return request.ValidationResult;
+
+            var dispositivo = await _condominioCredencialRepository.ObterDispositivoWebhookPorId(request.Id);
+            if (dispositivo == null)
+            {
+                AdicionarErro("Dispositivo não encontrado!");
+                return ValidationResult;
+            }
+
+            if (dispositivo.Ligado)
+                dispositivo.Desligar();
+            else
+                dispositivo.Ligar();
+
+            _condominioCredencialRepository.AtualizarDispositivoWebhook(dispositivo);
+
+            return await PersistirDados(_condominioCredencialRepository.UnitOfWork);
+        }
 
         public void Dispose()
         {
