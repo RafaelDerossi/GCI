@@ -3,6 +3,7 @@ using CondominioApp.Core.Mediator;
 using CondominioApp.ReservaAreaComum.Aplication.Commands;
 using CondominioApp.ReservaAreaComum.Domain.Interfaces;
 using CondominioApp.ReservaAreaComum.Domain.ReservasStrategy;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
@@ -14,21 +15,14 @@ namespace CondominioApp.ReservaAreaComum.Aplication.FilaDeReservas
 {
     public class FilaDeReservaHostedService : IHostedService
     {
-        private readonly IMediatorHandler _mediatorHandler;
-        private readonly IReservaAreaComumRepository _reservaAreaComumRepository;
-        private readonly IReservaStrategy _regrasDeReserva;
+        private readonly IServiceProvider _serviceProvider;        
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0052:Remover membros particulares não lidos", Justification = "<Pendente>")]
         private Timer Timer;        
 
-        public FilaDeReservaHostedService
-            (IMediatorHandler mediatorHandler,
-             IReservaAreaComumRepository reservaAreaComumRepository,
-             IReservaStrategy regrasDeReserva)
+        public FilaDeReservaHostedService(IServiceProvider serviceProvider)
         {
-            _mediatorHandler = mediatorHandler;
-            _reservaAreaComumRepository = reservaAreaComumRepository;
-            _regrasDeReserva = regrasDeReserva;
+            _serviceProvider = serviceProvider;
         }
 
         public Task StartAsync(CancellationToken cancellationToken)
@@ -39,6 +33,11 @@ namespace CondominioApp.ReservaAreaComum.Aplication.FilaDeReservas
 
         private void ExecuteProcess(object state)
         {
+            using var scope = _serviceProvider.CreateScope();
+            var _mediatorHandler = scope.ServiceProvider.GetRequiredService<IMediatorHandler>();
+            var _reservaAreaComumRepository = scope.ServiceProvider.GetRequiredService<IReservaAreaComumRepository>();
+            var _regrasDeReserva = scope.ServiceProvider.GetRequiredService<IReservaStrategy>();
+
             if (_reservaAreaComumRepository.ObterQtdDeReservasProcessando().Result > 0)
             {
                 var reserva = _reservaAreaComumRepository.ObterPrimeiraNaFilaParaSerProcessada().Result;
@@ -121,5 +120,6 @@ namespace CondominioApp.ReservaAreaComum.Aplication.FilaDeReservas
         {
             return Task.CompletedTask;
         }
+
     }
 }
