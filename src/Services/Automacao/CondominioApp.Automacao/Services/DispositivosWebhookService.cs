@@ -58,11 +58,11 @@ namespace CondominioApp.Automacao.Services
             string retorno;
             if (dispositivo.Ligado)
             {
-                retorno = RestWebhook.Acao(dispositivo.UrlDesligar.Endereco).Result;                
+                retorno = RestWebhook.Acao(dispositivo.UrlDesligar.Endereco).Result;
+                return ValidationResult;
             }
 
-            retorno = RestWebhook.Acao(dispositivo.UrlLigar.Endereco).Result;            
-
+            retorno = RestWebhook.Acao(dispositivo.UrlLigar.Endereco).Result;
             return ValidationResult;
         }
 
