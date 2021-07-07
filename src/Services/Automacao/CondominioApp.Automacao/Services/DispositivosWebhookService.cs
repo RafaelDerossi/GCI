@@ -37,8 +37,12 @@ namespace CondominioApp.Automacao.Services
                     {
                         DispositivoId = dispositivo.Id.ToString(),
                         Nome = dispositivo.Nome,
-                        TipoAutomacao = TipoApiAutomacao.WEBHOOK
+                        TipoAutomacao = TipoApiAutomacao.WEBHOOK                        
                     };
+
+                    dispositivoViewModel.State = "off";
+                    if (dispositivo.Ligado)
+                        dispositivoViewModel.State = "on";
 
                     dispositivosViewModel.Add(dispositivoViewModel);
                 }             
