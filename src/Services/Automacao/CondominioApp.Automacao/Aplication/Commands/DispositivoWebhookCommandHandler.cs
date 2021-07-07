@@ -67,7 +67,7 @@ namespace CondominioApp.Automacao.App.Aplication.Commands
 
             dispositivo.SetNome(request.Nome);
             dispositivo.SetUrlLigar(request.UrlLigar);
-            dispositivo.SetUrlLigar(request.UrlDesligar);
+            dispositivo.SetUrlDesligar(request.UrlDesligar);
 
             _condominioCredencialRepository.AtualizarDispositivoWebhook(dispositivo);
 
