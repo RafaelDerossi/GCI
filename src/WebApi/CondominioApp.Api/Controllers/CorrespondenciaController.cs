@@ -123,7 +123,11 @@ namespace CondominioApp.Api.Controllers
         }
 
 
-
+        /// <summary>
+        /// Cadastra uma nova correspondência e alerta o morador
+        /// </summary>
+        /// <param name="correspondenciaVM"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<ActionResult> Post([FromForm]AdicionaCorrespondenciaViewModel correspondenciaVM)
         {
@@ -164,7 +168,11 @@ namespace CondominioApp.Api.Controllers
 
         }
 
-
+        /// <summary>
+        /// Marcar uma correspondência como vista
+        /// </summary>
+        /// <param name="correspondenciaId">Id(Guid) da correspondência</param>
+        /// <returns></returns>
         [HttpPut("marcar-correspondencia-vista/{correspondenciaId:Guid}")]
         public async Task<ActionResult> PutVista(Guid correspondenciaId)
         {           
@@ -175,6 +183,11 @@ namespace CondominioApp.Api.Controllers
             return CustomResponse(Resultado);
         }
 
+        /// <summary>
+        /// Marcar uma correspondência como retirada
+        /// </summary>
+        /// <param name="viewModel"></param>
+        /// <returns></returns>
         [HttpPut("marcar-correspondencia-retirada")]
         public async Task<ActionResult> PutRetirada([FromForm]MarcaCorrespondenciaRetiradaViewModel viewModel)
         {
@@ -209,6 +222,11 @@ namespace CondominioApp.Api.Controllers
             return CustomResponse(Resultado);
         }
 
+        /// <summary>
+        /// Marcar correspondência como devolvida
+        /// </summary>
+        /// <param name="viewModel"></param>
+        /// <returns></returns>
         [HttpPut("marcar-correspondencia-devolvida")]
         public async Task<ActionResult> PutDevolvida(MarcaCorrespondenciaDevolvidaViewModel viewModel)
         {
@@ -228,6 +246,11 @@ namespace CondominioApp.Api.Controllers
             return CustomResponse(Resultado);
         }
 
+        /// <summary>
+        /// Disparar alerta para avisar sobre uma correspondência que não foi retirada.
+        /// </summary>
+        /// <param name="correspondenciaId">Id(Guid) da correspondência</param>
+        /// <returns></returns>
         [HttpPut("disparar-alerta/{correspondenciaId:Guid}")]
         public async Task<ActionResult> PutDispararAlerta(Guid correspondenciaId)
         {
@@ -238,6 +261,11 @@ namespace CondominioApp.Api.Controllers
             return CustomResponse(Resultado);
         }
 
+        /// <summary>
+        /// Enviar uma correspondência para a lixeira
+        /// </summary>
+        /// <param name="id">Id(Guid) da correspondência</param>
+        /// <returns></returns>
         [HttpDelete("{id:Guid}")]
         public async Task<ActionResult> Delete(Guid id)
         {
@@ -248,7 +276,11 @@ namespace CondominioApp.Api.Controllers
             return CustomResponse(Resultado);
         }
 
-
+        /// <summary>
+        /// Gerar um arquivo excel de uma lista de correspondências
+        /// </summary>
+        /// <param name="lstCorrespondencias">Lista de ids(Guid) das correspondências para o arquivo excel</param>
+        /// <returns></returns>
         [HttpPost("gerar-excel")]
         public async Task<ActionResult> GerarExcel(List<Guid> lstCorrespondencias)
         {
