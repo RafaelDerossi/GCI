@@ -8,7 +8,7 @@ namespace CondominioApp.NotificacaoEmail.App.DTO
 
         public string Extensao { get; set; }
 
-        public string Url { get; set; }
+        public string Url { get; set; }        
 
         public ArquivoDTO(string nome, string extensao, string url)
         {

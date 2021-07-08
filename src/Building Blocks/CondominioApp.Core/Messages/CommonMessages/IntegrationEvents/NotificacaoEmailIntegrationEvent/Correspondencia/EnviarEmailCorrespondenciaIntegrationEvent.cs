@@ -14,13 +14,17 @@ namespace CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.Notificac
         
         public Guid UnidadeId { get; private set; }
 
+        public string NomeArquivoFoto { get; private set; }
+
         public EnviarEmailCorrespondenciaIntegrationEvent
-            (string assunto, string titulo, string descricao, Guid unidadeId)
+            (string assunto, string titulo, string descricao, Guid unidadeId,
+             string nomeArquivoFoto)
         {
             Assunto = assunto;
             Titulo = titulo;
             Descricao = descricao;
             UnidadeId = unidadeId;
+            NomeArquivoFoto = nomeArquivoFoto;
         }
     }
 }

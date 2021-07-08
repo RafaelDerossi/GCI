@@ -169,7 +169,9 @@ namespace CondominioApp.NotificacaoEmail.Aplication.Events
             var unidade = _principalQuery.ObterUnidadePorId(notification.UnidadeId).Result;
 
             return new CorrespondenciaDTO
-                (notification.Assunto, notification.Titulo, notification.Descricao, unidade.CondominioLogoMarca, listaDeEmails);
+                (notification.Assunto, notification.Titulo, notification.Descricao,
+                 unidade.CondominioLogoMarca, listaDeEmails, unidade.CondominioId,
+                 notification.NomeArquivoFoto);
         }
 
         #endregion

@@ -249,9 +249,11 @@ namespace CondominioApp.Correspondencias.App.Models
             if (TipoDeCorrespondencia != null && TipoDeCorrespondencia != "")
                 descricao = $"{descricao}   Tipo: {TipoDeCorrespondencia}.";
 
-            if (Observacao != null && Observacao != "")
-                descricao = $"{descricao}   {Observacao}.";
+            if (Localizacao != null && Localizacao != "")
+                descricao = $"{descricao}   Localização:{Localizacao}.";
 
+            if (Observacao != null && Observacao != "")
+                descricao = $"{descricao}   {Observacao}.";            
 
             return descricao;
         }
@@ -314,13 +316,16 @@ namespace CondominioApp.Correspondencias.App.Models
         }
         private string ObterDescricaoDoPushDeAlerta()
         {
-            var descricao = $"Existe uma correspondência para você esperando ser retira.";
+            var descricao = $"Existe uma correspondência para você esperando ser retirada.";
 
             if (TipoDeCorrespondencia != null && TipoDeCorrespondencia != "")
                 descricao = $"{descricao}   Tipo: {TipoDeCorrespondencia}.";
 
+            if (Localizacao != null && Localizacao != "")
+                descricao = $"{descricao}   Localização:{Localizacao}.";
+
             if (Observacao != null && Observacao != "")
-                descricao = $"{descricao}   {Observacao}.";
+                descricao = $"{descricao}   {Observacao}.";            
 
             return descricao;
         }
@@ -354,7 +359,8 @@ namespace CondominioApp.Correspondencias.App.Models
             var descricao = ObterDescricaoDoPushEdoEmailParaNovaCorrespondencia();
 
             AdicionarEvento
-                (new EnviarEmailCorrespondenciaIntegrationEvent(assunto, titulo, descricao, UnidadeId));
+                (new EnviarEmailCorrespondenciaIntegrationEvent
+                 (assunto, titulo, descricao, UnidadeId, FotoCorrespondencia.NomeDoArquivo));
             return;
         }
 
@@ -365,7 +371,9 @@ namespace CondominioApp.Correspondencias.App.Models
             var descricao = ObterDescricaoDoPushParaCorrespondenciaRetirada();
 
             AdicionarEvento
-                (new EnviarEmailCorrespondenciaIntegrationEvent(assunto, titulo, descricao, UnidadeId));
+                (new EnviarEmailCorrespondenciaIntegrationEvent
+                 (assunto, titulo, descricao, UnidadeId, FotoCorrespondencia.NomeDoArquivo));
+
             return;
         }
 
@@ -376,7 +384,8 @@ namespace CondominioApp.Correspondencias.App.Models
             var descricao = ObterDescricaoDoPushParaCorrespondenciaDevolvida();
 
             AdicionarEvento
-                (new EnviarEmailCorrespondenciaIntegrationEvent(assunto, titulo, descricao, UnidadeId));
+                (new EnviarEmailCorrespondenciaIntegrationEvent
+                 (assunto, titulo, descricao, UnidadeId, FotoCorrespondencia.NomeDoArquivo));
             return;
         }
 

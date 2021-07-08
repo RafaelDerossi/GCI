@@ -33,11 +33,36 @@ namespace CondominioApp.NotificacaoEmail.Api.Email
             conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_titulo_", _correspondencia.Titulo);
             conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_mensagem_", _correspondencia.Descricao);
             conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_logoCondominio_", _correspondencia.LogoDoCondominio);
-            conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_logoCondominioApp_", _logoCondominioApp);            
+            conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_logoCondominioApp_", _logoCondominioApp);
+            conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_fotoCorrespondencia_", RetornaFotoHtml());
 
             return conteudoDoHtmlDoEmail;
         }
-    
+
+        private string RetornaFotoHtml()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            if (string.IsNullOrEmpty(_correspondencia.NomeArquivoFotoCorrespondencia))
+                return sb.ToString();
+
+            var caminho = $"{_correspondencia.UrlFoto}";
+
+            var html = $@"<br /><br /><table cellpadding = ""0"" cellspacing = ""0"" width = ""100%"" role = ""presentation"" style = ""mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"">
+                            <tr style = ""border-collapse:collapse"">
+                                <td align=""center"" style=""padding: 0; Margin: 0; font - size:0px"">
+                                    <img class=""adapt - img"" src = ""{caminho}"" alt style = ""display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic"" width = ""100%"">
+                                </td>
+                            </tr>
+                          </table>";
+
+            sb.Append(html);
+
+            sb.Append("<br />");
+
+            return sb.ToString();
+        }
+
         public override async Task EnviarEmail()
         {
             if (_correspondencia.ListaDeEmails.Count() == 0)
