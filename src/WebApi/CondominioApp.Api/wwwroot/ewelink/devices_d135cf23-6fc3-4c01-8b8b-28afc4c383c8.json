@@ -1,0 +1,592 @@
+[
+  {
+    "deviceid": "1000691f42",
+    "uiid": 1,
+    "name": "Sonoff 03",
+    "type": "10",
+    "devicekey": "b79e58a9-1550-4a5e-aa1d-0805a144c5e6",
+    "apikey": "0230aee2-1b8a-47ac-85b3-cf9e0f7a9da3",
+    "_id": "5cad102bca35fe4bb6c68635",
+    "group": "",
+    "online": false,
+    "location": "",
+    "onlineTime": "2019-12-19T01:26:33.097Z",
+    "createdAt": "2019-04-09T21:35:39.617Z",
+    "ip": "200.95.174.6",
+    "offlineTime": "2021-06-30T20:27:13.815Z",
+    "deviceStatus": "",
+    "deviceUrl": "https://us-api.coolkit.cc/api/detail/5bc48517894050613823fb90_en.html",
+    "brandName": "Sonoff",
+    "showBrand": true,
+    "brandLogoUrl": "https://us-ota.coolkit.cc/logo/m6N8zJB0O3EVvhCei6zCPStFeKYKAzSa.png",
+    "productModel": "Basic2",
+    "__v": 0,
+    "extra": {
+      "extra": {
+        "description": "WO1881977",
+        "brandId": "58e5f344baeb368720e25469",
+        "apmac": "d0:27:00:d2:3b:d5",
+        "mac": "d0:27:00:d2:3b:d4",
+        "ui": "单通道插座",
+        "modelInfo": "5bc48517894050613823fb90",
+        "model": "PSF-B01-GL",
+        "manufacturer": "深圳松诺技术有限公司",
+        "uiid": 1,
+        "staMac": "DC:4F:22:F6:6C:99",
+        "chipid": "00F66C99"
+      },
+      "_id": "5c0095053e85d75c12305409"
+    },
+    "groups": [],
+    "devConfig": {},
+    "devGroups": [],
+    "params": {
+      "rssi": -59,
+      "staMac": "DC:4F:22:F6:6C:99",
+      "startup": "on",
+      "fwVersion": "3.3.0",
+      "switch": "on",
+      "version": 8,
+      "sledOnline": "on",
+      "init": 1,
+      "pulse": "off",
+      "pulseWidth": 500,
+      "controlType": "7",
+      "bindInfos": {
+        "gaction": [
+          "0230aee2-1b8a-47ac-85b3-cf9e0f7a9da3_ewelinkGoogleHome"
+        ],
+        "alexa": []
+      },
+      "partnerApikey": "27958a72-f7f0-4c54-ad1f-f572445d97aa"
+    },
+    "tags": {
+      "m_9da3_lanc": "on"
+    },
+    "sharedTo": [],
+    "settings": {
+      "opsNotify": 0,
+      "opsHistory": 1,
+      "alarmNotify": 1
+    }
+  },
+  {
+    "deviceid": "1000682b3a",
+    "uiid": 1,
+    "name": "Sonoff 02",
+    "type": "10",
+    "devicekey": "e14e6e27-6bef-428f-bf81-7378071f63fa",
+    "apikey": "0230aee2-1b8a-47ac-85b3-cf9e0f7a9da3",
+    "_id": "5cadfffe9b98ee46b618f2a1",
+    "group": "",
+    "online": false,
+    "location": "",
+    "onlineTime": "2019-11-30T00:40:06.282Z",
+    "createdAt": "2019-04-10T14:38:54.921Z",
+    "ip": "200.95.174.7",
+    "offlineTime": "2021-06-30T20:27:27.629Z",
+    "deviceStatus": "",
+    "deviceUrl": "https://us-api.coolkit.cc/api/detail/5bc48517894050613823fb90_en.html",
+    "brandName": "Sonoff",
+    "showBrand": true,
+    "brandLogoUrl": "https://us-ota.coolkit.cc/logo/m6N8zJB0O3EVvhCei6zCPStFeKYKAzSa.png",
+    "productModel": "Basic2",
+    "__v": 0,
+    "extra": {
+      "extra": {
+        "description": "WO1881977",
+        "brandId": "58e5f344baeb368720e25469",
+        "apmac": "d0:27:00:d0:53:c5",
+        "mac": "d0:27:00:d0:53:c4",
+        "ui": "单通道插座",
+        "modelInfo": "5bc48517894050613823fb90",
+        "model": "PSF-B01-GL",
+        "manufacturer": "深圳松诺技术有限公司",
+        "uiid": 1,
+        "staMac": "84:0D:8E:56:5D:62",
+        "chipid": "00565D62"
+      },
+      "_id": "5c0094c73e85d75c122f6001"
+    },
+    "groups": [],
+    "devConfig": {},
+    "devGroups": [],
+    "params": {
+      "switch": "off",
+      "fwVersion": "3.3.0",
+      "startup": "on",
+      "staMac": "84:0D:8E:56:5D:62",
+      "rssi": -41,
+      "version": 8,
+      "sledOnline": "on",
+      "init": 1,
+      "pulse": "off",
+      "pulseWidth": 5000,
+      "controlType": "7",
+      "bindInfos": {
+        "gaction": [
+          "0230aee2-1b8a-47ac-85b3-cf9e0f7a9da3_ewelinkGoogleHome"
+        ],
+        "alexa": []
+      }
+    },
+    "tags": {
+      "m_9da3_lanc": "on"
+    },
+    "sharedTo": [],
+    "settings": {
+      "opsNotify": 0,
+      "opsHistory": 1,
+      "alarmNotify": 1
+    }
+  },
+  {
+    "deviceid": "10007d2d50",
+    "uiid": 6,
+    "name": "Fechadura_12v",
+    "type": "10",
+    "devicekey": "25c3bbe4-dcd1-40d3-9744-5a1419916e9b",
+    "apikey": "0230aee2-1b8a-47ac-85b3-cf9e0f7a9da3",
+    "_id": "5e29b6223c77c0000861096c",
+    "group": "",
+    "online": false,
+    "location": "",
+    "onlineTime": "2020-01-23T15:46:54.378Z",
+    "createdAt": "2020-01-23T15:05:06.648Z",
+    "ip": "186.227.59.22",
+    "offlineTime": "2020-01-23T15:49:53.620Z",
+    "deviceStatus": "",
+    "deviceUrl": "",
+    "brandName": "New Smart ",
+    "showBrand": true,
+    "brandLogoUrl": "",
+    "productModel": "G1",
+    "__v": 0,
+    "extra": {
+      "extra": {
+        "description": "20190115004",
+        "brandId": "5735f5f906d9751d4f109629",
+        "apmac": "d0:27:00:fa:57:f1",
+        "mac": "d0:27:00:fa:57:f0",
+        "ui": "单通道开关",
+        "modelInfo": "589833ac2f979b623e2f503f",
+        "model": "PSF-B01-GL",
+        "manufacturer": "郑州市中原区汇诚电子材料经营部",
+        "uiid": 6,
+        "staMac": "DC:4F:22:94:0E:B3",
+        "chipid": "00940EB3"
+      },
+      "_id": "5c3e9a2217bc272456af557f"
+    },
+    "groups": [],
+    "devConfig": {},
+    "devGroups": [],
+    "params": {
+      "bindInfos": {
+        "gaction": [
+          "0230aee2-1b8a-47ac-85b3-cf9e0f7a9da3_ewelinkGoogleHome"
+        ],
+        "alexa": []
+      },
+      "switch": "off",
+      "fwVersion": "3.3.0",
+      "rssi": -43,
+      "staMac": "DC:4F:22:94:0E:B3",
+      "startup": "off",
+      "version": 8,
+      "sledOnline": "on",
+      "init": 1,
+      "pulse": "off",
+      "pulseWidth": 500
+    },
+    "tags": {
+      "m_9da3_lanc": "on"
+    },
+    "sharedTo": [],
+    "settings": {
+      "opsNotify": 0,
+      "opsHistory": 1,
+      "alarmNotify": 1,
+      "wxAlarmNotify": 0,
+      "wxOpsNotify": 0,
+      "wxDoorbellNotify": 0,
+      "appDoorbellNotify": 1
+    }
+  },
+  {
+    "deviceid": "10007fdbe2",
+    "uiid": 6,
+    "name": "Sonoff_12v",
+    "type": "10",
+    "devicekey": "2bb2aa98-49fe-40bc-9774-1ef295713926",
+    "apikey": "0230aee2-1b8a-47ac-85b3-cf9e0f7a9da3",
+    "_id": "5e29bbfa3c77c00008610996",
+    "group": "",
+    "online": false,
+    "location": "",
+    "onlineTime": "2020-01-23T15:30:06.679Z",
+    "createdAt": "2020-01-23T15:30:02.868Z",
+    "ip": "186.227.59.22",
+    "offlineTime": "2020-01-23T15:52:03.493Z",
+    "deviceStatus": "",
+    "deviceUrl": "",
+    "brandName": "New Smart ",
+    "showBrand": true,
+    "brandLogoUrl": "",
+    "productModel": "G1",
+    "__v": 0,
+    "extra": {
+      "extra": {
+        "description": "20190213001",
+        "brandId": "5735f5f906d9751d4f109629",
+        "apmac": "d0:27:00:ff:b5:15",
+        "mac": "d0:27:00:ff:b5:14",
+        "ui": "单通道开关",
+        "modelInfo": "589833ac2f979b623e2f503f",
+        "model": "PSF-B01-GL",
+        "manufacturer": "郑州市中原区汇诚电子材料经营部",
+        "uiid": 6,
+        "staMac": "DC:4F:22:94:BE:36",
+        "chipid": null
+      },
+      "_id": "5c654bfd12131cf3514fd84e"
+    },
+    "groups": [],
+    "devConfig": {},
+    "devGroups": [],
+    "params": {
+      "bindInfos": {
+        "gaction": [
+          "0230aee2-1b8a-47ac-85b3-cf9e0f7a9da3_ewelinkGoogleHome"
+        ],
+        "alexa": []
+      },
+      "switch": "off",
+      "fwVersion": "2.6.0",
+      "rssi": -64,
+      "staMac": "DC:4F:22:94:BE:36",
+      "startup": "off"
+    },
+    "tags": {},
+    "sharedTo": [],
+    "settings": {
+      "opsNotify": 0,
+      "opsHistory": 1,
+      "alarmNotify": 1,
+      "wxAlarmNotify": 0,
+      "wxOpsNotify": 0,
+      "wxDoorbellNotify": 0,
+      "appDoorbellNotify": 1
+    }
+  },
+  {
+    "deviceid": "1000145e50",
+    "uiid": 14,
+    "name": "Ventilador",
+    "type": "10",
+    "devicekey": "598bd673-72b6-4d25-9fcd-997b43d1ff87",
+    "apikey": "0230aee2-1b8a-47ac-85b3-cf9e0f7a9da3",
+    "_id": "5e9897eb4cd98a000804989b",
+    "group": "",
+    "online": false,
+    "location": "",
+    "onlineTime": "2021-06-03T18:29:21.676Z",
+    "createdAt": "2020-05-10T21:41:49.306Z",
+    "ip": "179.218.105.75",
+    "offlineTime": "2021-06-10T16:19:40.315Z",
+    "deviceStatus": "",
+    "deviceUrl": "",
+    "brandName": "Maker",
+    "showBrand": true,
+    "brandLogoUrl": "",
+    "productModel": "Sonoff",
+    "__v": 0,
+    "extra": {
+      "extra": {
+        "description": "WWJG000997",
+        "brandId": "5611402280a0e2630f7b102d",
+        "apmac": "d0:27:00:28:b9:f1",
+        "mac": "d0:27:00:28:b9:f0",
+        "ui": "开关改装模块",
+        "modelInfo": "5655cb0c93991b740423d1ba",
+        "model": "ITA-GZ1-GL",
+        "manufacturer": "深圳创易智能系统有限公司",
+        "uiid": 14,
+        "staMac": "2C:3A:E8:07:B1:F1",
+        "chipid": "0007B1F1"
+      },
+      "_id": "599e289748b2ec2c22a2c7b5"
+    },
+    "groups": [],
+    "devConfig": {},
+    "devGroups": [],
+    "params": {
+      "bindInfos": {
+        "gaction": [
+          "0230aee2-1b8a-47ac-85b3-cf9e0f7a9da3_ewelinkGoogleHome"
+        ],
+        "alexa": []
+      },
+      "version": 8,
+      "sledOnline": "on",
+      "switch": "off",
+      "fwVersion": "3.5.0",
+      "rssi": -56,
+      "staMac": "2C:3A:E8:07:B1:F1",
+      "startup": "on",
+      "init": 1,
+      "pulse": "off",
+      "pulseWidth": 5000,
+      "timers": [],
+      "only_device": {
+        "ota": "success"
+      },
+      "ssid": "Apple Network Rodrigo",
+      "bssid": "70:56:81:ce:66:43"
+    },
+    "tags": {
+      "m_9da3_lanc": "on"
+    },
+    "sharedTo": [],
+    "settings": {
+      "opsNotify": 0,
+      "opsHistory": 1,
+      "alarmNotify": 1,
+      "wxAlarmNotify": 0,
+      "wxOpsNotify": 0,
+      "wxDoorbellNotify": 0,
+      "appDoorbellNotify": 1
+    }
+  },
+  {
+    "deviceid": "1000a06e22",
+    "uiid": 1,
+    "name": "Árvore do Papai Noel",
+    "type": "10",
+    "devicekey": "d45f49ec-439d-42d6-916b-a937300270ba",
+    "apikey": "0230aee2-1b8a-47ac-85b3-cf9e0f7a9da3",
+    "_id": "5f5571b36073de0007593536",
+    "group": "",
+    "online": false,
+    "location": "",
+    "onlineTime": "2021-01-04T21:33:11.840Z",
+    "createdAt": "2020-09-06T23:33:07.895Z",
+    "ip": "186.205.205.6",
+    "offlineTime": "2021-01-04T22:00:39.075Z",
+    "deviceStatus": null,
+    "deviceUrl": "https://us-api.coolkit.cc/api/detail/5c700fdfcc248c47441fd24d_en.html",
+    "brandName": "SONOFF",
+    "showBrand": true,
+    "brandLogoUrl": "https://us-ota.coolkit.cc/logo/q62PevoglDNmwUJ9oPE7kRrpt1nL1CoA.png",
+    "productModel": "MINI",
+    "__v": 0,
+    "extra": {
+      "extra": {
+        "description": "20190807012",
+        "brandId": "5c4c1aee3a7d24c7100be054",
+        "apmac": "d0:27:01:40:d9:95",
+        "mac": "d0:27:01:40:d9:94",
+        "ui": "单通道插座",
+        "modelInfo": "5c700fdfcc248c47441fd24d",
+        "model": "PSF-BD1-GL",
+        "manufacturer": "深圳松诺技术有限公司",
+        "uiid": 1,
+        "staMac": "D8:F1:5B:8B:F6:5F",
+        "chipid": "008BF65F"
+      },
+      "_id": "5d4b8a119c0bdd9d9ba0a1ba"
+    },
+    "groups": [],
+    "devConfig": {},
+    "devGroups": [],
+    "params": {
+      "bindInfos": {
+        "gaction": [
+          "0230aee2-1b8a-47ac-85b3-cf9e0f7a9da3_ewelinkGoogleHome"
+        ],
+        "alexa": []
+      },
+      "version": 8,
+      "sledOnline": "on",
+      "switch": "off",
+      "fwVersion": "3.6.0",
+      "rssi": -54,
+      "staMac": "D8:F1:5B:8B:F6:5F",
+      "startup": "off",
+      "init": 1,
+      "pulse": "off",
+      "pulseWidth": 500,
+      "swMode": 2,
+      "swCtrlReverse": "off"
+    },
+    "tags": {
+      "m_9da3_lanc": "on"
+    },
+    "sharedTo": [],
+    "settings": {
+      "opsNotify": 0,
+      "opsHistory": 1,
+      "alarmNotify": 1,
+      "wxAlarmNotify": 0,
+      "wxOpsNotify": 0,
+      "wxDoorbellNotify": 0,
+      "appDoorbellNotify": 1
+    }
+  },
+  {
+    "deviceid": "1000d4ec9c",
+    "uiid": 1,
+    "name": "Ar Condicionado",
+    "type": "10",
+    "devicekey": "a08b6b81-1cb3-446b-8f9a-97a9c57ba29b",
+    "apikey": "0230aee2-1b8a-47ac-85b3-cf9e0f7a9da3",
+    "_id": "5f5a76cbfe269f0007c9316e",
+    "group": "",
+    "online": true,
+    "location": "",
+    "onlineTime": "2021-06-23T04:00:22.258Z",
+    "createdAt": "2020-09-10T18:56:11.344Z",
+    "ip": "179.218.105.75",
+    "offlineTime": "2021-06-23T04:00:12.391Z",
+    "deviceStatus": null,
+    "deviceUrl": "https://us-api.coolkit.cc/api/detail/5c700ffdcc248c47441fd252_en.html",
+    "brandName": "SONOFF",
+    "showBrand": true,
+    "brandLogoUrl": "https://us-ota.coolkit.cc/logo/q62PevoglDNmwUJ9oPE7kRrpt1nL1CoA.png",
+    "productModel": "S26",
+    "__v": 0,
+    "extra": {
+      "extra": {
+        "description": "20191217010",
+        "brandId": "5c4c1aee3a7d24c7100be054",
+        "apmac": "d0:27:01:a9:d6:89",
+        "mac": "d0:27:01:a9:d6:88",
+        "ui": "单通道插座",
+        "modelInfo": "5c700ffdcc248c47441fd252",
+        "model": "PSA-B01-GL",
+        "manufacturer": "深圳松诺技术有限公司",
+        "uiid": 1,
+        "staMac": "C8:2B:96:06:D2:09",
+        "chipid": "0006D209"
+      },
+      "_id": "5df886b40eeeb70314424b9a"
+    },
+    "groups": [],
+    "devConfig": {},
+    "devGroups": [],
+    "params": {
+      "bindInfos": {
+        "gaction": [
+          "0230aee2-1b8a-47ac-85b3-cf9e0f7a9da3_ewelinkGoogleHome"
+        ],
+        "alexa": []
+      },
+      "version": 8,
+      "sledOnline": "on",
+      "switch": "off",
+      "fwVersion": "3.5.1",
+      "rssi": -69,
+      "staMac": "C8:2B:96:06:D2:09",
+      "startup": "off",
+      "init": 1,
+      "pulse": "off",
+      "pulseWidth": 500,
+      "only_device": {
+        "ota": "success"
+      },
+      "ssid": "Apple Network Rodrigo",
+      "bssid": "70:56:81:ce:66:43"
+    },
+    "tags": {
+      "m_9da3_lanc": "on"
+    },
+    "sharedTo": [],
+    "settings": {
+      "opsNotify": 0,
+      "opsHistory": 1,
+      "alarmNotify": 1,
+      "wxAlarmNotify": 0,
+      "wxOpsNotify": 0,
+      "wxDoorbellNotify": 0,
+      "appDoorbellNotify": 1
+    }
+  },
+  {
+    "deviceid": "100067ddf4",
+    "uiid": 1,
+    "name": "Sonoff Api",
+    "type": "10",
+    "devicekey": "4fedba29-93dc-4634-af68-993d71b629e3",
+    "apikey": "0230aee2-1b8a-47ac-85b3-cf9e0f7a9da3",
+    "_id": "5f97142c1d8e890008048be5",
+    "group": "",
+    "online": true,
+    "location": "",
+    "onlineTime": "2021-07-01T17:26:35.044Z",
+    "createdAt": "2020-10-26T18:23:40.663Z",
+    "ip": "186.227.59.24",
+    "offlineTime": "2021-07-01T17:26:34.309Z",
+    "deviceStatus": "off",
+    "deviceUrl": "https://us-api.coolkit.cc/api/detail/5bc48517894050613823fb90_en.html",
+    "brandName": "Sonoff",
+    "showBrand": true,
+    "brandLogoUrl": "https://us-ota.coolkit.cc/logo/m6N8zJB0O3EVvhCei6zCPStFeKYKAzSa.png",
+    "productModel": "Basic2",
+    "__v": 0,
+    "extra": {
+      "extra": {
+        "description": "WO1881977",
+        "brandId": "58e5f344baeb368720e25469",
+        "apmac": "d0:27:00:cf:b9:39",
+        "mac": "d0:27:00:cf:b9:38",
+        "ui": "单通道插座",
+        "modelInfo": "5bc48517894050613823fb90",
+        "model": "PSF-B01-GL",
+        "manufacturer": "深圳松诺技术有限公司",
+        "uiid": 1,
+        "staMac": "84:0D:8E:57:49:AE",
+        "chipid": "005749AE"
+      },
+      "_id": "5c0094c73e85d75c122f12bb"
+    },
+    "groups": [],
+    "devConfig": {},
+    "devGroups": [],
+    "params": {
+      "bindInfos": {
+        "gaction": [
+          "0230aee2-1b8a-47ac-85b3-cf9e0f7a9da3_ewelinkGoogleHome"
+        ],
+        "alexa": []
+      },
+      "switch": "off",
+      "fwVersion": "3.5.1",
+      "rssi": -48,
+      "staMac": "84:0D:8E:57:49:AE",
+      "startup": "off",
+      "version": 8,
+      "sledOnline": "on",
+      "ssid": "Techdog",
+      "bssid": "d8:77:8b:05:a7:f1",
+      "init": 1,
+      "pulse": "off",
+      "pulseWidth": 3500,
+      "only_device": {
+        "ota": "success"
+      }
+    },
+    "tags": {
+      "m_9da3_lanc": "on"
+    },
+    "sharedTo": [],
+    "settings": {
+      "opsNotify": 0,
+      "opsHistory": 1,
+      "alarmNotify": 1,
+      "wxAlarmNotify": 0,
+      "wxOpsNotify": 0,
+      "wxDoorbellNotify": 0,
+      "appDoorbellNotify": 1
+    }
+  }
+]

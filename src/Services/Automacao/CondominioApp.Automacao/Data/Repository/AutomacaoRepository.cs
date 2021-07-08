@@ -81,6 +81,7 @@ namespace CondominioApp.Automacao.App.Data.Repository
         }
 
 
+       
 
         public void Adicionar(CondominioCredencial entity)
         {
@@ -98,7 +99,50 @@ namespace CondominioApp.Automacao.App.Data.Repository
         }
 
 
-       
+
+        #region DispositivoWebhook
+        public async Task<DispositivoWebhook> ObterDispositivoWebhookPorId(Guid Id)
+        {
+            return await _context.DispositivosWebhooks
+                .FirstOrDefaultAsync(u => u.Id == Id && !u.Lixeira);
+        }
+
+        public async Task<IEnumerable<DispositivoWebhook>> ObterDispositivoWebhookPorCondominioId(Guid condominioId)
+        {
+            return await _context.DispositivosWebhooks
+                .Where(u => u.CondominioId == condominioId && !u.Lixeira).ToListAsync();
+        }
+
+        public async Task<bool> VerificaDispositivoWebhookJaEstaCadastrado(Guid condominioId, string nome)
+        {
+            var retorno = await _context.DispositivosWebhooks.Where
+                (c => c.CondominioId == condominioId && c.Nome == nome && !c.Lixeira)
+                .FirstOrDefaultAsync();
+
+            if (retorno == null)
+                return false;
+
+            return true;
+        }
+
+        public void AdicionarDispositivoWebhook(DispositivoWebhook entity)
+        {
+            _context.DispositivosWebhooks.Add(entity);
+        }
+
+        public void AtualizarDispositivoWebhook(DispositivoWebhook entity)
+        {
+            _context.DispositivosWebhooks.Update(entity);
+        }
+
+        public void ApagarDispositivoWebhook(Func<DispositivoWebhook, bool> predicate)
+        {
+            _context.DispositivosWebhooks.Where(predicate).ToList().ForEach(del => del.EnviarParaLixeira());
+        }
+        #endregion
+
+
+
         public void Dispose()
         {
             _context?.Dispose();

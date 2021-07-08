@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CondominioApp.Core.Enumeradores;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -24,6 +25,6 @@ namespace CondominioApp.Automacao.ViewModel
         public bool MostraMarca { get; set; }
         public string UrlDaLogoDaMarca { get; set; }
         public string ModeloDoProduto { get; set; }
-
+        public TipoApiAutomacao TipoAutomacao { get; set; }
     }
 }

@@ -50,42 +50,44 @@ namespace CondominioApp.Api.Controllers
         [HttpGet("obter-dispositivos")]
         public async Task<ActionResult<IEnumerable<DispositivoViewModel>>> ObterDispositivos(Guid condominioId)
         {
-            IDispositivosService dispositivoService;
-            try
+            var lista = new List<DispositivoViewModel>();
+
+            
+            var dispositivoServiceEwelink = await _dispositivosServiceFactory.Fabricar(TipoApiAutomacao.EWELINK, condominioId);
+
+            var dispositivosEwelink = await dispositivoServiceEwelink.ObterDispositivos();
+
+            foreach (var item in dispositivosEwelink)
             {
-                dispositivoService = await _dispositivosServiceFactory.Fabricar(TipoApiAutomacao.EWELINK, condominioId);
-            }
-            catch (Exception e)
-            {
-                AdicionarErroProcessamento(e.Message);
-                return CustomResponse();
+                lista.Add(item);
             }
 
-            try
-            {
-                var dispositivos = await dispositivoService.ObterDispositivos();
-                if (dispositivos == null)
-                {
-                    AdicionarErroProcessamento("Nenhum registro encontrado.");
-                    return CustomResponse();
-                }
+            var dispositivoServiceWebhook = await _dispositivosServiceFactory.Fabricar(TipoApiAutomacao.WEBHOOK, condominioId);
 
-                return dispositivos.ToList();
-            }
-            catch (Exception e)
+            var dispositivosWebhook = await dispositivoServiceWebhook.ObterDispositivos();
+            
+            foreach (var item in dispositivosWebhook)
             {
-                AdicionarErroProcessamento(e.Message);
-                return CustomResponse();
-            }                  
+                lista.Add(item);
+            }
+
+            return lista;
         }
 
 
         [HttpGet("ligar-desligar-dispositivo")]
-        public async Task<ActionResult> LigarDesligarDispositivo(Guid condominioId, string deviceId)
+        public async Task<ActionResult> LigarDesligarDispositivo(Guid condominioId, string deviceId, TipoApiAutomacao tipo)
         {
-            IDispositivosService dispositivoService = await _dispositivosServiceFactory.Fabricar(TipoApiAutomacao.EWELINK, condominioId);
+            IDispositivosService dispositivoService = await _dispositivosServiceFactory.Fabricar(tipo, condominioId);
 
-            var retorno = await dispositivoService.LigarDesligarDispositivo(deviceId);
+            var retorno = dispositivoService.LigarDesligarDispositivo(deviceId);
+
+            if (tipo == TipoApiAutomacao.WEBHOOK)
+            {
+                var comando = new LigarDesligarDispositivoWebhookCommand(Guid.Parse(deviceId));
+
+                var Resultado = await _mediatorHandler.EnviarComando(comando);                
+            }
 
             return CustomResponse(retorno);           
         }
@@ -129,5 +131,45 @@ namespace CondominioApp.Api.Controllers
 
             return CustomResponse(Resultado);
         }
+
+
+        [HttpPost("dispositivoWebhook")]
+        public async Task<ActionResult> PostDispositivoWenhook(AdicionaDispositivoWebhookViewModel viewModel)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            var comando = new AdicionarDispositivoWebhookCommand
+                (viewModel.Nome, viewModel.CondominioId, viewModel.UrlLigar, viewModel.UrlDesligar);
+
+            var Resultado = await _mediatorHandler.EnviarComando(comando);
+
+            return CustomResponse(Resultado);
+        }
+
+        [HttpPut("dispositivoWebhook")]
+        public async Task<ActionResult> PutDispositivoWenhook(AtualizaDispositivoWebhookViewModel viewModel)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            var comando = new AtualizarDispositivoWebhookCommand(
+                viewModel.Id, viewModel.Nome, viewModel.UrlLigar, viewModel.UrlDesligar);
+
+            var Resultado = await _mediatorHandler.EnviarComando(comando);
+
+            return CustomResponse(Resultado);
+        }
+
+        [HttpDelete("dispositivoWebhook/{id:Guid}")]
+        public async Task<ActionResult> DeleteDispositivoWebhook(Guid id)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            var comando = new ApagarDispositivoWebhookCommand(id);
+
+            var Resultado = await _mediatorHandler.EnviarComando(comando);
+
+            return CustomResponse(Resultado);
+        }
+
     }
 }

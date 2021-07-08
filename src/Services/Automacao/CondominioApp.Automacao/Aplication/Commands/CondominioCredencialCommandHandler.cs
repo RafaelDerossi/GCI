@@ -78,7 +78,7 @@ namespace CondominioApp.Automacao.App.Aplication.Commands
                 return ValidationResult;
             }            
 
-            _condominioCredencialRepository.Apagar(x => x.Id == credencial.Id);
+            _condominioCredencialRepository.ApagarDispositivoWebhook(x => x.Id == credencial.Id);
 
             return await PersistirDados(_condominioCredencialRepository.UnitOfWork);
         }

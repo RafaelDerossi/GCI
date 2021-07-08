@@ -1,10 +1,10 @@
 ﻿using CondominioApp.Core.Enumeradores;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
 using CondominioApp.Automacao.App.Models;
 using CondominioApp.Automacao.Models;
+using System.Collections.Generic;
 
 namespace CondominioApp.Automacao.App.Aplication.Query
 {
@@ -44,6 +44,19 @@ namespace CondominioApp.Automacao.App.Aplication.Query
             return await _condominioCredencialRepository.VerificaSeJaEstaCadastrado(condominioId, tipoApiAutomacao);
         }
 
+
+
+        #region DispositivoWebhook
+        public async Task<DispositivoWebhook> ObterDispositivoWebhookPorId(Guid id)
+        {
+            return await _condominioCredencialRepository.ObterDispositivoWebhookPorId(id);
+        }
+
+        public async Task<IEnumerable<DispositivoWebhook>> ObterDispositivoWebhookPorCondominioId(Guid condominioId)
+        {
+            return await _condominioCredencialRepository.ObterDispositivoWebhookPorCondominioId(condominioId);
+        }
+        #endregion
 
         public void Dispose()
         {
