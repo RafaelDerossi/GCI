@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
@@ -18,6 +20,10 @@ namespace CondominioApp.Api.Configuration
                     Contact = new OpenApiContact() { Name = "CondominioApp Developer", Email = "contato@condominioapp.com"},
                     License = new OpenApiLicense() { Name = "CondominioApp", Url = new Uri("https://www.condominioapp.com")}
                 });
+
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
 
             });
 

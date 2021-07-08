@@ -8,13 +8,13 @@ namespace CondominioApp.Correspondencias.App.Tests
     
     public class CorrespondenciaFactoryTests
     {        
-        public Correspondencia Criar_Correspondencia_Valida()
+        public static Correspondencia Criar_Correspondencia_Valida()
         {
             //Act
           return new Correspondencia(
-                Guid.NewGuid(),Guid.NewGuid(),"101","Bloco 1",false,null,null,
-                DataHoraDeBrasilia.Get(),Guid.NewGuid(),"Rafael",null,null, 
-                DataHoraDeBrasilia.Get(),1,null, StatusCorrespondencia.PENDENTE);
+                Guid.NewGuid(),Guid.NewGuid(),"101","Bloco 1",null,
+                Guid.NewGuid(),"Rafael",null,null,DataHoraDeBrasilia.Get(),
+                null, null, true);
         }
     }
 }

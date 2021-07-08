@@ -48,7 +48,9 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
 
         public Foto FotoRetirante { get; protected set; }
 
-        public Foto AssinaturaDigital { get; protected set; }
+        public string Localizacao { get; protected set; }
+
+        public bool EnviarNotificacao { get; protected set; }
 
 
 
@@ -129,5 +131,18 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
 
             DataDaRetirada = data;
         }
+
+        public void SetFotoRetirante(string nomeOriginal)
+        {
+            try
+            {
+                FotoRetirante = new Foto(nomeOriginal);
+            }
+            catch (Exception e)
+            {
+                AdicionarErrosDeProcessamentoDoComando(e.Message);
+            }
+        }
+
     }
 }

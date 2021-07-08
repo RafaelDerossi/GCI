@@ -1,6 +1,4 @@
-﻿using CondominioApp.Core.Enumeradores;
-using CondominioApp.Core.Helpers;
-using CondominioApp.Correspondencias.App.Aplication.Commands.Validations;
+﻿using CondominioApp.Correspondencias.App.Aplication.Commands.Validations;
 using System;
 
 namespace CondominioApp.Correspondencias.App.Aplication.Commands
@@ -8,13 +6,15 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
     public class MarcarCorrespondenciaRetiradaCommand : CorrespondenciaCommand
     {
         public MarcarCorrespondenciaRetiradaCommand(
-            Guid correspondenciaId, string nomeRetirante, string observacao, Guid usuarioId, string nomeUsuario)
+            Guid correspondenciaId, string nomeRetirante, string observacao,
+            Guid usuarioId, string nomeUsuario, string nomeOriginalFotoRetirante)
         {
             CorrespondenciaId = correspondenciaId;
             NomeRetirante = nomeRetirante;
             Observacao = observacao;
             FuncionarioId = usuarioId;
-            NomeFuncionario = nomeUsuario;           
+            NomeFuncionario = nomeUsuario;
+            SetFotoRetirante(nomeOriginalFotoRetirante);
         }
 
 

@@ -23,19 +23,15 @@ namespace CondominioApp.Correspondencias.App.ViewModels
 
         public bool Visto { get; set; }
 
-        public string NomeRetirante { get; set; }
-
-        public string Observacao { get; set; }
-
-        public string DataDaRetirada { get; private set; }
+        public string Observacao { get; set; }       
 
         public Guid FuncionarioId { get; set; }
 
         public string NomeFuncionario { get; set; }
 
-        public string Foto { get;  set; }
+        public string NomeArquivoFoto { get;  set; }
 
-        public string NomeOriginal { get; set; }
+        public string NomeOriginalFoto { get; set; }
 
         public string NumeroRastreamentoCorreio { get; set; }
 
@@ -47,6 +43,19 @@ namespace CondominioApp.Correspondencias.App.ViewModels
 
         public string Status { get; set; }
 
+        public string NomeRetirante { get; set; }
+
+        public string NomeArquivoFotoRetirante { get; set; }
+
+        public string NomeOriginalFotoRetirante { get; set; }
+
+        public string DataDaRetirada { get; private set; }
+
+        public string Localizacao { get; set; }       
+
+        public bool EnviarNotificacao { get; set; }
+
         public bool Lixeira { get; set; }
+
     }
 }

@@ -63,7 +63,7 @@
     {
         PENDENTE = 0,
         RETIRADO = 1,
-        DEVOLVIDO = 2,
+        DEVOLVIDO = 2
     }
 
     public enum CategoriaComunicado

@@ -1,6 +1,4 @@
-﻿using CondominioApp.Core.Enumeradores;
-using CondominioApp.Core.Helpers;
-using CondominioApp.Correspondencias.App.Aplication.Commands.Validations;
+﻿using CondominioApp.Correspondencias.App.Aplication.Commands.Validations;
 using System;
 
 namespace CondominioApp.Correspondencias.App.Aplication.Commands
@@ -11,7 +9,7 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
             Guid condominioId, Guid unidadeId, string numeroUnidade, string bloco, string observacao,
             Guid funcionarioId, string nomeFuncionario, string nomeOriginalFotoCorrespondencia,
             string numeroRastreamentoCorreio, DateTime dataDeChegada, string tipoDeCorrespondencia,
-            StatusCorrespondencia status, string nomeRetirante, DateTime? dataDaRetirada)
+            bool enviarNotificacao, string localizacao)
         {
             CondominioId = condominioId;
             UnidadeId = unidadeId;
@@ -21,15 +19,15 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
             FuncionarioId = funcionarioId;
             NomeFuncionario = nomeFuncionario;
             NumeroRastreamentoCorreio = numeroRastreamentoCorreio;           
-            TipoDeCorrespondencia = tipoDeCorrespondencia;
-            NomeRetirante = nomeRetirante;         
+            TipoDeCorrespondencia = tipoDeCorrespondencia;            
             QuantidadeDeAlertasFeitos = 1;
+            EnviarNotificacao = enviarNotificacao;
+            Localizacao = localizacao;
 
             SetFotoCorrespondencia(nomeOriginalFotoCorrespondencia);
             SetNaoVisto();
-            SetStatus(status);
-            SetDataDeChegada(dataDeChegada);
-            SetDataDeRetirada(dataDaRetirada);
+            SetPendente();
+            SetDataDeChegada(dataDeChegada);            
         }
 
 

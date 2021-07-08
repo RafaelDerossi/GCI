@@ -12,7 +12,6 @@ using CondominioApp.Principal.Aplication.Query.Interfaces;
 using CondominioApp.Principal.Domain.FlatModel;
 using CondominioApp.Usuarios.App.Aplication.Query;
 using CondominioApp.Usuarios.App.FlatModel;
-using CondominioApp.Usuarios.App.Models;
 using CondominioApp.WebApi.Core.Controllers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

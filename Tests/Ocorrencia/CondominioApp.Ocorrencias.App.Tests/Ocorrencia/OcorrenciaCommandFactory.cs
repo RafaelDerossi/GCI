@@ -1,7 +1,5 @@
-﻿using CondominioApp.Core.Enumeradores;
-using CondominioApp.Ocorrencias.App.Aplication.Commands;
+﻿using CondominioApp.Ocorrencias.App.Aplication.Commands;
 using System;
-using System.Collections.Generic;
 
 namespace CondominioApp.Ocorrencias.App.Tests
 {
@@ -11,8 +9,8 @@ namespace CondominioApp.Ocorrencias.App.Tests
         {
             return new AdicionarOcorrenciaCommand(
                "Descricao da Ocorrencia", "fotonome.jpg", false, Guid.NewGuid(),
-               "101", "1", "Grupo", Guid.NewGuid(), "Nome Usuario", Guid.NewGuid(), "Nome do Condominio",
-               false);
+               "101", "1", "Grupo", Guid.NewGuid(), "Nome Usuario", Guid.NewGuid(),
+               "Nome do Condominio", false);
         }
         private static AtualizarOcorrenciaCommand EditarOcorrenciaCommandFactory()
         {

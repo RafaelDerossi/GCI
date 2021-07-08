@@ -52,10 +52,7 @@ namespace CondominioApp.Correspondencias.App.Tests
             //Arrange
             var command = CorrespondenciaCommandFactory.CriarComandoMarcarCorrespondenciaVista();
 
-            var correspondencia = new Correspondencia(
-                  Guid.NewGuid(), Guid.NewGuid(), "101", "Bloco 1", false, null, null,
-                  DataHoraDeBrasilia.Get(), Guid.NewGuid(), "Rafael", null, null,
-                  DataHoraDeBrasilia.Get(), 1, null, StatusCorrespondencia.PENDENTE);
+            var correspondencia = CorrespondenciaFactoryTests.Criar_Correspondencia_Valida();
 
             _mocker.GetMock<ICorrespondenciaRepository>().Setup(r => r.ObterPorId(command.CorrespondenciaId))
                 .Returns(Task.FromResult(correspondencia));
@@ -82,10 +79,7 @@ namespace CondominioApp.Correspondencias.App.Tests
             //Arrange
             var command = CorrespondenciaCommandFactory.CriarComandoMarcarCorrespondenciaRetirada();
 
-            var correspondencia = new Correspondencia(
-                 Guid.NewGuid(), Guid.NewGuid(), "101", "Bloco 1", false, null, null,
-                 DataHoraDeBrasilia.Get(), Guid.NewGuid(), "Rafael", null, null,
-                 DataHoraDeBrasilia.Get(), 1, null, StatusCorrespondencia.PENDENTE);
+            var correspondencia = CorrespondenciaFactoryTests.Criar_Correspondencia_Valida();
 
             _mocker.GetMock<ICorrespondenciaRepository>().Setup(r => r.ObterPorId(command.CorrespondenciaId))
                 .Returns(Task.FromResult(correspondencia));
@@ -109,10 +103,7 @@ namespace CondominioApp.Correspondencias.App.Tests
             //Arrange
             var command = CorrespondenciaCommandFactory.CriarComandoMarcarCorrespondenciaRetirada();
 
-            var correspondencia = new Correspondencia(
-                 Guid.NewGuid(), Guid.NewGuid(), "101", "Bloco 1", false, null, null,
-                 DataHoraDeBrasilia.Get(), Guid.NewGuid(), "Rafael", null, null,
-                 DataHoraDeBrasilia.Get(), 1, null, StatusCorrespondencia.RETIRADO);
+            var correspondencia = CorrespondenciaFactoryTests.Criar_Correspondencia_Valida();
 
             _mocker.GetMock<ICorrespondenciaRepository>().Setup(r => r.ObterPorId(command.CorrespondenciaId))
                 .Returns(Task.FromResult(correspondencia));
@@ -134,10 +125,7 @@ namespace CondominioApp.Correspondencias.App.Tests
             //Arrange
             var command = CorrespondenciaCommandFactory.CriarComandoMarcarCorrespondenciaRetirada();
 
-            var correspondencia = new Correspondencia(
-                 Guid.NewGuid(), Guid.NewGuid(), "101", "Bloco 1", false, null, null,
-                 DataHoraDeBrasilia.Get(), Guid.NewGuid(), "Rafael", null, null,
-                 DataHoraDeBrasilia.Get(), 1, null, StatusCorrespondencia.DEVOLVIDO);
+            var correspondencia = CorrespondenciaFactoryTests.Criar_Correspondencia_Valida();
 
             _mocker.GetMock<ICorrespondenciaRepository>().Setup(r => r.ObterPorId(command.CorrespondenciaId))
                 .Returns(Task.FromResult(correspondencia));
@@ -162,10 +150,7 @@ namespace CondominioApp.Correspondencias.App.Tests
             //Arrange
             var command = CorrespondenciaCommandFactory.CriarComandoMarcarCorrespondenciaDevolvida();
 
-            var correspondencia = new Correspondencia(
-                  Guid.NewGuid(), Guid.NewGuid(), "101", "Bloco 1", false, null, null,
-                  DataHoraDeBrasilia.Get(), Guid.NewGuid(), "Rafael", null, null,
-                  DataHoraDeBrasilia.Get(), 1, null, StatusCorrespondencia.PENDENTE);
+            var correspondencia = CorrespondenciaFactoryTests.Criar_Correspondencia_Valida();
 
             _mocker.GetMock<ICorrespondenciaRepository>().Setup(r => r.ObterPorId(command.CorrespondenciaId))
                 .Returns(Task.FromResult(correspondencia));
@@ -189,10 +174,7 @@ namespace CondominioApp.Correspondencias.App.Tests
             //Arrange
             var command = CorrespondenciaCommandFactory.CriarComandoMarcarCorrespondenciaDevolvida();
 
-            var correspondencia = new Correspondencia(
-                  Guid.NewGuid(), Guid.NewGuid(), "101", "Bloco 1", false, null, null,
-                  DataHoraDeBrasilia.Get(), Guid.NewGuid(), "Rafael", null, null,
-                  DataHoraDeBrasilia.Get(), 1, null, StatusCorrespondencia.RETIRADO);
+            var correspondencia = CorrespondenciaFactoryTests.Criar_Correspondencia_Valida();
 
             _mocker.GetMock<ICorrespondenciaRepository>().Setup(r => r.ObterPorId(command.CorrespondenciaId))
                 .Returns(Task.FromResult(correspondencia));
@@ -214,10 +196,8 @@ namespace CondominioApp.Correspondencias.App.Tests
             //Arrange
             var command = CorrespondenciaCommandFactory.CriarComandoMarcarCorrespondenciaDevolvida();
 
-            var correspondencia = new Correspondencia(
-                  Guid.NewGuid(), Guid.NewGuid(), "101", "Bloco 1", false, null, null,
-                  DataHoraDeBrasilia.Get(), Guid.NewGuid(), "Rafael", null, null,
-                  DataHoraDeBrasilia.Get(), 1, null, StatusCorrespondencia.DEVOLVIDO);
+            var correspondencia = CorrespondenciaFactoryTests.Criar_Correspondencia_Valida();
+            correspondencia.SetDevolvido();
 
             _mocker.GetMock<ICorrespondenciaRepository>().Setup(r => r.ObterPorId(command.CorrespondenciaId))
                 .Returns(Task.FromResult(correspondencia));
@@ -240,10 +220,7 @@ namespace CondominioApp.Correspondencias.App.Tests
             //Arrange
             var command = CorrespondenciaCommandFactory.CriarComandoDispararAlertaDeCorrespondencia();
 
-            var correspondencia = new Correspondencia(
-                  Guid.NewGuid(), Guid.NewGuid(), "101", "Bloco 1", false, null, null,
-                  DataHoraDeBrasilia.Get(), Guid.NewGuid(), "Rafael", null, null,
-                  DataHoraDeBrasilia.Get(), 1, null, StatusCorrespondencia.PENDENTE);
+            var correspondencia = CorrespondenciaFactoryTests.Criar_Correspondencia_Valida();
 
             _mocker.GetMock<ICorrespondenciaRepository>().Setup(r => r.ObterPorId(command.CorrespondenciaId))
                 .Returns(Task.FromResult(correspondencia));
@@ -267,10 +244,9 @@ namespace CondominioApp.Correspondencias.App.Tests
             //Arrange
             var command = CorrespondenciaCommandFactory.CriarComandoDispararAlertaDeCorrespondencia();
 
-            var correspondencia = new Correspondencia(
-                  Guid.NewGuid(), Guid.NewGuid(), "101", "Bloco 1", false, null, null,
-                  DataHoraDeBrasilia.Get(), Guid.NewGuid(), "Rafael", null, null,
-                  DataHoraDeBrasilia.Get(), 1, null, StatusCorrespondencia.RETIRADO);
+            var correspondencia = CorrespondenciaFactoryTests.Criar_Correspondencia_Valida();
+
+            correspondencia.SetRetirado();
 
             _mocker.GetMock<ICorrespondenciaRepository>().Setup(r => r.ObterPorId(command.CorrespondenciaId))
                 .Returns(Task.FromResult(correspondencia));
@@ -292,10 +268,9 @@ namespace CondominioApp.Correspondencias.App.Tests
             //Arrange
             var command = CorrespondenciaCommandFactory.CriarComandoDispararAlertaDeCorrespondencia();
 
-            var correspondencia = new Correspondencia(
-                  Guid.NewGuid(), Guid.NewGuid(), "101", "Bloco 1", false, null, null,
-                  DataHoraDeBrasilia.Get(), Guid.NewGuid(), "Rafael", null, null,
-                  DataHoraDeBrasilia.Get(), 1, null, StatusCorrespondencia.DEVOLVIDO);
+            var correspondencia = CorrespondenciaFactoryTests.Criar_Correspondencia_Valida();
+
+            correspondencia.SetDevolvido();
 
             _mocker.GetMock<ICorrespondenciaRepository>().Setup(r => r.ObterPorId(command.CorrespondenciaId))
                 .Returns(Task.FromResult(correspondencia));
@@ -319,10 +294,7 @@ namespace CondominioApp.Correspondencias.App.Tests
             //Arrange
             var command = CorrespondenciaCommandFactory.CriarComandGerarExcelDeCorrespondencia();
 
-            var correspondencia = new Correspondencia(
-               Guid.NewGuid(), Guid.NewGuid(), "101", "Bloco 1", false, null, null,
-               DataHoraDeBrasilia.Get(), Guid.NewGuid(), "Rafael", null, null,
-               DataHoraDeBrasilia.Get(), 1, null, StatusCorrespondencia.PENDENTE);
+            var correspondencia = CorrespondenciaFactoryTests.Criar_Correspondencia_Valida();
 
             _mocker.GetMock<ICorrespondenciaRepository>().Setup(r => r.ObterPorId(command.ListaCorrespondenciaId[0]))
              .Returns(Task.FromResult(correspondencia));

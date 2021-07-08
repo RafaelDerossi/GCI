@@ -1,5 +1,4 @@
-﻿using CondominioApp.Core.Enumeradores;
-using CondominioApp.Core.Helpers;
+﻿using CondominioApp.Core.Helpers;
 using CondominioApp.Correspondencias.App.Aplication.Commands;
 using System;
 using System.Collections.Generic;
@@ -12,9 +11,8 @@ namespace CondominioApp.Correspondencias.App.Tests
         {
             //Act
             return new AdicionarCorrespondenciaCommand(
-                Guid.NewGuid(), Guid.NewGuid(), "101", "Bloco", null, Guid.NewGuid(),
-                "Rafael", null, null, null, DataHoraDeBrasilia.Get(), "Caixa",
-                StatusCorrespondencia.PENDENTE, "", null);
+                Guid.NewGuid(), Guid.NewGuid(), "101", "Bloco", "", Guid.NewGuid(),
+                "Rafael", "foto.jpg", "", DataHoraDeBrasilia.Get(), "Caixa", true, "");
         }
 
         public static AdicionarCorrespondenciaCommand CriarComandoCadastroDeCorrespondencia()

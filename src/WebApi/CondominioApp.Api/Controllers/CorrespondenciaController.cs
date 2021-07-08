@@ -1,19 +1,21 @@
 ﻿using AutoMapper;
+using CondominioApp.ArquivoDigital.AzureStorageBlob.Services;
 using CondominioApp.Core.Enumeradores;
+using CondominioApp.Core.Helpers;
 using CondominioApp.Core.Mediator;
 using CondominioApp.Correspondencias.App.Aplication.Commands;
 using CondominioApp.Correspondencias.App.Aplication.Query;
 using CondominioApp.Correspondencias.App.Models;
 using CondominioApp.Correspondencias.App.ViewModels;
 using CondominioApp.Principal.Aplication.Query.Interfaces;
+using CondominioApp.Principal.Domain.FlatModel;
 using CondominioApp.Usuarios.App.Aplication.Query;
+using CondominioApp.Usuarios.App.FlatModel;
 using CondominioApp.WebApi.Core.Controllers;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.StaticFiles;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -29,10 +31,12 @@ namespace CondominioApp.Api.Controllers
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IPrincipalQuery _principalQuery;
         private readonly IUsuarioQuery _usuarioQuery;
+        private readonly IAzureStorageService _azureStorageService;
 
         public CorrespondenciaController(
             IMediatorHandler mediatorHandler, IMapper mapper, ICorrespondenciaQuery correspondenciaQuery,
-            IWebHostEnvironment webHostEnvironment, IPrincipalQuery principalQuery, IUsuarioQuery usuarioQuery)
+            IWebHostEnvironment webHostEnvironment, IPrincipalQuery principalQuery, IUsuarioQuery usuarioQuery,
+            IAzureStorageService azureStorageService)
         {
             _mediatorHandler = mediatorHandler;
             _mapper = mapper;
@@ -40,9 +44,15 @@ namespace CondominioApp.Api.Controllers
             _webHostEnvironment = webHostEnvironment;
             _principalQuery = principalQuery;
             _usuarioQuery = usuarioQuery;
+            _azureStorageService = azureStorageService;
         }
 
 
+        /// <summary>
+        /// Retorna uma correspondência pelo Id
+        /// </summary>
+        /// <param name="id">Id(Guid) da correspondência</param>
+        /// <returns></returns>
         [HttpGet("{id:Guid}")]
         public async Task<ActionResult<CorrespondenciaViewModel>> ObterPorId(Guid id)
         {
@@ -55,6 +65,13 @@ namespace CondominioApp.Api.Controllers
             return _mapper.Map<CorrespondenciaViewModel>(correspondencia);
         }
 
+        /// <summary>
+        /// Retorna uma lista de correspondências da unidade no período
+        /// </summary>
+        /// <param name="unidadeId">Id(Guid) da unidade</param>
+        /// <param name="dataInicio">Data de início do período</param>
+        /// <param name="dataFim">Data de fim do período</param>
+        /// <returns></returns>
         [HttpGet("por-unidade-e-periodo")]
         public async Task<ActionResult<IEnumerable<CorrespondenciaViewModel>>> ObterPorUnidadeEPeriodo(
             Guid unidadeId, DateTime dataInicio, DateTime dataFim)
@@ -76,6 +93,14 @@ namespace CondominioApp.Api.Controllers
             return correspondenciasVM;
         }
 
+        /// <summary>
+        /// Retorna uma lista de correspondências do condomínio por período e status
+        /// </summary>
+        /// <param name="condominioId">Id(Guid) do condomínio</param>
+        /// <param name="dataInicio">Data de início do período</param>
+        /// <param name="dataFim">Data de fim do período</param>
+        /// <param name="status">Status da correspondência: PENDENTE = 0, RETIRADO = 1, DEVOLVIDO = 2</param>
+        /// <returns></returns>
         [HttpGet("por-condominio-periodo-e-status")]
         public async Task<ActionResult<IEnumerable<CorrespondenciaViewModel>>> ObterPorCondominioPeriodoEStatus(
             Guid condominioId, DateTime dataInicio, DateTime dataFim, StatusCorrespondencia status)
@@ -100,7 +125,7 @@ namespace CondominioApp.Api.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult> Post(AdicionaCorrespondenciaViewModel correspondenciaVM)
+        public async Task<ActionResult> Post([FromForm]AdicionaCorrespondenciaViewModel correspondenciaVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
@@ -118,13 +143,20 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }
 
-            var comando = new AdicionarCorrespondenciaCommand(
-                 unidade.CondominioId, unidade.Id, unidade.Numero, unidade.GrupoDescricao,
-                 correspondenciaVM.Observacao, funcionario.Id, funcionario.NomeCompleto,
-                 correspondenciaVM.Foto, correspondenciaVM.NomeOriginal,
-                 correspondenciaVM.NumeroRastreamentoCorreio, correspondenciaVM.DataDeChegada,
-                 correspondenciaVM.TipoDeCorrespondencia, correspondenciaVM.Status,
-                 correspondenciaVM.NomeRetirante, correspondenciaVM.DataDaRetirada);
+            var comando = AdicionarCorrespondenciaCommandFactory(correspondenciaVM, funcionario, unidade);
+
+            if (correspondenciaVM.ArquivoFotoCorrespondencia != null && comando.EstaValido())
+            {
+                var retorno = await _azureStorageService.SubirArquivo
+                              (correspondenciaVM.ArquivoFotoCorrespondencia,
+                               comando.FotoCorrespondencia.NomeDoArquivo,
+                               unidade.CondominioId.ToString());
+                if (!retorno.IsValid)
+                {
+                    AdicionarErroProcessamento("Falha ao carregar foto!");
+                    return CustomResponse();
+                }
+            }
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
@@ -144,7 +176,7 @@ namespace CondominioApp.Api.Controllers
         }
 
         [HttpPut("marcar-correspondencia-retirada")]
-        public async Task<ActionResult> PutRetirada(MarcaCorrespondenciaRetiradaViewModel viewModel)
+        public async Task<ActionResult> PutRetirada([FromForm]MarcaCorrespondenciaRetiradaViewModel viewModel)
         {
             var funcionario = await _usuarioQuery.ObterFuncionarioPorId(viewModel.FuncionarioId);
             if (funcionario == null)
@@ -153,9 +185,24 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }
 
+            var nomeArquivoFotoRetirante = StoragePaths.ObterNomeDoArquivo(viewModel.ArquivoFotoDoRetirante);
+
             var comando = new MarcarCorrespondenciaRetiradaCommand(
-                viewModel.Id,viewModel.NomeRetirante, viewModel.Observacao,
-                viewModel.FuncionarioId, funcionario.NomeCompleto);
+                viewModel.CorrespondenciaId,viewModel.NomeRetirante, viewModel.Observacao,
+                viewModel.FuncionarioId, funcionario.NomeCompleto, nomeArquivoFotoRetirante);
+
+            if (viewModel.ArquivoFotoDoRetirante != null && comando.EstaValido())
+            {
+                var retorno = await _azureStorageService.SubirArquivo
+                              (viewModel.ArquivoFotoDoRetirante,
+                               comando.FotoRetirante.NomeDoArquivo, 
+                               funcionario.CondominioId.ToString());
+                if (!retorno.IsValid)
+                {
+                    AdicionarErroProcessamento("Falha ao carregar foto!");
+                    return CustomResponse();
+                }
+            }
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
@@ -233,6 +280,19 @@ namespace CondominioApp.Api.Controllers
         }
 
 
-       
+
+        private AdicionarCorrespondenciaCommand AdicionarCorrespondenciaCommandFactory
+            (AdicionaCorrespondenciaViewModel viewModel, FuncionarioFlat funcionario, UnidadeFlat unidade)
+        {
+            var nomeArquivo = StoragePaths.ObterNomeDoArquivo(viewModel.ArquivoFotoCorrespondencia);
+
+            return new AdicionarCorrespondenciaCommand
+                (unidade.CondominioId, unidade.Id, unidade.Numero, unidade.GrupoDescricao, 
+                 viewModel.Observacao, funcionario.Id, funcionario.Nome, nomeArquivo, 
+                 viewModel.NumeroRastreamentoCorreio, viewModel.DataDeChegada, 
+                 viewModel.TipoDeCorrespondencia, viewModel.EnviarNotificacao,
+                 viewModel.Localizacao);
+        }
+
     }
 }

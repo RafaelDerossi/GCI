@@ -42,7 +42,6 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
             _CorrespondenciaRepository.Adicionar(correspondencia);
 
             correspondencia.EnviarPush();
-
             correspondencia.EnviarEmail();
 
             return await PersistirDados(_CorrespondenciaRepository.UnitOfWork);
@@ -80,12 +79,14 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
             }
 
             var retorno = correspondenciaBd.MarcarComRetirada
-                (request.NomeRetirante, request.Observacao, request.FuncionarioId, request.NomeFuncionario);
+                (request.NomeRetirante, request.Observacao, request.FuncionarioId, 
+                 request.NomeFuncionario, request.FotoRetirante);
+
             if (!retorno.IsValid)
                 return retorno;
 
-            correspondenciaBd.EnviarPush();
 
+            correspondenciaBd.EnviarPush();
             correspondenciaBd.EnviarEmail();
 
             _CorrespondenciaRepository.Atualizar(correspondenciaBd);
@@ -210,10 +211,11 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
         private Correspondencia CorrespondenciaFactory(AdicionarCorrespondenciaCommand request)
         {
             var correspondencia = new Correspondencia(
-                request.CondominioId, request.UnidadeId, request.NumeroUnidade, request.Grupo, request.Visto,
-                request.NomeRetirante, request.Observacao, request.DataDaRetirada, request.FuncionarioId, request.NomeFuncionario, request.FotoCorrespondencia,
-                request.NumeroRastreamentoCorreio, request.DataDeChegada, request.QuantidadeDeAlertasFeitos,
-                request.TipoDeCorrespondencia, request.Status);
+                request.CondominioId, request.UnidadeId, request.NumeroUnidade, request.Grupo, 
+                request.Observacao, request.FuncionarioId, request.NomeFuncionario, 
+                request.FotoCorrespondencia, request.NumeroRastreamentoCorreio,
+                request.DataDeChegada, request.TipoDeCorrespondencia, request.Localizacao,
+                request.EnviarNotificacao);
 
             return correspondencia;
         }

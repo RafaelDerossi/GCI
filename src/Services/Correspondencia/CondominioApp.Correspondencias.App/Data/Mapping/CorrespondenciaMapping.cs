@@ -33,12 +33,12 @@ namespace CondominioApp.Correspondencias.App.Data.Mapping
             {
                 ft.Property(u => u.NomeDoArquivo)
                     .HasMaxLength(Foto.NomeFotoMaximo)
-                    .HasColumnName("NomeDoArquivo")
+                    .HasColumnName("NomeDoArquivoFoto")
                     .HasColumnType($"varchar({Foto.NomeFotoMaximo})");
 
                 ft.Property(u => u.NomeOriginal)
                     .HasMaxLength(Foto.NomeFotoMaximo)
-                    .HasColumnName("NomeOriginal")
+                    .HasColumnName("NomeOriginalFoto")
                     .HasColumnType($"varchar({Foto.NomeFotoMaximo})");
             });
 
@@ -48,6 +48,18 @@ namespace CondominioApp.Correspondencias.App.Data.Mapping
 
             builder.Property(u => u.TipoDeCorrespondencia).HasColumnType($"varchar({Correspondencia.Max})");
 
+            builder.OwnsOne(u => u.FotoRetirante, ft =>
+            {
+                ft.Property(u => u.NomeDoArquivo)
+                    .HasMaxLength(Foto.NomeFotoMaximo)
+                    .HasColumnName("NomeArquivoFotoRetirante")
+                    .HasColumnType($"varchar({Foto.NomeFotoMaximo})");
+
+                ft.Property(u => u.NomeOriginal)
+                    .HasMaxLength(Foto.NomeFotoMaximo)
+                    .HasColumnName("NomeOriginalFotoRetirante")
+                    .HasColumnType($"varchar({Foto.NomeFotoMaximo})");
+            });
 
         }
     }

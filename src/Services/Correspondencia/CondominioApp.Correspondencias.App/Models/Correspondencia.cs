@@ -49,7 +49,9 @@ namespace CondominioApp.Correspondencias.App.Models
 
         public Foto FotoRetirante { get; private set; }
 
-        public Foto AssinaturaDigital { get; private set; }
+        public string Localizacao { get; private set; }
+
+        public bool EnviarNotificacao { get; private set; }
 
         /// <summary>
         /// Construtores
@@ -59,32 +61,28 @@ namespace CondominioApp.Correspondencias.App.Models
         }
 
         public Correspondencia
-            (Guid condominioId, Guid unidadeId, string numeroUnidade, string bloco, bool visto,
-             string nomeRetirante, string observacao, DateTime? dataDaRetirada, Guid funcionarioId,
-             string nomeFuncionario, Foto fotoCorrespondencia, string numeroRastreamentoCorreio,
-             DateTime dataDeChegada, int quantidadeDeAlertasFeitos, string tipoDeCorrespondencia,
-             StatusCorrespondencia status, string codigoDeVerificacao, Foto fotoRetirante,
-             Foto assinaturaDigital)
+            (Guid condominioId, Guid unidadeId, string numeroUnidade, string bloco,
+             string observacao, Guid funcionarioId, string nomeFuncionario,
+             Foto fotoCorrespondencia, string numeroRastreamentoCorreio, DateTime dataDeChegada,
+             string tipoDeCorrespondencia, string localizacao, bool enviarNotificacao)
         {
             CondominioId = condominioId;
             UnidadeId = unidadeId;
             NumeroUnidade = numeroUnidade;
             Bloco = bloco;
-            Visto = visto;
-            NomeRetirante = nomeRetirante;
-            Observacao = observacao;
-            DataDaRetirada = dataDaRetirada;
+            Visto = false;            
+            Observacao = observacao;            
             FuncionarioId = funcionarioId;
             NomeFuncionario = nomeFuncionario;
             FotoCorrespondencia = fotoCorrespondencia;
             NumeroRastreamentoCorreio = numeroRastreamentoCorreio;
             DataDeChegada = dataDeChegada;
-            QuantidadeDeAlertasFeitos = quantidadeDeAlertasFeitos;
-            TipoDeCorrespondencia = tipoDeCorrespondencia;
-            Status = status;
-            CodigoDeVerificacao = codigoDeVerificacao;
-            FotoRetirante = fotoRetirante;
-            AssinaturaDigital = assinaturaDigital;
+            QuantidadeDeAlertasFeitos = 1;
+            TipoDeCorrespondencia = tipoDeCorrespondencia;            
+            Localizacao = localizacao;
+            EnviarNotificacao = enviarNotificacao;
+            SetPendente();
+            SetCodigo();
         }
 
 
@@ -113,7 +111,9 @@ namespace CondominioApp.Correspondencias.App.Models
 
         public void SetNomeFuncionario(string nomeUsuario) => NomeFuncionario = nomeUsuario;
 
-        public void SetFoto(Foto foto) => FotoCorrespondencia = foto;
+        public void SetFotoCorrespondencia(Foto foto) => FotoCorrespondencia = foto;
+
+        public void SetFotoRetirante(Foto foto) => FotoRetirante = foto;
 
         public void SetNumeroRastreamentoCorreio(string numeroRastreamento) => NumeroRastreamentoCorreio = numeroRastreamento;
 
@@ -134,7 +134,8 @@ namespace CondominioApp.Correspondencias.App.Models
 
 
         public ValidationResult MarcarComRetirada
-            (string nomeRetirante, string observacao, Guid funcionarioId, string nomeFuncionario)
+            (string nomeRetirante, string observacao, Guid funcionarioId,
+             string nomeFuncionario, Foto fotoRetirante)
         {
             if (Status == StatusCorrespondencia.DEVOLVIDO)
             {
@@ -152,7 +153,7 @@ namespace CondominioApp.Correspondencias.App.Models
             SetObservacao(observacao);
             SetFuncionarioId(funcionarioId);
             SetNomeFuncionario(nomeFuncionario);
-
+            SetFotoRetirante(fotoRetirante);
             SetRetirado();
             SetDataRetirada(DataHoraDeBrasilia.Get());
             SetVisto();
@@ -204,7 +205,7 @@ namespace CondominioApp.Correspondencias.App.Models
             return ValidationResult;
         }
 
-        public void ResetCodigo()
+        public void SetCodigo()
         {
             CodigoDeVerificacao = Id.ToString().Substring(0, 4) + DateTime.Now.Minute.ToString("D2") + DateTime.Now.Second.ToString("D2");
         }
@@ -212,20 +213,23 @@ namespace CondominioApp.Correspondencias.App.Models
 
         public void EnviarPush()
         {
-            switch (Status)
+            if (EnviarNotificacao)
             {
-                case StatusCorrespondencia.PENDENTE:
-                    EnviarPushNovaCorrespondencia();
-                    break;
-                case StatusCorrespondencia.RETIRADO:
-                    EnviarPushCorrespondenciaRetirada();
-                    break;
-                case StatusCorrespondencia.DEVOLVIDO:
-                    EnviarPushCorrespondenciaDevolvida();
-                    break;
-                default:
-                    break;
-            }
+                switch (Status)
+                {
+                    case StatusCorrespondencia.PENDENTE:
+                        EnviarPushNovaCorrespondencia();
+                        break;
+                    case StatusCorrespondencia.RETIRADO:
+                        EnviarPushCorrespondenciaRetirada();
+                        break;
+                    case StatusCorrespondencia.DEVOLVIDO:
+                        EnviarPushCorrespondenciaDevolvida();
+                        break;
+                    default:
+                        break;
+                }
+            }            
         }
 
 
@@ -247,6 +251,7 @@ namespace CondominioApp.Correspondencias.App.Models
 
             if (Observacao != null && Observacao != "")
                 descricao = $"{descricao}   {Observacao}.";
+
 
             return descricao;
         }
@@ -323,20 +328,23 @@ namespace CondominioApp.Correspondencias.App.Models
 
         public void EnviarEmail()
         {
-            switch (Status)
+            if (EnviarNotificacao)
             {
-                case StatusCorrespondencia.PENDENTE:
-                    EnviarEmailNovaCorrespondencia();
-                    break;
-                case StatusCorrespondencia.RETIRADO:
-                    EnviarEmailCorrespondenciaRetirada();
-                    break;
-                case StatusCorrespondencia.DEVOLVIDO:
-                    EnviarEmailCorrespondenciaDevolvida();
-                    break;
-                default:
-                    break;
-            }
+                switch (Status)
+                {
+                    case StatusCorrespondencia.PENDENTE:
+                        EnviarEmailNovaCorrespondencia();
+                        break;
+                    case StatusCorrespondencia.RETIRADO:
+                        EnviarEmailCorrespondenciaRetirada();
+                        break;
+                    case StatusCorrespondencia.DEVOLVIDO:
+                        EnviarEmailCorrespondenciaDevolvida();
+                        break;
+                    default:
+                        break;
+                }
+            }           
         }
 
         private void EnviarEmailNovaCorrespondencia()
