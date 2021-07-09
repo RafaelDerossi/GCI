@@ -358,9 +358,13 @@ namespace CondominioApp.Correspondencias.App.Models
             var titulo = "Nova Correspondência";
             var descricao = ObterDescricaoDoPushEdoEmailParaNovaCorrespondencia();
 
+            var nomeArquivo = "";
+            if (FotoCorrespondencia != null)
+                nomeArquivo = FotoCorrespondencia.NomeDoArquivo;
+
             AdicionarEvento
                 (new EnviarEmailCorrespondenciaIntegrationEvent
-                 (assunto, titulo, descricao, UnidadeId, FotoCorrespondencia.NomeDoArquivo));
+                 (assunto, titulo, descricao, UnidadeId, nomeArquivo));
             return;
         }
 
@@ -370,9 +374,13 @@ namespace CondominioApp.Correspondencias.App.Models
             var titulo = "Correspondência Retirada";
             var descricao = ObterDescricaoDoPushParaCorrespondenciaRetirada();
 
+            var nomeArquivo = "";
+            if (FotoCorrespondencia != null)
+                nomeArquivo = FotoCorrespondencia.NomeDoArquivo;
+
             AdicionarEvento
                 (new EnviarEmailCorrespondenciaIntegrationEvent
-                 (assunto, titulo, descricao, UnidadeId, FotoCorrespondencia.NomeDoArquivo));
+                 (assunto, titulo, descricao, UnidadeId, nomeArquivo));
 
             return;
         }
@@ -383,9 +391,13 @@ namespace CondominioApp.Correspondencias.App.Models
             var titulo = "Correspondência Devolvida";
             var descricao = ObterDescricaoDoPushParaCorrespondenciaDevolvida();
 
+            var nomeArquivo = "";
+            if (FotoCorrespondencia != null)
+                nomeArquivo = FotoCorrespondencia.NomeDoArquivo;
+
             AdicionarEvento
                 (new EnviarEmailCorrespondenciaIntegrationEvent
-                 (assunto, titulo, descricao, UnidadeId, FotoCorrespondencia.NomeDoArquivo));
+                 (assunto, titulo, descricao, UnidadeId, nomeArquivo));
             return;
         }
 

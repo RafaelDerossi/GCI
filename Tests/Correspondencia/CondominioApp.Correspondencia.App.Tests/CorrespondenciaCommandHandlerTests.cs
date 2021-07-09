@@ -105,6 +105,8 @@ namespace CondominioApp.Correspondencias.App.Tests
 
             var correspondencia = CorrespondenciaFactoryTests.Criar_Correspondencia_Valida();
 
+            correspondencia.MarcarComRetirada("Rafael", "", Guid.NewGuid(), "Funcionario", null);
+
             _mocker.GetMock<ICorrespondenciaRepository>().Setup(r => r.ObterPorId(command.CorrespondenciaId))
                 .Returns(Task.FromResult(correspondencia));
 
@@ -126,6 +128,8 @@ namespace CondominioApp.Correspondencias.App.Tests
             var command = CorrespondenciaCommandFactory.CriarComandoMarcarCorrespondenciaRetirada();
 
             var correspondencia = CorrespondenciaFactoryTests.Criar_Correspondencia_Valida();
+
+            correspondencia.MarcarComDevolvida("", Guid.NewGuid(), "Funcionario");
 
             _mocker.GetMock<ICorrespondenciaRepository>().Setup(r => r.ObterPorId(command.CorrespondenciaId))
                 .Returns(Task.FromResult(correspondencia));
@@ -175,6 +179,8 @@ namespace CondominioApp.Correspondencias.App.Tests
             var command = CorrespondenciaCommandFactory.CriarComandoMarcarCorrespondenciaDevolvida();
 
             var correspondencia = CorrespondenciaFactoryTests.Criar_Correspondencia_Valida();
+
+            correspondencia.MarcarComRetirada("Rafael", "", Guid.NewGuid(), "Funcionario", null);
 
             _mocker.GetMock<ICorrespondenciaRepository>().Setup(r => r.ObterPorId(command.CorrespondenciaId))
                 .Returns(Task.FromResult(correspondencia));

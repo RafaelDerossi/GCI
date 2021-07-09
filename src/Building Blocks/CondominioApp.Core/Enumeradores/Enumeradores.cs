@@ -172,4 +172,13 @@
         PADRAO = 0,
         CLUBE_DE_VANTAGENS = 1
     }
+
+    public enum AcoesCorrespondencia
+    {
+        CADASTRO = 0,
+        NOTIFICACAO = 1,
+        RETIRADA = 2,
+        DEVOLUCAO = 3,
+        EXCLUSAO = 4
+    }
 }

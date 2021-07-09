@@ -85,25 +85,26 @@ namespace CondominioApp.Correspondencias.App.Tests
         public static MarcarCorrespondenciaRetiradaCommand CriarComandoMarcarCorrespondenciaRetirada()
         {
             //Act
-            return new MarcarCorrespondenciaRetiradaCommand(Guid.NewGuid(),"Retirante","OBS",Guid.NewGuid(),"Usuario");
+            return new MarcarCorrespondenciaRetiradaCommand
+                (Guid.NewGuid(),"Retirante","OBS",Guid.NewGuid(),"Usuario",null);
         }
 
         public static MarcarCorrespondenciaRetiradaCommand CriarComandoMarcarCorrespondenciaRetiradaSemNomeDoRetirante()
         {
             //Act
-            return new MarcarCorrespondenciaRetiradaCommand(Guid.NewGuid(), null, "OBS", Guid.NewGuid(), "Usuario");
+            return new MarcarCorrespondenciaRetiradaCommand(Guid.NewGuid(), null, "OBS", Guid.NewGuid(), "Usuario",null);
         }
 
         public static MarcarCorrespondenciaRetiradaCommand CriarComandoMarcarCorrespondenciaRetiradaSemUsuarioId()
         {
             //Act
-            return new MarcarCorrespondenciaRetiradaCommand(Guid.NewGuid(), "Retirante", "OBS", Guid.Empty, "Usuario");
+            return new MarcarCorrespondenciaRetiradaCommand(Guid.NewGuid(), "Retirante", "OBS", Guid.Empty, "Usuario",null);
         }
 
         public static MarcarCorrespondenciaRetiradaCommand CriarComandoMarcarCorrespondenciaRetiradaSemNomeDoUsuario()
         {
             //Act
-            return new MarcarCorrespondenciaRetiradaCommand(Guid.NewGuid(), "Retirante", "OBS", Guid.NewGuid(), null);
+            return new MarcarCorrespondenciaRetiradaCommand(Guid.NewGuid(), "Retirante", "OBS", Guid.NewGuid(), null,null);
         }
 
         public static MarcarCorrespondenciaDevolvidaCommand CriarComandoMarcarCorrespondenciaDevolvida()
