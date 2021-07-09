@@ -65,6 +65,25 @@ namespace CondominioApp.Api.Controllers
             return _mapper.Map<CorrespondenciaViewModel>(correspondencia);
         }
 
+
+
+        /// <summary>
+        /// Retorna uma correspondência pelo Código de verificação
+        /// </summary>
+        /// <param name="codigoDeVerificacao">string com o código</param>
+        /// <returns></returns>
+        [HttpGet("{codigoDeVerificacao}")]
+        public async Task<ActionResult<CorrespondenciaViewModel>> ObterPorCodigo(string codigoDeVerificacao)
+        {
+            var correspondencia = await _correspondenciaQuery.ObterPorCodigo(codigoDeVerificacao);
+            if (correspondencia == null)
+            {
+                AdicionarErroProcessamento("Correspondência não encontrada.");
+                return CustomResponse();
+            }
+            return _mapper.Map<CorrespondenciaViewModel>(correspondencia);
+        }
+
         /// <summary>
         /// Retorna uma lista de correspondências da unidade no período
         /// </summary>

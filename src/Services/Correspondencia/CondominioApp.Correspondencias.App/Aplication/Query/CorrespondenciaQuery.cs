@@ -2,6 +2,7 @@
 using CondominioApp.Correspondencias.App.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CondominioApp.Correspondencias.App.Aplication.Query
@@ -19,6 +20,14 @@ namespace CondominioApp.Correspondencias.App.Aplication.Query
         public async Task<Correspondencia> ObterPorId(Guid id)
         {
             return await _correspondenciaRepository.ObterPorId(id);
+        }
+
+        public async Task<Correspondencia> ObterPorCodigo(string codigo)
+        {
+            var correspondencia = await _correspondenciaRepository.Obter(
+              c => c.CodigoDeVerificacao == codigo && !c.Lixeira);
+
+            return correspondencia.FirstOrDefault();
         }
 
         public async Task<IEnumerable<Correspondencia>> ObterPorUnidadeEPeriodo(
