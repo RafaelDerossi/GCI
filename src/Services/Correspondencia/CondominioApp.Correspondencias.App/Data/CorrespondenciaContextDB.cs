@@ -18,6 +18,8 @@ namespace CondominioApp.Correspondencias.App.Data
 
         public DbSet<Correspondencia> Correspondencias { get; set; }
 
+        public DbSet<HistoricoCorrespondencia> Historicos { get; set; }
+
         public CorrespondenciaContextDB(DbContextOptions<CorrespondenciaContextDB> options, IMediatorHandler mediatorHandler)
             : base(options)
         {

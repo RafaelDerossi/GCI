@@ -36,7 +36,7 @@ namespace CondominioApp.Correspondencias.App.Aplication.Query
             return await _correspondenciaRepository.Obter(
                 c=>c.UnidadeId == unidadeId && 
                 c.DataDeCadastro.Date >= dataInicio.Date && c.DataDeCadastro.Date <= dataFim.Date && 
-                !c.Lixeira);
+                !c.Lixeira, true);
         }
 
         public async Task<IEnumerable<Correspondencia>> ObterPorCondominioPeriodoEStatus(
@@ -46,9 +46,14 @@ namespace CondominioApp.Correspondencias.App.Aplication.Query
                  c => c.CondominioId == condominioId &&
                  c.DataDeCadastro.Date >= dataInicio.Date && c.DataDeCadastro.Date <= dataFim.Date &&
                  c.Status == status &&
-                 !c.Lixeira);
+                 !c.Lixeira, true);
         }        
-                
+        
+        
+        public async Task<IEnumerable<HistoricoCorrespondencia>> ObterHistoricoPorCorrespondencia(Guid correspondenciaId)
+        {           
+            return await _correspondenciaRepository.ObterHistoricoPorCorrespondenciaId(correspondenciaId);
+        }        
 
 
 

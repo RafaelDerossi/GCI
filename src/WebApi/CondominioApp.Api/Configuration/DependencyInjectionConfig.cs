@@ -86,6 +86,7 @@ using CondominioApp.NotificacaoPush.App.Events;
 using CondominioApp.NotificacaoPush.App.Aplication.Commands;
 using CondominioApp.ArquivoDigital.AzureStorageBlob.Models;
 using CondominioApp.ArquivoDigital.AzureStorageBlob.Services;
+using CondominioApp.Correspondencias.Aplication.Events;
 
 namespace CondominioApp.Api.Configuration
 {
@@ -164,7 +165,8 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<IRequestHandler<DispararAlertaDeCorrespondenciaCommand, ValidationResult>, CorrespondenciaCommandHandler>();
             services.AddScoped<IRequestHandler<ApagarCorrespondenciaCommand, ValidationResult>, CorrespondenciaCommandHandler>();
             services.AddScoped<IRequestHandler<GerarExcelCorrespondenciaCommand, ValidationResult>, CorrespondenciaCommandHandler>();
-
+            services.AddScoped<INotificationHandler<RegistraHistoricoEvent>, HistoricoEventHandler>();
+            services.AddScoped<INotificationHandler<MarcarComoVistoEvent>, HistoricoEventHandler>();
             #endregion
 
 

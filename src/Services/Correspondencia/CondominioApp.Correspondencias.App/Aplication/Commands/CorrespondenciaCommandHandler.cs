@@ -1,6 +1,7 @@
 ﻿using CondominioApp.Core.Enumeradores;
 using CondominioApp.Core.Helpers;
 using CondominioApp.Core.Messages;
+using CondominioApp.Correspondencias.Aplication.Events;
 using CondominioApp.Correspondencias.App.DTO;
 using CondominioApp.Correspondencias.App.Models;
 using FluentValidation.Results;
@@ -44,6 +45,11 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
             correspondencia.EnviarPush();
             correspondencia.EnviarEmail();
 
+            correspondencia.AdicionarEvento(
+                new RegistraHistoricoEvent(correspondencia.Id, AcoesCorrespondencia.CADASTRO,
+                                           correspondencia.FuncionarioId, correspondencia.NomeFuncionario,
+                                           false));
+
             return await PersistirDados(_CorrespondenciaRepository.UnitOfWork);
         }
 
@@ -62,6 +68,8 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
             correspondenciaBd.SetVisto();
 
             _CorrespondenciaRepository.Atualizar(correspondenciaBd);
+
+            correspondenciaBd.AdicionarEvento(new MarcarComoVistoEvent(correspondenciaBd.Id));
 
             return await PersistirDados(_CorrespondenciaRepository.UnitOfWork);
         }
@@ -91,6 +99,11 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
 
             _CorrespondenciaRepository.Atualizar(correspondenciaBd);
 
+            correspondenciaBd.AdicionarEvento(
+                new RegistraHistoricoEvent(correspondenciaBd.Id, AcoesCorrespondencia.RETIRADA,
+                                           correspondenciaBd.FuncionarioId, correspondenciaBd.NomeFuncionario,
+                                           true));
+
             return await PersistirDados(_CorrespondenciaRepository.UnitOfWork);
         }
 
@@ -117,6 +130,11 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
 
             _CorrespondenciaRepository.Atualizar(correspondenciaBd);
 
+            correspondenciaBd.AdicionarEvento(
+                new RegistraHistoricoEvent(correspondenciaBd.Id, AcoesCorrespondencia.DEVOLUCAO,
+                                           correspondenciaBd.FuncionarioId, correspondenciaBd.NomeFuncionario,
+                                           false));
+
             return await PersistirDados(_CorrespondenciaRepository.UnitOfWork);
         }
 
@@ -141,6 +159,11 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
 
             _CorrespondenciaRepository.Atualizar(correspondenciaBd);
 
+            correspondenciaBd.AdicionarEvento(
+                new RegistraHistoricoEvent(correspondenciaBd.Id, AcoesCorrespondencia.NOTIFICACAO,
+                                           correspondenciaBd.FuncionarioId, correspondenciaBd.NomeFuncionario,
+                                           false));
+
             return await PersistirDados(_CorrespondenciaRepository.UnitOfWork);
         }
 
@@ -157,6 +180,11 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
             }
 
             _CorrespondenciaRepository.Apagar(x=>x.Id == correspondenciaBd.Id);
+
+            correspondenciaBd.AdicionarEvento(
+               new RegistraHistoricoEvent(correspondenciaBd.Id, AcoesCorrespondencia.EXCLUSAO,
+                                          correspondenciaBd.FuncionarioId, correspondenciaBd.NomeFuncionario,
+                                          false));
 
             return await PersistirDados(_CorrespondenciaRepository.UnitOfWork);
         }

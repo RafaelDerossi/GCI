@@ -34,7 +34,20 @@ namespace CondominioApp.Correspondencias.App.AutoMapper
                 .ForMember(c => c.NomeOriginalFotoRetirante, p => p.MapFrom(x => x.FotoRetirante.NomeOriginal))
                 .ForMember(c => c.Localizacao, p => p.MapFrom(x => x.Localizacao))
                 .ForMember(c => c.EnviarNotificacao, p => p.MapFrom(x => x.EnviarNotificacao))
-                .ForMember(c => c.Lixeira, p => p.MapFrom(x => x.Lixeira));           
+                .ForMember(c => c.UrlArquivoFoto, p => p.MapFrom(x => x.FotoCorrespondenciaUrl))
+                .ForMember(c => c.UrlFotoRetirante, p => p.MapFrom(x => x.FotoRetiranteUrl))
+                .ForMember(c => c.Lixeira, p => p.MapFrom(x => x.Lixeira));
+
+
+            CreateMap<HistoricoCorrespondencia, HistoricoCorrespondenciaViewModel>()
+               .ForMember(m => m.Id, cfg => cfg.MapFrom(x => x.Id))
+               .ForMember(c => c.DataDeCadastro, p => p.MapFrom(x => x.DataDeCadastroFormatada))
+               .ForMember(c => c.DataDeAlteracao, p => p.MapFrom(x => x.DataDeAlteracaoFormatada))
+               .ForMember(c => c.CorrespondenciaId, cfg => cfg.MapFrom(x => x.CorrespondenciaId))
+               .ForMember(c => c.Acao, p => p.MapFrom(x => x.Acao))
+               .ForMember(c => c.FuncionarioId, p => p.MapFrom(x => x.FuncionarioId))
+               .ForMember(c => c.NomeFuncionario, p => p.MapFrom(x => x.NomeFuncionario))
+               .ForMember(c => c.Visto, p => p.MapFrom(x => x.Visto));               
         }
     }
 }

@@ -83,6 +83,24 @@ namespace CondominioApp.Correspondencias.App.Data.Repository
 
 
 
+
+        public async Task<IEnumerable<HistoricoCorrespondencia>> ObterHistoricoPorCorrespondenciaId(Guid correspondenciaId)
+        {
+            return await _context.Historicos.Where(u => u.CorrespondenciaId == correspondenciaId)
+                                            .OrderBy(x => x.DataDeCadastro)
+                                            .ToListAsync();
+        }
+
+        public void AdicionarHistorico(HistoricoCorrespondencia entity)
+        {
+            _context.Historicos.Add(entity);
+        }
+
+        public void AtualizarHistorico(HistoricoCorrespondencia entity)
+        {
+            _context.Historicos.Update(entity);
+        }
+
         public void Dispose()
         {
             _context?.Dispose();

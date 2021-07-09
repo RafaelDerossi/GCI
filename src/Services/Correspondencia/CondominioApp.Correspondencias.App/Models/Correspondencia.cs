@@ -35,6 +35,17 @@ namespace CondominioApp.Correspondencias.App.Models
 
         public Foto FotoCorrespondencia { get; private set; }
 
+        public string FotoCorrespondenciaUrl
+        {
+            get
+            {
+                if (FotoCorrespondencia == null)
+                    return "";
+
+                return StoragePaths.ObterUrlDeArquivo(CondominioId.ToString(), FotoCorrespondencia.NomeDoArquivo);
+            }
+        }
+
         public string NumeroRastreamentoCorreio { get; private set; }
 
         public DateTime DataDeChegada { get; private set; }
@@ -48,6 +59,17 @@ namespace CondominioApp.Correspondencias.App.Models
         public string CodigoDeVerificacao { get; private set; }
 
         public Foto FotoRetirante { get; private set; }
+
+        public string FotoRetiranteUrl
+        {
+            get
+            {
+                if (FotoRetirante == null)
+                    return "";
+                
+                return StoragePaths.ObterUrlDeArquivo(CondominioId.ToString(), FotoRetirante.NomeDoArquivo);
+            }
+        }
 
         public string Localizacao { get; private set; }
 
@@ -236,24 +258,28 @@ namespace CondominioApp.Correspondencias.App.Models
         private void EnviarPushNovaCorrespondencia()
         {
             var titulo = "Nova Correspondência";
-            var descricao = ObterDescricaoDoPushEdoEmailParaNovaCorrespondencia();
+            var descricao = ObterDescricaoDoPushParaNovaCorrespondencia();
 
             AdicionarEvento
                 (new EnviarPushParaUnidadeIntegrationEvent(UnidadeId, titulo, descricao));
             return;
         }
-        private string ObterDescricaoDoPushEdoEmailParaNovaCorrespondencia()
+        
+        private string ObterDescricaoDoPushParaNovaCorrespondencia()
         {
-            var descricao = $"Chegou uma correspondência para você.  Recebido por {NomeFuncionario}.";
+            var descricao = @$"Chegou uma correspondência para você.     Recebido por {NomeFuncionario}. ";
+
+            if (CodigoDeVerificacao != null && CodigoDeVerificacao != "")
+                descricao = @$"{descricao}    Código: {CodigoDeVerificacao}.";
 
             if (TipoDeCorrespondencia != null && TipoDeCorrespondencia != "")
-                descricao = $"{descricao}   Tipo: {TipoDeCorrespondencia}.";
+                descricao = @$"{descricao}     Tipo: {TipoDeCorrespondencia}.";
 
             if (Localizacao != null && Localizacao != "")
-                descricao = $"{descricao}   Localização:{Localizacao}.";
+                descricao = @$"{descricao}     Localização: {Localizacao}.";
 
             if (Observacao != null && Observacao != "")
-                descricao = $"{descricao}   {Observacao}.";            
+                descricao = @$"{descricao}     {Observacao}.";            
 
             return descricao;
         }
@@ -272,11 +298,14 @@ namespace CondominioApp.Correspondencias.App.Models
         {
             var descricao = $"Correspondência retirada por {NomeRetirante} em {DataDaRetirada.Value.ToLongDateString()} as {DataDaRetirada.Value.ToLongTimeString()}.";
 
+            if (CodigoDeVerificacao != null && CodigoDeVerificacao != "")
+                descricao = $"{descricao}     Código: {CodigoDeVerificacao}.";
+
             if (TipoDeCorrespondencia != null && TipoDeCorrespondencia != "")
-                descricao = $"{descricao}   Tipo da Corrêspondencia: {TipoDeCorrespondencia}.";
+                descricao = $"{descricao}     Tipo da Corrêspondencia: {TipoDeCorrespondencia}.";
 
             if (Observacao != null && Observacao != "")
-                descricao = $"{descricao}   {Observacao}.";
+                descricao = $"{descricao}     {Observacao}.";
 
             return descricao;
         }
@@ -295,11 +324,14 @@ namespace CondominioApp.Correspondencias.App.Models
         {
             var descricao = $"Correspondência devolvida por {NomeFuncionario}.";
 
+            if (CodigoDeVerificacao != null && CodigoDeVerificacao != "")
+                descricao = $"{descricao}     Código: {CodigoDeVerificacao}.";
+
             if (TipoDeCorrespondencia != null && TipoDeCorrespondencia != "")
-                descricao = $"{descricao}   Tipo da Corrêspondencia: {TipoDeCorrespondencia}.";
+                descricao = $"{descricao}     Tipo da Corrêspondencia: {TipoDeCorrespondencia}.";
 
             if (Observacao != null && Observacao != "")
-                descricao = $"{descricao}   {Observacao}.";
+                descricao = $"{descricao}     {Observacao}.";
 
             return descricao;
         }
@@ -318,14 +350,17 @@ namespace CondominioApp.Correspondencias.App.Models
         {
             var descricao = $"Existe uma correspondência para você esperando ser retirada.";
 
+            if (CodigoDeVerificacao != null && CodigoDeVerificacao != "")
+                descricao = $"{descricao}     Código: {CodigoDeVerificacao}.";
+
             if (TipoDeCorrespondencia != null && TipoDeCorrespondencia != "")
-                descricao = $"{descricao}   Tipo: {TipoDeCorrespondencia}.";
+                descricao = $"{descricao}     Tipo: {TipoDeCorrespondencia}.";
 
             if (Localizacao != null && Localizacao != "")
-                descricao = $"{descricao}   Localização:{Localizacao}.";
+                descricao = $"{descricao}     Localização: {Localizacao}.";
 
             if (Observacao != null && Observacao != "")
-                descricao = $"{descricao}   {Observacao}.";            
+                descricao = $"{descricao}     {Observacao}.";            
 
             return descricao;
         }
@@ -356,7 +391,7 @@ namespace CondominioApp.Correspondencias.App.Models
         {
             var assunto = "Correspondência";
             var titulo = "Nova Correspondência";
-            var descricao = ObterDescricaoDoPushEdoEmailParaNovaCorrespondencia();
+            var descricao = @$"Chegou uma correspondência para você.!";
 
             var nomeArquivo = "";
             if (FotoCorrespondencia != null)
@@ -364,15 +399,18 @@ namespace CondominioApp.Correspondencias.App.Models
 
             AdicionarEvento
                 (new EnviarEmailCorrespondenciaIntegrationEvent
-                 (assunto, titulo, descricao, UnidadeId, nomeArquivo));
+                 (assunto, titulo, descricao, UnidadeId, nomeArquivo,
+                  NomeFuncionario, CodigoDeVerificacao, TipoDeCorrespondencia,
+                  Localizacao, Observacao));
+
             return;
         }
 
         private void EnviarEmailCorrespondenciaRetirada()
         {
             var assunto = "Correspondência";
-            var titulo = "Correspondência Retirada";
-            var descricao = ObterDescricaoDoPushParaCorrespondenciaRetirada();
+            var titulo = "Correspondência Retirada";            
+            var descricao = $"Correspondência retirada por {NomeRetirante} em {DataDaRetirada.Value.ToLongDateString()} as {DataDaRetirada.Value.ToLongTimeString()}.";
 
             var nomeArquivo = "";
             if (FotoCorrespondencia != null)
@@ -380,7 +418,9 @@ namespace CondominioApp.Correspondencias.App.Models
 
             AdicionarEvento
                 (new EnviarEmailCorrespondenciaIntegrationEvent
-                 (assunto, titulo, descricao, UnidadeId, nomeArquivo));
+                 (assunto, titulo, descricao, UnidadeId, nomeArquivo,
+                  NomeFuncionario, CodigoDeVerificacao, TipoDeCorrespondencia,
+                  Localizacao, Observacao));
 
             return;
         }
@@ -389,15 +429,18 @@ namespace CondominioApp.Correspondencias.App.Models
         {
             var assunto = "Correspondência";
             var titulo = "Correspondência Devolvida";
-            var descricao = ObterDescricaoDoPushParaCorrespondenciaDevolvida();
+            var descricao = $"Correspondência devolvida por {NomeFuncionario}.";
 
             var nomeArquivo = "";
             if (FotoCorrespondencia != null)
                 nomeArquivo = FotoCorrespondencia.NomeDoArquivo;
 
             AdicionarEvento
-                (new EnviarEmailCorrespondenciaIntegrationEvent
-                 (assunto, titulo, descricao, UnidadeId, nomeArquivo));
+                 (new EnviarEmailCorrespondenciaIntegrationEvent
+                  (assunto, titulo, descricao, UnidadeId, nomeArquivo,
+                   NomeFuncionario, CodigoDeVerificacao, TipoDeCorrespondencia,
+                   Localizacao, Observacao));
+
             return;
         }
 

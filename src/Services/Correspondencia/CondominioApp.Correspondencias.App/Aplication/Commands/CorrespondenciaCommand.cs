@@ -112,7 +112,7 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
 
         public void SetDataDeChegada(DateTime data)
         {
-            if (data > DataHoraDeBrasilia.Get())
+            if (data.Date > DataHoraDeBrasilia.Get().Date)
             {
                 AdicionarErrosDeProcessamentoDoComando("Data de Chegada deve ser anterior a data-hora atual.");
                 return;
@@ -123,12 +123,15 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
 
         public void SetDataDeRetirada(DateTime? data)
         {
-            if (data != null && data > DataHoraDeBrasilia.Get())
+            if (data != null)
             {
-                AdicionarErrosDeProcessamentoDoComando("Data de Retirada deve ser anterior a data-hora atual.");
-                return;
+                var dataRet = (DateTime)data;
+                if (dataRet.Date > DataHoraDeBrasilia.Get().Date)
+                {
+                    AdicionarErrosDeProcessamentoDoComando("Data de Retirada deve ser anterior a data-hora atual.");
+                    return;
+                }                    
             }
-
             DataDaRetirada = data;
         }
 

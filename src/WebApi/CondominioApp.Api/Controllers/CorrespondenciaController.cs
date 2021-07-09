@@ -142,6 +142,29 @@ namespace CondominioApp.Api.Controllers
         }
 
 
+        [HttpGet("por-historico-da-correspondencia")]
+        public async Task<ActionResult<IEnumerable<HistoricoCorrespondenciaViewModel>>> ObterHistoricoDaCorrespondencia(
+            Guid correspondenciaId)
+        {
+            var historicos = await _correspondenciaQuery.ObterHistoricoPorCorrespondencia(correspondenciaId);
+            if (historicos.Count() == 0)
+            {
+                AdicionarErroProcessamento("Nenhum registro encontrado.");
+                return CustomResponse();
+            }
+
+            var historicosViewModel = new List<HistoricoCorrespondenciaViewModel>();
+            foreach (HistoricoCorrespondencia item in historicos)
+            {
+                var historicoViewModel = _mapper.Map<HistoricoCorrespondenciaViewModel>(item);
+                historicosViewModel.Add(historicoViewModel);
+            }
+            return historicosViewModel;
+        }
+
+
+
+
         /// <summary>
         /// Cadastra uma nova correspondência e alerta o morador
         /// </summary>
