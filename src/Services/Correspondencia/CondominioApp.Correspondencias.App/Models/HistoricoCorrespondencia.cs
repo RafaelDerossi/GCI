@@ -1,15 +1,10 @@
 ﻿using CondominioApp.Core.DomainObjects;
 using CondominioApp.Core.Enumeradores;
-using CondominioApp.Core.Helpers;
-using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.NotificacaoEmailIntegrationEvent.Correspondencia;
-using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.NotificacaoPushIntegrationEvents;
-using CondominioApp.Correspondencias.App.ValueObjects;
-using FluentValidation.Results;
 using System;
 
 namespace CondominioApp.Correspondencias.App.Models
 {
-   public class HistoricoCorrespondencia : Entity
+    public class HistoricoCorrespondencia : Entity
     {
         public const int Max = 200;
 
