@@ -10,7 +10,7 @@ namespace CondominioApp.Core.Helpers
 
         public static string ObterUrlDeArquivo(string pasta, string nomeDoArquivo)
         {
-            if (nomeDoArquivo == "SemFoto.png" || nomeDoArquivo == "")
+            if (nomeDoArquivo == "")
                 return PathSemFoto;
 
             return $@"{PathStorage}{pasta}/{nomeDoArquivo}";
@@ -18,7 +18,7 @@ namespace CondominioApp.Core.Helpers
 
         public static string ObterNomeDoArquivo(IFormFile arquivo)
         {
-            var nomeArquivo = "SemFoto.png";
+            var nomeArquivo = "";
             if (arquivo != null)
             {
                 nomeArquivo = arquivo.FileName;

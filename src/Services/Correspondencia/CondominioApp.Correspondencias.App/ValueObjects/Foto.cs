@@ -23,7 +23,7 @@ namespace CondominioApp.Correspondencias.App.ValueObjects
         {
             if (string.IsNullOrEmpty(nomeOriginal))
             {
-                NomeOriginal = "SemFoto.png";
+                NomeOriginal = "";
                 return;
             }
 
@@ -34,9 +34,9 @@ namespace CondominioApp.Correspondencias.App.ValueObjects
         {
             string[] ListaDeExtensoes = { ".jpg", ".jpeg", ".png", ".gif" };
 
-            if (NomeOriginal == "SemFoto.png")
+            if (NomeOriginal == "")
             {
-                NomeDoArquivo = "SemFoto.png";
+                NomeDoArquivo = "";
                 return;
             }
 
