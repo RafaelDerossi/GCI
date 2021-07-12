@@ -36,7 +36,7 @@ namespace CondominioApp.Ocorrencias.App.ValueObjects
 
             if (NomeOriginal == "SemFoto.png")
             {
-                NomeDoArquivo = "https://i.imgur.com/gxXxUm7.png";
+                NomeDoArquivo = "SemFoto.png";
                 return;
             }
 

@@ -197,6 +197,7 @@ namespace CondominioApp.Api.Controllers
                               (correspondenciaVM.ArquivoFotoCorrespondencia,
                                comando.FotoCorrespondencia.NomeDoArquivo,
                                unidade.CondominioId.ToString());
+
                 if (!retorno.IsValid)
                 {
                     AdicionarErroProcessamento("Falha ao carregar foto!");
