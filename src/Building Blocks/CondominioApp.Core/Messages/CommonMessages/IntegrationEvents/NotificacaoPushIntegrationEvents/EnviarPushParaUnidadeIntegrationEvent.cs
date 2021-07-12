@@ -13,7 +13,8 @@ namespace CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.Notificac
         public string Conteudo { get; set; }
 
 
-        public EnviarPushParaUnidadeIntegrationEvent(Guid unidadeId, string titulo, string conteudo)
+        public EnviarPushParaUnidadeIntegrationEvent
+            (Guid unidadeId, string titulo, string conteudo)
         {
             UnidadeId = unidadeId;            
             Conteudo = conteudo;

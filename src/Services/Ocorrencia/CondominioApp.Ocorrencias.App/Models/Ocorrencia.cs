@@ -38,6 +38,9 @@ namespace CondominioApp.Ocorrencias.App.Models
         {
             get
             {
+                if (Foto == null)
+                    return "";
+
                 return StoragePaths.ObterUrlDeArquivo(CondominioId.ToString(), Foto.NomeDoArquivo);
             }
         }

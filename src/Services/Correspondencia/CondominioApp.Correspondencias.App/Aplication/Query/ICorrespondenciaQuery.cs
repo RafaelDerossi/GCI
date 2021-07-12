@@ -15,5 +15,7 @@ namespace CondominioApp.Correspondencias.App.Aplication.Query
         Task<IEnumerable<Correspondencia>> ObterPorUnidadeEPeriodo(Guid unidadeId, DateTime dataInicio, DateTime dataFim);
 
         Task<Correspondencia> ObterPorCodigo(string codigo);
+
+        Task<IEnumerable<HistoricoCorrespondencia>> ObterHistoricoPorCorrespondencia(Guid correspondenciaId);
     }
 }

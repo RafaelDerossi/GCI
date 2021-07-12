@@ -62,12 +62,17 @@ namespace CondominioApp.Correspondencias.App.ViewModels
         /// <summary>
         /// Nome do arquivo da foto da correspondência
         /// </summary>
-        public string NomeArquivoFoto { get;  set; }
+        public string NomeArquivoFoto { get;  set; }       
 
         /// <summary>
         /// Nome original do arquivo da foto da correspondência
         /// </summary>
         public string NomeOriginalFoto { get; set; }
+
+        /// <summary>
+        /// Url da foto da correspondencia
+        /// </summary>
+        public string UrlArquivoFoto { get; set; }
 
         /// <summary>
         /// Número de rastreamento da correspondência nos Correios ou transportadora
@@ -100,9 +105,14 @@ namespace CondominioApp.Correspondencias.App.ViewModels
         public string NomeRetirante { get; set; }
 
         /// <summary>
-        /// Nome do arquivo da foto do retirante
+        /// Nome da foto do retirante
         /// </summary>
         public string NomeArquivoFotoRetirante { get; set; }
+
+        /// <summary>
+        /// Url da foto do retirante
+        /// </summary>
+        public string UrlFotoRetirante { get; set; }
 
         /// <summary>
         /// Nome original do arquivo da foto do retirante

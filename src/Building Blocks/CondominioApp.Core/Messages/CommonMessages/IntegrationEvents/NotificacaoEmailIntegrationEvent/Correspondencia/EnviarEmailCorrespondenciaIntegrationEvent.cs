@@ -16,15 +16,32 @@ namespace CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.Notificac
 
         public string NomeArquivoFoto { get; private set; }
 
+        public string RecebidoPor { get; private set; }
+
+        public string Codigo { get; private set; }
+
+        public string Tipo { get; private set; }
+
+        public string Localizacao { get; private set; }
+
+        public string Observacao { get; private set; }
+
         public EnviarEmailCorrespondenciaIntegrationEvent
             (string assunto, string titulo, string descricao, Guid unidadeId,
-             string nomeArquivoFoto)
+             string nomeArquivoFoto, string recebidoPor, string codigo, string tipo,
+             string localizacao, string observacao)
         {
             Assunto = assunto;
             Titulo = titulo;
             Descricao = descricao;
             UnidadeId = unidadeId;
             NomeArquivoFoto = nomeArquivoFoto;
+            RecebidoPor = recebidoPor;
+            Codigo = codigo;
+            Tipo = tipo;
+            Localizacao = localizacao;
+            Observacao = observacao;
         }
+
     }
 }

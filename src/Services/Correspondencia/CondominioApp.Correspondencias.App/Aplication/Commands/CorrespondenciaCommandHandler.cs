@@ -1,6 +1,7 @@
 ﻿using CondominioApp.Core.Enumeradores;
 using CondominioApp.Core.Helpers;
 using CondominioApp.Core.Messages;
+using CondominioApp.Correspondencias.Aplication.Events;
 using CondominioApp.Correspondencias.App.DTO;
 using CondominioApp.Correspondencias.App.Models;
 using FluentValidation.Results;
@@ -44,6 +45,11 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
             correspondencia.EnviarPush();
             correspondencia.EnviarEmail();
 
+            correspondencia.AdicionarEvento(
+                new RegistraHistoricoEvent(correspondencia.Id, AcoesCorrespondencia.CADASTRO,
+                                           correspondencia.FuncionarioId, correspondencia.NomeFuncionario,
+                                           false));
+
             return await PersistirDados(_CorrespondenciaRepository.UnitOfWork);
         }
 
@@ -62,6 +68,8 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
             correspondenciaBd.SetVisto();
 
             _CorrespondenciaRepository.Atualizar(correspondenciaBd);
+
+            correspondenciaBd.AdicionarEvento(new MarcarComoVistoEvent(correspondenciaBd.Id));
 
             return await PersistirDados(_CorrespondenciaRepository.UnitOfWork);
         }
@@ -91,6 +99,11 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
 
             _CorrespondenciaRepository.Atualizar(correspondenciaBd);
 
+            correspondenciaBd.AdicionarEvento(
+                new RegistraHistoricoEvent(correspondenciaBd.Id, AcoesCorrespondencia.RETIRADA,
+                                           correspondenciaBd.FuncionarioId, correspondenciaBd.NomeFuncionario,
+                                           true));
+
             return await PersistirDados(_CorrespondenciaRepository.UnitOfWork);
         }
 
@@ -117,6 +130,11 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
 
             _CorrespondenciaRepository.Atualizar(correspondenciaBd);
 
+            correspondenciaBd.AdicionarEvento(
+                new RegistraHistoricoEvent(correspondenciaBd.Id, AcoesCorrespondencia.DEVOLUCAO,
+                                           correspondenciaBd.FuncionarioId, correspondenciaBd.NomeFuncionario,
+                                           false));
+
             return await PersistirDados(_CorrespondenciaRepository.UnitOfWork);
         }
 
@@ -141,6 +159,11 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
 
             _CorrespondenciaRepository.Atualizar(correspondenciaBd);
 
+            correspondenciaBd.AdicionarEvento(
+                new RegistraHistoricoEvent(correspondenciaBd.Id, AcoesCorrespondencia.NOTIFICACAO,
+                                           correspondenciaBd.FuncionarioId, correspondenciaBd.NomeFuncionario,
+                                           false));
+
             return await PersistirDados(_CorrespondenciaRepository.UnitOfWork);
         }
 
@@ -158,6 +181,11 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
 
             _CorrespondenciaRepository.Apagar(x=>x.Id == correspondenciaBd.Id);
 
+            correspondenciaBd.AdicionarEvento(
+               new RegistraHistoricoEvent(correspondenciaBd.Id, AcoesCorrespondencia.EXCLUSAO,
+                                          correspondenciaBd.FuncionarioId, correspondenciaBd.NomeFuncionario,
+                                          false));
+
             return await PersistirDados(_CorrespondenciaRepository.UnitOfWork);
         }
 
@@ -166,28 +194,21 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
             if (!request.EstaValido())
                 return request.ValidationResult;
 
-            var listaCorrespondencias = new List<CorrespondenciaExcelDTO>();
+            var correspondencias = await _CorrespondenciaRepository.ObterPorIds(request.ListaCorrespondenciaId);
 
-            foreach (Guid correspondenciaId in request.ListaCorrespondenciaId)
-            {                
-                var correspondencia = await _CorrespondenciaRepository.ObterPorId(correspondenciaId);
+            var listaCorrespondenciasDTO = new List<CorrespondenciaExcelDTO>();
 
-                if (correspondencia != null)
+            foreach (var correspondencia in correspondencias)
+            {
+                var CorrespondenciaDTO = new CorrespondenciaExcelDTO
                 {
-                    if (!correspondencia.Lixeira)
-                    {
-                        var CorrespondenciaDTO = new CorrespondenciaExcelDTO
-                        {
-                            DataDaChegada = correspondencia.DataDeCadastroFormatada,
-                            EntreguePor = correspondencia.NomeFuncionario,
-                            DataDaRetirada = correspondencia.DataDaRetirada.ToString(),
-                            RetiradoPor = correspondencia.NomeRetirante,
-                            Observacao = correspondencia.Observacao
-                        };
-                        listaCorrespondencias.Add(CorrespondenciaDTO);
-                    }
-                }
-                
+                    DataDaChegada = correspondencia.DataDeCadastroFormatada,
+                    EntreguePor = correspondencia.NomeFuncionario,
+                    DataDaRetirada = correspondencia.DataDaRetirada.ToString(),
+                    RetiradoPor = correspondencia.NomeRetirante,
+                    Observacao = correspondencia.Observacao
+                };
+                listaCorrespondenciasDTO.Add(CorrespondenciaDTO);
             }
 
             List<string> cabecalho = new List<string>
@@ -200,7 +221,7 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
             };
 
             var geradorExcel = new GeradorDeExcel<CorrespondenciaExcelDTO>
-                (cabecalho, listaCorrespondencias, request.NomeArquivo, "Relatório de Correspondência",
+                (cabecalho, listaCorrespondenciasDTO, request.NomeArquivo, "Relatório de Correspondência",
                 request.CaminhoRaiz);
                         
 

@@ -65,7 +65,13 @@ namespace CondominioApp.Correspondencias.App.Data.Repository
                 .ToListAsync();
         }
 
-       
+        public async Task<IEnumerable<Correspondencia>> ObterPorIds(List<Guid> ids)
+        {
+            return await _context.Correspondencias
+                .Where(u => ids.Contains(u.Id) && !u.Lixeira).ToListAsync();
+        }
+
+
         public void Adicionar(Correspondencia entity)
         {
             _context.Correspondencias.Add(entity);
@@ -82,6 +88,24 @@ namespace CondominioApp.Correspondencias.App.Data.Repository
         }
 
 
+
+
+        public async Task<IEnumerable<HistoricoCorrespondencia>> ObterHistoricoPorCorrespondenciaId(Guid correspondenciaId)
+        {
+            return await _context.Historicos.Where(u => u.CorrespondenciaId == correspondenciaId)
+                                            .OrderBy(x => x.DataDeCadastro)
+                                            .ToListAsync();
+        }
+
+        public void AdicionarHistorico(HistoricoCorrespondencia entity)
+        {
+            _context.Historicos.Add(entity);
+        }
+
+        public void AtualizarHistorico(HistoricoCorrespondencia entity)
+        {
+            _context.Historicos.Update(entity);
+        }
 
         public void Dispose()
         {

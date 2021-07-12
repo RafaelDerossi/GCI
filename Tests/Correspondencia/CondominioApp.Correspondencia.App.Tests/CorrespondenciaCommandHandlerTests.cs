@@ -300,14 +300,18 @@ namespace CondominioApp.Correspondencias.App.Tests
             //Arrange
             var command = CorrespondenciaCommandFactory.CriarComandGerarExcelDeCorrespondencia();
 
-            var correspondencia = CorrespondenciaFactoryTests.Criar_Correspondencia_Valida();
+            var correspondencia1 = CorrespondenciaFactoryTests.Criar_Correspondencia_Valida();
+            var correspondencia2 = CorrespondenciaFactoryTests.Criar_Correspondencia_Valida();
+            var correspondencias = new List<Correspondencia>
+            {
+                correspondencia1,
+                correspondencia2
+            };
 
-            _mocker.GetMock<ICorrespondenciaRepository>().Setup(r => r.ObterPorId(command.ListaCorrespondenciaId[0]))
-             .Returns(Task.FromResult(correspondencia));
+            IEnumerable<Correspondencia> listaDeCorrespondencia = correspondencias;
 
-
-            _mocker.GetMock<ICorrespondenciaRepository>().Setup(r => r.ObterPorId(command.ListaCorrespondenciaId[1]))
-             .Returns(Task.FromResult(correspondencia));
+            _mocker.GetMock<ICorrespondenciaRepository>().Setup(r => r.ObterPorIds(command.ListaCorrespondenciaId))
+             .Returns(Task.FromResult(listaDeCorrespondencia));            
 
             _mocker.GetMock<ICorrespondenciaRepository>().Setup(r => r.UnitOfWork.Commit())
                .Returns(Task.FromResult(true));

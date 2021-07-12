@@ -170,8 +170,9 @@ namespace CondominioApp.NotificacaoEmail.Aplication.Events
 
             return new CorrespondenciaDTO
                 (notification.Assunto, notification.Titulo, notification.Descricao,
-                 unidade.CondominioLogoMarca, listaDeEmails, unidade.CondominioId,
-                 notification.NomeArquivoFoto);
+                 unidade.CondominioLogoMarca, unidade.CondominioId, notification.NomeArquivoFoto,
+                 notification.RecebidoPor, notification.Codigo, notification.Tipo,
+                 notification.Localizacao, notification.Observacao, listaDeEmails);
         }
 
         #endregion

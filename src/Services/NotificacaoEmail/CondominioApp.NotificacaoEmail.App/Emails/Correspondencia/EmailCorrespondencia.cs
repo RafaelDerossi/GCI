@@ -34,6 +34,11 @@ namespace CondominioApp.NotificacaoEmail.Api.Email
             conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_mensagem_", _correspondencia.Descricao);
             conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_logoCondominio_", _correspondencia.LogoDoCondominio);
             conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_logoCondominioApp_", _logoCondominioApp);
+            conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_recebidoPor_", _correspondencia.RecebidoPor);
+            conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_codigo_", _correspondencia.Codigo);
+            conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_tipo_", _correspondencia.Tipo);
+            conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_localizacao_", _correspondencia.Localizacao);
+            conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_obs_", _correspondencia.Observacao);
             conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_fotoCorrespondencia_", RetornaFotoHtml());
 
             return conteudoDoHtmlDoEmail;
