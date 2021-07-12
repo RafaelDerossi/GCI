@@ -194,28 +194,21 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
             if (!request.EstaValido())
                 return request.ValidationResult;
 
-            var listaCorrespondencias = new List<CorrespondenciaExcelDTO>();
+            var correspondencias = await _CorrespondenciaRepository.ObterPorIds(request.ListaCorrespondenciaId);
 
-            foreach (Guid correspondenciaId in request.ListaCorrespondenciaId)
-            {                
-                var correspondencia = await _CorrespondenciaRepository.ObterPorId(correspondenciaId);
+            var listaCorrespondenciasDTO = new List<CorrespondenciaExcelDTO>();
 
-                if (correspondencia != null)
+            foreach (var correspondencia in correspondencias)
+            {
+                var CorrespondenciaDTO = new CorrespondenciaExcelDTO
                 {
-                    if (!correspondencia.Lixeira)
-                    {
-                        var CorrespondenciaDTO = new CorrespondenciaExcelDTO
-                        {
-                            DataDaChegada = correspondencia.DataDeCadastroFormatada,
-                            EntreguePor = correspondencia.NomeFuncionario,
-                            DataDaRetirada = correspondencia.DataDaRetirada.ToString(),
-                            RetiradoPor = correspondencia.NomeRetirante,
-                            Observacao = correspondencia.Observacao
-                        };
-                        listaCorrespondencias.Add(CorrespondenciaDTO);
-                    }
-                }
-                
+                    DataDaChegada = correspondencia.DataDeCadastroFormatada,
+                    EntreguePor = correspondencia.NomeFuncionario,
+                    DataDaRetirada = correspondencia.DataDaRetirada.ToString(),
+                    RetiradoPor = correspondencia.NomeRetirante,
+                    Observacao = correspondencia.Observacao
+                };
+                listaCorrespondenciasDTO.Add(CorrespondenciaDTO);
             }
 
             List<string> cabecalho = new List<string>
@@ -228,7 +221,7 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
             };
 
             var geradorExcel = new GeradorDeExcel<CorrespondenciaExcelDTO>
-                (cabecalho, listaCorrespondencias, request.NomeArquivo, "Relatório de Correspondência",
+                (cabecalho, listaCorrespondenciasDTO, request.NomeArquivo, "Relatório de Correspondência",
                 request.CaminhoRaiz);
                         
 

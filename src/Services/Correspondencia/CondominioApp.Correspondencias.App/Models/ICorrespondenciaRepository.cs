@@ -9,9 +9,12 @@ namespace CondominioApp.Correspondencias.App.Models
     {
         Task<IEnumerable<HistoricoCorrespondencia>> ObterHistoricoPorCorrespondenciaId(Guid correspondenciaId);
 
+        Task<IEnumerable<Correspondencia>> ObterPorIds(List<Guid> ids);
+
+
         void AdicionarHistorico(HistoricoCorrespondencia entity);
 
-        void AtualizarHistorico(HistoricoCorrespondencia entity);
+        void AtualizarHistorico(HistoricoCorrespondencia entity);        
 
     }
 }

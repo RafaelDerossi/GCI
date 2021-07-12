@@ -65,7 +65,13 @@ namespace CondominioApp.Correspondencias.App.Data.Repository
                 .ToListAsync();
         }
 
-       
+        public async Task<IEnumerable<Correspondencia>> ObterPorIds(List<Guid> ids)
+        {
+            return await _context.Correspondencias
+                .Where(u => ids.Contains(u.Id) && !u.Lixeira).ToListAsync();
+        }
+
+
         public void Adicionar(Correspondencia entity)
         {
             _context.Correspondencias.Add(entity);

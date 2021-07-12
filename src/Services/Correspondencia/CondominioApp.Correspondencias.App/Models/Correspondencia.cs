@@ -267,7 +267,7 @@ namespace CondominioApp.Correspondencias.App.Models
         
         private string ObterDescricaoDoPushParaNovaCorrespondencia()
         {
-            var descricao = @$"Chegou uma correspondência para você.     Recebido por {NomeFuncionario}. ";
+            var descricao = @$"Chegou uma correspondência para você!     Recebido por {NomeFuncionario}. ";
 
             if (CodigoDeVerificacao != null && CodigoDeVerificacao != "")
                 descricao = @$"{descricao}    Código: {CodigoDeVerificacao}.";
@@ -391,7 +391,7 @@ namespace CondominioApp.Correspondencias.App.Models
         {
             var assunto = "Correspondência";
             var titulo = "Nova Correspondência";
-            var descricao = @$"Chegou uma correspondência para você.!";
+            var descricao = @$"Chegou uma correspondência para você!";
 
             var nomeArquivo = "";
             if (FotoCorrespondencia != null)
