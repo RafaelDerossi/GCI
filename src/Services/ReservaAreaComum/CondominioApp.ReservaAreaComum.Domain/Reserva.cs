@@ -50,6 +50,8 @@ namespace CondominioApp.ReservaAreaComum.Domain
 
         public bool ReservadoPelaAdministracao { get; private set; }
 
+        public string Protocolo { get; private set; }
+
         public string StatusDescricao
         {
             get
@@ -91,6 +93,7 @@ namespace CondominioApp.ReservaAreaComum.Domain
             Origem = origem;
             CriadaPelaAdministracao = criadaPelaAdministracao;
             ReservadoPelaAdministracao = reservadoPelaAdministracao;
+            SetProtocolo();
         }
 
 
@@ -203,7 +206,12 @@ namespace CondominioApp.ReservaAreaComum.Domain
             }
         }
 
-                
+
+        public void SetProtocolo()
+        {
+            Protocolo = $"{DateTime.Now.Year}{DateTime.Now.Month:D2}{DateTime.Now.Day:D2}{DateTime.Now.Minute:D2}{DateTime.Now.Second:D2}{Id.ToString().Substring(0, 4)}";
+        }
+
 
         public DateTime ObterDataHoraInicioDaRealizacao()
         {

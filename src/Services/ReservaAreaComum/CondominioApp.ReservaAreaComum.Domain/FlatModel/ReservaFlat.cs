@@ -59,6 +59,8 @@ namespace CondominioApp.ReservaAreaComum.Domain.FlatModel
         
         public string StatusDescricao { get; private set; }
 
+        public string Protocolo { get; private set; }
+
         protected ReservaFlat() { }
 
         public ReservaFlat(Guid id, Guid areaComumId,
@@ -66,7 +68,7 @@ namespace CondominioApp.ReservaAreaComum.Domain.FlatModel
             Guid unidadeId, string numeroUnidade, string andarUnidade, string descricaoGrupoUnidade, Guid moradorId,
             string nomeMorador, DateTime dataDeRealizacao, string horaInicio, string horaFim, decimal preco,
             StatusReserva status, string justificatica, string origem, bool criadaPelaAdministracao,
-            bool reservadoPelaAdministracao)
+            bool reservadoPelaAdministracao, string protocolo)
         {
             Id = id;           
             AreaComumId = areaComumId;
@@ -91,6 +93,7 @@ namespace CondominioApp.ReservaAreaComum.Domain.FlatModel
             CriadaPelaAdministracao = criadaPelaAdministracao;
             ReservadoPelaAdministracao = reservadoPelaAdministracao;
             StatusDescricao = ObterStatusDescricao();
+            Protocolo = protocolo;
         }
 
         public string ObterStatusDescricao()
@@ -216,7 +219,7 @@ namespace CondominioApp.ReservaAreaComum.Domain.FlatModel
 
                 return 0;
             }
-        }
+        }        
 
     }
 }

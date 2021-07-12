@@ -99,7 +99,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
                 reserva.DescricaoGrupoUnidade, reserva.MoradorId, reserva.NomeMorador, reserva.DataDeRealizacao,
                 reserva.HoraInicio, reserva.HoraFim, reserva.Preco, reserva.Justificativa,
                 reserva.Origem, reserva.ReservadoPelaAdministracao,
-                request.FuncionarioId, request.NomeFuncionario));
+                request.FuncionarioId, request.NomeFuncionario, reserva.Protocolo));
 
 
             return await PersistirDados(_reservaAreaComumRepository.UnitOfWork);

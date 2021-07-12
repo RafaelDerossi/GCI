@@ -47,7 +47,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Events
                  notification.NomeMorador, notification.DataDeRealizacao, notification.HoraInicio,
                  notification.HoraFim, notification.Preco, StatusReserva.PROCESSANDO,
                  notification.Justificativa, notification.Origem, false,
-                 notification.ReservadoPelaAdministracao);
+                 notification.ReservadoPelaAdministracao, notification.Protocolo);
 
             _reservaAreaComumQueryRepository.AdicionarReserva(reservaFlat);
 
@@ -70,7 +70,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Events
                  notification.NomeMorador, notification.DataDeRealizacao, notification.HoraInicio,
                  notification.HoraFim, notification.Preco, StatusReserva.PROCESSANDO,
                  notification.Justificativa, notification.Origem, true,
-                 notification.ReservadoPelaAdministracao);
+                 notification.ReservadoPelaAdministracao, notification.Protocolo);
 
             _reservaAreaComumQueryRepository.AdicionarReserva(reservaFlat);
 

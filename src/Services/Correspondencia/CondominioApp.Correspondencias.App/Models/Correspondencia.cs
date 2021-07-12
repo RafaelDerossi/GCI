@@ -229,7 +229,7 @@ namespace CondominioApp.Correspondencias.App.Models
 
         public void SetCodigo()
         {
-            CodigoDeVerificacao = Id.ToString().Substring(0, 4) + DateTime.Now.Minute.ToString("D2") + DateTime.Now.Second.ToString("D2");
+            CodigoDeVerificacao = $"{Id.ToString().Substring(0, 4)}{DateTime.Now.Minute:D2}{DateTime.Now.Second:D2}";
         }
 
 

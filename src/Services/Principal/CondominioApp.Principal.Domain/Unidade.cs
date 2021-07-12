@@ -53,7 +53,7 @@ namespace CondominioApp.Principal.Domain
 
         public void ResetCodigo()
         {
-           Codigo = Id.ToString().Substring(0, 4) + DateTime.Now.Minute.ToString("D2") + DateTime.Now.Second.ToString("D2");
+           Codigo =$"{Id.ToString().Substring(0, 4)}{DateTime.Now.Minute:D2}{DateTime.Now.Second:D2}";
         }
 
         public void SetCondominioId(Guid condominioId) => CondominioId = condominioId;
