@@ -11,7 +11,7 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
         {
             CorrespondenciaId = correspondenciaId;
             NomeRetirante = nomeRetirante;
-            Observacao = observacao;
+            ObservacaoDaRetirada = observacao;
             FuncionarioId = usuarioId;
             NomeFuncionario = nomeUsuario;
             SetFotoRetirante(nomeOriginalFotoRetirante);

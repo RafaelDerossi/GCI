@@ -52,7 +52,7 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
 
         public bool EnviarNotificacao { get; protected set; }
 
-
+        public string ObservacaoDaRetirada { get; protected set; }
 
         public void SetFotoCorrespondencia(string nomeOriginal)
         {

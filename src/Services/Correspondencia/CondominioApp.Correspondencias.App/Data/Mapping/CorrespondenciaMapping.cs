@@ -61,6 +61,8 @@ namespace CondominioApp.Correspondencias.App.Data.Mapping
                     .HasColumnType($"varchar({Foto.NomeFotoMaximo})");
             });
 
+            builder.Property(u => u.ObservacaoDaRetirada).HasColumnType($"varchar({Correspondencia.Max})");
+
         }
     }
 }

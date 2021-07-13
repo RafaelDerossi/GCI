@@ -134,6 +134,8 @@ namespace CondominioApp.Correspondencias.App.ViewModels
         /// </summary>
         public bool EnviarNotificacao { get; set; }
 
+        public string ObservacaoDaRetirada { get; set; }
+
         public bool Lixeira { get; set; }
 
     }
