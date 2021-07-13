@@ -38,7 +38,8 @@ namespace CondominioApp.ReservaAreaComum.Infra.Data
             modelBuilder.Ignore<AreaComumFlat>();
             modelBuilder.Ignore<ReservaFlat>();
             modelBuilder.Ignore<PeriodoFlat>();
-            
+            modelBuilder.Ignore<HistoricoReservaFlat>();
+
         }
 
         public async Task<bool> Commit()
