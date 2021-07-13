@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace CondominioApp.Correspondencias.App.ViewModels
-{
-   public class HistoricoCorrespondenciaViewModel
+{    
+    public class HistoricoCorrespondenciaViewModel
     {
         /// <summary>
         /// Historico Id
@@ -28,7 +28,7 @@ namespace CondominioApp.Correspondencias.App.ViewModels
         public string DataDeAlteracao { get; set; }
 
         /// <summary>
-        /// Enum Ação: CADASTRO = 0, NOTIFICACAO = 1, RETIRADA = 2, DEVOLUCAO = 3, EXCLUSAO = 4
+        /// Enum Ação: CADASTRO = 0, NOTIFICACAO = 1, RETIRADA = 2, DEVOLUCAO = 3, EXCLUSAO = 4        
         /// </summary>
         public AcoesCorrespondencia Acao { get; set; }
 

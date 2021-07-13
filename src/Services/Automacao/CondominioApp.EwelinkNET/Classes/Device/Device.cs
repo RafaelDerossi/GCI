@@ -72,7 +72,8 @@ namespace EwelinkNet.Classes
         public IPAddress GetIp() => context.Arptable.GetIPAddressByMac(mac).FirstOrDefault();
 
         public string GetParameter(string parameterName) => ExpandoHelpers.GetOrDefault(@params, parameterName);
-               
+
+        public long? GetParameterLong(string parameterName) => ExpandoHelpers.GetOrDefault(@params, parameterName);
 
         public void UpdateDevice(object payload)
         {

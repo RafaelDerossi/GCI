@@ -522,7 +522,7 @@
     "group": "",
     "online": true,
     "location": "",
-    "onlineTime": "2021-07-13T19:02:15.996Z",
+    "onlineTime": "2021-07-13T16:39:15.538Z",
     "createdAt": "2020-10-26T18:23:40.663Z",
     "ip": "186.227.59.24",
     "offlineTime": "2021-07-12T18:41:38.810Z",
@@ -561,7 +561,7 @@
       },
       "switch": "off",
       "fwVersion": "3.5.1",
-      "rssi": -64,
+      "rssi": -56,
       "staMac": "84:0D:8E:57:49:AE",
       "startup": "off",
       "version": 8,
@@ -569,7 +569,7 @@
       "ssid": "Techdog",
       "bssid": "d8:77:8b:05:a7:f1",
       "init": 1,
-      "pulse": "on",
+      "pulse": "off",
       "pulseWidth": 3500,
       "only_device": {
         "ota": "success"

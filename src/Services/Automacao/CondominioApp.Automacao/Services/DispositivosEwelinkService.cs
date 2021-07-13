@@ -48,27 +48,22 @@ namespace CondominioApp.Automacao.Services
             if (ewelink.Devices.Length > 0)
             {
                 for (int i = 0; i < ewelink.Devices.Length; i++)
-                {
+                {                    
+
                     var dispositivo = new DispositivoViewModel()
                     {
                         DispositivoId = ewelink.Devices[i].deviceid,
-                        Nome = ewelink.Devices[i].name,
-                        Tipo = ewelink.Devices[i].type,
-                        Chave = ewelink.Devices[i].devicekey,
-                        Apikey = ewelink.Devices[i].apikey,
-                        Grupo = ewelink.Devices[i].group,
-                        Online = ewelink.Devices[i].online,
-                        Localizacao = ewelink.Devices[i].location,
+                        Nome = ewelink.Devices[i].name,                        
+                        Online = ewelink.Devices[i].online,                        
                         OnlineHora = ewelink.Devices[i].onlineTime,
                         DataDeCriacao = ewelink.Devices[i].createdAt,
                         Ip = ewelink.Devices[i].ip,
                         OfflineHora = ewelink.Devices[i].offlineTime,
-                        State = ewelink.Devices[i].GetParameter("switch"),
-                        UrlDoDispositivo = ewelink.Devices[i].deviceUrl,
-                        NomeDaMarca = ewelink.Devices[i].brandName,
-                        MostraMarca = ewelink.Devices[i].showBrand,
-                        UrlDaLogoDaMarca = ewelink.Devices[i].brandLogoUrl,
+                        State = ewelink.Devices[i].GetParameter("switch"),                        
+                        NomeDaMarca = ewelink.Devices[i].brandName,                        
                         ModeloDoProduto = ewelink.Devices[i].productModel,
+                        Pulse = ewelink.Devices[i].GetParameter("pulse"),
+                        PulseWidth = ewelink.Devices[i].GetParameterLong("pulseWidth").ToString(),
                         TipoAutomacao = TipoApiAutomacao.EWELINK
                     };
 

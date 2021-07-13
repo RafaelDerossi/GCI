@@ -18,6 +18,10 @@ namespace CondominioApp.Automacao.Models
 
         public bool Ligado { get; private set; }
 
+        public bool PulseLigado { get; private set; }
+
+        public string TempoDoPulse { get; private set; }
+
         public DispositivoWebhook()
         {
         }
@@ -44,5 +48,17 @@ namespace CondominioApp.Automacao.Models
         public void Ligar() => Ligado = true;
 
         public void Desligar() => Ligado = false;
+
+        public void LigarPulse(string tempo)
+        {
+            PulseLigado = true;
+            TempoDoPulse = tempo;
+        }
+
+        public void DesligarPulse()
+        {
+            PulseLigado = false;
+            TempoDoPulse = "";
+        }
     }
 }

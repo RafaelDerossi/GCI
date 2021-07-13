@@ -6,12 +6,14 @@ namespace CondominioApp.Automacao.App.Aplication.Commands
     public class AtualizarDispositivoWebhookCommand : DispositivoWebhookCommand
     {
         public AtualizarDispositivoWebhookCommand
-            (Guid id, string nome, string urlLigar, string urlDesligar)
+            (Guid id, string nome, string urlLigar, string urlDesligar,
+             bool pulseLigado, string tempoDoPulse)
         {
+            PulseLigado = pulseLigado;
+            TempoDoPulse = tempoDoPulse;
             Id = id;
-            SetNome(nome);                        
-            SetUrlLigar(urlLigar);
-            SetUrlDesligar(urlDesligar);
+            SetNome(nome);          
+            SetUrlLigarDesligar(urlLigar, urlDesligar);            
         }
 
 
@@ -31,8 +33,7 @@ namespace CondominioApp.Automacao.App.Aplication.Commands
             {
                 ValidateId();
                 ValidateNome();
-                ValidateUrlLigar();
-                ValidateUrlDesligar();
+                ValidateUrlLigar();                
             }
         }
     }

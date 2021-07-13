@@ -143,11 +143,11 @@ namespace CondominioApp.Api.Controllers
 
 
         /// <summary>
-        /// Retorna o Historico da correspondencia
+        /// Retorna o Histórico da correspondencia        
         /// </summary>
-        /// <param name="correspondenciaId">Id(Guid) da correspondência</param>
-        /// <returns></returns>
-        [HttpGet("historico-da-correspondencia")]
+        /// <param name="correspondenciaId">Id(Guid) da correspondência</param>        
+        /// <response code="200">Enum Ação: CADASTRO = 0, NOTIFICACAO = 1, RETIRADA = 2, DEVOLUCAO = 3, EXCLUSAO = 4</response>
+        [HttpGet("historico-da-correspondencia")]        
         public async Task<ActionResult<IEnumerable<HistoricoCorrespondenciaViewModel>>> ObterHistoricoDaCorrespondencia(
             Guid correspondenciaId)
         {

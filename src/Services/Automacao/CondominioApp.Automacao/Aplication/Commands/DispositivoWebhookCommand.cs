@@ -8,30 +8,45 @@ namespace CondominioApp.Automacao.App.Aplication.Commands
     {
         public Guid Id { get; protected set; }
 
-        public string Nome { get; private set; }
+        public string Nome { get; protected set; }
 
-        public Url UrlLigar { get; private set; }
+        public Url UrlLigar { get; protected set; }
 
-        public Url UrlDesligar { get; private set; }
+        public Url UrlDesligar { get; protected set; }
 
-        public Guid CondominioId { get; private set; }
+        public Guid CondominioId { get; protected set; }
+
+        public bool PulseLigado { get; protected set; }
+
+        public string TempoDoPulse { get; protected set; }
 
 
         public void SetNome(string nome) => Nome = nome;
 
-        public void SetUrlLigar(string url)
+        public void SetUrlLigarDesligar(string urlLigar, string urlDesligar)
         {
             try
             {
-                UrlLigar = new Url(url);
+                UrlLigar = new Url(urlLigar);
             }
             catch (Exception e)
             {
                 AdicionarErrosDeProcessamentoDoComando(e.Message);
-            }            
+            }
+
+            if (PulseLigado)
+            {
+                SetUrlDesligar(urlLigar);
+            }
+            else
+            {
+                SetUrlDesligar(urlDesligar);
+            }
+
+
         }
 
-        public void SetUrlDesligar(string url)
+        private void SetUrlDesligar(string url)
         {
             try
             {
