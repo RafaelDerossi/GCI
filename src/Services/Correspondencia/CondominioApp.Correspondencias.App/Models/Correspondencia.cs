@@ -75,6 +75,8 @@ namespace CondominioApp.Correspondencias.App.Models
 
         public bool EnviarNotificacao { get; private set; }
 
+        public string ObservacaoDaRetirada { get; private set; }
+
         /// <summary>
         /// Construtores
         /// </summary>
@@ -127,6 +129,8 @@ namespace CondominioApp.Correspondencias.App.Models
 
         public void SetObservacao(string observacao) => Observacao = observacao;
 
+        public void SetObservacaoDaRetirada(string observacao) => ObservacaoDaRetirada = observacao;
+
         public void SetDataRetirada(DateTime dataRetirada) => DataDaRetirada = dataRetirada;
 
         public void SetFuncionarioId(Guid usuarioId) => FuncionarioId = usuarioId;
@@ -172,7 +176,7 @@ namespace CondominioApp.Correspondencias.App.Models
             }
 
             SetNomeRetirante(nomeRetirante);
-            SetObservacao(observacao);
+            SetObservacaoDaRetirada(observacao);
             SetFuncionarioId(funcionarioId);
             SetNomeFuncionario(nomeFuncionario);
             SetFotoRetirante(fotoRetirante);
@@ -304,8 +308,8 @@ namespace CondominioApp.Correspondencias.App.Models
             if (TipoDeCorrespondencia != null && TipoDeCorrespondencia != "")
                 descricao = $"{descricao}     Tipo da Corrêspondencia: {TipoDeCorrespondencia}.";
 
-            if (Observacao != null && Observacao != "")
-                descricao = $"{descricao}     {Observacao}.";
+            if (ObservacaoDaRetirada != null && ObservacaoDaRetirada != "")
+                descricao = $"{descricao}     {ObservacaoDaRetirada}.";
 
             return descricao;
         }
@@ -420,7 +424,7 @@ namespace CondominioApp.Correspondencias.App.Models
                 (new EnviarEmailCorrespondenciaIntegrationEvent
                  (assunto, titulo, descricao, UnidadeId, nomeArquivo,
                   NomeFuncionario, CodigoDeVerificacao, TipoDeCorrespondencia,
-                  Localizacao, Observacao));
+                  Localizacao, ObservacaoDaRetirada));
 
             return;
         }

@@ -142,7 +142,12 @@ namespace CondominioApp.Api.Controllers
         }
 
 
-        [HttpGet("por-historico-da-correspondencia")]
+        /// <summary>
+        /// Retorna o Historico da correspondencia
+        /// </summary>
+        /// <param name="correspondenciaId">Id(Guid) da correspondência</param>
+        /// <returns></returns>
+        [HttpGet("historico-da-correspondencia")]
         public async Task<ActionResult<IEnumerable<HistoricoCorrespondenciaViewModel>>> ObterHistoricoDaCorrespondencia(
             Guid correspondenciaId)
         {

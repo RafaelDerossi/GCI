@@ -87,7 +87,7 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
             }
 
             var retorno = correspondenciaBd.MarcarComRetirada
-                (request.NomeRetirante, request.Observacao, request.FuncionarioId, 
+                (request.NomeRetirante, request.ObservacaoDaRetirada, request.FuncionarioId, 
                  request.NomeFuncionario, request.FotoRetirante);
 
             if (!retorno.IsValid)
