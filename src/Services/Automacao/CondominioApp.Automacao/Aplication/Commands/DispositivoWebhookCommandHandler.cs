@@ -69,6 +69,10 @@ namespace CondominioApp.Automacao.App.Aplication.Commands
             dispositivo.SetUrlLigar(request.UrlLigar);
             dispositivo.SetUrlDesligar(request.UrlDesligar);
 
+            dispositivo.DesligarPulse();
+            if (request.PulseLigado)
+                dispositivo.LigarPulse(request.TempoDoPulse);
+
             _condominioCredencialRepository.AtualizarDispositivoWebhook(dispositivo);
 
             return await PersistirDados(_condominioCredencialRepository.UnitOfWork);
@@ -103,10 +107,13 @@ namespace CondominioApp.Automacao.App.Aplication.Commands
                 return ValidationResult;
             }
 
-            if (dispositivo.Ligado)
-                dispositivo.Desligar();
-            else
-                dispositivo.Ligar();
+            if (!dispositivo.PulseLigado)
+            {
+                if (dispositivo.Ligado)
+                    dispositivo.Desligar();
+                else
+                    dispositivo.Ligar();
+            }            
 
             _condominioCredencialRepository.AtualizarDispositivoWebhook(dispositivo);
 

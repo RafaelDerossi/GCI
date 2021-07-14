@@ -167,17 +167,29 @@ namespace EwelinkNet
                 state = deviceSwitch.GetState();                
             }
 
+            var pulse = device.GetParameter("pulse");
+
             if (state == "on")
             {
                 deviceSwitch.TurnOff();
-                Thread.Sleep(500);
-                device.deviceStatus = "off";
+
+                if (pulse == "off")
+                {
+                    device.deviceStatus = "off";
+                }
+
+                Thread.Sleep(500);                
             }
             else
             {
                 deviceSwitch.TurnOn();
-                Thread.Sleep(500);
-                device.deviceStatus = "on";
+
+                if (pulse == "off")
+                {
+                    device.deviceStatus = "on";
+                }
+
+                Thread.Sleep(500);                
             }
 
             StoreDevicesToFile();
