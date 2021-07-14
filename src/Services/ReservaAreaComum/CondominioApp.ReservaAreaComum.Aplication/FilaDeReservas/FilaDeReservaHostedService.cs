@@ -77,42 +77,40 @@ namespace CondominioApp.ReservaAreaComum.Aplication.FilaDeReservas
                         var comando = new ReprovarReservaAutomaticamenteCommand(reserva.Id, reserva.Justificativa);
                         _mediatorHandler.EnviarComando(comando);
                     }
-                }
-
-                Thread.Sleep(30000);
+                }                
             }
 
+            Thread.Sleep(20000);
 
             if (_reservaAreaComumRepository.ObterQtdDeReservasAguardandoAprovacaoAteHoje().Result > 0)
             {
                 var reservas = _reservaAreaComumRepository.ObterReservasAguardandoAprovacaoAteHoje().Result;
 
-                foreach (var reserva in reservas)
+                var reserva = reservas.FirstOrDefault();
+
+                if (reserva.EstaExpirada())
                 {
-                    if (reserva.EstaExpirada())
-                    {
-                        var comando = new MarcarReservaComoExpiradaCommand(reserva.Id, "");
-                        _mediatorHandler.EnviarComando(comando);
-                        Thread.Sleep(15000);
-                    }
+                    var comando = new MarcarReservaComoExpiradaCommand(reserva.Id, "");
+                    _mediatorHandler.EnviarComando(comando);                    
                 }
             }
 
+            Thread.Sleep(5000);
 
             if (_reservaAreaComumRepository.ObterQtdDeReservasNaFilaAteHoje().Result > 0)
             {
                 var reservas = _reservaAreaComumRepository.ObterReservasNaFilaAteHoje().Result;
 
-                foreach (var reserva in reservas)
+                var reserva = reservas.FirstOrDefault();
+
+                if (reserva.EstaExpirada())
                 {
-                    if (reserva.EstaExpirada())
-                    {
-                        var comando = new MarcarReservaComoExpiradaCommand(reserva.Id, "");
-                        _mediatorHandler.EnviarComando(comando);
-                        Thread.Sleep(15000);
-                    }
+                    var comando = new MarcarReservaComoExpiradaCommand(reserva.Id, "");
+                    _mediatorHandler.EnviarComando(comando);                    
                 }
             }
+
+            Thread.Sleep(5000);
 
         }
 

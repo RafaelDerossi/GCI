@@ -271,6 +271,47 @@ namespace CondominioApp.Api.Controllers
         }
 
         /// <summary>
+        /// Marcar uma correspondência como retirada através do qrcode
+        /// </summary>
+        /// <param name="codigoDeVerificacao">Código de verificação da correspondência</param>
+        /// <param name="moradorId">Id(Guid) do morador que esta retirando</param>
+        /// <param name="funcionarioId">Id(Guid) do funcionário que esta entregando</param>
+        /// <returns></returns>
+        [HttpPut("marcar-correspondencia-retirada-qrcode")]
+        public async Task<ActionResult> PutRetiradaQrcode(string codigoDeVerificacao, Guid moradorId, Guid funcionarioId)
+        {
+            var funcionario = await _usuarioQuery.ObterFuncionarioPorId(funcionarioId);
+            if (funcionario == null)
+            {
+                AdicionarErroProcessamento("Funcionário não encontrado!");
+                return CustomResponse();
+            }
+
+            var morador = await _usuarioQuery.ObterMoradorPorId(moradorId);
+            if (morador == null)
+            {
+                AdicionarErroProcessamento("Morador não encontrado!");
+                return CustomResponse();
+            }
+
+            var correspondencia = await _correspondenciaQuery.ObterPorCodigo(codigoDeVerificacao);
+            if (correspondencia == null)
+            {
+                AdicionarErroProcessamento("Correspondência não encontrada!");
+                return CustomResponse();
+            }
+
+            var comando = new MarcarCorrespondenciaRetiradaCommand(
+                correspondencia.Id, morador.NomeCompleto, "Retirada pelo QrCode",
+                funcionario.Id, funcionario.NomeCompleto, morador.Foto);            
+
+            var Resultado = await _mediatorHandler.EnviarComando(comando);
+
+            return CustomResponse(Resultado);
+        }
+
+
+        /// <summary>
         /// Marcar correspondência como devolvida
         /// </summary>
         /// <param name="viewModel"></param>
