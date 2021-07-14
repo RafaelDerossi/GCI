@@ -12,6 +12,10 @@ namespace CondominioApp.Principal.Infra.Data.Mapping
 
             builder.ToTable("Reservas");
 
+            builder
+              .HasIndex(x => x.Protocolo)
+              .IsUnique();
+
             builder.Property(u => u.AreaComumId).IsRequired();
 
             builder.Property(u => u.Observacao).HasColumnType($"varchar(240)");

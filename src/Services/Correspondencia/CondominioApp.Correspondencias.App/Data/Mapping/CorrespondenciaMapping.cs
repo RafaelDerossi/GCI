@@ -13,6 +13,10 @@ namespace CondominioApp.Correspondencias.App.Data.Mapping
 
             builder.ToTable("Correspondencias");
 
+            builder
+               .HasIndex(x => x.CodigoDeVerificacao)
+               .IsUnique();
+
             builder.Property(u => u.UnidadeId).IsRequired();
 
             builder.Property(u => u.NumeroUnidade).IsRequired().HasColumnType($"varchar({Correspondencia.Max})");
