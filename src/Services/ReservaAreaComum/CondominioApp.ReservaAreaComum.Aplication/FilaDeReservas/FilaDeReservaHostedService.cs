@@ -79,7 +79,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.FilaDeReservas
                     }
                 }
 
-                Thread.Sleep(2000);
+                Thread.Sleep(30000);
             }
 
 
