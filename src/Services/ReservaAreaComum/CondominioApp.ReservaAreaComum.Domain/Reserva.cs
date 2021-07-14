@@ -331,13 +331,21 @@ namespace CondominioApp.ReservaAreaComum.Domain
         private void EnviarPushReservaAprovada(string nomeAreaComum, Guid condominioId)
         {          
             var titulo = "Reserva APROVADA";
-            var conteudo = $"Sua solicitação de reserva para a área comum {nomeAreaComum} para o dia: {DataDeRealizacao.ToShortDateString()}, no horário: {HoraInicio}-{HoraFim} foi aprovada.";
+            var conteudo = @$"Sua solicitação de reserva para a área comum {nomeAreaComum} 
+                              para o dia: {DataDeRealizacao.ToShortDateString()}, 
+                              no horário: {HoraInicio}-{HoraFim} foi aprovada.   
+                              Protocolo: {Protocolo}.";
 
             EnviarPushParaMorador(titulo, conteudo);
 
             if (Preco > 0)
             {
-                conteudo = $"Uma reserva solicitada pelo morador {NomeMorador}, unidade {NumeroUnidade}|{AndarUnidade}|{DescricaoGrupoUnidade}, para a área comum {nomeAreaComum} para o dia: {DataDeRealizacao.ToShortDateString()}, no horário: {HoraInicio}-{HoraFim} foi aprovada.";
+                conteudo = @$"Uma reserva solicitada pelo morador {NomeMorador}, 
+                              unidade {NumeroUnidade}|{AndarUnidade}|{DescricaoGrupoUnidade}, 
+                              para a área comum {nomeAreaComum} 
+                              para o dia: {DataDeRealizacao.ToShortDateString()}, 
+                              no horário: {HoraInicio}-{HoraFim} foi aprovada.  
+                              Protocolo: {Protocolo}.";
                 EnviarPushParaSindico(titulo, conteudo, condominioId);
             }
                 
@@ -348,11 +356,20 @@ namespace CondominioApp.ReservaAreaComum.Domain
         private void EnviarPushReservaAguardandoAprovacao(string nomeAreaComum, Guid condominioId)
         {           
             var titulo = "Reserva Aguardando Aprovação";
-            var conteudo = $"Sua solicitação de reserva para a área comum {nomeAreaComum} para o dia: {DataDeRealizacao.ToShortDateString()}, no horário: {HoraInicio}-{HoraFim} esta aguardando aprovação pela administração do condomínio.";
+            var conteudo = @$"Sua solicitação de reserva para a área comum {nomeAreaComum} 
+                              para o dia: {DataDeRealizacao.ToShortDateString()}, 
+                              no horário: {HoraInicio}-{HoraFim} 
+                              esta aguardando aprovação pela administração do condomínio. 
+                              Protocolo: {Protocolo}.";
 
             EnviarPushParaMorador(titulo, conteudo);
 
-            conteudo = $"Uma reserva solicitada pelo morador {NomeMorador}, unidade {NumeroUnidade}|{AndarUnidade}|{DescricaoGrupoUnidade}, para a área comum {nomeAreaComum} para o dia: {DataDeRealizacao.ToShortDateString()}, no horário: {HoraInicio}-{HoraFim} esta aguardando aprovação.";
+            conteudo = @$"Uma reserva solicitada pelo morador {NomeMorador}, 
+                          unidade {NumeroUnidade}|{AndarUnidade}|{DescricaoGrupoUnidade}, 
+                          para a área comum {nomeAreaComum} 
+                          para o dia: {DataDeRealizacao.ToShortDateString()}, 
+                          no horário: {HoraInicio}-{HoraFim} esta aguardando aprovação. 
+                          Protocolo: {Protocolo}.";
 
             EnviarPushParaSindico(titulo, conteudo, condominioId);
 
@@ -362,7 +379,11 @@ namespace CondominioApp.ReservaAreaComum.Domain
         private void EnviarPushReservaReprovada(string nomeAreaComum)
         {
             var titulo = "Reserva REPROVADA";
-            var conteudo = $"Sua solicitação de reserva da área comum {nomeAreaComum} para o dia: {DataDeRealizacao.ToShortDateString()}, no horário: {HoraInicio}-{HoraFim} NÃO foi aprovada! {Justificativa}";
+            var conteudo = @$"Sua solicitação de reserva da área comum {nomeAreaComum} 
+                              para o dia: {DataDeRealizacao.ToShortDateString()}, 
+                              no horário: {HoraInicio}-{HoraFim} NÃO foi aprovada! 
+                              {Justificativa}. 
+                              Protocolo: {Protocolo}.";
 
             EnviarPushParaMorador(titulo, conteudo);
 
@@ -372,13 +393,21 @@ namespace CondominioApp.ReservaAreaComum.Domain
         private void EnviarPushReservaNaFila(string nomeAreaComum, Guid condominioId)
         {
             var titulo = "Reserva na FILA";
-            var conteudo = $"Sua solicitação de reserva da área comum {nomeAreaComum} para o dia: {DataDeRealizacao.ToShortDateString()}, no horário: {HoraInicio}-{HoraFim} foi encaminhada para a fila de espera!";
+            var conteudo = @$"Sua solicitação de reserva da área comum {nomeAreaComum} 
+                              para o dia: {DataDeRealizacao.ToShortDateString()}, 
+                              no horário: {HoraInicio}-{HoraFim} foi encaminhada para a fila de espera!
+                              Protocolo: {Protocolo}.";
 
             EnviarPushParaMorador(titulo, conteudo);
 
             if (Preco > 0)
             {
-                conteudo = $"Uma reserva solicitada pelo morador {NomeMorador}, unidade {NumeroUnidade}|{AndarUnidade}|{DescricaoGrupoUnidade}, da área comum {nomeAreaComum} para o dia: {DataDeRealizacao.ToShortDateString()}, no horário: {HoraInicio}-{HoraFim} foi encaminhada para a fila de espera!";
+                conteudo = @$"Uma reserva solicitada pelo morador {NomeMorador}, 
+                              unidade {NumeroUnidade}|{AndarUnidade}|{DescricaoGrupoUnidade}, 
+                              da área comum {nomeAreaComum} 
+                              para o dia: {DataDeRealizacao.ToShortDateString()}, 
+                              no horário: {HoraInicio}-{HoraFim} foi encaminhada para a fila de espera!
+                              Protocolo: {Protocolo}.";
                 EnviarPushParaSindico(titulo, conteudo, condominioId);
             }                
 
@@ -388,13 +417,23 @@ namespace CondominioApp.ReservaAreaComum.Domain
         private void EnviarPushReservaCancelada(string nomeAreaComum, Guid condominioId)
         {
             var titulo = "Reserva CANCELADA";
-            var conteudo = $"Sua solicitação de reserva da área comum {nomeAreaComum} para o dia: {DataDeRealizacao.ToShortDateString()}, no horário: {HoraInicio}-{HoraFim} foi CANCELADA! {Justificativa}";
+            var conteudo = @$"Sua solicitação de reserva da área comum {nomeAreaComum} 
+                              para o dia: {DataDeRealizacao.ToShortDateString()}, 
+                              no horário: {HoraInicio}-{HoraFim} foi CANCELADA! 
+                              {Justificativa}.
+                              Protocolo: {Protocolo}.";
 
             EnviarPushParaMorador(titulo, conteudo);
 
             if (Preco > 0)
             {
-                conteudo = $"Uma reserva solicitada pelo morador {NomeMorador}, unidade {NumeroUnidade}|{AndarUnidade}|{DescricaoGrupoUnidade}, da área comum {nomeAreaComum} para o dia: {DataDeRealizacao.ToShortDateString()}, no horário: {HoraInicio}-{HoraFim} foi CANCELADA! {Justificativa}";
+                conteudo = @$"Uma reserva solicitada pelo morador {NomeMorador}, 
+                              unidade {NumeroUnidade}|{AndarUnidade}|{DescricaoGrupoUnidade},
+                              da área comum {nomeAreaComum} 
+                              para o dia: {DataDeRealizacao.ToShortDateString()}, 
+                              no horário: {HoraInicio}-{HoraFim} foi CANCELADA! 
+                              {Justificativa}.
+                              Protocolo: {Protocolo}.";
                 EnviarPushParaSindico(titulo, conteudo, condominioId);
             }                
 
