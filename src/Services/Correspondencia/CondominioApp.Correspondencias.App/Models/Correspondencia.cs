@@ -401,11 +401,7 @@ namespace CondominioApp.Correspondencias.App.Models
             if (FotoCorrespondencia != null)
                 nomeArquivo = FotoCorrespondencia.NomeDoArquivo;
 
-            AdicionarEvento
-                (new EnviarEmailCorrespondenciaIntegrationEvent
-                 (assunto, titulo, descricao, UnidadeId, nomeArquivo,
-                  NomeFuncionario, CodigoDeVerificacao, TipoDeCorrespondencia,
-                  Localizacao, Observacao));
+            EnviarEmail(assunto, titulo, descricao, nomeArquivo);
 
             return;
         }
@@ -420,11 +416,7 @@ namespace CondominioApp.Correspondencias.App.Models
             if (FotoCorrespondencia != null)
                 nomeArquivo = FotoCorrespondencia.NomeDoArquivo;
 
-            AdicionarEvento
-                (new EnviarEmailCorrespondenciaIntegrationEvent
-                 (assunto, titulo, descricao, UnidadeId, nomeArquivo,
-                  NomeFuncionario, CodigoDeVerificacao, TipoDeCorrespondencia,
-                  Localizacao, ObservacaoDaRetirada));
+            EnviarEmail(assunto, titulo, descricao, nomeArquivo);
 
             return;
         }
@@ -439,13 +431,18 @@ namespace CondominioApp.Correspondencias.App.Models
             if (FotoCorrespondencia != null)
                 nomeArquivo = FotoCorrespondencia.NomeDoArquivo;
 
+            EnviarEmail(assunto, titulo, descricao, nomeArquivo);
+
+            return;
+        }
+
+        private void EnviarEmail(string assunto, string titulo, string descricao, string nomeArquivo)
+        {
             AdicionarEvento
                  (new EnviarEmailCorrespondenciaIntegrationEvent
                   (assunto, titulo, descricao, UnidadeId, nomeArquivo,
                    NomeFuncionario, CodigoDeVerificacao, TipoDeCorrespondencia,
                    Localizacao, Observacao));
-
-            return;
         }
 
     }

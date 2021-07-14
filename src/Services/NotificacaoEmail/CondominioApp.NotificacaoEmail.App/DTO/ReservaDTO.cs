@@ -37,12 +37,14 @@ namespace CondominioApp.NotificacaoEmail.App.DTO
         
         public string CorFundoTitulo { get; set; }
 
+        public string Protocolo { get; set; }
 
         public ReservaDTO
             (string titulo, string areaComumNome, string dataRealizacao, string horaInicio,
              string horaFim, string nomeMorador, string unidadeDescricao, string valor,
              string observacao, string justificativa, string dataDeCadastro, string nomeCondominio,
-             string logoDoCondominio, IEnumerable<string> listaDeEmails, string corFundoTitulo)
+             string logoDoCondominio, IEnumerable<string> listaDeEmails, string corFundoTitulo,
+             string protocolo)
         {
             Titulo = titulo;
             AreaComumNome = areaComumNome;
@@ -59,6 +61,7 @@ namespace CondominioApp.NotificacaoEmail.App.DTO
             LogoDoCondominio = logoDoCondominio;
             ListaDeEmails = listaDeEmails;
             CorFundoTitulo = corFundoTitulo;
+            Protocolo = protocolo;
         }
     }
 }

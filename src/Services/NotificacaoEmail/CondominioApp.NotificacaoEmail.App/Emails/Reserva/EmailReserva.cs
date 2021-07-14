@@ -45,6 +45,7 @@ namespace CondominioApp.NotificacaoEmail.Api.Email
             conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_logoCondominio_", _reserva.LogoDoCondominio);
             conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_logoCondominioApp_", _logoCondominioApp);
             conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_corFundoTitulo_", _reserva.CorFundoTitulo);
+            conteudoDoHtmlDoEmail = conteudoDoHtmlDoEmail.Replace("_protocolo_", _reserva.Protocolo);
 
             return conteudoDoHtmlDoEmail;
         }    

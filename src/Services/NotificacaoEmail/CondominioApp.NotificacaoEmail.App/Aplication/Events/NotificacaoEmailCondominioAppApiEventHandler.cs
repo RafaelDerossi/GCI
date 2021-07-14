@@ -346,7 +346,7 @@ namespace CondominioApp.NotificacaoEmail.Aplication.Events
                 (notification.Titulo, notification.AreaComumNome, notification.DataRealizacao,
                  notification.HoraInicio, notification.HoraFim, morador.NomeCompleto, notification.UnidadeDescricao,
                  notification.Valor, notification.Observacao, notification.Justificativa, notification.DataDeCadastro,
-                 condominio.Nome, condominio.LogoMarca, listaDeEmails, notification.CorFundoTitulo);
+                 condominio.Nome, condominio.LogoMarca, listaDeEmails, notification.CorFundoTitulo, notification.Protocolo);
 
         }
 
@@ -377,7 +377,7 @@ namespace CondominioApp.NotificacaoEmail.Aplication.Events
                 (notification.Titulo, notification.AreaComumNome, notification.DataRealizacao,
                  notification.HoraInicio, notification.HoraFim, morador.NomeCompleto, notification.UnidadeDescricao,
                  notification.Valor, notification.Observacao, notification.Justificativa, notification.DataDeCadastro,
-                 condominio.Nome, condominio.LogoMarca, listaDeEmails, notification.CorFundoTitulo);
+                 condominio.Nome, condominio.LogoMarca, listaDeEmails, notification.CorFundoTitulo, notification.Protocolo);
         }
 
 

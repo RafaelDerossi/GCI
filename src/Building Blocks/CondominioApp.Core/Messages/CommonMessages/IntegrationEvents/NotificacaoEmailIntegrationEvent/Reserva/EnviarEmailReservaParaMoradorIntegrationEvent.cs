@@ -34,11 +34,13 @@ namespace CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.Notificac
 
         public string CorFundoTitulo { get; set; }
 
+        public string Protocolo { get; set; }
+
         public EnviarEmailReservaParaMoradorIntegrationEvent
             (string titulo, string areaComumNome, string dataRealizacao, string horaInicio, 
              string horaFim, Guid moradorId, string unidadeDescricao, string valor,
              string observacao, string justificativa, string dataDeCadastro, Guid condominioId,
-             Guid unidadeId, string corFundoTitulo)
+             Guid unidadeId, string corFundoTitulo, string protocolo)
         {
             Titulo = titulo;
             AreaComumNome = areaComumNome;
@@ -54,6 +56,7 @@ namespace CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.Notificac
             CondominioId = condominioId;
             UnidadeId = unidadeId;
             CorFundoTitulo = corFundoTitulo;
+            Protocolo = protocolo;
         }
     }
 }

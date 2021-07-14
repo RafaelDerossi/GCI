@@ -596,7 +596,7 @@ namespace CondominioApp.ReservaAreaComum.Domain
            (titulo, nomeAreaComum, DataDeRealizacao.ToShortDateString(),
             HoraInicio, HoraFim, MoradorId, $"{NumeroUnidade}|{AndarUnidade}|{DescricaoGrupoUnidade}",
             Preco.ToString(), Observacao, Justificativa, DataDeCadastroFormatada, condominioId,
-            UnidadeId, corFundoTitulo));
+            UnidadeId, corFundoTitulo, Protocolo));
         }
 
         private void EnviarEmailParaSindico(string titulo, string nomeAreaComum, Guid condominioId, string corFundoTitulo)
@@ -606,7 +606,7 @@ namespace CondominioApp.ReservaAreaComum.Domain
            (titulo, nomeAreaComum, DataDeRealizacao.ToShortDateString(),
             HoraInicio, HoraFim, MoradorId, $"{NumeroUnidade}|{AndarUnidade}|{DescricaoGrupoUnidade}",
             Preco.ToString(), Observacao, Justificativa, DataDeCadastroFormatada, condominioId,
-            UnidadeId, corFundoTitulo));
+            UnidadeId, corFundoTitulo, Protocolo));
         }
     }
 }
