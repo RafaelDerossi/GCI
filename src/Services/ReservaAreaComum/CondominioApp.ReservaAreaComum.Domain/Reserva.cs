@@ -209,7 +209,7 @@ namespace CondominioApp.ReservaAreaComum.Domain
 
         public void SetProtocolo()
         {
-            Protocolo = $"{DateTime.Now.Year}{DateTime.Now.Month:D2}{DateTime.Now.Day:D2}{DateTime.Now.Minute:D2}{DateTime.Now.Second:D2}{Id.ToString().Substring(0, 4)}";
+            Protocolo = $"{DateTime.Now.Year}{DateTime.Now.Month:D2}{DateTime.Now.Day:D2}{DateTime.Now.Hour:D2}{DateTime.Now.Minute:D2}{DateTime.Now.Second:D2}{Id.ToString().Substring(0, 4)}";
         }
 
 
