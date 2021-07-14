@@ -93,7 +93,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.FilaDeReservas
                     {
                         var comando = new MarcarReservaComoExpiradaCommand(reserva.Id, "");
                         _mediatorHandler.EnviarComando(comando);
-                        Thread.Sleep(2000);
+                        Thread.Sleep(15000);
                     }
                 }
             }
@@ -109,7 +109,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.FilaDeReservas
                     {
                         var comando = new MarcarReservaComoExpiradaCommand(reserva.Id, "");
                         _mediatorHandler.EnviarComando(comando);
-                        Thread.Sleep(2000);
+                        Thread.Sleep(15000);
                     }
                 }
             }

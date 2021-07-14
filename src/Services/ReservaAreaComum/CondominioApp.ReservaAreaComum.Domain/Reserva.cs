@@ -288,11 +288,11 @@ namespace CondominioApp.ReservaAreaComum.Domain
         {
             var dataHj = DataHoraDeBrasilia.Get();
 
-            var dataFimDaRealizacao =DataDeRealizacao.Date;
+            var dataFimDaRealizacao = DataDeRealizacao.Date;
             dataFimDaRealizacao.AddHours(ObterAHoraDeFimDaReserva);
             dataFimDaRealizacao.AddMinutes(ObterOMinutoDeFimDaReserva);
-
-            if (dataFimDaRealizacao < dataHj)
+            
+            if (dataFimDaRealizacao < dataHj && !ReservadoPelaAdministracao)
                 return true;
 
             return false;
