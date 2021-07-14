@@ -1,10 +1,7 @@
-﻿using CondominioApp.Core.Enumeradores;
-using CondominioApp.ReservaAreaComum.Domain.FlatModel;
+﻿using CondominioApp.ReservaAreaComum.Domain.FlatModel;
 using CondominioApp.ReservaAreaComum.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace CondominioApp.ReservaAreaComum.App.Aplication.Query
@@ -12,12 +9,12 @@ namespace CondominioApp.ReservaAreaComum.App.Aplication.Query
     public class ReservaAreaComumQuery : IReservaAreaComumQuery
     {        
         private readonly IReservaAreaComumQueryRepository _reservaAreaComumQueryRepository;
+        private readonly int take = 500;
 
         public ReservaAreaComumQuery(IReservaAreaComumQueryRepository reservaAreaComumQueryRepository)
         {
             _reservaAreaComumQueryRepository = reservaAreaComumQueryRepository;
         }
-
 
         public async Task<AreaComumFlat> ObterPorId(Guid id)
         {
@@ -56,22 +53,22 @@ namespace CondominioApp.ReservaAreaComum.App.Aplication.Query
 
         public async Task<IEnumerable<ReservaFlat>> ObterReservasPorCondominio(Guid condominioId)
         {
-            return await _reservaAreaComumQueryRepository.ObterReserva(r=>r.CondominioId == condominioId && !r.Lixeira);
+            return await _reservaAreaComumQueryRepository.ObterReserva(r=>r.CondominioId == condominioId && !r.Lixeira, true, take);
         }
 
         public async Task<IEnumerable<ReservaFlat>> ObterReservasPorUnidade(Guid unidadeId)
         {
-            return await _reservaAreaComumQueryRepository.ObterReserva(r => r.UnidadeId == unidadeId && !r.Lixeira);
+            return await _reservaAreaComumQueryRepository.ObterReserva(r => r.UnidadeId == unidadeId && !r.Lixeira, true, take);
         }
 
-        public async Task<IEnumerable<ReservaFlat>> ObterReservasPorUsuario(Guid usuarioId)
+        public async Task<IEnumerable<ReservaFlat>> ObterReservasPorMorador(Guid moradorId)
         {
-            return await _reservaAreaComumQueryRepository.ObterReserva(r => r.MoradorId == usuarioId && !r.Lixeira);
+            return await _reservaAreaComumQueryRepository.ObterReserva(r => r.MoradorId == moradorId && !r.Lixeira, true, take);
         }
 
         public async Task<IEnumerable<ReservaFlat>> ObterReservasPorAreaComum(Guid areaComumId)
         {
-            return await _reservaAreaComumQueryRepository.ObterReserva(r => r.AreaComumId == areaComumId && !r.Lixeira);
+            return await _reservaAreaComumQueryRepository.ObterReserva(r => r.AreaComumId == areaComumId && !r.Lixeira, true, take);
         }
 
         public async Task<int> ObterQtdDeReservasProcessando()
