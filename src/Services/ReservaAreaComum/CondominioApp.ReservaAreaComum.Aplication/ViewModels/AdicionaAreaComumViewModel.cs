@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using Microsoft.AspNetCore.Http;
 
 namespace CondominioApp.ReservaAreaComum.Aplication.ViewModels
 {
@@ -29,5 +29,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.ViewModels
         public string TempoDeIntervaloEntreReservasPorUnidade { get; set; }
 
         public ICollection<PeriodoViewModel> Periodos { get; set; }
+
+        public ICollection<IFormFile> ArquivosDasFotos { get; set; }
     }
 }

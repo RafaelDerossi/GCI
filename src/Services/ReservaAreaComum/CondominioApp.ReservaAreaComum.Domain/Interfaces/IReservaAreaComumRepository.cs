@@ -31,5 +31,19 @@ namespace CondominioApp.ReservaAreaComum.Domain.Interfaces
         void AdicionarReserva(Reserva entity);
 
         void AtualizarReserva(Reserva entity);
+
+
+
+        void AdicionarFotoDaAreaComum(FotoDaAreaComum entity);
+
+        void ApagarFotoDaAreaComum(Func<FotoDaAreaComum, bool> predicate);
+
+        void RemoverFotoDaAreaComum(FotoDaAreaComum entity);
+
+
+        Task<FotoDaAreaComum> ObterFotoDaAreaComumPorId(Guid fotoId);
+
+        Task<IEnumerable<FotoDaAreaComum>> ObterFotosDaAreaComum(Guid areaComumId);
+
     }
 }

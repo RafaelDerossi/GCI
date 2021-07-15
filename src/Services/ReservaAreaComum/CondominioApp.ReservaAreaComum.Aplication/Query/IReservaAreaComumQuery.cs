@@ -1,4 +1,5 @@
-﻿using CondominioApp.ReservaAreaComum.Domain.FlatModel;
+﻿using CondominioApp.ReservaAreaComum.Domain;
+using CondominioApp.ReservaAreaComum.Domain.FlatModel;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -30,5 +31,8 @@ namespace CondominioApp.ReservaAreaComum.App.Aplication.Query
         Task<ReservaFlat> ObterPrimeiraNaFilaParaSerProcessada();
 
         Task<IEnumerable<HistoricoReservaFlat>> ObterHistoricoDaReserva(Guid reservaId);
+
+
+        Task<IEnumerable<FotoDaAreaComum>> ObterFotosDaAreaComum(Guid areaComumId);
     }
 }

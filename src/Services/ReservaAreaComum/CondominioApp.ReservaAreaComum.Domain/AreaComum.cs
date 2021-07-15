@@ -36,12 +36,15 @@ namespace CondominioApp.ReservaAreaComum.Domain
         public bool PermiteReservaSobreposta { get; private set; }
         public int NumeroLimiteDeReservaSobreposta { get; private set; }
         public int NumeroLimiteDeReservaSobrepostaPorUnidade { get; private set; }
-
         public string TempoDeIntervaloEntreReservasPorUnidade { get; private set; }
+        public string NomeArquivoAnexo { get; private set; }
 
 
         private readonly List<Periodo> _Periodos;
         public IReadOnlyCollection<Periodo> Periodos => _Periodos;
+
+        private readonly List<FotoDaAreaComum> _Fotos;
+        public IReadOnlyCollection<FotoDaAreaComum> Fotos => _Fotos;
 
 
         private readonly List<Reserva> _Reservas;
@@ -53,20 +56,22 @@ namespace CondominioApp.ReservaAreaComum.Domain
         protected AreaComum()
         {
             _Periodos = new List<Periodo>();
+            _Fotos = new List<FotoDaAreaComum>();
             _Reservas = new List<Reserva>();           
         }
 
         public AreaComum
-            (string nome, string descricao, string termoDeUso, Guid condominioId, string nomeCondominio,
+            (Guid id, string nome, string descricao, string termoDeUso, Guid condominioId, string nomeCondominio,
             int capacidade, string diasPermitidos, int antecedenciaMaximaEmMeses, int antecedenciaMaximaEmDias,
             int antecedenciaMinimaEmDias, int antecedenciaMinimaParaCancelamentoEmDias, bool requerAprovacaoDeReserva,
             bool horariosEspecificos, string tempoDeIntervaloEntreReservas, bool ativo, string tempoDeDuracaoDaReserva,
             int numeroLimiteDeReservaPorUnidade, bool permiteReservaSobreposta, int numeroLimiteDeReservaSobreposta,
             int numeroLimiteDeReservaSobrepostaPorUnidade, string tempoDeIntervaloEntreReservasPorUnidade,
-            List<Periodo> periodos , List<Reserva> reservas)
+            List<Periodo> periodos , List<Reserva> reservas, string nomeArquivoAnexo)
         {
+            SetEntidadeId(id);
             _Periodos = periodos;
-            _Reservas = reservas;
+            _Reservas = reservas;                      
             Nome = nome;
             Descricao = descricao;
             TermoDeUso = termoDeUso;
@@ -88,6 +93,7 @@ namespace CondominioApp.ReservaAreaComum.Domain
             NumeroLimiteDeReservaSobreposta = numeroLimiteDeReservaSobreposta;
             NumeroLimiteDeReservaSobrepostaPorUnidade = numeroLimiteDeReservaSobrepostaPorUnidade;
             TempoDeIntervaloEntreReservasPorUnidade = tempoDeIntervaloEntreReservasPorUnidade;
+            NomeArquivoAnexo = nomeArquivoAnexo;
         }
 
 
@@ -139,6 +145,8 @@ namespace CondominioApp.ReservaAreaComum.Domain
         public void SetTempoDeIntervaloEntreReservasPorUnidade(string intervalo) => 
             TempoDeIntervaloEntreReservasPorUnidade = intervalo;
 
+
+        public void SetNomeArquivoAnexo(string nomeArquivo) => NomeArquivoAnexo = nomeArquivo;
 
         /// Outros Metodos 
         public bool TemTermoDeUso
@@ -216,6 +224,17 @@ namespace CondominioApp.ReservaAreaComum.Domain
             _Periodos.Clear();
         }
 
+        public ValidationResult AdicionarFoto(FotoDaAreaComum fotoArea)
+        {            
+            _Fotos.Add(fotoArea);
+
+            return ValidationResult;
+        }
+
+        public void RemoverTodasAsFotos()
+        {
+            _Fotos.Clear();
+        }
 
 
         public void AdicionarReserva(Reserva reserva)
@@ -224,14 +243,11 @@ namespace CondominioApp.ReservaAreaComum.Domain
         }
 
 
-
         public ValidationResult ValidarReserva(Reserva reserva, IReservaStrategy regras)
         {   
             var resultado = regras.ValidarRegrasParaCriacao(reserva, this);
             return resultado;
-        }
-       
-
+        }      
 
 
         public Reserva RetirarProximaReservaDaFila(Reserva reservaCancelada, IReservaStrategy regras)
@@ -292,6 +308,7 @@ namespace CondominioApp.ReservaAreaComum.Domain
             return ValidationResult;
         }
 
+
         public ValidationResult CancelarReservaComoAdministrador(Reserva reservaACancelar, string justificativa, IReservaStrategy regras)
         {
             var result = regras.ValidarRegrasParaCancelamentoPelaAdministracao(reservaACancelar);
@@ -304,6 +321,14 @@ namespace CondominioApp.ReservaAreaComum.Domain
         }
         
      
+        public void SetReservas(IEnumerable<Reserva> reservas)
+        {
+            foreach (var item in reservas)
+            {
+                _Reservas.Add(item);
+            }
+        }
+
         public Reserva ObterReserva(Guid reservaId)
         {
             return _Reservas.FirstOrDefault(x => x.Id == reservaId);           
@@ -363,6 +388,7 @@ namespace CondominioApp.ReservaAreaComum.Domain
                 return 0;
             }
         }
+
         public int ObterHorasDeIntervaloDeReservaPorUnidade
         {
             get
@@ -378,5 +404,6 @@ namespace CondominioApp.ReservaAreaComum.Domain
             }
         }
                 
+
     }
 }

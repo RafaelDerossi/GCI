@@ -18,6 +18,8 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
          IRequestHandler<ApagarAreaComumCommand, ValidationResult>,
          IRequestHandler<AtivarAreaComumCommand, ValidationResult>,
          IRequestHandler<DesativarAreaComumCommand, ValidationResult>,
+         IRequestHandler<AdicionarFotoDeAreaComumCommand, ValidationResult>,
+         IRequestHandler<RemoverFotoDaAreaComumCommand, ValidationResult>,
          IDisposable
     {
 
@@ -209,18 +211,60 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
 
 
 
+        public async Task<ValidationResult> Handle(AdicionarFotoDeAreaComumCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido()) return request.ValidationResult;
+
+            var areaComum = _areaComumRepository.ObterPorId(request.AreaComumId);
+            if (areaComum == null)
+            {
+                AdicionarErro("Área Comum não encontrada.");
+                return ValidationResult;
+            }
+
+            var fotoDaAreaComum = FotoDaAreaComumFactory(request);
+            
+            _areaComumRepository.AdicionarFotoDaAreaComum(fotoDaAreaComum);           
+
+            return await PersistirDados(_areaComumRepository.UnitOfWork);
+        }
+
+        public async Task<ValidationResult> Handle(RemoverFotoDaAreaComumCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido())
+                return request.ValidationResult;
+
+            var fotoDaAreaComum = await _areaComumRepository.ObterFotoDaAreaComumPorId(request.Id);
+            if (fotoDaAreaComum == null)
+            {
+                AdicionarErro("Foto não encontrada.");
+                return ValidationResult;
+            }
+
+            _areaComumRepository.RemoverFotoDaAreaComum(fotoDaAreaComum);            
+
+            return await PersistirDados(_areaComumRepository.UnitOfWork);
+        }
+
+
+
         private AreaComum AreaComumFactory(AdicionarAreaComumCommand request)
         {
             return new AreaComum
-                (request.Nome, request.Descricao, request.TermoDeUso, request.CondominioId, request.NomeCondominio,
-                request.Capacidade, request.DiasPermitidos, request.AntecedenciaMaximaEmMeses, request.AntecedenciaMaximaEmDias,
-                request.AntecedenciaMinimaEmDias, request.AntecedenciaMinimaParaCancelamentoEmDias, request.RequerAprovacaoDeReserva,
-                request.TemHorariosEspecificos, request.TempoDeIntervaloEntreReservas, request.Ativa, request.TempoDeDuracaoDeReserva,
-                request.NumeroLimiteDeReservaPorUnidade, request.PermiteReservaSobreposta, request.NumeroLimiteDeReservaSobreposta,
-                request.NumeroLimiteDeReservaSobrepostaPorUnidade, request.TempoDeIntervaloEntreReservasPorUnidade,
-                new List<Periodo>(), new List<Reserva>());
+                (request.Id, request.Nome, request.Descricao, request.TermoDeUso, request.CondominioId, request.NomeCondominio,
+                 request.Capacidade, request.DiasPermitidos, request.AntecedenciaMaximaEmMeses, request.AntecedenciaMaximaEmDias,
+                 request.AntecedenciaMinimaEmDias, request.AntecedenciaMinimaParaCancelamentoEmDias, request.RequerAprovacaoDeReserva,
+                 request.TemHorariosEspecificos, request.TempoDeIntervaloEntreReservas, request.Ativa, request.TempoDeDuracaoDeReserva,
+                 request.NumeroLimiteDeReservaPorUnidade, request.PermiteReservaSobreposta, request.NumeroLimiteDeReservaSobreposta,
+                 request.NumeroLimiteDeReservaSobrepostaPorUnidade, request.TempoDeIntervaloEntreReservasPorUnidade,
+                 new List<Periodo>(), new List<Reserva>());
         }
-        
+
+        private FotoDaAreaComum FotoDaAreaComumFactory(AdicionarFotoDeAreaComumCommand request)
+        {
+            return new FotoDaAreaComum(request.AreaComumId, request.CondominioId, request.Foto);
+        }
+
         public void Dispose()
         {
             _areaComumRepository?.Dispose();

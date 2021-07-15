@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using CondominioApp.ReservaAreaComum.Domain;
 
-namespace CondominioApp.Principal.Infra.Data.Mapping
+namespace CondominioApp.ReservaAreaComum.Infra.Data.Mapping
 {
    public class PeriodoMapping : IEntityTypeConfiguration<Periodo>
     {

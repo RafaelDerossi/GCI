@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using CondominioApp.ArquivoDigital.AzureStorageBlob.Services;
+using CondominioApp.Core.Helpers;
 using CondominioApp.Core.Mediator;
 using CondominioApp.Principal.Aplication.Query.Interfaces;
 using CondominioApp.Principal.Domain.FlatModel;
@@ -8,6 +10,7 @@ using CondominioApp.ReservaAreaComum.App.Aplication.Query;
 using CondominioApp.ReservaAreaComum.Domain;
 using CondominioApp.ReservaAreaComum.Domain.FlatModel;
 using CondominioApp.WebApi.Core.Controllers;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -23,15 +26,19 @@ namespace CondominioApp.Api.Controllers
         private readonly IMapper _mapper;
         private readonly IReservaAreaComumQuery _areaComumQuery;
         private readonly IPrincipalQuery _principalQuery;
+        private readonly IAzureStorageService _azureStorageService;
 
         public AreaComumController(IMediatorHandler mediatorHandler, IMapper mapper,
-                                   IReservaAreaComumQuery areaComumQuery, IPrincipalQuery principalQuery)
+                                   IReservaAreaComumQuery areaComumQuery, IPrincipalQuery principalQuery,
+                                   IAzureStorageService azureStorageService)
         {
             _mediatorHandler = mediatorHandler;
             _mapper = mapper;
             _areaComumQuery = areaComumQuery;
             _principalQuery = principalQuery;
+            _azureStorageService = azureStorageService;
         }
+
 
 
         [HttpGet("{id:Guid}")]
@@ -61,22 +68,47 @@ namespace CondominioApp.Api.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult> Post(AdicionaAreaComumViewModel areaComumVM)
+        public async Task<ActionResult> Post([FromForm]AdicionaAreaComumViewModel areaComumVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
             var condominio = await _principalQuery.ObterPorId(areaComumVM.CondominioId);
             if (condominio == null)
             {
-                AdicionarErroProcessamento("Condominio não encontrado!");
+                AdicionarErroProcessamento("Condomínio não encontrado!");
                 return CustomResponse();
             }
 
             var comando = AdicionarAreaComumCommandFactory(areaComumVM, condominio);
 
-            var Resultado = await _mediatorHandler.EnviarComando(comando);
+            var resultado = await _mediatorHandler.EnviarComando(comando);
+            if (!resultado.IsValid)
+                return CustomResponse(resultado);
 
-            return CustomResponse(Resultado);
+
+            foreach (var arquivoDefoto in areaComumVM.ArquivosDasFotos)
+            {
+                var comandoAddFoto = AdicionarFotoDeAreaComumCommandFactory(comando.CondominioId, comando.Id, arquivoDefoto);
+                if (comandoAddFoto.EstaValido())
+                {
+                    var retorno = await _azureStorageService.SubirArquivo
+                                  (arquivoDefoto,
+                                   comandoAddFoto.Foto.NomeDoArquivo,
+                                   comandoAddFoto.CondominioId.ToString());
+
+                    if (!retorno.IsValid)
+                    {
+                        AdicionarErroProcessamento("Falha ao carregar foto!");
+                        return CustomResponse();
+                    }
+                }
+
+                var resultadoAddFoto = await _mediatorHandler.EnviarComando(comandoAddFoto);
+                if (!resultadoAddFoto.IsValid)
+                    return CustomResponse(resultadoAddFoto);
+            }           
+
+            return CustomResponse(resultado);
         }
 
         [HttpPut]
@@ -125,6 +157,75 @@ namespace CondominioApp.Api.Controllers
 
 
 
+        [HttpGet("obter-fotos-da-area-comum/{areaComumId:Guid}")]
+        public async Task<ActionResult<IEnumerable<FotoDaAreaViewModel>>> ObterFotosPorAreaComum(Guid areaComumId)
+        {
+            var fotos = await _areaComumQuery.ObterFotosDaAreaComum(areaComumId);
+            if (fotos.Count() == 0)
+            {
+                AdicionarErroProcessamento("Nenhum registro encontrado.");
+                return CustomResponse();
+            }
+
+            var fotosViewModel = new List<FotoDaAreaViewModel>();
+            foreach (var item in fotos)
+            {
+                var fotoViewModel = new FotoDaAreaViewModel(item);
+                fotosViewModel.Add(fotoViewModel);
+            }
+
+            return fotosViewModel.ToList();
+        }
+
+
+        [HttpPost("foto-area-comum")]
+        public async Task<ActionResult> PostFotoAreaComum([FromForm] IFormFile arquivo, Guid areaComumId)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            var areaComum = await _areaComumQuery.ObterPorId(areaComumId);
+            if (areaComum == null)
+            {
+                AdicionarErroProcessamento("Área comum não encontrada!");
+                return CustomResponse();
+            }
+
+            var comando = AdicionarFotoDeAreaComumCommandFactory(areaComum.CondominioId, areaComum.Id, arquivo);
+
+            if (comando.EstaValido())
+            {
+                var retorno = await _azureStorageService.SubirArquivo
+                              (arquivo,
+                               comando.Foto.NomeDoArquivo,
+                               comando.CondominioId.ToString());
+
+                if (!retorno.IsValid)
+                {
+                    AdicionarErroProcessamento("Falha ao carregar foto!");
+                    return CustomResponse();
+                }
+            }
+
+            var resultado = await _mediatorHandler.EnviarComando(comando);                       
+
+            return CustomResponse(resultado);
+        }
+        
+
+        [HttpDelete("foto-area-comum/{Id:Guid}")]
+        public async Task<ActionResult> DeleteFotoAreaComum(Guid Id)
+        {
+            var comando = new RemoverFotoDaAreaComumCommand(Id);
+
+            var Resultado = await _mediatorHandler.EnviarComando(comando);
+
+            return CustomResponse(Resultado);
+        }       
+
+       
+
+
+
         private AdicionarAreaComumCommand AdicionarAreaComumCommandFactory(AdicionaAreaComumViewModel areaComumVM, CondominioFlat condominio)
         {
             var listaPeriodos = new List<Periodo>();
@@ -135,8 +236,9 @@ namespace CondominioApp.Api.Controllers
                     var periodo = _mapper.Map<Periodo>(periodoVM);                   
                     listaPeriodos.Add(periodo);
                 }
-            }
-           return new AdicionarAreaComumCommand(
+            }           
+
+            return new AdicionarAreaComumCommand(
                  areaComumVM.Nome, areaComumVM.Descricao, areaComumVM.TermoDeUso, condominio.Id,
                  condominio.Nome, areaComumVM.Capacidade, areaComumVM.DiasPermitidos,
                  areaComumVM.AntecedenciaMaximaEmMeses, areaComumVM.AntecedenciaMaximaEmDias,
@@ -146,6 +248,12 @@ namespace CondominioApp.Api.Controllers
                  areaComumVM.NumeroLimiteDeReservaPorUnidade, areaComumVM.PermiteReservaSobreposta,
                  areaComumVM.NumeroLimiteDeReservaSobreposta, areaComumVM.NumeroLimiteDeReservaSobrepostaPorUnidade,
                  areaComumVM.TempoDeIntervaloEntreReservasPorUnidade, listaPeriodos);
+        }
+
+        private AdicionarFotoDeAreaComumCommand AdicionarFotoDeAreaComumCommandFactory(Guid condominioId, Guid areaComumId, IFormFile arquivo)
+        {
+            var nomeOriginalArquivo = StoragePaths.ObterNomeDoArquivo(arquivo);
+            return new AdicionarFotoDeAreaComumCommand(areaComumId, condominioId, nomeOriginalArquivo);
         }
 
         private AtualizarAreaComumCommand AtualizarAreaComumCommandFactory(AtualizaAreaComumViewModel areaComumVM)

@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CondominioApp.Principal.Infra.DataQuery.Mapping
+namespace CondominioApp.ReservaAreaComum.Infra.DataQuery.Mapping
 {
    public class AreaComumFlatMapping : IEntityTypeConfiguration<AreaComumFlat>
     {

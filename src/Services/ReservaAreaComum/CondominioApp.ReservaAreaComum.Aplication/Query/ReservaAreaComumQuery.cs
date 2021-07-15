@@ -1,4 +1,5 @@
-﻿using CondominioApp.ReservaAreaComum.Domain.FlatModel;
+﻿using CondominioApp.ReservaAreaComum.Domain;
+using CondominioApp.ReservaAreaComum.Domain.FlatModel;
 using CondominioApp.ReservaAreaComum.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -9,11 +10,15 @@ namespace CondominioApp.ReservaAreaComum.App.Aplication.Query
     public class ReservaAreaComumQuery : IReservaAreaComumQuery
     {        
         private readonly IReservaAreaComumQueryRepository _reservaAreaComumQueryRepository;
+        private readonly IReservaAreaComumRepository _reservaAreaComumRepository;
         private readonly int take = 500;
 
-        public ReservaAreaComumQuery(IReservaAreaComumQueryRepository reservaAreaComumQueryRepository)
+        public ReservaAreaComumQuery
+            (IReservaAreaComumQueryRepository reservaAreaComumQueryRepository,
+             IReservaAreaComumRepository reservaAreaComumRepository)
         {
             _reservaAreaComumQueryRepository = reservaAreaComumQueryRepository;
+            _reservaAreaComumRepository = reservaAreaComumRepository;
         }
 
         public async Task<AreaComumFlat> ObterPorId(Guid id)
@@ -45,6 +50,9 @@ namespace CondominioApp.ReservaAreaComum.App.Aplication.Query
                                 !c.Ativa && !c.Lixeira);
             }            
         }
+
+
+
 
         public async Task<ReservaFlat> ObterReservaPorId(Guid id)
         {
@@ -86,6 +94,14 @@ namespace CondominioApp.ReservaAreaComum.App.Aplication.Query
         {
             return await _reservaAreaComumQueryRepository.ObterHistoricoDaReserva(reservaId);
         }
+
+
+
+        public async Task<IEnumerable<FotoDaAreaComum>> ObterFotosDaAreaComum(Guid areaComumId)
+        {
+            return await _reservaAreaComumRepository.ObterFotosDaAreaComum(areaComumId);
+        }
+
 
         public void Dispose()
         {           

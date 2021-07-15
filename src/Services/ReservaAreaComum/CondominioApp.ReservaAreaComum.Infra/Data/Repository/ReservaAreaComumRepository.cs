@@ -93,22 +93,17 @@ namespace CondominioApp.Principal.Infra.Data.Repository
             if (reservas == null)
                 reservas = new List<Reserva>();
 
-            var aC = await _context.AreasComuns
+            var areaComum = await _context.AreasComuns
                 .AsNoTracking()
                 .Include(a => a.Periodos)
                 .FirstOrDefaultAsync(a => a.Id == id && !a.Lixeira);
-            if (aC != null)
+
+            if (areaComum != null)
             {
-                var areaComum = new AreaComum(aC.Nome, aC.Descricao, aC.TermoDeUso, aC.CondominioId,
-                    aC.NomeCondominio, aC.Capacidade, aC.DiasPermitidos, aC.AntecedenciaMaximaEmMeses,
-                    aC.AntecedenciaMaximaEmDias, aC.AntecedenciaMinimaEmDias, aC.AntecedenciaMinimaParaCancelamentoEmDias,
-                    aC.RequerAprovacaoDeReserva, aC.TemHorariosEspecificos, aC.TempoDeIntervaloEntreReservas, aC.Ativa,
-                    aC.TempoDeDuracaoDeReserva, aC.NumeroLimiteDeReservaPorUnidade, aC.PermiteReservaSobreposta,
-                    aC.NumeroLimiteDeReservaSobreposta, aC.NumeroLimiteDeReservaSobrepostaPorUnidade,
-                    aC.TempoDeIntervaloEntreReservasPorUnidade, aC.Periodos.ToList(), reservas.ToList());
-                    areaComum.SetEntidadeId(aC.Id);
+                areaComum.SetReservas(reservas);
                 return areaComum;
             }
+
             return null;
         }
 
@@ -177,6 +172,37 @@ namespace CondominioApp.Principal.Infra.Data.Repository
             return await _context.Reservas.Where(c => c.Status == StatusReserva.NA_FILA &&
                                                       c.DataDeRealizacao <= dataHj &&
                                                      !c.Lixeira).ToListAsync();
+        }
+
+
+
+
+
+
+        public void AdicionarFotoDaAreaComum(FotoDaAreaComum entity)
+        {
+            _context.FotosDaAreaComum.Add(entity);
+        }
+
+        public void ApagarFotoDaAreaComum(Func<FotoDaAreaComum, bool> predicate)
+        {
+            _context.FotosDaAreaComum.Where(predicate).ToList().ForEach(del => del.EnviarParaLixeira());
+        }
+
+        public void RemoverFotoDaAreaComum(FotoDaAreaComum entity)
+        {
+            _context.FotosDaAreaComum.Remove(entity);
+        }
+
+
+        public async Task<FotoDaAreaComum> ObterFotoDaAreaComumPorId(Guid fotoId)
+        {
+            return await _context.FotosDaAreaComum.FirstOrDefaultAsync(r => r.Id == fotoId && !r.Lixeira);            
+        }
+
+        public async Task<IEnumerable<FotoDaAreaComum>> ObterFotosDaAreaComum(Guid areaComumId)
+        {
+            return await _context.FotosDaAreaComum.Where(r => r.AreaComumId == areaComumId && !r.Lixeira).ToListAsync();
         }
 
         public void Dispose()

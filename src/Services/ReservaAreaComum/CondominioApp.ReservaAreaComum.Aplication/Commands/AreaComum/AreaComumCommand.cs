@@ -35,6 +35,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
 
         public ICollection<Periodo> Periodos;
 
+        
 
         public void SetNome(string nome) => Nome = nome;
 
@@ -85,7 +86,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
         public void AdicionarPeriodo(Periodo periodo)
         {
             Periodos.Add(periodo);
-        }
+        }      
 
     }
 }

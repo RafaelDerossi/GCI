@@ -5,6 +5,7 @@ using CondominioApp.Core.Mediator;
 using CondominioApp.Core.Messages;
 using CondominioApp.ReservaAreaComum.Domain;
 using CondominioApp.ReservaAreaComum.Domain.FlatModel;
+using CondominioApp.ReservaAreaComum.Domain.ValueObject;
 using FluentValidation.Results;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -23,6 +24,8 @@ namespace CondominioApp.ReservaAreaComum.Infra.Data
 
         public DbSet<Periodo> Periodos { get; set; }
 
+        public DbSet<FotoDaAreaComum> FotosDaAreaComum { get; set; }
+
         public ReservaAreaComumContextDB(DbContextOptions<ReservaAreaComumContextDB> options, IMediatorHandler mediatorHandler)
             : base(options)
         {
@@ -39,6 +42,8 @@ namespace CondominioApp.ReservaAreaComum.Infra.Data
             modelBuilder.Ignore<ReservaFlat>();
             modelBuilder.Ignore<PeriodoFlat>();
             modelBuilder.Ignore<HistoricoReservaFlat>();
+            modelBuilder.Ignore<Foto>();
+            modelBuilder.Ignore<BloqueioDeArea>();
 
         }
 

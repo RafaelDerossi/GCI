@@ -50,7 +50,7 @@ namespace CondominioApp.ReservaAreaComum.Domain
 
         public bool ReservadoPelaAdministracao { get; private set; }
 
-        public string Protocolo { get; private set; }
+        public string Protocolo { get; private set; }        
 
         public string StatusDescricao
         {
@@ -92,7 +92,7 @@ namespace CondominioApp.ReservaAreaComum.Domain
             Preco = preco;            
             Origem = origem;
             CriadaPelaAdministracao = criadaPelaAdministracao;
-            ReservadoPelaAdministracao = reservadoPelaAdministracao;
+            ReservadoPelaAdministracao = reservadoPelaAdministracao;           
             SetProtocolo();
         }
 
@@ -181,7 +181,8 @@ namespace CondominioApp.ReservaAreaComum.Domain
             NomeMorador = nome;            
         }
 
-        public void MarcarComoCriadaPelaAdministracao() => CriadaPelaAdministracao = true;
+        public void MarcarComoCriadaPelaAdministracao() => CriadaPelaAdministracao = true;       
+
 
 
         public int ObterHoraInicio
@@ -609,5 +610,6 @@ namespace CondominioApp.ReservaAreaComum.Domain
             Preco.ToString(), Observacao, Justificativa, DataDeCadastroFormatada, condominioId,
             UnidadeId, corFundoTitulo, Protocolo));
         }
+
     }
 }
