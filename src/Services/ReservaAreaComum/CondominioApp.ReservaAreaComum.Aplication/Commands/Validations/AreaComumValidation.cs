@@ -145,5 +145,15 @@ namespace CondominioApp.Principal.Aplication.Commands.Validations
 
         }
 
+        protected void ValidateArquivoAnexo()
+        {
+            RuleFor(c => c.NomeArquivoAnexo)
+                .NotNull();
+            RuleFor(c => c.NomeArquivoAnexo.NomeOriginal)
+                .NotNull()
+                .NotEmpty();
+
+        }
+
     }
 }

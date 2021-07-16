@@ -42,7 +42,7 @@ namespace CondominioApp.Correspondencias.App.Models
                 if (FotoCorrespondencia == null)
                     return "";
 
-                return StoragePaths.ObterUrlDeArquivo(CondominioId.ToString(), FotoCorrespondencia.NomeDoArquivo);
+                return StorageHelper.ObterUrlDeArquivo(CondominioId.ToString(), FotoCorrespondencia.NomeDoArquivo);
             }
         }
 
@@ -67,7 +67,7 @@ namespace CondominioApp.Correspondencias.App.Models
                 if (FotoRetirante == null)
                     return "";
                 
-                return StoragePaths.ObterUrlDeArquivo(CondominioId.ToString(), FotoRetirante.NomeDoArquivo);
+                return StorageHelper.ObterUrlDeArquivo(CondominioId.ToString(), FotoRetirante.NomeDoArquivo);
             }
         }
 

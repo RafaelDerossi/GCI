@@ -1,6 +1,7 @@
 ﻿
 
 using CondominioApp.ReservaAreaComum.Domain;
+using CondominioApp.ReservaAreaComum.Domain.ValueObjects;
 using System;
 using System.Collections.Generic;
 
@@ -10,9 +11,10 @@ namespace CondominioApp.ReservaAreaComum.Tests
     {
         private static AreaComum Factory()
         {
-           return new AreaComum("Area comum Teste", "Descrição", "", Guid.NewGuid(), "Nome do Condominio",
-                           150, "|SUNDAY|MONDAY|TUESDAY|WEDNESDAY|THURSDAY|FRIDAY|SATURDAY", 0, 0, 0, 0, false,
-                           false, "", true, "", 0, false, 0, 0, "", new List<Periodo>(), new List<Reserva>());
+           return new AreaComum(Guid.NewGuid(), "Area comum Teste", "Descrição", "", Guid.NewGuid(), "Nome do Condominio",
+                                150, "|SUNDAY|MONDAY|TUESDAY|WEDNESDAY|THURSDAY|FRIDAY|SATURDAY", 0, 0, 0, 0, false,
+                                false, "", true, "", 0, false, 0, 0, "", new List<Periodo>(), new List<Reserva>(), 
+                                new NomeArquivo("nomeoriginal.pdf", Guid.NewGuid()));
         }
 
         public static AreaComum CriarAreaComum_AprovacaoDeAdministracao()

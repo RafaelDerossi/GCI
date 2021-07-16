@@ -20,7 +20,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
             var comando = new AdicionarAreaComumCommand
                 ("Area Comum", "Descricao da area comum", "Termo de Uso", Guid.NewGuid(),
                 "Nome do condominio", 10, "SATURDAY|SUNDAY", 0, 0, 0, 0, false, true, "",
-                true, "", 0, false, 0, 0, "", listaPeriodos);
+                true, "", 0, false, 0, 0, "", "", listaPeriodos);
 
             return comando;
         }

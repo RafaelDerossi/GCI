@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Http;
 namespace CondominioApp.ReservaAreaComum.Aplication.ViewModels
 {
    public class AdicionaAreaComumViewModel
-    {
+    {     
         public string Nome { get; set; }
         public string Descricao { get; set; }
         public string TermoDeUso { get; set; }
@@ -25,8 +25,10 @@ namespace CondominioApp.ReservaAreaComum.Aplication.ViewModels
         public bool PermiteReservaSobreposta { get; set; }
         public int NumeroLimiteDeReservaSobreposta { get; set; }
         public int NumeroLimiteDeReservaSobrepostaPorUnidade { get; set; }
-
         public string TempoDeIntervaloEntreReservasPorUnidade { get; set; }
+        public DateTime? DataInicioBloqueio { get; set; }
+        public DateTime? DataFimBloqueio { get; set; }
+        public IFormFile ArquivoAnexo { get; set; }
 
         public ICollection<PeriodoViewModel> Periodos { get; set; }
 

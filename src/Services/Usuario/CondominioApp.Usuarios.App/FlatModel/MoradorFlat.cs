@@ -111,7 +111,7 @@ namespace CondominioApp.Usuarios.App.FlatModel
         {
             get
             {
-                return StoragePaths.ObterUrlDeArquivo("usuario", Foto);
+                return StorageHelper.ObterUrlDeArquivo("usuario", Foto);
             }
         }
 

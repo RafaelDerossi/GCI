@@ -33,7 +33,7 @@ namespace CondominioApp.ArquivoDigital.App.Models
         {
             get
             {
-                return StoragePaths.ObterUrlDeArquivo(CondominioId.ToString(), Nome.NomeDoArquivo);
+                return StorageHelper.ObterUrlDeArquivo(CondominioId.ToString(), Nome.NomeDoArquivo);
             }
         }
 

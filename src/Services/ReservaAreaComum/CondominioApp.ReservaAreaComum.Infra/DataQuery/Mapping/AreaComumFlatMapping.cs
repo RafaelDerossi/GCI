@@ -1,4 +1,5 @@
 ﻿using CondominioApp.ReservaAreaComum.Domain.FlatModel;
+using CondominioApp.ReservaAreaComum.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -44,6 +45,9 @@ namespace CondominioApp.ReservaAreaComum.Infra.DataQuery.Mapping
 
             builder.Property(u => u.PermiteReservaSobreposta).IsRequired();
 
+            builder.Property(u => u.NomeOriginalArquivoAnexo).HasColumnType($"varchar({NomeArquivo.NomeArquivoMaximo})");
+
+            builder.Property(u => u.NomeArquivoAnexo).HasColumnType($"varchar({NomeArquivo.NomeArquivoMaximo})");
         }
     }
 }

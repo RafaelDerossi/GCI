@@ -16,8 +16,8 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
             int antecedenciaMinimaParaCancelamentoEmDias, bool requerAprovacaoDeReserva, bool temHorariosEspecificos,
             string tempoDeIntervaloEntreReservas, string tempoDeDuracaoDeReserva, 
             int numeroLimiteDeReservaPorUnidade, bool permiteReservaSobreposta, int numeroLimiteDeReservaSobreposta,
-            int numeroLimiteDeReservaSobrepostaPorUnidade, 
-            string tempoDeIntervaloEntreReservasPorUnidade, ICollection<Periodo> periodos)
+            int numeroLimiteDeReservaSobrepostaPorUnidade, string tempoDeIntervaloEntreReservasPorUnidade,
+            DateTime? dataInicioBloqueio, DateTime? dataFimBloqueio, ICollection<Periodo> periodos)
         {
             Id = areaComumId;
             SetNome(nome);
@@ -39,6 +39,8 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
             SetNumeroLimiteDeReservaSobrepostaPorUnidade(numeroLimiteDeReservaSobrepostaPorUnidade);
             SetTempoDeIntervaloEntreReservasPorUnidade(tempoDeIntervaloEntreReservasPorUnidade);
             Periodos = periodos;
+            DataInicioBloqueio = dataInicioBloqueio;
+            DataFimBloqueio = dataFimBloqueio;
         }
 
         public override bool EstaValido()

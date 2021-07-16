@@ -32,10 +32,10 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Events
         public bool PermiteReservaSobreposta { get; protected set; }
         public int NumeroLimiteDeReservaSobreposta { get; protected set; }
         public int NumeroLimiteDeReservaSobrepostaPorUnidade { get; protected set; }
-
         public bool TemIntervaloFixoEntreReservas { get; protected set; }
-
         public string TempoDeIntervaloEntreReservasPorUnidade { get; protected set; }
+        public string NomeOriginalArquivoAnexo { get; protected set; }
+        public string NomeArquivoAnexo { get; protected set; }
 
         public ICollection<Periodo> Periodos;
         

@@ -30,17 +30,17 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Events
         public async Task Handle(AreaComumAdicionadaEvent notification, CancellationToken cancellationToken)
         {
             var areaComumFlat = new AreaComumFlat
-                (notification.Id,
-                notification.Nome, notification.Descricao, notification.TermoDeUso,
-                notification.CondominioId, notification.NomeCondominio, notification.Capacidade,
-                notification.DiasPermitidos, notification.AntecedenciaMaximaEmMeses,
-                notification.AntecedenciaMaximaEmDias, notification.AntecedenciaMinimaEmDias,
-                notification.AntecedenciaMinimaParaCancelamentoEmDias, notification.RequerAprovacaoDeReserva,
-                notification.TemHorariosEspecificos, notification.TempoDeIntervaloEntreReservas,
-                notification.Ativa, notification.TempoDeDuracaoDeReserva,
-                notification.NumeroLimiteDeReservaPorUnidade, notification.PermiteReservaSobreposta,
-                notification.NumeroLimiteDeReservaSobreposta, notification.NumeroLimiteDeReservaSobrepostaPorUnidade,
-                notification.TemIntervaloFixoEntreReservas, notification.TempoDeIntervaloEntreReservasPorUnidade);
+                (notification.Id, notification.Nome, notification.Descricao, notification.TermoDeUso,
+                 notification.CondominioId, notification.NomeCondominio, notification.Capacidade,
+                 notification.DiasPermitidos, notification.AntecedenciaMaximaEmMeses,
+                 notification.AntecedenciaMaximaEmDias, notification.AntecedenciaMinimaEmDias,
+                 notification.AntecedenciaMinimaParaCancelamentoEmDias, notification.RequerAprovacaoDeReserva,
+                 notification.TemHorariosEspecificos, notification.TempoDeIntervaloEntreReservas,
+                 notification.Ativa, notification.TempoDeDuracaoDeReserva,
+                 notification.NumeroLimiteDeReservaPorUnidade, notification.PermiteReservaSobreposta,
+                 notification.NumeroLimiteDeReservaSobreposta, notification.NumeroLimiteDeReservaSobrepostaPorUnidade,
+                 notification.TemIntervaloFixoEntreReservas, notification.TempoDeIntervaloEntreReservasPorUnidade,
+                 notification.NomeOriginalArquivoAnexo, notification.NomeArquivoAnexo);
             
 
             _reservaAreaComumQueryRepository.Adicionar(areaComumFlat);

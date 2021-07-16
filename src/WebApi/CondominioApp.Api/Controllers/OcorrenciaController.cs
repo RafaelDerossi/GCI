@@ -364,7 +364,7 @@ namespace CondominioApp.Api.Controllers
             foreach (RespostaOcorrencia resposta in respostas)
             {
                 var respostaViewModel = _mapper.Map<RespostaOcorrenciaViewModel>(resposta);
-                respostaViewModel.FotoUrl = StoragePaths.ObterUrlDeArquivo(ocorrencia.CondominioId.ToString(), resposta.Foto.NomeDoArquivo);
+                respostaViewModel.FotoUrl = StorageHelper.ObterUrlDeArquivo(ocorrencia.CondominioId.ToString(), resposta.Foto.NomeDoArquivo);
                 respostasVM.Add(respostaViewModel);
             }                
 
@@ -525,7 +525,7 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }
 
-            var nomeArquivo = StoragePaths.ObterNomeDoArquivo(respostaVM.ArquivoFoto);
+            var nomeArquivo = StorageHelper.ObterNomeDoArquivo(respostaVM.ArquivoFoto);
 
             var comando = new AtualizarRespostaOcorrenciaCommand
                 (respostaVM.Id, respostaVM.MoradorIdFuncionarioId, respostaVM.Descricao,
@@ -602,7 +602,7 @@ namespace CondominioApp.Api.Controllers
         private AdicionarOcorrenciaCommand AdicionarOcorrenciaCommandFactory
             (AdicionaOcorrenciaViewModel ocorrenciaVM, MoradorFlat morador, UnidadeFlat unidade)
         {
-            var nomeArquivo = StoragePaths.ObterNomeDoArquivo(ocorrenciaVM.ArquivoFoto);
+            var nomeArquivo = StorageHelper.ObterNomeDoArquivo(ocorrenciaVM.ArquivoFoto);
 
             return new AdicionarOcorrenciaCommand
                 (ocorrenciaVM.Descricao, nomeArquivo, ocorrenciaVM.Publica,
@@ -613,7 +613,7 @@ namespace CondominioApp.Api.Controllers
         private AtualizarOcorrenciaCommand AtualizarOcorrenciaCommandFactory
            (AtualizaOcorrenciaViewModel ocorrenciaVM)
         {
-            var nomeArquivo = StoragePaths.ObterNomeDoArquivo(ocorrenciaVM.ArquivoFoto);
+            var nomeArquivo = StorageHelper.ObterNomeDoArquivo(ocorrenciaVM.ArquivoFoto);
 
             return new AtualizarOcorrenciaCommand
                  (ocorrenciaVM.Id, ocorrenciaVM.Descricao, nomeArquivo, ocorrenciaVM.Publica);
@@ -622,7 +622,7 @@ namespace CondominioApp.Api.Controllers
         private AdicionarRespostaOcorrenciaSindicoCommand AdicionarRespostaOcorrenciaSindicoCommandFactory
           (AdicionaRespostaOcorrenciaSindicoViewModel respostaVM, FuncionarioFlat funcionario)
         {
-            var nomeArquivo = StoragePaths.ObterNomeDoArquivo(respostaVM.ArquivoFoto);
+            var nomeArquivo = StorageHelper.ObterNomeDoArquivo(respostaVM.ArquivoFoto);
 
             return new AdicionarRespostaOcorrenciaSindicoCommand
                  (respostaVM.OcorrenciaId, respostaVM.Descricao, respostaVM.FuncionarioId,
@@ -632,7 +632,7 @@ namespace CondominioApp.Api.Controllers
         private AdicionarRespostaOcorrenciaMoradorCommand AdicionarRespostaOcorrenciaMoradorCommandFactory
             (AdicionaRespostaOcorrenciaMoradorViewModel respostaVM, MoradorFlat morador)
         {
-            var nomeArquivo = StoragePaths.ObterNomeDoArquivo(respostaVM.ArquivoFoto);
+            var nomeArquivo = StorageHelper.ObterNomeDoArquivo(respostaVM.ArquivoFoto);
 
             return new AdicionarRespostaOcorrenciaMoradorCommand
                  (respostaVM.OcorrenciaId, respostaVM.Descricao, respostaVM.MoradorId, morador.NomeCompleto,

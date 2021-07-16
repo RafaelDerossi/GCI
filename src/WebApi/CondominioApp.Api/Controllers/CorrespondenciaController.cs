@@ -246,7 +246,7 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }
 
-            var nomeArquivoFotoRetirante = StoragePaths.ObterNomeDoArquivo(viewModel.ArquivoFotoDoRetirante);
+            var nomeArquivoFotoRetirante = StorageHelper.ObterNomeDoArquivo(viewModel.ArquivoFotoDoRetirante);
 
             var comando = new MarcarCorrespondenciaRetiradaCommand(
                 viewModel.CorrespondenciaId,viewModel.NomeRetirante, viewModel.Observacao,
@@ -405,7 +405,7 @@ namespace CondominioApp.Api.Controllers
         private AdicionarCorrespondenciaCommand AdicionarCorrespondenciaCommandFactory
             (AdicionaCorrespondenciaViewModel viewModel, FuncionarioFlat funcionario, UnidadeFlat unidade)
         {
-            var nomeArquivo = StoragePaths.ObterNomeDoArquivo(viewModel.ArquivoFotoCorrespondencia);
+            var nomeArquivo = StorageHelper.ObterNomeDoArquivo(viewModel.ArquivoFotoCorrespondencia);
 
             return new AdicionarCorrespondenciaCommand
                 (unidade.CondominioId, unidade.Id, unidade.Numero, unidade.GrupoDescricao, 

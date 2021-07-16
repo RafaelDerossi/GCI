@@ -20,6 +20,8 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
          IRequestHandler<DesativarAreaComumCommand, ValidationResult>,
          IRequestHandler<AdicionarFotoDeAreaComumCommand, ValidationResult>,
          IRequestHandler<RemoverFotoDaAreaComumCommand, ValidationResult>,
+         IRequestHandler<AtualizarArquivoAnexoDaAreaComumCommand, ValidationResult>,
+         IRequestHandler<RemoverArquivoAnexoDaAreaComumCommand, ValidationResult>,
          IDisposable
     {
 
@@ -61,7 +63,8 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
                 areaComum.TempoDeDuracaoDeReserva, areaComum.NumeroLimiteDeReservaPorUnidade,
                 areaComum.PermiteReservaSobreposta, areaComum.NumeroLimiteDeReservaSobreposta,
                 areaComum.NumeroLimiteDeReservaSobrepostaPorUnidade,
-                areaComum.TempoDeIntervaloEntreReservasPorUnidade, areaComum.Periodos.ToList()));
+                areaComum.TempoDeIntervaloEntreReservasPorUnidade, areaComum.NomeArquivoAnexo.NomeOriginal,
+                areaComum.NomeArquivoAnexo.NomeDoArquivo, areaComum.Periodos.ToList()));
 
             return await PersistirDados(_areaComumRepository.UnitOfWork);
         }
@@ -126,8 +129,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
                 var resultado = areaComum.AdicionarPeriodo(periodo);
                 if (!resultado.IsValid) return resultado;
                 _areaComumRepository.AdicionarPeriodo(periodo);
-            }          
-
+            }
 
             _areaComumRepository.Atualizar(areaComum);
 
@@ -144,6 +146,51 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
             return await PersistirDados(_areaComumRepository.UnitOfWork);
         }
 
+        public async Task<ValidationResult> Handle(AtualizarArquivoAnexoDaAreaComumCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido())
+                return request.ValidationResult;
+
+            var areaComum = await _areaComumRepository.ObterPorId(request.Id);
+            if (areaComum == null)
+            {
+                AdicionarErro("Area Comum não encontrada!");
+                return ValidationResult;
+            }
+
+            areaComum.SetNomeArquivoAnexo(request.NomeArquivoAnexo);            
+
+            _areaComumRepository.Atualizar(areaComum);
+
+            //Evento
+            areaComum.AdicionarEvento(new ArquivoAnexoDaAreaComumAtualizadoEvent
+                (areaComum.Id, areaComum.NomeArquivoAnexo.NomeOriginal, areaComum.NomeArquivoAnexo.NomeDoArquivo));
+
+            return await PersistirDados(_areaComumRepository.UnitOfWork);
+        }
+
+        public async Task<ValidationResult> Handle(RemoverArquivoAnexoDaAreaComumCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido())
+                return request.ValidationResult;
+
+            var areaComum = await _areaComumRepository.ObterPorId(request.Id);
+            if (areaComum == null)
+            {
+                AdicionarErro("Area Comum não encontrada!");
+                return ValidationResult;
+            }
+
+            areaComum.SetNomeArquivoAnexo(request.NomeArquivoAnexo);
+
+            _areaComumRepository.Atualizar(areaComum);
+
+            //Evento
+            areaComum.AdicionarEvento(new ArquivoAnexoDaAreaComumAtualizadoEvent
+                (areaComum.Id, areaComum.NomeArquivoAnexo.NomeOriginal, areaComum.NomeArquivoAnexo.NomeDoArquivo));
+
+            return await PersistirDados(_areaComumRepository.UnitOfWork);
+        }
 
         public async Task<ValidationResult> Handle(ApagarAreaComumCommand request, CancellationToken cancellationToken)
         {
@@ -257,7 +304,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
                  request.TemHorariosEspecificos, request.TempoDeIntervaloEntreReservas, request.Ativa, request.TempoDeDuracaoDeReserva,
                  request.NumeroLimiteDeReservaPorUnidade, request.PermiteReservaSobreposta, request.NumeroLimiteDeReservaSobreposta,
                  request.NumeroLimiteDeReservaSobrepostaPorUnidade, request.TempoDeIntervaloEntreReservasPorUnidade,
-                 new List<Periodo>(), new List<Reserva>());
+                 new List<Periodo>(), new List<Reserva>(), request.NomeArquivoAnexo);
         }
 
         private FotoDaAreaComum FotoDaAreaComumFactory(AdicionarFotoDeAreaComumCommand request)

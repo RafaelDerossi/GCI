@@ -1,4 +1,5 @@
 ﻿using CondominioApp.Core.DomainObjects;
+using CondominioApp.Core.Helpers;
 using System;
 using System.Collections.Generic;
 
@@ -35,10 +36,20 @@ namespace CondominioApp.ReservaAreaComum.Domain.FlatModel
         public bool PermiteReservaSobreposta { get; private set; }
         public int NumeroLimiteDeReservaSobreposta { get; private set; }
         public int NumeroLimiteDeReservaSobrepostaPorUnidade { get; private set; }
-
         public bool TemIntervaloFixoEntreReservas { get; private set; }
-
         public string TempoDeIntervaloEntreReservasPorUnidade { get; private set; }
+        public string NomeArquivoAnexo { get; private set; }
+        public string NomeOriginalArquivoAnexo { get; private set; }
+        public string UrlArquivoAnexo
+        {
+            get
+            {
+                if (NomeArquivoAnexo == "")
+                    return "";
+
+                return StorageHelper.ObterUrlDeArquivo(CondominioId.ToString(), NomeArquivoAnexo);
+            }
+        }
 
         private readonly List<PeriodoFlat> _Periodos;
         public IReadOnlyCollection<PeriodoFlat> Periodos => _Periodos;
@@ -58,7 +69,7 @@ namespace CondominioApp.ReservaAreaComum.Domain.FlatModel
             bool horariosEspecificos, string tempoDeIntervaloEntreReservas, bool ativo, string tempoDeDuracaoDaReserva,
             int numeroLimiteDeReservaPorUnidade, bool permiteReservaSobreposta, int numeroLimiteDeReservaSobreposta,
             int numeroLimiteDeReservaSobrepostaPorUnidade, bool temIntervaloFixoEntreReservas,
-            string tempoDeIntervaloEntreReservasPorUnidade)
+            string tempoDeIntervaloEntreReservasPorUnidade,  string nomeOriginalArquivoAnexo, string nomeArquivoAnexo)
         {
             _Periodos = new List<PeriodoFlat>();
             Id = id;
@@ -84,6 +95,8 @@ namespace CondominioApp.ReservaAreaComum.Domain.FlatModel
             NumeroLimiteDeReservaSobrepostaPorUnidade = numeroLimiteDeReservaSobrepostaPorUnidade;
             TemIntervaloFixoEntreReservas = temIntervaloFixoEntreReservas;
             TempoDeIntervaloEntreReservasPorUnidade = tempoDeIntervaloEntreReservasPorUnidade;
+            NomeOriginalArquivoAnexo = nomeOriginalArquivoAnexo;
+            NomeArquivoAnexo = nomeArquivoAnexo;
         }
 
 
@@ -139,6 +152,12 @@ namespace CondominioApp.ReservaAreaComum.Domain.FlatModel
           TemIntervaloFixoEntreReservas = temIntervaloFixoEntreReservas;
 
         public void SetTempoDeIntervaloEntreReservasPorUnidade(string intervalo) => TempoDeIntervaloEntreReservasPorUnidade = intervalo;
+
+        public void SetNomeArquivoAnexo(string nomeOriginalArquivo, string nomeArquivo)
+        {
+            NomeOriginalArquivoAnexo = nomeOriginalArquivo;
+            NomeArquivoAnexo = nomeArquivo;
+        }
 
         ///Outros Metodos
         ///

@@ -1,4 +1,9 @@
-﻿
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Auth;
+using System.Threading.Tasks;
+
+
 namespace CondominioApp.ArquivoDigital.AzureStorageBlob.Models
 {
     public class AzureStorage : IAzureStorage
@@ -16,5 +21,25 @@ namespace CondominioApp.ArquivoDigital.AzureStorageBlob.Models
             Container = "condominioapp";
             ThumbnailContainer = "thumb";
         }
+
+
+        public static async Task<string> UploadFileToStorage(IFormFile arquivo, string fileName,
+            IAzureStorage storage)
+        {
+            var storageCredentials = new StorageCredentials(storage.AccountName, storage.AccountKey);
+            var storageAccount = new CloudStorageAccount(storageCredentials, true);
+            var blobClient = storageAccount.CreateCloudBlobClient();
+            var container = blobClient.GetContainerReference(storage.Container);
+            fileName = string.Concat(@"Uploads\", fileName);
+            var blockBlob = container.GetBlockBlobReference(fileName);
+            blockBlob.Properties.ContentType = arquivo.ContentType;
+
+            using var fileStream = arquivo.OpenReadStream();
+
+            await blockBlob.UploadFromStreamAsync(fileStream);
+
+            return blockBlob.SnapshotQualifiedStorageUri.PrimaryUri.ToString();
+        }
+
     }
 }

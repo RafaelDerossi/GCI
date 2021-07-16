@@ -1,5 +1,7 @@
-﻿using CondominioApp.Core.Messages;
+﻿using CondominioApp.Core.Helpers;
+using CondominioApp.Core.Messages;
 using CondominioApp.ReservaAreaComum.Domain;
+using CondominioApp.ReservaAreaComum.Domain.ValueObjects;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -32,6 +34,7 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
         public int NumeroLimiteDeReservaSobreposta { get; protected set; }
         public int NumeroLimiteDeReservaSobrepostaPorUnidade { get; protected set; }
         public string TempoDeIntervaloEntreReservasPorUnidade{ get; protected set; }
+        public NomeArquivo NomeArquivoAnexo { get; protected set; }
 
         public ICollection<Periodo> Periodos;
 
@@ -86,7 +89,29 @@ namespace CondominioApp.ReservaAreaComum.Aplication.Commands
         public void AdicionarPeriodo(Periodo periodo)
         {
             Periodos.Add(periodo);
-        }      
+        }
+
+        public void SetNomeArquivoAnexo(string nomeOriginalArquivo)
+        {
+            if (!string.IsNullOrEmpty(nomeOriginalArquivo))
+            {
+                if (!StorageHelper.VerificaTipoDoArquivoPermitido(nomeOriginalArquivo))
+                {
+                    AdicionarErrosDeProcessamentoDoComando("Formato do arquivo não suportado.");
+                    return;
+                }
+            }           
+            
+            try
+            {
+                NomeArquivoAnexo = new NomeArquivo(nomeOriginalArquivo, Guid.NewGuid());
+            }
+            catch (Exception e)
+            {
+                AdicionarErrosDeProcessamentoDoComando(e.Message);
+                return;
+            }            
+        }
 
     }
 }

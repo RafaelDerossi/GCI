@@ -1,13 +1,10 @@
-﻿using CondominioApp.ArquivoDigital.AzureStorageBlob.Helpers;
-using CondominioApp.Core.DomainObjects;
+﻿using CondominioApp.Core.Helpers;
 using Microsoft.AspNetCore.Http;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CondominioApp.ArquivoDigital.App.Models
 {
-  public class ArquivoDTO
+    public class ArquivoDTO
     {
         public Guid Id { get; private set; }        
 

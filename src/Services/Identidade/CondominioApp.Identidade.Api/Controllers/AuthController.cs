@@ -521,7 +521,7 @@ namespace CondominioApp.Identidade.Api.Controllers
         private AdicionarUsuarioCommand CadastrarUsuarioCommandFactory
             (UsuarioRegistro usuarioRegistro, Guid userId, bool enviarEmailDeConfirmacao)
         {
-            var nomeArquivo = StoragePaths.ObterNomeDoArquivo(usuarioRegistro.ArquivoFoto);
+            var nomeArquivo = StorageHelper.ObterNomeDoArquivo(usuarioRegistro.ArquivoFoto);
 
             return new AdicionarUsuarioCommand
                 (userId, usuarioRegistro.Nome, usuarioRegistro.Sobrenome, usuarioRegistro.Email,

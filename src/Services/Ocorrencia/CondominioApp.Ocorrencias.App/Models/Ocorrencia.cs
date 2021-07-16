@@ -41,7 +41,7 @@ namespace CondominioApp.Ocorrencias.App.Models
                 if (Foto == null)
                     return "";
 
-                return StoragePaths.ObterUrlDeArquivo(CondominioId.ToString(), Foto.NomeDoArquivo);
+                return StorageHelper.ObterUrlDeArquivo(CondominioId.ToString(), Foto.NomeDoArquivo);
             }
         }
 

@@ -1,7 +1,6 @@
 ﻿using CondominioApp.ArquivoDigital.App.ValueObjects;
-using CondominioApp.ArquivoDigital.AzureStorageBlob.Helpers;
+using CondominioApp.Core.Helpers;
 using CondominioApp.Core.Messages;
-using CondominioApp.Usuarios.App.ValueObjects;
 using Microsoft.AspNetCore.Http;
 using System;
 

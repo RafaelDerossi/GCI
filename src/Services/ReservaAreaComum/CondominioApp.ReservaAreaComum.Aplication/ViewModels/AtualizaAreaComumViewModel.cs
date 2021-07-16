@@ -20,14 +20,13 @@ namespace CondominioApp.ReservaAreaComum.Aplication.ViewModels
         public bool TemHorariosEspecificos { get; set; }
         public string TempoDeIntervaloEntreReservas { get; set; }
         public string TempoDeDuracaoDeReserva { get; set; }
-        public int NumeroLimiteDeReservaPorUnidade { get; set; }
-        public string DataInicioBloqueio { get; set; }
-        public string DataFimBloqueio { get; set; }
+        public int NumeroLimiteDeReservaPorUnidade { get; set; }       
         public bool PermiteReservaSobreposta { get; set; }
         public int NumeroLimiteDeReservaSobreposta { get; set; }
         public int NumeroLimiteDeReservaSobrepostaPorUnidade { get; set; }
         public string TempoDeIntervaloEntreReservasPorUnidade { get; set; }
-
+        public DateTime? DataInicioBloqueio { get; set; }
+        public DateTime? DataFimBloqueio { get; set; }
         public ICollection<PeriodoViewModel> Periodos { get; set; }
     }
 }

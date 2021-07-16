@@ -1,10 +1,8 @@
-﻿using CondominioApp.ArquivoDigital.AzureStorageBlob.Helpers;
-using CondominioApp.ArquivoDigital.AzureStorageBlob.Models;
-using System.IO;
+﻿using CondominioApp.ArquivoDigital.AzureStorageBlob.Models;
 using System.Threading.Tasks;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Http;
-using System;
+using CondominioApp.Core.Helpers;
 
 namespace CondominioApp.ArquivoDigital.AzureStorageBlob.Services
 {
@@ -24,7 +22,7 @@ namespace CondominioApp.ArquivoDigital.AzureStorageBlob.Services
             var caminhoDoArquivo = ObterCaminhoDoArquivo(nomeDoArquivo, pasta);                        
             try
             {
-               await StorageHelper.UploadFileToStorage(arquivo, caminhoDoArquivo, _storage);
+               await AzureStorage.UploadFileToStorage(arquivo, caminhoDoArquivo, _storage);
             }
             catch (System.Exception ex)
             {

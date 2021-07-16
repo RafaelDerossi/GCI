@@ -34,7 +34,7 @@ namespace CondominioApp.NotificacaoEmail.App.DTO
         {
             get
             {
-                return StoragePaths.ObterUrlDeArquivo(CondominioId.ToString(), NomeArquivoFotoCorrespondencia);
+                return StorageHelper.ObterUrlDeArquivo(CondominioId.ToString(), NomeArquivoFotoCorrespondencia);
             }
         }
 

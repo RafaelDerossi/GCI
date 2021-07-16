@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using CondominioApp.ReservaAreaComum.Domain;
+using CondominioApp.ReservaAreaComum.Domain.ValueObjects;
 
 namespace CondominioApp.ReservaAreaComum.Infra.Data.Mapping
 {
@@ -43,6 +44,27 @@ namespace CondominioApp.ReservaAreaComum.Infra.Data.Mapping
             builder.Property(u => u.NumeroLimiteDeReservaPorUnidade).IsRequired();
 
             builder.Property(u => u.PermiteReservaSobreposta).IsRequired();
+
+            builder.OwnsOne(u => u.NomeArquivoAnexo, ft =>
+            {
+                ft.Property(u => u.NomeDoArquivo)
+                    .IsRequired()
+                    .HasMaxLength(NomeArquivo.NomeArquivoMaximo)
+                    .HasColumnName("NomeDoArquivo")
+                    .HasColumnType($"varchar({NomeArquivo.NomeArquivoMaximo})");
+
+                ft.Property(u => u.NomeOriginal)
+                    .IsRequired()
+                    .HasMaxLength(NomeArquivo.NomeArquivoMaximo)
+                    .HasColumnName("NomeOriginal")
+                    .HasColumnType($"varchar({NomeArquivo.NomeArquivoMaximo})");
+
+                ft.Property(u => u.ExtensaoDoArquivo)
+                    .IsRequired()
+                    .HasMaxLength(NomeArquivo.NomeArquivoMaximo)
+                    .HasColumnName("ExtensaoDoArquivo")
+                    .HasColumnType($"varchar({NomeArquivo.NomeArquivoMaximo})");
+            });
 
         }
     }

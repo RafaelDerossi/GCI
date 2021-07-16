@@ -3,6 +3,7 @@ using CondominioApp.Core.Enumeradores;
 using CondominioApp.Core.Helpers;
 using CondominioApp.ReservaAreaComum.Domain.ReservasStrategy;
 using CondominioApp.ReservaAreaComum.Domain.ReservasStrategy.RegrasParaHorariosConflitantes;
+using CondominioApp.ReservaAreaComum.Domain.ValueObjects;
 using FluentValidation.Results;
 using System;
 using System.Collections.Generic;
@@ -37,7 +38,7 @@ namespace CondominioApp.ReservaAreaComum.Domain
         public int NumeroLimiteDeReservaSobreposta { get; private set; }
         public int NumeroLimiteDeReservaSobrepostaPorUnidade { get; private set; }
         public string TempoDeIntervaloEntreReservasPorUnidade { get; private set; }
-        public string NomeArquivoAnexo { get; private set; }
+        public NomeArquivo NomeArquivoAnexo { get; private set; }
 
 
         private readonly List<Periodo> _Periodos;
@@ -67,7 +68,7 @@ namespace CondominioApp.ReservaAreaComum.Domain
             bool horariosEspecificos, string tempoDeIntervaloEntreReservas, bool ativo, string tempoDeDuracaoDaReserva,
             int numeroLimiteDeReservaPorUnidade, bool permiteReservaSobreposta, int numeroLimiteDeReservaSobreposta,
             int numeroLimiteDeReservaSobrepostaPorUnidade, string tempoDeIntervaloEntreReservasPorUnidade,
-            List<Periodo> periodos , List<Reserva> reservas, string nomeArquivoAnexo)
+            List<Periodo> periodos , List<Reserva> reservas, NomeArquivo nomeArquivoAnexo)
         {
             SetEntidadeId(id);
             _Periodos = periodos;
@@ -146,7 +147,7 @@ namespace CondominioApp.ReservaAreaComum.Domain
             TempoDeIntervaloEntreReservasPorUnidade = intervalo;
 
 
-        public void SetNomeArquivoAnexo(string nomeArquivo) => NomeArquivoAnexo = nomeArquivo;
+        public void SetNomeArquivoAnexo(NomeArquivo nomeArquivo) => NomeArquivoAnexo = nomeArquivo;
 
         /// Outros Metodos 
         public bool TemTermoDeUso
