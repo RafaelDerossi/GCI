@@ -3,7 +3,7 @@ using CondominioApp.Core.Helpers;
 using CondominioApp.Core.Messages;
 using CondominioApp.Portaria.Domain;
 using CondominioApp.Portaria.Domain.FlatModel;
-using CondominioApp.Portaria.ValueObjects;
+using CondominioApp.Portaria.Domain.ValueObjects;
 using FluentValidation.Results;
 using Microsoft.EntityFrameworkCore;
 using System;

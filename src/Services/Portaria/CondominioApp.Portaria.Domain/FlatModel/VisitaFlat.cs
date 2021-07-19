@@ -1,7 +1,7 @@
 ﻿using CondominioApp.Core.DomainObjects;
 using CondominioApp.Core.Enumeradores;
 using CondominioApp.Core.Helpers;
-using CondominioApp.Portaria.ValueObjects;
+using CondominioApp.Portaria.Domain.ValueObjects;
 using System;
 
 namespace CondominioApp.Portaria.Domain.FlatModel

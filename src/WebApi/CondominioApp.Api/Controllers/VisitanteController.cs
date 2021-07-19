@@ -11,6 +11,10 @@ using CondominioApp.Portaria.Domain.FlatModel;
 using System.Linq;
 using CondominioApp.Principal.Aplication.Query.Interfaces;
 using CondominioApp.Principal.Domain.FlatModel;
+using CondominioApp.ArquivoDigital.AzureStorageBlob.Services;
+using CondominioApp.Core.Helpers;
+using CondominioApp.Usuarios.App.Aplication.Query;
+using CondominioApp.Usuarios.App.FlatModel;
 
 namespace CondominioApp.Api.Controllers
 {
@@ -20,12 +24,19 @@ namespace CondominioApp.Api.Controllers
         private readonly IMediatorHandler _mediatorHandler;      
         private readonly IPortariaQuery _portariaQuery;
         private readonly IPrincipalQuery _principalQuery;
+        private readonly IAzureStorageService _azureStorageService;
+        private readonly IUsuarioQuery _usuarioQuery;
 
-        public VisitanteController(IMediatorHandler mediatorHandler, IPortariaQuery portariaQuery, IPrincipalQuery principalQuery)
+        public VisitanteController
+            (IMediatorHandler mediatorHandler, IPortariaQuery portariaQuery,
+             IPrincipalQuery principalQuery, IAzureStorageService azureStorageService,
+             IUsuarioQuery usuarioQuery)
         {
             _mediatorHandler = mediatorHandler;           
             _portariaQuery = portariaQuery;
-            _principalQuery = principalQuery;            
+            _principalQuery = principalQuery;
+            _azureStorageService = azureStorageService;
+            _usuarioQuery = usuarioQuery;
         }
 
 
@@ -91,7 +102,27 @@ namespace CondominioApp.Api.Controllers
                 return CustomResponse();
             }
 
-            var comando = AdicionarVisitantePorMoradorCommandFactory(visitanteVM, unidade);
+            var morador = await _usuarioQuery.ObterMoradorPorId(visitanteVM.MoradorId);
+            if (morador == null)
+            {
+                AdicionarErroProcessamento("Morador não encontrado!");
+                return CustomResponse();
+            }
+
+            var comando = AdicionarVisitantePorMoradorCommandFactory(visitanteVM, unidade, morador);
+
+            if (visitanteVM.ArquivoFoto != null && comando.EstaValido())
+            {
+                var retornoStorage = await _azureStorageService.SubirArquivo
+                              (visitanteVM.ArquivoFoto,
+                               comando.Foto.NomeDoArquivo,
+                               unidade.CondominioId.ToString());
+
+                if (!retornoStorage.IsValid)
+                {
+                    return CustomResponse(retornoStorage);
+                }
+            }
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
@@ -101,9 +132,29 @@ namespace CondominioApp.Api.Controllers
         [HttpPut]
         public async Task<ActionResult> Put(AtualizaVisitanteViewModel visitanteVM)
         {
-            if (!ModelState.IsValid) return CustomResponse(ModelState);
+            if (!ModelState.IsValid) return CustomResponse(ModelState);           
+
+            var visitante = await _portariaQuery.ObterPorId(visitanteVM.Id);
+            if (visitante == null)
+            {
+                AdicionarErroProcessamento("Visitante não encontrado!");
+                return CustomResponse();
+            }
 
             var comando = AtualizarVisitantePorMoradorCommandFactory(visitanteVM);
+
+            if (visitanteVM.ArquivoFoto != null && comando.EstaValido())
+            {
+                var retornoStorage = await _azureStorageService.SubirArquivo
+                              (visitanteVM.ArquivoFoto,
+                               comando.Foto.NomeDoArquivo,
+                               visitante.CondominioId.ToString());
+
+                if (!retornoStorage.IsValid)
+                {
+                    return CustomResponse(retornoStorage);
+                }
+            }
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
@@ -123,22 +174,27 @@ namespace CondominioApp.Api.Controllers
 
 
         private AdicionarVisitantePorMoradorCommand AdicionarVisitantePorMoradorCommandFactory
-            (AdicionaVisitanteViewModel viewModel, UnidadeFlat unidade)
+            (AdicionaVisitanteViewModel viewModel, UnidadeFlat unidade, MoradorFlat morador)
         {
+            var nomeOriginalArquivo = StorageHelper.ObterNomeDoArquivo(viewModel.ArquivoFoto);
+
             return new AdicionarVisitantePorMoradorCommand(
-                  viewModel.Nome, viewModel.TipoDoDocumento, viewModel.Documento, viewModel.Email, viewModel.Foto,
-                  viewModel.NomeOriginalFoto, unidade.CondominioId, unidade.CondominioNome,
-                  unidade.Id, unidade.Numero, unidade.Andar, unidade.GrupoDescricao, viewModel.VisitantePermanente,
-                  viewModel.QrCode, viewModel.TipoDeVisitante, viewModel.NomeEmpresa, viewModel.TemVeiculo);
+                  viewModel.Nome, viewModel.TipoDoDocumento, viewModel.Documento, viewModel.Email,
+                  nomeOriginalArquivo, unidade.CondominioId, unidade.CondominioNome, unidade.Id,
+                  unidade.Numero, unidade.Andar, unidade.GrupoDescricao, viewModel.VisitantePermanente,
+                  viewModel.QrCode, viewModel.TipoDeVisitante, viewModel.NomeEmpresa,
+                  viewModel.TemVeiculo, morador.Id, morador.NomeCompleto);
         }
 
         private AtualizarVisitantePorMoradorCommand AtualizarVisitantePorMoradorCommandFactory
             (AtualizaVisitanteViewModel viewModel)
         {
+            var nomeOriginalArquivo = StorageHelper.ObterNomeDoArquivo(viewModel.ArquivoFoto);
+
             return new AtualizarVisitantePorMoradorCommand(
-                   viewModel.Id, viewModel.Nome, viewModel.TipoDoDocumento, viewModel.Documento, viewModel.Email,
-                   viewModel.Foto, viewModel.NomeOriginalFoto, viewModel.VisitantePermanente, viewModel.TipoDeVisitante,
-                   viewModel.NomeEmpresa, viewModel.TemVeiculo);
+                   viewModel.Id, viewModel.Nome, viewModel.TipoDoDocumento, viewModel.Documento,
+                   viewModel.Email, viewModel.NomeArquivoFoto, nomeOriginalArquivo, viewModel.VisitantePermanente,
+                   viewModel.TipoDeVisitante, viewModel.NomeEmpresa, viewModel.TemVeiculo);
         }
 
 

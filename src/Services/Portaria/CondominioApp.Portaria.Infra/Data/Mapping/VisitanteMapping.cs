@@ -1,5 +1,5 @@
 ﻿using CondominioApp.Portaria.Domain;
-using CondominioApp.Portaria.ValueObjects;
+using CondominioApp.Portaria.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

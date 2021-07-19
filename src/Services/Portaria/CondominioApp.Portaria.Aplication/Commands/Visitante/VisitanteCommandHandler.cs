@@ -1,4 +1,5 @@
-﻿using CondominioApp.Core.Messages;
+﻿using CondominioApp.Core.Enumeradores;
+using CondominioApp.Core.Messages;
 using CondominioApp.Portaria.Aplication.Events;
 using CondominioApp.Portaria.Domain;
 using CondominioApp.Portaria.Domain.Interfaces;
@@ -31,7 +32,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
             if (!request.EstaValido())
                 return request.ValidationResult;
 
-            var visitante = VisitanteFactory(request);
+            var visitante = VisitanteFactory(request, TipoDeUsuario.MORADOR);
 
             if (visitante.Documento != "")
             {
@@ -53,7 +54,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
             if (!request.EstaValido())
                 return request.ValidationResult;
 
-            var visitante = VisitanteFactory(request);
+            var visitante = VisitanteFactory(request, TipoDeUsuario.FUNCIONARIO);
 
             if (request.Id != null)
                 visitante.SetEntidadeId(request.Id);
@@ -86,13 +87,15 @@ namespace CondominioApp.Portaria.Aplication.Commands
                 return ValidationResult;
             }
 
-
             visitante.SetNome(request.Nome);
             visitante.SetDocumento(request.Documento, request.TipoDeDocumento);
-            visitante.SetEmail(request.Email);
-            visitante.SetFoto(request.Foto);
+            visitante.SetEmail(request.Email);            
             visitante.SetTipoDeVisitante(request.TipoDeVisitante);
             visitante.SetNomeEmpresa(request.NomeEmpresa);
+
+            if (request.Foto != null)
+                visitante.SetFoto(request.Foto);
+
             visitante.MarcarVisitanteComoPermanente();
             if (!request.VisitantePermanente)
                 visitante.MarcarVisitanteComoTemporario();
@@ -129,7 +132,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
                 return ValidationResult;
             }
            
-            if (!visitante.VisitantePermanente)
+            if (visitante.TipoDeUsuarioDoCriador != TipoDeUsuario.MORADOR)
             {
                 visitante.SetNome(request.Nome);
                 visitante.SetDocumento(request.Documento, request.TipoDeDocumento);               
@@ -137,7 +140,10 @@ namespace CondominioApp.Portaria.Aplication.Commands
                 visitante.SetTipoDeVisitante(request.TipoDeVisitante);
                 visitante.SetNomeEmpresa(request.NomeEmpresa);
             }
-            visitante.SetFoto(request.Foto);
+
+            if (request.Foto != null)
+                visitante.SetFoto(request.Foto);
+
             visitante.MarcarNaoTemVeiculo();
             if (!request.TemVeiculo)
                 visitante.MarcarTemVeiculo();
@@ -164,25 +170,25 @@ namespace CondominioApp.Portaria.Aplication.Commands
             //Evento
             visitanteBd.AdicionarEvento(new VisitanteApagadoEvent(visitanteBd.Id));
 
-
             return await PersistirDados(_visitanteRepository.UnitOfWork);
         }
 
 
-        private Visitante VisitanteFactory(VisitanteCommand request)
+        private Visitante VisitanteFactory(VisitanteCommand request, TipoDeUsuario tipoDeUsuarioDoCriador)
         {
             return new Visitante
                 (request.Nome, request.TipoDeDocumento, request.Documento, request.Email,
                  request.Foto, request.CondominioId, request.UnidadeId, request.VisitantePermanente,
-                 request.QrCode, request.TipoDeVisitante, request.NomeEmpresa, request.TemVeiculo);
+                 request.QrCode, request.TipoDeVisitante, request.NomeEmpresa, request.TemVeiculo,
+                 request.CriadorId, request.NomeDoCriador, tipoDeUsuarioDoCriador);
         }
 
         private void AdicionarEventoVisitanteCadastrado(Visitante visitante, VisitanteCommand request)
         {
             visitante.AdicionarEvento(
                 new VisitanteAdicionadoEvent(
-                    visitante.Id, visitante.Nome, visitante.TipoDeDocumento, visitante.Documento, visitante.Email,
-                    visitante.Foto, visitante.CondominioId, request.NomeCondominio, visitante.UnidadeId,
+                    visitante.Id, visitante.Nome, visitante.TipoDeDocumento, visitante.Documento,
+                    visitante.Email, visitante.Foto, visitante.CondominioId, request.NomeCondominio, visitante.UnidadeId,
                     request.NumeroUnidade, request.AndarUnidade, request.GrupoUnidade, visitante.VisitantePermanente,
                     visitante.QrCode, visitante.TipoDeVisitante, visitante.NomeEmpresa, visitante.TemVeiculo));
         }

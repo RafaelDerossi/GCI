@@ -1,5 +1,5 @@
 ﻿using CondominioApp.Portaria.Domain.FlatModel;
-using CondominioApp.Portaria.ValueObjects;
+using CondominioApp.Portaria.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -26,11 +26,7 @@ namespace CondominioApp.Principal.Infra.DataQuery.Mapping
                     .HasMaxLength(Email.EmailMaximo)
                     .HasColumnName("Email")
                     .HasColumnType($"varchar({Email.EmailMaximo})");
-
-            builder.Property(u => u.Foto)
-                    .HasMaxLength(Foto.NomeFotoMaximo)
-                    .HasColumnName("Foto")
-                    .HasColumnType($"varchar({Foto.NomeFotoMaximo})");
+            
 
             builder.Property(u => u.CondominioId).IsRequired();
 

@@ -1,7 +1,7 @@
 ﻿using CondominioApp.Core.Enumeradores;
 using CondominioApp.Core.Helpers;
 using CondominioApp.Core.Messages;
-using CondominioApp.Portaria.ValueObjects;
+using CondominioApp.Portaria.Domain.ValueObjects;
 using System;
 
 namespace CondominioApp.Portaria.Aplication.Commands
@@ -103,11 +103,11 @@ namespace CondominioApp.Portaria.Aplication.Commands
                 AdicionarErrosDeProcessamentoDoComando(e.Message);
             }
         }
-        public void SetFotoVisitante(string nomeOriginal, string nome)
+        public void SetFotoVisitante(string nomeOriginal)
         {
             try
             {
-                FotoVisitante = new Foto(nomeOriginal, nome);
+                FotoVisitante = new Foto(nomeOriginal);
             }
             catch (Exception e)
             {

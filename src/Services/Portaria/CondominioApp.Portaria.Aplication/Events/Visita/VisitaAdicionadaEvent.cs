@@ -1,5 +1,5 @@
 ﻿using CondominioApp.Core.Enumeradores;
-using CondominioApp.Portaria.ValueObjects;
+using CondominioApp.Portaria.Domain.ValueObjects;
 using System;
 
 namespace CondominioApp.Portaria.Aplication.Events

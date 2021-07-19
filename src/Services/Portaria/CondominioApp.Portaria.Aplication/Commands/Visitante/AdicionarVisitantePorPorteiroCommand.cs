@@ -11,7 +11,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
             (Guid id, string nome, TipoDeDocumento tipoDeDocumento, string documento, string email, 
              string nomeOriginalFoto, Guid condominioId, string nomeCondominio, Guid unidadeId,
              string numeroUnidade, string andarUnidade, string grupoUnidade, TipoDeVisitante tipoDeVisitante,
-             string nomeEmpresa, bool temVeiculo)
+             string nomeEmpresa, bool temVeiculo, Guid funcionarioId, string nomeDoFuncionario)
         {
             Id = id;
             SetNome(nome);            
@@ -20,12 +20,12 @@ namespace CondominioApp.Portaria.Aplication.Commands
             SetUnidadeId(unidadeId);
             SetNumeroUnidade(numeroUnidade);
             SetAndarDaUnidade(andarUnidade);
-            SetGrupoDaUnidade(grupoUnidade);           
-            
+            SetGrupoDaUnidade(grupoUnidade);            
             TipoDeVisitante = tipoDeVisitante;
             NomeEmpresa = nomeEmpresa;
             TemVeiculo = temVeiculo;
-
+            MoradorId_FuncionarioId = funcionarioId;
+            NomeDoMorador_NomeDoFuncionario = nomeDoFuncionario;
             SetDocumento(documento, tipoDeDocumento);
             SetEmail(email);
             SetFoto(nomeOriginalFoto);           

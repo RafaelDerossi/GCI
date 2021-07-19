@@ -1,6 +1,6 @@
 ﻿using CondominioApp.Core.Data;
 using CondominioApp.Portaria.Domain.FlatModel;
-using CondominioApp.Portaria.ValueObjects;
+using CondominioApp.Portaria.Domain.ValueObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;

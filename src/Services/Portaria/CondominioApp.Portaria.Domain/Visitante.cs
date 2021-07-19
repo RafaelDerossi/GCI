@@ -42,7 +42,8 @@ namespace CondominioApp.Portaria.Domain
 
         public Visitante(string nome, TipoDeDocumento tipoDeDocumento, string documento,
             Email email, Foto foto, Guid condominioId, Guid unidadeId, bool visitantePermanente,
-            string qrCode, TipoDeVisitante tipoDeVisitante, string nomeEmpresa, bool temVeiculo)
+            string qrCode, TipoDeVisitante tipoDeVisitante, string nomeEmpresa, bool temVeiculo,
+            Guid criadorId, string nomeDoCriador, TipoDeUsuario tipoDeUsuarioDoCriador)
         {
             _Visitas = new List<Visita>();
             Nome = nome;                      
@@ -55,12 +56,13 @@ namespace CondominioApp.Portaria.Domain
             TipoDeVisitante = tipoDeVisitante;
             NomeEmpresa = nomeEmpresa;
             TemVeiculo = temVeiculo;
+            CriadorId = criadorId;
+            NomeDoCriador = nomeDoCriador;
+            TipoDeUsuarioDoCriador = tipoDeUsuarioDoCriador;
             SetDocumento(documento, tipoDeDocumento);
         }
 
-
-
-
+        
 
 
         /// Metodos Set
@@ -69,15 +71,11 @@ namespace CondominioApp.Portaria.Domain
         public void SetFoto(Foto foto) => Foto = foto;
         public void SetQrCode(string qrCode) => QrCode = qrCode;
         public void SetTipoDeVisitante(TipoDeVisitante tipoDeVisitante) => TipoDeVisitante = tipoDeVisitante;
-        public void SetNomeEmpresa(string nomeEmpresa) => NomeEmpresa = nomeEmpresa;
-        
+        public void SetNomeEmpresa(string nomeEmpresa) => NomeEmpresa = nomeEmpresa;        
         public void MarcarTemVeiculo() => TemVeiculo = true;
         public void MarcarNaoTemVeiculo() => TemVeiculo = false;
-
         public void MarcarVisitanteComoPermanente() => VisitantePermanente = true;
         public void MarcarVisitanteComoTemporario() => VisitantePermanente = false;
-
-
         public void SetDocumento(string documento, TipoDeDocumento tipoDeDocumento)
         {
             TipoDeDocumento = tipoDeDocumento;

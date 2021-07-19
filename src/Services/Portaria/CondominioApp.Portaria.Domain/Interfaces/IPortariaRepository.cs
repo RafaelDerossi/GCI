@@ -1,6 +1,6 @@
 ﻿using CondominioApp.Core.Data;
 using CondominioApp.Portaria.Domain;
-using CondominioApp.Portaria.ValueObjects;
+using CondominioApp.Portaria.Domain.ValueObjects;
 using System;
 using System.Threading.Tasks;
 

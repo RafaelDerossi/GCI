@@ -2,7 +2,7 @@
 using CondominioApp.Core.Enumeradores;
 using CondominioApp.Core.Helpers;
 using CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.NotificacaoPushIntegrationEvents;
-using CondominioApp.Portaria.ValueObjects;
+using CondominioApp.Portaria.Domain.ValueObjects;
 using FluentValidation.Results;
 using System;
 
@@ -16,8 +16,6 @@ namespace CondominioApp.Portaria.Domain
         public DateTime DataDeSaida { get; private set; }
         public StatusVisita Status { get; private set; }
         public string Observacao { get; private set; }
-
-
         public Guid VisitanteId { get; private set; }
         public string NomeVisitante { get; private set; }
         public TipoDeDocumento TipoDeDocumentoVisitante { get; private set; }
@@ -26,14 +24,10 @@ namespace CondominioApp.Portaria.Domain
         public Foto FotoVisitante { get; private set; }
         public TipoDeVisitante TipoDeVisitante { get; private set; }
         public string NomeEmpresaVisitante { get; private set; }
-
-
         public Guid CondominioId { get; private set; }
         public Guid UnidadeId { get; private set; }
-
         public bool TemVeiculo { get; private set; }
         public Veiculo Veiculo { get; private set; }
-
         public Guid MoradorId { get; private set; }
 
 

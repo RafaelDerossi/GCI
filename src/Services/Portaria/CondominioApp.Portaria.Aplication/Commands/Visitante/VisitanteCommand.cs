@@ -26,7 +26,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
         public bool TemVeiculo { get; protected set; }
         public Guid CriadorId { get; set; }
         public string NomeDoCriador { get; set; }
-        public TipoDeUsuario TipoDeUsuarioDoCriador { get; set; }
+        public TipoDeUsuario TipoDeUsuarioDoCriador { get; set; }        
 
 
         public void SetDocumento(string documento, TipoDeDocumento tipoDeDocumento)
@@ -89,16 +89,19 @@ namespace CondominioApp.Portaria.Aplication.Commands
                 AdicionarErrosDeProcessamentoDoComando(e.Message);
             }
         }
-        public void SetFoto(string nomeOriginal)
+        public void SetFoto(string nomeOriginal, string nomeArquivo = "")
         {
-            try
+            if (nomeArquivo == "")
             {
-                Foto = new Foto(nomeOriginal);
-            }
-            catch (Exception e)
-            {
-                AdicionarErrosDeProcessamentoDoComando(e.Message);
-            }
+                try
+                {
+                    Foto = new Foto(nomeOriginal);
+                }
+                catch (Exception e)
+                {
+                    AdicionarErrosDeProcessamentoDoComando(e.Message);
+                }
+            }            
         }
         public void SetNome(string nome) => Nome = nome;
         public void SetCondominioId(Guid condominioId) => CondominioId = condominioId;
