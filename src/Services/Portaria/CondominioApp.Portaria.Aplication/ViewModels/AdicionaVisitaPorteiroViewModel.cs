@@ -1,4 +1,5 @@
 ﻿using CondominioApp.Core.Enumeradores;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,7 +16,7 @@ namespace CondominioApp.Portaria.Aplication.ViewModels
         public string Documento { get; set; }       
         public string EmailVisitante { get; set; }
         public string FotoVisitante { get; set; }
-        public string NomeOriginalFotoVisitante { get; set; }
+        public IFormFile ArquivoFotoVisitante { get; set; }
         public TipoDeVisitante TipoDeVisitante { get; set; }
         public string NomeEmpresaVisitante { get; set; }
        

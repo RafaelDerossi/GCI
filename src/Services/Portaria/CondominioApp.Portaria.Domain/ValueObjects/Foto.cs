@@ -1,8 +1,9 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 using CondominioApp.Core.DomainObjects;
 
-namespace CondominioApp.Portaria.ValueObjects
+namespace CondominioApp.Portaria.Domain.ValueObjects
 {
     public class Foto
     {
@@ -12,38 +13,38 @@ namespace CondominioApp.Portaria.ValueObjects
 
         protected Foto() { }
 
-        public Foto(string nomeOriginal, string nomeDoArquivo)
+        public Foto(string nomeOriginal)
         {
             SetNomeOriginal(nomeOriginal);
-            SetNomeDoArquivo(nomeDoArquivo);
+            SetNomeDoArquivo();
         }
 
         public void SetNomeOriginal(string nomeOriginal)
         {
             if (string.IsNullOrEmpty(nomeOriginal))
             {
-                NomeOriginal = "https://i.imgur.com/gxXxUm7.png";
+                NomeOriginal = "";
                 return;
             }
 
             NomeOriginal = nomeOriginal;
         }
 
-        public void SetNomeDoArquivo(string nomeDoArquivo)
+        public void SetNomeDoArquivo()
         {
             string[] ListaDeExtensoes = { ".jpg", ".jpeg", ".png", ".gif" };
 
-            if (string.IsNullOrEmpty(nomeDoArquivo))
+            if (NomeOriginal == "")
             {
-                NomeDoArquivo = "https://i.imgur.com/gxXxUm7.png";
+                NomeDoArquivo = "";
                 return;
             }
 
-            string Extensao = Path.GetExtension(nomeDoArquivo);
+            string Extensao = Path.GetExtension(NomeOriginal);
 
             if (ListaDeExtensoes.ToList().All(x => x != Extensao)) throw new DomainException("Tipo de arquivo inválido!");
 
-            NomeDoArquivo = nomeDoArquivo;
+            NomeDoArquivo = $"{Guid.NewGuid()}{Extensao}";
         }
     }
 }

@@ -16,6 +16,8 @@ using CondominioApp.Usuarios.App.Aplication.Query;
 using CondominioApp.Principal.Domain.FlatModel;
 using CondominioApp.Usuarios.App.Models;
 using CondominioApp.Usuarios.App.FlatModel;
+using CondominioApp.Core.Helpers;
+using CondominioApp.ArquivoDigital.AzureStorageBlob.Services;
 
 namespace CondominioApp.Api.Controllers
 {
@@ -26,14 +28,18 @@ namespace CondominioApp.Api.Controllers
         private readonly IPortariaQuery _portariaQuery;
         private readonly IPrincipalQuery _principalQuery;
         private readonly IUsuarioQuery _usuarioQuery;
+        private readonly IAzureStorageService _azureStorageService;
 
         public VisitaController
-            (IMediatorHandler mediatorHandler, IPortariaQuery portariaQuery, IPrincipalQuery principalQuery, IUsuarioQuery usuarioQuery)
+            (IMediatorHandler mediatorHandler, IPortariaQuery portariaQuery,
+             IPrincipalQuery principalQuery, IUsuarioQuery usuarioQuery,
+             IAzureStorageService azureStorageService)
         {
             _mediatorHandler = mediatorHandler;           
             _portariaQuery = portariaQuery;
             _principalQuery = principalQuery;
             _usuarioQuery = usuarioQuery;
+            _azureStorageService = azureStorageService;
         }
 
 
@@ -162,6 +168,19 @@ namespace CondominioApp.Api.Controllers
                 var cadastrarVisitanteComando = 
                     AdicionarVisitantePorPorteiroCommandFactory(visitaVM, unidade);
 
+                if (visitaVM.ArquivoFotoVisitante != null && cadastrarVisitanteComando.EstaValido())
+                {
+                    var retornoStorage = await _azureStorageService.SubirArquivo
+                                  (visitaVM.ArquivoFotoVisitante,
+                                   cadastrarVisitanteComando.Foto.NomeDoArquivo,
+                                   unidade.CondominioId.ToString());
+
+                    if (!retornoStorage.IsValid)
+                    {                        
+                        return CustomResponse(retornoStorage);
+                    }
+                }
+
                 var retorno = await _mediatorHandler.EnviarComando(cadastrarVisitanteComando);
                 if (!retorno.IsValid)
                     return CustomResponse(retorno);
@@ -175,6 +194,20 @@ namespace CondominioApp.Api.Controllers
            
 
             var editarVisitanteComando = AtualizarVisitantePorPorteiroCommandFactory(visitaVM);
+
+            if (visitaVM.ArquivoFotoVisitante != null && editarVisitanteComando.EstaValido())
+            {
+                var retornoStorage = await _azureStorageService.SubirArquivo
+                              (visitaVM.ArquivoFotoVisitante,
+                               editarVisitanteComando.Foto.NomeDoArquivo,
+                               unidade.CondominioId.ToString());
+
+                if (!retornoStorage.IsValid)
+                {
+                    return CustomResponse(retornoStorage);
+                }
+            }
+
             var result = await _mediatorHandler.EnviarComando(editarVisitanteComando);
             if (!result.IsValid)
                 return CustomResponse(result);
@@ -312,12 +345,13 @@ namespace CondominioApp.Api.Controllers
         private AdicionarVisitantePorPorteiroCommand AdicionarVisitantePorPorteiroCommandFactory
             (AdicionaVisitaPorteiroViewModel visitaVM, UnidadeFlat unidade)
         {
+            var nomeOriginalArquivo = StorageHelper.ObterNomeDoArquivo(visitaVM.ArquivoFotoVisitante);
+
             return new AdicionarVisitantePorPorteiroCommand(
                   visitaVM.VisitanteId, visitaVM.NomeVisitante, visitaVM.TipoDoDocumento, visitaVM.Documento,
-                  visitaVM.EmailVisitante, visitaVM.FotoVisitante, visitaVM.NomeOriginalFotoVisitante,
-                  unidade.CondominioId, unidade.CondominioNome, unidade.Id, unidade.Numero,
-                  unidade.Andar, unidade.GrupoDescricao, visitaVM.TipoDeVisitante, visitaVM.NomeEmpresaVisitante,
-                  visitaVM.TemVeiculo);
+                  visitaVM.EmailVisitante, nomeOriginalArquivo, unidade.CondominioId, unidade.CondominioNome,
+                  unidade.Id, unidade.Numero, unidade.Andar, unidade.GrupoDescricao, visitaVM.TipoDeVisitante,
+                  visitaVM.NomeEmpresaVisitante, visitaVM.TemVeiculo);
         }
        
         private AtualizarVisitantePorPorteiroCommand AtualizarVisitantePorPorteiroCommandFactory(AdicionaVisitaPorteiroViewModel visitaVM)

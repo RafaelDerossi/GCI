@@ -1,7 +1,7 @@
 ﻿using System.Text.RegularExpressions;
 using CondominioApp.Core.DomainObjects;
 
-namespace CondominioApp.Portaria.ValueObjects
+namespace CondominioApp.Portaria.Domain.ValueObjects
 {
     public class Email
     {

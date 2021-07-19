@@ -1,10 +1,8 @@
-﻿using System.IO;
-using System.Linq;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using CondominioApp.Core.DomainObjects;
 using CondominioApp.Core.Helpers;
 
-namespace CondominioApp.Portaria.ValueObjects
+namespace CondominioApp.Portaria.Domain.ValueObjects
 {
     public class Veiculo
     {

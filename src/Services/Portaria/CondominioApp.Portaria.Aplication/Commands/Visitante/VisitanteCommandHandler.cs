@@ -128,17 +128,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
                 AdicionarErro("Visitante não encontrado.");
                 return ValidationResult;
             }
-
-
-            if (visitante.Documento != "")
-            {
-                if (_visitanteRepository.VisitanteJaCadastradoPorDocumento(visitante.Documento, visitante.Id).Result)
-                {
-                    AdicionarErro("Documento informado ja consta no sistema.");
-                    return ValidationResult;
-                }
-            }
-
+           
             if (!visitante.VisitantePermanente)
             {
                 visitante.SetNome(request.Nome);

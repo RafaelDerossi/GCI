@@ -1,6 +1,6 @@
 ﻿using CondominioApp.Core.DomainObjects;
 using CondominioApp.Core.Enumeradores;
-using CondominioApp.Portaria.ValueObjects;
+using CondominioApp.Portaria.Domain.ValueObjects;
 using System;
 using System.Collections.Generic;
 
@@ -15,18 +15,16 @@ namespace CondominioApp.Portaria.Domain
         public string Documento { get; private set; }       
         public Email Email { get; private set; }
         public Foto Foto { get; private set; }
-
         public Guid CondominioId { get; private set; }
         public Guid UnidadeId { get; private set; }
-       
-
         public bool VisitantePermanente { get; private set; }
         public string QrCode { get; private set; }
         public TipoDeVisitante TipoDeVisitante { get; private set; }
         public string NomeEmpresa { get; private set; }
-
-
         public bool TemVeiculo { get; private set; }
+        public Guid CriadorId { get; set; }
+        public string NomeDoCriador { get; set; }
+        public TipoDeUsuario TipoDeUsuarioDoCriador { get; set; }
 
 
         private readonly List<Visita> _Visitas;
