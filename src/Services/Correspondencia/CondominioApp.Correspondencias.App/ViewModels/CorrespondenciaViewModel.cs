@@ -136,6 +136,8 @@ namespace CondominioApp.Correspondencias.App.ViewModels
 
         public string ObservacaoDaRetirada { get; set; }
 
+        public string CodigoDeVerificacao { get; set; }
+
         public bool Lixeira { get; set; }
 
     }
