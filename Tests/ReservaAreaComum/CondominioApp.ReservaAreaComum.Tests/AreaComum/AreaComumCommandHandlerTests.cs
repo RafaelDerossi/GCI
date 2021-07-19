@@ -160,7 +160,7 @@ namespace CondominioApp.ReservaAreaComum.Tests
                areaComum.TemHorariosEspecificos, areaComum.TempoDeIntervaloEntreReservas, areaComum.TempoDeDuracaoDeReserva,
                areaComum.NumeroLimiteDeReservaPorUnidade, areaComum.PermiteReservaSobreposta, areaComum.NumeroLimiteDeReservaSobreposta,
                areaComum.NumeroLimiteDeReservaSobrepostaPorUnidade,areaComum.TempoDeIntervaloEntreReservasPorUnidade,
-               areaComum.Periodos.ToList());
+               areaComum.DataInicioBloqueio, areaComum.DataFimBloqueio, areaComum.Periodos.ToList());
 
 
             _mocker.GetMock<IReservaAreaComumRepository>().Setup(r => r.ObterPorId(command.Id))

@@ -107,7 +107,7 @@ namespace CondominioApp.Api.Controllers
         /// </param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<ActionResult> Post([FromForm] AdicionaAreaComumViewModel areaComumVM)
+        public async Task<ActionResult> Post(AdicionaAreaComumViewModel areaComumVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
@@ -139,40 +139,42 @@ namespace CondominioApp.Api.Controllers
             if (!resultado.IsValid)
                 return CustomResponse(resultado);
 
-
-            foreach (var arquivoDefoto in areaComumVM.ArquivosDasFotos)
+            if (areaComumVM.ArquivosDasFotos != null)
             {
-                var comandoAddFoto = AdicionarFotoDeAreaComumCommandFactory(comando.CondominioId, comando.Id, arquivoDefoto);
-                if (comandoAddFoto.EstaValido())
+                foreach (var arquivoDefoto in areaComumVM.ArquivosDasFotos)
                 {
-                    var retorno = await _azureStorageService.SubirArquivo
-                                  (arquivoDefoto,
-                                   comandoAddFoto.Foto.NomeDoArquivo,
-                                   comandoAddFoto.CondominioId.ToString());
-
-                    if (!retorno.IsValid)
+                    var comandoAddFoto = AdicionarFotoDeAreaComumCommandFactory(comando.CondominioId, comando.Id, arquivoDefoto);
+                    if (comandoAddFoto.EstaValido())
                     {
-                        AdicionarErroProcessamento("Falha ao carregar foto!");
-                        return CustomResponse();
-                    }
-                }
+                        var retorno = await _azureStorageService.SubirArquivo
+                                      (arquivoDefoto,
+                                       comandoAddFoto.Foto.NomeDoArquivo,
+                                       comandoAddFoto.CondominioId.ToString());
 
-                var resultadoAddFoto = await _mediatorHandler.EnviarComando(comandoAddFoto);
-                if (!resultadoAddFoto.IsValid)
-                    return CustomResponse(resultadoAddFoto);
+                        if (!retorno.IsValid)
+                        {
+                            AdicionarErroProcessamento("Falha ao carregar foto!");
+                            return CustomResponse();
+                        }
+                    }
+
+                    var resultadoAddFoto = await _mediatorHandler.EnviarComando(comandoAddFoto);
+                    if (!resultadoAddFoto.IsValid)
+                        return CustomResponse(resultadoAddFoto);
+                }
             }           
 
             return CustomResponse(resultado);
         }
 
         /// <summary>
-        /// Trocar o arquivo anexo da área comum
+        /// Cadastrar ou Trocar o arquivo anexo da área comum
         /// </summary>
         /// <param name="arquivo">Arquivo(será realizado o upload para o storage)</param>
         /// <param name="areaComumId">Id(Guid) da área comum</param>
         /// <returns></returns>
         [HttpPut("atualiza-arquivo-anexo")]
-        public async Task<ActionResult> PutAtualizarArquivoAnexo([FromForm] IFormFile arquivo, Guid areaComumId)
+        public async Task<ActionResult> PutAtualizarArquivoAnexo(IFormFile arquivo, Guid areaComumId)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
@@ -192,7 +194,7 @@ namespace CondominioApp.Api.Controllers
                 var retorno = await _azureStorageService.SubirArquivo
                               (arquivo,
                                comando.NomeArquivoAnexo.NomeDoArquivo,
-                               comando.CondominioId.ToString());
+                               areaComum.CondominioId.ToString());
 
                 if (!retorno.IsValid)
                 {
@@ -340,7 +342,7 @@ namespace CondominioApp.Api.Controllers
         /// <param name="areaComumId">Id(Guid) da área comum</param>
         /// <returns></returns>
         [HttpPost("foto-area-comum")]
-        public async Task<ActionResult> PostFotoAreaComum([FromForm] IFormFile arquivo, Guid areaComumId)
+        public async Task<ActionResult> PostFotoAreaComum(IFormFile arquivo, Guid areaComumId)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
@@ -358,7 +360,7 @@ namespace CondominioApp.Api.Controllers
                 var retorno = await _azureStorageService.SubirArquivo
                               (arquivo,
                                comando.Foto.NomeDoArquivo,
-                               comando.CondominioId.ToString());
+                               areaComum.CondominioId.ToString());
 
                 if (!retorno.IsValid)
                 {

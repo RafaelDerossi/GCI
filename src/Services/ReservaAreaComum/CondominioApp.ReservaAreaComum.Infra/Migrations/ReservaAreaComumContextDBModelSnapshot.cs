@@ -305,6 +305,30 @@ namespace CondominioApp.ReservaAreaComum.Infra.Migrations
                         .HasForeignKey("AreaComumId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.OwnsOne("CondominioApp.ReservaAreaComum.Domain.ValueObject.Foto", "Foto", b1 =>
+                        {
+                            b1.Property<Guid>("FotoDaAreaComumId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("NomeDoArquivo")
+                                .IsRequired()
+                                .HasColumnName("NomeDoArquivo")
+                                .HasColumnType("varchar(200)")
+                                .HasMaxLength(200);
+
+                            b1.Property<string>("NomeOriginal")
+                                .HasColumnName("NomeOriginal")
+                                .HasColumnType("varchar(200)")
+                                .HasMaxLength(200);
+
+                            b1.HasKey("FotoDaAreaComumId");
+
+                            b1.ToTable("FotoDaAreaComum");
+
+                            b1.WithOwner()
+                                .HasForeignKey("FotoDaAreaComumId");
+                        });
                 });
 
             modelBuilder.Entity("CondominioApp.ReservaAreaComum.Domain.Periodo", b =>

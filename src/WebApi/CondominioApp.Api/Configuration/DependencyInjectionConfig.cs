@@ -348,12 +348,16 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<IRequestHandler<AtualizarAreaComumCommand, ValidationResult>, AreaComumCommandHandler>();
             services.AddScoped<IRequestHandler<ApagarAreaComumCommand, ValidationResult>, AreaComumCommandHandler>();
             services.AddScoped<IRequestHandler<AtivarAreaComumCommand, ValidationResult>, AreaComumCommandHandler>();
-            services.AddScoped<IRequestHandler<DesativarAreaComumCommand, ValidationResult>, AreaComumCommandHandler>();            
+            services.AddScoped<IRequestHandler<DesativarAreaComumCommand, ValidationResult>, AreaComumCommandHandler>();
+            services.AddScoped<IRequestHandler<AtualizarArquivoAnexoDaAreaComumCommand, ValidationResult>, AreaComumCommandHandler>();
+            services.AddScoped<IRequestHandler<AdicionarFotoDeAreaComumCommand, ValidationResult>, AreaComumCommandHandler>();
+            services.AddScoped<IRequestHandler<RemoverFotoDaAreaComumCommand, ValidationResult>, AreaComumCommandHandler>();
             services.AddScoped<INotificationHandler<AreaComumAdicionadaEvent>, AreaComumEventHandler>();
             services.AddScoped<INotificationHandler<AreaComumAtualizadaEvent>, AreaComumEventHandler>();
             services.AddScoped<INotificationHandler<AreaComumAtivadaEvent>, AreaComumEventHandler>();
             services.AddScoped<INotificationHandler<AreaComumDesativadaEvent>, AreaComumEventHandler>();
             services.AddScoped<INotificationHandler<AreaComumApagadaEvent>, AreaComumEventHandler>();
+            services.AddScoped<INotificationHandler<ArquivoAnexoDaAreaComumAtualizadoEvent>, AreaComumEventHandler>();
 
             //Reserva
             services.AddScoped<IRequestHandler<SolicitarReservaComoMoradorCommand, ValidationResult>, ReservaCommandHandler>();
