@@ -103,16 +103,19 @@ namespace CondominioApp.Portaria.Aplication.Commands
                 AdicionarErrosDeProcessamentoDoComando(e.Message);
             }
         }
-        public void SetFotoVisitante(string nomeOriginal)
+        public void SetFotoVisitante(string nomeOriginal, string nomeArquivo = "")
         {
-            try
+            if (nomeArquivo == "")
             {
-                FotoVisitante = new Foto(nomeOriginal);
-            }
-            catch (Exception e)
-            {
-                AdicionarErrosDeProcessamentoDoComando(e.Message);
-            }
+                try
+                {
+                    FotoVisitante = new Foto(nomeOriginal);
+                }
+                catch (Exception e)
+                {
+                    AdicionarErrosDeProcessamentoDoComando(e.Message);
+                }
+            }                
         }                
         public void SetVeiculoPeloPorteiro(bool temVeiculo, string placa, string modelo, string cor)
         {

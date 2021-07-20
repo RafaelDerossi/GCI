@@ -10,8 +10,8 @@ namespace CondominioApp.Portaria.Aplication.Events
         public VisitanteAdicionadoEvent
             (Guid id, string nome,TipoDeDocumento tipoDeDocumento, string documento, Email email, Foto foto, Guid condominioId,
             string nomeCondominio, Guid unidadeId, string numeroUnidade, string andarUnidade, string grupoUnidade,
-            bool visitantePermanente, string qrCode, TipoDeVisitante tipoDeVisitante, string nomeEmpresa,
-            bool temVeiculo)
+            bool visitantePermanente, TipoDeVisitante tipoDeVisitante, string nomeEmpresa,
+            bool temVeiculo, Guid criadorId, string nomeCriador, TipoDeUsuario tipoDeUsuarioDoCriador)
         {
             Id = id;
             SetNome(nome);
@@ -25,10 +25,12 @@ namespace CondominioApp.Portaria.Aplication.Events
             SetAndarDaUnidade(andarUnidade);
             SetGrupoDaUnidade(grupoUnidade);
             VisitantePermanente = visitantePermanente;
-            QrCode = qrCode;
             TipoDeVisitante = tipoDeVisitante;
             NomeEmpresa = nomeEmpresa;
-            TemVeiculo = temVeiculo;           
+            TemVeiculo = temVeiculo;
+            CriadorId = criadorId;
+            NomeDoCriador = nomeCriador;
+            TipoDeUsuarioDoCriador = tipoDeUsuarioDoCriador;
         }
 
     }

@@ -4,6 +4,7 @@ using CondominioApp.Core.Messages;
 using CondominioApp.ReservaAreaComum.Domain;
 using CondominioApp.ReservaAreaComum.Domain.FlatModel;
 using CondominioApp.ReservaAreaComum.Domain.ValueObject;
+using CondominioApp.ReservaAreaComum.Domain.ValueObjects;
 using FluentValidation.Results;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -33,8 +34,10 @@ namespace CondominioApp.Principal.Infra.DataQuery
             modelBuilder.Ignore<AreaComum>();
             modelBuilder.Ignore<Periodo>();
             modelBuilder.Ignore<Reserva>();
+            modelBuilder.Ignore<FotoDaAreaComum>();
             modelBuilder.Ignore<Foto>();
             modelBuilder.Ignore<BloqueioDeArea>();
+            modelBuilder.Ignore<NomeArquivo>();            
         }
 
         public async Task<bool> Commit()

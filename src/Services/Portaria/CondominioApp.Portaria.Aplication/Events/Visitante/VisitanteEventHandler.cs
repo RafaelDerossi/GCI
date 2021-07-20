@@ -38,7 +38,7 @@ namespace CondominioApp.Portaria.Aplication.Events
             visitanteFlat.SetNome(notification.Nome);
             visitanteFlat.SetDocumento(notification.Documento, notification.TipoDeDocumento);            
             visitanteFlat.SetEmail(notification.Email.Endereco);
-            visitanteFlat.SetFoto(notification.Foto.NomeDoArquivo);
+            visitanteFlat.SetFoto(notification.Foto.NomeDoArquivo, notification.Foto.NomeOriginal);
             
             visitanteFlat.MarcarVisitanteComoTemporario();
             if (notification.VisitantePermanente)
@@ -70,11 +70,12 @@ namespace CondominioApp.Portaria.Aplication.Events
         {
             return new VisitanteFlat
                (notification.Id, notification.Nome, notification.TipoDeDocumento, notification.Documento,
-               notification.Email.Endereco, notification.Foto.NomeDoArquivo,
+               notification.Email.Endereco, notification.Foto.NomeDoArquivo, notification.Foto.NomeOriginal,
                notification.CondominioId, notification.NomeCondominio, notification.UnidadeId,
                notification.NumeroUnidade, notification.AndarUnidade, notification.GrupoUnidade,
-               notification.VisitantePermanente, notification.QrCode, notification.TipoDeVisitante,
-               notification.NomeEmpresa, notification.TemVeiculo);
+               notification.VisitantePermanente, notification.TipoDeVisitante,
+               notification.NomeEmpresa, notification.TemVeiculo, notification.CriadorId, 
+               notification.NomeDoCriador, notification.TipoDeUsuarioDoCriador);
         }
 
 

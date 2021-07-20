@@ -25,7 +25,7 @@ namespace CondominioApp.Principal.Infra.Data.Mapping
 
             builder.OwnsOne(u => u.Email, email =>
             {
-                email.Property(u => u.Endereco).IsRequired()
+                email.Property(u => u.Endereco)
                     .HasMaxLength(Email.EmailMaximo)
                     .HasColumnName("Email")
                     .HasColumnType($"varchar({Email.EmailMaximo})");
@@ -48,9 +48,7 @@ namespace CondominioApp.Principal.Infra.Data.Mapping
 
             builder.Property(u => u.UnidadeId).IsRequired();           
 
-            builder.Property(u => u.VisitantePermanente).IsRequired();
-
-            builder.Property(u => u.QrCode).HasColumnType($"varchar({Visitante.Max})");
+            builder.Property(u => u.VisitantePermanente).IsRequired();           
 
             builder.Property(u => u.TipoDeVisitante).IsRequired();
 

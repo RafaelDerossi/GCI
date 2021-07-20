@@ -14,7 +14,7 @@ namespace CondominioApp.Portaria.Aplication.ViewModels
         public TipoDeDocumento TipoDoDocumento { get; set; }
         public string Documento { get; set; }       
         public string EmailVisitante { get; set; }
-        public string FotoVisitante { get; set; }
+        public string NomeArquivoFotoVisitante { get; set; }
         public IFormFile ArquivoFotoVisitante { get; set; }
         public TipoDeVisitante TipoDeVisitante { get; set; }
         public string NomeEmpresaVisitante { get; set; }       

@@ -1,6 +1,6 @@
 ﻿using CondominioApp.Core.Enumeradores;
 using CondominioApp.Portaria.Domain;
-using CondominioApp.Portaria.ValueObjects;
+using CondominioApp.Portaria.Domain.ValueObjects;
 using System;
 
 namespace CondominioApp.Portaria.Tests
@@ -12,10 +12,9 @@ namespace CondominioApp.Portaria.Tests
             return new Visita
                 (DateTime.Today, "OBS", StatusVisita.PENDENTE, Guid.NewGuid(),
                 "Nome do Visitante",TipoDeDocumento.CPF, "143.026.417-97",
-                 new Email("rafael@condominioapp.com"), new Foto("nomeOriginal.jpg", "foto.jpg"),
+                 new Email("rafael@condominioapp.com"), new Foto("nomeOriginal.jpg"),
                 TipoDeVisitante.PARTICULAR, "", Guid.NewGuid(), Guid.NewGuid(),
-                true, new Veiculo("LMG8888","Modelo","Prata"),
-                 Guid.NewGuid());
+                true, new Veiculo("LMG8888","Modelo","Prata"), Guid.NewGuid());
         }
 
         public static Visita CriarVisitaPorteiroValida_ComCPF()

@@ -12,8 +12,7 @@ namespace CondominioApp.Portaria.Aplication.ViewModels
         public string Email { get; set; }
         public IFormFile ArquivoFoto { get; set; }        
         public Guid UnidadeId { get; set; }
-        public bool VisitantePermanente { get; set; }
-        public string QrCode { get; set; }
+        public bool VisitantePermanente { get; set; }        
         public TipoDeVisitante TipoDeVisitante { get; set; }
         public string NomeEmpresa { get; set; }
         public bool TemVeiculo { get; set; }

@@ -31,7 +31,7 @@ namespace CondominioApp.Principal.Infra.Data.Mapping
 
             builder.OwnsOne(u => u.EmailVisitante, email =>
             {
-                email.Property(u => u.Endereco).IsRequired()
+                email.Property(u => u.Endereco)
                     .HasMaxLength(Email.EmailMaximo)
                     .HasColumnName("Email")
                     .HasColumnType($"varchar({Email.EmailMaximo})");

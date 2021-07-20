@@ -10,7 +10,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
         public AdicionarVisitantePorMoradorCommand
             (string nome,TipoDeDocumento tipoDoDocumento, string documento, string email, string nomeOriginalFoto,
             Guid condominioId, string nomeCondominio, Guid unidadeId, string numeroUnidade, string andarUnidade,
-            string grupoUnidade, bool visitantePermanente, string qrCode, TipoDeVisitante tipoDeVisitante,
+            string grupoUnidade, bool visitantePermanente, TipoDeVisitante tipoDeVisitante,
             string nomeEmpresa, bool temVeiculo, Guid criadorId, string nomeDoCriador)
         {
             SetNome(nome);            
@@ -20,13 +20,12 @@ namespace CondominioApp.Portaria.Aplication.Commands
             SetNumeroUnidade(numeroUnidade);
             SetAndarDaUnidade(andarUnidade);
             SetGrupoDaUnidade(grupoUnidade);
-            VisitantePermanente = visitantePermanente;
-            QrCode = qrCode;
+            VisitantePermanente = visitantePermanente;            
             TipoDeVisitante = tipoDeVisitante;
             NomeEmpresa = nomeEmpresa;
             TemVeiculo = temVeiculo;
-            MoradorId_FuncionarioId = criadorId;
-            NomeDoMorador_NomeDoFuncionario = nomeDoCriador;
+            CriadorId = criadorId;
+            NomeDoCriador = nomeDoCriador;
 
             SetDocumento(documento, tipoDoDocumento);
             SetEmail(email);

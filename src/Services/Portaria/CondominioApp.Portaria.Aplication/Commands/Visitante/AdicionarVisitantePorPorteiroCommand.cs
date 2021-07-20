@@ -24,13 +24,11 @@ namespace CondominioApp.Portaria.Aplication.Commands
             TipoDeVisitante = tipoDeVisitante;
             NomeEmpresa = nomeEmpresa;
             TemVeiculo = temVeiculo;
-            MoradorId_FuncionarioId = funcionarioId;
-            NomeDoMorador_NomeDoFuncionario = nomeDoFuncionario;
+            CriadorId = funcionarioId;
+            NomeDoCriador = nomeDoFuncionario;
             SetDocumento(documento, tipoDeDocumento);
             SetEmail(email);
-            SetFoto(nomeOriginalFoto);           
-
-            QrCode = "";
+            SetFoto(nomeOriginalFoto);
             VisitantePermanente = false;
         }
 

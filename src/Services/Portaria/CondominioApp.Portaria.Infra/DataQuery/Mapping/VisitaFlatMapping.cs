@@ -28,7 +28,7 @@ namespace CondominioApp.Principal.Infra.DataQuery.Mapping
                     .HasColumnName("Documento")
                     .HasColumnType($"varchar(20)");           
 
-            builder.Property(u => u.EmailVisitante).IsRequired()
+            builder.Property(u => u.EmailVisitante)
                     .HasMaxLength(Email.EmailMaximo)
                     .HasColumnName("Email")
                     .HasColumnType($"varchar({Email.EmailMaximo})");

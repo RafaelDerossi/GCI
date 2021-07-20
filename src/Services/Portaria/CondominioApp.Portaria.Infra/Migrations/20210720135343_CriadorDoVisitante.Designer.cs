@@ -4,14 +4,16 @@ using CondominioApp.Portaria.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CondominioApp.Portaria.Infra.Migrations
 {
     [DbContext(typeof(PortariaContextDB))]
-    partial class PortariaContextDBModelSnapshot : ModelSnapshot
+    [Migration("20210720135343_CriadorDoVisitante")]
+    partial class CriadorDoVisitante
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -123,6 +125,9 @@ namespace CondominioApp.Portaria.Infra.Migrations
                     b.Property<string>("NomeEmpresa")
                         .HasColumnType("varchar(200)");
 
+                    b.Property<string>("QrCode")
+                        .HasColumnType("varchar(200)");
+
                     b.Property<bool>("TemVeiculo")
                         .HasColumnType("bit");
 
@@ -160,6 +165,7 @@ namespace CondominioApp.Portaria.Infra.Migrations
                                 .HasColumnType("uniqueidentifier");
 
                             b1.Property<string>("Endereco")
+                                .IsRequired()
                                 .HasColumnName("Email")
                                 .HasColumnType("varchar(255)")
                                 .HasMaxLength(255);
@@ -232,6 +238,7 @@ namespace CondominioApp.Portaria.Infra.Migrations
                                 .HasColumnType("uniqueidentifier");
 
                             b1.Property<string>("Endereco")
+                                .IsRequired()
                                 .HasColumnName("Email")
                                 .HasColumnType("varchar(255)")
                                 .HasMaxLength(255);

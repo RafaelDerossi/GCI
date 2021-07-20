@@ -22,7 +22,7 @@ namespace CondominioApp.Principal.Infra.DataQuery.Mapping
                     .HasColumnName("Documento")
                     .HasColumnType($"varchar(20)");            
 
-            builder.Property(u => u.Email).IsRequired()
+            builder.Property(u => u.Email)
                     .HasMaxLength(Email.EmailMaximo)
                     .HasColumnName("Email")
                     .HasColumnType($"varchar({Email.EmailMaximo})");
@@ -40,9 +40,7 @@ namespace CondominioApp.Principal.Infra.DataQuery.Mapping
 
             builder.Property(u => u.GrupoUnidade).IsRequired().HasColumnType($"varchar({VisitanteFlat.Max})");
 
-            builder.Property(u => u.VisitantePermanente).IsRequired();
-
-            builder.Property(u => u.QrCode).HasColumnType($"varchar({VisitanteFlat.Max})");            
+            builder.Property(u => u.VisitantePermanente).IsRequired();                     
 
             builder.Property(u => u.TipoDeVisitante).IsRequired().HasColumnType($"varchar({VisitanteFlat.Max})");
 

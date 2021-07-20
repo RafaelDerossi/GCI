@@ -19,8 +19,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
         public string NumeroUnidade { get; protected set; }
         public string AndarUnidade { get; protected set; }
         public string GrupoUnidade { get; protected set; }
-        public bool VisitantePermanente { get; protected set; }
-        public string QrCode { get; protected set; }
+        public bool VisitantePermanente { get; protected set; }        
         public TipoDeVisitante TipoDeVisitante { get; protected set; }
         public string NomeEmpresa { get; protected set; }
         public bool TemVeiculo { get; protected set; }

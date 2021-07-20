@@ -91,7 +91,7 @@ namespace CondominioApp.Api.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult> Post(AdicionaVisitanteViewModel visitanteVM)
+        public async Task<ActionResult> Post([FromForm]AdicionaVisitanteViewModel visitanteVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
@@ -130,7 +130,7 @@ namespace CondominioApp.Api.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> Put(AtualizaVisitanteViewModel visitanteVM)
+        public async Task<ActionResult> Put([FromForm]AtualizaVisitanteViewModel visitanteVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);           
 
@@ -182,7 +182,7 @@ namespace CondominioApp.Api.Controllers
                   viewModel.Nome, viewModel.TipoDoDocumento, viewModel.Documento, viewModel.Email,
                   nomeOriginalArquivo, unidade.CondominioId, unidade.CondominioNome, unidade.Id,
                   unidade.Numero, unidade.Andar, unidade.GrupoDescricao, viewModel.VisitantePermanente,
-                  viewModel.QrCode, viewModel.TipoDeVisitante, viewModel.NomeEmpresa,
+                  viewModel.TipoDeVisitante, viewModel.NomeEmpresa,
                   viewModel.TemVeiculo, morador.Id, morador.NomeCompleto);
         }
 

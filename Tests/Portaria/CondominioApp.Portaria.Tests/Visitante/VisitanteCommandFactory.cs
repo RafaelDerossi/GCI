@@ -11,16 +11,17 @@ namespace CondominioApp.Portaria.Tests
         {
             return new AdicionarVisitantePorMoradorCommand
               ("Nome Visitante",TipoDeDocumento.CPF, "143.026.417-97", "rafael@condominioapp.com",
-              "foto.jpg", "nomeOriginal.jpg", Guid.NewGuid(), "Nome Condominio", Guid.NewGuid(),
-              "101", "1º", "Bloco", false, "qrCode", TipoDeVisitante.PARTICULAR, "", true);
+               "nomeOriginal.jpg", Guid.NewGuid(), "Nome Condominio", Guid.NewGuid(),
+               "101", "1º", "Bloco", false, TipoDeVisitante.PARTICULAR, "", true, 
+               Guid.NewGuid(), "nome do criador");
         }
 
         public static AdicionarVisitantePorPorteiroCommand CadastrarVisitantePorPorteiroCommandFactory()
         {
             return new AdicionarVisitantePorPorteiroCommand
               (Guid.NewGuid(), "Nome Visitante",TipoDeDocumento.CPF, "143.026.417-97", "rafael@condominioapp.com",
-              "foto.jpg", "nomeOriginal.jpg", Guid.NewGuid(), "Nome Condominio", Guid.NewGuid(),
-              "101", "1º", "Bloco", TipoDeVisitante.PARTICULAR, "", true);
+               "nomeOriginal.jpg", Guid.NewGuid(), "Nome Condominio", Guid.NewGuid(), "101", "1º", "Bloco",
+                TipoDeVisitante.PARTICULAR, "", true, Guid.NewGuid(), "Nome Funcionario");
         }
 
         public static AtualizarVisitantePorMoradorCommand EditarVisitantePorMoradorCommandFactory()

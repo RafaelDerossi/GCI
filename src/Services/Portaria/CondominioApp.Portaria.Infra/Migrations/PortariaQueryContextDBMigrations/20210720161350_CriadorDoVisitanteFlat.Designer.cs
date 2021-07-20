@@ -4,14 +4,16 @@ using CondominioApp.Portaria.Infra.DataQuery;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CondominioApp.Portaria.Infra.Migrations.PortariaQueryContextDBMigrations
 {
     [DbContext(typeof(PortariaQueryContextDB))]
-    partial class PortariaQueryContextDBModelSnapshot : ModelSnapshot
+    [Migration("20210720161350_CriadorDoVisitanteFlat")]
+    partial class CriadorDoVisitanteFlat
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -64,6 +66,7 @@ namespace CondominioApp.Portaria.Infra.Migrations.PortariaQueryContextDBMigratio
                         .HasMaxLength(20);
 
                     b.Property<string>("EmailVisitante")
+                        .IsRequired()
                         .HasColumnName("Email")
                         .HasColumnType("varchar(255)")
                         .HasMaxLength(255);
@@ -176,6 +179,7 @@ namespace CondominioApp.Portaria.Infra.Migrations.PortariaQueryContextDBMigratio
                         .HasMaxLength(20);
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnName("Email")
                         .HasColumnType("varchar(255)")
                         .HasMaxLength(255);
@@ -209,6 +213,9 @@ namespace CondominioApp.Portaria.Infra.Migrations.PortariaQueryContextDBMigratio
 
                     b.Property<string>("NumeroUnidade")
                         .IsRequired()
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<string>("QrCode")
                         .HasColumnType("varchar(200)");
 
                     b.Property<bool>("TemVeiculo")

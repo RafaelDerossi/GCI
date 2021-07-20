@@ -1,9 +1,7 @@
 ﻿using CondominioApp.Core.DomainObjects;
 using CondominioApp.Core.Enumeradores;
-using CondominioApp.Portaria.Domain.ValueObjects;
-using FluentValidation.Results;
+using CondominioApp.Core.Helpers;
 using System;
-using System.Collections.Generic;
 
 namespace CondominioApp.Portaria.Domain.FlatModel
 {
@@ -33,6 +31,19 @@ namespace CondominioApp.Portaria.Domain.FlatModel
 
         public string NomeOriginalArquivoFoto { get; private set; }
 
+        public string FotoUrl
+        {
+            get
+            {
+                if (NomeArquivoFoto == null || NomeArquivoFoto == "")
+                    return "";
+
+                return StorageHelper.ObterUrlDeArquivo(CondominioId.ToString(), NomeArquivoFoto);
+            }
+        }
+
+
+
         public Guid CondominioId { get; private set; }
 
         public string NomeCondominio { get; private set; }
@@ -45,9 +56,7 @@ namespace CondominioApp.Portaria.Domain.FlatModel
 
         public string GrupoUnidade { get; private set; }
 
-        public bool VisitantePermanente { get; private set; }
-
-        public string QrCode { get; private set; }
+        public bool VisitantePermanente { get; private set; }       
 
         public TipoDeVisitante TipoDeVisitante { get; private set; }
 
@@ -63,6 +72,23 @@ namespace CondominioApp.Portaria.Domain.FlatModel
 
         public TipoDeUsuario TipoDeUsuarioDoCriador { get; set; }
 
+        public string DescricaoTipoDeUsuarioDoCriador
+        {
+            get
+            {
+                return TipoDeUsuarioDoCriador switch
+                {
+                    TipoDeUsuario.ADMINISTRADORA => "Administradora",
+                    TipoDeUsuario.ADM => "Adm",
+                    TipoDeUsuario.FUNCIONARIO => "Funcionário",
+                    TipoDeUsuario.MORADOR => "Morador",
+                    TipoDeUsuario.SUPERADMIN => "Superadmin",
+                    TipoDeUsuario.LOJISTA => "Lojista",
+                    _ => "Indefinido",
+                };
+            }
+        }        
+
 
         /// Construtores       
         protected VisitanteFlat()
@@ -70,20 +96,15 @@ namespace CondominioApp.Portaria.Domain.FlatModel
         }
 
         public VisitanteFlat
-            (Guid id, DateTime dataDeCadastro, DateTime dataDeAlteracao, bool lixeira, string nome,
-             TipoDeDocumento tipoDeDocumento, string descricaoTipoDeDocumento, string documento,
+            (Guid id, string nome, TipoDeDocumento tipoDeDocumento, string documento,
              string email, string nomeArquivoFoto, string nomeOriginalArquivoFoto, Guid condominioId,
              string nomeCondominio, Guid unidadeId, string numeroUnidade, string andarUnidade,
-             string grupoUnidade, bool visitantePermanente, string qrCode, TipoDeVisitante tipoDeVisitante,
-             string descricaoTipoDeVisitante, string nomeEmpresa, bool temVeiculo, Guid criadorId,
-             string nomeDoCriador, TipoDeUsuario tipoDeUsuarioDoCriador)
+             string grupoUnidade, bool visitantePermanente, TipoDeVisitante tipoDeVisitante,
+             string nomeEmpresa, bool temVeiculo, Guid criadorId, string nomeDoCriador,
+             TipoDeUsuario tipoDeUsuarioDoCriador)
         {
-            Id = id;
-            DataDeCadastro = dataDeCadastro;
-            DataDeAlteracao = dataDeAlteracao;
-            Lixeira = lixeira;
+            Id = id;           
             Nome = nome;           
-            DescricaoTipoDeDocumento = descricaoTipoDeDocumento;           
             Email = email;
             NomeArquivoFoto = nomeArquivoFoto;
             NomeOriginalArquivoFoto = nomeOriginalArquivoFoto;
@@ -94,8 +115,6 @@ namespace CondominioApp.Portaria.Domain.FlatModel
             AndarUnidade = andarUnidade;
             GrupoUnidade = grupoUnidade;
             VisitantePermanente = visitantePermanente;
-            QrCode = qrCode;          
-            DescricaoTipoDeVisitante = descricaoTipoDeVisitante;
             NomeEmpresa = nomeEmpresa;
             TemVeiculo = temVeiculo;
             CriadorId = criadorId;
@@ -129,8 +148,7 @@ namespace CondominioApp.Portaria.Domain.FlatModel
                 _ => "Outros",
             };
         }
-        public void SetEmail(string email) => Email = email;       
-        public void SetQrCode(string qrCode) => QrCode = qrCode;
+        public void SetEmail(string email) => Email = email;              
         public void SetTipoDeVisitante(TipoDeVisitante tipoDeVisitante)
         {
             TipoDeVisitante = tipoDeVisitante;
@@ -146,7 +164,11 @@ namespace CondominioApp.Portaria.Domain.FlatModel
                     break;
             }            
         }
-        
+        public void SetFoto(string nomeArquivo, string nomeOriginalArquivo)
+        {
+            NomeArquivoFoto = nomeArquivo;
+            NomeOriginalArquivoFoto = nomeOriginalArquivo;           
+        }
         public void SetNomeEmpresa(string nomeEmpresa) => NomeEmpresa = nomeEmpresa;
 
         public void MarcarTemVeiculo() => TemVeiculo = true;

@@ -19,6 +19,7 @@ namespace CondominioApp.Portaria.Domain.FlatModel
         public bool Lixeira { get; private set; }
 
         public DateTime DataDeEntrada { get; private set; }       
+
         public DateTime DataDeSaida { get; private set; }
 
         public StatusVisita Status { get; private set; }
@@ -49,39 +50,49 @@ namespace CondominioApp.Portaria.Domain.FlatModel
             private set { }
         }    
 
-        public string Observacao { get; private set; }
-        
-        
+        public string Observacao { get; private set; }        
 
         public Guid VisitanteId { get; private set; }
+
         public string NomeVisitante { get; private set; }
 
         public TipoDeDocumento TipoDeDocumentoVisitante { get; private set; }
+
         public string DescricaoTipoDeDocumentoVisitante { get; private set; }
 
         public string DocumentoVisitante { get; private set; }       
+
         public string EmailVisitante { get; private set; }
+
         public string FotoVisitante { get; private set; }
 
+
+
         public TipoDeVisitante TipoDeVisitante { get; private set; }
+
         public string DescricaoTipoDeVisitante { get; private set; }
 
         public string NomeEmpresaVisitante { get; private set; }
 
-
         public Guid CondominioId { get; private set; }
+
         public string NomeCondominio { get; private set; }
 
         public Guid UnidadeId { get; private set; }
+
         public string NumeroUnidade { get; private set; }
+
         public string AndarUnidade { get; private set; }
+
         public string GrupoUnidade { get; private set; }
 
         public bool TemVeiculo { get; private set; }
-        public string PlacaVeiculo { get; private set; }
-        public string ModeloVeiculo { get; private set; }
-        public string CorVeiculo { get; private set; }
 
+        public string PlacaVeiculo { get; private set; }
+
+        public string ModeloVeiculo { get; private set; }
+
+        public string CorVeiculo { get; private set; }
 
         public Guid UsuarioId { get; private set; }
 

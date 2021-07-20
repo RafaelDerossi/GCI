@@ -179,7 +179,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
             return new Visitante
                 (request.Nome, request.TipoDeDocumento, request.Documento, request.Email,
                  request.Foto, request.CondominioId, request.UnidadeId, request.VisitantePermanente,
-                 request.QrCode, request.TipoDeVisitante, request.NomeEmpresa, request.TemVeiculo,
+                 request.TipoDeVisitante, request.NomeEmpresa, request.TemVeiculo,
                  request.CriadorId, request.NomeDoCriador, tipoDeUsuarioDoCriador);
         }
 
@@ -190,7 +190,8 @@ namespace CondominioApp.Portaria.Aplication.Commands
                     visitante.Id, visitante.Nome, visitante.TipoDeDocumento, visitante.Documento,
                     visitante.Email, visitante.Foto, visitante.CondominioId, request.NomeCondominio, visitante.UnidadeId,
                     request.NumeroUnidade, request.AndarUnidade, request.GrupoUnidade, visitante.VisitantePermanente,
-                    visitante.QrCode, visitante.TipoDeVisitante, visitante.NomeEmpresa, visitante.TemVeiculo));
+                    visitante.TipoDeVisitante, visitante.NomeEmpresa, visitante.TemVeiculo,
+                    visitante.CriadorId, visitante.NomeDoCriador, visitante.TipoDeUsuarioDoCriador));
         }
 
         private void AdicionarEventoVisitanteEditado(Visitante visitante)

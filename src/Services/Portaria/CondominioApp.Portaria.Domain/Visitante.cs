@@ -17,8 +17,7 @@ namespace CondominioApp.Portaria.Domain
         public Foto Foto { get; private set; }
         public Guid CondominioId { get; private set; }
         public Guid UnidadeId { get; private set; }
-        public bool VisitantePermanente { get; private set; }
-        public string QrCode { get; private set; }
+        public bool VisitantePermanente { get; private set; }        
         public TipoDeVisitante TipoDeVisitante { get; private set; }
         public string NomeEmpresa { get; private set; }
         public bool TemVeiculo { get; private set; }
@@ -42,7 +41,7 @@ namespace CondominioApp.Portaria.Domain
 
         public Visitante(string nome, TipoDeDocumento tipoDeDocumento, string documento,
             Email email, Foto foto, Guid condominioId, Guid unidadeId, bool visitantePermanente,
-            string qrCode, TipoDeVisitante tipoDeVisitante, string nomeEmpresa, bool temVeiculo,
+            TipoDeVisitante tipoDeVisitante, string nomeEmpresa, bool temVeiculo,
             Guid criadorId, string nomeDoCriador, TipoDeUsuario tipoDeUsuarioDoCriador)
         {
             _Visitas = new List<Visita>();
@@ -52,7 +51,6 @@ namespace CondominioApp.Portaria.Domain
             CondominioId = condominioId;
             UnidadeId = unidadeId;
             VisitantePermanente = visitantePermanente;
-            QrCode = qrCode;
             TipoDeVisitante = tipoDeVisitante;
             NomeEmpresa = nomeEmpresa;
             TemVeiculo = temVeiculo;
@@ -68,8 +66,7 @@ namespace CondominioApp.Portaria.Domain
         /// Metodos Set
         public void SetNome(string nome) => Nome = nome;                  
         public void SetEmail(Email email) => Email = email;
-        public void SetFoto(Foto foto) => Foto = foto;
-        public void SetQrCode(string qrCode) => QrCode = qrCode;
+        public void SetFoto(Foto foto) => Foto = foto;        
         public void SetTipoDeVisitante(TipoDeVisitante tipoDeVisitante) => TipoDeVisitante = tipoDeVisitante;
         public void SetNomeEmpresa(string nomeEmpresa) => NomeEmpresa = nomeEmpresa;        
         public void MarcarTemVeiculo() => TemVeiculo = true;

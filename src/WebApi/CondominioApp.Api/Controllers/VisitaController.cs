@@ -322,7 +322,7 @@ namespace CondominioApp.Api.Controllers
             return new AdicionarVisitaPorPorteiroCommand(
                   viewModel.Observacao, StatusVisita.PENDENTE, viewModel.VisitanteId,
                   viewModel.NomeVisitante, viewModel.TipoDoDocumento, viewModel.Documento, viewModel.EmailVisitante,
-                  viewModel.FotoVisitante, nomeOriginalArquivo, viewModel.TipoDeVisitante,
+                  viewModel.NomeArquivoFotoVisitante, nomeOriginalArquivo, viewModel.TipoDeVisitante,
                   viewModel.NomeEmpresaVisitante, unidade.CondominioId, unidade.CondominioNome, unidade.Id,
                   unidade.Numero, unidade.Andar, unidade.GrupoDescricao, viewModel.TemVeiculo, viewModel.PlacaVeiculo, 
                   viewModel.ModeloVeiculo, viewModel.CorVeiculo, morador.Id, morador.NomeCompleto);
@@ -340,9 +340,11 @@ namespace CondominioApp.Api.Controllers
 
         private AtualizarVisitaCommand AtualizarVisitaCommandFactory(AtualizaVisitaViewModel viewModel, UnidadeFlat unidade, MoradorFlat morador)
         {
+            var nomeOriginalArquivo = StorageHelper.ObterNomeDoArquivo(viewModel.ArquivoFotoVisitante);
+
             return new AtualizarVisitaCommand(
                    viewModel.Id,viewModel.Observacao, viewModel.NomeVisitante,viewModel.TipoDoDocumento, viewModel.Documento,
-                   viewModel.EmailVisitante, viewModel.FotoVisitante, viewModel.NomeOriginalFotoVisitante,
+                   viewModel.EmailVisitante, viewModel.NomeArquivoFotoVisitante, nomeOriginalArquivo,
                    viewModel.TipoDeVisitante, viewModel.NomeEmpresaVisitante, unidade.Id, unidade.Numero,
                    unidade.Andar, unidade.GrupoDescricao, viewModel.TemVeiculo, viewModel.PlacaVeiculo,
                    viewModel.ModeloVeiculo, viewModel.CorVeiculo, morador.Id, morador.NomeCompleto);
@@ -370,16 +372,18 @@ namespace CondominioApp.Api.Controllers
 
             return new AtualizarVisitantePorPorteiroCommand(
                   visitaVM.VisitanteId, visitaVM.NomeVisitante,visitaVM.TipoDoDocumento, visitaVM.Documento,
-                  visitaVM.EmailVisitante, visitaVM.FotoVisitante, nomeOriginalArquivo, visitaVM.TipoDeVisitante,
+                  visitaVM.EmailVisitante, visitaVM.NomeArquivoFotoVisitante, nomeOriginalArquivo, visitaVM.TipoDeVisitante,
                   visitaVM.NomeEmpresaVisitante, visitaVM.TemVeiculo);
         }
 
         private AtualizarVisitantePorPorteiroCommand AtualizarVisitantePorPorteiroCommandFactory
             (AtualizaVisitaViewModel visitaVM)
         {
+            var nomeOriginalArquivo = StorageHelper.ObterNomeDoArquivo(visitaVM.ArquivoFotoVisitante);
+
             return new AtualizarVisitantePorPorteiroCommand(
                   visitaVM.VisitanteId, visitaVM.NomeVisitante, visitaVM.TipoDoDocumento, visitaVM.Documento,
-                  visitaVM.EmailVisitante, visitaVM.FotoVisitante, visitaVM.NomeOriginalFotoVisitante,
+                  visitaVM.EmailVisitante, visitaVM.NomeArquivoFotoVisitante, nomeOriginalArquivo,
                   visitaVM.TipoDeVisitante, visitaVM.NomeEmpresaVisitante, visitaVM.TemVeiculo);
         }
 
