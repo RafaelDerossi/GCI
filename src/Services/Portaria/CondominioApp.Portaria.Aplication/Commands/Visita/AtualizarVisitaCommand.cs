@@ -8,19 +8,14 @@ namespace CondominioApp.Portaria.Aplication.Commands
     {
 
         public AtualizarVisitaCommand
-            (Guid id, string observacao, string nomeVisitante,TipoDeDocumento tipoDeDocumento, string documentoVisitante,
-            string emailVisitante, string fotoVisitante, string nomeOriginalFotoVisitante, TipoDeVisitante tipoDeVisitante,
-            string nomeEmpresaVisitante, Guid unidadeId, string numeroUnidade, string andarUnidade,
-            string grupoUnidade, bool temVeiculo, string placaVeiculo, string modeloVeiculo, string corVeiculo,
-            Guid moradorId, string nomeMorador)
+            (Guid id, string observacao, TipoDeVisitante tipoDeVisitante,
+             string nomeEmpresaVisitante, Guid unidadeId, string numeroUnidade, string andarUnidade,
+             string grupoUnidade, bool temVeiculo, string placaVeiculo, string modeloVeiculo,
+             string corVeiculo, Guid moradorId, string nomeMorador)
         {
             Id = id;
-            Observacao = observacao;
-            NomeVisitante = nomeVisitante;
-            SetDocumentoVisitante(documentoVisitante, tipoDeDocumento);
-            SetTipoDeVisitante(tipoDeVisitante);
-            SetEmailVisitante(emailVisitante);
-            SetFotoVisitante(nomeOriginalFotoVisitante, fotoVisitante);
+            Observacao = observacao;          
+            SetTipoDeVisitante(tipoDeVisitante);           
             SetNomeEmpresaVisitante(nomeEmpresaVisitante);
 
             SetUnidadeId(unidadeId);
@@ -47,9 +42,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
         public class AtualizarVisitaCommandValidation : VisitaValidation<AtualizarVisitaCommand>
         {
             public AtualizarVisitaCommandValidation()
-            {                              
-                ValidateNomeVisitante();
-                ValidateTipoDeDocumentoVisitante();                
+            {             
                 ValidateUnidadeId();
                 ValidateNumeroUnidade();
                 ValidateAndarUnidade();

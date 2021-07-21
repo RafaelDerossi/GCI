@@ -26,18 +26,6 @@ namespace CondominioApp.Portaria.Aplication.Commands.Validations
             RuleFor(c => c.VisitanteId)
                 .NotEqual(Guid.Empty);
         }
-        protected void ValidateNomeVisitante()
-        {
-            RuleFor(c => c.NomeVisitante)
-                .NotEmpty().WithMessage("Nome do Visitante não pode estar vazio!")
-                .Length(2, 200).WithMessage("Nome do Visitante deve ter mais de 2 caracteres!");
-        }
-        protected void ValidateTipoDeDocumentoVisitante()
-        {
-            RuleFor(c => c.TipoDeDocumentoVisitante)
-                .NotNull().WithMessage("Tipo de Documento do Visitante não pode estar vazio!");
-        }
-
         protected void ValidateCondominioId()
         {
             RuleFor(c => c.CondominioId)

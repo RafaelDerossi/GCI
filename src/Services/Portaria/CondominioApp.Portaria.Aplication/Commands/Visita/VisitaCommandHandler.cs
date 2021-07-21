@@ -1,6 +1,8 @@
-﻿using CondominioApp.Core.Messages;
+﻿using CondominioApp.Core.Enumeradores;
+using CondominioApp.Core.Messages;
 using CondominioApp.Portaria.Aplication.Events;
 using CondominioApp.Portaria.Domain;
+using CondominioApp.Portaria.Domain.FlatModel;
 using CondominioApp.Portaria.Domain.Interfaces;
 using FluentValidation.Results;
 using MediatR;
@@ -33,16 +35,23 @@ namespace CondominioApp.Portaria.Aplication.Commands
         {
             if (!request.EstaValido()) return request.ValidationResult;
 
-            var visita = VisitaFactory(request);
+            var visitante = await _portariaRepository.ObterPorId(request.VisitanteId);
+            if (visitante == null)
+            {
+                AdicionarErro("Visitante não encontrado.");
+                return ValidationResult;
+            }
+
+            var visita = VisitaFactory(request, visitante);
 
             _portariaRepository.AdicionarVisita(visita);
 
             //Evento
             visita.AdicionarEvento(
               new VisitaAdicionadaEvent(
-                  visita.Id, visita.DataDeEntrada, visita.Observacao, visita.Status, visita.VisitanteId,
-                  visita.NomeVisitante, visita.TipoDeDocumentoVisitante, visita.Documento,
-                  visita.EmailVisitante, visita.FotoVisitante,
+                  visita.Id, visita.DataDeEntrada, visita.Observacao, StatusVisita.PENDENTE,
+                  visita.VisitanteId, visita.NomeVisitante, visita.TipoDeDocumentoVisitante,
+                  visita.Documento, visita.EmailVisitante, visita.FotoVisitante,
                   visita.TipoDeVisitante, visita.NomeEmpresaVisitante, visita.CondominioId,
                   request.NomeCondominio, visita.UnidadeId, request.NumeroUnidade, request.AndarUnidade,
                   request.GrupoUnidade, visita.TemVeiculo, visita.Veiculo, visita.MoradorId,
@@ -93,10 +102,16 @@ namespace CondominioApp.Portaria.Aplication.Commands
                 return ValidationResult;
             }
 
+            var visitante = await _portariaRepository.ObterPorId(request.VisitanteId);
+            if (visitante == null)
+            {
+                AdicionarErro("Visitante não encontrado.");
+                return ValidationResult;
+            }
 
             var retorno = visitaBd.Editar
-                (request.Observacao, request.NomeVisitante, request.TipoDeVisitante, request.NomeEmpresaVisitante,
-                request.UnidadeId, request.TemVeiculo, request.Veiculo);
+                (request.Observacao, visitante.Nome, request.TipoDeVisitante, request.NomeEmpresaVisitante,
+                 request.UnidadeId, request.TemVeiculo, request.Veiculo);
             if (!retorno.IsValid)
                 return retorno;
 
@@ -106,11 +121,11 @@ namespace CondominioApp.Portaria.Aplication.Commands
             //Evento
             visitaBd.AdicionarEvento(
                  new VisitaAtualizadaEvent(
-                     request.Id, request.Observacao, request.NomeVisitante, request.TipoDeDocumentoVisitante,
-                     request.DocumentoVisitante, request.EmailVisitante,
-                     request.FotoVisitante, request.TipoDeVisitante, request.NomeEmpresaVisitante,
-                     request.UnidadeId, request.NumeroUnidade, request.AndarUnidade, request.GrupoUnidade,
-                     request.TemVeiculo, request.Veiculo, request.MoradorId, request.NomeMorador));
+                     request.Id, request.Observacao, visitante.Nome, visitante.TipoDeDocumento,
+                     visitante.Documento, visitante.Email, visitante.Foto, request.TipoDeVisitante,
+                     request.NomeEmpresaVisitante, request.UnidadeId, request.NumeroUnidade,
+                     request.AndarUnidade, request.GrupoUnidade, request.TemVeiculo, request.Veiculo,
+                     request.MoradorId, request.NomeMorador));
 
 
             return await PersistirDados(_portariaRepository.UnitOfWork);
@@ -126,7 +141,6 @@ namespace CondominioApp.Portaria.Aplication.Commands
                 AdicionarErro("Visita não encontrada.");
                 return ValidationResult;
             }
-
             
             var retorno = visitaBd.Remover();
             if (!retorno.IsValid)
@@ -240,15 +254,13 @@ namespace CondominioApp.Portaria.Aplication.Commands
         }
 
 
-
-
         
-        private Visita VisitaFactory(AdicionarVisitaPorPorteiroCommand request)
+        private Visita VisitaFactory(AdicionarVisitaPorPorteiroCommand request, Visitante visitante)
         {
             return new Visita
                 (request.DataDeEntrada, request.Observacao, request.Status,
-                 request.VisitanteId, request.NomeVisitante, request.TipoDeDocumentoVisitante,
-                 request.DocumentoVisitante, request.EmailVisitante, request.FotoVisitante,
+                 request.VisitanteId, visitante.Nome, visitante.TipoDeDocumento,
+                 visitante.Documento, visitante.Email, visitante.Foto,
                  request.TipoDeVisitante, request.NomeEmpresaVisitante, request.CondominioId,
                  request.UnidadeId, request.TemVeiculo, request.Veiculo,
                  request.MoradorId);

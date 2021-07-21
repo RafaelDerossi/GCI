@@ -1,6 +1,7 @@
 ﻿using CondominioApp.Core.Enumeradores;
 using CondominioApp.Core.Helpers;
 using CondominioApp.Core.Messages;
+using CondominioApp.Portaria.Domain;
 using CondominioApp.Portaria.Domain.ValueObjects;
 using System;
 
@@ -9,114 +10,27 @@ namespace CondominioApp.Portaria.Aplication.Commands
     public abstract class VisitaCommand : Command
     {
         public Guid Id { get; protected set; }
-
         public DateTime DataDeEntrada { get; protected set; }
         public bool Terminada { get; protected set; }
-        public DateTime DataDeSaida { get; protected set; }
-        
+        public DateTime DataDeSaida { get; protected set; }        
         public string Observacao { get; protected set; }
         public StatusVisita Status { get; protected set; }
-       
-
-        public Guid VisitanteId { get; protected set; }
-        public string NomeVisitante { get; protected set; }
-        public TipoDeDocumento TipoDeDocumentoVisitante { get; protected set; }
-        public string DocumentoVisitante { get; protected set; }        
-        public Email EmailVisitante { get; protected set; }
-        public Foto FotoVisitante { get; protected set; }
+        public Guid VisitanteId { get; protected set; }        
         public TipoDeVisitante TipoDeVisitante { get; protected set; }       
         public string NomeEmpresaVisitante { get; protected set; }
-
-
         public Guid CondominioId { get; protected set; }
         public string NomeCondominio { get; protected set; }
-
         public Guid UnidadeId { get; protected set; }
         public string NumeroUnidade { get; protected set; }
         public string AndarUnidade { get; protected set; }
         public string GrupoUnidade { get; protected set; }
-
         public bool TemVeiculo { get; protected set; }
         public Veiculo Veiculo { get; protected set; }
-
         public Guid MoradorId { get; protected set; }
         public string NomeMorador { get; protected set; }
 
-
-        public void SetDocumentoVisitante(string documento, TipoDeDocumento tipoDeDocumento)
-        {
-            if (string.IsNullOrEmpty(documento))
-            {
-                TipoDeDocumentoVisitante = TipoDeDocumento.OUTROS;
-                DocumentoVisitante = "";
-                return;
-            }
-
-            TipoDeDocumentoVisitante = tipoDeDocumento;
-
-            if (tipoDeDocumento == TipoDeDocumento.CPF)
-            {
-                SetCPF(documento);
-                return;
-            }
-
-            if (tipoDeDocumento == TipoDeDocumento.RG)
-            {
-                SetRg(documento);
-                return;
-            }
-
-            DocumentoVisitante = documento;
-        }
-        private void SetRg(string rg)
-        {
-            try
-            {
-                var _rg = new Rg(rg);
-                DocumentoVisitante = _rg.Numero;
-            }
-            catch (Exception e)
-            {
-                AdicionarErrosDeProcessamentoDoComando(e.Message);
-            }
-        }
-        private void SetCPF(string cpf)
-        {
-            try
-            {
-                var _cpf = new Cpf(cpf);
-                DocumentoVisitante = _cpf.Numero;
-            }
-            catch (Exception e)
-            {
-                AdicionarErrosDeProcessamentoDoComando(e.Message);
-            }
-        }
-        public void SetEmailVisitante(string email)
-        {
-            try
-            {
-                EmailVisitante = new Email(email);
-            }
-            catch (Exception e)
-            {
-                AdicionarErrosDeProcessamentoDoComando(e.Message);
-            }
-        }
-        public void SetFotoVisitante(string nomeOriginal, string nomeArquivo = "")
-        {
-            if (nomeArquivo == null || nomeArquivo == "")
-            {
-                try
-                {
-                    FotoVisitante = new Foto(nomeOriginal);
-                }
-                catch (Exception e)
-                {
-                    AdicionarErrosDeProcessamentoDoComando(e.Message);
-                }
-            }                
-        }                
+       
+        
         public void SetVeiculoPeloPorteiro(bool temVeiculo, string placa, string modelo, string cor)
         {
             TemVeiculo = temVeiculo;

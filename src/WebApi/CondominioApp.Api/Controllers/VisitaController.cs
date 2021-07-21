@@ -330,11 +330,10 @@ namespace CondominioApp.Api.Controllers
         private AtualizarVisitaCommand AtualizarVisitaCommandFactory(AtualizaVisitaViewModel viewModel, UnidadeFlat unidade, MoradorFlat morador)
         {
             return new AtualizarVisitaCommand(
-                   viewModel.Id,viewModel.Observacao, viewModel.NomeVisitante,viewModel.TipoDoDocumento, viewModel.Documento,
-                   viewModel.EmailVisitante, viewModel.NomeArquivoFotoVisitante, nomeOriginalArquivo,
-                   viewModel.TipoDeVisitante, viewModel.NomeEmpresaVisitante, unidade.Id, unidade.Numero,
-                   unidade.Andar, unidade.GrupoDescricao, viewModel.TemVeiculo, viewModel.PlacaVeiculo,
-                   viewModel.ModeloVeiculo, viewModel.CorVeiculo, morador.Id, morador.NomeCompleto);
+                   viewModel.Id, viewModel.Observacao,viewModel.TipoDeVisitante, viewModel.NomeEmpresaVisitante, 
+                   unidade.Id, unidade.Numero, unidade.Andar, unidade.GrupoDescricao, viewModel.TemVeiculo,
+                   viewModel.PlacaVeiculo, viewModel.ModeloVeiculo, viewModel.CorVeiculo, morador.Id,
+                   morador.NomeCompleto);
         }
 
 
