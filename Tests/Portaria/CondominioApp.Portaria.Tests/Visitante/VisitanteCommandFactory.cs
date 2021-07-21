@@ -19,7 +19,7 @@ namespace CondominioApp.Portaria.Tests
         public static AdicionarVisitantePorPorteiroCommand CadastrarVisitantePorPorteiroCommandFactory()
         {
             return new AdicionarVisitantePorPorteiroCommand
-              (Guid.NewGuid(), "Nome Visitante",TipoDeDocumento.CPF, "143.026.417-97", "rafael@condominioapp.com",
+              ("Nome Visitante", TipoDeDocumento.CPF, "143.026.417-97", "rafael@condominioapp.com",
                "nomeOriginal.jpg", Guid.NewGuid(), "Nome Condominio", Guid.NewGuid(), "101", "1º", "Bloco",
                 TipoDeVisitante.PARTICULAR, "", true, Guid.NewGuid(), "Nome Funcionario");
         }

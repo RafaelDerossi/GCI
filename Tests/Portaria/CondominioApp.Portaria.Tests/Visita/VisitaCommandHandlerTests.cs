@@ -26,7 +26,12 @@ namespace CondominioApp.Portaria.Tests
         public async Task AdicionarVisita_Porteiro_CommandoValido_DevePassarNaValidacao()
         {
             //Arrange        
-            var command = VisitaCommandFactory.CriarComandoCadastroDeVisita_NaPortaria_ComCPF();
+            var command = VisitaCommandFactory.CriarComandoCadastroDeVisita_NaPortaria();
+            var visitante = VisitanteFactoryTest.CriarVisitanteValido_ComCPF();            
+            visitante.SetEntidadeId(command.VisitanteId);
+
+            _mocker.GetMock<IPortariaRepository>().Setup(r => r.ObterPorId(command.VisitanteId))
+               .Returns(Task.FromResult(visitante));
 
             _mocker.GetMock<IPortariaRepository>().Setup(r => r.UnitOfWork.Commit())
                .Returns(Task.FromResult(true));
@@ -46,7 +51,13 @@ namespace CondominioApp.Portaria.Tests
         public async Task AdicionarVisita_Porteiro_VisitanteNovo_CommandoValido_DevePassarNaValidacao()
         {
             //Arrange        
-            var command = VisitaCommandFactory.CriarComandoCadastroDeVisita_NaPortaria_VisitanteNovo(); 
+            var command = VisitaCommandFactory.CriarComandoCadastroDeVisita_NaPortaria_VisitanteNovo();
+            var visitante = VisitanteFactoryTest.CriarVisitanteValido_ComCPF();
+            visitante.SetEntidadeId(command.VisitanteId);
+
+            _mocker.GetMock<IPortariaRepository>().Setup(r => r.ObterPorId(command.VisitanteId))
+               .Returns(Task.FromResult(visitante));
+
 
             _mocker.GetMock<IPortariaRepository>().Setup(r => r.UnitOfWork.Commit())
                .Returns(Task.FromResult(true));

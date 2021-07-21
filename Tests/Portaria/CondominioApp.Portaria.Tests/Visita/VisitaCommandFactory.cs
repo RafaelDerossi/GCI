@@ -1,7 +1,6 @@
 ﻿using CondominioApp.Core.Enumeradores;
 using CondominioApp.Portaria.Aplication.Commands;
 using System;
-using System.Collections.Generic;
 
 namespace CondominioApp.Portaria.Tests
 {
@@ -10,9 +9,7 @@ namespace CondominioApp.Portaria.Tests
         public static AdicionarVisitaPorPorteiroCommand CadastrarVisitaCommandFactory()
         {
             return new AdicionarVisitaPorPorteiroCommand
-                ("OBS", StatusVisita.PENDENTE, Guid.NewGuid(),
-                "Nome do Visitante",TipoDeDocumento.CPF, "143.026.417-97", "rafael@condominioapp.com",
-                "foto.jpg", "nomeOriginal.jpg", TipoDeVisitante.PARTICULAR, "", Guid.NewGuid(),
+                ("OBS", Guid.NewGuid(), TipoDeVisitante.PARTICULAR, "", Guid.NewGuid(),
                 "Nome Condominio", Guid.NewGuid(), "101", "1º", "Bloco 1", 
                 true, "LMG8888", "Modelo", "Prata", Guid.NewGuid(), "Nome Usuario");
         }
@@ -20,48 +17,26 @@ namespace CondominioApp.Portaria.Tests
         public static AtualizarVisitaCommand EditarVisitaCommandFactory()
         {
             return new AtualizarVisitaCommand
-                (Guid.NewGuid(), "Obs", "Nome do Visitante", TipoDeDocumento.CPF, "143.026.417-97",
-                "rafael@condominioapp.com", "foto.jpg", "nomeOriginal.jpg", TipoDeVisitante.PARTICULAR,
-                "", Guid.NewGuid(), "101", "1", "Bloco 1", true, "LMG8888", "Modelo", "Prata",
+                (Guid.NewGuid(), "Obs", TipoDeVisitante.PARTICULAR, "",
+                 Guid.NewGuid(), "101", "1", "Bloco 1", true, "LMG8888", "Modelo", "Prata",
                  Guid.NewGuid(), "Nome do Usuario");
         }
 
 
         
         /// CadastrarVisitaCommand        
-        public static AdicionarVisitaPorPorteiroCommand CriarComandoCadastroDeVisita_NaPortaria_ComCPF()
+        public static AdicionarVisitaPorPorteiroCommand CriarComandoCadastroDeVisita_NaPortaria()
         {
             return CadastrarVisitaCommandFactory();
         }
-
-        public static AdicionarVisitaPorPorteiroCommand CriarComandoCadastroDeVisita_ComCPFInvalido()
-        {
-            var comando = CadastrarVisitaCommandFactory();
-            comando.SetDocumentoVisitante("143.026.417-98", TipoDeDocumento.CPF);           
-            return comando;
-        }
-
-        public static AdicionarVisitaPorPorteiroCommand CriarComandoCadastroDeVisita_Morador_ComCPF()
+       
+        public static AdicionarVisitaPorPorteiroCommand CriarComandoCadastroDeVisita_Morador()
         {
             var comando = CadastrarVisitaCommandFactory();
             comando.SetDataDeEntrada(DateTime.Today.AddDays(1).Date);
             comando.AprovarVisita();
             return comando;
-        }
-
-        public static AdicionarVisitaPorPorteiroCommand CriarComandoCadastroDeVisita_NaPortaria_ComRG()
-        {
-            var comando = CadastrarVisitaCommandFactory();
-            comando.SetDocumentoVisitante("123456789", TipoDeDocumento.RG);
-            return comando;
-        }
-
-        public static AdicionarVisitaPorPorteiroCommand CriarComandoCadastroDeVisita_NaPortaria_SemDocumento()
-        {
-            var comando = CadastrarVisitaCommandFactory();
-            comando.SetDocumentoVisitante("", TipoDeDocumento.OUTROS);
-            return comando;
-        }
+        }      
 
         public static AdicionarVisitaPorPorteiroCommand CriarComandoCadastroDeVisita_NaPortaria_VisitanteNovo()
         {
@@ -153,34 +128,7 @@ namespace CondominioApp.Portaria.Tests
         public static AtualizarVisitaCommand CriarComandoEdicaoDeVisita_ComCPF()
         {
             return EditarVisitaCommandFactory();
-        }
-
-        public static AtualizarVisitaCommand CriarComandoEdicaoDeVisita_ComCPFInvalido()
-        {
-            var comando = EditarVisitaCommandFactory();
-
-            comando.SetDocumentoVisitante("143.026.417-98", TipoDeDocumento.CPF);
-
-            return comando;
-        }
-
-        public static AtualizarVisitaCommand CriarComandoEdicaoDeVisita_ComRG()
-        {
-            var comando = EditarVisitaCommandFactory();
-
-            comando.SetDocumentoVisitante("123456789", TipoDeDocumento.RG);
-
-            return comando;
-        }
-
-        public static AtualizarVisitaCommand CriarComandoEdicaoDeVisita_SemDocumento()
-        {
-            var comando = EditarVisitaCommandFactory();
-
-            comando.SetDocumentoVisitante("", TipoDeDocumento.OUTROS);
-
-            return comando;
-        }
+        }                
 
         public static AtualizarVisitaCommand CriarComandoEdicaoDeVisita_SemUnidadeId()
         {

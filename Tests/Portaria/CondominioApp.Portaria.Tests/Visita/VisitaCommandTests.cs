@@ -16,7 +16,7 @@ namespace CondominioApp.Portaria.Tests
         {
 
             //Arrange
-            var Command = VisitaCommandFactory.CriarComandoCadastroDeVisita_NaPortaria_ComCPF();
+            var Command = VisitaCommandFactory.CriarComandoCadastroDeVisita_NaPortaria();
 
             //Act
             var result = Command.EstaValido();
@@ -25,20 +25,7 @@ namespace CondominioApp.Portaria.Tests
             Assert.True(result);
         }
 
-        [Fact(DisplayName = "Adicionar Visita inválida - Com CPF Inválido")]
-        [Trait("Categoria", "Visita - CadastrarCommand")]
-        public void CadastroDeVisita_ComCpfInvalido_CommandoInvalido_NaoDevePassarNaValidacao()
-        {
-
-            //Arrange
-            var Command = VisitaCommandFactory.CriarComandoCadastroDeVisita_ComCPFInvalido();
-
-            //Act
-            var result = Command.EstaValido();
-
-            //Assert
-            Assert.False(result);
-        }        
+                
 
         [Fact(DisplayName = "Adicionar Visita Válida - Morador com CPF")]
         [Trait("Categoria", "Visita - CadastrarCommand")]
@@ -46,7 +33,7 @@ namespace CondominioApp.Portaria.Tests
         {
 
             //Arrange
-            var Command = VisitaCommandFactory.CriarComandoCadastroDeVisita_Morador_ComCPF();
+            var Command = VisitaCommandFactory.CriarComandoCadastroDeVisita_Morador();
 
             //Act
             var result = Command.EstaValido();
@@ -54,36 +41,8 @@ namespace CondominioApp.Portaria.Tests
             //Assert
             Assert.True(result);
         }
-
-        [Fact(DisplayName = "Adicionar Visita Válida - Na portaria com RG")]
-        [Trait("Categoria", "Visita - CadastrarCommand")]
-        public void CadastroDeVisita_NaPortaria_ComRg_CommandoValido_DevePassarNaValidacao()
-        {
-
-            //Arrange
-            var Command = VisitaCommandFactory.CriarComandoCadastroDeVisita_NaPortaria_ComRG();
-
-            //Act
-            var result = Command.EstaValido();
-
-            //Assert
-            Assert.True(result);
-        }
-
-        [Fact(DisplayName = "Adicionar Visita Válida - Na portaria sem documento")]
-        [Trait("Categoria", "Visita - CadastrarCommand")]
-        public void CadastroDeVisita_NaPortaria_SemDocumento_CommandoValido_DevePassarNaValidacao()
-        {
-            //Arrange
-            var Command = VisitaCommandFactory.CriarComandoCadastroDeVisita_NaPortaria_SemDocumento();
-
-            //Act
-            var result = Command.EstaValido();
-
-            //Assert
-            Assert.True(result);
-        }
-
+        
+        
         [Fact(DisplayName = "Adicionar Visita Válida - Na portaria visitante novo")]
         [Trait("Categoria", "Visita - CadastrarCommand")]
         public void CadastroDeVisita_NaPortaria_VisitanteNovo_CommandoValido_DevePassarNaValidacao()
@@ -270,51 +229,7 @@ namespace CondominioApp.Portaria.Tests
             //Assert
             Assert.True(result);
         }
-
-        [Fact(DisplayName = "Editar Visita Inválida - Com CPF Inválido")]
-        [Trait("Categoria", "Visita - EditarCommand")]
-        public void EdicaoDeVisita_ComCpfInvalido_CommandoInvalido_NaoDevePassarNaValidacao()
-        {
-
-            //Arrange
-            var Command = VisitaCommandFactory.CriarComandoEdicaoDeVisita_ComCPFInvalido();
-
-            //Act
-            var result = Command.EstaValido();
-
-            //Assert
-            Assert.False(result);
-        }
-
-        [Fact(DisplayName = "Editar Visita Válida - Com RG")]
-        [Trait("Categoria", "Visita - EditarCommand")]
-        public void EdicaoDeVisita_ComRG_CommandoValido_DevePassarNaValidacao()
-        {
-
-            //Arrange
-            var Command = VisitaCommandFactory.CriarComandoEdicaoDeVisita_ComRG();
-
-            //Act
-            var result = Command.EstaValido();
-
-            //Assert
-            Assert.True(result);
-        }
-
-        [Fact(DisplayName = "Editar Visita Válida - Sem Documento")]
-        [Trait("Categoria", "Visita - EditarCommand")]
-        public void EdicaoDeVisita_SemDocumento_CommandoValido_DevePassarNaValidacao()
-        {
-
-            //Arrange
-            var Command = VisitaCommandFactory.CriarComandoEdicaoDeVisita_SemDocumento();
-
-            //Act
-            var result = Command.EstaValido();
-
-            //Assert
-            Assert.True(result);
-        }
+        
 
         [Fact(DisplayName = "Editar Visita Inválida - Sem UnidadeId")]
         [Trait("Categoria", "Visita - EditarCommand")]
