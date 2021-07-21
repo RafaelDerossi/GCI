@@ -42,10 +42,11 @@ namespace CondominioApp.Portaria.Aplication.Commands
               new VisitaAdicionadaEvent(
                   visita.Id, visita.DataDeEntrada, visita.Observacao, visita.Status, visita.VisitanteId,
                   visita.NomeVisitante, visita.TipoDeDocumentoVisitante, visita.Documento,
-                  visita.EmailVisitante, visita.FotoVisitante, visita.TipoDeVisitante,
-                  visita.NomeEmpresaVisitante, visita.CondominioId, request.NomeCondominio, visita.UnidadeId,
-                  request.NumeroUnidade, request.AndarUnidade, request.GrupoUnidade, visita.TemVeiculo,
-                  visita.Veiculo, visita.MoradorId, request.NomeMorador));
+                  visita.EmailVisitante, visita.FotoVisitante.NomeDoArquivo, visita.FotoVisitante.NomeOriginal,
+                  visita.TipoDeVisitante, visita.NomeEmpresaVisitante, visita.CondominioId,
+                  request.NomeCondominio, visita.UnidadeId, request.NumeroUnidade, request.AndarUnidade,
+                  request.GrupoUnidade, visita.TemVeiculo, visita.Veiculo, visita.MoradorId,
+                  request.NomeMorador));
 
             visita.EnviarPushAvisoDeVisitaNaPortaria();
 
@@ -72,10 +73,10 @@ namespace CondominioApp.Portaria.Aplication.Commands
               new VisitaAdicionadaEvent(
                   visita.Id, visita.DataDeEntrada, visita.Observacao, visita.Status, visita.VisitanteId,
                   visita.NomeVisitante, visita.TipoDeDocumentoVisitante, visita.Documento,
-                  visita.EmailVisitante, visita.FotoVisitante, visita.TipoDeVisitante,
-                  visita.NomeEmpresaVisitante, visita.CondominioId, request.NomeCondominio, visita.UnidadeId,
-                  request.NumeroUnidade, request.AndarUnidade, request.GrupoUnidade, visita.TemVeiculo,
-                  visita.Veiculo, visita.MoradorId, request.NomeMorador));
+                  visita.EmailVisitante, visita.FotoVisitante.NomeDoArquivo, visita.FotoVisitante.NomeOriginal,
+                  visita.TipoDeVisitante, visita.NomeEmpresaVisitante, visita.CondominioId,
+                  request.NomeCondominio, visita.UnidadeId, request.NumeroUnidade, request.AndarUnidade,
+                  request.GrupoUnidade, visita.TemVeiculo, visita.Veiculo, visita.MoradorId, request.NomeMorador));
 
             
             return await PersistirDados(_portariaRepository.UnitOfWork);
@@ -106,10 +107,10 @@ namespace CondominioApp.Portaria.Aplication.Commands
             visitaBd.AdicionarEvento(
                  new VisitaAtualizadaEvent(
                      request.Id, request.Observacao, request.NomeVisitante, request.TipoDeDocumentoVisitante,
-                     request.DocumentoVisitante, request.EmailVisitante, request.FotoVisitante,
-                     request.TipoDeVisitante, request.NomeEmpresaVisitante, request.UnidadeId,
-                     request.NumeroUnidade, request.AndarUnidade, request.GrupoUnidade, request.TemVeiculo,
-                     request.Veiculo, request.MoradorId, request.NomeMorador));
+                     request.DocumentoVisitante, request.EmailVisitante, request.FotoVisitante.NomeDoArquivo,
+                     request.FotoVisitante.NomeOriginal, request.TipoDeVisitante, request.NomeEmpresaVisitante,
+                     request.UnidadeId, request.NumeroUnidade, request.AndarUnidade, request.GrupoUnidade,
+                     request.TemVeiculo, request.Veiculo, request.MoradorId, request.NomeMorador));
 
 
             return await PersistirDados(_portariaRepository.UnitOfWork);

@@ -13,7 +13,7 @@ namespace CondominioApp.Principal.Infra.Data.Mapping
 
             builder.ToTable("Visitas");       
 
-            builder.Property(u => u.Observacao).IsRequired().HasColumnType($"varchar(250)");
+            builder.Property(u => u.Observacao).HasColumnType($"varchar(250)");
 
             builder.Property(u => u.Status).IsRequired();
 

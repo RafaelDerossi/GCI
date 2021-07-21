@@ -64,9 +64,20 @@ namespace CondominioApp.Portaria.Domain.FlatModel
 
         public string EmailVisitante { get; private set; }
 
-        public string FotoVisitante { get; private set; }
+        public string NomeArquivoFotoVisitante { get; private set; }
 
+        public string NomeOriginalArquivoFotoVisitante { get; private set; }
 
+        public string FotoVisitanteUrl
+        {
+            get
+            {
+                if (NomeArquivoFotoVisitante == null || NomeArquivoFotoVisitante == "")
+                    return "";
+
+                return StorageHelper.ObterUrlDeArquivo(CondominioId.ToString(), NomeArquivoFotoVisitante);
+            }
+        }
 
         public TipoDeVisitante TipoDeVisitante { get; private set; }
 
@@ -108,7 +119,8 @@ namespace CondominioApp.Portaria.Domain.FlatModel
         public VisitaFlat
             (Guid id, DateTime dataDeEntrada, string observacao, Guid visitanteId, string nomeVisitante,
              TipoDeDocumento tipoDeDocumentoVisitante, string documentoVisitante, string emailVisitante,
-             string fotoVisitante, TipoDeVisitante tipoDeVisitante, string nomeEmpresaVisitante,
+             string nomeArquivoFotoVisitante, string nomeOriginalArquivoFotoVisitante,
+             TipoDeVisitante tipoDeVisitante, string nomeEmpresaVisitante,
              Guid condominioId, string nomeCondominio, Guid unidadeId, string numeroUnidade, 
              string andarUnidade, string grupoUnidade, bool temVeiculo, string placaVeiculo,
              string modeloVeiculo, string corVeiculo, Guid usuarioId, string nomeUsuario)
@@ -119,7 +131,8 @@ namespace CondominioApp.Portaria.Domain.FlatModel
             VisitanteId = visitanteId;
             NomeVisitante = nomeVisitante;            
             EmailVisitante = emailVisitante;
-            FotoVisitante = fotoVisitante;            
+            NomeArquivoFotoVisitante = nomeArquivoFotoVisitante;
+            NomeOriginalArquivoFotoVisitante = nomeOriginalArquivoFotoVisitante;
             NomeEmpresaVisitante = nomeEmpresaVisitante;
             CondominioId = condominioId;
             NomeCondominio = nomeCondominio;
@@ -199,7 +212,11 @@ namespace CondominioApp.Portaria.Domain.FlatModel
         }
 
         public void SetEmailVisitante(string email) => EmailVisitante = email;
-        public void SetFotoVisitante(string foto) => FotoVisitante = foto;
+        public void SetFotoVisitante(string nomeArquivo, string nomeOriginalArquivo)
+        {
+            NomeArquivoFotoVisitante = nomeArquivo;
+            NomeOriginalArquivoFotoVisitante = nomeOriginalArquivo;
+        }
 
         public void SetTipoDeVisitante(TipoDeVisitante tipoDeVisitante)
         {

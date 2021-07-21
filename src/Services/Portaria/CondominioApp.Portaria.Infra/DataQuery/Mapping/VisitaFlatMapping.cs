@@ -13,7 +13,7 @@ namespace CondominioApp.Principal.Infra.DataQuery.Mapping
 
             builder.ToTable("VisitasFlat");          
 
-            builder.Property(u => u.Observacao).IsRequired().HasColumnType($"varchar(250)");
+            builder.Property(u => u.Observacao).HasColumnType($"varchar(250)");
 
             builder.Property(u => u.Status).IsRequired().HasColumnType($"varchar({VisitaFlat.Max})"); ;
 
@@ -33,12 +33,10 @@ namespace CondominioApp.Principal.Infra.DataQuery.Mapping
                     .HasColumnName("Email")
                     .HasColumnType($"varchar({Email.EmailMaximo})");
 
-            builder.Property(u => u.FotoVisitante)
-                    .HasMaxLength(Foto.NomeFotoMaximo)
-                    .HasColumnName("Foto")
-                    .HasColumnType($"varchar({Foto.NomeFotoMaximo})");
+          
+            builder.Property(u => u.NomeArquivoFotoVisitante).HasColumnType($"varchar({Foto.NomeFotoMaximo})"); ;
 
-            builder.Property(u => u.TipoDeVisitante).IsRequired().HasColumnType($"varchar({VisitaFlat.Max})"); ;
+            builder.Property(u => u.NomeOriginalArquivoFotoVisitante).HasColumnType($"varchar({Foto.NomeFotoMaximo})"); ;
 
             builder.Property(u => u.NomeEmpresaVisitante).HasColumnType($"varchar({VisitaFlat.Max})");
 

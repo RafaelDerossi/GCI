@@ -45,7 +45,7 @@ namespace CondominioApp.Portaria.Aplication.Events
                 visitaFlat.SetNomeVisitante(notification.NomeVisitante);
                 visitaFlat.SetDocumentoVisitante(notification.DocumentoVisitante, notification.TipoDeDocumentoVisitante);               
                 visitaFlat.SetEmailVisitante(notification.EmailVisitante.Endereco);
-                visitaFlat.SetFotoVisitante(notification.FotoVisitante.NomeDoArquivo);
+                visitaFlat.SetFotoVisitante(notification.NomeArquivoFotoVisitante, notification.NomeOriginalArquivoFotoVisitante);
                 visitaFlat.SetTipoDeVisitante(notification.TipoDeVisitante);
                 visitaFlat.SetNomeEmpresaVisitante(notification.NomeEmpresaVisitante);
                 visitaFlat.SetUnidadeId(notification.UnidadeId);
@@ -141,11 +141,12 @@ namespace CondominioApp.Portaria.Aplication.Events
                 (notification.Id, notification.DataDeEntrada, notification.Observacao,
                  notification.VisitanteId, notification.NomeVisitante, notification.TipoDeDocumentoVisitante,
                  notification.DocumentoVisitante, notification.EmailVisitante.Endereco, 
-                 notification.FotoVisitante.NomeDoArquivo, notification.TipoDeVisitante,
-                 notification.NomeEmpresaVisitante, notification.CondominioId, notification.NomeCondominio,
-                 notification.UnidadeId, notification.NumeroUnidade, notification.AndarUnidade, notification.GrupoUnidade,
-                 notification.TemVeiculo, notification.Veiculo.Placa, notification.Veiculo.Modelo, 
-                 notification.Veiculo.Cor, notification.UsuarioId, notification.NomeUsuario);
+                 notification.NomeArquivoFotoVisitante, notification.NomeOriginalArquivoFotoVisitante,
+                 notification.TipoDeVisitante, notification.NomeEmpresaVisitante, notification.CondominioId,
+                 notification.NomeCondominio, notification.UnidadeId, notification.NumeroUnidade,
+                 notification.AndarUnidade, notification.GrupoUnidade, notification.TemVeiculo,
+                 notification.Veiculo.Placa, notification.Veiculo.Modelo, notification.Veiculo.Cor,
+                 notification.UsuarioId, notification.NomeUsuario);
 
             
             visita.MarcarVisitaComoPendente();

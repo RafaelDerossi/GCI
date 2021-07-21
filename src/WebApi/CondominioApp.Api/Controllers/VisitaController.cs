@@ -143,7 +143,7 @@ namespace CondominioApp.Api.Controllers
         }
 
         [HttpPost("por-porteiro")]
-        public async Task<ActionResult> PostPorPorteiro(AdicionaVisitaPorteiroViewModel visitaVM)
+        public async Task<ActionResult> PostPorPorteiro([FromForm]AdicionaVisitaPorteiroViewModel visitaVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 

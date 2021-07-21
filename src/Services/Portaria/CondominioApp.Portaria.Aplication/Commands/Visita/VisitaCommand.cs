@@ -105,7 +105,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
         }
         public void SetFotoVisitante(string nomeOriginal, string nomeArquivo = "")
         {
-            if (nomeArquivo == "")
+            if (nomeArquivo == null || nomeArquivo == "")
             {
                 try
                 {

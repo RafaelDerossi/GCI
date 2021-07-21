@@ -9,17 +9,18 @@ namespace CondominioApp.Portaria.Aplication.Events
     {
 
         public VisitaAtualizadaEvent
-            (Guid id,string observacao, string nomeVisitante, TipoDeDocumento tipoDeDocumento,
-            string documento, Email email, Foto foto, TipoDeVisitante tipoDeVisitante, string nomeEmpresa,
-            Guid unidadeId, string numeroUnidade, string andarUnidade, string grupoUnidade, bool temVeiculo,
-            Veiculo veiculo, Guid usuarioId, string nomeUsuario)
+            (Guid id,string observacao, string nomeVisitante, TipoDeDocumento tipoDeDocumento, string documento,
+             Email email, string nomeArquivoFotoVisitante, string nomeOriginalArquivoFotoVisitante,
+             TipoDeVisitante tipoDeVisitante, string nomeEmpresa, Guid unidadeId, string numeroUnidade,
+             string andarUnidade, string grupoUnidade, bool temVeiculo, Veiculo veiculo, Guid usuarioId,
+             string nomeUsuario)
         {
             Id = id;
             Observacao = observacao;
             NomeVisitante = nomeVisitante;
             SetDocumentoVisitante(documento, tipoDeDocumento);
             SetEmailVisitante(email);
-            SetFotoVisitante(foto);
+            SetFotoVisitante(nomeArquivoFotoVisitante, nomeOriginalArquivoFotoVisitante);
             SetTipoDeVisitante(tipoDeVisitante);
             SetNomeEmpresaVisitante(nomeEmpresa);
             SetUnidadeId(unidadeId);
