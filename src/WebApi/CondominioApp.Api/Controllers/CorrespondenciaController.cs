@@ -13,9 +13,11 @@ using CondominioApp.Usuarios.App.Aplication.Query;
 using CondominioApp.Usuarios.App.FlatModel;
 using CondominioApp.WebApi.Core.Controllers;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -389,11 +391,21 @@ namespace CondominioApp.Api.Controllers
                 //var provider = new FileExtensionContentTypeProvider();
                 //if (!provider.TryGetContentType(caminhoCompleto, out var contentType))
                 //{
-                    //contentType = "application/octet-stream";
+                //contentType = "application/octet-stream";
                 //}
                 //var bytes = await System.IO.File.ReadAllBytesAsync(caminhoCompleto);
                 //return File(bytes, contentType, Path.GetFileName(caminhoCompleto));
-                
+
+
+                var bytes = System.IO.File.ReadAllBytes(nomeDoArquivo);              
+                var memoryStream = new MemoryStream(bytes);
+                var arquivo = new FormFile(memoryStream, 0, memoryStream.Length, null, nomeDoArquivo)
+                {
+                    Headers = new HeaderDictionary(),
+                    ContentType = "application/xlsx"
+                };
+
+
                 return CustomResponse(nomeDoArquivo);
             }            
 
