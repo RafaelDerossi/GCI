@@ -8,12 +8,12 @@ namespace CondominioApp.Portaria.Aplication.Commands
     {
 
         public AdicionarVisitantePorPorteiroCommand
-            (Guid id, string nome, TipoDeDocumento tipoDeDocumento, string documento, string email, 
+            (string nome, TipoDeDocumento tipoDeDocumento, string documento, string email, 
              string nomeOriginalFoto, Guid condominioId, string nomeCondominio, Guid unidadeId,
              string numeroUnidade, string andarUnidade, string grupoUnidade, TipoDeVisitante tipoDeVisitante,
              string nomeEmpresa, bool temVeiculo, Guid funcionarioId, string nomeDoFuncionario)
         {
-            Id = id;
+            Id = Guid.NewGuid();
             SetNome(nome);            
             SetCondominioId(condominioId);
             SetNomeCondominio(nomeCondominio);

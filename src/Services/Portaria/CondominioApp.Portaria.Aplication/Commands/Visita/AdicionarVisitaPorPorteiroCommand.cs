@@ -8,23 +8,15 @@ namespace CondominioApp.Portaria.Aplication.Commands
    public class AdicionarVisitaPorPorteiroCommand : VisitaCommand
     {
         public AdicionarVisitaPorPorteiroCommand
-            (string observacao, StatusVisita status,
-             Guid visitanteId, string nomeVisitante, TipoDeDocumento tipoDeDocumentoVisitante,
-             string documentoVisitante, string emailVisitante,
-             string fotoVisitante, string nomeOriginalFotoVisitante,TipoDeVisitante tipoDeVisitante,
+            (string observacao, Guid visitanteId, TipoDeVisitante tipoDeVisitante,
              string nomeEmpresaVisitante, Guid condominioId, string nomeCondominio, Guid unidadeId,
              string numeroUnidade, string andarUnidade, string grupoUnidade, bool temVeiculo,
              string placaVeiculo, string modeloVeiculo, string corVeiculo, Guid moradorId, string nomeMorador)
         {
             SetDataDeEntrada(DataHoraDeBrasilia.Get());            
-            Observacao = observacao;
-            Status = status;
+            Observacao = observacao;            
 
             SetVisitanteId(visitanteId);
-            NomeVisitante = nomeVisitante;
-            SetDocumentoVisitante(documentoVisitante, tipoDeDocumentoVisitante);
-            SetEmailVisitante(emailVisitante);
-            SetFotoVisitante(nomeOriginalFotoVisitante, fotoVisitante);          
             SetTipoDeVisitante(tipoDeVisitante);
             SetNomeEmpresaVisitante(nomeEmpresaVisitante);
 
@@ -57,10 +49,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
         {
             public AdicionarVisitaPorPorteiroCommandValidation()
             {               
-                ValidateObservacao();
-                ValidateStatus();              
-                ValidateNomeVisitante();
-                ValidateTipoDeDocumentoVisitante();
+                ValidateObservacao();                
                 ValidateCondominioId();
                 ValidateNomeCondominio();
                 ValidateUnidadeId();

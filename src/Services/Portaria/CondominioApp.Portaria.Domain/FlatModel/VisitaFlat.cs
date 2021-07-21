@@ -212,10 +212,16 @@ namespace CondominioApp.Portaria.Domain.FlatModel
         }
 
         public void SetEmailVisitante(string email) => EmailVisitante = email;
-        public void SetFotoVisitante(string nomeArquivo, string nomeOriginalArquivo)
+        public void SetFotoVisitante(Foto foto)
         {
-            NomeArquivoFotoVisitante = nomeArquivo;
-            NomeOriginalArquivoFotoVisitante = nomeOriginalArquivo;
+            if (foto == null)
+            {
+                NomeArquivoFotoVisitante = "";
+                NomeOriginalArquivoFotoVisitante = "";
+                return;
+            }
+            NomeArquivoFotoVisitante = foto.NomeDoArquivo;
+            NomeOriginalArquivoFotoVisitante = foto.NomeOriginal;
         }
 
         public void SetTipoDeVisitante(TipoDeVisitante tipoDeVisitante)

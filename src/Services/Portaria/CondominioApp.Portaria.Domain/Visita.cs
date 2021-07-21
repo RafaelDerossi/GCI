@@ -277,5 +277,7 @@ namespace CondominioApp.Portaria.Domain
 
             return $"{NomeVisitante} saiu no condomínio.";
         }
+
+                
     }
 }

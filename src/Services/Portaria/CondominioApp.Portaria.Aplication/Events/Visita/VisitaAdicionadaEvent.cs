@@ -10,7 +10,7 @@ namespace CondominioApp.Portaria.Aplication.Events
         public VisitaAdicionadaEvent
             (Guid id, DateTime dataDeEntrada, string observacao, StatusVisita status,
             Guid visitanteId, string nomeVisitante,TipoDeDocumento tipoDeDocumento, string documento, Email email,
-            string nomeArquivoFotoVisitante, string nomeOriginalArquivoFotoVisitante,TipoDeVisitante tipoDeVisitante, string nomeEmpresa, Guid condominioId, string nomeCondominio,
+            Foto fotoVisitante, TipoDeVisitante tipoDeVisitante, string nomeEmpresa, Guid condominioId, string nomeCondominio,
             Guid unidadeId, string numeroUnidade, string andarUnidade, string grupoUnidade, bool temVeiculo,
             Veiculo veiculo, Guid usuarioId, string nomeUsuario)
         {
@@ -22,7 +22,7 @@ namespace CondominioApp.Portaria.Aplication.Events
             NomeVisitante = nomeVisitante;
             SetDocumentoVisitante(documento, tipoDeDocumento);            
             SetEmailVisitante(email);
-            SetFotoVisitante(nomeArquivoFotoVisitante, nomeOriginalArquivoFotoVisitante);
+            SetFotoVisitante(fotoVisitante);
             SetTipoDeVisitante(tipoDeVisitante);
             SetNomeEmpresaVisitante(nomeEmpresa);
             SetCondominioId(condominioId);

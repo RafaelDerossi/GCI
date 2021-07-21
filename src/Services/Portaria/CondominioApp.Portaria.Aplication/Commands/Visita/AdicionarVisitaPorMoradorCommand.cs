@@ -1,5 +1,4 @@
-﻿using CondominioApp.Core.Enumeradores;
-using CondominioApp.Portaria.Aplication.Commands.Validations;
+﻿using CondominioApp.Portaria.Aplication.Commands.Validations;
 using System;
 
 namespace CondominioApp.Portaria.Aplication.Commands
@@ -7,15 +6,14 @@ namespace CondominioApp.Portaria.Aplication.Commands
    public class AdicionarVisitaPorMoradorCommand : VisitaCommand
     {
         public AdicionarVisitaPorMoradorCommand
-            (DateTime dataDeEntrada, string observacao, StatusVisita status,
-            Guid visitanteId, Guid condominioId, string nomeCondominio, Guid unidadeId,
-            string numeroUnidade, string andarUnidade, string grupoUnidade,
-            bool temVeiculo, string placa, string modelo, string cor,
-            Guid moradorId, string nomeMorador)
+            (DateTime dataDeEntrada, string observacao, Guid visitanteId,
+             Guid condominioId, string nomeCondominio, Guid unidadeId,
+             string numeroUnidade, string andarUnidade, string grupoUnidade,
+             bool temVeiculo, string placa, string modelo, string cor,
+             Guid moradorId, string nomeMorador)
         {
             SetDataDeEntrada(dataDeEntrada);            
             Observacao = observacao;
-            Status = status;
 
             SetVisitanteId(visitanteId);
             SetCondominioId(condominioId);
@@ -48,7 +46,6 @@ namespace CondominioApp.Portaria.Aplication.Commands
             public AdicionarVisitaPorMoradorCommandValidation()
             {               
                 ValidateObservacao();
-                ValidateStatus();
                 ValidateVisitanteId();                
                 ValidateCondominioId();
                 ValidateNomeCondominio();

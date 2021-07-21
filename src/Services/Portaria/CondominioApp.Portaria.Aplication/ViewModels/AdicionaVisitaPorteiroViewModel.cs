@@ -1,8 +1,10 @@
 ﻿using CondominioApp.Core.Enumeradores;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace CondominioApp.Portaria.Aplication.ViewModels
 {
@@ -24,6 +26,8 @@ namespace CondominioApp.Portaria.Aplication.ViewModels
         public string ModeloVeiculo { get; set; }
         public string CorVeiculo { get; set; }
         public Guid MoradorId { get; set; }
-        public Guid FuncionarioId { get; set; }        
+        public Guid FuncionarioId { get; set; }              
+
+       
     }
 }

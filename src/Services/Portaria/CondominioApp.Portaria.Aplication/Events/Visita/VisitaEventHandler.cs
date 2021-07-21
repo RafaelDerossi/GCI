@@ -45,7 +45,7 @@ namespace CondominioApp.Portaria.Aplication.Events
                 visitaFlat.SetNomeVisitante(notification.NomeVisitante);
                 visitaFlat.SetDocumentoVisitante(notification.DocumentoVisitante, notification.TipoDeDocumentoVisitante);               
                 visitaFlat.SetEmailVisitante(notification.EmailVisitante.Endereco);
-                visitaFlat.SetFotoVisitante(notification.NomeArquivoFotoVisitante, notification.NomeOriginalArquivoFotoVisitante);
+                visitaFlat.SetFotoVisitante(notification.FotoVisitante);
                 visitaFlat.SetTipoDeVisitante(notification.TipoDeVisitante);
                 visitaFlat.SetNomeEmpresaVisitante(notification.NomeEmpresaVisitante);
                 visitaFlat.SetUnidadeId(notification.UnidadeId);
@@ -141,7 +141,7 @@ namespace CondominioApp.Portaria.Aplication.Events
                 (notification.Id, notification.DataDeEntrada, notification.Observacao,
                  notification.VisitanteId, notification.NomeVisitante, notification.TipoDeDocumentoVisitante,
                  notification.DocumentoVisitante, notification.EmailVisitante.Endereco, 
-                 notification.NomeArquivoFotoVisitante, notification.NomeOriginalArquivoFotoVisitante,
+                 notification.FotoVisitante.NomeDoArquivo, notification.FotoVisitante.NomeOriginal,
                  notification.TipoDeVisitante, notification.NomeEmpresaVisitante, notification.CondominioId,
                  notification.NomeCondominio, notification.UnidadeId, notification.NumeroUnidade,
                  notification.AndarUnidade, notification.GrupoUnidade, notification.TemVeiculo,

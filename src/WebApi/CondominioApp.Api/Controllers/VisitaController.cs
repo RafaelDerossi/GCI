@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using CondominioApp.Core.Mediator;
+﻿using CondominioApp.Core.Mediator;
 using CondominioApp.Portaria.Aplication.Commands;
 using CondominioApp.Portaria.Aplication.ViewModels;
 using CondominioApp.Portaria.Aplication.Query;
@@ -9,12 +8,10 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using CondominioApp.Portaria.Domain.FlatModel;
-using CondominioApp.Core.Enumeradores;
 using System.Linq;
 using CondominioApp.Principal.Aplication.Query.Interfaces;
 using CondominioApp.Usuarios.App.Aplication.Query;
 using CondominioApp.Principal.Domain.FlatModel;
-using CondominioApp.Usuarios.App.Models;
 using CondominioApp.Usuarios.App.FlatModel;
 using CondominioApp.Core.Helpers;
 using CondominioApp.ArquivoDigital.AzureStorageBlob.Services;
@@ -170,8 +167,6 @@ namespace CondominioApp.Api.Controllers
 
             if (visitaVM.VisitanteId == Guid.Empty)
             {
-                visitaVM.VisitanteId = Guid.NewGuid();
-
                 var cadastrarVisitanteComando = 
                     AdicionarVisitantePorPorteiroCommandFactory(visitaVM, unidade, funcionario);
 
@@ -183,20 +178,19 @@ namespace CondominioApp.Api.Controllers
                                    unidade.CondominioId.ToString());
 
                     if (!retornoStorage.IsValid)
-                    {                        
-                        return CustomResponse(retornoStorage);
-                    }
+                        return CustomResponse(retornoStorage);                    
                 }
 
                 var retorno = await _mediatorHandler.EnviarComando(cadastrarVisitanteComando);
                 if (!retorno.IsValid)
                     return CustomResponse(retorno);
 
+                visitaVM.VisitanteId = cadastrarVisitanteComando.Id;
+
+                
                 var comando = AdicionarVisitaPorPorteiroCommandFactory(visitaVM, unidade, morador);
 
-                retorno = await _mediatorHandler.EnviarComando(comando);
-
-                return CustomResponse(retorno);
+                return CustomResponse(await _mediatorHandler.EnviarComando(comando));
             }
            
 
@@ -210,9 +204,7 @@ namespace CondominioApp.Api.Controllers
                                unidade.CondominioId.ToString());
 
                 if (!retornoStorage.IsValid)
-                {
                     return CustomResponse(retornoStorage);
-                }
             }
 
             var result = await _mediatorHandler.EnviarComando(editarVisitanteComando);
@@ -317,22 +309,19 @@ namespace CondominioApp.Api.Controllers
         private AdicionarVisitaPorPorteiroCommand AdicionarVisitaPorPorteiroCommandFactory
             (AdicionaVisitaPorteiroViewModel viewModel, UnidadeFlat unidade, MoradorFlat morador)
         {
-            var nomeOriginalArquivo = StorageHelper.ObterNomeDoArquivo(viewModel.ArquivoFotoVisitante);
-
             return new AdicionarVisitaPorPorteiroCommand(
-                  viewModel.Observacao, StatusVisita.PENDENTE, viewModel.VisitanteId,
-                  viewModel.NomeVisitante, viewModel.TipoDoDocumento, viewModel.Documento, viewModel.EmailVisitante,
-                  viewModel.NomeArquivoFotoVisitante, nomeOriginalArquivo, viewModel.TipoDeVisitante,
-                  viewModel.NomeEmpresaVisitante, unidade.CondominioId, unidade.CondominioNome, unidade.Id,
-                  unidade.Numero, unidade.Andar, unidade.GrupoDescricao, viewModel.TemVeiculo, viewModel.PlacaVeiculo, 
-                  viewModel.ModeloVeiculo, viewModel.CorVeiculo, morador.Id, morador.NomeCompleto);
+                  viewModel.Observacao, viewModel.VisitanteId,
+                  viewModel.TipoDeVisitante, viewModel.NomeEmpresaVisitante, unidade.CondominioId,
+                  unidade.CondominioNome, unidade.Id, unidade.Numero, unidade.Andar, unidade.GrupoDescricao,
+                  viewModel.TemVeiculo, viewModel.PlacaVeiculo, viewModel.ModeloVeiculo, viewModel.CorVeiculo,
+                  morador.Id, morador.NomeCompleto);
         }
 
         private AdicionarVisitaPorMoradorCommand AdicionarVisitaPorMoradorCommandFactory
             (AdicionaVisitaMoradorViewModel viewModel, DateTime dataDeEntrada, UnidadeFlat unidade, MoradorFlat morador)
         {
             return new AdicionarVisitaPorMoradorCommand(
-                  dataDeEntrada, viewModel.Observacao, StatusVisita.APROVADA, viewModel.VisitanteId,
+                  dataDeEntrada, viewModel.Observacao, viewModel.VisitanteId,
                   unidade.CondominioId, unidade.CondominioNome, unidade.Id, unidade.Numero,
                   unidade.Andar, unidade.GrupoDescricao, viewModel.TemVeiculo,viewModel.PlacaVeiculo,
                   viewModel.ModeloVeiculo,viewModel.CorVeiculo, morador.Id, morador.NomeCompleto);
@@ -340,8 +329,6 @@ namespace CondominioApp.Api.Controllers
 
         private AtualizarVisitaCommand AtualizarVisitaCommandFactory(AtualizaVisitaViewModel viewModel, UnidadeFlat unidade, MoradorFlat morador)
         {
-            var nomeOriginalArquivo = StorageHelper.ObterNomeDoArquivo(viewModel.ArquivoFotoVisitante);
-
             return new AtualizarVisitaCommand(
                    viewModel.Id,viewModel.Observacao, viewModel.NomeVisitante,viewModel.TipoDoDocumento, viewModel.Documento,
                    viewModel.EmailVisitante, viewModel.NomeArquivoFotoVisitante, nomeOriginalArquivo,
@@ -359,7 +346,7 @@ namespace CondominioApp.Api.Controllers
             var nomeOriginalArquivo = StorageHelper.ObterNomeDoArquivo(visitaVM.ArquivoFotoVisitante);
 
             return new AdicionarVisitantePorPorteiroCommand(
-                  visitaVM.VisitanteId, visitaVM.NomeVisitante, visitaVM.TipoDoDocumento, visitaVM.Documento,
+                  visitaVM.NomeVisitante, visitaVM.TipoDoDocumento, visitaVM.Documento,
                   visitaVM.EmailVisitante, nomeOriginalArquivo, unidade.CondominioId, unidade.CondominioNome,
                   unidade.Id, unidade.Numero, unidade.Andar, unidade.GrupoDescricao, visitaVM.TipoDeVisitante,
                   visitaVM.NomeEmpresaVisitante, visitaVM.TemVeiculo, funcionario.Id, funcionario.NomeCompleto);
@@ -386,6 +373,9 @@ namespace CondominioApp.Api.Controllers
                   visitaVM.EmailVisitante, visitaVM.NomeArquivoFotoVisitante, nomeOriginalArquivo,
                   visitaVM.TipoDeVisitante, visitaVM.NomeEmpresaVisitante, visitaVM.TemVeiculo);
         }
+
+
+      
 
     }
 }
