@@ -1,4 +1,5 @@
-﻿using CondominioApp.Portaria.Aplication.Commands.Validations;
+﻿using CondominioApp.Core.Enumeradores;
+using CondominioApp.Portaria.Aplication.Commands.Validations;
 using System;
 
 namespace CondominioApp.Portaria.Aplication.Commands
@@ -14,7 +15,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
         {
             SetDataDeEntrada(dataDeEntrada);            
             Observacao = observacao;
-
+            Status = StatusVisita.APROVADA;
             SetVisitanteId(visitanteId);
             SetCondominioId(condominioId);
             SetNomeDoCondominio(nomeCondominio);

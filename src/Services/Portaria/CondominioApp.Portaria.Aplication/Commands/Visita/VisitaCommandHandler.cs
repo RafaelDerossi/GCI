@@ -49,7 +49,7 @@ namespace CondominioApp.Portaria.Aplication.Commands
             //Evento
             visita.AdicionarEvento(
               new VisitaAdicionadaEvent(
-                  visita.Id, visita.DataDeEntrada, visita.Observacao, StatusVisita.PENDENTE,
+                  visita.Id, visita.DataDeEntrada, visita.Observacao, visita.Status,
                   visita.VisitanteId, visita.NomeVisitante, visita.TipoDeDocumentoVisitante,
                   visita.Documento, visita.EmailVisitante, visita.FotoVisitante,
                   visita.TipoDeVisitante, visita.NomeEmpresaVisitante, visita.CondominioId,

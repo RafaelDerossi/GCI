@@ -14,7 +14,8 @@ namespace CondominioApp.Portaria.Aplication.Commands
              string placaVeiculo, string modeloVeiculo, string corVeiculo, Guid moradorId, string nomeMorador)
         {
             SetDataDeEntrada(DataHoraDeBrasilia.Get());            
-            Observacao = observacao;            
+            Observacao = observacao;
+            Status = StatusVisita.PENDENTE;
 
             SetVisitanteId(visitanteId);
             SetTipoDeVisitante(tipoDeVisitante);

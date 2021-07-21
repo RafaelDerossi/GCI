@@ -14,10 +14,9 @@ namespace CondominioApp.Portaria.Aplication.Commands
              string corVeiculo, Guid moradorId, string nomeMorador)
         {
             Id = id;
-            Observacao = observacao;          
+            Observacao = observacao;            
             SetTipoDeVisitante(tipoDeVisitante);           
-            SetNomeEmpresaVisitante(nomeEmpresaVisitante);
-
+            SetNomeEmpresaVisitante(nomeEmpresaVisitante);            
             SetUnidadeId(unidadeId);
             SetNumeroUnidade(numeroUnidade);
             SetAndarUnidade(andarUnidade);
