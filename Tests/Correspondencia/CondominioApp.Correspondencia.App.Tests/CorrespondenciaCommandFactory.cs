@@ -2,6 +2,7 @@
 using CondominioApp.Correspondencias.App.Aplication.Commands;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace CondominioApp.Correspondencias.App.Tests
 {
@@ -142,9 +143,7 @@ namespace CondominioApp.Correspondencias.App.Tests
 
             //Act
             return new GerarExcelCorrespondenciaCommand
-                (lista,
-                @"C:\Users\rafael souza\source\repos\CondominioAppBackEnd2.0\src\WebApi\CondominioApp.Api\wwwroot",
-                Guid.NewGuid().ToString());
+                (lista, new MemoryStream());
         }
     }
 }
