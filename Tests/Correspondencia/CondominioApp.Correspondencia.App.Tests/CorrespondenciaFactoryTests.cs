@@ -12,9 +12,9 @@ namespace CondominioApp.Correspondencias.App.Tests
         {
             //Act
           return new Correspondencia(
-                Guid.NewGuid(),Guid.NewGuid(),"101","Bloco 1",null,
-                Guid.NewGuid(),"Rafael",null,null,DataHoraDeBrasilia.Get(),
-                null, null, true);
+                DataHoraDeBrasilia.Get(), Guid.NewGuid(), Guid.NewGuid(), 
+                "101", "Bloco 1", Guid.NewGuid(), "Rafael", "", null, "",
+                "", "", true);
         }
     }
 }

@@ -9,16 +9,24 @@ namespace CondominioApp.Correspondencias.App.ViewModels
    public class AdicionaCorrespondenciaViewModel
     {
         /// <summary>
+        /// Data em que a correspondência chegou
+        /// </summary>
+        public DateTime DataDeChegada { get; set; }
+
+        /// <summary>
         /// Id(Guid) da unidade da correspondência
         /// </summary>
         public Guid UnidadeId { get; set; }        
 
-        public string Observacao { get; set; }
-
         /// <summary>
         /// Id(Guid) do funcionário que cadastrou a correspondência
         /// </summary>
-        public Guid FuncionarioId { get; set; }
+        public Guid FuncionarioId { get; set; }        
+
+        /// <summary>
+        /// Observações sobre a chegada da correspôndencia
+        /// </summary>
+        public string Observacao { get; set; }
 
         /// <summary>
         /// Arquivo da foto da correspondência
@@ -28,12 +36,7 @@ namespace CondominioApp.Correspondencias.App.ViewModels
         /// <summary>
         /// Número de rastreamento da correspondência nos Correios ou transportadora
         /// </summary>
-        public string NumeroRastreamentoCorreio { get; set; }
-
-        /// <summary>
-        /// Data em que a correspondência chegou
-        /// </summary>
-        public DateTime DataDeChegada { get; set; }
+        public string NumeroRastreamentoCorreio { get; set; }        
 
         /// <summary>
         /// Tipo da correspondência, ex: "Caixa", "Pacote", "Mercado Livre", "Amazon"

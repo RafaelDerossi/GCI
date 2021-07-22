@@ -19,8 +19,8 @@ namespace CondominioApp.Correspondencias.App.AutoMapper
                 .ForMember(c => c.Bloco, p => p.MapFrom(x => x.Bloco))
                 .ForMember(c => c.Visto, p => p.MapFrom(x => x.Visto))                
                 .ForMember(c => c.Observacao, p => p.MapFrom(x => x.Observacao))                
-                .ForMember(c => c.FuncionarioId, p => p.MapFrom(x => x.FuncionarioId))
-                .ForMember(c => c.NomeFuncionario, p => p.MapFrom(x => x.NomeFuncionario))
+                .ForMember(c => c.CadastradaPorId, p => p.MapFrom(x => x.CadastradaPorId))
+                .ForMember(c => c.CadastradaPorNome, p => p.MapFrom(x => x.CadastradaPorNome))
                 .ForMember(c => c.NomeArquivoFoto, p => p.MapFrom(x => x.FotoCorrespondencia.NomeDoArquivo))
                 .ForMember(c => c.NomeOriginalFoto, p => p.MapFrom(x => x.FotoCorrespondencia.NomeOriginal))
                 .ForMember(c => c.NumeroRastreamentoCorreio, p => p.MapFrom(x => x.NumeroRastreamentoCorreio))
@@ -38,6 +38,8 @@ namespace CondominioApp.Correspondencias.App.AutoMapper
                 .ForMember(c => c.UrlFotoRetirante, p => p.MapFrom(x => x.FotoRetiranteUrl))
                 .ForMember(c => c.ObservacaoDaRetirada, p => p.MapFrom(x => x.ObservacaoDaRetirada))
                 .ForMember(c => c.CodigoDeVerificacao, p => p.MapFrom(x => x.CodigoDeVerificacao))
+                .ForMember(c => c.EntreguePorId, p => p.MapFrom(x => x.EntreguePorId))
+                .ForMember(c => c.EntreguePorNome, p => p.MapFrom(x => x.EntreguePorNome))
                 .ForMember(c => c.Lixeira, p => p.MapFrom(x => x.Lixeira));
 
 

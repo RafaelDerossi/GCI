@@ -47,7 +47,7 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
 
             correspondencia.AdicionarEvento(
                 new RegistraHistoricoEvent(correspondencia.Id, AcoesCorrespondencia.CADASTRO,
-                                           correspondencia.FuncionarioId, correspondencia.NomeFuncionario,
+                                           correspondencia.CadastradaPorId, correspondencia.CadastradaPorNome,
                                            false));
 
             return await PersistirDados(_CorrespondenciaRepository.UnitOfWork);
@@ -87,8 +87,8 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
             }
 
             var retorno = correspondenciaBd.MarcarComRetirada
-                (request.NomeRetirante, request.ObservacaoDaRetirada, request.FuncionarioId, 
-                 request.NomeFuncionario, request.FotoRetirante);
+                (request.NomeRetirante, request.ObservacaoDaRetirada, request.EntreguePorId, 
+                 request.EntreguePorNome, request.FotoRetirante);
 
             if (!retorno.IsValid)
                 return retorno;
@@ -101,7 +101,7 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
 
             correspondenciaBd.AdicionarEvento(
                 new RegistraHistoricoEvent(correspondenciaBd.Id, AcoesCorrespondencia.RETIRADA,
-                                           correspondenciaBd.FuncionarioId, correspondenciaBd.NomeFuncionario,
+                                           correspondenciaBd.EntreguePorId, correspondenciaBd.EntreguePorNome,
                                            true));
 
             return await PersistirDados(_CorrespondenciaRepository.UnitOfWork);
@@ -120,7 +120,7 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
             }
 
             var retorno = correspondenciaBd.MarcarComDevolvida
-               (request.Observacao, request.FuncionarioId, request.NomeFuncionario);
+               (request.Observacao, request.CadastradaPorId, request.CadastradaPorNome);
             if (!retorno.IsValid)
                 return retorno;
 
@@ -132,7 +132,7 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
 
             correspondenciaBd.AdicionarEvento(
                 new RegistraHistoricoEvent(correspondenciaBd.Id, AcoesCorrespondencia.DEVOLUCAO,
-                                           correspondenciaBd.FuncionarioId, correspondenciaBd.NomeFuncionario,
+                                           correspondenciaBd.CadastradaPorId, correspondenciaBd.CadastradaPorNome,
                                            false));
 
             return await PersistirDados(_CorrespondenciaRepository.UnitOfWork);
@@ -161,7 +161,7 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
 
             correspondenciaBd.AdicionarEvento(
                 new RegistraHistoricoEvent(correspondenciaBd.Id, AcoesCorrespondencia.NOTIFICACAO,
-                                           correspondenciaBd.FuncionarioId, correspondenciaBd.NomeFuncionario,
+                                           correspondenciaBd.CadastradaPorId, correspondenciaBd.CadastradaPorNome,
                                            false));
 
             return await PersistirDados(_CorrespondenciaRepository.UnitOfWork);
@@ -183,7 +183,7 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
 
             correspondenciaBd.AdicionarEvento(
                new RegistraHistoricoEvent(correspondenciaBd.Id, AcoesCorrespondencia.EXCLUSAO,
-                                          correspondenciaBd.FuncionarioId, correspondenciaBd.NomeFuncionario,
+                                          correspondenciaBd.CadastradaPorId, correspondenciaBd.CadastradaPorNome,
                                           false));
 
             return await PersistirDados(_CorrespondenciaRepository.UnitOfWork);
@@ -203,10 +203,12 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
                 var CorrespondenciaDTO = new CorrespondenciaExcelDTO
                 {
                     DataDaChegada = correspondencia.DataDeCadastroFormatada,
-                    EntreguePor = correspondencia.NomeFuncionario,
+                    CadastradaPor = correspondencia.CadastradaPorNome,
+                    ObservacaoChegada = correspondencia.Observacao,                   
                     DataDaRetirada = correspondencia.DataDaRetirada.ToString(),
+                    EntreguePor = correspondencia.EntreguePorNome,
                     RetiradoPor = correspondencia.NomeRetirante,
-                    Observacao = correspondencia.Observacao
+                    ObservacaoDaRetirada = correspondencia.ObservacaoDaRetirada
                 };
                 listaCorrespondenciasDTO.Add(CorrespondenciaDTO);
             }
@@ -214,10 +216,12 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
             List<string> cabecalho = new List<string>
             {
                 "Data da Chegada",
+                "Cadastrada por",
+                "Observação da Chegada",
                 "Data da Retirada",
                 "Entregue por",
                 "Retirado por",
-                "Observação"
+                "Observação da Retirada"
             };           
 
             var geradorExcel = new GeradorDeExcel<CorrespondenciaExcelDTO>
@@ -230,11 +234,10 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
         private Correspondencia CorrespondenciaFactory(AdicionarCorrespondenciaCommand request)
         {
             var correspondencia = new Correspondencia(
-                request.CondominioId, request.UnidadeId, request.NumeroUnidade, request.Grupo, 
-                request.Observacao, request.FuncionarioId, request.NomeFuncionario, 
-                request.FotoCorrespondencia, request.NumeroRastreamentoCorreio,
-                request.DataDeChegada, request.TipoDeCorrespondencia, request.Localizacao,
-                request.EnviarNotificacao);
+                request.DataDeChegada, request.CondominioId, request.UnidadeId, request.NumeroUnidade,
+                request.Grupo, request.CadastradaPorId, request.CadastradaPorNome, request.Observacao,
+                request.FotoCorrespondencia, request.NumeroRastreamentoCorreio, request.TipoDeCorrespondencia,
+                request.Localizacao, request.EnviarNotificacao);
 
             return correspondencia;
         }

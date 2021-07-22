@@ -16,7 +16,7 @@ namespace CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.Notificac
 
         public string NomeArquivoFoto { get; private set; }
 
-        public string RecebidoPor { get; private set; }
+        public string RecebidoPor { get; private set; }        
 
         public string Codigo { get; private set; }
 
@@ -25,6 +25,7 @@ namespace CondominioApp.Core.Messages.CommonMessages.IntegrationEvents.Notificac
         public string Localizacao { get; private set; }
 
         public string Observacao { get; private set; }
+        
 
         public EnviarEmailCorrespondenciaIntegrationEvent
             (string assunto, string titulo, string descricao, Guid unidadeId,

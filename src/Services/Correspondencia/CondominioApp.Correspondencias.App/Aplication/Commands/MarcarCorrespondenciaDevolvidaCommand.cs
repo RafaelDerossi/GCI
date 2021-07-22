@@ -12,8 +12,8 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
         {
             CorrespondenciaId = correspondenciaId;
             Observacao = observacao;
-            FuncionarioId = usuarioId;
-            NomeFuncionario = nomeUsuario;
+            CadastradaPorId = usuarioId;
+            CadastradaPorNome = nomeUsuario;
         }
 
 
@@ -32,8 +32,8 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
             public MarcarCorrespondenciaDevolvidaCommandValidation()
             {
                 ValidateId();
-                ValidateUsuarioId();
-                ValidateNomeUsuario();
+                ValidateCadastradoPorId();
+                ValidateCadastradoPorNome();
             }
         }
     }

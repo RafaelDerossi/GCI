@@ -62,19 +62,33 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands.Validations
                   .WithMessage("Status não pode estar vazio!");
         }
 
-        protected void ValidateUsuarioId()
+        protected void ValidateCadastradoPorId()
         {
-            RuleFor(c => c.FuncionarioId)
+            RuleFor(c => c.CadastradaPorId)
                 .NotEqual(Guid.Empty)
-                .WithMessage("Usuario não pode estar vazio!"); ;
+                .WithMessage("Id do Funcionário que cadastrou não pode estar vazio!"); ;
         }
 
-        protected void ValidateNomeUsuario()
+        protected void ValidateCadastradoPorNome()
         {
-            RuleFor(c => c.NomeFuncionario)
+            RuleFor(c => c.CadastradaPorNome)
                   .NotNull()
                   .NotEmpty()
-                  .WithMessage("Nome do Usuario não pode estar vazio!");
+                  .WithMessage("Nome do Funcionário que cadastrou não pode estar vazio!");
+        }      
+
+        protected void ValidateEntreguePorId()
+        {
+            RuleFor(c => c.EntreguePorId)
+                .NotEqual(Guid.Empty)
+                .WithMessage("Id do funcionário que entregou não pode estar vazio!"); ;
+        }
+        protected void ValidateEntreguePorNome()
+        {
+            RuleFor(c => c.EntreguePorNome)
+                  .NotNull()
+                  .NotEmpty()
+                  .WithMessage("Nome do Funcionário que entregou não pode estar vazio!");
         }
 
         protected void ValidateNomeRetirante()

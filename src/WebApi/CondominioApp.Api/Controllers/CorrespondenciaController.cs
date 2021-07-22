@@ -173,9 +173,19 @@ namespace CondominioApp.Api.Controllers
 
 
         /// <summary>
-        /// Cadastra uma nova correspondência e alerta o morador
+        /// Cadastra uma nova correspondência
         /// </summary>
-        /// <param name="correspondenciaVM"></param>
+        /// <param name="correspondenciaVM">
+        /// DataDeChegada              : Data em que a correspondência chegou;   
+        /// UnidadeId                  : Id(Guid) da unidade da correspondência;   
+        /// FuncionarioId              : Id(Guid) do funcionário que cadastrou a correspondência;   
+        /// Observacao                 : Observações sobre a chegada da correspôndencia;   
+        /// ArquivoFotoCorrespondencia : Arquivo da foto da correspondência;   
+        /// NumeroRastreamentoCorreio  : Número de rastreamento da correspondência nos Correios ou transportadora;   
+        /// TipoDeCorrespondencia      : Tipo da correspondência, ex: "Caixa", "Pacote", "Mercado Livre", "Amazon";   
+        /// Localizacao                : Localização da correspondência para retirada;   
+        /// EnviarNotificacao          : Informa se envia notificação sobre a correspôndencia ao morador ou não;   
+        /// </param>
         /// <returns></returns>
         [HttpPost]
         public async Task<ActionResult> Post([FromForm]AdicionaCorrespondenciaViewModel correspondenciaVM)

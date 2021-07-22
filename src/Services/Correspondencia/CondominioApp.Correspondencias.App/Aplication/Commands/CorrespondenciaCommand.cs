@@ -28,9 +28,9 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
 
         public DateTime? DataDaRetirada { get; protected set; }
 
-        public Guid FuncionarioId { get; protected set; }
+        public Guid CadastradaPorId { get; protected set; }
 
-        public string NomeFuncionario { get; protected set; }
+        public string CadastradaPorNome { get; protected set; }
 
         public Foto FotoCorrespondencia { get; protected set; }
 
@@ -53,6 +53,12 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
         public bool EnviarNotificacao { get; protected set; }
 
         public string ObservacaoDaRetirada { get; protected set; }
+
+        public Guid EntreguePorId { get; protected set; }
+
+        public string EntreguePorNome { get; protected set; }
+
+
 
         public void SetFotoCorrespondencia(string nomeOriginal)
         {
@@ -106,8 +112,8 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
 
         public void SetFuncionario(Guid id, string nomeFuncionario)
         {
-            FuncionarioId = id;
-            NomeFuncionario = nomeFuncionario;
+            CadastradaPorId = id;
+            CadastradaPorNome = nomeFuncionario;
         }
 
         public void SetDataDeChegada(DateTime data)

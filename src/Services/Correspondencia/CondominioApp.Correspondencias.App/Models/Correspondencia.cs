@@ -13,6 +13,8 @@ namespace CondominioApp.Correspondencias.App.Models
     {
         public const int Max = 200;
 
+        public DateTime DataDeChegada { get; private set; }
+
         public Guid CondominioId { get; private set; }
 
         public Guid UnidadeId { get; private set; }
@@ -21,17 +23,15 @@ namespace CondominioApp.Correspondencias.App.Models
 
         public string Bloco { get; private set; }
         
-        public bool Visto { get; private set; }
-        
-        public string NomeRetirante { get; private set; }
-        
+
+        public Guid CadastradaPorId { get; private set; }
+
+        public string CadastradaPorNome { get; private set; }
+
         public string Observacao { get; private set; }
 
-        public DateTime? DataDaRetirada { get; private set; }
+        public string CodigoDeVerificacao { get; private set; }
 
-        public Guid FuncionarioId { get; private set; }
-
-        public string NomeFuncionario { get; private set; }
 
         public Foto FotoCorrespondencia { get; private set; }
 
@@ -48,15 +48,22 @@ namespace CondominioApp.Correspondencias.App.Models
 
         public string NumeroRastreamentoCorreio { get; private set; }
 
-        public DateTime DataDeChegada { get; private set; }
-
-        public int QuantidadeDeAlertasFeitos { get; private set; }
-
         public string TipoDeCorrespondencia { get; private set; }
 
-        public StatusCorrespondencia Status { get; private set; }
+        public string Localizacao { get; private set; }
 
-        public string CodigoDeVerificacao { get; private set; }
+        public bool EnviarNotificacao { get; private set; }
+
+        public bool Visto { get; private set; }
+
+        public int QuantidadeDeAlertasFeitos { get; private set; }        
+
+        public StatusCorrespondencia Status { get; private set; }
+        
+
+        public DateTime? DataDaRetirada { get; private set; }
+
+        public string NomeRetirante { get; private set; }
 
         public Foto FotoRetirante { get; private set; }
 
@@ -69,45 +76,46 @@ namespace CondominioApp.Correspondencias.App.Models
                 
                 return StorageHelper.ObterUrlDeArquivo(CondominioId.ToString(), FotoRetirante.NomeDoArquivo);
             }
-        }
-
-        public string Localizacao { get; private set; }
-
-        public bool EnviarNotificacao { get; private set; }
+        }        
 
         public string ObservacaoDaRetirada { get; private set; }
+
+        public Guid EntreguePorId { get; private set; }
+
+        public string EntreguePorNome { get; private set; }
+
 
         /// <summary>
         /// Construtores
         /// </summary>
         protected Correspondencia()
         {
-        }
+        }       
 
         public Correspondencia
-            (Guid condominioId, Guid unidadeId, string numeroUnidade, string bloco,
-             string observacao, Guid funcionarioId, string nomeFuncionario,
-             Foto fotoCorrespondencia, string numeroRastreamentoCorreio, DateTime dataDeChegada,
-             string tipoDeCorrespondencia, string localizacao, bool enviarNotificacao)
+            (DateTime dataDeChegada, Guid condominioId, Guid unidadeId, string numeroUnidade, string bloco,
+             Guid cadastradaPorId, string cadastradaPorNome, string observacao, Foto fotoCorrespondencia,
+             string numeroRastreamentoCorreio, string tipoDeCorrespondencia, string localizacao,
+             bool enviarNotificacao)
         {
             CondominioId = condominioId;
             UnidadeId = unidadeId;
             NumeroUnidade = numeroUnidade;
             Bloco = bloco;
-            Visto = false;            
-            Observacao = observacao;            
-            FuncionarioId = funcionarioId;
-            NomeFuncionario = nomeFuncionario;
+            DataDeChegada = dataDeChegada;
+            CadastradaPorId = cadastradaPorId;
+            CadastradaPorNome = cadastradaPorNome;
+            Observacao = observacao;
             FotoCorrespondencia = fotoCorrespondencia;
             NumeroRastreamentoCorreio = numeroRastreamentoCorreio;
-            DataDeChegada = dataDeChegada;
-            QuantidadeDeAlertasFeitos = 1;
-            TipoDeCorrespondencia = tipoDeCorrespondencia;            
+            TipoDeCorrespondencia = tipoDeCorrespondencia;
             Localizacao = localizacao;
             EnviarNotificacao = enviarNotificacao;
             SetPendente();
             SetCodigo();
         }
+
+
 
 
 
@@ -133,9 +141,17 @@ namespace CondominioApp.Correspondencias.App.Models
 
         public void SetDataRetirada(DateTime dataRetirada) => DataDaRetirada = dataRetirada;
 
-        public void SetFuncionarioId(Guid usuarioId) => FuncionarioId = usuarioId;
+        public void SetCadastradoPor(Guid id, string nome)
+        {
+            CadastradaPorId = id;
+            CadastradaPorNome = nome;
+        }
 
-        public void SetNomeFuncionario(string nomeUsuario) => NomeFuncionario = nomeUsuario;
+        public void SetEntrequePor(Guid id, string nome)
+        {
+            EntreguePorId = id;
+            EntreguePorNome = nome;
+        }        
 
         public void SetFotoCorrespondencia(Foto foto) => FotoCorrespondencia = foto;
 
@@ -160,8 +176,8 @@ namespace CondominioApp.Correspondencias.App.Models
 
 
         public ValidationResult MarcarComRetirada
-            (string nomeRetirante, string observacao, Guid funcionarioId,
-             string nomeFuncionario, Foto fotoRetirante)
+            (string nomeRetirante, string observacao, Guid entreguePorId,
+             string entreguePorNome, Foto fotoRetirante)
         {
             if (Status == StatusCorrespondencia.DEVOLVIDO)
             {
@@ -177,8 +193,7 @@ namespace CondominioApp.Correspondencias.App.Models
 
             SetNomeRetirante(nomeRetirante);
             SetObservacaoDaRetirada(observacao);
-            SetFuncionarioId(funcionarioId);
-            SetNomeFuncionario(nomeFuncionario);
+            SetEntrequePor(entreguePorId, entreguePorNome);            
             SetFotoRetirante(fotoRetirante);
             SetRetirado();
             SetDataRetirada(DataHoraDeBrasilia.Get());
@@ -205,8 +220,7 @@ namespace CondominioApp.Correspondencias.App.Models
 
             SetDevolvido();
             SetObservacao(observacao);
-            SetFuncionarioId(funcionarioId);
-            SetNomeFuncionario(nomeFuncionario);
+            SetCadastradoPor(funcionarioId, nomeFuncionario);            
 
             return ValidationResult;
         }
@@ -271,7 +285,7 @@ namespace CondominioApp.Correspondencias.App.Models
         
         private string ObterDescricaoDoPushParaNovaCorrespondencia()
         {
-            var descricao = @$"Chegou uma correspondência para você!     Recebido por {NomeFuncionario}. ";
+            var descricao = @$"Chegou uma correspondência para você!     Recebido por {CadastradaPorNome}. ";
 
             if (CodigoDeVerificacao != null && CodigoDeVerificacao != "")
                 descricao = @$"{descricao}    Código: {CodigoDeVerificacao}.";
@@ -326,7 +340,7 @@ namespace CondominioApp.Correspondencias.App.Models
         }
         private string ObterDescricaoDoPushParaCorrespondenciaDevolvida()
         {
-            var descricao = $"Correspondência devolvida por {NomeFuncionario}.";
+            var descricao = $"Correspondência devolvida por {CadastradaPorNome}.";
 
             if (CodigoDeVerificacao != null && CodigoDeVerificacao != "")
                 descricao = $"{descricao}     Código: {CodigoDeVerificacao}.";
@@ -425,7 +439,7 @@ namespace CondominioApp.Correspondencias.App.Models
         {
             var assunto = "Correspondência";
             var titulo = "Correspondência Devolvida";
-            var descricao = $"Correspondência devolvida por {NomeFuncionario}.";
+            var descricao = $"Correspondência devolvida por {CadastradaPorNome}.";
 
             var nomeArquivo = "";
             if (FotoCorrespondencia != null)
@@ -441,7 +455,7 @@ namespace CondominioApp.Correspondencias.App.Models
             AdicionarEvento
                  (new EnviarEmailCorrespondenciaIntegrationEvent
                   (assunto, titulo, descricao, UnidadeId, nomeArquivo,
-                   NomeFuncionario, CodigoDeVerificacao, TipoDeCorrespondencia,
+                   CadastradaPorNome, CodigoDeVerificacao, TipoDeCorrespondencia,
                    Localizacao, Observacao));
         }
 

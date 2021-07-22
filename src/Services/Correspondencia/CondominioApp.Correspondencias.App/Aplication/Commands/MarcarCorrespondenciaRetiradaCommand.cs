@@ -7,13 +7,13 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
     {
         public MarcarCorrespondenciaRetiradaCommand(
             Guid correspondenciaId, string nomeRetirante, string observacao,
-            Guid usuarioId, string nomeUsuario, string nomeOriginalFotoRetirante)
+            Guid entreguePorId, string entreguePorNome, string nomeOriginalFotoRetirante)
         {
             CorrespondenciaId = correspondenciaId;
             NomeRetirante = nomeRetirante;
             ObservacaoDaRetirada = observacao;
-            FuncionarioId = usuarioId;
-            NomeFuncionario = nomeUsuario;
+            EntreguePorId = entreguePorId;
+            EntreguePorNome = entreguePorNome;
             SetFotoRetirante(nomeOriginalFotoRetirante);
         }
 
@@ -34,8 +34,8 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
             {
                 ValidateId();
                 ValidateNomeRetirante();
-                ValidateUsuarioId();
-                ValidateNomeUsuario();
+                ValidateEntreguePorId();
+                ValidateEntreguePorNome();
             }
         }
     }

@@ -16,8 +16,8 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
             NumeroUnidade = numeroUnidade;
             Grupo = bloco;            
             Observacao = observacao;
-            FuncionarioId = funcionarioId;
-            NomeFuncionario = nomeFuncionario;
+            CadastradaPorId = funcionarioId;
+            CadastradaPorNome = nomeFuncionario;
             NumeroRastreamentoCorreio = numeroRastreamentoCorreio;           
             TipoDeCorrespondencia = tipoDeCorrespondencia;            
             QuantidadeDeAlertasFeitos = 1;
@@ -50,8 +50,8 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
                 ValidateNumeroUnidade();
                 ValidateBloco();               
                 ValidateStatus();
-                ValidateUsuarioId();
-                ValidateNomeUsuario();
+                ValidateCadastradoPorId();
+                ValidateCadastradoPorNome();
             }
         }
     }

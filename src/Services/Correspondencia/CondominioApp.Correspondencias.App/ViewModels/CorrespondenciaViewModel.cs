@@ -52,12 +52,12 @@ namespace CondominioApp.Correspondencias.App.ViewModels
         /// <summary>
         /// Id(Guid) do funcionário que cadastrou a correspondência ou que a entregou
         /// </summary>
-        public Guid FuncionarioId { get; set; }
+        public Guid CadastradaPorId { get; set; }
 
         /// <summary>
         /// Nome do funcionário que cadastrou a correspondência ou que a entregou
         /// </summary>
-        public string NomeFuncionario { get; set; }
+        public string CadastradaPorNome { get; set; }
 
         /// <summary>
         /// Nome do arquivo da foto da correspondência
@@ -137,6 +137,16 @@ namespace CondominioApp.Correspondencias.App.ViewModels
         public string ObservacaoDaRetirada { get; set; }
 
         public string CodigoDeVerificacao { get; set; }
+
+        /// <summary>
+        /// Id(Guid) do funcionário que entregou a correspondência ou que a entregou
+        /// </summary>
+        public Guid EntreguePorId { get; set; }
+
+        /// <summary>
+        /// Nome do funcionário que entregou a correspondência ou que a entregou
+        /// </summary>
+        public string EntreguePorNome { get; set; }
 
         public bool Lixeira { get; set; }
 
