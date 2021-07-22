@@ -1,27 +1,22 @@
-﻿using CondominioApp.Core.Enumeradores;
-using CondominioApp.Core.Helpers;
-using CondominioApp.Core.Messages;
-using CondominioApp.Correspondencias.App.Aplication.Commands.Validations;
+﻿using CondominioApp.Core.Messages;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace CondominioApp.Correspondencias.App.Aplication.Commands
 {
     public class GerarExcelCorrespondenciaCommand : Command
     {
         public List<Guid> ListaCorrespondenciaId { get; set; }
-       
-        public string CaminhoRaiz { get; set; }
 
-        public string NomeArquivo { get; set; }
+        public MemoryStream Ms { get; set; }
 
         public GerarExcelCorrespondenciaCommand(
-            List<Guid> correspondenciaId, string caminhoRaiz, string nomeArquivo)
+            List<Guid> correspondenciaId, MemoryStream ms)
         {            
             ListaCorrespondenciaId = correspondenciaId;
-            CaminhoRaiz = caminhoRaiz;
-            NomeArquivo = nomeArquivo;
+            Ms = ms;
         }
 
 
@@ -44,28 +39,11 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
                       .NotEmpty()
                       .WithMessage("Lista de Correspondencias não pode estar vazio!");
             }
-
-            protected void ValidateCaminhoRaiz()
-            {
-                RuleFor(c => c.CaminhoRaiz)
-                      .NotNull()
-                      .NotEmpty()
-                      .WithMessage("Caminho Raiz não pode estar vazio!");
-            }
-
-            protected void ValidateNomeArquivo()
-            {
-                RuleFor(c => c.NomeArquivo)
-                      .NotNull()
-                      .NotEmpty()
-                      .WithMessage("Nome do Arquivo não pode estar vazio!");
-            }
+           
 
             public GerarExcelCorrespondenciaCommandValidation()
             {
-                ValidateListaCorrespondenciaId();
-                ValidateCaminhoRaiz();
-                ValidateNomeArquivo();
+                ValidateListaCorrespondenciaId();                
             }
 
         }

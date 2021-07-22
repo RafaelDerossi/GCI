@@ -206,10 +206,8 @@ namespace CondominioApp.Api.Controllers
                                unidade.CondominioId.ToString());
 
                 if (!retorno.IsValid)
-                {
-                    AdicionarErroProcessamento("Falha ao carregar foto!");
-                    return CustomResponse();
-                }
+                    return CustomResponse(retorno);
+
             }
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
@@ -375,13 +373,10 @@ namespace CondominioApp.Api.Controllers
         [HttpPost("gerar-excel")]
         public async Task<ActionResult> GerarExcel(List<Guid> lstCorrespondencias)
         {
-            string sWebRootFolder = _webHostEnvironment.WebRootPath;
-            string nomeDoArquivo = @"/" + Guid.NewGuid().ToString();            
-
-            var comando = new GerarExcelCorrespondenciaCommand(lstCorrespondencias, sWebRootFolder, nomeDoArquivo);
-
-            nomeDoArquivo = $"{nomeDoArquivo}.xlsx";
-            string caminhoCompleto = $"{sWebRootFolder}/Download/Temp{nomeDoArquivo}";
+            string nomeDoArquivo = $"{Guid.NewGuid()}.xlsx";
+            MemoryStream ms = new MemoryStream();
+         
+            var comando = new GerarExcelCorrespondenciaCommand(lstCorrespondencias, ms);           
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
             
@@ -396,17 +391,26 @@ namespace CondominioApp.Api.Controllers
                 //var bytes = await System.IO.File.ReadAllBytesAsync(caminhoCompleto);
                 //return File(bytes, contentType, Path.GetFileName(caminhoCompleto));
 
-
-                var bytes = System.IO.File.ReadAllBytes(nomeDoArquivo);              
-                var memoryStream = new MemoryStream(bytes);
-                var arquivo = new FormFile(memoryStream, 0, memoryStream.Length, null, nomeDoArquivo)
+                
+                var arquivo = new FormFile(ms, 0, ms.Length, null, nomeDoArquivo)
                 {
                     Headers = new HeaderDictionary(),
                     ContentType = "application/xlsx"
                 };
 
+                var pastaDoStorage = "RelatoriosEmExcel";
 
-                return CustomResponse(nomeDoArquivo);
+                var retorno = await _azureStorageService.SubirArquivo
+                    (arquivo,
+                     nomeDoArquivo,
+                     pastaDoStorage);
+
+                if (!retorno.IsValid)
+                    return CustomResponse(retorno);                
+
+                var url = StorageHelper.ObterUrlDeArquivo(pastaDoStorage, nomeDoArquivo);
+
+                return CustomResponse(url);
             }            
 
             return CustomResponse(Resultado);

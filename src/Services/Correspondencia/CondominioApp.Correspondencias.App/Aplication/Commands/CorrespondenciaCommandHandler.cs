@@ -218,12 +218,10 @@ namespace CondominioApp.Correspondencias.App.Aplication.Commands
                 "Entregue por",
                 "Retirado por",
                 "Observação"
-            };
+            };           
 
             var geradorExcel = new GeradorDeExcel<CorrespondenciaExcelDTO>
-                (cabecalho, listaCorrespondenciasDTO, request.NomeArquivo, "Relatório de Correspondência",
-                request.CaminhoRaiz);
-                        
+                (cabecalho, listaCorrespondenciasDTO, "Relatório de Correspondência", request.Ms);
 
             return geradorExcel.GerarExcel();
         }
