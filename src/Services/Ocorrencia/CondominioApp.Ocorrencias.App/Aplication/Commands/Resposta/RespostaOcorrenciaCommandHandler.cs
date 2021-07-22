@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace CondominioApp.Ocorrencias.App.Aplication.Commands
 {
     public class RespostaOcorrenciaCommandHandler : CommandHandler,
-         IRequestHandler<AdicionarRespostaOcorrenciaSindicoCommand, ValidationResult>,
+         IRequestHandler<AdicionarRespostaOcorrenciaAdministracaoCommand, ValidationResult>,
          IRequestHandler<AdicionarRespostaOcorrenciaMoradorCommand, ValidationResult>,
          IRequestHandler<AtualizarRespostaOcorrenciaCommand, ValidationResult>,
          IRequestHandler<MarcarRespostaOcorrenciaComoVistaCommand, ValidationResult>,
@@ -25,7 +25,7 @@ namespace CondominioApp.Ocorrencias.App.Aplication.Commands
         }
 
 
-        public async Task<ValidationResult> Handle(AdicionarRespostaOcorrenciaSindicoCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(AdicionarRespostaOcorrenciaAdministracaoCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido())
                 return request.ValidationResult;
@@ -73,9 +73,9 @@ namespace CondominioApp.Ocorrencias.App.Aplication.Commands
             if (!retorno.IsValid)
                 return retorno;
 
-            resposta.EnviarPushParaSindico(ocorrencia.CondominioId);
+            resposta.EnviarPushParaAdministracao(ocorrencia.CondominioId);
 
-            resposta.EnviarEmailParaSindico(ocorrencia.CondominioId, request.Status, ocorrencia.Descricao);
+            resposta.EnviarEmailParaAdministracao(ocorrencia.CondominioId, request.Status, ocorrencia.Descricao);
 
             _ocorrenciaRepository.AdicionarResposta(resposta);
 
@@ -113,7 +113,7 @@ namespace CondominioApp.Ocorrencias.App.Aplication.Commands
                 return ValidationResult;
             }
 
-            var retorno = resposta.Editar(request.Descricao, request.Foto, request.MoradorIdFuncionarioId);
+            var retorno = resposta.Editar(request.Descricao, request.Foto, request.AutorId);
             if (!retorno.IsValid)
                 return retorno;
 
@@ -143,8 +143,8 @@ namespace CondominioApp.Ocorrencias.App.Aplication.Commands
         private RespostaOcorrencia RespostaOcorrenciaFactory(RespostaOcorrenciaCommand request)
         {
             var ocorrencia = new RespostaOcorrencia(
-                request.OcorrenciaId, request.Descricao, request.TipoAutor, request.MoradorIdFuncionarioId,
-                request.NomeUsuario, request.Visto, request.Foto);
+                request.OcorrenciaId, request.Descricao, request.TipoAutor, request.AutorId,
+                request.NomeDoAutor, request.Visto, request.Foto, request.ArquivoAnexo);
            
             return ocorrencia;
         }

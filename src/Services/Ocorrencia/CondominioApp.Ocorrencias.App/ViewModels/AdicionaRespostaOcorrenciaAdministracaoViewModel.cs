@@ -4,7 +4,7 @@ using System;
 
 namespace CondominioApp.Ocorrencias.App.Models
 {
-    public class AdicionaRespostaOcorrenciaSindicoViewModel
+    public class AdicionaRespostaOcorrenciaAdministracaoViewModel
     {
         public Guid OcorrenciaId { get; set; }
 
@@ -13,6 +13,8 @@ namespace CondominioApp.Ocorrencias.App.Models
         public Guid FuncionarioId { get; set; }
 
         public IFormFile ArquivoFoto { get; set; }
+
+        public IFormFile ArquivoAnexo { get; set; }
 
         public StatusDaOcorrencia StatusDaOcorrencia { get; set; }
 

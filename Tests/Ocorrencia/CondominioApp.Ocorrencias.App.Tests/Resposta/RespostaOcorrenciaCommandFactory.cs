@@ -1,39 +1,39 @@
 ﻿using CondominioApp.Core.Enumeradores;
 using CondominioApp.Ocorrencias.App.Aplication.Commands;
 using System;
-using System.Collections.Generic;
 
 namespace CondominioApp.Ocorrencias.App.Tests
 {
     public class RespostaOcorrenciaCommandFactory
     {
-        private static AdicionarRespostaOcorrenciaSindicoCommand CadastrarRespostaOcorrenciaSindicoCommandFactory()
+        private static AdicionarRespostaOcorrenciaAdministracaoCommand CadastrarRespostaOcorrenciaSindicoCommandFactory()
         {
-            return new AdicionarRespostaOcorrenciaSindicoCommand(
-                Guid.NewGuid(), "Descricao da Ocorrencia", Guid.NewGuid(), "Nome do Usuario", "fotonome.jpg",
-                StatusDaOcorrencia.EM_ANDAMENTO);
+            return new AdicionarRespostaOcorrenciaAdministracaoCommand(
+                Guid.NewGuid(), "Descricao da Ocorrencia", Guid.NewGuid(), "Nome do Funcionario",
+                "fotonome.jpg", StatusDaOcorrencia.EM_ANDAMENTO, "nomeOriginalArquivoAnexo.jpg");
         }
         
         private static AdicionarRespostaOcorrenciaMoradorCommand CadastrarRespostaOcorrenciaMoradorCommandFactory()
         {
             return new AdicionarRespostaOcorrenciaMoradorCommand(
-                Guid.NewGuid(), "Descricao da Ocorrencia", Guid.NewGuid(), "Nome do Usuario", "fotoNome.jpg");
+                Guid.NewGuid(), "Descricao da Ocorrencia", Guid.NewGuid(),
+                "Nome do Morador", "fotoNome.jpg", "nomeOriginalArquivoAnexo.jpg");
         }
 
         private static AtualizarRespostaOcorrenciaCommand EditarRespostaOcorrenciaCommandFactory()
         {
             return new AtualizarRespostaOcorrenciaCommand(
-                Guid.NewGuid(), Guid.NewGuid(), "Nova Descricao", "fotonome.jpg");
+                Guid.NewGuid(), Guid.NewGuid(), "Nova Descricao");
         }
 
 
 
-        public static AdicionarRespostaOcorrenciaSindicoCommand CriarComando_CadastroDeRespostaOcorrenciaSindico()
+        public static AdicionarRespostaOcorrenciaAdministracaoCommand CriarComando_CadastroDeRespostaOcorrenciaSindico()
         {
             return CadastrarRespostaOcorrenciaSindicoCommandFactory();
         }
 
-        public static AdicionarRespostaOcorrenciaSindicoCommand CriarComando_CadastroDeRespostaOcorrenciaSindico_SemDescricao()
+        public static AdicionarRespostaOcorrenciaAdministracaoCommand CriarComando_CadastroDeRespostaOcorrenciaSindico_SemDescricao()
         {
             var comando = CadastrarRespostaOcorrenciaSindicoCommandFactory();
 
@@ -42,16 +42,16 @@ namespace CondominioApp.Ocorrencias.App.Tests
             return comando;
         }
 
-        public static AdicionarRespostaOcorrenciaSindicoCommand CriarComando_CadastroDeRespostaOcorrenciaSindico_SemUsuario()
+        public static AdicionarRespostaOcorrenciaAdministracaoCommand CriarComando_CadastroDeRespostaOcorrenciaSindico_SemUsuario()
         {
             var comando = CadastrarRespostaOcorrenciaSindicoCommandFactory();
 
-            comando.SetUsuarioId(Guid.Empty);
+            comando.SetAutorId(Guid.Empty);
 
             return comando;
         }
 
-        public static AdicionarRespostaOcorrenciaSindicoCommand CriarComando_CadastroDeRespostaOcorrenciaSindico_SemFoto()
+        public static AdicionarRespostaOcorrenciaAdministracaoCommand CriarComando_CadastroDeRespostaOcorrenciaSindico_SemFoto()
         {
             var comando = CadastrarRespostaOcorrenciaSindicoCommandFactory();
 
@@ -60,7 +60,7 @@ namespace CondominioApp.Ocorrencias.App.Tests
             return comando;
         }
 
-        public static AdicionarRespostaOcorrenciaSindicoCommand CriarComando_CadastroDeRespostaOcorrenciaSindico_Resolvido()
+        public static AdicionarRespostaOcorrenciaAdministracaoCommand CriarComando_CadastroDeRespostaOcorrenciaSindico_Resolvido()
         {
             var comando = CadastrarRespostaOcorrenciaSindicoCommandFactory();
 
@@ -88,7 +88,7 @@ namespace CondominioApp.Ocorrencias.App.Tests
         {
             var comando = CadastrarRespostaOcorrenciaMoradorCommandFactory();
 
-            comando.SetUsuarioId(Guid.Empty);
+            comando.SetAutorId(Guid.Empty);
 
             return comando;
         }

@@ -4,19 +4,20 @@ using System;
 
 namespace CondominioApp.Ocorrencias.App.Aplication.Commands
 {
-    public class AdicionarRespostaOcorrenciaSindicoCommand : RespostaOcorrenciaCommand
+    public class AdicionarRespostaOcorrenciaAdministracaoCommand : RespostaOcorrenciaCommand
     {
-        public AdicionarRespostaOcorrenciaSindicoCommand
-            (Guid ocorrenciaId, string descricao, Guid moradorIdFuncionarioId, string nomeUsuario,
-             string fotoNomeOriginal, StatusDaOcorrencia status)
+        public AdicionarRespostaOcorrenciaAdministracaoCommand
+            (Guid ocorrenciaId, string descricao, Guid autorId, string nomeUsuario,
+             string fotoNomeOriginal, StatusDaOcorrencia status, string nomeOriginalArquivoAnexo)
         {
             OcorrenciaId = ocorrenciaId;
             Descricao = descricao;
             TipoAutor = TipoDoAutor.ADMINISTRACAO;
-            MoradorIdFuncionarioId = moradorIdFuncionarioId;
-            NomeUsuario = nomeUsuario;
+            AutorId = autorId;
+            NomeDoAutor = nomeUsuario;
             SetFoto(fotoNomeOriginal);
             Status = status;
+            SetArquivoAnexo(nomeOriginalArquivoAnexo);
         }
 
 
@@ -30,7 +31,7 @@ namespace CondominioApp.Ocorrencias.App.Aplication.Commands
         }
 
 
-        public class AdicionarRespostaOcorrenciaSindicoCommandValidation : RespostaOcorrenciaValidation<AdicionarRespostaOcorrenciaSindicoCommand>
+        public class AdicionarRespostaOcorrenciaSindicoCommandValidation : RespostaOcorrenciaValidation<AdicionarRespostaOcorrenciaAdministracaoCommand>
         {
             public AdicionarRespostaOcorrenciaSindicoCommandValidation()
             {

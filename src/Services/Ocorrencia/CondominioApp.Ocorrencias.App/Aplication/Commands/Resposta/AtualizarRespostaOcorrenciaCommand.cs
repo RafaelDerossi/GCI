@@ -1,5 +1,4 @@
-﻿using CondominioApp.Core.Enumeradores;
-using CondominioApp.Ocorrencias.App.Aplication.Commands.Validations;
+﻿using CondominioApp.Ocorrencias.App.Aplication.Commands.Validations;
 using System;
 
 namespace CondominioApp.Ocorrencias.App.Aplication.Commands
@@ -7,12 +6,11 @@ namespace CondominioApp.Ocorrencias.App.Aplication.Commands
     public class AtualizarRespostaOcorrenciaCommand : RespostaOcorrenciaCommand
     {
         public AtualizarRespostaOcorrenciaCommand
-            (Guid id, Guid moradorIdFuncionarioId, string descricao, string fotoNomeOriginal)
+            (Guid id, Guid moradorIdFuncionarioId, string descricao)
         {
             Id = id;
-            MoradorIdFuncionarioId = moradorIdFuncionarioId;
-            Descricao = descricao;          
-            SetFoto(fotoNomeOriginal);            
+            AutorId = moradorIdFuncionarioId;
+            Descricao = descricao;            
         }
 
 

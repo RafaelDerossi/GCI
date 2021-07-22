@@ -77,7 +77,7 @@ namespace CondominioApp.Ocorrencias.App.Tests
             var ocorrencia = OcorrenciaFactoryTests.Criar_Ocorrencia_Valida();
             var command = RespostaOcorrenciaCommandFactory.CriarComando_CadastroDeRespostaOcorrenciaMorador();
             ocorrencia.SetEntidadeId(command.OcorrenciaId);
-            ocorrencia.SetMoradorId(command.MoradorIdFuncionarioId);
+            ocorrencia.SetMoradorId(command.AutorId);
 
             _mocker.GetMock<IOcorrenciaRepository>().Setup(r => r.ObterPorId(command.OcorrenciaId))
                .Returns(Task.FromResult(ocorrencia));
@@ -127,7 +127,7 @@ namespace CondominioApp.Ocorrencias.App.Tests
             var ocorrencia = OcorrenciaFactoryTests.Criar_Ocorrencia_Resolvida_Valido();
             var command = RespostaOcorrenciaCommandFactory.CriarComando_CadastroDeRespostaOcorrenciaMorador();
             ocorrencia.SetEntidadeId(command.OcorrenciaId);
-            ocorrencia.SetMoradorId(command.MoradorIdFuncionarioId);
+            ocorrencia.SetMoradorId(command.AutorId);
 
             _mocker.GetMock<IOcorrenciaRepository>().Setup(r => r.ObterPorId(command.OcorrenciaId))
                .Returns(Task.FromResult(ocorrencia));
@@ -151,7 +151,7 @@ namespace CondominioApp.Ocorrencias.App.Tests
             var resposta = RespostaOcorrenciaFactoryTests.Criar_RespostaOcorrencia_Morador_Valido();
             var command = RespostaOcorrenciaCommandFactory.CriarComando_EdicaoDeRespostaOcorrencia();
             resposta.SetEntidadeId(command.OcorrenciaId);
-            resposta.SetMoradorIdFuncionarioId(command.MoradorIdFuncionarioId);
+            resposta.SetMoradorIdFuncionarioId(command.AutorId);
 
             _mocker.GetMock<IOcorrenciaRepository>().Setup(r => r.ObterRespostaPorId(command.Id))
                .Returns(Task.FromResult(resposta));
@@ -176,7 +176,7 @@ namespace CondominioApp.Ocorrencias.App.Tests
             var resposta = RespostaOcorrenciaFactoryTests.Criar_RespostaOcorrencia_Morador_Valido();
             var command = RespostaOcorrenciaCommandFactory.CriarComando_EdicaoDeRespostaOcorrencia();
             resposta.SetEntidadeId(command.OcorrenciaId);
-            resposta.SetMoradorIdFuncionarioId(command.MoradorIdFuncionarioId);
+            resposta.SetMoradorIdFuncionarioId(command.AutorId);
             resposta.MarcarComoVisto();
 
             _mocker.GetMock<IOcorrenciaRepository>().Setup(r => r.ObterRespostaPorId(command.Id))

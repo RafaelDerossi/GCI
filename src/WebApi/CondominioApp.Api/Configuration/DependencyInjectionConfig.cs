@@ -249,7 +249,7 @@ namespace CondominioApp.Api.Configuration
 
             //Resposta
             services.AddScoped<IRequestHandler<AdicionarRespostaOcorrenciaMoradorCommand, ValidationResult>, RespostaOcorrenciaCommandHandler>();
-            services.AddScoped<IRequestHandler<AdicionarRespostaOcorrenciaSindicoCommand, ValidationResult>, RespostaOcorrenciaCommandHandler>();
+            services.AddScoped<IRequestHandler<AdicionarRespostaOcorrenciaAdministracaoCommand, ValidationResult>, RespostaOcorrenciaCommandHandler>();
             services.AddScoped<IRequestHandler<MarcarRespostaOcorrenciaComoVistaCommand, ValidationResult>, RespostaOcorrenciaCommandHandler>();
             services.AddScoped<IRequestHandler<AtualizarRespostaOcorrenciaCommand, ValidationResult>, RespostaOcorrenciaCommandHandler>();
             #endregion

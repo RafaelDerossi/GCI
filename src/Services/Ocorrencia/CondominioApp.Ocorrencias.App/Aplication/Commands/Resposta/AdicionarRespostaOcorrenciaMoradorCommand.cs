@@ -7,15 +7,16 @@ namespace CondominioApp.Ocorrencias.App.Aplication.Commands
     public class AdicionarRespostaOcorrenciaMoradorCommand : RespostaOcorrenciaCommand
     {
         public AdicionarRespostaOcorrenciaMoradorCommand
-            (Guid ocorrenciaId, string descricao, Guid moradorIdFuncionarioId, string nomeUsuario,
-             string fotoNomeOriginal)
+            (Guid ocorrenciaId, string descricao, Guid autorId, string nomeDoAutor,
+             string fotoNomeOriginal, string arquivoAnexoNomeOriginal)
         {
             OcorrenciaId = ocorrenciaId;
             Descricao = descricao;
             TipoAutor = TipoDoAutor.MORADOR;
-            MoradorIdFuncionarioId = moradorIdFuncionarioId;
-            NomeUsuario = nomeUsuario;
-            SetFoto(fotoNomeOriginal);            
+            AutorId = autorId;
+            NomeDoAutor = nomeDoAutor;
+            SetFoto(fotoNomeOriginal);
+            SetArquivoAnexo(arquivoAnexoNomeOriginal);
         }
 
 

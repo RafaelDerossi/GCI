@@ -13,7 +13,7 @@ namespace CondominioApp.Ocorrencias.App.Data.Mapping
 
             builder.ToTable("Ocorrencias");           
 
-            builder.Property(u => u.Descricao).IsRequired().HasColumnType($"varchar({Ocorrencia.Max})");
+            builder.Property(u => u.Descricao).IsRequired().HasColumnType($"varchar(1000)");
 
             builder.OwnsOne(u => u.Foto, ft =>
             {

@@ -130,7 +130,7 @@ namespace CondominioApp.Ocorrencias.App.Models
         public ValidationResult AdicionarRespostaDeMorador(RespostaOcorrencia resposta)
         {
 
-            if (resposta.TipoAutor == TipoDoAutor.MORADOR && !Publica && MoradorId != resposta.MoradorIdFuncionarioId)
+            if (resposta.TipoAutor == TipoDoAutor.MORADOR && !Publica && MoradorId != resposta.AutorId)
             {
                 AdicionarErrosDaEntidade("Somente o usuário que criou a ocorrência privada pode responder!");
                 return ValidationResult;

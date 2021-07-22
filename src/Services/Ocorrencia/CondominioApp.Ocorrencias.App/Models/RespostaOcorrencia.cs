@@ -17,39 +17,42 @@ namespace CondominioApp.Ocorrencias.App.Models
 
         public TipoDoAutor TipoAutor  { get; private set; }
 
-        public Guid MoradorIdFuncionarioId { get; private set; }
+        public Guid AutorId { get; private set; }
 
-        public string NomeUsuario { get; private set; }
+        public string NomeDoAutor { get; private set; }
 
         public bool Visto { get; private set; }
 
-        public Foto Foto { get; private set; }        
+        public Foto Foto { get; private set; }
+
+        public NomeArquivo ArquivoAxexo { get; private set; }
 
         public RespostaOcorrencia()
         {
         }
 
         public RespostaOcorrencia
-            (Guid ocorrenciaId, string descricao, TipoDoAutor tipoAutor, Guid moradorIdFuncionarioId,
-            string nomeUsuario, bool visto, Foto foto)
+            (Guid ocorrenciaId, string descricao, TipoDoAutor tipoAutor, Guid autorId,
+             string nomeDoAutor, bool visto, Foto foto, NomeArquivo arquivoAnexo)
         {
             OcorrenciaId = ocorrenciaId;
             Descricao = descricao;
             TipoAutor = tipoAutor;
-            MoradorIdFuncionarioId = moradorIdFuncionarioId;
-            NomeUsuario = nomeUsuario;
+            AutorId = autorId;
+            NomeDoAutor = nomeDoAutor;
             Visto = visto;
             Foto = foto;
+            ArquivoAxexo = arquivoAnexo;
         }
 
         public void MarcarComoVisto() => Visto = true;
 
-        public void SetMoradorIdFuncionarioId(Guid id) => MoradorIdFuncionarioId = id;
+        public void SetMoradorIdFuncionarioId(Guid id) => AutorId = id;
 
 
-        public ValidationResult Editar(string descricao, Foto foto, Guid moradorIdFuncionarioId)
+        public ValidationResult Editar(string descricao, Foto foto, Guid autorId)
         {
-            if (MoradorIdFuncionarioId != moradorIdFuncionarioId)
+            if (AutorId != autorId)
             {
                 AdicionarErrosDaEntidade("Usuário não corresponde ao que criou a resposta.");
                 return ValidationResult;
@@ -61,8 +64,7 @@ namespace CondominioApp.Ocorrencias.App.Models
                 return ValidationResult;
             }
 
-            Descricao = descricao;
-            Foto = foto;
+            Descricao = descricao;          
 
             return ValidationResult;
         }
@@ -94,7 +96,7 @@ namespace CondominioApp.Ocorrencias.App.Models
                 (new EnviarPushParaMoradorIntegrationEvent(moradorId, titulo, Descricao));
         }
 
-        public void EnviarPushParaSindico(Guid condominioId)
+        public void EnviarPushParaAdministracao(Guid condominioId)
         {
             var titulo = "Ocorrência Respondida";
 
@@ -120,7 +122,7 @@ namespace CondominioApp.Ocorrencias.App.Models
 
             AdicionarEvento
                 (new EnviarEmailRespostaOcorrenciaParaMoradorIntegrationEvent
-                (titulo, descricaoDaOcorrencia, Descricao, NomeUsuario, 
+                (titulo, descricaoDaOcorrencia, Descricao, NomeDoAutor, 
                  DataDeCadastroFormatada, Foto.NomeDoArquivo, moradorId));
         }
         private void EnviarEmailOcorrenciaResolvida(Guid moradorId, string descricaoDaOcorrencia)
@@ -129,19 +131,19 @@ namespace CondominioApp.Ocorrencias.App.Models
 
             AdicionarEvento
                 (new EnviarEmailRespostaOcorrenciaParaMoradorIntegrationEvent
-                (titulo, descricaoDaOcorrencia, Descricao, NomeUsuario,
+                (titulo, descricaoDaOcorrencia, Descricao, NomeDoAutor,
                  DataDeCadastroFormatada, Foto.NomeDoArquivo, moradorId));
         }
 
         
         
-        public void EnviarEmailParaSindico(Guid condominioId, StatusDaOcorrencia statusDaOcorrencia, string descricaoDaOcorrencia)
+        public void EnviarEmailParaAdministracao(Guid condominioId, StatusDaOcorrencia statusDaOcorrencia, string descricaoDaOcorrencia)
         {
             var titulo = "Ocorrência Respondida";
 
             AdicionarEvento
                 (new EnviarEmailRespostaOcorrenciaParaAdministracaoIntegrationEvent
-                (titulo, descricaoDaOcorrencia, Descricao, NomeUsuario, statusDaOcorrencia.ToString(),
+                (titulo, descricaoDaOcorrencia, Descricao, NomeDoAutor, statusDaOcorrencia.ToString(),
                  DataDeCadastroFormatada, Foto.NomeDoArquivo, condominioId));
         }
                 

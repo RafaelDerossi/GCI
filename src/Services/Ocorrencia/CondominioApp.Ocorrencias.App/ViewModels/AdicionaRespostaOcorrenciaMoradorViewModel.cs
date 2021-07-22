@@ -12,5 +12,7 @@ namespace CondominioApp.Ocorrencias.App.Models
         public Guid MoradorId { get; set; }
 
         public IFormFile ArquivoFoto { get; set; }
+
+        public IFormFile ArquivoAnexo { get; set; }
     }
 }

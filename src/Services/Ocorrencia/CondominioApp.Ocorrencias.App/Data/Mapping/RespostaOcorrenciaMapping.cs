@@ -13,13 +13,13 @@ namespace CondominioApp.Ocorrencias.App.Data.Mapping
 
             builder.ToTable("RespostasOcorrencias");           
 
-            builder.Property(u => u.Descricao).IsRequired().HasColumnType($"varchar({Ocorrencia.Max})");
+            builder.Property(u => u.Descricao).IsRequired().HasColumnType($"varchar(1000)");
             
             builder.Property(u => u.TipoAutor).IsRequired();
 
-            builder.Property(u => u.MoradorIdFuncionarioId).IsRequired();
+            builder.Property(u => u.AutorId).IsRequired();
 
-            builder.Property(u => u.NomeUsuario).HasColumnType($"varchar({Ocorrencia.Max})");
+            builder.Property(u => u.NomeDoAutor).HasColumnType($"varchar({Ocorrencia.Max})");
 
             builder.Property(u => u.Visto).IsRequired();
 

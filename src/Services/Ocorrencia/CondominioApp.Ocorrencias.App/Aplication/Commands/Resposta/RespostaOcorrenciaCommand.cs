@@ -12,13 +12,13 @@ namespace CondominioApp.Ocorrencias.App.Aplication.Commands
         public Guid OcorrenciaId { get; protected set; }
         public string Descricao { get; protected set; }
         public TipoDoAutor TipoAutor { get; protected set; }
-        public Guid MoradorIdFuncionarioId { get; protected set; }
-        public string NomeUsuario { get; protected set; }
+        public Guid AutorId { get; protected set; }
+        public string NomeDoAutor { get; protected set; }
         public bool Visto { get; protected set; }
-        public Foto Foto { get; protected set; }       
+        public Foto Foto { get; protected set; }
+        public NomeArquivo ArquivoAnexo { get; protected set; }
         public StatusDaOcorrencia Status { get; protected set; }        
-        
-        
+                
 
 
         public void SetDescricao(string descricao) => Descricao = descricao;
@@ -35,12 +35,22 @@ namespace CondominioApp.Ocorrencias.App.Aplication.Commands
             }
         }
 
-        public void SetUsuarioId(Guid id) => MoradorIdFuncionarioId = id;
+        public void SetAutorId(Guid id) => AutorId = id;
 
         public void MarcarComoVisto() => Visto = true;
 
         public void SetStatus(StatusDaOcorrencia status) => Status = status;
 
-
+        public void SetArquivoAnexo(string nomeOriginalArquivo)
+        {
+            try
+            {
+                ArquivoAnexo = new NomeArquivo(nomeOriginalArquivo, Guid.NewGuid());
+            }
+            catch (Exception e)
+            {
+                AdicionarErrosDeProcessamentoDoComando(e.Message);
+            }
+        }
     }
 }
