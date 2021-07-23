@@ -13,20 +13,20 @@ namespace CondominioApp.Principal.Aplication.Commands
             bool correspondenciaNaPortaria = false, bool limiteTempoReserva = false)
         {
             CondominioId = condominioId;           
-            Portaria = portaria;
-            PortariaMorador = portariaMorador;
-            Classificado = classificado;
-            ClassificadoMorador = classificadoMorador;
-            Mural = mural;
-            MuralMorador = muralMorador;
-            Chat = chat;
-            ChatMorador = chatMorador;
-            Reserva = reserva;
-            ReservaNaPortaria = reservaNaPortaria;
-            Ocorrencia = ocorrencia;
-            OcorrenciaMorador = ocorrenciaMorador;
-            Correspondencia = correspondencia;
-            CorrespondenciaNaPortaria = correspondenciaNaPortaria;
+            PortariaAtivada = portaria;
+            PortariaParaMoradorAtivada = portariaMorador;
+            ClassificadoAtivado = classificado;
+            ClassificadoParaMoradorAtivado = classificadoMorador;
+            MuralAtivado = mural;
+            MuralParaMoradorAtivado = muralMorador;
+            ChatAtivado = chat;
+            ChatParaMoradorAtivado = chatMorador;
+            ReservaAtivada = reserva;
+            ReservaNaPortariaAtivada = reservaNaPortaria;
+            OcorrenciaAtivada = ocorrencia;
+            OcorrenciaParaMoradorAtivada = ocorrenciaMorador;
+            CorrespondenciaAtivada = correspondencia;
+            CorrespondenciaNaPortariaAtivada = correspondenciaNaPortaria;
             LimiteTempoReserva = limiteTempoReserva;
         }
 

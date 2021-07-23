@@ -6,17 +6,15 @@ namespace CondominioApp.Principal.Aplication.Commands
    public class AtualizarCondominioCommand : CondominioCommand
     {
 
-        public AtualizarCondominioCommand(Guid condominioId, string cnpj, string nome, string descricao = null, 
-            string logoMarca = null, string nomeOriginal = null, string telefone = null, string logradouro = null,
-            string complemento = null, string numero = null, string cep = null, string bairro = null, 
-            string cidade = null, string estado = null)
+        public AtualizarCondominioCommand(Guid condominioId, string cnpj, string nome, string descricao, 
+            string telefone, string logradouro, string complemento, string numero, string cep,
+            string bairro, string cidade, string estado)
         {
             CondominioId = condominioId;           
             Nome = nome;
             Descricao = descricao;            
            
             SetCNPJ(cnpj);
-            SetFoto(logoMarca, nomeOriginal);
             SetTelefone(telefone);
             SetEndereco(logradouro, complemento, numero, cep, bairro, cidade, estado);          
         }

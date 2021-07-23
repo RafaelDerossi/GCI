@@ -37,35 +37,35 @@ namespace CondominioApp.Principal.Aplication.Events
 
         public string NomeDoSindico { get; protected set; }
 
-        public bool Portaria { get; protected set; }
+        public bool PortariaAtivada { get; protected set; }
 
-        public bool PortariaMorador { get; protected set; }
+        public bool PortariaMoradorAtivada { get; protected set; }
 
-        public bool Classificado { get; protected set; }
+        public bool ClassificadoAtivado { get; protected set; }
      
-        public bool ClassificadoMorador { get; protected set; }
+        public bool ClassificadoMoradorAtivado { get; protected set; }
        
-        public bool Mural { get; protected set; }
+        public bool MuralAtivado { get; protected set; }
 
-        public bool MuralMorador { get; protected set; }
+        public bool MuralMoradorAtivado { get; protected set; }
 
-        public bool Chat { get; protected set; }
+        public bool ChatAtivado { get; protected set; }
 
-        public bool ChatMorador { get; protected set; }
+        public bool ChatMoradorAtivado { get; protected set; }
 
-        public bool Reserva { get; protected set; }
+        public bool ReservaAtivada { get; protected set; }
 
-        public bool ReservaNaPortaria { get; protected set; }
+        public bool ReservaNaPortariaAtivada { get; protected set; }
 
-        public bool Ocorrencia { get; protected set; }
+        public bool OcorrenciaAtivada { get; protected set; }
 
-        public bool OcorrenciaMorador { get; protected set; }
+        public bool OcorrenciaMoradorAtivada { get; protected set; }
 
-        public bool Correspondencia { get; protected set; }
+        public bool CorrespondenciaAtivada { get; protected set; }
 
-        public bool CorrespondenciaNaPortaria { get; protected set; }
+        public bool CorrespondenciaNaPortariaAtivada { get; protected set; }
 
-        public bool LimiteTempoReserva { get; protected set; }
+        public bool CadastroDeVeiculoPeloMoradorAtivado { get; protected set; }
 
 
         public Guid ContratoId { get; protected set; }
@@ -78,7 +78,9 @@ namespace CondominioApp.Principal.Aplication.Events
 
         public bool ContratoAtivo { get; protected set; }
 
-        public string LinkContrato { get; protected set; }
+        public int QuantidadeDeUnidadesContratadas { get; protected set; }
+
+        public NomeArquivo ArquivoContrato { get; protected set; }
 
     }
 }

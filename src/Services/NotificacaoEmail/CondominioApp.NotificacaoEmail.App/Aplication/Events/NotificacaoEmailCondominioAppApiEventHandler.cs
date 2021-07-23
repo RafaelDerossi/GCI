@@ -141,7 +141,7 @@ namespace CondominioApp.NotificacaoEmail.Aplication.Events
 
             return new ComunicadoDTO
                 (notification.Titulo, notification.Descricao, notification.Categoria,
-                 notification.TemAnexos, condominio.Id, condominio.LogoMarca, anexos, listaDeEmails);
+                 notification.TemAnexos, condominio.Id, condominio.NomeArquivoLogo, anexos, listaDeEmails);
         }
 
         #endregion
@@ -219,7 +219,7 @@ namespace CondominioApp.NotificacaoEmail.Aplication.Events
 
             return new EnqueteDTO
                 (notification.Descricao, notification.DataInicio, notification.DataFim, condominio.Nome,
-                 condominio.LogoMarca, notification.NomeFuncionario, notification.Alternativas, listaDeEmails);
+                 condominio.NomeArquivoLogo, notification.NomeFuncionario, notification.Alternativas, listaDeEmails);
         }
 
         #endregion
@@ -305,7 +305,7 @@ namespace CondominioApp.NotificacaoEmail.Aplication.Events
             return new RespostaOcorrenciaDTO
                 (notification.Titulo, notification.DescricaoDaOcorrencia, notification.Resposta,
                  notification.NomeSindico, notification.DataDaResposta,
-                 notification.Foto, condominio.Nome, condominio.LogoMarca, listaDeEmails);
+                 notification.Foto, condominio.Nome, condominio.NomeArquivoLogo, listaDeEmails);
         }
         private RespostaOcorrenciaDTO RespostaOcorrenciaDTOFactory
        (EnviarEmailRespostaOcorrenciaParaAdministracaoIntegrationEvent notification, List<string> listaDeEmails, System.Guid condominioId)
@@ -315,7 +315,7 @@ namespace CondominioApp.NotificacaoEmail.Aplication.Events
             return new RespostaOcorrenciaDTO
                 (notification.Titulo, notification.DescricaoDaOcorrencia, notification.Resposta,
                  notification.NomeMorador, notification.DataDaResposta,
-                 notification.Foto, condominio.Nome, condominio.LogoMarca, listaDeEmails);
+                 notification.Foto, condominio.Nome, condominio.NomeArquivoLogo, listaDeEmails);
         }
 
 
@@ -346,7 +346,7 @@ namespace CondominioApp.NotificacaoEmail.Aplication.Events
                 (notification.Titulo, notification.AreaComumNome, notification.DataRealizacao,
                  notification.HoraInicio, notification.HoraFim, morador.NomeCompleto, notification.UnidadeDescricao,
                  notification.Valor, notification.Observacao, notification.Justificativa, notification.DataDeCadastro,
-                 condominio.Nome, condominio.LogoMarca, listaDeEmails, notification.CorFundoTitulo, notification.Protocolo);
+                 condominio.Nome, condominio.NomeArquivoLogo, listaDeEmails, notification.CorFundoTitulo, notification.Protocolo);
 
         }
 
@@ -377,7 +377,7 @@ namespace CondominioApp.NotificacaoEmail.Aplication.Events
                 (notification.Titulo, notification.AreaComumNome, notification.DataRealizacao,
                  notification.HoraInicio, notification.HoraFim, morador.NomeCompleto, notification.UnidadeDescricao,
                  notification.Valor, notification.Observacao, notification.Justificativa, notification.DataDeCadastro,
-                 condominio.Nome, condominio.LogoMarca, listaDeEmails, notification.CorFundoTitulo, notification.Protocolo);
+                 condominio.Nome, condominio.NomeArquivoLogo, listaDeEmails, notification.CorFundoTitulo, notification.Protocolo);
         }
 
 

@@ -26,20 +26,20 @@ namespace CondominioApp.Principal.Aplication.Events
         public async Task Handle(CondominioCadastradoEvent notification, CancellationToken cancellationToken)
         {
             var condominioFlat = new CondominioFlat
-                (notification.CondominioId,
-                false, notification.Cnpj.NumeroFormatado, notification.Nome, notification.Descricao, 
-                notification.LogoMarca.NomeDoArquivo, notification.Telefone.ObterNumeroFormatado,
-                notification.Endereco.logradouro, notification.Endereco.complemento, 
-                notification.Endereco.numero, notification.Endereco.cep, notification.Endereco.bairro,
-                notification.Endereco.cidade, notification.Endereco.estado, notification.RefereciaId,
-                notification.LinkGeraBoleto, notification.BoletoFolder, notification.UrlWebServer.Endereco,
-                notification.Portaria, notification.PortariaMorador, notification.Classificado, 
-                notification.ClassificadoMorador, notification.Mural, notification.MuralMorador, 
-                notification.Chat, notification.ChatMorador, notification.Reserva, notification.ReservaNaPortaria,
-                notification.Ocorrencia, notification.OcorrenciaMorador, notification.Correspondencia,
-                notification.CorrespondenciaNaPortaria, notification.LimiteTempoReserva, notification.ContratoId, 
-                notification.DataAssinatura, notification.TipoPlano.ToString(), notification.DescricaoContrato,
-                notification.ContratoAtivo, notification.LinkContrato);
+                (notification.CondominioId, false, notification.Cnpj.NumeroFormatado, notification.Nome,
+                 notification.Descricao, notification.LogoMarca, notification.Telefone.ObterNumeroFormatado,
+                 notification.Endereco.logradouro, notification.Endereco.complemento, 
+                 notification.Endereco.numero, notification.Endereco.cep, notification.Endereco.bairro,
+                 notification.Endereco.cidade, notification.Endereco.estado, notification.PortariaAtivada,
+                 notification.PortariaMoradorAtivada, notification.ClassificadoAtivado,
+                 notification.ClassificadoMoradorAtivado, notification.MuralAtivado,
+                 notification.MuralMoradorAtivado, notification.ChatAtivado, notification.ChatMoradorAtivado,
+                 notification.ReservaAtivada, notification.ReservaNaPortariaAtivada,
+                 notification.OcorrenciaAtivada, notification.OcorrenciaMoradorAtivada, 
+                 notification.CorrespondenciaAtivada, notification.CorrespondenciaNaPortariaAtivada, 
+                 notification.CadastroDeVeiculoPeloMoradorAtivado, notification.ContratoId, 
+                 notification.DataAssinatura, notification.TipoPlano, notification.DescricaoContrato,
+                 notification.ContratoAtivo, notification.ArquivoContrato);
 
             _condominioQueryRepository.Adicionar(condominioFlat);
 
@@ -53,8 +53,7 @@ namespace CondominioApp.Principal.Aplication.Events
 
             condominioFlat.SetCNPJ(notification.Cnpj.NumeroFormatado);
             condominioFlat.SetNome(notification.Nome);
-            condominioFlat.SetDescricao(notification.Descricao);
-            condominioFlat.SetFoto(notification.LogoMarca.NomeDoArquivo);
+            condominioFlat.SetDescricao(notification.Descricao);            
             condominioFlat.SetTelefone(notification.Telefone.ObterNumeroFormatado);
             condominioFlat.SetEndereco(notification.Endereco.logradouro, notification.Endereco.complemento, 
                 notification.Endereco.numero, notification.Endereco.cep, notification.Endereco.bairro, 
@@ -94,94 +93,93 @@ namespace CondominioApp.Principal.Aplication.Events
             var condominioFlat = await _condominioQueryRepository.ObterPorId(notification.CondominioId);
 
           
-            if (notification.Portaria)
+            if (notification.PortariaAtivada)
                 condominioFlat.AtivarPortaria();
             else
                 condominioFlat.DesativarPortaria();
 
 
-            if (notification.PortariaMorador)
+            if (notification.PortariaMoradorAtivada)
                 condominioFlat.AtivarPortariaMorador();
             else
                 condominioFlat.DesativarPortariaMorador();
 
 
-            if (notification.Classificado)
+            if (notification.ClassificadoAtivado)
                 condominioFlat.AtivarClassificado();
             else
                 condominioFlat.DesativarClassificado();
 
 
-            if (notification.ClassificadoMorador)
+            if (notification.ClassificadoMoradorAtivado)
                 condominioFlat.AtivarClassificadoMorador();
             else
                 condominioFlat.DesativarClassificadoMorador();
 
 
-            if (notification.Mural)
+            if (notification.MuralAtivado)
                 condominioFlat.AtivarMural();
             else
                 condominioFlat.DesativarMural();
 
 
-            if (notification.MuralMorador)
+            if (notification.MuralMoradorAtivado)
                 condominioFlat.AtivarMuralMorador();
             else
                 condominioFlat.DesativarMuralMorador();
 
 
-            if (notification.Chat)
+            if (notification.ChatAtivado)
                 condominioFlat.AtivarChat();
             else
                 condominioFlat.DesativarChat();
 
 
-            if (notification.ChatMorador)
+            if (notification.ChatMoradorAtivado)
                 condominioFlat.AtivarChatMorador();
             else
                 condominioFlat.DesativarChatMorador();
 
-            if (notification.Reserva)
+            if (notification.ReservaAtivada)
                 condominioFlat.AtivarReserva();
             else
                 condominioFlat.DesativarReserva();
 
 
-            if (notification.ReservaNaPortaria)
+            if (notification.ReservaNaPortariaAtivada)
                 condominioFlat.AtivarReservaNaPortaria();
             else
                 condominioFlat.DesativarReservaNaPortaria();
 
 
-            if (notification.Ocorrencia)
+            if (notification.OcorrenciaAtivada)
                 condominioFlat.AtivarOcorrencia();
             else
                 condominioFlat.DesativarOcorrencia();
 
 
-            if (notification.OcorrenciaMorador)
+            if (notification.OcorrenciaMoradorAtivada)
                 condominioFlat.AtivarOcorrenciaMorador();
             else
                 condominioFlat.DesativarOcorrenciaMorador();
 
 
-            if (notification.Correspondencia)
+            if (notification.CorrespondenciaAtivada)
                 condominioFlat.AtivarCorrespondencia();
             else
                 condominioFlat.DesativarCorrespondencia();
 
 
-            if (notification.CorrespondenciaNaPortaria)
+            if (notification.CorrespondenciaNaPortariaAtivada)
                 condominioFlat.AtivarCorrespondenciaNaPortaria();
             else
                 condominioFlat.DesativarCorrespondenciaNaPortaria();
 
 
-            if (notification.LimiteTempoReserva)
-                condominioFlat.AtivarLimiteTempoReserva();
+            if (notification.CadastroDeVeiculoPeloMoradorAtivado)
+                condominioFlat.AtivarCadastroDeVeiculoPeloMorador();
             else
-                condominioFlat.DesativarLimiteTempoReserva();
-
+                condominioFlat.DesativarCadastroDeVeiculoPeloMorador();
 
 
             _condominioQueryRepository.Atualizar(condominioFlat);

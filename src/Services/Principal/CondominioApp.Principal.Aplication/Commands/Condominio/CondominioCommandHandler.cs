@@ -8,6 +8,8 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Linq;
+using CondominioApp.Core.Helpers;
+using CondominioApp.Core.Enumeradores;
 
 namespace CondominioApp.Principal.Aplication.Commands
 {
@@ -71,16 +73,15 @@ namespace CondominioApp.Principal.Aplication.Commands
             condominioBd.SetCNPJ(request.Cnpj);
             condominioBd.SetNome(request.Nome);
             condominioBd.SetDescricao(request.Descricao);
-            condominioBd.SetFoto(request.LogoMarca);
             condominioBd.SetTelefone(request.Telefone);
-            condominioBd.SetEndereco(request.Endereco);            
+            condominioBd.SetEndereco(request.Endereco);
 
             _condominioRepository.Atualizar(condominioBd);
 
             condominioBd.AdicionarEvento(
-               new CondominioEditadoEvent(condominioBd.Id,
-               condominioBd.Cnpj, condominioBd.Nome, condominioBd.Descricao, condominioBd.LogoMarca,
-               condominioBd.Telefone, condominioBd.Endereco));
+               new CondominioEditadoEvent
+               (condominioBd.Id, condominioBd.Cnpj, condominioBd.Nome, condominioBd.Descricao,
+                condominioBd.Telefone, condominioBd.Endereco));
 
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }
@@ -97,104 +98,104 @@ namespace CondominioApp.Principal.Aplication.Commands
                 return ValidationResult;
             }
 
-            if (request.Portaria)
+            if (request.PortariaAtivada)
                 condominioBd.AtivarPortaria();
             else
                 condominioBd.DesativarPortaria();
 
 
-            if (request.PortariaMorador)
+            if (request.PortariaParaMoradorAtivada)
                 condominioBd.AtivarPortariaMorador();
             else
                 condominioBd.DesativarPortariaMorador();
 
 
-            if (request.Classificado)
+            if (request.ClassificadoAtivado)
                 condominioBd.AtivarClassificado();
             else
                 condominioBd.DesativarClassificado();
 
 
-            if (request.ClassificadoMorador)
+            if (request.ClassificadoParaMoradorAtivado)
                 condominioBd.AtivarClassificadoMorador();
             else
                 condominioBd.DesativarClassificadoMorador();
 
 
-            if (request.Mural)
+            if (request.MuralAtivado)
                 condominioBd.AtivarMural();
             else
                 condominioBd.DesativarMural();
 
 
-            if (request.MuralMorador)
+            if (request.MuralParaMoradorAtivado)
                 condominioBd.AtivarMuralMorador();
             else
                 condominioBd.DesativarMuralMorador();
 
 
-            if (request.Chat)
+            if (request.ChatAtivado)
                 condominioBd.AtivarChat();
             else
                 condominioBd.DesativarChat();
 
 
-            if (request.ChatMorador)
+            if (request.ChatParaMoradorAtivado)
                 condominioBd.AtivarChatMorador();
             else
                 condominioBd.DesativarChatMorador();
 
-            if (request.Reserva)
+            if (request.ReservaAtivada)
                 condominioBd.AtivarReserva();
             else
                 condominioBd.DesativarReserva();
 
 
-            if (request.ReservaNaPortaria)
+            if (request.ReservaNaPortariaAtivada)
                 condominioBd.AtivarReservaNaPortaria();
             else
                 condominioBd.DesativarReservaNaPortaria();
 
 
-            if (request.Ocorrencia)
+            if (request.OcorrenciaAtivada)
                 condominioBd.AtivarOcorrencia();
             else
                 condominioBd.DesativarOcorrencia();
 
 
-            if (request.OcorrenciaMorador)
+            if (request.OcorrenciaParaMoradorAtivada)
                 condominioBd.AtivarOcorrenciaMorador();
             else
                 condominioBd.DesativarOcorrenciaMorador();
 
 
-            if (request.Correspondencia)
+            if (request.CorrespondenciaAtivada)
                 condominioBd.AtivarCorrespondencia();
             else
                 condominioBd.DesativarCorrespondencia();
 
 
-            if (request.CorrespondenciaNaPortaria)
+            if (request.CorrespondenciaNaPortariaAtivada)
                 condominioBd.AtivarCorrespondenciaNaPortaria();
             else
                 condominioBd.DesativarCorrespondenciaNaPortaria();
 
-
-            if (request.LimiteTempoReserva)
-                condominioBd.AtivarLimiteTempoReserva();
+            if (request.CadastroDeVeiculoPeloMoradorAtivado)
+                condominioBd.AtivarCadastroDeVeiculoPeloMorador();
             else
-                condominioBd.DesativarLimiteTempoReserva();
+                condominioBd.DesativarCadastroDeVeiculoPeloMorador();
 
 
             _condominioRepository.Atualizar(condominioBd);
 
             condominioBd.AdicionarEvento(
               new CondominioConfiguracaoEditadoEvent(condominioBd.Id,
-              condominioBd.Portaria, condominioBd.PortariaMorador, condominioBd.Classificado, 
-              condominioBd.ClassificadoMorador, condominioBd.Mural, condominioBd.MuralMorador, 
-              condominioBd.Chat, condominioBd.ChatMorador, condominioBd.Reserva,
-              condominioBd.ReservaNaPortaria, condominioBd.Ocorrencia, condominioBd.OcorrenciaMorador,
-              condominioBd.Correspondencia, condominioBd.CorrespondenciaNaPortaria, condominioBd.LimiteTempoReserva));
+              condominioBd.PortariaAtivada, condominioBd.PortariaParaMoradorAtivada, condominioBd.ClassificadoAtivado, 
+              condominioBd.ClassificadoParaMoradorAtivado, condominioBd.MuralAtivado, condominioBd.MuralParaMoradorAtivado, 
+              condominioBd.ChatAtivado, condominioBd.ChatParaMoradorAtivado, condominioBd.ReservaAtivada,
+              condominioBd.ReservaNaPortariaAtivada, condominioBd.OcorrenciaAtivada, condominioBd.OcorrenciaParaMoradorAtivada,
+              condominioBd.CorrespondenciaAtivada, condominioBd.CorrespondenciaNaPortariaAtivada,
+              condominioBd.CadastroDeVeiculoPeloMoradorAtivado));
 
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }
@@ -243,33 +244,34 @@ namespace CondominioApp.Principal.Aplication.Commands
         {
             var condominio = new Condominio(request.Cnpj, request.Nome, request.Descricao, request.LogoMarca, 
                 request.Telefone, request.Endereco, request.RefereciaId, request.LinkGeraBoleto, request.BoletoFolder,
-                request.UrlWebServer, request.Portaria, request.PortariaMorador, request.Classificado,
-                request.ClassificadoMorador, request.Mural, request.MuralMorador, request.Chat, request.ChatMorador,
-                request.Reserva, request.ReservaNaPortaria, request.Ocorrencia, request.OcorrenciaMorador,
-                request.Correspondencia, request.CorrespondenciaNaPortaria, request.LimiteTempoReserva);
+                request.UrlWebServer, request.PortariaAtivada, request.PortariaParaMoradorAtivada, request.ClassificadoAtivado,
+                request.ClassificadoParaMoradorAtivado, request.MuralAtivado, request.MuralParaMoradorAtivado, request.ChatAtivado, request.ChatParaMoradorAtivado,
+                request.ReservaAtivada, request.ReservaNaPortariaAtivada, request.OcorrenciaAtivada, request.OcorrenciaParaMoradorAtivada,
+                request.CorrespondenciaAtivada, request.CorrespondenciaNaPortariaAtivada, request.LimiteTempoReserva);
             
             return condominio;
         }
 
         private void AdicionarEventoDeCondominioCadastrado(Condominio condominio)
         {
-            var contrato = new Contrato(condominio.Id, DateTime.Today.Date, 0, "", false, "");
-            contrato.SetEntidadeId(Guid.Empty);
-            if (condominio.Contratos.Count>0)
+            var contrato = condominio.Contratos.FirstOrDefault();
+            if (contrato == null)
             {
-                contrato = condominio.Contratos.FirstOrDefault();
+                contrato = new Contrato(condominio.Id, DataHoraDeBrasilia.Get(), TipoDePlano.FREE, "", false, null, 0);
             }
 
             condominio.AdicionarEvento(
                new CondominioCadastradoEvent(condominio.Id,
                condominio.Cnpj, condominio.Nome, condominio.Descricao, condominio.LogoMarca,
-               condominio.Telefone, condominio.Endereco, condominio.RefereciaId, condominio.LinkGeraBoleto,
-               condominio.BoletoFolder, condominio.UrlWebServer, condominio.Portaria, condominio.PortariaMorador,
-               condominio.Classificado, condominio.ClassificadoMorador, condominio.Mural,
-               condominio.MuralMorador, condominio.Chat, condominio.ChatMorador, condominio.Reserva,
-               condominio.ReservaNaPortaria, condominio.Ocorrencia, condominio.OcorrenciaMorador,
-               condominio.Correspondencia, condominio.CorrespondenciaNaPortaria, condominio.LimiteTempoReserva,
-               contrato.Id, contrato.DataAssinatura, contrato.Tipo, contrato.Descricao, contrato.Ativo, contrato.Link));
+               condominio.Telefone, condominio.Endereco, condominio.PortariaAtivada, 
+               condominio.PortariaParaMoradorAtivada, condominio.ClassificadoAtivado,
+               condominio.ClassificadoParaMoradorAtivado, condominio.MuralAtivado,
+               condominio.MuralParaMoradorAtivado, condominio.ChatAtivado, condominio.ChatParaMoradorAtivado,
+               condominio.ReservaAtivada, condominio.ReservaNaPortariaAtivada, condominio.OcorrenciaAtivada,
+               condominio.OcorrenciaParaMoradorAtivada, condominio.CorrespondenciaAtivada, 
+               condominio.CorrespondenciaNaPortariaAtivada, condominio.CadastroDeVeiculoPeloMoradorAtivado,
+               contrato.Id, contrato.DataAssinatura, contrato.Tipo, contrato.Descricao, contrato.Ativo,
+               contrato.QuantidadeDeUnidadesContratada, contrato.ArquivoContrato));
         }
 
         public void Dispose()

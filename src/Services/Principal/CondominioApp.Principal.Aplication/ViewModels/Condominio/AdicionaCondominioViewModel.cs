@@ -1,4 +1,5 @@
 ﻿using CondominioApp.Core.Enumeradores;
+using Microsoft.AspNetCore.Http;
 using System;
 
 namespace CondominioApp.Principal.Aplication.ViewModels
@@ -11,9 +12,7 @@ namespace CondominioApp.Principal.Aplication.ViewModels
 
         public string Descricao { get; set; }
 
-        public string LogoMarca { get; set; }
-
-        public string NomeOriginal { get; set; }
+        public IFormFile ArquivoLogo { get; set; }        
 
         public string Telefone { get; set; }
 
@@ -31,95 +30,82 @@ namespace CondominioApp.Principal.Aplication.ViewModels
 
         public string Estado { get; set; }
 
-        /// Referencia Externa
-        /// <summary>
-        /// Id de referencia externa do condominio
-        /// </summary>
-        public int? RefereciaId { get; set; }
-
-        public string LinkGeraBoleto { get; set; }
-
-        public string BoletoFolder { get; set; }
-
-        public string UrlWebServer { get; set; }
-
-
-
+        
         ///Parametros
         /// <summary>
         /// Habilita/Desabilita Portaria
         /// </summary>
-        public bool Portaria { get; set; }
+        public bool PortariaAtivada { get; set; }
 
         /// <summary>
         /// Habilita/Desabilita Portaria Para o Morador
         /// </summary>
-        public bool PortariaMorador { get; set; }
+        public bool PortariaParaMoradorAtivada { get; set; }
 
         /// <summary>
         ///  Habilita/Desabilita Classificado
         /// </summary>
-        public bool Classificado { get; set; }
+        public bool ClassificadoAtivado { get; set; }
 
         /// <summary>
         /// Habilita/Desabilita Classificado para o morador
         /// </summary>
-        public bool ClassificadoMorador { get; set; }
+        public bool ClassificadoParaMoradorAtivado { get; set; }
 
         /// <summary>
         ///  Habilita/Desabilita Mural
         /// </summary>
-        public bool Mural { get; set; }
+        public bool MuralAtivado { get; set; }
 
         /// <summary>
         /// Habilita/Desabilita Mural para o morador
         /// </summary>
-        public bool MuralMorador { get; set; }
+        public bool MuralParaMoradorAtivado { get; set; }
 
         /// <summary>
         /// Habilita/Desabilita Chat
         /// </summary>
-        public bool Chat { get; set; }
+        public bool ChatAtivado { get; set; }
 
         /// <summary>
         /// Habilita/Desabilita Chat para o morador
         /// </summary>
-        public bool ChatMorador { get; set; }
+        public bool ChatParaMoradorAtivado { get; set; }
 
         /// <summary>
         /// Habilita/Desabilita Reserva
         /// </summary>
-        public bool Reserva { get; set; }
+        public bool ReservaAtivada { get; set; }
 
         /// <summary>
         /// Habilita/Desabilita Reserva na Portaria
         /// </summary>
-        public bool ReservaNaPortaria { get; set; }
+        public bool ReservaNaPortariaAtivada { get; set; }
 
         /// <summary>
         /// Habilita/Desabilita Ocorrencia
         /// </summary>
-        public bool Ocorrencia { get; set; }
+        public bool OcorrenciaAtivada { get; set; }
 
         /// <summary>
         /// Habilita/Desabilita Ocorrencia para o morador
         /// </summary>
-        public bool OcorrenciaMorador { get; set; }
+        public bool OcorrenciaParaMoradorAtivada { get; set; }
 
         /// <summary>
         /// Habilita/Desabilita Correspondencia 
         /// </summary>
-        public bool Correspondencia { get; set; }
+        public bool CorrespondenciaAtivada { get; set; }
 
         /// <summary>
         /// Habilita/Desabilita Correspondencia na Portaria
         /// </summary>
-        public bool CorrespondenciaNaPortaria { get; set; }
+        public bool CorrespondenciaNaPortariaAtivada { get; set; }
 
         /// <summary>
         /// Habilita/Desabilita Limite de Tempo na Reserva
         /// </summary>
-        public bool LimiteTempoReserva { get; set; }
+        public bool CadastroDeVeiculoPeloMoradorAtivado { get; set; }
        
 
         public DateTime DataAssinaturaContrato { get; set; }
@@ -130,7 +116,9 @@ namespace CondominioApp.Principal.Aplication.ViewModels
 
         public bool ContratoAtivo { get; set; }
 
-        public string LinkContrato { get; set; }
+        public int QuantidadeDeUnidadesContratada { get; set; }
+
+        public IFormFile ArquivoContrato { get; set; }
        
     }
 }

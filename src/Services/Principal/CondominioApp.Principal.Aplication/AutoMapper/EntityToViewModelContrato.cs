@@ -14,7 +14,7 @@ namespace CondominioApp.Principal.Aplication.AutoMapper
                 .ForMember(c => c.Descricao, cfg => cfg.MapFrom(x => x.Descricao))
                 .ForMember(c => c.Tipo, p => p.MapFrom(x => x.Tipo))
                 .ForMember(c => c.Ativo, p => p.MapFrom(x => x.Ativo))
-                .ForMember(c => c.Link, p => p.MapFrom(x => x.Link));            
+                .ForMember(c => c.Arquivo, p => p.MapFrom(x => x.ArquivoContrato));            
         }
     }
 }

@@ -12,24 +12,24 @@ namespace CondominioApp.Principal.Aplication.Events
            bool portaria, bool portariaMorador, bool classificado, bool classificadoMorador,
            bool mural, bool muralMorador, bool chat, bool chatMorador, bool reserva,
            bool reservaNaPortaria, bool ocorrencia, bool ocorrenciaMorador, bool correspondencia,
-           bool correspondenciaNaPortaria, bool limiteTempoReserva)            
+           bool correspondenciaNaPortaria, bool cadastroDeVeiculoPeloMoradorAtivado)            
         {
             CondominioId = id;       
-            Portaria = portaria;
-            PortariaMorador = portariaMorador;
-            Classificado = classificado;
-            ClassificadoMorador = classificadoMorador;
-            Mural = mural;
-            MuralMorador = muralMorador;
-            Chat = chat;
-            ChatMorador = chatMorador;
-            Reserva = reserva;
-            ReservaNaPortaria = reservaNaPortaria;
-            Ocorrencia = ocorrencia;
-            OcorrenciaMorador = ocorrenciaMorador;
-            Correspondencia = correspondencia;
-            CorrespondenciaNaPortaria = correspondenciaNaPortaria;
-            LimiteTempoReserva = limiteTempoReserva;
+            PortariaAtivada = portaria;
+            PortariaMoradorAtivada = portariaMorador;
+            ClassificadoAtivado = classificado;
+            ClassificadoMoradorAtivado = classificadoMorador;
+            MuralAtivado = mural;
+            MuralMoradorAtivado = muralMorador;
+            ChatAtivado = chat;
+            ChatMoradorAtivado = chatMorador;
+            ReservaAtivada = reserva;
+            ReservaNaPortariaAtivada = reservaNaPortaria;
+            OcorrenciaAtivada = ocorrencia;
+            OcorrenciaMoradorAtivada = ocorrenciaMorador;
+            CorrespondenciaAtivada = correspondencia;
+            CorrespondenciaNaPortariaAtivada = correspondenciaNaPortaria;
+            CadastroDeVeiculoPeloMoradorAtivado = cadastroDeVeiculoPeloMoradorAtivado;
         }
 
 

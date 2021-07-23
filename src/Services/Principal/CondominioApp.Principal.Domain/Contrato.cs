@@ -1,5 +1,6 @@
 ﻿using CondominioApp.Core.DomainObjects;
 using CondominioApp.Core.Enumeradores;
+using CondominioApp.Principal.Domain.ValueObjects;
 using System;
 
 namespace CondominioApp.Principal.Domain
@@ -18,9 +19,10 @@ namespace CondominioApp.Principal.Domain
 
         public bool Ativo { get; private set; }
 
-        public string Link { get; private set; }       
+        public int QuantidadeDeUnidadesContratada { get; private set; }
 
-     
+        public NomeArquivo ArquivoContrato { get; private set; }
+
 
         /// <summary>
         /// Construtores
@@ -29,14 +31,17 @@ namespace CondominioApp.Principal.Domain
         {
         }
 
-        public Contrato(Guid condominioId, DateTime dataAssinatura, TipoDePlano tipo,string descricao, bool ativo, string link)
+        public Contrato
+            (Guid condominioId, DateTime dataAssinatura, TipoDePlano tipo,string descricao,
+             bool ativo, NomeArquivo arquivoContrato, int quantidadeDeUnidadesContratada)
         {
             CondominioId = condominioId;
             DataAssinatura = dataAssinatura;
             Tipo = tipo;
             Descricao = descricao;
             Ativo = ativo;
-            Link = link;
+            ArquivoContrato = arquivoContrato;
+            QuantidadeDeUnidadesContratada = quantidadeDeUnidadesContratada;
         }
 
 
@@ -49,13 +54,15 @@ namespace CondominioApp.Principal.Domain
 
         public void SetTipoDePlano(TipoDePlano tipo) => Tipo = tipo;
 
-        public void SetDescricao(string descricao) => Descricao = descricao;       
+        public void SetDescricao(string descricao) => Descricao = descricao;
+
+        public void SetQuantidadeDeUnidadesContratada(int qtd) => QuantidadeDeUnidadesContratada = qtd;
 
         public void Ativar() => Ativo = true;
 
         public void Desativar() => Ativo = false;
 
-        public void SetLink(string link) => Link = link;
+        public void SetArquivoContrato(NomeArquivo arquivoContrato) => ArquivoContrato = arquivoContrato;
 
     }
 }

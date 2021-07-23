@@ -1,8 +1,6 @@
 ﻿using System;
 using CondominioApp.Core.Enumeradores;
-using CondominioApp.Core.Messages;
 using CondominioApp.Principal.Domain.ValueObjects;
-using FluentValidation;
 
 namespace CondominioApp.Principal.Aplication.Events
 {
@@ -11,12 +9,13 @@ namespace CondominioApp.Principal.Aplication.Events
       
         public CondominioCadastradoEvent(Guid id,
            Cnpj cnpj, string nome, string descricao, Foto logoMarca, Telefone telefone, Endereco endereo,
-           int? refereciaId, string linkGeraBoleto, string boletoFolder, Url urlWebServer, bool portaria, 
-           bool portariaMorador, bool classificado, bool classificadoMorador, bool mural, bool muralMorador,
-           bool chat, bool chatMorador, bool reserva, bool reservaNaPortaria, bool ocorrencia, bool ocorrenciaMorador,
-           bool correspondencia, bool correspondenciaNaPortaria, bool limiteTempoReserva,Guid contratoId,
-           DateTime dataAssinaturaContrato, TipoDePlano tipoPlano, string descricaoContrato, bool contratoAtivo, 
-           string linkDoContrato)            
+           bool portariaAtivada, bool portariaMoradorAtivada, bool classificadoAtivado, bool classificadoMoradorAtivado,
+           bool muralAtivado, bool muralMoradorAtivado, bool chatAtivado, bool chatMoradorAtivado,
+           bool reservaAtivada, bool reservaNaPortariaAtivada, bool ocorrenciaAtivada,
+           bool ocorrenciaMoradorAtivada, bool correspondenciaAtivada, bool correspondenciaNaPortariaAtivada,
+           bool cadastraVeiculoPeloMoradorAtivado, Guid contratoId, DateTime dataAssinaturaContrato,
+           TipoDePlano tipoPlano, string descricaoContrato, bool contratoAtivo,
+           int quantidadeDeUnidadesContratadas, NomeArquivo arquivoContrato)            
         {
             CondominioId = id;       
             Cnpj = cnpj;
@@ -24,32 +23,29 @@ namespace CondominioApp.Principal.Aplication.Events
             Descricao = descricao;
             LogoMarca = logoMarca;
             Telefone = telefone;
-            Endereco = endereo;
-            RefereciaId = refereciaId;
-            LinkGeraBoleto = linkGeraBoleto;
-            BoletoFolder = boletoFolder;
-            UrlWebServer = urlWebServer;
-            Portaria = portaria;
-            PortariaMorador = portariaMorador;
-            Classificado = classificado;
-            ClassificadoMorador = classificadoMorador;
-            Mural = mural;
-            MuralMorador = muralMorador;
-            Chat = chat;
-            ChatMorador = chatMorador;
-            Reserva = reserva;
-            ReservaNaPortaria = reservaNaPortaria;
-            Ocorrencia = ocorrencia;
-            OcorrenciaMorador = ocorrenciaMorador;
-            Correspondencia = correspondencia;
-            CorrespondenciaNaPortaria = correspondenciaNaPortaria;
-            LimiteTempoReserva = limiteTempoReserva;
+            Endereco = endereo;            
+            PortariaAtivada = portariaAtivada;
+            PortariaMoradorAtivada = portariaMoradorAtivada;
+            ClassificadoAtivado = classificadoAtivado;
+            ClassificadoMoradorAtivado = classificadoMoradorAtivado;
+            MuralAtivado = muralAtivado;
+            MuralMoradorAtivado = muralMoradorAtivado;
+            ChatAtivado = chatAtivado;
+            ChatMoradorAtivado = chatMoradorAtivado;
+            ReservaAtivada = reservaAtivada;
+            ReservaNaPortariaAtivada = reservaNaPortariaAtivada;
+            OcorrenciaAtivada = ocorrenciaAtivada;
+            OcorrenciaMoradorAtivada = ocorrenciaMoradorAtivada;
+            CorrespondenciaAtivada = correspondenciaAtivada;
+            CorrespondenciaNaPortariaAtivada = correspondenciaNaPortariaAtivada;
+            CadastroDeVeiculoPeloMoradorAtivado = cadastraVeiculoPeloMoradorAtivado;
             ContratoId = contratoId;
             DataAssinatura = dataAssinaturaContrato;
             TipoPlano = tipoPlano;
             DescricaoContrato = descricaoContrato;
             ContratoAtivo = contratoAtivo;
-            LinkContrato = linkDoContrato;
+            QuantidadeDeUnidadesContratadas = quantidadeDeUnidadesContratadas;
+            ArquivoContrato = arquivoContrato;
         }
 
 

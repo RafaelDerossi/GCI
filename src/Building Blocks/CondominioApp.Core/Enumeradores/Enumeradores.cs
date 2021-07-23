@@ -48,8 +48,9 @@
 
     public enum TipoDePlano
     {
-        BASIC = 1,
-        STANDART = 2
+        FREE = 1,
+        STANDARD = 2,
+        PREMIUM = 3
     }
 
     public enum TipoDeUnidade

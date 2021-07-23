@@ -21,7 +21,21 @@ namespace CondominioApp.Principal.Aplication.Commands
 
         public bool Ativo { get; set; }
 
-        public string LinkContrato { get; set; }
+        public int QuantidadeDeUnidadesContratado { get; set; }
+
+        public NomeArquivo ArquivoContrato { get; set; }
+
+        public void SetArquivoContrato(string nomeOriginal)
+        {
+            try
+            {
+                ArquivoContrato = new NomeArquivo(nomeOriginal, Guid.NewGuid());
+            }
+            catch (Exception e)
+            {
+                AdicionarErrosDeProcessamentoDoComando(e.Message);
+            }
+        }
 
     }
 }

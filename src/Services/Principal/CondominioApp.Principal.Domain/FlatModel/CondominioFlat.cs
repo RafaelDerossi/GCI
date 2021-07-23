@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using CondominioApp.Core.DomainObjects;
+using CondominioApp.Core.Enumeradores;
+using CondominioApp.Core.Helpers;
+using CondominioApp.Principal.Domain.ValueObjects;
 
 namespace CondominioApp.Principal.Domain.FlatModel
 {
@@ -22,7 +25,20 @@ namespace CondominioApp.Principal.Domain.FlatModel
 
         public string Descricao { get; private set; }
 
-        public string LogoMarca { get; private set; }
+        public string NomeArquivoLogo { get; private set; }        
+
+        public string NomeOriginalArquivoLogo { get; private set; }
+
+        public string UrlArquivoLogo
+        {
+            get
+            {
+                if (NomeArquivoLogo == null || NomeArquivoLogo == "")
+                    return "";
+
+                return StorageHelper.ObterUrlDeArquivo(Id.ToString(), NomeArquivoLogo);
+            }
+        }
 
         public string Telefone { get; private set; }
 
@@ -54,70 +70,99 @@ namespace CondominioApp.Principal.Domain.FlatModel
 
         public string NomeDoSindico { get; private set; }
 
-        public bool Portaria { get; private set; }
+        public bool PortariaAtivada { get; private set; }
        
-        public bool PortariaMorador { get; private set; }
+        public bool PortariaParaMoradorAtivada { get; private set; }
 
-        public bool Classificado { get; private set; }
+        public bool ClassificadoAtivado { get; private set; }
 
-        public bool ClassificadoMorador { get; private set; }
+        public bool ClassificadoParaMoradorAtivado { get; private set; }
 
-        public bool Mural { get; private set; }
+        public bool MuralAtivado { get; private set; }
 
-        public bool MuralMorador { get; private set; }
+        public bool MuralParaMoradorAtivado { get; private set; }
 
-        public bool Chat { get; private set; }
+        public bool ChatAtivado { get; private set; }
 
-        public bool ChatMorador { get; private set; }
+        public bool ChatParaMoradorAtivado { get; private set; }
 
-        public bool Reserva { get; private set; }
+        public bool ReservaAtivada { get; private set; }
 
-        public bool ReservaNaPortaria { get; private set; }
+        public bool ReservaNaPortariaAtivada { get; private set; }
 
-        public bool Ocorrencia { get; private set; }
+        public bool OcorrenciaAtivada { get; private set; }
 
-        public bool OcorrenciaMorador { get; private set; }
+        public bool OcorrenciaParaMoradorAtivada { get; private set; }
         
-        public bool Correspondencia { get; private set; }
+        public bool CorrespondenciaAtivada { get; private set; }
 
-        public bool CorrespondenciaNaPortaria { get; private set; }
+        public bool CorrespondenciaNaPortariaAtivada { get; private set; }
 
-        public bool LimiteTempoReserva { get; private set; }
+        public bool CadastroDeVeiculoPeloMoradorAtivado { get; private set; }
 
 
         public Guid ContratoId { get; private set; }
 
         public DateTime DataAssinaturaContrato { get; private set; }
 
-        public string TipoPlano { get; private set; }
+        public TipoDePlano TipoPlano { get; private set; }
+
+        public string TipoPlanoDescricao
+        {
+            get
+            {
+                return TipoPlano switch
+                {
+                    TipoDePlano.FREE => "Free",
+                    TipoDePlano.STANDARD => "Standard",
+                    TipoDePlano.PREMIUM => "Premium",
+                    _ => "Não Informado",
+                };
+            }
+        }
 
         public string DescricaoContrato { get; private set; }
 
         public bool ContratoAtivo { get; private set; }
 
-        public string LinkContrato { get; private set; }
+        public int QuantidadeDeUnidadesContratadas { get; private set; }
 
-        
+        public string NomeArquivoContrato { get; private set; }
+
+        public string NomeOriginalArquivoContrato { get; private set; }
+
+        public string UrlArquivoContrato
+        {
+            get
+            {
+                if (NomeArquivoContrato == null || NomeArquivoContrato == "")
+                    return "";
+
+                return StorageHelper.ObterUrlDeArquivo(Id.ToString(), NomeArquivoContrato);
+            }
+        }
+
 
 
         protected CondominioFlat() { }
 
         public CondominioFlat(Guid id, bool lixeira, 
-            string cnpj, string nome, string descricao, string logoMarca, 
+            string cnpj, string nome, string descricao, Foto logoMarca, 
             string telefone, string logradouro, string complemento, string numero, string cep, 
-            string bairro, string cidade, string estado, int? refereciaId, string linkGeraBoleto, 
-            string boletoFolder, string urlWebServer, bool portaria, bool portariaMorador, bool classificado,
-            bool classificadoMorador, bool mural, bool muralMorador, bool chat, bool chatMorador, bool reserva,
-            bool reservaNaPortaria, bool ocorrencia, bool ocorrenciaMorador, bool correspondencia,
-            bool correspondenciaNaPortaria, bool limiteTempoReserva, Guid contratoId, DateTime dataAssinaturaContrato,
-            string tipoPlano, string descricaoContrato, bool contratoAtivo, string linkContrato)
+            string bairro, string cidade, string estado, bool portariaAtivada, bool portariaParaMoradorAtivada,
+            bool classificadoAtivado, bool classificadoParaMoradorAtivado, bool muralAtivado,
+            bool muralParaMoradorAtivado, bool chatAtivado, bool chatParaMoradorAtivado, bool reservaAtivada,
+            bool reservaNaPortariaAtivado, bool ocorrenciaAtivada, bool ocorrenciaParaMoradorAtivada,
+            bool correspondenciaAtivada, bool correspondenciaNaPortariaAtivada,
+            bool cadastroDeVeiculoPeloMoradorAtivado, Guid contratoId, DateTime dataAssinaturaContrato,
+            TipoDePlano tipoPlano, string descricaoContrato, bool contratoAtivo, NomeArquivo arquivoContrato)
         {
             Id = id;
             Lixeira = lixeira; 
             Cnpj = cnpj;
             Nome = nome;
             Descricao = descricao;
-            LogoMarca = logoMarca;
+            SetLogo(logoMarca);
             Telefone = telefone;
             Logradouro = logradouro;
             Complemento = complemento;
@@ -125,32 +170,28 @@ namespace CondominioApp.Principal.Domain.FlatModel
             Cep = cep;
             Bairro = bairro;
             Cidade = cidade;
-            Estado = estado;
-            RefereciaId = refereciaId;
-            LinkGeraBoleto = linkGeraBoleto;
-            BoletoFolder = boletoFolder;
-            UrlWebServer = urlWebServer;
-            Portaria = portaria;
-            PortariaMorador = portariaMorador;
-            Classificado = classificado;
-            ClassificadoMorador = classificadoMorador;
-            Mural = mural;
-            MuralMorador = muralMorador;
-            Chat = chat;
-            ChatMorador = chatMorador;
-            Reserva = reserva;
-            ReservaNaPortaria = reservaNaPortaria;
-            Ocorrencia = ocorrencia;
-            OcorrenciaMorador = ocorrenciaMorador;
-            Correspondencia = correspondencia;
-            CorrespondenciaNaPortaria = correspondenciaNaPortaria;
-            LimiteTempoReserva = limiteTempoReserva;
+            Estado = estado;           
+            PortariaAtivada = portariaAtivada;
+            PortariaParaMoradorAtivada = portariaParaMoradorAtivada;
+            ClassificadoAtivado = classificadoAtivado;
+            ClassificadoParaMoradorAtivado = classificadoParaMoradorAtivado;
+            MuralAtivado = muralAtivado;
+            MuralParaMoradorAtivado = muralParaMoradorAtivado;
+            ChatAtivado = chatAtivado;
+            ChatParaMoradorAtivado = chatParaMoradorAtivado;
+            ReservaAtivada = reservaAtivada;
+            ReservaNaPortariaAtivada = reservaNaPortariaAtivado;
+            OcorrenciaAtivada = ocorrenciaAtivada;
+            OcorrenciaParaMoradorAtivada = ocorrenciaParaMoradorAtivada;
+            CorrespondenciaAtivada = correspondenciaAtivada;
+            CorrespondenciaNaPortariaAtivada = correspondenciaNaPortariaAtivada;
+            CadastroDeVeiculoPeloMoradorAtivado = cadastroDeVeiculoPeloMoradorAtivado;
             ContratoId = contratoId;
             DataAssinaturaContrato = dataAssinaturaContrato;
             TipoPlano = tipoPlano;
             DescricaoContrato = descricaoContrato;
             ContratoAtivo = contratoAtivo;
-            LinkContrato = linkContrato;
+            SetArquivoContrato(arquivoContrato);
         }
 
 
@@ -164,7 +205,14 @@ namespace CondominioApp.Principal.Domain.FlatModel
 
         public void SetDescricao(string descricao) => Descricao = descricao;
 
-        public void SetFoto(string logo) => LogoMarca = logo;
+        public void SetLogo(Foto logo)
+        {
+            if (logo != null)
+            {
+                NomeArquivoLogo = logo.NomeDoArquivo;
+                NomeOriginalArquivoLogo = logo.NomeOriginal;
+            }                
+        }
 
         public void SetTelefone(string telefone) => Telefone = telefone;
 
@@ -181,14 +229,14 @@ namespace CondominioApp.Principal.Domain.FlatModel
         }
 
 
-        public void SetContrato(Contrato contrato)
-        {
-            ContratoId = contrato.Id;
-            DataAssinaturaContrato = contrato.DataAssinatura;
-            TipoPlano = contrato.Tipo.ToString();
-            DescricaoContrato = contrato.Descricao;
-            ContratoAtivo = contrato.Ativo;
-            LinkContrato = contrato.Link;
+        public void SetArquivoContrato(NomeArquivo arquivo)
+        {            
+            if (arquivo != null)
+            {
+                NomeArquivoContrato = arquivo.NomeDoArquivo;
+                NomeOriginalArquivoContrato = arquivo.NomeOriginal;
+            }
+            
         }
 
         public void SetSindico(Guid id, string nome)
@@ -202,66 +250,66 @@ namespace CondominioApp.Principal.Domain.FlatModel
         /// <summary>
         /// Portaria
         /// </summary>
-        public void AtivarPortaria() => Portaria = true;
-        public void DesativarPortaria() => Portaria = false;
-        public void AtivarPortariaMorador() => PortariaMorador = true;
-        public void DesativarPortariaMorador() => PortariaMorador = false;
+        public void AtivarPortaria() => PortariaAtivada = true;
+        public void DesativarPortaria() => PortariaAtivada = false;
+        public void AtivarPortariaMorador() => PortariaParaMoradorAtivada = true;
+        public void DesativarPortariaMorador() => PortariaParaMoradorAtivada = false;
 
 
         /// <summary>
         /// Classificado
         /// </summary>
-        public void AtivarClassificado() => Classificado = true;
-        public void DesativarClassificado() => Classificado = false;
-        public void AtivarClassificadoMorador() => ClassificadoMorador = true;
-        public void DesativarClassificadoMorador() => ClassificadoMorador = false;
+        public void AtivarClassificado() => ClassificadoAtivado = true;
+        public void DesativarClassificado() => ClassificadoAtivado = false;
+        public void AtivarClassificadoMorador() => ClassificadoParaMoradorAtivado = true;
+        public void DesativarClassificadoMorador() => ClassificadoParaMoradorAtivado = false;
 
         /// <summary>
         /// Mural
         /// </summary>
-        public void AtivarMural() => Mural = true;
-        public void DesativarMural() => Mural = false;
-        public void AtivarMuralMorador() => MuralMorador = true;
-        public void DesativarMuralMorador() => MuralMorador = false;
+        public void AtivarMural() => MuralAtivado = true;
+        public void DesativarMural() => MuralAtivado = false;
+        public void AtivarMuralMorador() => MuralParaMoradorAtivado = true;
+        public void DesativarMuralMorador() => MuralParaMoradorAtivado = false;
 
 
         /// <summary>
         /// Chat
         /// </summary>
-        public void AtivarChat() => Chat = true;
-        public void DesativarChat() => Chat = false;
-        public void AtivarChatMorador() => ChatMorador = true;
-        public void DesativarChatMorador() => ChatMorador = false;
+        public void AtivarChat() => ChatAtivado = true;
+        public void DesativarChat() => ChatAtivado = false;
+        public void AtivarChatMorador() => ChatParaMoradorAtivado = true;
+        public void DesativarChatMorador() => ChatParaMoradorAtivado = false;
 
         /// <summary>
         /// Reserva
         /// </summary>
-        public void AtivarReserva() => Reserva = true;
-        public void DesativarReserva() => Reserva = false;
-        public void AtivarReservaNaPortaria() => ReservaNaPortaria = true;
-        public void DesativarReservaNaPortaria() => ReservaNaPortaria = false;
+        public void AtivarReserva() => ReservaAtivada = true;
+        public void DesativarReserva() => ReservaAtivada = false;
+        public void AtivarReservaNaPortaria() => ReservaNaPortariaAtivada = true;
+        public void DesativarReservaNaPortaria() => ReservaNaPortariaAtivada = false;
 
         /// <summary>
         /// Ocorrencia
         /// </summary>
-        public void AtivarOcorrencia() => Ocorrencia = true;
-        public void DesativarOcorrencia() => Ocorrencia = false;
-        public void AtivarOcorrenciaMorador() => OcorrenciaMorador = true;
-        public void DesativarOcorrenciaMorador() => OcorrenciaMorador = false;
+        public void AtivarOcorrencia() => OcorrenciaAtivada = true;
+        public void DesativarOcorrencia() => OcorrenciaAtivada = false;
+        public void AtivarOcorrenciaMorador() => OcorrenciaParaMoradorAtivada = true;
+        public void DesativarOcorrenciaMorador() => OcorrenciaParaMoradorAtivada = false;
 
         /// <summary>
         /// Correspondencia
         /// </summary>
-        public void AtivarCorrespondencia() => Correspondencia = true;
-        public void DesativarCorrespondencia() => Correspondencia = false;
-        public void AtivarCorrespondenciaNaPortaria() => CorrespondenciaNaPortaria = true;
-        public void DesativarCorrespondenciaNaPortaria() => CorrespondenciaNaPortaria = false;
+        public void AtivarCorrespondencia() => CorrespondenciaAtivada = true;
+        public void DesativarCorrespondencia() => CorrespondenciaAtivada = false;
+        public void AtivarCorrespondenciaNaPortaria() => CorrespondenciaNaPortariaAtivada = true;
+        public void DesativarCorrespondenciaNaPortaria() => CorrespondenciaNaPortariaAtivada = false;
 
         /// <summary>
-        /// LimiteTempoReserva
+        /// Cadastro de Veiculo pelo morador
         /// </summary>
-        public void AtivarLimiteTempoReserva() => LimiteTempoReserva = true;
-        public void DesativarLimiteTempoReserva() => LimiteTempoReserva = false;
+        public void AtivarCadastroDeVeiculoPeloMorador() => CadastroDeVeiculoPeloMoradorAtivado = true;
+        public void DesativarCadastroDeVeiculoPeloMorador() => CadastroDeVeiculoPeloMoradorAtivado = false;
 
 
 

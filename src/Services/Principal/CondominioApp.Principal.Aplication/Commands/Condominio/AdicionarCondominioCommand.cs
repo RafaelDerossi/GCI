@@ -6,47 +6,43 @@ using System;
 namespace CondominioApp.Principal.Aplication.Commands
 {
    public class AdicionarCondominioCommand : CondominioCommand
-    {        
-
-        public AdicionarCondominioCommand(string cnpj, string nome, string descricao, string logoMarca,
-            string nomeOriginal, string telefone, string logradouro, string complemento, string numero,
-            string cep, string bairro, string cidade, string estado, int? refereciaId, string linkGeraBoleto,
-            string boletoFolder, string urlWebServer, bool portaria, bool portariaMorador, bool classificado,
-            bool classificadoMorador, bool mural, bool muralMorador, bool chat, bool chatMorador, bool reserva,
-            bool reservaNaPortaria, bool ocorrencia, bool ocorrenciaMorador, bool correspondencia,
-            bool correspondenciaNaPortaria, bool limiteTempoReserva,
-            DateTime DataAssinaturaContrato, TipoDePlano TipoDePlano, string descricaoContrato, 
-            bool contratoAtivo, string LinkContrato)
-        {                    
-            Nome = nome;
-            Descricao = descricao;          
-            RefereciaId = refereciaId;
-            LinkGeraBoleto = linkGeraBoleto;
-            Portaria = portaria;
-            BoletoFolder = boletoFolder;            
-            PortariaMorador = portariaMorador;
-            Classificado = classificado;
-            ClassificadoMorador = classificadoMorador;
-            Mural = mural;
-            MuralMorador = muralMorador;
-            Chat = chat;
-            ChatMorador = chatMorador;
-            Reserva = reserva;
-            ReservaNaPortaria = reservaNaPortaria;
-            Ocorrencia = ocorrencia;
-            OcorrenciaMorador = ocorrenciaMorador;
-            Correspondencia = correspondencia;
-            CorrespondenciaNaPortaria = correspondenciaNaPortaria;
-            LimiteTempoReserva = limiteTempoReserva;
-
+    {
+        public AdicionarCondominioCommand
+            (string cnpj, string nome, string descricao, string nomeOriginalArquivoLogo, string telefone,
+             string logradouro, string complemento, string numero, string cep, string bairro, string cidade, 
+             string estado, bool portariaAtivada, bool portariaParaMoradorAtivada, bool classificadoAtivado,
+             bool classificadoParaMoradorAtivado, bool muralAtivado, bool muralParaMoradorAtivado,
+             bool chatAtivado, bool chatParaMoradorAtivado, bool reservaAtivada, bool reservaNaPortariaAtivada,
+             bool ocorrenciaAtivada, bool ocorrenciaParaMoradorAtivada, bool correspondenciaAtivada, 
+             bool correspondenciaNaPortariaAtivada, bool cadastroDeVeiculoPeloMoradorAtivado,
+             DateTime DataAssinaturaContrato, TipoDePlano TipoDePlano, string descricaoContrato,
+             bool contratoAtivo, string nomeOriginalArquivoContrato,  int quantidadeDeUnidadesContratada)
+        {
             SetCNPJ(cnpj);
-            SetFoto(logoMarca, nomeOriginal);
+            Nome = nome;
+            Descricao = descricao;
+            SetFoto(nomeOriginalArquivoLogo);
             SetTelefone(telefone);
-            SetEndereco(logradouro, complemento, numero, cep, bairro, cidade, estado);
-            SetUrlWebServer(urlWebServer);
-
-            SetContrato(DataAssinaturaContrato, TipoDePlano, descricaoContrato, contratoAtivo, LinkContrato);
+            SetEndereco(logradouro, complemento, numero, cep, bairro, cidade, estado);         
             
+            PortariaAtivada = portariaAtivada;
+            PortariaParaMoradorAtivada = portariaParaMoradorAtivada;
+            ClassificadoAtivado = classificadoAtivado;
+            ClassificadoParaMoradorAtivado = classificadoParaMoradorAtivado;
+            MuralAtivado = muralAtivado;
+            MuralParaMoradorAtivado = muralParaMoradorAtivado;
+            ChatAtivado = chatAtivado;
+            ChatParaMoradorAtivado = chatParaMoradorAtivado;
+            ReservaAtivada = reservaAtivada;
+            ReservaNaPortariaAtivada = reservaNaPortariaAtivada;
+            OcorrenciaAtivada = ocorrenciaAtivada;
+            OcorrenciaParaMoradorAtivada = ocorrenciaParaMoradorAtivada;
+            CorrespondenciaAtivada = correspondenciaAtivada;
+            CorrespondenciaNaPortariaAtivada = correspondenciaNaPortariaAtivada;
+            CadastroDeVeiculoPeloMoradorAtivado = cadastroDeVeiculoPeloMoradorAtivado;
+            SetContrato
+                (DataAssinaturaContrato, TipoDePlano, descricaoContrato, contratoAtivo,
+                 nomeOriginalArquivoContrato, quantidadeDeUnidadesContratada);
         }
 
 

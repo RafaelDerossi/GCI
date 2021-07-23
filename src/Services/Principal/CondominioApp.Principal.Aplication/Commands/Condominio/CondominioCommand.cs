@@ -45,77 +45,75 @@ namespace CondominioApp.Principal.Aplication.Commands
         /// <summary>
         /// Habilita/Desabilita Portaria
         /// </summary>
-        public bool Portaria { get; protected set; }
+        public bool PortariaAtivada { get; protected set; }
 
         /// <summary>
         /// Habilita/Desabilita Portaria Para o Morador
         /// </summary>
-        public bool PortariaMorador { get; protected set; }
+        public bool PortariaParaMoradorAtivada { get; protected set; }
 
         /// <summary>
         ///  Habilita/Desabilita Classificado
         /// </summary>
-        public bool Classificado { get; protected set; }
+        public bool ClassificadoAtivado { get; protected set; }
 
         /// <summary>
         /// Habilita/Desabilita Classificado para o morador
         /// </summary>
-        public bool ClassificadoMorador { get; protected set; }
+        public bool ClassificadoParaMoradorAtivado { get; protected set; }
 
         /// <summary>
         ///  Habilita/Desabilita Mural
         /// </summary>
-        public bool Mural { get; protected set; }
+        public bool MuralAtivado { get; protected set; }
 
         /// <summary>
         /// Habilita/Desabilita Mural para o morador
         /// </summary>
-        public bool MuralMorador { get; protected set; }
+        public bool MuralParaMoradorAtivado { get; protected set; }
 
         /// <summary>
         /// Habilita/Desabilita Chat
         /// </summary>
-        public bool Chat { get; protected set; }
+        public bool ChatAtivado { get; protected set; }
 
         /// <summary>
         /// Habilita/Desabilita Chat para o morador
         /// </summary>
-        public bool ChatMorador { get; protected set; }
+        public bool ChatParaMoradorAtivado { get; protected set; }
 
         /// <summary>
         /// Habilita/Desabilita Reserva
         /// </summary>
-        public bool Reserva { get; protected set; }
+        public bool ReservaAtivada { get; protected set; }
 
         /// <summary>
         /// Habilita/Desabilita Reserva na Portaria
         /// </summary>
-        public bool ReservaNaPortaria { get; protected set; }
+        public bool ReservaNaPortariaAtivada { get; protected set; }
 
         /// <summary>
         /// Habilita/Desabilita Ocorrencia
         /// </summary>
-        public bool Ocorrencia { get; protected set; }
+        public bool OcorrenciaAtivada { get; protected set; }
 
         /// <summary>
         /// Habilita/Desabilita Ocorrencia para o morador
         /// </summary>
-        public bool OcorrenciaMorador { get; protected set; }
+        public bool OcorrenciaParaMoradorAtivada { get; protected set; }
 
         /// <summary>
         /// Habilita/Desabilita Correspondencia 
         /// </summary>
-        public bool Correspondencia { get; protected set; }
+        public bool CorrespondenciaAtivada { get; protected set; }
 
         /// <summary>
         /// Habilita/Desabilita Correspondencia na Portaria
         /// </summary>
-        public bool CorrespondenciaNaPortaria { get; protected set; }
+        public bool CorrespondenciaNaPortariaAtivada { get; protected set; }
 
-        /// <summary>
-        /// Habilita/Desabilita Limite de Tempo na Reserva
-        /// </summary>
-        public bool LimiteTempoReserva { get; protected set; }
+        public bool CadastroDeVeiculoPeloMoradorAtivado { get; protected set; }
+
 
 
         public Contrato Contrato { get; protected set; }    
@@ -133,11 +131,11 @@ namespace CondominioApp.Principal.Aplication.Commands
             }
         }            
 
-        public void SetFoto(string logomarca, string nomeOriginal)
+        public void SetFoto(string nomeOriginal)
         {
             try
             {
-                LogoMarca = new Foto(nomeOriginal, logomarca);
+                LogoMarca = new Foto(nomeOriginal);
             }
             catch (Exception e)
             {
@@ -184,12 +182,13 @@ namespace CondominioApp.Principal.Aplication.Commands
 
         public void SetContrato(
             DateTime dataAssinatura, TipoDePlano tipoPlano, 
-            string descricaoContrato, bool ativo, string linkContrato)
+            string descricaoContrato, bool ativo, string nomeArquivoContrato,
+            int quantidadeDeUnidadesContratada)
         {
-            if (tipoPlano != 0)
-            {
-                Contrato = new Contrato(CondominioId, dataAssinatura, tipoPlano, descricaoContrato, ativo, linkContrato);
-            }            
+            Contrato = new Contrato
+                       (CondominioId, dataAssinatura, tipoPlano, descricaoContrato, ativo,
+                        new NomeArquivo(nomeArquivoContrato, Guid.NewGuid()),
+                        quantidadeDeUnidadesContratada);
         }
 
         public void SetNome(string nome) => Nome = nome;
@@ -199,5 +198,7 @@ namespace CondominioApp.Principal.Aplication.Commands
             FuncionarioIdDoSindico = id;
             NomeDoSindico = nome;
         }
+
+
     }
 }

@@ -40,7 +40,7 @@ namespace CondominioApp.NotificacaoEmail.Aplication.Events
 
             var condominio = await _principalQuery.ObterPorId(morador.CondominioId);
 
-            var logoCondominio = condominio.LogoMarca; //"https://condominioappstorage.blob.core.windows.net/condominioapp/Uploads/usuario/572d0886-11c4-4fb3-b806-0d7cf6695bc8.png";
+            var logoCondominio = condominio.NomeArquivoLogo; //"https://condominioappstorage.blob.core.windows.net/condominioapp/Uploads/usuario/572d0886-11c4-4fb3-b806-0d7cf6695bc8.png";
 
             var DisparadorDeEmail = new DisparadorDeEmails(new EmailConfirmacaoDeCadastroDeMorador(morador, logoCondominio));
             await DisparadorDeEmail.Disparar();

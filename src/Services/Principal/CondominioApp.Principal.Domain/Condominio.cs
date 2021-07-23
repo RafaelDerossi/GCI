@@ -44,77 +44,78 @@ namespace CondominioApp.Principal.Domain
         /// <summary>
         /// Habilita/Desabilita Portaria
         /// </summary>
-        public bool Portaria { get; private set; }
+        public bool PortariaAtivada { get; private set; }
 
         /// <summary>
         /// Habilita/Desabilita Portaria Para o Morador
         /// </summary>
-        public bool PortariaMorador { get; private set; }
+        public bool PortariaParaMoradorAtivada { get; private set; }
 
         /// <summary>
         ///  Habilita/Desabilita Classificado
         /// </summary>
-        public bool Classificado { get; private set; }
+        public bool ClassificadoAtivado { get; private set; }
 
         /// <summary>
         /// Habilita/Desabilita Classificado para o morador
         /// </summary>
-        public bool ClassificadoMorador { get; private set; }
+        public bool ClassificadoParaMoradorAtivado { get; private set; }
 
         /// <summary>
         ///  Habilita/Desabilita Mural
         /// </summary>
-        public bool Mural { get; private set; }
+        public bool MuralAtivado { get; private set; }
 
         /// <summary>
         /// Habilita/Desabilita Mural para o morador
         /// </summary>
-        public bool MuralMorador { get; private set; }
+        public bool MuralParaMoradorAtivado { get; private set; }
 
         /// <summary>
         /// Habilita/Desabilita Chat
         /// </summary>
-        public bool Chat { get; private set; }
+        public bool ChatAtivado { get; private set; }
 
         /// <summary>
         /// Habilita/Desabilita Chat para o morador
         /// </summary>
-        public bool ChatMorador { get; private set; }
+        public bool ChatParaMoradorAtivado { get; private set; }
 
         /// <summary>
         /// Habilita/Desabilita Reserva
         /// </summary>
-        public bool Reserva { get; private set; }
+        public bool ReservaAtivada { get; private set; }
 
         /// <summary>
         /// Habilita/Desabilita Reserva na Portaria
         /// </summary>
-        public bool ReservaNaPortaria { get; private set; }
+        public bool ReservaNaPortariaAtivada { get; private set; }
 
         /// <summary>
         /// Habilita/Desabilita Ocorrencia
         /// </summary>
-        public bool Ocorrencia { get; private set; }
+        public bool OcorrenciaAtivada { get; private set; }
 
         /// <summary>
         /// Habilita/Desabilita Ocorrencia para o morador
         /// </summary>
-        public bool OcorrenciaMorador { get; private set; }
+        public bool OcorrenciaParaMoradorAtivada { get; private set; }
 
         /// <summary>
         /// Habilita/Desabilita Correspondencia 
         /// </summary>
-        public bool Correspondencia { get; private set; }
+        public bool CorrespondenciaAtivada { get; private set; }
 
         /// <summary>
         /// Habilita/Desabilita Correspondencia na Portaria
         /// </summary>
-        public bool CorrespondenciaNaPortaria { get; private set; }
+        public bool CorrespondenciaNaPortariaAtivada { get; private set; }
 
         /// <summary>
-        /// Habilita/Desabilita Limite de Tempo na Reserva
+        /// Habilita/Desabilita o cadastro de veículo pelo morador no app.
         /// </summary>
-        public bool LimiteTempoReserva { get; private set; }
+        public bool CadastroDeVeiculoPeloMoradorAtivado { get; private set; }
+
 
 
 
@@ -149,7 +150,7 @@ namespace CondominioApp.Principal.Domain
             bool classificadoMorador, bool mural, bool muralMorador, bool chat, bool
             chatMorador, bool reserva, bool reservaNaPortaria, bool ocorrencia,
             bool ocorrenciaMorador, bool correspondencia, bool correspondenciaNaPortaria,
-            bool limiteTempoReserva)
+            bool cadastroDeVeiculoPeloMoradorAtivado)
         {
             _Grupos = new List<Grupo>();
             _Unidades = new List<Unidade>();
@@ -165,21 +166,21 @@ namespace CondominioApp.Principal.Domain
             LinkGeraBoleto = linkGeraBoleto;
             BoletoFolder = boletoFolder;
             UrlWebServer = urlWebServer;
-            Portaria = portaria;
-            PortariaMorador = portariaMorador;
-            Classificado = classificado;
-            ClassificadoMorador = classificadoMorador;
-            Mural = mural;
-            MuralMorador = muralMorador;
-            Chat = chat;
-            ChatMorador = chatMorador;
-            Reserva = reserva;
-            ReservaNaPortaria = reservaNaPortaria;
-            Ocorrencia = ocorrencia;
-            OcorrenciaMorador = ocorrenciaMorador;
-            Correspondencia = correspondencia;
-            CorrespondenciaNaPortaria = correspondenciaNaPortaria;
-            LimiteTempoReserva = limiteTempoReserva;
+            PortariaAtivada = portaria;
+            PortariaParaMoradorAtivada = portariaMorador;
+            ClassificadoAtivado = classificado;
+            ClassificadoParaMoradorAtivado = classificadoMorador;
+            MuralAtivado = mural;
+            MuralParaMoradorAtivado = muralMorador;
+            ChatAtivado = chat;
+            ChatParaMoradorAtivado = chatMorador;
+            ReservaAtivada = reserva;
+            ReservaNaPortariaAtivada = reservaNaPortaria;
+            OcorrenciaAtivada = ocorrencia;
+            OcorrenciaParaMoradorAtivada = ocorrenciaMorador;
+            CorrespondenciaAtivada = correspondencia;
+            CorrespondenciaNaPortariaAtivada = correspondenciaNaPortaria;
+            CadastroDeVeiculoPeloMoradorAtivado = cadastroDeVeiculoPeloMoradorAtivado;
         }
 
 
@@ -207,66 +208,66 @@ namespace CondominioApp.Principal.Domain
         /// <summary>
         /// Portaria
         /// </summary>
-        public void AtivarPortaria() => Portaria = true;
-        public void DesativarPortaria() => Portaria = false;
-        public void AtivarPortariaMorador() => PortariaMorador = true;
-        public void DesativarPortariaMorador() => PortariaMorador = false;
+        public void AtivarPortaria() => PortariaAtivada = true;
+        public void DesativarPortaria() => PortariaAtivada = false;
+        public void AtivarPortariaMorador() => PortariaParaMoradorAtivada = true;
+        public void DesativarPortariaMorador() => PortariaParaMoradorAtivada = false;
 
 
         /// <summary>
         /// Classificado
         /// </summary>
-        public void AtivarClassificado() => Classificado = true;
-        public void DesativarClassificado() => Classificado = false;
-        public void AtivarClassificadoMorador() => ClassificadoMorador = true;
-        public void DesativarClassificadoMorador() => ClassificadoMorador = false;
+        public void AtivarClassificado() => ClassificadoAtivado = true;
+        public void DesativarClassificado() => ClassificadoAtivado = false;
+        public void AtivarClassificadoMorador() => ClassificadoParaMoradorAtivado = true;
+        public void DesativarClassificadoMorador() => ClassificadoParaMoradorAtivado = false;
 
         /// <summary>
         /// Mural
         /// </summary>
-        public void AtivarMural() => Mural = true;
-        public void DesativarMural() => Mural = false;
-        public void AtivarMuralMorador() => MuralMorador = true;
-        public void DesativarMuralMorador() => MuralMorador = false;
+        public void AtivarMural() => MuralAtivado = true;
+        public void DesativarMural() => MuralAtivado = false;
+        public void AtivarMuralMorador() => MuralParaMoradorAtivado = true;
+        public void DesativarMuralMorador() => MuralParaMoradorAtivado = false;
 
 
         /// <summary>
         /// Chat
         /// </summary>
-        public void AtivarChat() => Chat = true;
-        public void DesativarChat() => Chat = false;
-        public void AtivarChatMorador() => ChatMorador = true;
-        public void DesativarChatMorador() => ChatMorador = false;
+        public void AtivarChat() => ChatAtivado = true;
+        public void DesativarChat() => ChatAtivado = false;
+        public void AtivarChatMorador() => ChatParaMoradorAtivado = true;
+        public void DesativarChatMorador() => ChatParaMoradorAtivado = false;
 
         /// <summary>
         /// Reserva
         /// </summary>
-        public void AtivarReserva() => Reserva = true;
-        public void DesativarReserva() => Reserva = false;
-        public void AtivarReservaNaPortaria() => ReservaNaPortaria = true;
-        public void DesativarReservaNaPortaria() => ReservaNaPortaria = false;
+        public void AtivarReserva() => ReservaAtivada = true;
+        public void DesativarReserva() => ReservaAtivada = false;
+        public void AtivarReservaNaPortaria() => ReservaNaPortariaAtivada = true;
+        public void DesativarReservaNaPortaria() => ReservaNaPortariaAtivada = false;
 
         /// <summary>
         /// Ocorrencia
         /// </summary>
-        public void AtivarOcorrencia() => Ocorrencia = true;
-        public void DesativarOcorrencia() => Ocorrencia = false;
-        public void AtivarOcorrenciaMorador() => OcorrenciaMorador = true;
-        public void DesativarOcorrenciaMorador() => OcorrenciaMorador = false;
+        public void AtivarOcorrencia() => OcorrenciaAtivada = true;
+        public void DesativarOcorrencia() => OcorrenciaAtivada = false;
+        public void AtivarOcorrenciaMorador() => OcorrenciaParaMoradorAtivada = true;
+        public void DesativarOcorrenciaMorador() => OcorrenciaParaMoradorAtivada = false;
 
         /// <summary>
         /// Correspondencia
         /// </summary>
-        public void AtivarCorrespondencia() => Correspondencia = true;
-        public void DesativarCorrespondencia() => Correspondencia = false;
-        public void AtivarCorrespondenciaNaPortaria() => CorrespondenciaNaPortaria = true;
-        public void DesativarCorrespondenciaNaPortaria() => CorrespondenciaNaPortaria = false;
+        public void AtivarCorrespondencia() => CorrespondenciaAtivada = true;
+        public void DesativarCorrespondencia() => CorrespondenciaAtivada = false;
+        public void AtivarCorrespondenciaNaPortaria() => CorrespondenciaNaPortariaAtivada = true;
+        public void DesativarCorrespondenciaNaPortaria() => CorrespondenciaNaPortariaAtivada = false;
 
         /// <summary>
-        /// LimiteTempoReserva
+        /// Cadastro de Veículo pelo morador
         /// </summary>
-        public void AtivarLimiteTempoReserva() => LimiteTempoReserva = true;
-        public void DesativarLimiteTempoReserva() => LimiteTempoReserva = false;
+        public void AtivarCadastroDeVeiculoPeloMorador() => CadastroDeVeiculoPeloMoradorAtivado = true;
+        public void DesativarCadastroDeVeiculoPeloMorador() => CadastroDeVeiculoPeloMoradorAtivado = false;
 
 
         /// Metodos 

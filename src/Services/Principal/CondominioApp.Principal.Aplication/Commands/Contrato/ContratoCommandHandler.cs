@@ -31,7 +31,8 @@ namespace CondominioApp.Principal.Aplication.Commands
 
             var contrato = new Contrato(
                 request.CondominioId, request.DataAssinatura, request.TipoPlano,
-                request.DescricaoContrato, request.Ativo, request.LinkContrato);
+                request.DescricaoContrato, request.Ativo, request.ArquivoContrato,
+                request.QuantidadeDeUnidadesContratado);
 
             if (!ValidationResult.IsValid) return ValidationResult;
 
@@ -46,7 +47,6 @@ namespace CondominioApp.Principal.Aplication.Commands
             var resultado = condominio.AdicionarContrato(contrato);
 
             if (!resultado.IsValid) return resultado;
-
 
             _condominioRepository.AdicionarContrato(contrato);
             _condominioRepository.Atualizar(condominio);            
@@ -68,7 +68,7 @@ namespace CondominioApp.Principal.Aplication.Commands
             contratoBd.SetDataAssinatura(request.DataAssinatura);
             contratoBd.SetTipoDePlano(request.TipoPlano);
             contratoBd.SetDescricao(request.DescricaoContrato);
-            contratoBd.SetLink(request.LinkContrato);           
+            contratoBd.SetQuantidadeDeUnidadesContratada(request.QuantidadeDeUnidadesContratado);
 
             var condominio = _condominioRepository.ObterPorId(contratoBd.CondominioId).Result;
             if (condominio == null)
