@@ -37,7 +37,7 @@ namespace CondominioApp.Ocorrencias.App.Aplication.Commands
             {
                 ValidateOcorrenciaId();
                 ValidateDescricao();
-                ValidateMoradorIdFuncionarioId();
+                ValidateAutorId();
 
             }
         }

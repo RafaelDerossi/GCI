@@ -132,7 +132,11 @@ namespace CondominioApp.Ocorrencias.App.Aplication.Commands
             {
                 AdicionarErro("Resposta não encontrada!");
                 return ValidationResult;
-            }            
+            }
+
+            var retorno = resposta.Apagar(request.AutorId);
+            if (!retorno.IsValid)
+                return retorno;
 
             _ocorrenciaRepository.ApagarResposta(x=>x.Id == resposta.Id);
 

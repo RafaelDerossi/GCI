@@ -379,14 +379,15 @@ namespace CondominioApp.Api.Controllers
         /// <summary>
         /// Adiciona uma ocorrência
         /// </summary>
-        /// <param name="ocorrenciaVM">
+        /// <param name="ocorrenciaVM"></param>
+        /// <response code="200">
+        /// Parâmetros:   
         /// Descricao   : Descrição da ocorêrncia (1000 caracteres);   
         /// Publica     : Define se a ocorrência é publica(todos os moradores podem ver) ou privada(somente a administração pode ver);   
         /// MoradorId   : Id(Guid) do morador que criou a ocorrência;   
         /// Panico      : Informa se a ocorrência é de emergência ou não;   
         /// ArquivoFoto : Arquivo da foto de ocorrência;   
-        /// </param>
-        /// <returns></returns>
+        /// </response>
         [HttpPost]
         public async Task<ActionResult> Post([FromForm]AdicionaOcorrenciaViewModel ocorrenciaVM)
         {
@@ -424,15 +425,16 @@ namespace CondominioApp.Api.Controllers
         /// <summary>
         /// Adiciona uma resposta da administração a uma ocorrência
         /// </summary>
-        /// <param name="respostaVM">
+        /// <param name="respostaVM"></param>
+        /// <response code="200">
+        /// Parâmetros:   
         /// OcorrenciaId      : Id(Guid) da ocorrência;   
         /// Descricao         : Descrição da ocorêrncia (1000 caracteres);   
         /// FuncionarioId     : Id(Guid) do funcionario que esta respondendo a ocorrência;   
         /// ArquivoFoto       : Arquivo da foto;   
         /// ArquivoAnexo      : Arquivo anexo;   
         /// StatusDaOcorrencia: Define o status da ocorrência.Enum(PENDENTE = 0, EM_ANDAMENTO = 1, RESOLVIDA = 2)
-        /// </param>
-        /// <returns></returns>
+        /// </response>
         [HttpPost("resposta-administracao")]
         public async Task<ActionResult> PostRespostaAdministracao([FromForm]AdicionaRespostaOcorrenciaAdministracaoViewModel respostaVM)
         {
@@ -472,14 +474,15 @@ namespace CondominioApp.Api.Controllers
         /// <summary>
         /// Adiciona uma resposta do morador a uma ocorrência
         /// </summary>
-        /// <param name="respostaVM">
+        /// <param name="respostaVM"></param>
+        /// <response code="200">
+        /// Parâmetros:   
         /// OcorrenciaId      : Id(Guid) da ocorrência;   
         /// Descricao         : Descrição da ocorêrncia (1000 caracteres);   
         /// MoradorId         : Id(Guid) do morador que esta respondendo a ocorrência;   
         /// ArquivoFoto       : Arquivo da foto;   
         /// ArquivoAnexo      : Arquivo anexo;           
-        /// </param>
-        /// <returns></returns>
+        /// </response>
         [HttpPost("resposta-morador")]
         public async Task<ActionResult> PostRespostaMorador([FromForm]AdicionaRespostaOcorrenciaMoradorViewModel respostaVM)
         {
@@ -504,17 +507,18 @@ namespace CondominioApp.Api.Controllers
 
 
         #region PUTs
-        
+
         /// <summary>
         /// Atualiza uma ocorrência
         /// </summary>
-        /// <param name="ocorrenciaVM">
+        /// <param name="ocorrenciaVM"></param>
+        /// <response code="200">
+        /// Parâmetros:   
         /// Id          : Id(Guid) da ocorrência a ser editada;   
         /// Descricao   : Descrição da ocorrência(1000 caracteres);   
         /// Publica     : Define se a ocorrência vai poder ser vista por todos os moradores(Pública) ou apenas pela administração(privada);   
         /// ArquivoFoto : Arquivo de uma foto;   
-        /// </param>
-        /// <returns></returns>
+        /// </response>
         [HttpPut]
         public async Task<ActionResult> Put([FromForm]AtualizaOcorrenciaViewModel ocorrenciaVM)
         {
@@ -564,12 +568,13 @@ namespace CondominioApp.Api.Controllers
         /// <summary>
         /// Atualizar uma resposta se ainda não foi visualizada
         /// </summary>
-        /// <param name="respostaVM">
+        /// <param name="respostaVM"></param>
+        /// <response code="200">
+        /// Parâmetros:   
         /// Id                     : Id(Guid) da resposta;   
         /// Descricao              : Nova descrição da resposta (1000 caracteres);   
         /// MoradorIdFuncionarioId : Id(Guid) da morador ou do funcionário que esta editando a resposta(tem que ser o mesmo que criou a resposta);   
-        /// </param>
-        /// <returns></returns>
+        /// </response>
         [HttpPut("resposta")]
         public async Task<ActionResult> PutResposta([FromForm]AtualizaRespostaOcorrenciaViewModel respostaVM)
         {
@@ -595,6 +600,11 @@ namespace CondominioApp.Api.Controllers
 
 
         #region Delete
+        /// <summary>
+        /// Envia uma ocorrência para lixeira
+        /// </summary>
+        /// <param name="ocorrenciaId">Id(Guid) da ocorrência</param>
+        /// <returns></returns>
         [HttpDelete("remover/{ocorrenciaId:Guid}")]
         public async Task<ActionResult> RemoverOcorrencia(Guid ocorrenciaId)
         {
@@ -608,12 +618,18 @@ namespace CondominioApp.Api.Controllers
 
         }
 
+        /// <summary>
+        /// Envia uma resposta para a lixeira
+        /// </summary>
+        /// <param name="respostaId">Id(Guid) da resposta</param>
+        /// <param name="moradorIdFuncionarioId">Id(Guid) do morador ou do funcionário que esta tentando apagar a resposta</param>
+        /// <returns></returns>
         [HttpDelete("remover/{respostaId:Guid}")]
-        public async Task<ActionResult> RemoverRespostaDeOcorrencia(Guid respostaId)
+        public async Task<ActionResult> RemoverRespostaDeOcorrencia(Guid respostaId, Guid moradorIdFuncionarioId)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var comando = new ApagarRespostaOcorrenciaCommand(respostaId);
+            var comando = new ApagarRespostaOcorrenciaCommand(respostaId, moradorIdFuncionarioId);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 

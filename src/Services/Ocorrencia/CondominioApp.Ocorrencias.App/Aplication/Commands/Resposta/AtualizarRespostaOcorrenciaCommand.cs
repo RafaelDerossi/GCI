@@ -29,7 +29,7 @@ namespace CondominioApp.Ocorrencias.App.Aplication.Commands
             public AtualizarRespostaOcorrenciaCommandValidation()
             {
                 ValidateId();
-                ValidateMoradorIdFuncionarioId();
+                ValidateAutorId();
                 ValidateDescricao();
             }
         }

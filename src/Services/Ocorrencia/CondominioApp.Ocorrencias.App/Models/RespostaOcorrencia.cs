@@ -69,6 +69,22 @@ namespace CondominioApp.Ocorrencias.App.Models
             return ValidationResult;
         }
 
+        public ValidationResult Apagar(Guid autorId)
+        {
+            if (AutorId != autorId)
+            {
+                AdicionarErrosDaEntidade("Usuário não corresponde ao que criou a resposta.");
+                return ValidationResult;
+            }
+
+            if (Visto)
+            {
+                AdicionarErrosDaEntidade("Resposta não pode mais ser apagada.");
+                return ValidationResult;
+            }            
+
+            return ValidationResult;
+        }
 
 
         public void EnviarPushParaMorador(Guid moradorId, StatusDaOcorrencia statusDaOcorrencia)

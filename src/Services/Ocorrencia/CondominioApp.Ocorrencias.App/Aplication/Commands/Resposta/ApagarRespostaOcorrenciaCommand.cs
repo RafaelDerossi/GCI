@@ -5,9 +5,10 @@ namespace CondominioApp.Ocorrencias.App.Aplication.Commands
 {
     public class ApagarRespostaOcorrenciaCommand : RespostaOcorrenciaCommand
     {
-        public ApagarRespostaOcorrenciaCommand(Guid id)
+        public ApagarRespostaOcorrenciaCommand(Guid id, Guid autorId)
         {
             Id = id;
+            AutorId = autorId;
         }
 
 
@@ -26,6 +27,7 @@ namespace CondominioApp.Ocorrencias.App.Aplication.Commands
             public ApagarRespostaOcorrenciaCommandValidation()
             {
                 ValidateId();
+                ValidateAutorId();
             }
         }
     }
