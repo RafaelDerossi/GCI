@@ -12,9 +12,10 @@ namespace CondominioApp.Principal.Aplication.AutoMapper
                 .ForMember(c => c.CondominioId, p => p.MapFrom(x => x.CondominioId))
                 .ForMember(c => c.DataAssinatura, p => p.MapFrom(x => x.DataAssinatura))
                 .ForMember(c => c.Descricao, cfg => cfg.MapFrom(x => x.Descricao))
-                .ForMember(c => c.Tipo, p => p.MapFrom(x => x.Tipo))
+                .ForMember(c => c.Plano, p => p.MapFrom(x => x.Tipo))
                 .ForMember(c => c.Ativo, p => p.MapFrom(x => x.Ativo))
-                .ForMember(c => c.Arquivo, p => p.MapFrom(x => x.ArquivoContrato));            
+                .ForMember(c => c.NomeArquivoContrato, p => p.MapFrom(x => x.ArquivoContrato.NomeDoArquivo))
+                .ForMember(c => c.NomeOriginalArquivoContrato, p => p.MapFrom(x => x.ArquivoContrato.NomeOriginal));            
         }
     }
 }

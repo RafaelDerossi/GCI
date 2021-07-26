@@ -11,77 +11,73 @@ namespace CondominioApp.Principal.Aplication.ViewModels
         /// <summary>
         /// Habilita/Desabilita Portaria
         /// </summary>
-        public bool Portaria { get; set; }
+        public bool PortariaAtivada { get; set; }
 
         /// <summary>
         /// Habilita/Desabilita Portaria Para o Morador
         /// </summary>
-        public bool PortariaMorador { get; set; }
+        public bool PortariaMoradorAtivada { get; set; }
 
         /// <summary>
         ///  Habilita/Desabilita Classificado
         /// </summary>
-        public bool Classificado { get; set; }
+        public bool ClassificadoAtivado { get; set; }
 
         /// <summary>
         /// Habilita/Desabilita Classificado para o morador
         /// </summary>
-        public bool ClassificadoMorador { get; set; }
+        public bool ClassificadoMoradorAtivado { get; set; }
 
         /// <summary>
         ///  Habilita/Desabilita Mural
         /// </summary>
-        public bool Mural { get; set; }
+        public bool MuralAtivado { get; set; }
 
         /// <summary>
         /// Habilita/Desabilita Mural para o morador
         /// </summary>
-        public bool MuralMorador { get; set; }
+        public bool MuralMoradorAtivado { get; set; }
 
         /// <summary>
         /// Habilita/Desabilita Chat
         /// </summary>
-        public bool Chat { get; set; }
+        public bool ChatAtivado { get; set; }
 
         /// <summary>
         /// Habilita/Desabilita Chat para o morador
         /// </summary>
-        public bool ChatMorador { get; set; }
+        public bool ChatMoradorAtivado { get; set; }
 
         /// <summary>
         /// Habilita/Desabilita Reserva
         /// </summary>
-        public bool Reserva { get; set; }
+        public bool ReservaAtivada { get; set; }
 
         /// <summary>
         /// Habilita/Desabilita Reserva na Portaria
         /// </summary>
-        public bool ReservaNaPortaria { get; set; }
+        public bool ReservaNaPortariaAtivada { get; set; }
 
         /// <summary>
         /// Habilita/Desabilita Ocorrencia
         /// </summary>
-        public bool Ocorrencia { get; set; }
+        public bool OcorrenciaAtivada { get; set; }
 
         /// <summary>
         /// Habilita/Desabilita Ocorrencia para o morador
         /// </summary>
-        public bool OcorrenciaMorador { get; set; }
+        public bool OcorrenciaMoradorAtivada { get; set; }
 
         /// <summary>
         /// Habilita/Desabilita Correspondencia 
         /// </summary>
-        public bool Correspondencia { get; set; }
+        public bool CorrespondenciaAtivada { get; set; }
 
         /// <summary>
         /// Habilita/Desabilita Correspondencia na Portaria
         /// </summary>
-        public bool CorrespondenciaNaPortaria { get; set; }
+        public bool CorrespondenciaNaPortariaAtivada { get; set; }
 
-        /// <summary>
-        /// Habilita/Desabilita Limite de Tempo na Reserva
-        /// </summary>
-        public bool LimiteTempoReserva { get; set; }
-
+        public bool CadastroDeVeiculoPeloMoradorAtivado { get; set; }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using CondominioApp.Principal.Aplication.Commands;
-using CondominioApp.Principal;
 using Moq;
 using Moq.AutoMock;
 using System.Threading;
@@ -7,12 +6,10 @@ using System.Threading.Tasks;
 using Xunit;
 using CondominioApp.Principal.Domain.Interfaces;
 using CondominioApp.Principal.Domain;
-using System;
-using CondominioApp.Principal.Domain.ValueObjects;
 
 namespace CondominioApp.Principal.Tests
 {
-   public class GrupoCommandHandlerTests
+    public class GrupoCommandHandlerTests
     {
         private readonly AutoMocker _mocker;
         private readonly GrupoCommandHandler _grupoCommandHandler;
@@ -30,11 +27,7 @@ namespace CondominioApp.Principal.Tests
             //Arrange
             var command = GrupoCommandFactory.CriarComandoCadastroDeGrupo();
 
-            var condominio = new Condominio(new Cnpj("26585345000148"), "Condominio TU",
-                "Condominio Teste Unitario", new Foto("Foto.jpg", "Foto.jpg"), new Telefone("(21) 99796-7038"),
-                 new Endereco("Rua...", null, "1001", "23063260", "Bairro", "Cidade", "RJ"),
-                0, null, null, null, false, false, false, false, false, false, false, false, false, false, false,
-                false, false, false, false);
+            var condominio = CondominioFactoryTests.Criar_Condominio_Valido();
 
             condominio.SetEntidadeId(command.CondominioId);
 
@@ -70,11 +63,7 @@ namespace CondominioApp.Principal.Tests
             var grupo = new Grupo(command.Descricao, command.CondominioId);
             grupo.SetEntidadeId(command.GrupoId);
 
-            var condominio = new Condominio(new Cnpj("26585345000148"), "Condominio TU",
-                "Condominio Teste Unitario", new Foto("Foto.jpg", "Foto.jpg"), new Telefone("(21) 99796-7038"),
-                 new Endereco("Rua...", null, "1001", "23063260", "Bairro", "Cidade", "RJ"),
-                0, null, null, null, false, false, false, false, false, false, false, false, false, false, false,
-                false, false, false, false);
+            var condominio = CondominioFactoryTests.Criar_Condominio_Valido();
 
             condominio.SetEntidadeId(command.CondominioId);
 

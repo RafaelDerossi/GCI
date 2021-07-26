@@ -67,7 +67,7 @@ namespace CondominioApp.Principal.Infra.Data.Repository
             return await _queryContext.CondominiosFlat
                  .AsNoTracking()
                  .FirstOrDefaultAsync(u => u.Id == Id && !u.Lixeira);
-        }
+        }        
 
         public async Task<IEnumerable<CondominioFlat>> ObterTodos()
         {

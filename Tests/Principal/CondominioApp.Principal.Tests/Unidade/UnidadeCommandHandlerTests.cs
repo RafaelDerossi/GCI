@@ -33,11 +33,8 @@ namespace CondominioApp.Principal.Tests
             var grupo = new Grupo("Bloco 1", Guid.NewGuid());
             grupo.SetEntidadeId(command.GrupoId);
 
-            var condominio = new Condominio(new Cnpj("26585345000148"), "Condominio TU",
-               "Condominio Teste Unitario", new Foto("Foto.jpg", "Foto.jpg"), new Telefone("(21) 99796-7038"),
-                new Endereco("Rua...", null, "1001", "23063260", "Bairro", "Cidade", "RJ"),
-               0, null, null, null, false, false, false, false, false, false, false, false, false, false, false,
-               false, false, false, false);
+            var condominio = CondominioFactoryTests.Criar_Condominio_Valido();
+
             condominio.SetEntidadeId(grupo.CondominioId);
 
             _mocker.GetMock<IPrincipalRepository>().Setup(r => r.ObterGrupoPorId(command.GrupoId))

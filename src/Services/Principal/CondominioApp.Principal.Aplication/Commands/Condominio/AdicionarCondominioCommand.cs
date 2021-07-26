@@ -18,10 +18,11 @@ namespace CondominioApp.Principal.Aplication.Commands
              DateTime DataAssinaturaContrato, TipoDePlano TipoDePlano, string descricaoContrato,
              bool contratoAtivo, string nomeOriginalArquivoContrato,  int quantidadeDeUnidadesContratada)
         {
+            Id = Guid.NewGuid();
             SetCNPJ(cnpj);
             Nome = nome;
             Descricao = descricao;
-            SetFoto(nomeOriginalArquivoLogo);
+            SetLogo(nomeOriginalArquivoLogo);
             SetTelefone(telefone);
             SetEndereco(logradouro, complemento, numero, cep, bairro, cidade, estado);         
             

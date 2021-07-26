@@ -1,4 +1,5 @@
-﻿using CondominioApp.Core.Helpers;
+﻿using CondominioApp.ArquivoDigital.AzureStorageBlob.Services;
+using CondominioApp.Core.Helpers;
 using CondominioApp.Core.Mediator;
 using CondominioApp.Principal.Aplication.Commands;
 using CondominioApp.Principal.Aplication.Query.Interfaces;
@@ -21,12 +22,16 @@ namespace CondominioApp.Api.Controllers
         private readonly IMediatorHandler _mediatorHandler;
         private readonly IPrincipalQuery _principalQuery;
         private readonly IUsuarioQuery _usuarioQuery;
+        private readonly IAzureStorageService _azureStorageService;
+
         public CondominioController
-            (IMediatorHandler mediatorHandler, IPrincipalQuery principalQuery, IUsuarioQuery usuarioQuery)
+            (IMediatorHandler mediatorHandler, IPrincipalQuery principalQuery,
+             IUsuarioQuery usuarioQuery, IAzureStorageService azureStorageService)
         {
             _mediatorHandler = mediatorHandler;
             _principalQuery = principalQuery;
             _usuarioQuery = usuarioQuery;
+            _azureStorageService = azureStorageService;
         }
 
 
@@ -128,7 +133,27 @@ namespace CondominioApp.Api.Controllers
             return condominios.ToList();
         }
 
+        /// <summary>
+        /// Retorna os condomínios do funcionário através do seu usuarioId
+        /// </summary>
+        /// <param name="usuarioId">Id(Guid) do usuário</param>
+        /// <returns></returns>
+        [HttpGet("por-funcionario/{usuarioId:Guid}")]
+        public async Task<ActionResult<IEnumerable<CondominioFlat>>> ObterCondominiosDoFuncionario(Guid usuarioId)
+        {
+            var funcionarios = await _usuarioQuery.ObterFuncionariosPorUsuarioId(usuarioId);            
+            if (funcionarios.Count() == 0)
+            {
+                AdicionarErroProcessamento("Nenhum registro encontrado.");
+                return CustomResponse();
+            }
 
+            var condominiosIds = funcionarios.Select(x => x.CondominioId);
+
+            var condominios = await _principalQuery.ObterPorIds(condominiosIds);
+
+            return condominios.ToList();
+        }
 
 
         /// <summary>
@@ -140,9 +165,7 @@ namespace CondominioApp.Api.Controllers
         /// Cnpj                                : CNPJ do condomínio;
         /// Nome                                : Nome do condomínio(200 caracteres);
         /// Descricao                           : Breve descrição do condomínio(200 caracteres);   
-        /// ArquivoLogo                         : Nome do arquivo da logo do condomínio;   
-        /// NomeOriginalArquivoLogo             : Nome original do arquivo da logo do condomínio;   
-        /// UrlLogoMarca                        : Url da logo do condomínio;
+        /// ArquivoLogo                         : Nome do arquivo da logo do condomínio;           
         /// Telefone                            : Telefone do condomínio;   
         /// Logradouro                          : Endereço do condomínio;   
         /// Complemento                         : Complemento do endereço do condomínio;   
@@ -176,30 +199,58 @@ namespace CondominioApp.Api.Controllers
         [HttpPost]
         public async Task<ActionResult> Post(AdicionaCondominioViewModel condominioVM)
         {
-            if (!ModelState.IsValid) return CustomResponse(ModelState);
+            if (!ModelState.IsValid) return CustomResponse(ModelState);            
 
-            var nomeOriginalLogo = StorageHelper.ObterNomeDoArquivo(condominioVM.ArquivoLogo);
-            var nomeOriginalArquivoContrato = StorageHelper.ObterNomeDoArquivo(condominioVM.ArquivoContrato);
+            var comando = AdicionarCondominioCommandFactory(condominioVM);
 
-            var comando = new AdicionarCondominioCommand(
-                 condominioVM.Cnpj, condominioVM.Nome, condominioVM.Descricao, nomeOriginalLogo,
-                 condominioVM.Telefone, condominioVM.Logradouro, condominioVM.Complemento,
-                 condominioVM.Numero, condominioVM.Cep, condominioVM.Bairro, condominioVM.Cidade,
-                 condominioVM.Estado, condominioVM.PortariaAtivada, condominioVM.PortariaParaMoradorAtivada,
-                 condominioVM.ClassificadoAtivado, condominioVM.ClassificadoParaMoradorAtivado,
-                 condominioVM.MuralAtivado, condominioVM.MuralParaMoradorAtivado, condominioVM.ChatAtivado,
-                 condominioVM.ChatParaMoradorAtivado, condominioVM.ReservaAtivada, condominioVM.ReservaNaPortariaAtivada,
-                 condominioVM.OcorrenciaAtivada, condominioVM.OcorrenciaParaMoradorAtivada, condominioVM.CorrespondenciaAtivada,
-                 condominioVM.CorrespondenciaNaPortariaAtivada, condominioVM.CadastroDeVeiculoPeloMoradorAtivado,
-                 condominioVM.DataAssinaturaContrato, condominioVM.TipoDePlano, condominioVM.DescricaoContrato,
-                 condominioVM.ContratoAtivo, nomeOriginalArquivoContrato, condominioVM.QuantidadeDeUnidadesContratada);
-                       
+            if (comando.EstaValido())
+            {
+                if (condominioVM.ArquivoLogo != null)
+                {
+                    var retorno = await _azureStorageService.SubirArquivo
+                              (condominioVM.ArquivoLogo,
+                               comando.Logo.NomeDoArquivo,
+                               comando.Id.ToString());
 
-            var Resultado = await _mediatorHandler.EnviarComando(comando);
+                    if (!retorno.IsValid)
+                        return CustomResponse(retorno);
+                }
 
-            return CustomResponse(Resultado);          
+                if (condominioVM.ArquivoContrato != null)
+                {
+                    var retorno = await _azureStorageService.SubirArquivo
+                              (condominioVM.ArquivoContrato,
+                               comando.Contrato.ArquivoContrato.NomeDoArquivo,
+                               comando.Id.ToString());
+
+                    if (!retorno.IsValid)
+                        return CustomResponse(retorno);
+                }
+
+
+            }           
+
+            return CustomResponse(await _mediatorHandler.EnviarComando(comando));          
         }
 
+        /// <summary>
+        /// Atualiza dados do condomínio
+        /// </summary>
+        /// <param name="EditaCondominioVM">
+        /// PARÂMETROS:           
+        /// Cnpj                                : CNPJ do condomínio;
+        /// Nome                                : Nome do condomínio(200 caracteres);
+        /// Descricao                           : Breve descrição do condomínio(200 caracteres);                   
+        /// Telefone                            : Telefone do condomínio;   
+        /// Logradouro                          : Endereço do condomínio;   
+        /// Complemento                         : Complemento do endereço do condomínio;   
+        /// Numero                              : Número do endereço do condomínio;   
+        /// Cep                                 : Cep do condomínio;   
+        /// Bairro                              : Bairro do condomínio;   
+        /// Cidade                              : Município do condomínio;   
+        /// Estado                              : UF do condomínio;           
+        /// </param>
+        /// <returns></returns>
         [HttpPut]
         public async Task<ActionResult> Put(AtualizaCondominioViewModel EditaCondominioVM)
         {
@@ -207,33 +258,59 @@ namespace CondominioApp.Api.Controllers
 
             var comando = new AtualizarCondominioCommand(
                  EditaCondominioVM.Id, EditaCondominioVM.Cnpj, EditaCondominioVM.Nome,
-                 EditaCondominioVM.Descricao, EditaCondominioVM.LogoMarca, EditaCondominioVM.NomeOriginal,
-                 EditaCondominioVM.Telefone, EditaCondominioVM.Logradouro, EditaCondominioVM.Complemento,
-                 EditaCondominioVM.Numero, EditaCondominioVM.Cep, EditaCondominioVM.Bairro, 
-                 EditaCondominioVM.Cidade, EditaCondominioVM.Estado);
+                 EditaCondominioVM.Descricao, EditaCondominioVM.Telefone, EditaCondominioVM.Logradouro,
+                 EditaCondominioVM.Complemento, EditaCondominioVM.Numero, EditaCondominioVM.Cep,
+                 EditaCondominioVM.Bairro, EditaCondominioVM.Cidade, EditaCondominioVM.Estado);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
 
             return CustomResponse(Resultado);                      
         }
 
+        /// <summary>
+        /// Atualiza os parâmetros do condomínio
+        /// </summary>
+        /// <param name="EditaCondominioVM">
+        /// Id                                  : Guid do condomínio;   
+        /// PortariaAtivada                     : Informa se as funções de portaria estão ativadas no condomínio;   
+        /// PortariaParaMoradorAtivada          : Informa se as funções de portaria no app do morador estão ativada no condomínio;   
+        /// ClassificadoAtivado                 : Informa se a função "classificados" esta ativada no condomínio;   
+        /// ClassificadoParaMoradorAtivado      : Informa se a função "classificados" no app do morador esta ativada no condomínio;   
+        /// MuralAtivado                        : Informa se a função "mural" esta ativada no condomínio;   
+        /// MuralParaMoradorAtivado             : Informa se a função "mural" no app do morador esta ativada no condomínio;   
+        /// ChatAtivado                         : Informa se o "chat" esta ativado no condomínio;   
+        /// ChatParaMoradorAtivado              : Informa se o "chat" no app do morador esta ativado no condomínio;   
+        /// ReservaAtivada                      : Informa se as funções de reservar horários em áreas comuns estão ativadas no condomínio;   
+        /// ReservaNaPortariaAtivada            : Informa se as funções de reservar horários em áreas comuns estão ativadas na portaria do condomínio;   
+        /// OcorrenciaAtivada                   : Informa se a função "ocorrências" esta ativada no condomínio;   
+        /// OcorrenciaParaMoradorAtivada        : Informa se a função "ocorrência" no app do morador esta ativada no condomínio;   
+        /// CorrespondenciaAtivada              : Informa se a função "correspondência" esta ativada no condomínio;   
+        /// CorrespondenciaNaPortariaAtivada    : Informa se a função "correspondência" esta ativada na portaria do condomínio;   
+        /// CadastroDeVeiculoPeloMoradorAtivado : Informa se a função cadastrar veículos pelo morador no app esta ativada;                   
+        /// </param>
+        /// <returns></returns>
         [HttpPut("configuracao")]
         public async Task<ActionResult> PutConfiguracao(AtualizaConfiguracaoCondominioViewModel EditaCondominioVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
             var comando = new AtualizarConfiguracaoCondominioCommand(
-                 EditaCondominioVM.Id, EditaCondominioVM.Portaria, EditaCondominioVM.PortariaMorador,
-                 EditaCondominioVM.Classificado, EditaCondominioVM.ClassificadoMorador, EditaCondominioVM.Mural,
-                 EditaCondominioVM.MuralMorador, EditaCondominioVM.Chat, EditaCondominioVM.ChatMorador, 
-                 EditaCondominioVM.Reserva, EditaCondominioVM.ReservaNaPortaria, EditaCondominioVM.Ocorrencia,
-                 EditaCondominioVM.OcorrenciaMorador, EditaCondominioVM.Correspondencia, 
-                 EditaCondominioVM.CorrespondenciaNaPortaria, EditaCondominioVM.LimiteTempoReserva);          
+                 EditaCondominioVM.Id, EditaCondominioVM.PortariaAtivada, EditaCondominioVM.PortariaMoradorAtivada,
+                 EditaCondominioVM.ClassificadoAtivado, EditaCondominioVM.ClassificadoMoradorAtivado, EditaCondominioVM.MuralAtivado,
+                 EditaCondominioVM.MuralMoradorAtivado, EditaCondominioVM.ChatAtivado, EditaCondominioVM.ChatMoradorAtivado, 
+                 EditaCondominioVM.ReservaAtivada, EditaCondominioVM.ReservaNaPortariaAtivada, EditaCondominioVM.OcorrenciaAtivada,
+                 EditaCondominioVM.OcorrenciaMoradorAtivada, EditaCondominioVM.CorrespondenciaAtivada, 
+                 EditaCondominioVM.CorrespondenciaNaPortariaAtivada, EditaCondominioVM.CadastroDeVeiculoPeloMoradorAtivado);          
                     
 
             return CustomResponse(await _mediatorHandler.EnviarComando(comando));
         }
 
+        /// <summary>
+        /// Define o funcionário como síndico do condomínio
+        /// </summary>
+        /// <param name="funcionarioId">Id(Guid) do condomínio</param>
+        /// <returns></returns>
         [HttpPut("definir-sindico/{funcionarioId:Guid}")]
         public async Task<ActionResult> PutDefinirSindico(Guid funcionarioId)
         {
@@ -249,10 +326,47 @@ namespace CondominioApp.Api.Controllers
             var comando = new DefinirSindicoDoCondominioCommand(
                  sindico.CondominioId, sindico.Id, sindico.NomeCompleto);                 
 
+            return CustomResponse(await _mediatorHandler.EnviarComando(comando));
+        }
+
+        /// <summary>
+        /// Atualiza a logo do condomínio
+        /// </summary>
+        /// <param name="EditaCondominioVM">
+        /// Id                                  : Guid do condomínio;           
+        /// ArquivoLogo : Arquivo da foto da logo do condomínio;                   
+        /// </param>
+        /// <returns></returns>
+        [HttpPut("logo")]
+        public async Task<ActionResult> PutAtualizaLogoDoCondominio(AtualizaLogoCondominioViewModel EditaCondominioVM)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            var nomeOriginalLogo = StorageHelper.ObterNomeDoArquivo(EditaCondominioVM.ArquivoLogo);           
+
+            var comando = new AtualizarLogoDoCondominioCommand(
+                 EditaCondominioVM.Id, nomeOriginalLogo);
+
+            if (comando.EstaValido() && EditaCondominioVM.ArquivoLogo != null)
+            {
+                var retorno = await _azureStorageService.SubirArquivo
+                              (EditaCondominioVM.ArquivoLogo,
+                               comando.Logo.NomeDoArquivo,
+                               comando.Id.ToString());
+
+                if (!retorno.IsValid)
+                    return CustomResponse(retorno);
+            }
 
             return CustomResponse(await _mediatorHandler.EnviarComando(comando));
         }
 
+
+        /// <summary>
+        /// Envia um condomínio para lixeira
+        /// </summary>
+        /// <param name="Id">Id(Guid) do condomínio</param>
+        /// <returns></returns>
         [HttpDelete("{Id:Guid}")]
         public async Task<ActionResult> Delete(Guid Id)
         {
@@ -262,5 +376,27 @@ namespace CondominioApp.Api.Controllers
 
             return CustomResponse(Resultado);
         }
+
+        
+        private AdicionarCondominioCommand AdicionarCondominioCommandFactory(AdicionaCondominioViewModel condominioVM)
+        {
+            var nomeOriginalLogo = StorageHelper.ObterNomeDoArquivo(condominioVM.ArquivoLogo);
+            var nomeOriginalArquivoContrato = StorageHelper.ObterNomeDoArquivo(condominioVM.ArquivoContrato);
+
+           return new AdicionarCondominioCommand(
+                 condominioVM.Cnpj, condominioVM.Nome, condominioVM.Descricao, nomeOriginalLogo,
+                 condominioVM.Telefone, condominioVM.Logradouro, condominioVM.Complemento,
+                 condominioVM.Numero, condominioVM.Cep, condominioVM.Bairro, condominioVM.Cidade,
+                 condominioVM.Estado, condominioVM.PortariaAtivada, condominioVM.PortariaParaMoradorAtivada,
+                 condominioVM.ClassificadoAtivado, condominioVM.ClassificadoParaMoradorAtivado,
+                 condominioVM.MuralAtivado, condominioVM.MuralParaMoradorAtivado, condominioVM.ChatAtivado,
+                 condominioVM.ChatParaMoradorAtivado, condominioVM.ReservaAtivada, condominioVM.ReservaNaPortariaAtivada,
+                 condominioVM.OcorrenciaAtivada, condominioVM.OcorrenciaParaMoradorAtivada, condominioVM.CorrespondenciaAtivada,
+                 condominioVM.CorrespondenciaNaPortariaAtivada, condominioVM.CadastroDeVeiculoPeloMoradorAtivado,
+                 condominioVM.DataAssinaturaContrato, condominioVM.TipoDePlano, condominioVM.DescricaoContrato,
+                 condominioVM.ContratoAtivo, nomeOriginalArquivoContrato, condominioVM.QuantidadeDeUnidadesContratada);
+
+        }
+
     }
 }

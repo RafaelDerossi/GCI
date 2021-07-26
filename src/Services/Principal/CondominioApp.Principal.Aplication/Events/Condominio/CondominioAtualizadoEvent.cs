@@ -3,10 +3,10 @@ using CondominioApp.Principal.Domain.ValueObjects;
 
 namespace CondominioApp.Principal.Aplication.Events
 {
-    public class CondominioEditadoEvent : CondominioEvent
+    public class CondominioAtualizadoEvent : CondominioEvent
     {
       
-        public CondominioEditadoEvent(Guid id,
+        public CondominioAtualizadoEvent(Guid id,
            Cnpj cnpj, string nome, string descricao, Telefone telefone, Endereco endereo)            
         {
             CondominioId = id;        

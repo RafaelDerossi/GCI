@@ -4,10 +4,10 @@ using CondominioApp.Principal.Domain.ValueObjects;
 
 namespace CondominioApp.Principal.Aplication.Events
 {
-    public class CondominioCadastradoEvent : CondominioEvent
+    public class CondominioAdicionadoEvent : CondominioEvent
     {
       
-        public CondominioCadastradoEvent(Guid id,
+        public CondominioAdicionadoEvent(Guid id,
            Cnpj cnpj, string nome, string descricao, Foto logoMarca, Telefone telefone, Endereco endereo,
            bool portariaAtivada, bool portariaMoradorAtivada, bool classificadoAtivado, bool classificadoMoradorAtivado,
            bool muralAtivado, bool muralMoradorAtivado, bool chatAtivado, bool chatMoradorAtivado,

@@ -8,7 +8,7 @@ namespace CondominioApp.Principal.Aplication.Commands
 
         public DefinirSindicoDoCondominioCommand(Guid condominioId, Guid funcionarioIdDoSindico, string nomeDoSindico)
         {
-            CondominioId = condominioId;
+            Id = condominioId;
             FuncionarioIdDoSindico = funcionarioIdDoSindico;
             NomeDoSindico = nomeDoSindico;
         }

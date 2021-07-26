@@ -7,7 +7,7 @@ namespace CondominioApp.Principal.Aplication.Commands.Validations
     {
         protected void ValidateId()
         {
-            RuleFor(c => c.CondominioId)
+            RuleFor(c => c.Id)
                 .NotEqual(Guid.Empty);
         }
         protected void ValidateCNPJ()

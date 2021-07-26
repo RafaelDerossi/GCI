@@ -144,42 +144,39 @@ namespace CondominioApp.Principal.Domain
 
         }
 
-        public Condominio(Cnpj cnpj, string nome, string descricao, Foto logoMarca,
-            Telefone telefone, Endereco endereco, int? refereciaId, string linkGeraBoleto, string boletoFolder,
-            Url urlWebServer, bool portaria, bool portariaMorador, bool classificado,
-            bool classificadoMorador, bool mural, bool muralMorador, bool chat, bool
-            chatMorador, bool reserva, bool reservaNaPortaria, bool ocorrencia,
-            bool ocorrenciaMorador, bool correspondencia, bool correspondenciaNaPortaria,
-            bool cadastroDeVeiculoPeloMoradorAtivado)
+        public Condominio(Guid id, Cnpj cnpj, string nome, string descricao, Foto logoMarca,
+            Telefone telefone, Endereco endereco, bool portariaAtivada, 
+            bool portariaParaMoradorAtivada, bool classificadoAtivado,  bool classificadoMorador,
+            bool muralAtivado, bool muralParaMoradorAtivado, bool chatAtivado, bool chatParaMoradorAtivado, 
+            bool reservaAtivada, bool reservaNaPortariaAtivada, bool ocorrenciaAtivada, 
+            bool ocorrenciaParaMoradorAtivada, bool correspondenciaAtivada, 
+            bool correspondenciaNaPortariaAtivada, bool cadastroDeVeiculoPeloMoradorAtivado)
         {
             _Grupos = new List<Grupo>();
             _Unidades = new List<Unidade>();
             _Contratos = new List<Contrato>();
 
+            SetEntidadeId(id);
             Cnpj = cnpj;
             Nome = nome;
             Descricao = descricao;
             LogoMarca = logoMarca;
             Telefone = telefone;
-            Endereco = endereco;
-            RefereciaId = refereciaId;
-            LinkGeraBoleto = linkGeraBoleto;
-            BoletoFolder = boletoFolder;
-            UrlWebServer = urlWebServer;
-            PortariaAtivada = portaria;
-            PortariaParaMoradorAtivada = portariaMorador;
-            ClassificadoAtivado = classificado;
+            Endereco = endereco;          
+            PortariaAtivada = portariaAtivada;
+            PortariaParaMoradorAtivada = portariaParaMoradorAtivada;
+            ClassificadoAtivado = classificadoAtivado;
             ClassificadoParaMoradorAtivado = classificadoMorador;
-            MuralAtivado = mural;
-            MuralParaMoradorAtivado = muralMorador;
-            ChatAtivado = chat;
-            ChatParaMoradorAtivado = chatMorador;
-            ReservaAtivada = reserva;
-            ReservaNaPortariaAtivada = reservaNaPortaria;
-            OcorrenciaAtivada = ocorrencia;
-            OcorrenciaParaMoradorAtivada = ocorrenciaMorador;
-            CorrespondenciaAtivada = correspondencia;
-            CorrespondenciaNaPortariaAtivada = correspondenciaNaPortaria;
+            MuralAtivado = muralAtivado;
+            MuralParaMoradorAtivado = muralParaMoradorAtivado;
+            ChatAtivado = chatAtivado;
+            ChatParaMoradorAtivado = chatParaMoradorAtivado;
+            ReservaAtivada = reservaAtivada;
+            ReservaNaPortariaAtivada = reservaNaPortariaAtivada;
+            OcorrenciaAtivada = ocorrenciaAtivada;
+            OcorrenciaParaMoradorAtivada = ocorrenciaParaMoradorAtivada;
+            CorrespondenciaAtivada = correspondenciaAtivada;
+            CorrespondenciaNaPortariaAtivada = correspondenciaNaPortariaAtivada;
             CadastroDeVeiculoPeloMoradorAtivado = cadastroDeVeiculoPeloMoradorAtivado;
         }
 
@@ -194,7 +191,7 @@ namespace CondominioApp.Principal.Domain
 
         public void SetDescricao(string descricao) => Descricao = descricao;
 
-        public void SetFoto(Foto logo) => LogoMarca = logo;
+        public void SetLogo(Foto logo) => LogoMarca = logo;
 
         public void SetTelefone(Telefone telefone) => Telefone = telefone;
 

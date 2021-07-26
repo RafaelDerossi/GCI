@@ -11,11 +11,7 @@ namespace CondominioApp.Principal.Aplication.ViewModels
 
         public string Nome { get; set; }
 
-        public string Descricao { get; set; }
-
-        public string LogoMarca { get; set; }
-
-        public string NomeOriginal { get; set; }
+        public string Descricao { get; set; }        
 
         public string Telefone { get; set; }
 

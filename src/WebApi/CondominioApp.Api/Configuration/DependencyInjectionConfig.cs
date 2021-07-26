@@ -305,12 +305,17 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<IRequestHandler<AtualizarConfiguracaoCondominioCommand, ValidationResult>, CondominioCommandHandler>();
             services.AddScoped<IRequestHandler<ApagarCondominioCommand, ValidationResult>, CondominioCommandHandler>();
             services.AddScoped<IRequestHandler<DefinirSindicoDoCondominioCommand, ValidationResult>, CondominioCommandHandler>();
-            services.AddScoped<INotificationHandler<CondominioCadastradoEvent>, CondominioEventHandler>();
-            services.AddScoped<INotificationHandler<CondominioEditadoEvent>, CondominioEventHandler>();
-            services.AddScoped<INotificationHandler<CondominioConfiguracaoEditadoEvent>, CondominioEventHandler>();
+            services.AddScoped<IRequestHandler<AtualizarLogoDoCondominioCommand, ValidationResult>, CondominioCommandHandler>();            
+            services.AddScoped<INotificationHandler<CondominioAdicionadoEvent>, CondominioEventHandler>();
+            services.AddScoped<INotificationHandler<CondominioAtualizadoEvent>, CondominioEventHandler>();
+            services.AddScoped<INotificationHandler<ConfiguracaoDoCondominioAtualizadaEvent>, CondominioEventHandler>();
             services.AddScoped<INotificationHandler<CondominioApagadoEvent>, CondominioEventHandler>();
-            services.AddScoped<INotificationHandler<SindicoDoCondominioDefinidoEvent>, CondominioEventHandler>();
-
+            services.AddScoped<INotificationHandler<SindicoDoCondominioDefinidoEvent>, CondominioEventHandler>();            
+            services.AddScoped<INotificationHandler<LogoDoCondominioAtualizadoEvent>, CondominioEventHandler>();
+            services.AddScoped<INotificationHandler<ContratoDefinidoEvent>, CondominioEventHandler>();
+            services.AddScoped<INotificationHandler<ContratoAtualizadoEvent>, CondominioEventHandler>();
+            services.AddScoped<INotificationHandler<ContratoApagadoEvent>, CondominioEventHandler>();
+            services.AddScoped<INotificationHandler<ContratoDesativadoEvent>, CondominioEventHandler>();
 
             //Grupo
             services.AddScoped<IRequestHandler<AdicionarGrupoCommand, ValidationResult>, GrupoCommandHandler>();
@@ -331,12 +336,14 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<INotificationHandler<CodigoUnidadeResetadoEvent>, UnidadeEventHandler>();
             services.AddScoped<INotificationHandler<UnidadeRemovidaEvent>, UnidadeEventHandler>();
             services.AddScoped<INotificationHandler<VagaDeUnidadeEditadaEvent>, UnidadeEventHandler>();
+            services.AddScoped<INotificationHandler<VagaDeUnidadeEditadaEvent>, UnidadeEventHandler>();            
 
             //Contratos
             services.AddScoped<IRequestHandler<AdicionarContratoCommand, ValidationResult>, ContratoCommandHandler>();
             services.AddScoped<IRequestHandler<AtualizarContratoCommand, ValidationResult>, ContratoCommandHandler>();
             services.AddScoped<IRequestHandler<ApagarContratoCommand, ValidationResult>, ContratoCommandHandler>();
-            
+            services.AddScoped<IRequestHandler<AtivarContratoCommand, ValidationResult>, ContratoCommandHandler>();
+            services.AddScoped<IRequestHandler<DesativarContratoCommand, ValidationResult>, ContratoCommandHandler>();
 
             #endregion
 

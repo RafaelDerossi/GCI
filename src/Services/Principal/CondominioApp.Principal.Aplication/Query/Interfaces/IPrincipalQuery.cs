@@ -34,5 +34,7 @@ namespace CondominioApp.Principal.Aplication.Query.Interfaces
         Task<Contrato> ObterContratoPorId(Guid Id);
 
         Task<IEnumerable<Contrato>> ObterContratosPorCondominio(Guid condominioId);
+
+        Task<IEnumerable<CondominioFlat>> ObterPorIds(IEnumerable<Guid> ids);
     }
 }

@@ -113,6 +113,7 @@ namespace CondominioApp.Principal.Domain.FlatModel
             {
                 return TipoPlano switch
                 {
+                    TipoDePlano.SEM_CONTRATO => "Sem Contrato",
                     TipoDePlano.FREE => "Free",
                     TipoDePlano.STANDARD => "Standard",
                     TipoDePlano.PREMIUM => "Premium",
@@ -231,13 +232,52 @@ namespace CondominioApp.Principal.Domain.FlatModel
 
         public void SetArquivoContrato(NomeArquivo arquivo)
         {            
-            if (arquivo != null)
+            if (arquivo == null)
             {
-                NomeArquivoContrato = arquivo.NomeDoArquivo;
-                NomeOriginalArquivoContrato = arquivo.NomeOriginal;
+                NomeArquivoContrato = "";
+                NomeOriginalArquivoContrato = "";
+                return;
             }
-            
+
+            NomeArquivoContrato = arquivo.NomeDoArquivo;
+            NomeOriginalArquivoContrato = arquivo.NomeOriginal;
         }
+
+        public void DefinirContrato(Guid id, DateTime dataDeAssinatura, TipoDePlano tipoDePlano,
+            string descricao, bool ativo, NomeArquivo arquivo)
+        {
+            ContratoId = id;
+            DataAssinaturaContrato = dataDeAssinatura;
+            TipoPlano = tipoDePlano;
+            DescricaoContrato = descricao;
+            ContratoAtivo = ativo;
+            SetArquivoContrato(arquivo);
+        }
+
+        public void AtualizarContrato(DateTime dataDeAssinatura, TipoDePlano tipoDePlano,
+                                      string descricao, bool ativo)
+        {            
+            DataAssinaturaContrato = dataDeAssinatura;
+            TipoPlano = tipoDePlano;
+            DescricaoContrato = descricao;
+            ContratoAtivo = ativo;         
+        }
+
+        public void ApagarContrato()
+        {
+            ContratoId = Guid.Empty;            
+            TipoPlano = TipoDePlano.SEM_CONTRATO;
+            DescricaoContrato = "SEM CONTRATO";
+            ContratoAtivo = false;
+            NomeArquivoContrato = "";
+            NomeOriginalArquivoContrato = "";
+        }
+
+        public void DesativarContrato()
+        {            
+            ContratoAtivo = false;         
+        }
+
 
         public void SetSindico(Guid id, string nome)
         {

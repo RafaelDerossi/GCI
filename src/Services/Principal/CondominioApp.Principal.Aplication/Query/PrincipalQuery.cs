@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using CondominioApp.Principal.Aplication.Query.Interfaces;
 using CondominioApp.Principal.Domain;
@@ -34,6 +35,10 @@ namespace CondominioApp.Principal.Aplication.Query
         public async Task<IEnumerable<CondominioFlat>> ObterRemovidos()
         {
             return await _condominioQueryRepository.Obter(c => c.Lixeira);
+        }
+        public async Task<IEnumerable<CondominioFlat>> ObterPorIds(IEnumerable<Guid> ids)
+        {            
+            return await _condominioQueryRepository.Obter(x => ids.Contains(x.Id));
         }
         #endregion
 

@@ -8,7 +8,7 @@ namespace CondominioApp.Principal.Aplication.Commands
 
         public ApagarCondominioCommand(Guid condominioId)
         {
-            CondominioId = condominioId;           
+            Id = condominioId;           
         }
 
 

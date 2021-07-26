@@ -1,14 +1,11 @@
 ﻿using System;
-using CondominioApp.Core.Messages;
-using CondominioApp.Principal.Domain.ValueObjects;
-using FluentValidation;
 
 namespace CondominioApp.Principal.Aplication.Events
 {
-    public class CondominioConfiguracaoEditadoEvent : CondominioEvent
+    public class ConfiguracaoDoCondominioAtualizadaEvent : CondominioEvent
     {
       
-        public CondominioConfiguracaoEditadoEvent(Guid id,
+        public ConfiguracaoDoCondominioAtualizadaEvent(Guid id,
            bool portaria, bool portariaMorador, bool classificado, bool classificadoMorador,
            bool mural, bool muralMorador, bool chat, bool chatMorador, bool reserva,
            bool reservaNaPortaria, bool ocorrencia, bool ocorrenciaMorador, bool correspondencia,

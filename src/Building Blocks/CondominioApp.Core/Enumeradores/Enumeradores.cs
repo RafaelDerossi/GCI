@@ -48,6 +48,7 @@
 
     public enum TipoDePlano
     {
+        SEM_CONTRATO = 0,
         FREE = 1,
         STANDARD = 2,
         PREMIUM = 3

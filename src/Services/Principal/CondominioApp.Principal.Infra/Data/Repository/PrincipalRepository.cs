@@ -92,6 +92,7 @@ namespace CondominioApp.Principal.Infra.Data.Repository
                     u.Id == condominioId)
                 .CountAsync() > 0;
         }
+       
         #endregion
 
 

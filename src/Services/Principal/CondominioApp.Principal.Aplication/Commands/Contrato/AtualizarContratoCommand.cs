@@ -8,13 +8,12 @@ namespace CondominioApp.Principal.Aplication.Commands
     {
         public AtualizarContratoCommand(
             Guid id, DateTime dataAssinaturaContrato, TipoDePlano tipoDePlano,
-            string descricaoContrato, bool ativo, int quantidadeDeUnidadesContratadas)
+            string descricaoContrato, int quantidadeDeUnidadesContratadas)
         {
             Id = id;            
             DataAssinatura = dataAssinaturaContrato;
             TipoPlano = tipoDePlano;
-            DescricaoContrato = descricaoContrato;
-            Ativo = ativo;
+            DescricaoContrato = descricaoContrato;            
             QuantidadeDeUnidadesContratado = quantidadeDeUnidadesContratadas;           
         }
 

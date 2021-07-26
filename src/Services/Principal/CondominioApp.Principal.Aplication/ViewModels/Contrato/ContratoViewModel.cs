@@ -12,7 +12,22 @@ namespace CondominioApp.Principal.Aplication
 
         public DateTime DataAssinatura { get; set; }
 
-        public string Tipo { get; set; }
+        public TipoDePlano Plano { get; set; }
+
+        public string TipoDescricao
+        {
+            get
+            {
+                return Plano switch
+                {
+                    TipoDePlano.SEM_CONTRATO => "Sem Contrato",
+                    TipoDePlano.FREE => "Free",
+                    TipoDePlano.STANDARD => "Standard",
+                    TipoDePlano.PREMIUM => "Premium",
+                    _ => "Não Informado",
+                };
+            }
+        }
 
         public string Descricao { get; set; }
 
@@ -51,7 +66,7 @@ namespace CondominioApp.Principal.Aplication
             Id = id;
             CondominioId = condominioId;
             DataAssinatura = dataAssinatura;
-            Tipo = tipo.ToString();
+            Plano = tipo;
             Descricao = descricao;
             Ativo = ativo;
             QuantidadeDeUnidadesContratadas = quantidadeDeUnidadesContratadas;

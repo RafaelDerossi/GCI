@@ -19,6 +19,7 @@ namespace CondominioApp.Principal.Aplication.Commands
          IRequestHandler<AtualizarConfiguracaoCondominioCommand, ValidationResult>,
          IRequestHandler<ApagarCondominioCommand, ValidationResult>,
          IRequestHandler<DefinirSindicoDoCondominioCommand, ValidationResult>,
+         IRequestHandler<AtualizarLogoDoCondominioCommand, ValidationResult>,
          IDisposable
     {
 
@@ -40,7 +41,7 @@ namespace CondominioApp.Principal.Aplication.Commands
             if (request.Contrato!=null)
                 condominio.AdicionarContrato(request.Contrato);
 
-            if (_condominioRepository.CnpjCondominioJaCadastrado(request.Cnpj, request.CondominioId).Result)
+            if (_condominioRepository.CnpjCondominioJaCadastrado(request.Cnpj, request.Id).Result)
             {
                 AdicionarErro("CNPJ informado ja consta no sistema.");
                 return ValidationResult;
@@ -57,14 +58,14 @@ namespace CondominioApp.Principal.Aplication.Commands
         {
             if (!request.EstaValido()) return request.ValidationResult;
             
-            var condominioBd = await _condominioRepository.ObterPorId(request.CondominioId);
+            var condominioBd = await _condominioRepository.ObterPorId(request.Id);
             if (condominioBd == null)
             {
                 AdicionarErro("Condominio não encontrado.");
                 return ValidationResult;
             }
 
-            if (_condominioRepository.CnpjCondominioJaCadastrado(request.Cnpj, request.CondominioId).Result)
+            if (_condominioRepository.CnpjCondominioJaCadastrado(request.Cnpj, request.Id).Result)
             {
                 AdicionarErro("CNPJ informado ja consta no sistema.");
                 return ValidationResult;
@@ -79,7 +80,7 @@ namespace CondominioApp.Principal.Aplication.Commands
             _condominioRepository.Atualizar(condominioBd);
 
             condominioBd.AdicionarEvento(
-               new CondominioEditadoEvent
+               new CondominioAtualizadoEvent
                (condominioBd.Id, condominioBd.Cnpj, condominioBd.Nome, condominioBd.Descricao,
                 condominioBd.Telefone, condominioBd.Endereco));
 
@@ -91,7 +92,7 @@ namespace CondominioApp.Principal.Aplication.Commands
             if (!request.EstaValido())
                 return request.ValidationResult;
 
-            var condominioBd = _condominioRepository.ObterPorId(request.CondominioId).Result;
+            var condominioBd = _condominioRepository.ObterPorId(request.Id).Result;
             if (condominioBd == null)
             {
                 AdicionarErro("Condominio não encontrado.");
@@ -189,7 +190,7 @@ namespace CondominioApp.Principal.Aplication.Commands
             _condominioRepository.Atualizar(condominioBd);
 
             condominioBd.AdicionarEvento(
-              new CondominioConfiguracaoEditadoEvent(condominioBd.Id,
+              new ConfiguracaoDoCondominioAtualizadaEvent(condominioBd.Id,
               condominioBd.PortariaAtivada, condominioBd.PortariaParaMoradorAtivada, condominioBd.ClassificadoAtivado, 
               condominioBd.ClassificadoParaMoradorAtivado, condominioBd.MuralAtivado, condominioBd.MuralParaMoradorAtivado, 
               condominioBd.ChatAtivado, condominioBd.ChatParaMoradorAtivado, condominioBd.ReservaAtivada,
@@ -200,11 +201,33 @@ namespace CondominioApp.Principal.Aplication.Commands
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }
 
+        public async Task<ValidationResult> Handle(AtualizarLogoDoCondominioCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido()) return request.ValidationResult;
+
+            var condominioBd = await _condominioRepository.ObterPorId(request.Id);
+            if (condominioBd == null)
+            {
+                AdicionarErro("Condominio não encontrado.");
+                return ValidationResult;
+            }
+         
+            condominioBd.SetLogo(request.Logo);           
+
+            _condominioRepository.Atualizar(condominioBd);
+
+            condominioBd.AdicionarEvento(
+               new LogoDoCondominioAtualizadoEvent
+               (condominioBd.Id, condominioBd.LogoMarca));
+
+            return await PersistirDados(_condominioRepository.UnitOfWork);
+        }
+
         public async Task<ValidationResult> Handle(ApagarCondominioCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido()) return request.ValidationResult;
 
-            var condominioBd = _condominioRepository.ObterPorId(request.CondominioId).Result;
+            var condominioBd = _condominioRepository.ObterPorId(request.Id).Result;
             if (condominioBd == null)
             {
                 AdicionarErro("Condominio não encontrado.");
@@ -222,7 +245,7 @@ namespace CondominioApp.Principal.Aplication.Commands
         {
             if (!request.EstaValido()) return request.ValidationResult;
 
-            var condominioBd = _condominioRepository.ObterPorId(request.CondominioId).Result;
+            var condominioBd = _condominioRepository.ObterPorId(request.Id).Result;
             if (condominioBd == null)
             {
                 AdicionarErro("Condominio não encontrado.");
@@ -242,12 +265,13 @@ namespace CondominioApp.Principal.Aplication.Commands
 
         private Condominio CondominioFactory(AdicionarCondominioCommand request)
         {
-            var condominio = new Condominio(request.Cnpj, request.Nome, request.Descricao, request.LogoMarca, 
-                request.Telefone, request.Endereco, request.RefereciaId, request.LinkGeraBoleto, request.BoletoFolder,
-                request.UrlWebServer, request.PortariaAtivada, request.PortariaParaMoradorAtivada, request.ClassificadoAtivado,
-                request.ClassificadoParaMoradorAtivado, request.MuralAtivado, request.MuralParaMoradorAtivado, request.ChatAtivado, request.ChatParaMoradorAtivado,
-                request.ReservaAtivada, request.ReservaNaPortariaAtivada, request.OcorrenciaAtivada, request.OcorrenciaParaMoradorAtivada,
-                request.CorrespondenciaAtivada, request.CorrespondenciaNaPortariaAtivada, request.LimiteTempoReserva);
+            var condominio = new Condominio(request.Id, request.Cnpj, request.Nome, request.Descricao, request.Logo, 
+                request.Telefone, request.Endereco, request.PortariaAtivada, request.PortariaParaMoradorAtivada,
+                request.ClassificadoAtivado, request.ClassificadoParaMoradorAtivado, request.MuralAtivado,
+                request.MuralParaMoradorAtivado, request.ChatAtivado, request.ChatParaMoradorAtivado,
+                request.ReservaAtivada, request.ReservaNaPortariaAtivada, request.OcorrenciaAtivada,
+                request.OcorrenciaParaMoradorAtivada, request.CorrespondenciaAtivada,
+                request.CorrespondenciaNaPortariaAtivada, request.CadastroDeVeiculoPeloMoradorAtivado);
             
             return condominio;
         }
@@ -261,7 +285,7 @@ namespace CondominioApp.Principal.Aplication.Commands
             }
 
             condominio.AdicionarEvento(
-               new CondominioCadastradoEvent(condominio.Id,
+               new CondominioAdicionadoEvent(condominio.Id,
                condominio.Cnpj, condominio.Nome, condominio.Descricao, condominio.LogoMarca,
                condominio.Telefone, condominio.Endereco, condominio.PortariaAtivada, 
                condominio.PortariaParaMoradorAtivada, condominio.ClassificadoAtivado,

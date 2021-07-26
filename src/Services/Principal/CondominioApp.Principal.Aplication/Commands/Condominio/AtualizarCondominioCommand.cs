@@ -10,7 +10,7 @@ namespace CondominioApp.Principal.Aplication.Commands
             string telefone, string logradouro, string complemento, string numero, string cep,
             string bairro, string cidade, string estado)
         {
-            CondominioId = condominioId;           
+            Id = condominioId;           
             Nome = nome;
             Descricao = descricao;            
            

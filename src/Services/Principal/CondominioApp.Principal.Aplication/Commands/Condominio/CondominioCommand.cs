@@ -9,7 +9,7 @@ namespace CondominioApp.Principal.Aplication.Commands
 {
     public abstract class CondominioCommand : Command
     {
-        public Guid CondominioId { get; protected set; }
+        public Guid Id { get; protected set; }
 
         public Cnpj Cnpj { get; protected set; }      
 
@@ -17,7 +17,7 @@ namespace CondominioApp.Principal.Aplication.Commands
 
         public string Descricao { get; protected set; }
 
-        public Foto LogoMarca { get; protected set; }       
+        public Foto Logo { get; protected set; }       
 
         public Telefone Telefone { get; protected set; }
 
@@ -131,11 +131,11 @@ namespace CondominioApp.Principal.Aplication.Commands
             }
         }            
 
-        public void SetFoto(string nomeOriginal)
+        public void SetLogo(string nomeOriginal)
         {
             try
             {
-                LogoMarca = new Foto(nomeOriginal);
+                Logo = new Foto(nomeOriginal);
             }
             catch (Exception e)
             {
@@ -186,7 +186,7 @@ namespace CondominioApp.Principal.Aplication.Commands
             int quantidadeDeUnidadesContratada)
         {
             Contrato = new Contrato
-                       (CondominioId, dataAssinatura, tipoPlano, descricaoContrato, ativo,
+                       (Id, dataAssinatura, tipoPlano, descricaoContrato, ativo,
                         new NomeArquivo(nomeArquivoContrato, Guid.NewGuid()),
                         quantidadeDeUnidadesContratada);
         }

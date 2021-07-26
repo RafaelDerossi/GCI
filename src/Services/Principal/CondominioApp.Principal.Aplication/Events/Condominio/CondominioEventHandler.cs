@@ -9,11 +9,16 @@ using MediatR;
 namespace CondominioApp.Principal.Aplication.Events
 {
     public class CondominioEventHandler : EventHandler, 
-        INotificationHandler<CondominioCadastradoEvent>,
-        INotificationHandler<CondominioEditadoEvent>,
-        INotificationHandler<CondominioConfiguracaoEditadoEvent>,
+        INotificationHandler<CondominioAdicionadoEvent>,
+        INotificationHandler<CondominioAtualizadoEvent>,
+        INotificationHandler<ConfiguracaoDoCondominioAtualizadaEvent>,
         INotificationHandler<CondominioApagadoEvent>,
-        INotificationHandler<SindicoDoCondominioDefinidoEvent>,
+        INotificationHandler<SindicoDoCondominioDefinidoEvent>,        
+        INotificationHandler<LogoDoCondominioAtualizadoEvent>,
+        INotificationHandler<ContratoDefinidoEvent>,
+        INotificationHandler<ContratoAtualizadoEvent>,
+        INotificationHandler<ContratoApagadoEvent>,
+        INotificationHandler<ContratoDesativadoEvent>,
         System.IDisposable
     {
         private readonly IPrincipalQueryRepository _condominioQueryRepository;
@@ -23,7 +28,7 @@ namespace CondominioApp.Principal.Aplication.Events
             _condominioQueryRepository = condominioQueryRepository;
         }
 
-        public async Task Handle(CondominioCadastradoEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(CondominioAdicionadoEvent notification, CancellationToken cancellationToken)
         {
             var condominioFlat = new CondominioFlat
                 (notification.CondominioId, false, notification.Cnpj.NumeroFormatado, notification.Nome,
@@ -46,7 +51,7 @@ namespace CondominioApp.Principal.Aplication.Events
             await PersistirDados(_condominioQueryRepository.UnitOfWork);
         }
 
-        public async Task Handle(CondominioEditadoEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(CondominioAtualizadoEvent notification, CancellationToken cancellationToken)
         {
             //Atualizar no CondominioFlat
             var condominioFlat = await _condominioQueryRepository.ObterPorId(notification.CondominioId);
@@ -87,7 +92,7 @@ namespace CondominioApp.Principal.Aplication.Events
             await PersistirDados(_condominioQueryRepository.UnitOfWork);
         }
 
-        public async Task Handle(CondominioConfiguracaoEditadoEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(ConfiguracaoDoCondominioAtualizadaEvent notification, CancellationToken cancellationToken)
         {
             //Atualizar no CondominioFlat
             var condominioFlat = await _condominioQueryRepository.ObterPorId(notification.CondominioId);
@@ -187,6 +192,18 @@ namespace CondominioApp.Principal.Aplication.Events
             await PersistirDados(_condominioQueryRepository.UnitOfWork);
         }
 
+        public async Task Handle(LogoDoCondominioAtualizadoEvent notification, CancellationToken cancellationToken)
+        {
+            //Atualizar no CondominioFlat
+            var condominioFlat = await _condominioQueryRepository.ObterPorId(notification.CondominioId);
+
+            condominioFlat.SetLogo(notification.LogoMarca);
+            
+            _condominioQueryRepository.Atualizar(condominioFlat);
+
+            await PersistirDados(_condominioQueryRepository.UnitOfWork);
+        }
+
         public async Task Handle(CondominioApagadoEvent notification, CancellationToken cancellationToken)
         {
             //Atualizar no CondominioFlat
@@ -209,6 +226,55 @@ namespace CondominioApp.Principal.Aplication.Events
             await PersistirDados(_condominioQueryRepository.UnitOfWork);
         }
 
+        public async Task Handle(ContratoDefinidoEvent notification, CancellationToken cancellationToken)
+        {
+            var condominioFlat = await _condominioQueryRepository.ObterPorId(notification.CondominioId);
+
+            condominioFlat.DefinirContrato
+                (notification.ContratoId, notification.DataAssinatura, notification.TipoPlano,
+                 notification.DescricaoContrato, notification.ContratoAtivo, notification.ArquivoContrato);
+
+            _condominioQueryRepository.Atualizar(condominioFlat);
+
+            await PersistirDados(_condominioQueryRepository.UnitOfWork);
+        }
+
+        public async Task Handle(ContratoAtualizadoEvent notification, CancellationToken cancellationToken)
+        {
+            var condominioFlat = await _condominioQueryRepository.ObterPorContratoId(notification.ContratoId);
+
+            condominioFlat.AtualizarContrato
+                (notification.DataAssinatura, notification.TipoPlano, notification.DescricaoContrato,
+                 notification.ContratoAtivo);
+
+            _condominioQueryRepository.Atualizar(condominioFlat);
+
+            await PersistirDados(_condominioQueryRepository.UnitOfWork);
+        }
+
+        public async Task Handle(ContratoApagadoEvent notification, CancellationToken cancellationToken)
+        {
+            var condominioFlat = await _condominioQueryRepository.ObterPorContratoId(notification.ContratoId);
+
+            condominioFlat.ApagarContrato();
+
+            _condominioQueryRepository.Atualizar(condominioFlat);
+
+            await PersistirDados(_condominioQueryRepository.UnitOfWork);
+        }
+
+        public async Task Handle(ContratoDesativadoEvent notification, CancellationToken cancellationToken)
+        {
+            var condominioFlat = await _condominioQueryRepository.ObterPorContratoId(notification.ContratoId);
+            if (condominioFlat == null)
+                return;
+
+            condominioFlat.DesativarContrato();
+
+            _condominioQueryRepository.Atualizar(condominioFlat);
+
+            await PersistirDados(_condominioQueryRepository.UnitOfWork);
+        }
 
         public void Dispose()
         {
