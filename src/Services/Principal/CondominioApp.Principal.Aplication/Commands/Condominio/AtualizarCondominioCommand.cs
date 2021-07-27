@@ -34,8 +34,7 @@ namespace CondominioApp.Principal.Aplication.Commands
         {
             public AtualizarCondominioCommandValidation()
             {
-                ValidateId();
-                ValidateCNPJ();
+                ValidateId();                
                 ValidateNome();                
             }
         }

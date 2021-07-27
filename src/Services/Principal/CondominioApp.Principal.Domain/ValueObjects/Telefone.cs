@@ -27,7 +27,7 @@ namespace CondominioApp.Principal.Domain.ValueObjects
             
             Guarda.ValidarTamanhoMaximo(telNumber, NumeroMaximo, "Telefone");
 
-            Guarda.ValidarTamanhoMaximo(telNumber, NumeroMinimo, "Telefone");
+            Guarda.ValidarTamanhoMinimo(telNumber, NumeroMinimo, "Telefone");
 
             Numero = telNumber;
         }      

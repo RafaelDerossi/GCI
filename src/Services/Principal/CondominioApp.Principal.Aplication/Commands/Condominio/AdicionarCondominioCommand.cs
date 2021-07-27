@@ -60,8 +60,7 @@ namespace CondominioApp.Principal.Aplication.Commands
         public class AdicionarCondominioCommandValidation : CondominioValidation<AdicionarCondominioCommand>
         {
             public AdicionarCondominioCommandValidation()
-            {               
-                ValidateCNPJ();
+            {  
                 ValidateNome();                
             }
         }

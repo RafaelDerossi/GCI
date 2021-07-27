@@ -9,22 +9,13 @@ namespace CondominioApp.Principal.Aplication.Commands.Validations
         {
             RuleFor(c => c.Id)
                 .NotEqual(Guid.Empty);
-        }
-        protected void ValidateCNPJ()
-        {
-            RuleFor(c => c.Cnpj)
-                  .NotNull()
-                  .NotEmpty()                  
-                  .WithMessage("CNPJ não pode estar vazio!");
-        }
+        }        
         protected void ValidateNome()
         {
             RuleFor(c => c.Nome)
                 .NotEmpty().WithMessage("Nome do condominio não pode estar vazio!")
                 .Length(2, 200).WithMessage("Nome do condominio deve ter mais de 2 caracteres!");
         }
-
-
         protected void ValidatePortaria()
         {
             RuleFor(c => c.PortariaAtivada)

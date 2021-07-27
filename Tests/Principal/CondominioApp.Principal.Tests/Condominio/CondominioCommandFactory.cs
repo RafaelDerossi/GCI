@@ -8,17 +8,17 @@ namespace CondominioApp.Principal.Tests
         private static AdicionarCondominioCommand CadastrarCondominioCommandFactory()
         {
             return new AdicionarCondominioCommand("26585345000148", "Condominio TU",
-                            "Condominio Teste Unitario", "Foto.jpg", "(21) 99796-7038",
+                            "Condominio Teste Unitario", "Foto.jpg", "21997967038",
                             "Rua...", null, "1001", "23063260", "Bairro", "Cidade", "RJ",
                             false, false, false, false, false, false, false, false, false,
                             false, false, false, false, false, false, DateTime.Today.Date,
                             Core.Enumeradores.TipoDePlano.FREE, "Primeiro Contrato", true,
-                            "link.pdf", 10);
+                            "contrato.pdf", 10);
         }
         private static AtualizarCondominioCommand EditarCondominioCommandFactory()
         {
             return new AtualizarCondominioCommand(Guid.NewGuid(), "26585345000148", "Condominio TU",
-               "Condominio Teste Unitario", "(21) 99796-7038", "Rua...", null, "1001", "23063260", "Bairro",
+               "Condominio Teste Unitario", "21997967038", "Rua...", null, "1001", "23063260", "Bairro",
                "Cidade", "RJ");
         }
 

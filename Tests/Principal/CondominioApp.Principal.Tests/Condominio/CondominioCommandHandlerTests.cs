@@ -31,8 +31,7 @@ namespace CondominioApp.Principal.Tests
             var command = CondominioCommandFactory.CriarComandoCadastroDeCondominio();
 
             _mocker.GetMock<IPrincipalRepository>().Setup(r => r.CnpjCondominioJaCadastrado(command.Cnpj, command.Id))
-                .Returns(Task.FromResult(false)); 
-                
+                .Returns(Task.FromResult(false));               
 
            
             _mocker.GetMock<IPrincipalRepository>().Setup(r => r.UnitOfWork.Commit())
