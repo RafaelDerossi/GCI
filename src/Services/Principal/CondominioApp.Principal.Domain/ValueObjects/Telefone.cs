@@ -21,16 +21,8 @@ namespace CondominioApp.Principal.Domain.ValueObjects
             if (string.IsNullOrEmpty(telNumber)) return;
 
             telNumber = telNumber.Trim();
-            Regex regex = new Regex(@"^(\([0-9]{2}\))\s([9]{1})?([0-9]{4})-([0-9]{4})$");
-            Match match = regex.Match(telNumber);
-
-            if (match.Success)
-            {
-                telNumber = telNumber.ApenasNumeros(telNumber);
-                Numero = telNumber;
-            }
-            else
-                throw new DomainException("Número de telefone inválido.");
+            telNumber = telNumber.ApenasNumeros(telNumber);
+            Numero = telNumber;
         }      
 
         public string ObterNumeroFormatado

@@ -7,7 +7,7 @@ namespace CondominioApp.Principal.Domain.ValueObjects
 {
     public class Cnpj
     {
-        public const int Maxlength = 18;
+        public const int Maxlength = 14;
         public string Numero { get; private set; }
 
         protected Cnpj() { }
@@ -19,29 +19,18 @@ namespace CondominioApp.Principal.Domain.ValueObjects
 
         private void SetNumero(string cnpjStr)
         {
-            Guarda.ValidarTamanhoMaximo(cnpjStr, Maxlength, "CNPJ");
-
-            if (!string.IsNullOrEmpty(cnpjStr))
+            if (string.IsNullOrEmpty(cnpjStr))
             {
-                Regex regex = new Regex(@"(^(\d{2}.\d{3}.\d{3}/\d{4}.\d{2})|(\d{14})$)");
-
-                var match = regex.Match(cnpjStr);
-
-                if (match.Success)
-                {
-                    string nCnpj = cnpjStr.Replace(".", "").Replace("/", "").Replace("-", "");
-                    if (IsCnpj(nCnpj))
-                        Numero = nCnpj;
-                    else
-                        throw new DomainException("Número de CNPJ inválido");
-                }
-                else
-                    throw new DomainException("Número de CNPJ não formatado");
+                Numero = "";
+                return;
             }
+
+            Guarda.ValidarTamanhoMaximo(cnpjStr, Maxlength, "CNPJ");            
+            
+            if (IsCnpj(cnpjStr))
+                Numero = cnpjStr;
             else
-            {
-                throw new DomainException("Número de CNPJ não pode ser vazio!");
-            }
+                throw new DomainException("Número de CNPJ inválido");
         }
 
         public string NumeroFormatado

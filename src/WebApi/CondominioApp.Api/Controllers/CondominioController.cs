@@ -210,7 +210,7 @@ namespace CondominioApp.Api.Controllers
         /// </summary>
         /// <param name="condominioVM"></param>
         /// <response code="200">
-        /// PARÂMETROS:           
+        /// PARÂMETROS:                   
         /// Cnpj                                : CNPJ do condomínio;   
         /// Nome                                : Nome do condomínio(200 caracteres);   
         /// Descricao                           : Breve descrição do condomínio(200 caracteres);   
@@ -286,7 +286,8 @@ namespace CondominioApp.Api.Controllers
         /// Atualiza dados do condomínio
         /// </summary>
         /// <param name="EditaCondominioVM">
-        /// PARÂMETROS:           
+        /// PARÂMETROS:    
+        /// Id                                  : Id(Guid) do condomínio;   
         /// Cnpj                                : CNPJ do condomínio;   
         /// Nome                                : Nome do condomínio(200 caracteres);   
         /// Descricao                           : Breve descrição do condomínio(200 caracteres);                   
