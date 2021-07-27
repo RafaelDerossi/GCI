@@ -27,6 +27,8 @@
     <Compile Remove="Migrations\PrincipalQueryContextDBMigrations\20201125171638_QueryDB_Init.Designer.cs" />
     <Compile Remove="Migrations\PrincipalQueryContextDBMigrations\20201125172842_QueryDB_Init.cs" />
     <Compile Remove="Migrations\PrincipalQueryContextDBMigrations\20201125172842_QueryDB_Init.Designer.cs" />
+    <Compile Remove="Migrations\PrincipalQueryContextDBMigrations\20210727124811_ajustesNoPrincipalFlat.cs" />
+    <Compile Remove="Migrations\PrincipalQueryContextDBMigrations\20210727124811_ajustesNoPrincipalFlat.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

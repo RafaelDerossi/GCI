@@ -37,11 +37,13 @@ namespace CondominioApp.Principal.Infra.DataQuery
             modelBuilder.Ignore<Condominio>();
             modelBuilder.Ignore<Grupo>();
             modelBuilder.Ignore<Unidade>();
+            modelBuilder.Ignore<Contrato>();
             modelBuilder.Ignore<Cnpj>();
             modelBuilder.Ignore<Cpf>();
             modelBuilder.Ignore<Foto>();
             modelBuilder.Ignore<Endereco>();
             modelBuilder.Ignore<Url>();
+            modelBuilder.Ignore<NomeArquivo>();
         }
 
         public async Task<bool> Commit()
