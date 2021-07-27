@@ -1,12 +1,14 @@
 ﻿using System.Text.RegularExpressions;
 using CondominioApp.Core.DomainObjects;
+using CondominioApp.Core.Helpers;
 using CondominioApp.Core.Utils;
 
 namespace CondominioApp.Principal.Domain.ValueObjects
 {
     public class Telefone
     {
-        public const int NumeroMaximo = 15;
+        public const int NumeroMaximo = 11;
+        public const int NumeroMinimo = 10;
         public string Numero { get; private set; }       
 
         protected Telefone() { }
@@ -22,6 +24,11 @@ namespace CondominioApp.Principal.Domain.ValueObjects
 
             telNumber = telNumber.Trim();
             telNumber = telNumber.ApenasNumeros(telNumber);
+            
+            Guarda.ValidarTamanhoMaximo(telNumber, NumeroMaximo, "Telefone");
+
+            Guarda.ValidarTamanhoMaximo(telNumber, NumeroMinimo, "Telefone");
+
             Numero = telNumber;
         }      
 

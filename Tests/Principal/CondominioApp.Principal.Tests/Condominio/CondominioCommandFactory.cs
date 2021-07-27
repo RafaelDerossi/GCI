@@ -41,17 +41,7 @@ namespace CondominioApp.Principal.Tests
             comando.SetNome("");
 
             return comando;
-        }
-
-        public static AdicionarCondominioCommand CriarComandoCadastroDeCondominioSemCNPJ()
-        {
-            var comando = CadastrarCondominioCommandFactory();
-
-            comando.SetCNPJ("");
-
-            return comando;         
-
-        }
+        }        
 
         public static AdicionarCondominioCommand CriarComandoCadastroDeCondominioComCNPJInvalido()
         {
@@ -84,7 +74,7 @@ namespace CondominioApp.Principal.Tests
         {
             var comando = CadastrarCondominioCommandFactory();
 
-            comando.SetTelefone("2199796703");
+            comando.SetTelefone("219979670");
 
             return comando;            
         }

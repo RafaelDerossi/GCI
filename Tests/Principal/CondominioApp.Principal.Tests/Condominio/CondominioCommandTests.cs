@@ -65,21 +65,7 @@ namespace CondominioApp.Principal.Tests
 
             //Assert
             Assert.False(result);
-        }
-
-        [Fact(DisplayName = "Adicionar Condominio Invalido - Sem CNPJ")]
-        [Trait("Categoria", "Condominio - CadastrarCommand - Sem CNPJ")]
-        public void CadastroDeCondominioSemCNPJ_CommandoInvalido_NaoDevePassarNaValidacao()
-        {
-            //Arrange
-            var Command = CondominioCommandFactory.CriarComandoCadastroDeCondominioSemCNPJ();
-
-            //Act
-            var result = Command.EstaValido();
-
-            //Assert
-            Assert.False(result);            
-        }
+        }        
 
         [Fact(DisplayName = "Adicionar Condominio Invalido - Com CNPJ Invalido")]
         [Trait("Categoria", "Condominio - CadastrarCommand - Com CNPJ Invalido")]
