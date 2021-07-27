@@ -38,6 +38,55 @@ namespace CondominioApp.Api.Controllers
         /// <summary>
         /// Retorna todos os condomínios cadastrados
         /// </summary>        
+        ///  /// <response code="200">
+        /// Id                                  : Id(Guid) do condomínio;   
+        /// DataDeCadastro                      : Data-hora de cadastro do condomínio;   
+        /// DataDeAlteracao                     : Data-hora de alteração do condomínio;   
+        /// Lixeira                             : Informa se o condomínio esta na lixeira ou não;   
+        /// Cnpj                                : CNPJ do condomínio;   
+        /// Nome                                : Nome do condomínio(200 caracteres);   
+        /// Descricao                           : Breve descrição do condomínio(200 caracteres);   
+        /// NomeArquivoLogo                     : Nome do arquivo da logo do condomínio;   
+        /// NomeOriginalArquivoLogo             : Nome original do arquivo da logo do condomínio;     
+        /// UrlLogoMarca                        : Url da logo do condomínio;   
+        /// Telefone                            : Telefone do condomínio;   
+        /// Logradouro                          : Endereço do condomínio;   
+        /// Complemento                         : Complemento do endereço do condomínio;   
+        /// Numero                              : Número do endereço do condomínio;   
+        /// Cep                                 : Cep do condomínio;   
+        /// Bairro                              : Bairro do condomínio;   
+        /// Cidade                              : Município do condomínio;   
+        /// Estado                              : UF do condomínio;   
+        /// RefereciaId                         :
+        /// LinkGeraBoleto                      :
+        /// BoletoFolder                        :
+        /// UrlWebServer                        :
+        /// FuncionarioIdDoSindico              : Id(Guid) do síndico;   
+        /// NomeDoSindico                       : Nome do síndico;   
+        /// PortariaAtivada                     : Informa se as funções de portaria estão ativadas no condomínio;   
+        /// PortariaParaMoradorAtivada          : Informa se as funções de portaria no app do morador estão ativada no condomínio;   
+        /// ClassificadoAtivado                 : Informa se a função "classificados" esta ativada no condomínio;   
+        /// ClassificadoParaMoradorAtivado      : Informa se a função "classificados" no app do morador esta ativada no condomínio;   
+        /// MuralAtivado                        : Informa se a função "mural" esta ativada no condomínio;   
+        /// MuralParaMoradorAtivado             : Informa se a função "mural" no app do morador esta ativada no condomínio;   
+        /// ChatAtivado                         : Informa se o "chat" esta ativado no condomínio;   
+        /// ChatParaMoradorAtivado              : Informa se o "chat" no app do morador esta ativado no condomínio;   
+        /// ReservaAtivada                      : Informa se as funções de reservar horários em áreas comuns estão ativadas no condomínio;   
+        /// ReservaNaPortariaAtivada            : Informa se as funções de reservar horários em áreas comuns estão ativadas na portaria do condomínio;   
+        /// OcorrenciaAtivada                   : Informa se a função "ocorrências" esta ativada no condomínio;   
+        /// OcorrenciaParaMoradorAtivada        : Informa se a função "ocorrência" no app do morador esta ativada no condomínio;   
+        /// CorrespondenciaAtivada              : Informa se a função "correspondência" esta ativada no condomínio;   
+        /// CorrespondenciaNaPortariaAtivada    : Informa se a função "correspondência" esta ativada na portaria do condomínio;   
+        /// CadastroDeVeiculoPeloMoradorAtivado : Informa se a função cadastrar veículos pelo morador no app esta ativada;   
+        /// ContratoId                          : Id(Guid) do contrato com o condomínio;   
+        /// DataAssinaturaContrato              : Data da assinatura do contrato;   
+        /// TipoPlano                           : Tipo do plano Enum: FREE = 1, STANDARD = 2, PREMIUM = 3;   
+        /// DescricaoContrato                   : Breve descrição do contrato(200 caracteres);   
+        /// ContratoAtivo                       : Informa se o contrato esta ativo;   
+        /// NomeArquivoContrato                 : Nome do arquivo de contrato;   
+        /// NomeOriginalArquivoContrato         : Nome original do arquivo de contrato;   
+        /// UrlArquivoContrato                  : Url do arquivo de contrato;   
+        /// </response>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CondominioFlat>>> ObterTodos()
         {
@@ -60,12 +109,12 @@ namespace CondominioApp.Api.Controllers
         /// DataDeCadastro                      : Data-hora de cadastro do condomínio;   
         /// DataDeAlteracao                     : Data-hora de alteração do condomínio;   
         /// Lixeira                             : Informa se o condomínio esta na lixeira ou não;   
-        /// Cnpj                                : CNPJ do condomínio;
-        /// Nome                                : Nome do condomínio(200 caracteres);
-        /// Descricao                           : Breve descrição do condomínio(200 caracteres);   
-        /// NomeArquivoLogo                     : Nome do arquivo da logo do condomínio;   
+        /// Cnpj                                : CNPJ do condomínio;   
+        /// Nome                                : Nome do condomínio(200 caracteres);   
+        /// Descricao                           : Breve descrição do condomínio(200 caracteres);    
+        /// NomeArquivoLogo                     : Nome do arquivo da logo do condomínio;    
         /// NomeOriginalArquivoLogo             : Nome original do arquivo da logo do condomínio;   
-        /// UrlLogoMarca                        : Url da logo do condomínio;
+        /// UrlLogoMarca                        : Url da logo do condomínio;   
         /// Telefone                            : Telefone do condomínio;   
         /// Logradouro                          : Endereço do condomínio;   
         /// Complemento                         : Complemento do endereço do condomínio;   
@@ -162,8 +211,8 @@ namespace CondominioApp.Api.Controllers
         /// <param name="condominioVM"></param>
         /// <response code="200">
         /// PARÂMETROS:           
-        /// Cnpj                                : CNPJ do condomínio;
-        /// Nome                                : Nome do condomínio(200 caracteres);
+        /// Cnpj                                : CNPJ do condomínio;   
+        /// Nome                                : Nome do condomínio(200 caracteres);   
         /// Descricao                           : Breve descrição do condomínio(200 caracteres);   
         /// ArquivoLogo                         : Nome do arquivo da logo do condomínio;           
         /// Telefone                            : Telefone do condomínio;   
@@ -173,7 +222,7 @@ namespace CondominioApp.Api.Controllers
         /// Cep                                 : Cep do condomínio;   
         /// Bairro                              : Bairro do condomínio;   
         /// Cidade                              : Município do condomínio;   
-        /// Estado                              : UF do condomínio;
+        /// Estado                              : UF do condomínio;   
         /// PortariaAtivada                     : Informa se as funções de portaria estão ativadas no condomínio;   
         /// PortariaParaMoradorAtivada          : Informa se as funções de portaria no app do morador estão ativada no condomínio;   
         /// ClassificadoAtivado                 : Informa se a função "classificados" esta ativada no condomínio;   
@@ -197,7 +246,7 @@ namespace CondominioApp.Api.Controllers
         /// ArquivoContrato                     : Arquivo do contrato;           
         /// </response>
         [HttpPost]
-        public async Task<ActionResult> Post(AdicionaCondominioViewModel condominioVM)
+        public async Task<ActionResult> Post([FromForm]AdicionaCondominioViewModel condominioVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);            
 
@@ -238,8 +287,8 @@ namespace CondominioApp.Api.Controllers
         /// </summary>
         /// <param name="EditaCondominioVM">
         /// PARÂMETROS:           
-        /// Cnpj                                : CNPJ do condomínio;
-        /// Nome                                : Nome do condomínio(200 caracteres);
+        /// Cnpj                                : CNPJ do condomínio;   
+        /// Nome                                : Nome do condomínio(200 caracteres);   
         /// Descricao                           : Breve descrição do condomínio(200 caracteres);                   
         /// Telefone                            : Telefone do condomínio;   
         /// Logradouro                          : Endereço do condomínio;   

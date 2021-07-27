@@ -11,7 +11,7 @@ namespace CondominioApp.Principal.Tests
     {
         public static Condominio Criar_Condominio_Valido()
         {           
-           return new Condominio(new Cnpj("26585345000148"), "Condominio TU",
+           return new Condominio(Guid.NewGuid(), new Cnpj("26585345000148"), "Condominio TU",
                 "Condominio Teste Unitario", new Foto("Foto.jpg"), new Telefone("(21) 99796-7038"),
                  new Endereco("Rua...", null, "1001", "23063260", "Bairro", "Cidade", "RJ"),
                  false, false, false, false, false, false, false, false, false, false, false,
