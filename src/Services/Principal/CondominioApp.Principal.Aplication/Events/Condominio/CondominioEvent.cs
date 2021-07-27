@@ -67,6 +67,16 @@ namespace CondominioApp.Principal.Aplication.Events
 
         public bool CadastroDeVeiculoPeloMoradorAtivado { get; protected set; }
 
+        public bool EnqueteAtivada { get; protected set; }
+
+        public bool ControleDeAcessoAtivado { get; protected set; }
+
+        public bool TarefaAtivada { get; protected set; }
+
+        public bool OrcamentoAtivado { get; protected set; }
+
+        public bool AutomacaoAtivada { get; protected set; }
+
 
         public Guid ContratoId { get; protected set; }
 

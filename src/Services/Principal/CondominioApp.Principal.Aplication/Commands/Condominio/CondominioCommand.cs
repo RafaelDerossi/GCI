@@ -114,6 +114,31 @@ namespace CondominioApp.Principal.Aplication.Commands
 
         public bool CadastroDeVeiculoPeloMoradorAtivado { get; protected set; }
 
+        /// <summary>
+        /// Habilita/Desabilita a criação de enquetes
+        /// </summary>
+        public bool EnqueteAtivada { get; protected set; }
+
+        /// <summary>
+        /// Habilita/Desabilita o Controle de Acesso
+        /// </summary>
+        public bool ControleDeAcessoAtivado { get; protected set; }
+
+        /// <summary>
+        /// Habilita/Desabilita a gestão de tarefas
+        /// </summary>
+        public bool TarefaAtivada { get; protected set; }
+
+        /// <summary>
+        /// Habilita/Desabilita a gestão de orçamentos
+        /// </summary>
+        public bool OrcamentoAtivado { get; protected set; }
+
+        /// <summary>
+        /// Habilita/Desabilita a automação
+        /// </summary>
+        public bool AutomacaoAtivada { get; protected set; }
+
 
 
         public Contrato Contrato { get; protected set; }    

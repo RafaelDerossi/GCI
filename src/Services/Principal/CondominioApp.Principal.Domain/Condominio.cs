@@ -116,8 +116,30 @@ namespace CondominioApp.Principal.Domain
         /// </summary>
         public bool CadastroDeVeiculoPeloMoradorAtivado { get; private set; }
 
+        /// <summary>
+        /// Habilita/Desabilita a criação de enquetes
+        /// </summary>
+        public bool EnqueteAtivada { get; private set; }
 
+        /// <summary>
+        /// Habilita/Desabilita o Controle de Acesso
+        /// </summary>
+        public bool ControleDeAcessoAtivado { get; private set; }
 
+        /// <summary>
+        /// Habilita/Desabilita a gestão de tarefas
+        /// </summary>
+        public bool TarefaAtivada { get; private set; }
+
+        /// <summary>
+        /// Habilita/Desabilita a gestão de orçamentos
+        /// </summary>
+        public bool OrcamentoAtivado { get; private set; }
+
+        /// <summary>
+        /// Habilita/Desabilita a automação
+        /// </summary>
+        public bool AutomacaoAtivada { get; private set; }
 
 
         private readonly List<Grupo> _Grupos;
@@ -150,7 +172,9 @@ namespace CondominioApp.Principal.Domain
             bool muralAtivado, bool muralParaMoradorAtivado, bool chatAtivado, bool chatParaMoradorAtivado, 
             bool reservaAtivada, bool reservaNaPortariaAtivada, bool ocorrenciaAtivada, 
             bool ocorrenciaParaMoradorAtivada, bool correspondenciaAtivada, 
-            bool correspondenciaNaPortariaAtivada, bool cadastroDeVeiculoPeloMoradorAtivado)
+            bool correspondenciaNaPortariaAtivada, bool cadastroDeVeiculoPeloMoradorAtivado,
+            bool enqueteAtivada, bool controleDeAcessoAtivado, bool tarefaAtivada, bool orcamentoAtivado,
+            bool automacaoAtivada)
         {
             _Grupos = new List<Grupo>();
             _Unidades = new List<Unidade>();
@@ -178,6 +202,11 @@ namespace CondominioApp.Principal.Domain
             CorrespondenciaAtivada = correspondenciaAtivada;
             CorrespondenciaNaPortariaAtivada = correspondenciaNaPortariaAtivada;
             CadastroDeVeiculoPeloMoradorAtivado = cadastroDeVeiculoPeloMoradorAtivado;
+            EnqueteAtivada = enqueteAtivada;
+            ControleDeAcessoAtivado = controleDeAcessoAtivado;
+            TarefaAtivada = tarefaAtivada;
+            OrcamentoAtivado = orcamentoAtivado;
+            AutomacaoAtivada = automacaoAtivada;
         }
 
 
@@ -267,6 +296,39 @@ namespace CondominioApp.Principal.Domain
         public void DesativarCadastroDeVeiculoPeloMorador() => CadastroDeVeiculoPeloMoradorAtivado = false;
 
 
+        /// <summary>
+        /// Enquetes
+        /// </summary>
+        public void AtivarEnquete() => EnqueteAtivada = true;
+        public void DesativarEnquete() => EnqueteAtivada = false;
+
+        /// <summary>
+        /// Controle de Acesso
+        /// </summary>
+        public void AtivarControleDeAcesso() => ControleDeAcessoAtivado = true;
+        public void DesativarControleDeAcesso() => ControleDeAcessoAtivado = false;
+
+        /// <summary>
+        /// Tarefas
+        /// </summary>
+        public void AtivarTarefa() => TarefaAtivada = true;
+        public void DesativarTarefa() => TarefaAtivada = false;
+
+        /// <summary>
+        /// Orçamentos
+        /// </summary>
+        public void AtivarOrcamento() => OrcamentoAtivado = true;
+        public void DesativarOrcamento() => OrcamentoAtivado = false;
+
+        /// <summary>
+        /// Automação
+        /// </summary>
+        public void AtivarAutomacao() => AutomacaoAtivada = true;
+        public void DesativarAutomacao() => AutomacaoAtivada = false;
+
+
+
+
         /// Metodos 
         public ValidationResult AdicionarGrupo(Grupo grupo)
         {
@@ -312,6 +374,7 @@ namespace CondominioApp.Principal.Domain
             contrato.SetCondominioId(Id);
 
             _Contratos.Add(contrato);
+          
 
             return ValidationResult;
         }
@@ -322,6 +385,54 @@ namespace CondominioApp.Principal.Domain
             {
                 contrato.Desativar();               
             }
+        }
+
+        private void DesativarFuncoesDoCondominio()
+        {
+            DesativarCadastroDeVeiculoPeloMorador();
+            DesativarChat();
+            DesativarChatMorador();
+            DesativarClassificado();
+            DesativarClassificadoMorador();
+            DesativarCorrespondencia();
+            DesativarCorrespondenciaNaPortaria();            
+            DesativarMural();
+            DesativarMuralMorador();
+            DesativarOcorrencia();
+            DesativarOcorrenciaMorador();
+            DesativarPortaria();
+            DesativarPortariaMorador();
+            DesativarReserva();
+            DesativarReservaNaPortaria();            
+        }
+
+        private void DesativarFuncoesDoCondominioParaPlanoFree()
+        {
+            DesativarCadastroDeVeiculoPeloMorador();            
+            DesativarCorrespondenciaNaPortaria();                                    
+            DesativarPortaria();
+            DesativarPortariaMorador();
+            DesativarReserva();
+            DesativarReservaNaPortaria();
+        }
+
+        private void DesativarFuncoesDoCondominioParaPlanoStandard()
+        {
+            DesativarCadastroDeVeiculoPeloMorador();
+            DesativarChat();
+            DesativarChatMorador();
+            DesativarClassificado();
+            DesativarClassificadoMorador();
+            DesativarCorrespondencia();
+            DesativarCorrespondenciaNaPortaria();            
+            DesativarMural();
+            DesativarMuralMorador();
+            DesativarOcorrencia();
+            DesativarOcorrenciaMorador();
+            DesativarPortaria();
+            DesativarPortariaMorador();
+            DesativarReserva();
+            DesativarReservaNaPortaria();
         }
     }
 }

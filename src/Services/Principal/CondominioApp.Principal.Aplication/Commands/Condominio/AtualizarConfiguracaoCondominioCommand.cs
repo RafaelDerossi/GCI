@@ -10,7 +10,9 @@ namespace CondominioApp.Principal.Aplication.Commands
             bool classificadoAtivado, bool classificadoParaMoradorAtivado, bool muralAtivado, bool muralParaMoradorAtivado,
             bool chatAtivado, bool chatParaMoradorAtivado, bool reservaAtivada, bool reservaNaPortariaAtivada,
             bool ocorrenciaAtivada, bool ocorrenciaParaMoradorAtivada, bool correspondenciaAtivada,
-            bool correspondenciaNaPortariaAtivada, bool cadastroDeVeiculoPeloMoradorAtivado)
+            bool correspondenciaNaPortariaAtivada, bool cadastroDeVeiculoPeloMoradorAtivado, 
+            bool enqueteAtivada, bool controleDeAcessoAtivado, bool tarefaAtivada, bool orcamentoAtivado,
+            bool automacaoAtivada)
         {
             Id = condominioId;           
             PortariaAtivada = portaria;
@@ -28,6 +30,11 @@ namespace CondominioApp.Principal.Aplication.Commands
             CorrespondenciaAtivada = correspondenciaAtivada;
             CorrespondenciaNaPortariaAtivada = correspondenciaNaPortariaAtivada;
             CadastroDeVeiculoPeloMoradorAtivado = cadastroDeVeiculoPeloMoradorAtivado;
+            EnqueteAtivada = enqueteAtivada;
+            ControleDeAcessoAtivado = controleDeAcessoAtivado;
+            TarefaAtivada = tarefaAtivada;
+            OrcamentoAtivado = orcamentoAtivado;
+            AutomacaoAtivada = automacaoAtivada;
         }
 
 

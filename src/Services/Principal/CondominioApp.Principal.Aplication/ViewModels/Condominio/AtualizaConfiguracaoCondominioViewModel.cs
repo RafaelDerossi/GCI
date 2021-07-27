@@ -79,5 +79,32 @@ namespace CondominioApp.Principal.Aplication.ViewModels
         public bool CorrespondenciaNaPortariaAtivada { get; set; }
 
         public bool CadastroDeVeiculoPeloMoradorAtivado { get; set; }
+
+
+        /// <summary>
+        /// Habilita/Desabilita a criação de enquetes
+        /// </summary>
+        public bool EnqueteAtivada { get; set; }
+
+        /// <summary>
+        /// Habilita/Desabilita o Controle de Acesso
+        /// </summary>
+        public bool ControleDeAcessoAtivado { get; set; }
+
+        /// <summary>
+        /// Habilita/Desabilita a gestão de tarefas
+        /// </summary>
+        public bool TarefaAtivada { get; set; }
+
+        /// <summary>
+        /// Habilita/Desabilita a gestão de orçamentos
+        /// </summary>
+        public bool OrcamentoAtivado { get; set; }
+
+        /// <summary>
+        /// Habilita/Desabilita a automação
+        /// </summary>
+        public bool AutomacaoAtivada { get; set; }
+
     }
 }

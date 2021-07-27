@@ -187,6 +187,32 @@ namespace CondominioApp.Principal.Aplication.Commands
                 condominioBd.DesativarCadastroDeVeiculoPeloMorador();
 
 
+            if (request.EnqueteAtivada)
+                condominioBd.AtivarEnquete();
+            else
+                condominioBd.DesativarEnquete();
+
+            if (request.ControleDeAcessoAtivado)
+                condominioBd.AtivarControleDeAcesso();
+            else
+                condominioBd.DesativarControleDeAcesso();
+
+            if (request.TarefaAtivada)
+                condominioBd.AtivarTarefa();
+            else
+                condominioBd.DesativarTarefa();
+
+            if (request.OrcamentoAtivado)
+                condominioBd.AtivarOrcamento();
+            else
+                condominioBd.DesativarOrcamento();
+
+            if (request.AutomacaoAtivada)
+                condominioBd.AtivarAutomacao();
+            else
+                condominioBd.DesativarAutomacao();
+
+
             _condominioRepository.Atualizar(condominioBd);
 
             condominioBd.AdicionarEvento(
@@ -196,7 +222,8 @@ namespace CondominioApp.Principal.Aplication.Commands
               condominioBd.ChatAtivado, condominioBd.ChatParaMoradorAtivado, condominioBd.ReservaAtivada,
               condominioBd.ReservaNaPortariaAtivada, condominioBd.OcorrenciaAtivada, condominioBd.OcorrenciaParaMoradorAtivada,
               condominioBd.CorrespondenciaAtivada, condominioBd.CorrespondenciaNaPortariaAtivada,
-              condominioBd.CadastroDeVeiculoPeloMoradorAtivado));
+              condominioBd.CadastroDeVeiculoPeloMoradorAtivado, condominioBd.EnqueteAtivada, condominioBd.ControleDeAcessoAtivado,
+              condominioBd.TarefaAtivada, condominioBd.OrcamentoAtivado, condominioBd.AutomacaoAtivada));
 
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }
@@ -271,7 +298,9 @@ namespace CondominioApp.Principal.Aplication.Commands
                 request.MuralParaMoradorAtivado, request.ChatAtivado, request.ChatParaMoradorAtivado,
                 request.ReservaAtivada, request.ReservaNaPortariaAtivada, request.OcorrenciaAtivada,
                 request.OcorrenciaParaMoradorAtivada, request.CorrespondenciaAtivada,
-                request.CorrespondenciaNaPortariaAtivada, request.CadastroDeVeiculoPeloMoradorAtivado);
+                request.CorrespondenciaNaPortariaAtivada, request.CadastroDeVeiculoPeloMoradorAtivado,
+                request.EnqueteAtivada, request.ControleDeAcessoAtivado, request.TarefaAtivada,
+                request.OrcamentoAtivado, request.AutomacaoAtivada);
             
             return condominio;
         }
@@ -294,7 +323,8 @@ namespace CondominioApp.Principal.Aplication.Commands
                condominio.ReservaAtivada, condominio.ReservaNaPortariaAtivada, condominio.OcorrenciaAtivada,
                condominio.OcorrenciaParaMoradorAtivada, condominio.CorrespondenciaAtivada, 
                condominio.CorrespondenciaNaPortariaAtivada, condominio.CadastroDeVeiculoPeloMoradorAtivado,
-               contrato.Id, contrato.DataAssinatura, contrato.Tipo, contrato.Descricao, contrato.Ativo,
+               condominio.EnqueteAtivada, condominio.ControleDeAcessoAtivado, condominio.TarefaAtivada,
+               condominio.OrcamentoAtivado, condominio.AutomacaoAtivada, contrato.Id, contrato.DataAssinatura, contrato.Tipo, contrato.Descricao, contrato.Ativo,
                contrato.QuantidadeDeUnidadesContratada, contrato.ArquivoContrato));
         }
 

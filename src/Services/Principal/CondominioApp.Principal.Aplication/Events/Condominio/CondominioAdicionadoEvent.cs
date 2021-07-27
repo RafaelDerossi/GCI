@@ -13,9 +13,10 @@ namespace CondominioApp.Principal.Aplication.Events
            bool muralAtivado, bool muralMoradorAtivado, bool chatAtivado, bool chatMoradorAtivado,
            bool reservaAtivada, bool reservaNaPortariaAtivada, bool ocorrenciaAtivada,
            bool ocorrenciaMoradorAtivada, bool correspondenciaAtivada, bool correspondenciaNaPortariaAtivada,
-           bool cadastraVeiculoPeloMoradorAtivado, Guid contratoId, DateTime dataAssinaturaContrato,
-           TipoDePlano tipoPlano, string descricaoContrato, bool contratoAtivo,
-           int quantidadeDeUnidadesContratadas, NomeArquivo arquivoContrato)            
+           bool cadastraVeiculoPeloMoradorAtivado, bool enqueteAtivada, bool controleDeAcessoAtivado,
+           bool tarefaAtivada, bool orcamentoAtivado, bool automacaoAtivada, Guid contratoId,
+           DateTime dataAssinaturaContrato, TipoDePlano tipoPlano, string descricaoContrato,
+           bool contratoAtivo, int quantidadeDeUnidadesContratadas, NomeArquivo arquivoContrato)            
         {
             CondominioId = id;       
             Cnpj = cnpj;
@@ -39,6 +40,11 @@ namespace CondominioApp.Principal.Aplication.Events
             CorrespondenciaAtivada = correspondenciaAtivada;
             CorrespondenciaNaPortariaAtivada = correspondenciaNaPortariaAtivada;
             CadastroDeVeiculoPeloMoradorAtivado = cadastraVeiculoPeloMoradorAtivado;
+            EnqueteAtivada = enqueteAtivada;
+            ControleDeAcessoAtivado = controleDeAcessoAtivado;
+            TarefaAtivada = tarefaAtivada;
+            OrcamentoAtivado = orcamentoAtivado;
+            AutomacaoAtivada = automacaoAtivada;
             ContratoId = contratoId;
             DataAssinatura = dataAssinaturaContrato;
             TipoPlano = tipoPlano;

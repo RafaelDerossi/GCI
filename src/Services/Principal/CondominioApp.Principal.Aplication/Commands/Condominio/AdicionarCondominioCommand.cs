@@ -15,8 +15,10 @@ namespace CondominioApp.Principal.Aplication.Commands
              bool chatAtivado, bool chatParaMoradorAtivado, bool reservaAtivada, bool reservaNaPortariaAtivada,
              bool ocorrenciaAtivada, bool ocorrenciaParaMoradorAtivada, bool correspondenciaAtivada, 
              bool correspondenciaNaPortariaAtivada, bool cadastroDeVeiculoPeloMoradorAtivado,
-             DateTime DataAssinaturaContrato, TipoDePlano TipoDePlano, string descricaoContrato,
-             bool contratoAtivo, string nomeOriginalArquivoContrato,  int quantidadeDeUnidadesContratada)
+             bool enqueteAtivada, bool controleDeAcessoAtivado, bool tarefaAtivada, bool orcamentoAtivado,
+             bool automacaoAtivada, DateTime DataAssinaturaContrato, TipoDePlano TipoDePlano,
+             string descricaoContrato, bool contratoAtivo, string nomeOriginalArquivoContrato,
+             int quantidadeDeUnidadesContratada)
         {
             Id = Guid.NewGuid();
             SetCNPJ(cnpj);
@@ -41,6 +43,11 @@ namespace CondominioApp.Principal.Aplication.Commands
             CorrespondenciaAtivada = correspondenciaAtivada;
             CorrespondenciaNaPortariaAtivada = correspondenciaNaPortariaAtivada;
             CadastroDeVeiculoPeloMoradorAtivado = cadastroDeVeiculoPeloMoradorAtivado;
+            EnqueteAtivada = enqueteAtivada;
+            ControleDeAcessoAtivado = controleDeAcessoAtivado;
+            TarefaAtivada = tarefaAtivada;
+            OrcamentoAtivado = orcamentoAtivado;
+            AutomacaoAtivada = automacaoAtivada;
             SetContrato
                 (DataAssinaturaContrato, TipoDePlano, descricaoContrato, contratoAtivo,
                  nomeOriginalArquivoContrato, quantidadeDeUnidadesContratada);

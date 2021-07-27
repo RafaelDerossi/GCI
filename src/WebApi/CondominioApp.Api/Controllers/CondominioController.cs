@@ -78,6 +78,11 @@ namespace CondominioApp.Api.Controllers
         /// CorrespondenciaAtivada              : Informa se a função "correspondência" esta ativada no condomínio;   
         /// CorrespondenciaNaPortariaAtivada    : Informa se a função "correspondência" esta ativada na portaria do condomínio;   
         /// CadastroDeVeiculoPeloMoradorAtivado : Informa se a função cadastrar veículos pelo morador no app esta ativada;   
+        /// EnqueteAtivada                      : Informa se a função "Enquete" esta ativada;   
+        /// ControleDeAcessoAtivado             : Informa se as funções de controle de acesso(Áreas de acesso, carteirinha virtual) estão ativadas;   
+        /// TarefaAtivada                       : Informa se a gestão de tarefas esta ativada;   
+        /// OrcamentoAtivado                    : Informa se a gestão de orçamentos esta ativada;   
+        /// AutomacaoAtivada                    : Informa se as funções de automação estão ativadas;   
         /// ContratoId                          : Id(Guid) do contrato com o condomínio;   
         /// DataAssinaturaContrato              : Data da assinatura do contrato;   
         /// TipoPlano                           : Tipo do plano Enum: FREE = 1, STANDARD = 2, PREMIUM = 3;   
@@ -85,7 +90,7 @@ namespace CondominioApp.Api.Controllers
         /// ContratoAtivo                       : Informa se o contrato esta ativo;   
         /// NomeArquivoContrato                 : Nome do arquivo de contrato;   
         /// NomeOriginalArquivoContrato         : Nome original do arquivo de contrato;   
-        /// UrlArquivoContrato                  : Url do arquivo de contrato;   
+        /// UrlArquivoContrato                  : Url do arquivo de contrato;           
         /// </response>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CondominioFlat>>> ObterTodos()
@@ -144,6 +149,11 @@ namespace CondominioApp.Api.Controllers
         /// CorrespondenciaAtivada              : Informa se a função "correspondência" esta ativada no condomínio;   
         /// CorrespondenciaNaPortariaAtivada    : Informa se a função "correspondência" esta ativada na portaria do condomínio;   
         /// CadastroDeVeiculoPeloMoradorAtivado : Informa se a função cadastrar veículos pelo morador no app esta ativada;   
+        /// EnqueteAtivada                      : Informa se a função "Enquete" esta ativada;   
+        /// ControleDeAcessoAtivado             : Informa se as funções de controle de acesso(Áreas de acesso, carteirinha virtual) estão ativadas;   
+        /// TarefaAtivada                       : Informa se a gestão de tarefas esta ativada;   
+        /// OrcamentoAtivado                    : Informa se a gestão de orçamentos esta ativada;   
+        /// AutomacaoAtivada                    : Informa se as funções de automação estão ativadas;   
         /// ContratoId                          : Id(Guid) do contrato com o condomínio;   
         /// DataAssinaturaContrato              : Data da assinatura do contrato;   
         /// TipoPlano                           : Tipo do plano Enum: FREE = 1, STANDARD = 2, PREMIUM = 3;   
@@ -238,6 +248,11 @@ namespace CondominioApp.Api.Controllers
         /// CorrespondenciaAtivada              : Informa se a função "correspondência" esta ativada no condomínio;   
         /// CorrespondenciaNaPortariaAtivada    : Informa se a função "correspondência" esta ativada na portaria do condomínio;   
         /// CadastroDeVeiculoPeloMoradorAtivado : Informa se a função cadastrar veículos pelo morador no app esta ativada;           
+        /// EnqueteAtivada                      : Informa se a função "Enquete" esta ativada;   
+        /// ControleDeAcessoAtivado             : Informa se as funções de controle de acesso(Áreas de acesso, carteirinha virtual) estão ativadas;   
+        /// TarefaAtivada                       : Informa se a gestão de tarefas esta ativada;   
+        /// OrcamentoAtivado                    : Informa se a gestão de orçamentos esta ativada;   
+        /// AutomacaoAtivada                    : Informa se as funções de automação estão ativadas;   
         /// DataAssinaturaContrato              : Data da assinatura do contrato;   
         /// TipoPlano                           : Tipo do plano Enum: FREE = 1, STANDARD = 2, PREMIUM = 3;   
         /// DescricaoContrato                   : Breve descrição do contrato(200 caracteres);   
@@ -337,6 +352,11 @@ namespace CondominioApp.Api.Controllers
         /// CorrespondenciaAtivada              : Informa se a função "correspondência" esta ativada no condomínio;   
         /// CorrespondenciaNaPortariaAtivada    : Informa se a função "correspondência" esta ativada na portaria do condomínio;   
         /// CadastroDeVeiculoPeloMoradorAtivado : Informa se a função cadastrar veículos pelo morador no app esta ativada;                   
+        /// EnqueteAtivada                      : Informa se a função "Enquete" esta ativada;   
+        /// ControleDeAcessoAtivado             : Informa se as funções de controle de acesso(Áreas de acesso, carteirinha virtual) estão ativadas;   
+        /// TarefaAtivada                       : Informa se a gestão de tarefas esta ativada;   
+        /// OrcamentoAtivado                    : Informa se a gestão de orçamentos esta ativada;   
+        /// AutomacaoAtivada                    : Informa se as funções de automação estão ativadas;   
         /// </param>
         /// <returns></returns>
         [HttpPut("configuracao")]
@@ -350,7 +370,9 @@ namespace CondominioApp.Api.Controllers
                  EditaCondominioVM.MuralMoradorAtivado, EditaCondominioVM.ChatAtivado, EditaCondominioVM.ChatMoradorAtivado, 
                  EditaCondominioVM.ReservaAtivada, EditaCondominioVM.ReservaNaPortariaAtivada, EditaCondominioVM.OcorrenciaAtivada,
                  EditaCondominioVM.OcorrenciaMoradorAtivada, EditaCondominioVM.CorrespondenciaAtivada, 
-                 EditaCondominioVM.CorrespondenciaNaPortariaAtivada, EditaCondominioVM.CadastroDeVeiculoPeloMoradorAtivado);          
+                 EditaCondominioVM.CorrespondenciaNaPortariaAtivada, EditaCondominioVM.CadastroDeVeiculoPeloMoradorAtivado,
+                 EditaCondominioVM.EnqueteAtivada, EditaCondominioVM.ControleDeAcessoAtivado, EditaCondominioVM.TarefaAtivada,
+                 EditaCondominioVM.OrcamentoAtivado, EditaCondominioVM.AutomacaoAtivada);          
                     
 
             return CustomResponse(await _mediatorHandler.EnviarComando(comando));
@@ -443,9 +465,10 @@ namespace CondominioApp.Api.Controllers
                  condominioVM.ChatParaMoradorAtivado, condominioVM.ReservaAtivada, condominioVM.ReservaNaPortariaAtivada,
                  condominioVM.OcorrenciaAtivada, condominioVM.OcorrenciaParaMoradorAtivada, condominioVM.CorrespondenciaAtivada,
                  condominioVM.CorrespondenciaNaPortariaAtivada, condominioVM.CadastroDeVeiculoPeloMoradorAtivado,
-                 condominioVM.DataAssinaturaContrato, condominioVM.TipoDePlano, condominioVM.DescricaoContrato,
-                 condominioVM.ContratoAtivo, nomeOriginalArquivoContrato, condominioVM.QuantidadeDeUnidadesContratada);
-
+                 condominioVM.EnqueteAtivada, condominioVM.ControleDeAcessoAtivado, condominioVM.TarefaAtivada,
+                 condominioVM.OrcamentoAtivado, condominioVM.AutomacaoAtivada, condominioVM.DataAssinaturaContrato,
+                 condominioVM.TipoDePlano, condominioVM.DescricaoContrato, condominioVM.ContratoAtivo,
+                 nomeOriginalArquivoContrato, condominioVM.QuantidadeDeUnidadesContratada);
         }
 
     }

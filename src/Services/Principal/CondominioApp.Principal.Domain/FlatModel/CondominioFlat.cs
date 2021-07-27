@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using CondominioApp.Core.DomainObjects;
 using CondominioApp.Core.Enumeradores;
 using CondominioApp.Core.Helpers;
@@ -99,6 +97,16 @@ namespace CondominioApp.Principal.Domain.FlatModel
         public bool CorrespondenciaNaPortariaAtivada { get; private set; }
 
         public bool CadastroDeVeiculoPeloMoradorAtivado { get; private set; }
+        
+        public bool EnqueteAtivada { get; private set; }
+        
+        public bool ControleDeAcessoAtivado { get; private set; }
+        
+        public bool TarefaAtivada { get; private set; }
+        
+        public bool OrcamentoAtivado { get; private set; }
+        
+        public bool AutomacaoAtivada { get; private set; }
 
 
         public Guid ContratoId { get; private set; }
@@ -155,8 +163,10 @@ namespace CondominioApp.Principal.Domain.FlatModel
             bool muralParaMoradorAtivado, bool chatAtivado, bool chatParaMoradorAtivado, bool reservaAtivada,
             bool reservaNaPortariaAtivado, bool ocorrenciaAtivada, bool ocorrenciaParaMoradorAtivada,
             bool correspondenciaAtivada, bool correspondenciaNaPortariaAtivada,
-            bool cadastroDeVeiculoPeloMoradorAtivado, Guid contratoId, DateTime dataAssinaturaContrato,
-            TipoDePlano tipoPlano, string descricaoContrato, bool contratoAtivo, NomeArquivo arquivoContrato)
+            bool cadastroDeVeiculoPeloMoradorAtivado, bool enqueteAtivada, bool controleDeAcessoAtivado,
+            bool tarefaAtivada, bool orcamentoAtivado, bool automacaoAtivada, Guid contratoId,
+            DateTime dataAssinaturaContrato, TipoDePlano tipoPlano, string descricaoContrato,
+            bool contratoAtivo, NomeArquivo arquivoContrato)
         {
             Id = id;
             Lixeira = lixeira; 
@@ -187,6 +197,11 @@ namespace CondominioApp.Principal.Domain.FlatModel
             CorrespondenciaAtivada = correspondenciaAtivada;
             CorrespondenciaNaPortariaAtivada = correspondenciaNaPortariaAtivada;
             CadastroDeVeiculoPeloMoradorAtivado = cadastroDeVeiculoPeloMoradorAtivado;
+            EnqueteAtivada = enqueteAtivada;
+            ControleDeAcessoAtivado = controleDeAcessoAtivado;
+            TarefaAtivada = tarefaAtivada;
+            OrcamentoAtivado = orcamentoAtivado;
+            AutomacaoAtivada = automacaoAtivada;
             ContratoId = contratoId;
             DataAssinaturaContrato = dataAssinaturaContrato;
             TipoPlano = tipoPlano;
@@ -351,7 +366,35 @@ namespace CondominioApp.Principal.Domain.FlatModel
         public void AtivarCadastroDeVeiculoPeloMorador() => CadastroDeVeiculoPeloMoradorAtivado = true;
         public void DesativarCadastroDeVeiculoPeloMorador() => CadastroDeVeiculoPeloMoradorAtivado = false;
 
+        /// <summary>
+        /// Enquetes
+        /// </summary>
+        public void AtivarEnquete() => EnqueteAtivada = true;
+        public void DesativarEnquete() => EnqueteAtivada = false;
 
+        /// <summary>
+        /// Controle de Acesso
+        /// </summary>
+        public void AtivarControleDeAcesso() => ControleDeAcessoAtivado = true;
+        public void DesativarControleDeAcesso() => ControleDeAcessoAtivado = false;
+
+        /// <summary>
+        /// Tarefas
+        /// </summary>
+        public void AtivarTarefa() => TarefaAtivada = true;
+        public void DesativarTarefa() => TarefaAtivada = false;
+
+        /// <summary>
+        /// Orçamentos
+        /// </summary>
+        public void AtivarOrcamento() => OrcamentoAtivado = true;
+        public void DesativarOrcamento() => OrcamentoAtivado = false;
+
+        /// <summary>
+        /// Automação
+        /// </summary>
+        public void AtivarAutomacao() => AutomacaoAtivada = true;
+        public void DesativarAutomacao() => AutomacaoAtivada = false;
 
     }
 }
