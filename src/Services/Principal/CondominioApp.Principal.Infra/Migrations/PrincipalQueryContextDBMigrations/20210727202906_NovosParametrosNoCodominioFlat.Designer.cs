@@ -4,14 +4,16 @@ using CondominioApp.Principal.Infra.DataQuery;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CondominioApp.Principal.Infra.Migrations.PrincipalQueryContextDBMigrations
 {
     [DbContext(typeof(PrincipalQueryContextDB))]
-    partial class PrincipalQueryContextDBModelSnapshot : ModelSnapshot
+    [Migration("20210727202906_NovosParametrosNoCodominioFlat")]
+    partial class NovosParametrosNoCodominioFlat
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -70,7 +72,7 @@ namespace CondominioApp.Principal.Infra.Migrations.PrincipalQueryContextDBMigrat
                         .HasDefaultValueSql("0");
 
                     b.Property<string>("Cnpj")
-                        .HasColumnType("varchar(14)");
+                        .HasColumnType("varchar(18)");
 
                     b.Property<string>("Complemento")
                         .HasColumnName("Complemento")
@@ -210,7 +212,7 @@ namespace CondominioApp.Principal.Infra.Migrations.PrincipalQueryContextDBMigrat
                         .HasColumnType("bit");
 
                     b.Property<string>("Telefone")
-                        .HasColumnType("varchar(11)");
+                        .HasColumnType("varchar(15)");
 
                     b.Property<int>("TipoPlano")
                         .HasColumnType("int");
@@ -231,16 +233,16 @@ namespace CondominioApp.Principal.Infra.Migrations.PrincipalQueryContextDBMigrat
 
                     b.Property<string>("CondominioCnpj")
                         .IsRequired()
-                        .HasColumnType("varchar(14)");
+                        .HasColumnType("varchar(18)");
 
                     b.Property<Guid>("CondominioId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("CondominioNome")
-                        .IsRequired()
+                    b.Property<string>("CondominioLogoMarca")
                         .HasColumnType("varchar(200)");
 
-                    b.Property<string>("CondominioNomeLogo")
+                    b.Property<string>("CondominioNome")
+                        .IsRequired()
                         .HasColumnType("varchar(200)");
 
                     b.Property<DateTime>("DataDeAlteracao")
@@ -269,7 +271,7 @@ namespace CondominioApp.Principal.Infra.Migrations.PrincipalQueryContextDBMigrat
 
                     b.Property<string>("Andar")
                         .IsRequired()
-                        .HasColumnType("varchar(11)");
+                        .HasColumnType("varchar(15)");
 
                     b.Property<string>("Codigo")
                         .IsRequired()
@@ -279,16 +281,16 @@ namespace CondominioApp.Principal.Infra.Migrations.PrincipalQueryContextDBMigrat
                         .HasColumnType("varchar(200)");
 
                     b.Property<string>("CondominioCnpj")
-                        .HasColumnType("varchar(14)");
+                        .HasColumnType("varchar(18)");
 
                     b.Property<Guid>("CondominioId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("CondominioNome")
-                        .IsRequired()
+                    b.Property<string>("CondominioLogoMarca")
                         .HasColumnType("varchar(200)");
 
-                    b.Property<string>("CondominioNomeLogo")
+                    b.Property<string>("CondominioNome")
+                        .IsRequired()
                         .HasColumnType("varchar(200)");
 
                     b.Property<DateTime>("DataDeAlteracao")

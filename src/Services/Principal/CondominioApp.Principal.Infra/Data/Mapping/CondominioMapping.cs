@@ -37,7 +37,7 @@ namespace CondominioApp.Principal.Infra.Data.Mapping
                     .HasColumnType($"varchar({Telefone.NumeroMaximo})");
             });           
 
-            builder.OwnsOne(u => u.LogoMarca, ft =>
+            builder.OwnsOne(u => u.Logo, ft =>
             {
                 ft.Property(u => u.NomeDoArquivo)                    
                     .HasMaxLength(Foto.NomeFotoMaximo)

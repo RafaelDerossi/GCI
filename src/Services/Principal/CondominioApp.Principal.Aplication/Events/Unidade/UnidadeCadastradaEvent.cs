@@ -9,7 +9,7 @@ namespace CondominioApp.Principal.Aplication.Events
             string unidadeCodigo, string unidadeNumero, string unidadeAndar,
             int unidadeVagas, string unidadeTelefone, string unidadeRamal, string unidadeComplemento,
             Guid grupoId, string grupoDescricao, Guid condominioId, string condominioCnpj, string condominioNome,
-            string condominioLogoMarca)
+            string condominioLogo)
         {
             UnidadeId = id;
             Codigo = unidadeCodigo;
@@ -24,7 +24,7 @@ namespace CondominioApp.Principal.Aplication.Events
             CondominioId = condominioId;
             CondominioCnpj = condominioCnpj;
             CondominioNome = condominioNome;
-            CondominioLogoMarca = condominioLogoMarca;
+            CondominioLogo = condominioLogo;
         }
 
     }

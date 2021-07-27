@@ -47,8 +47,8 @@ namespace CondominioApp.Principal.Aplication.Commands
 
             grupo.AdicionarEvento(
                 new GrupoCadastradoEvent(grupo.Id,
-                grupo.Descricao, grupo.CondominioId, condominio.Cnpj.NumeroFormatado,
-                condominio.Nome, condominio.LogoMarca.NomeDoArquivo));
+                grupo.Descricao, grupo.CondominioId, condominio.Cnpj.Numero,
+                condominio.Nome, condominio.Logo.NomeDoArquivo));
 
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }

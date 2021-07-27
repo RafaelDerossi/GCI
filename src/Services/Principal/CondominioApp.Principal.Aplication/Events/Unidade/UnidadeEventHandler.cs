@@ -29,7 +29,7 @@ namespace CondominioApp.Principal.Aplication.Events
                  false, notification.Codigo, notification.Numero, notification.Andar,
                  notification.Vaga, notification.Telefone, notification.Ramal, notification.Complemento,
                  notification.GrupoId, notification.GrupoDescricao, notification.CondominioId, 
-                 notification.CondominioCnpj, notification.CondominioNome, notification.CondominioLogoMarca);
+                 notification.CondominioCnpj, notification.CondominioNome, notification.CondominioLogo);
 
             _condominioQueryRepository.AdicionarUnidade(unidadeFlat);
 

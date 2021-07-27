@@ -16,7 +16,7 @@ namespace CondominioApp.Principal.Aplication.Events
 
         public string Descricao { get; protected set; }
 
-        public Foto LogoMarca { get; protected set; }
+        public Foto Logo { get; protected set; }
 
         public Telefone Telefone { get; protected set; }
 

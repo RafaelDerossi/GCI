@@ -7,7 +7,8 @@ namespace CondominioApp.Principal.Domain.ValueObjects
 {
     public class Cnpj
     {
-        public const int Maxlength = 14;
+        public const int Maxlength = 14;       
+
         public string Numero { get; private set; }
 
         protected Cnpj() { }

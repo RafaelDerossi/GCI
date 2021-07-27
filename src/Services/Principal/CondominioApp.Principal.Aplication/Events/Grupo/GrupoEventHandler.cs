@@ -27,7 +27,7 @@ namespace CondominioApp.Principal.Aplication.Events
             var grupoFlat = new GrupoFlat
                 (notification.GrupoId, 
                 false, notification.Descricao, notification.CondominioId, 
-                notification.CondominioCnpj, notification.CondominioNome, notification.CondominioLogoMarca);
+                notification.CondominioCnpj, notification.CondominioNome, notification.CondominioLogo);
 
             _condominioQueryRepository.AdicionarGrupo(grupoFlat);
 

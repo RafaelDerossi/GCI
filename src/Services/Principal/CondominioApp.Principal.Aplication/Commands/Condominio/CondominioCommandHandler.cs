@@ -245,7 +245,7 @@ namespace CondominioApp.Principal.Aplication.Commands
 
             condominioBd.AdicionarEvento(
                new LogoDoCondominioAtualizadoEvent
-               (condominioBd.Id, condominioBd.LogoMarca));
+               (condominioBd.Id, condominioBd.Logo));
 
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }
@@ -315,7 +315,7 @@ namespace CondominioApp.Principal.Aplication.Commands
 
             condominio.AdicionarEvento(
                new CondominioAdicionadoEvent(condominio.Id,
-               condominio.Cnpj, condominio.Nome, condominio.Descricao, condominio.LogoMarca,
+               condominio.Cnpj, condominio.Nome, condominio.Descricao, condominio.Logo,
                condominio.Telefone, condominio.Endereco, condominio.PortariaAtivada, 
                condominio.PortariaParaMoradorAtivada, condominio.ClassificadoAtivado,
                condominio.ClassificadoParaMoradorAtivado, condominio.MuralAtivado,

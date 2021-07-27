@@ -8,7 +8,8 @@ namespace CondominioApp.Principal.Domain.ValueObjects
     public class Telefone
     {
         public const int NumeroMaximo = 11;
-        public const int NumeroMinimo = 10;
+        public const int NumeroMinimo = 10;       
+
         public string Numero { get; private set; }       
 
         protected Telefone() { }

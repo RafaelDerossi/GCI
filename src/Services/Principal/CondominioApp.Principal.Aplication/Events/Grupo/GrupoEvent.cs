@@ -15,6 +15,6 @@ namespace CondominioApp.Principal.Aplication.Events
 
         public string CondominioNome { get; protected set; }
 
-        public string CondominioLogoMarca { get; protected set; }
+        public string CondominioLogo { get; protected set; }
     }
 }

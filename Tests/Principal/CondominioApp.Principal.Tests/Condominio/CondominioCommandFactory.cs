@@ -1,4 +1,5 @@
-﻿using CondominioApp.Principal.Aplication.Commands;
+﻿using CondominioApp.Core.Enumeradores;
+using CondominioApp.Principal.Aplication.Commands;
 using System;
 
 namespace CondominioApp.Principal.Tests
@@ -11,9 +12,9 @@ namespace CondominioApp.Principal.Tests
                             "Condominio Teste Unitario", "Foto.jpg", "21997967038",
                             "Rua...", null, "1001", "23063260", "Bairro", "Cidade", "RJ",
                             false, false, false, false, false, false, false, false, false,
-                            false, false, false, false, false, false, DateTime.Today.Date,
-                            Core.Enumeradores.TipoDePlano.FREE, "Primeiro Contrato", true,
-                            "contrato.pdf", 10);
+                            false, false, false, false, false, false, false, false, false,
+                            false, false, DateTime.Today.Date, TipoDePlano.FREE,
+                            "Primeiro Contrato", true, "contrato.pdf", 10);
         }
         private static AtualizarCondominioCommand EditarCondominioCommandFactory()
         {
@@ -132,7 +133,8 @@ namespace CondominioApp.Principal.Tests
         {
 
             return new AtualizarConfiguracaoCondominioCommand(Guid.NewGuid(), true, false, true,
-                false, false, false, false, false, false, false, false, false, false, false, false);
+                false, false, false, false, false, false, false, false, false, false, false, false,
+                false, false, false, false, false);
 
         }
     }

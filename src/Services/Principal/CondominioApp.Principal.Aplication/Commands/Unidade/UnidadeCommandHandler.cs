@@ -60,8 +60,8 @@ namespace CondominioApp.Principal.Aplication.Commands
                 new UnidadeCadastradaEvent(unidade.Id,
                 unidade.Codigo, unidade.Numero, unidade.Andar, unidade.Vagas,
                 unidade.Telefone.Numero, unidade.Ramal, unidade.Complemento, unidade.GrupoId,
-                grupo.Descricao, unidade.CondominioId, condominio.Cnpj.NumeroFormatado,
-                condominio.Nome, condominio.LogoMarca.NomeDoArquivo));
+                grupo.Descricao, unidade.CondominioId, condominio.Cnpj.Numero,
+                condominio.Nome, condominio.Logo.NomeDoArquivo));
 
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }

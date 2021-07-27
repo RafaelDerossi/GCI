@@ -7,10 +7,10 @@ namespace CondominioApp.Principal.Aplication.Events
     public class LogoDoCondominioAtualizadoEvent : CondominioEvent
     {
       
-        public LogoDoCondominioAtualizadoEvent(Guid id, Foto logoMarca)            
+        public LogoDoCondominioAtualizadoEvent(Guid id, Foto logo)            
         {
             CondominioId = id;            
-            LogoMarca = logoMarca;            
+            Logo = logo;            
         }
 
 

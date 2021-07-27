@@ -156,7 +156,7 @@ namespace CondominioApp.Principal.Domain.FlatModel
         protected CondominioFlat() { }
 
         public CondominioFlat(Guid id, bool lixeira, 
-            string cnpj, string nome, string descricao, Foto logoMarca, 
+            string cnpj, string nome, string descricao, Foto logo, 
             string telefone, string logradouro, string complemento, string numero, string cep, 
             string bairro, string cidade, string estado, bool portariaAtivada, bool portariaParaMoradorAtivada,
             bool classificadoAtivado, bool classificadoParaMoradorAtivado, bool muralAtivado,
@@ -173,7 +173,7 @@ namespace CondominioApp.Principal.Domain.FlatModel
             Cnpj = cnpj;
             Nome = nome;
             Descricao = descricao;
-            SetLogo(logoMarca);
+            SetLogo(logo);
             Telefone = telefone;
             Logradouro = logradouro;
             Complemento = complemento;

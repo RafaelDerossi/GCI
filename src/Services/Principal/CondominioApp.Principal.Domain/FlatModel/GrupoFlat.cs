@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CondominioApp.Core.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -23,13 +24,25 @@ namespace CondominioApp.Principal.Domain.FlatModel
 
         public string CondominioNome { get; private set; }
 
-        public string CondominioLogoMarca { get; private set; }
+        public string CondominioNomeLogo { get; private set; }
+
+        public string UrlCondominioLogo
+        {
+            get
+            {
+                if (CondominioNomeLogo == null || CondominioNomeLogo == "")
+                    return "";
+
+                return StorageHelper.ObterUrlDeArquivo(CondominioId.ToString(), CondominioNomeLogo);
+            }
+        }
+
 
         protected GrupoFlat() { }
 
         public GrupoFlat(Guid id,
             bool lixeira, string grupoDescricao, Guid condominioId, string condominioCnpj,
-            string condominioNome, string condominioLogoMarca)
+            string condominioNome, string condominioLogo)
         {
             Id = id;
             Lixeira = lixeira;
@@ -37,7 +50,7 @@ namespace CondominioApp.Principal.Domain.FlatModel
             CondominioId = condominioId;
             CondominioCnpj = condominioCnpj;
             CondominioNome = condominioNome;
-            CondominioLogoMarca = condominioLogoMarca;
+            CondominioNomeLogo = condominioLogo;
         }
 
         public void EnviarParaLixeira() => Lixeira = true;
@@ -50,6 +63,6 @@ namespace CondominioApp.Principal.Domain.FlatModel
 
         public void SetCondominioNome(string nome) => CondominioNome = nome;
 
-        public void SetCondominioLogomarca(string logomarca) => CondominioLogoMarca = logomarca;
+        public void SetCondominioLogo(string logo) => CondominioNomeLogo = logo;
     }
 }

@@ -38,7 +38,7 @@ namespace CondominioApp.Principal.Aplication.ViewModels
 
         public string CondominioNome { get; private set; }
 
-        public string CondominioLogoMarca { get; private set; }
+        public string CondominioLogo { get; private set; }
 
         public IList<MoradorFlatViewModel> Moradores { get; set; }
 

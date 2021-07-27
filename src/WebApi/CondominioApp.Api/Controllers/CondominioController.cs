@@ -48,7 +48,7 @@ namespace CondominioApp.Api.Controllers
         /// Descricao                           : Breve descrição do condomínio(200 caracteres);   
         /// NomeArquivoLogo                     : Nome do arquivo da logo do condomínio;   
         /// NomeOriginalArquivoLogo             : Nome original do arquivo da logo do condomínio;     
-        /// UrlLogoMarca                        : Url da logo do condomínio;   
+        /// UrlArquivoLogo                      : Url da logo do condomínio;   
         /// Telefone                            : Telefone do condomínio;   
         /// Logradouro                          : Endereço do condomínio;   
         /// Complemento                         : Complemento do endereço do condomínio;   
@@ -119,7 +119,7 @@ namespace CondominioApp.Api.Controllers
         /// Descricao                           : Breve descrição do condomínio(200 caracteres);    
         /// NomeArquivoLogo                     : Nome do arquivo da logo do condomínio;    
         /// NomeOriginalArquivoLogo             : Nome original do arquivo da logo do condomínio;   
-        /// UrlLogoMarca                        : Url da logo do condomínio;   
+        /// UrlArquivoLogo                      : Url da logo do condomínio;   
         /// Telefone                            : Telefone do condomínio;   
         /// Logradouro                          : Endereço do condomínio;   
         /// Complemento                         : Complemento do endereço do condomínio;   

@@ -8,7 +8,7 @@ namespace CondominioApp.Principal.Aplication.Events
     {
       
         public CondominioAdicionadoEvent(Guid id,
-           Cnpj cnpj, string nome, string descricao, Foto logoMarca, Telefone telefone, Endereco endereo,
+           Cnpj cnpj, string nome, string descricao, Foto logo, Telefone telefone, Endereco endereo,
            bool portariaAtivada, bool portariaMoradorAtivada, bool classificadoAtivado, bool classificadoMoradorAtivado,
            bool muralAtivado, bool muralMoradorAtivado, bool chatAtivado, bool chatMoradorAtivado,
            bool reservaAtivada, bool reservaNaPortariaAtivada, bool ocorrenciaAtivada,
@@ -22,7 +22,7 @@ namespace CondominioApp.Principal.Aplication.Events
             Cnpj = cnpj;
             Nome = nome;
             Descricao = descricao;
-            LogoMarca = logoMarca;
+            Logo = logo;
             Telefone = telefone;
             Endereco = endereo;            
             PortariaAtivada = portariaAtivada;

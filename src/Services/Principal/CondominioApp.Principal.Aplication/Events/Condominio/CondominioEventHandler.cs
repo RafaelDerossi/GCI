@@ -31,8 +31,8 @@ namespace CondominioApp.Principal.Aplication.Events
         public async Task Handle(CondominioAdicionadoEvent notification, CancellationToken cancellationToken)
         {
             var condominioFlat = new CondominioFlat
-                (notification.CondominioId, false, notification.Cnpj.NumeroFormatado, notification.Nome,
-                 notification.Descricao, notification.LogoMarca, notification.Telefone.ObterNumeroFormatado,
+                (notification.CondominioId, false, notification.Cnpj.Numero, notification.Nome,
+                 notification.Descricao, notification.Logo, notification.Telefone.Numero,
                  notification.Endereco.logradouro, notification.Endereco.complemento, 
                  notification.Endereco.numero, notification.Endereco.cep, notification.Endereco.bairro,
                  notification.Endereco.cidade, notification.Endereco.estado, notification.PortariaAtivada,
@@ -42,9 +42,11 @@ namespace CondominioApp.Principal.Aplication.Events
                  notification.ReservaAtivada, notification.ReservaNaPortariaAtivada,
                  notification.OcorrenciaAtivada, notification.OcorrenciaMoradorAtivada, 
                  notification.CorrespondenciaAtivada, notification.CorrespondenciaNaPortariaAtivada, 
-                 notification.CadastroDeVeiculoPeloMoradorAtivado, notification.ContratoId, 
-                 notification.DataAssinatura, notification.TipoPlano, notification.DescricaoContrato,
-                 notification.ContratoAtivo, notification.ArquivoContrato);
+                 notification.CadastroDeVeiculoPeloMoradorAtivado, notification.EnqueteAtivada,
+                 notification.ControleDeAcessoAtivado, notification.TarefaAtivada, notification.OrcamentoAtivado,
+                 notification.AutomacaoAtivada, notification.ContratoId, notification.DataAssinatura,
+                 notification.TipoPlano, notification.DescricaoContrato, notification.ContratoAtivo,
+                 notification.ArquivoContrato);
 
             _condominioQueryRepository.Adicionar(condominioFlat);
 
@@ -56,13 +58,14 @@ namespace CondominioApp.Principal.Aplication.Events
             //Atualizar no CondominioFlat
             var condominioFlat = await _condominioQueryRepository.ObterPorId(notification.CondominioId);
 
-            condominioFlat.SetCNPJ(notification.Cnpj.NumeroFormatado);
+            condominioFlat.SetCNPJ(notification.Cnpj.Numero);
             condominioFlat.SetNome(notification.Nome);
             condominioFlat.SetDescricao(notification.Descricao);            
-            condominioFlat.SetTelefone(notification.Telefone.ObterNumeroFormatado);
-            condominioFlat.SetEndereco(notification.Endereco.logradouro, notification.Endereco.complemento, 
-                notification.Endereco.numero, notification.Endereco.cep, notification.Endereco.bairro, 
-                notification.Endereco.cidade, notification.Endereco.estado);
+            condominioFlat.SetTelefone(notification.Telefone.Numero);
+            condominioFlat.SetEndereco
+                (notification.Endereco.logradouro, notification.Endereco.complemento, 
+                 notification.Endereco.numero, notification.Endereco.cep, notification.Endereco.bairro, 
+                 notification.Endereco.cidade, notification.Endereco.estado);
             
 
             _condominioQueryRepository.Atualizar(condominioFlat);
@@ -71,9 +74,9 @@ namespace CondominioApp.Principal.Aplication.Events
             var gruposDoCondominio = await _condominioQueryRepository.ObterGruposPorCondominio(notification.CondominioId);
             foreach (GrupoFlat grupo in gruposDoCondominio)
             {
-                grupo.SetCondominioCNPJ(notification.Cnpj.NumeroFormatado);
+                grupo.SetCondominioCNPJ(notification.Cnpj.Numero);
                 grupo.SetCondominioNome(notification.Nome);
-                grupo.SetCondominioLogomarca(notification.LogoMarca.NomeDoArquivo);
+                grupo.SetCondominioLogo(notification.Logo.NomeDoArquivo);
 
                 _condominioQueryRepository.AtualizarGrupo(grupo);
             }
@@ -82,9 +85,9 @@ namespace CondominioApp.Principal.Aplication.Events
             var unidadesDoCondominio = await _condominioQueryRepository.ObterUnidadesPorCondominio(notification.CondominioId);
             foreach (UnidadeFlat unidade in unidadesDoCondominio)
             {
-                unidade.SetCondominioCNPJ(notification.Cnpj.NumeroFormatado);
+                unidade.SetCondominioCNPJ(notification.Cnpj.Numero);
                 unidade.SetCondominioNome(notification.Nome);
-                unidade.SetCondominioLogomarca(notification.LogoMarca.NomeDoArquivo);
+                unidade.SetCondominioLogo(notification.Logo.NomeDoArquivo);
 
                 _condominioQueryRepository.AtualizarUnidade(unidade);
             }
@@ -186,6 +189,30 @@ namespace CondominioApp.Principal.Aplication.Events
             else
                 condominioFlat.DesativarCadastroDeVeiculoPeloMorador();
 
+            if (notification.EnqueteAtivada)
+                condominioFlat.AtivarEnquete();
+            else
+                condominioFlat.DesativarEnquete();
+
+            if (notification.ControleDeAcessoAtivado)
+                condominioFlat.AtivarControleDeAcesso();
+            else
+                condominioFlat.DesativarControleDeAcesso();
+
+            if (notification.TarefaAtivada)
+                condominioFlat.AtivarTarefa();
+            else
+                condominioFlat.DesativarTarefa();
+
+            if (notification.OrcamentoAtivado)
+                condominioFlat.AtivarOrcamento();
+            else
+                condominioFlat.DesativarOrcamento();
+
+            if (notification.AutomacaoAtivada)
+                condominioFlat.AtivarAutomacao();
+            else
+                condominioFlat.DesativarAutomacao();
 
             _condominioQueryRepository.Atualizar(condominioFlat);
 
@@ -197,7 +224,7 @@ namespace CondominioApp.Principal.Aplication.Events
             //Atualizar no CondominioFlat
             var condominioFlat = await _condominioQueryRepository.ObterPorId(notification.CondominioId);
 
-            condominioFlat.SetLogo(notification.LogoMarca);
+            condominioFlat.SetLogo(notification.Logo);
             
             _condominioQueryRepository.Atualizar(condominioFlat);
 

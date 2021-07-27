@@ -170,7 +170,7 @@ namespace CondominioApp.NotificacaoEmail.Aplication.Events
 
             return new CorrespondenciaDTO
                 (notification.Assunto, notification.Titulo, notification.Descricao,
-                 unidade.CondominioLogoMarca, unidade.CondominioId, notification.NomeArquivoFoto,
+                 unidade.CondominioNomeLogo, unidade.CondominioId, notification.NomeArquivoFoto,
                  notification.RecebidoPor, notification.Codigo, notification.Tipo,
                  notification.Localizacao, notification.Observacao, listaDeEmails);
         }
@@ -260,7 +260,7 @@ namespace CondominioApp.NotificacaoEmail.Aplication.Events
             return new OcorrenciaDTO
                 (notification.Titulo, notification.Descricao, notification.NomeMorador,
                  unidade.ObterDescricaoUnidade(), notification.StatusPrivacidade, notification.StatusOcorrencia,
-                 notification.DataDeCadastro, notification.Foto, unidade.CondominioNome, unidade.CondominioLogoMarca,
+                 notification.DataDeCadastro, notification.Foto, unidade.CondominioNome, unidade.CondominioNomeLogo,
                  listaDeEmails);
         }
 

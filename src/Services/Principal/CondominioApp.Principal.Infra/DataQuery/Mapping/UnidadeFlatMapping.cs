@@ -44,7 +44,7 @@ namespace CondominioApp.Principal.Infra.DataQuery.Mapping
 
             builder.Property(u => u.CondominioNome).IsRequired().HasColumnType($"varchar({CondominioFlat.Max})");
 
-            builder.Property(u => u.CondominioLogoMarca).HasColumnType($"varchar({Foto.NomeFotoMaximo})");
+            builder.Property(u => u.CondominioNomeLogo).HasColumnType($"varchar({Foto.NomeFotoMaximo})");
         }
     }
 }

@@ -18,7 +18,7 @@ namespace CondominioApp.Principal.Domain
 
         public string Descricao { get; private set; }
 
-        public Foto LogoMarca { get; private set; }
+        public Foto Logo { get; private set; }
 
         public Telefone Telefone { get; private set; }
 
@@ -166,7 +166,7 @@ namespace CondominioApp.Principal.Domain
 
         }
 
-        public Condominio(Guid id, Cnpj cnpj, string nome, string descricao, Foto logoMarca,
+        public Condominio(Guid id, Cnpj cnpj, string nome, string descricao, Foto logo,
             Telefone telefone, Endereco endereco, bool portariaAtivada, 
             bool portariaParaMoradorAtivada, bool classificadoAtivado,  bool classificadoMorador,
             bool muralAtivado, bool muralParaMoradorAtivado, bool chatAtivado, bool chatParaMoradorAtivado, 
@@ -184,7 +184,7 @@ namespace CondominioApp.Principal.Domain
             Cnpj = cnpj;
             Nome = nome;
             Descricao = descricao;
-            LogoMarca = logoMarca;
+            Logo = logo;
             Telefone = telefone;
             Endereco = endereco;          
             PortariaAtivada = portariaAtivada;
@@ -220,7 +220,7 @@ namespace CondominioApp.Principal.Domain
 
         public void SetDescricao(string descricao) => Descricao = descricao;
 
-        public void SetLogo(Foto logo) => LogoMarca = logo;
+        public void SetLogo(Foto logo) => this.Logo = logo;
 
         public void SetTelefone(Telefone telefone) => Telefone = telefone;
 
@@ -369,12 +369,31 @@ namespace CondominioApp.Principal.Domain
         public ValidationResult AdicionarContrato(Contrato contrato)
         {
             if (contrato.Ativo)
+            {
                 DesativarContratos();
+                switch (contrato.Tipo)
+                {
+                    case Core.Enumeradores.TipoDePlano.SEM_CONTRATO:
+                        DesativarFuncoesDoCondominio();
+                        break;
+                    case Core.Enumeradores.TipoDePlano.FREE:
+                        DesativarFuncoesDoCondominioParaPlanoFree();
+                        break;
+                    case Core.Enumeradores.TipoDePlano.STANDARD:
+                        DesativarFuncoesDoCondominioParaPlanoStandard();
+                        break;                   
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                DesativarFuncoesDoCondominio();
+            }
 
             contrato.SetCondominioId(Id);
 
-            _Contratos.Add(contrato);
-          
+            _Contratos.Add(contrato);                
 
             return ValidationResult;
         }
@@ -389,6 +408,8 @@ namespace CondominioApp.Principal.Domain
 
         private void DesativarFuncoesDoCondominio()
         {
+            DesativarFuncoesDoCondominioParaPlanoFree();
+
             DesativarCadastroDeVeiculoPeloMorador();
             DesativarChat();
             DesativarChatMorador();
@@ -400,39 +421,27 @@ namespace CondominioApp.Principal.Domain
             DesativarMuralMorador();
             DesativarOcorrencia();
             DesativarOcorrenciaMorador();
-            DesativarPortaria();
-            DesativarPortariaMorador();
-            DesativarReserva();
-            DesativarReservaNaPortaria();            
         }
 
         private void DesativarFuncoesDoCondominioParaPlanoFree()
         {
-            DesativarCadastroDeVeiculoPeloMorador();            
+            DesativarFuncoesDoCondominioParaPlanoStandard();
+                    
             DesativarCorrespondenciaNaPortaria();                                    
             DesativarPortaria();
             DesativarPortariaMorador();
             DesativarReserva();
             DesativarReservaNaPortaria();
+            DesativarEnquete();
+            DesativarControleDeAcesso();
+            DesativarTarefa();
+            DesativarOrcamento();            
         }
 
         private void DesativarFuncoesDoCondominioParaPlanoStandard()
-        {
-            DesativarCadastroDeVeiculoPeloMorador();
-            DesativarChat();
-            DesativarChatMorador();
-            DesativarClassificado();
-            DesativarClassificadoMorador();
-            DesativarCorrespondencia();
-            DesativarCorrespondenciaNaPortaria();            
-            DesativarMural();
-            DesativarMuralMorador();
-            DesativarOcorrencia();
-            DesativarOcorrenciaMorador();
-            DesativarPortaria();
-            DesativarPortariaMorador();
-            DesativarReserva();
-            DesativarReservaNaPortaria();
+        {            
+            DesativarAutomacao();
         }
+        
     }
 }

@@ -7,14 +7,14 @@ namespace CondominioApp.Principal.Aplication.Events
 
         public GrupoCadastradoEvent(Guid grupoId,
             string descricao, Guid condominioId, string condominioCnpj, string condominioNome,
-            string condominioLogoMarca)
+            string condominioLogo)
         {
             GrupoId = grupoId;      
             Descricao = descricao;
             CondominioId = condominioId;
             CondominioCnpj = condominioCnpj;
             CondominioNome = condominioNome;
-            CondominioLogoMarca = condominioLogoMarca;
+            CondominioLogo = condominioLogo;
         }
 
     }

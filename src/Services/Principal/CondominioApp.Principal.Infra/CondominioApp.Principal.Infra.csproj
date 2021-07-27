@@ -7,6 +7,8 @@
   <ItemGroup>
     <Compile Remove="Migrations\20210126142854_Contratos.cs" />
     <Compile Remove="Migrations\20210126142854_Contratos.Designer.cs" />
+    <Compile Remove="Migrations\20210727205852_AjusteLogo.cs" />
+    <Compile Remove="Migrations\20210727205852_AjusteLogo.Designer.cs" />
     <Compile Remove="Migrations\PrincipalQueryContextDBMigrations\20201125144037_QueryDB_Init.cs" />
     <Compile Remove="Migrations\PrincipalQueryContextDBMigrations\20201125144037_QueryDB_Init.Designer.cs" />
     <Compile Remove="Migrations\PrincipalQueryContextDBMigrations\20201125144229_QueryDB_Init.cs" />
@@ -29,6 +31,8 @@
     <Compile Remove="Migrations\PrincipalQueryContextDBMigrations\20201125172842_QueryDB_Init.Designer.cs" />
     <Compile Remove="Migrations\PrincipalQueryContextDBMigrations\20210727124811_ajustesNoPrincipalFlat.cs" />
     <Compile Remove="Migrations\PrincipalQueryContextDBMigrations\20210727124811_ajustesNoPrincipalFlat.Designer.cs" />
+    <Compile Remove="Migrations\PrincipalQueryContextDBMigrations\20210727202444_NovosParametrosNoCodominioFlat.cs" />
+    <Compile Remove="Migrations\PrincipalQueryContextDBMigrations\20210727202444_NovosParametrosNoCodominioFlat.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
