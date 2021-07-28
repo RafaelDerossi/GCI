@@ -44,10 +44,8 @@ namespace CondominioApp.Principal.Aplication.Commands
             {
                 AdicionarErro("Condominio não encontrado.");
                 return ValidationResult;
-            }           
+            }
 
-            var resultado = condominio.AdicionarContrato(contrato);
-            if (!resultado.IsValid) return resultado;
 
             if (contrato.Ativo)
             {
@@ -57,6 +55,9 @@ namespace CondominioApp.Principal.Aplication.Commands
                     _condominioRepository.AtualizarContrato(item);
                 }
             }
+
+            var resultado = condominio.AdicionarContrato(contrato);
+            if (!resultado.IsValid) return resultado;           
                 
 
             _condominioRepository.AdicionarContrato(contrato);

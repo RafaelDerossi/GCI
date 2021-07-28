@@ -14,6 +14,7 @@ namespace CondominioApp.Principal.Aplication.AutoMapper
                 .ForMember(c => c.Descricao, cfg => cfg.MapFrom(x => x.Descricao))
                 .ForMember(c => c.Plano, p => p.MapFrom(x => x.Tipo))
                 .ForMember(c => c.Ativo, p => p.MapFrom(x => x.Ativo))
+                .ForMember(c => c.QuantidadeDeUnidadesContratadas, p => p.MapFrom(x => x.QuantidadeDeUnidadesContratada))
                 .ForMember(c => c.NomeArquivoContrato, p => p.MapFrom(x => x.ArquivoContrato.NomeDoArquivo))
                 .ForMember(c => c.NomeOriginalArquivoContrato, p => p.MapFrom(x => x.ArquivoContrato.NomeOriginal))
                 .ForMember(c => c.ExtencaoArquivoContrato, p => p.MapFrom(x => x.ArquivoContrato.ExtensaoDoArquivo));            
