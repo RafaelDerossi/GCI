@@ -16,7 +16,7 @@ namespace CondominioApp.Principal.Aplication.ViewModels
         /// <summary>
         /// Habilita/Desabilita Portaria Para o Morador
         /// </summary>
-        public bool PortariaMoradorAtivada { get; set; }
+        public bool PortariaParaMoradorAtivada { get; set; }
 
         /// <summary>
         ///  Habilita/Desabilita Classificado
@@ -26,7 +26,7 @@ namespace CondominioApp.Principal.Aplication.ViewModels
         /// <summary>
         /// Habilita/Desabilita Classificado para o morador
         /// </summary>
-        public bool ClassificadoMoradorAtivado { get; set; }
+        public bool ClassificadoParaMoradorAtivado { get; set; }
 
         /// <summary>
         ///  Habilita/Desabilita Mural
@@ -36,7 +36,7 @@ namespace CondominioApp.Principal.Aplication.ViewModels
         /// <summary>
         /// Habilita/Desabilita Mural para o morador
         /// </summary>
-        public bool MuralMoradorAtivado { get; set; }
+        public bool MuralParaMoradorAtivado { get; set; }
 
         /// <summary>
         /// Habilita/Desabilita Chat
@@ -46,7 +46,7 @@ namespace CondominioApp.Principal.Aplication.ViewModels
         /// <summary>
         /// Habilita/Desabilita Chat para o morador
         /// </summary>
-        public bool ChatMoradorAtivado { get; set; }
+        public bool ChatParaMoradorAtivado { get; set; }
 
         /// <summary>
         /// Habilita/Desabilita Reserva
@@ -66,7 +66,7 @@ namespace CondominioApp.Principal.Aplication.ViewModels
         /// <summary>
         /// Habilita/Desabilita Ocorrencia para o morador
         /// </summary>
-        public bool OcorrenciaMoradorAtivada { get; set; }
+        public bool OcorrenciaParaMoradorAtivada { get; set; }
 
         /// <summary>
         /// Habilita/Desabilita Correspondencia 

@@ -365,11 +365,11 @@ namespace CondominioApp.Api.Controllers
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
             var comando = new AtualizarConfiguracaoCondominioCommand(
-                 EditaCondominioVM.Id, EditaCondominioVM.PortariaAtivada, EditaCondominioVM.PortariaMoradorAtivada,
-                 EditaCondominioVM.ClassificadoAtivado, EditaCondominioVM.ClassificadoMoradorAtivado, EditaCondominioVM.MuralAtivado,
-                 EditaCondominioVM.MuralMoradorAtivado, EditaCondominioVM.ChatAtivado, EditaCondominioVM.ChatMoradorAtivado, 
+                 EditaCondominioVM.Id, EditaCondominioVM.PortariaAtivada, EditaCondominioVM.PortariaParaMoradorAtivada,
+                 EditaCondominioVM.ClassificadoAtivado, EditaCondominioVM.ClassificadoParaMoradorAtivado, EditaCondominioVM.MuralAtivado,
+                 EditaCondominioVM.MuralParaMoradorAtivado, EditaCondominioVM.ChatAtivado, EditaCondominioVM.ChatParaMoradorAtivado, 
                  EditaCondominioVM.ReservaAtivada, EditaCondominioVM.ReservaNaPortariaAtivada, EditaCondominioVM.OcorrenciaAtivada,
-                 EditaCondominioVM.OcorrenciaMoradorAtivada, EditaCondominioVM.CorrespondenciaAtivada, 
+                 EditaCondominioVM.OcorrenciaParaMoradorAtivada, EditaCondominioVM.CorrespondenciaAtivada, 
                  EditaCondominioVM.CorrespondenciaNaPortariaAtivada, EditaCondominioVM.CadastroDeVeiculoPeloMoradorAtivado,
                  EditaCondominioVM.EnqueteAtivada, EditaCondominioVM.ControleDeAcessoAtivado, EditaCondominioVM.TarefaAtivada,
                  EditaCondominioVM.OrcamentoAtivado, EditaCondominioVM.AutomacaoAtivada);          

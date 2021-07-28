@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace CondominioApp.Api.Controllers
 {
-    [Route("api/Contrato")]
+    [Route("api/contrato")]
     public class ContratoController : MainController
     {
         private readonly IMediatorHandler _mediatorHandler;
