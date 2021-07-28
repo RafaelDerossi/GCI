@@ -411,7 +411,7 @@ namespace CondominioApp.Principal.Domain
         {
             DesativarFuncoesDoCondominioParaPlanoStandard();
                     
-            DesativarCorrespondenciaNaPortaria();                                    
+            DesativarCorrespondenciaNaPortaria();
             DesativarPortaria();
             DesativarPortariaMorador();
             DesativarReserva();
@@ -419,14 +419,13 @@ namespace CondominioApp.Principal.Domain
             DesativarEnquete();
             DesativarControleDeAcesso();
             DesativarTarefa();
-            DesativarOrcamento();            
+            DesativarOrcamento();
         }
 
         private void DesativarFuncoesDoCondominioParaPlanoStandard()
         {            
             DesativarAutomacao();
         }
-
 
 
         public void DesativaFuncionalidadesDeAcordoComOContrato(Contrato contrato)
@@ -454,5 +453,20 @@ namespace CondominioApp.Principal.Domain
                 DesativarFuncoesDoCondominio();
             }
         }
+
+        public void AtivarFuncionalidadesBasicas()
+        {
+            AtivarCadastroDeVeiculoPeloMorador();
+            AtivarChat();
+            AtivarChatMorador();
+            AtivarClassificado();
+            AtivarClassificadoMorador();
+            AtivarCorrespondencia();            
+            AtivarMural();
+            AtivarMuralMorador();
+            AtivarOcorrencia();
+            AtivarOcorrenciaMorador();
+        }
+
     }
 }

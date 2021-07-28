@@ -164,6 +164,9 @@ namespace CondominioApp.Principal.Aplication.Commands
             var resultado = condominio.AdicionarContrato(contratoBd);
             if (!resultado.IsValid) return resultado;
 
+
+            condominio.AtivarFuncionalidadesBasicas();
+
             _condominioRepository.AtualizarContrato(contratoBd);
             _condominioRepository.Atualizar(condominio);
 
