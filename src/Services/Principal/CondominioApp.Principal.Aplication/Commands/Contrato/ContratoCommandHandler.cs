@@ -68,6 +68,16 @@ namespace CondominioApp.Principal.Aplication.Commands
                 (condominio.Id, contrato.Id, contrato.DataAssinatura, contrato.Tipo, contrato.Descricao,
                  contrato.Ativo, contrato.QuantidadeDeUnidadesContratada, contrato.ArquivoContrato));
 
+            condominio.AdicionarEvento(
+             new ConfiguracaoDoCondominioAtualizadaEvent(condominio.Id,
+             condominio.PortariaAtivada, condominio.PortariaParaMoradorAtivada, condominio.ClassificadoAtivado,
+             condominio.ClassificadoParaMoradorAtivado, condominio.MuralAtivado, condominio.MuralParaMoradorAtivado,
+             condominio.ChatAtivado, condominio.ChatParaMoradorAtivado, condominio.ReservaAtivada,
+             condominio.ReservaNaPortariaAtivada, condominio.OcorrenciaAtivada, condominio.OcorrenciaParaMoradorAtivada,
+             condominio.CorrespondenciaAtivada, condominio.CorrespondenciaNaPortariaAtivada,
+             condominio.CadastroDeVeiculoPeloMoradorAtivado, condominio.EnqueteAtivada, condominio.ControleDeAcessoAtivado,
+             condominio.TarefaAtivada, condominio.OrcamentoAtivado, condominio.AutomacaoAtivada));
+
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }
 
