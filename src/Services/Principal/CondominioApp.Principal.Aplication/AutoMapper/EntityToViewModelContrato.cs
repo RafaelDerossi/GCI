@@ -10,7 +10,7 @@ namespace CondominioApp.Principal.Aplication.AutoMapper
             CreateMap<Contrato, ContratoViewModel>()
                 .ForMember(m => m.Id, cfg => cfg.MapFrom(x => x.Id))
                 .ForMember(c => c.CondominioId, p => p.MapFrom(x => x.CondominioId))
-                .ForMember(c => c.DataAssinatura, p => p.MapFrom(x => x.DataAssinatura))
+                .ForMember(c => c.DataDeAssinatura, p => p.MapFrom(x => x.DataAssinatura))
                 .ForMember(c => c.Descricao, cfg => cfg.MapFrom(x => x.Descricao))
                 .ForMember(c => c.Plano, p => p.MapFrom(x => x.Tipo))
                 .ForMember(c => c.Ativo, p => p.MapFrom(x => x.Ativo))

@@ -11,11 +11,11 @@ namespace CondominioApp.Principal.Aplication
 
         public Guid CondominioId { get; set; }
 
-        public DateTime DataAssinatura { get; set; }
+        public DateTime DataDeAssinatura { get; set; }
 
         public TipoDePlano Plano { get; set; }
 
-        public string TipoDescricao
+        public string PlanoDescricao
         {
             get
             {
@@ -65,7 +65,7 @@ namespace CondominioApp.Principal.Aplication
         {
             Id = contrato.Id;
             CondominioId = contrato.CondominioId;
-            DataAssinatura = contrato.DataAssinatura;
+            DataDeAssinatura = contrato.DataAssinatura;
             Plano = contrato.Tipo;
             Descricao = contrato.Descricao;
             Ativo = contrato.Ativo;

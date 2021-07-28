@@ -8,9 +8,9 @@ namespace CondominioApp.Principal.Aplication.ViewModels
     {
         public Guid CondominioId { get; set; }
 
-        public DateTime DataDaAssinatura { get; set; }
+        public DateTime DataDeAssinatura { get; set; }
 
-        public TipoDePlano Tipo { get; set; }        
+        public TipoDePlano Plano { get; set; }        
 
         public string Descricao { get; set; }
 

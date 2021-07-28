@@ -214,7 +214,7 @@ namespace CondominioApp.Api.Controllers
             var nomeOriginalArquivoContrato = StorageHelper.ObterNomeDoArquivo(contratoVM.ArquivoContrato);
 
             return new AdicionarContratoCommand(
-                 contratoVM.CondominioId, contratoVM.DataDaAssinatura, contratoVM.Tipo,
+                 contratoVM.CondominioId, contratoVM.DataDeAssinatura, contratoVM.Plano,
                  contratoVM.Descricao, contratoVM.Ativo, contratoVM.QuantidadeDeUnidadesContratadas,
                  nomeOriginalArquivoContrato);
         }

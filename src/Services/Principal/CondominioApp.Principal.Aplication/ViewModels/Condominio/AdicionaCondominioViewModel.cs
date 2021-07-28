@@ -134,9 +134,9 @@ namespace CondominioApp.Principal.Aplication.ViewModels
         public bool AutomacaoAtivada { get; set; }
 
 
-        public DateTime DataAssinaturaContrato { get; set; }
+        public DateTime DataDeAssinaturaDoContrato { get; set; }
 
-        public TipoDePlano TipoDePlano { get; set; }
+        public TipoDePlano Plano { get; set; }
 
         public string DescricaoContrato { get; set; }
 

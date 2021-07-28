@@ -466,8 +466,8 @@ namespace CondominioApp.Api.Controllers
                  condominioVM.OcorrenciaAtivada, condominioVM.OcorrenciaParaMoradorAtivada, condominioVM.CorrespondenciaAtivada,
                  condominioVM.CorrespondenciaNaPortariaAtivada, condominioVM.CadastroDeVeiculoPeloMoradorAtivado,
                  condominioVM.EnqueteAtivada, condominioVM.ControleDeAcessoAtivado, condominioVM.TarefaAtivada,
-                 condominioVM.OrcamentoAtivado, condominioVM.AutomacaoAtivada, condominioVM.DataAssinaturaContrato,
-                 condominioVM.TipoDePlano, condominioVM.DescricaoContrato, condominioVM.ContratoAtivo,
+                 condominioVM.OrcamentoAtivado, condominioVM.AutomacaoAtivada, condominioVM.DataDeAssinaturaDoContrato,
+                 condominioVM.Plano, condominioVM.DescricaoContrato, condominioVM.ContratoAtivo,
                  nomeOriginalArquivoContrato, condominioVM.QuantidadeDeUnidadesContratada);
         }
 
