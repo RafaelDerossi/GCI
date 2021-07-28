@@ -179,7 +179,7 @@ namespace CondominioApp.Api.Controllers
         /// Retorna condomínios que estão na lixeira
         /// </summary>
         /// <returns></returns>
-        [HttpGet("Removidos")]
+        [HttpGet("removidos")]
         public async Task<ActionResult<IEnumerable<CondominioFlat>>> ObterRemovidos()
         {            
             var condominios = await _principalQuery.ObterRemovidos();
@@ -410,7 +410,7 @@ namespace CondominioApp.Api.Controllers
         /// </param>
         /// <returns></returns>
         [HttpPut("logo")]
-        public async Task<ActionResult> PutAtualizaLogoDoCondominio(AtualizaLogoCondominioViewModel EditaCondominioVM)
+        public async Task<ActionResult> PutAtualizaLogoDoCondominio([FromForm]AtualizaLogoCondominioViewModel EditaCondominioVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
