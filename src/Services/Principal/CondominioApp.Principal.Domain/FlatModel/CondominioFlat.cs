@@ -25,7 +25,7 @@ namespace CondominioApp.Principal.Domain.FlatModel
 
         public string NomeArquivoLogo { get; private set; }        
 
-        public string NomeOriginalArquivoLogo { get; private set; }
+        public string NomeOriginalArquivoLogo { get; private set; }        
 
         public string UrlArquivoLogo
         {
@@ -140,6 +140,8 @@ namespace CondominioApp.Principal.Domain.FlatModel
 
         public string NomeOriginalArquivoContrato { get; private set; }
 
+        public string ExtencaoArquivoContrato { get; private set; }
+
         public string UrlArquivoContrato
         {
             get
@@ -251,11 +253,13 @@ namespace CondominioApp.Principal.Domain.FlatModel
             {
                 NomeArquivoContrato = "";
                 NomeOriginalArquivoContrato = "";
+                ExtencaoArquivoContrato = "";
                 return;
             }
 
             NomeArquivoContrato = arquivo.NomeDoArquivo;
             NomeOriginalArquivoContrato = arquivo.NomeOriginal;
+            ExtencaoArquivoContrato = arquivo.ExtensaoDoArquivo;
         }
 
         public void DefinirContrato(Guid id, DateTime dataDeAssinatura, TipoDePlano tipoDePlano,

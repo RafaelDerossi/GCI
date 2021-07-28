@@ -1,5 +1,6 @@
 ﻿using CondominioApp.Core.Enumeradores;
 using CondominioApp.Core.Helpers;
+using CondominioApp.Principal.Domain;
 using System;
 
 namespace CondominioApp.Principal.Aplication
@@ -39,6 +40,8 @@ namespace CondominioApp.Principal.Aplication
 
         public string NomeOriginalArquivoContrato { get; set; }
 
+        public string ExtencaoArquivoContrato { get; set; }        
+
         public string UrlArquivoContrato
         {
             get
@@ -58,20 +61,18 @@ namespace CondominioApp.Principal.Aplication
         {
         }
 
-        public ContratoViewModel
-            (Guid id, Guid condominioId, DateTime dataAssinatura, TipoDePlano tipo, 
-             string descricao, bool ativo, int quantidadeDeUnidadesContratadas,
-             string nomeArquivoContrato, string nomeOriginalArquivoContrato)
+        public ContratoViewModel(Contrato contrato )
         {
-            Id = id;
-            CondominioId = condominioId;
-            DataAssinatura = dataAssinatura;
-            Plano = tipo;
-            Descricao = descricao;
-            Ativo = ativo;
-            QuantidadeDeUnidadesContratadas = quantidadeDeUnidadesContratadas;
-            NomeArquivoContrato = nomeArquivoContrato;
-            NomeOriginalArquivoContrato = nomeOriginalArquivoContrato;
+            Id = contrato.Id;
+            CondominioId = contrato.CondominioId;
+            DataAssinatura = contrato.DataAssinatura;
+            Plano = contrato.Tipo;
+            Descricao = contrato.Descricao;
+            Ativo = contrato.Ativo;
+            QuantidadeDeUnidadesContratadas = contrato.QuantidadeDeUnidadesContratada;
+            NomeArquivoContrato = contrato.ArquivoContrato.NomeDoArquivo;
+            NomeOriginalArquivoContrato = contrato.ArquivoContrato.NomeOriginal;
+            ExtencaoArquivoContrato = contrato.ArquivoContrato.ExtensaoDoArquivo;
         }
     }
 }
