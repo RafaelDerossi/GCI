@@ -368,28 +368,7 @@ namespace CondominioApp.Principal.Domain
 
         public ValidationResult AdicionarContrato(Contrato contrato)
         {
-            if (contrato.Ativo)
-            {
-                DesativarContratos();
-                switch (contrato.Tipo)
-                {
-                    case Core.Enumeradores.TipoDePlano.SEM_CONTRATO:
-                        DesativarFuncoesDoCondominio();
-                        break;
-                    case Core.Enumeradores.TipoDePlano.FREE:
-                        DesativarFuncoesDoCondominioParaPlanoFree();
-                        break;
-                    case Core.Enumeradores.TipoDePlano.STANDARD:
-                        DesativarFuncoesDoCondominioParaPlanoStandard();
-                        break;                   
-                    default:
-                        break;
-                }
-            }
-            else
-            {
-                DesativarFuncoesDoCondominio();
-            }
+            DesativaFuncionalidadesDeAcordoComOContrato(contrato);
 
             contrato.SetCondominioId(Id);
 
@@ -447,6 +426,33 @@ namespace CondominioApp.Principal.Domain
         {            
             DesativarAutomacao();
         }
-        
+
+
+
+        public void DesativaFuncionalidadesDeAcordoComOContrato(Contrato contrato)
+        {
+            if (contrato.Ativo)
+            {
+                DesativarContratos();
+                switch (contrato.Tipo)
+                {
+                    case Core.Enumeradores.TipoDePlano.SEM_CONTRATO:
+                        DesativarFuncoesDoCondominio();
+                        break;
+                    case Core.Enumeradores.TipoDePlano.FREE:
+                        DesativarFuncoesDoCondominioParaPlanoFree();
+                        break;
+                    case Core.Enumeradores.TipoDePlano.STANDARD:
+                        DesativarFuncoesDoCondominioParaPlanoStandard();
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                DesativarFuncoesDoCondominio();
+            }
+        }
     }
 }

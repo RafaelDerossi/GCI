@@ -212,6 +212,11 @@ namespace CondominioApp.Principal.Aplication.Commands
             else
                 condominioBd.DesativarAutomacao();
 
+            var contratoBd = _condominioRepository.ObterContratosPorCondominio(request.Id).Result.FirstOrDefault(x=>x.Ativo);
+            if (contratoBd != null)
+            {
+                condominioBd.DesativaFuncionalidadesDeAcordoComOContrato(contratoBd);
+            }
 
             _condominioRepository.Atualizar(condominioBd);
 
