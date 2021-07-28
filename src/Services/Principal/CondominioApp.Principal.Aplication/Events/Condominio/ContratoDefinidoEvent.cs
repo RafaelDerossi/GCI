@@ -8,7 +8,12 @@ namespace CondominioApp.Principal.Aplication.Events
     {      
         public ContratoDefinidoEvent(Guid condominioId, Guid contratoId, DateTime dataAssinaturaContrato,
            TipoDePlano tipoPlano, string descricaoContrato, bool contratoAtivo,
-           int quantidadeDeUnidadesContratadas, NomeArquivo arquivoContrato)            
+           int quantidadeDeUnidadesContratadas, NomeArquivo arquivoContrato,
+           bool portaria, bool portariaMorador, bool classificado, bool classificadoMorador,
+           bool mural, bool muralMorador, bool chat, bool chatMorador, bool reserva,
+           bool reservaNaPortaria, bool ocorrencia, bool ocorrenciaMorador, bool correspondencia,
+           bool correspondenciaNaPortaria, bool cadastroDeVeiculoPeloMoradorAtivado, bool enqueteAtivada,
+           bool controleDeAcessoAtivado, bool tarefaAtivada, bool orcamentoAtivado, bool automacaoAtivada)            
         {
             CondominioId = condominioId;                   
             ContratoId = contratoId;
@@ -18,6 +23,26 @@ namespace CondominioApp.Principal.Aplication.Events
             ContratoAtivo = contratoAtivo;
             QuantidadeDeUnidadesContratadas = quantidadeDeUnidadesContratadas;
             ArquivoContrato = arquivoContrato;
+            PortariaAtivada = portaria;
+            PortariaMoradorAtivada = portariaMorador;
+            ClassificadoAtivado = classificado;
+            ClassificadoMoradorAtivado = classificadoMorador;
+            MuralAtivado = mural;
+            MuralMoradorAtivado = muralMorador;
+            ChatAtivado = chat;
+            ChatMoradorAtivado = chatMorador;
+            ReservaAtivada = reserva;
+            ReservaNaPortariaAtivada = reservaNaPortaria;
+            OcorrenciaAtivada = ocorrencia;
+            OcorrenciaMoradorAtivada = ocorrenciaMorador;
+            CorrespondenciaAtivada = correspondencia;
+            CorrespondenciaNaPortariaAtivada = correspondenciaNaPortaria;
+            CadastroDeVeiculoPeloMoradorAtivado = cadastroDeVeiculoPeloMoradorAtivado;
+            EnqueteAtivada = enqueteAtivada;
+            ControleDeAcessoAtivado = controleDeAcessoAtivado;
+            TarefaAtivada = tarefaAtivada;
+            OrcamentoAtivado = orcamentoAtivado;
+            AutomacaoAtivada = automacaoAtivada;
         }
     }
 }

@@ -66,17 +66,14 @@ namespace CondominioApp.Principal.Aplication.Commands
             condominio.AdicionarEvento(
                 new ContratoDefinidoEvent
                 (condominio.Id, contrato.Id, contrato.DataAssinatura, contrato.Tipo, contrato.Descricao,
-                 contrato.Ativo, contrato.QuantidadeDeUnidadesContratada, contrato.ArquivoContrato));
-
-            condominio.AdicionarEvento(
-             new ConfiguracaoDoCondominioAtualizadaEvent(condominio.Id,
-             condominio.PortariaAtivada, condominio.PortariaParaMoradorAtivada, condominio.ClassificadoAtivado,
-             condominio.ClassificadoParaMoradorAtivado, condominio.MuralAtivado, condominio.MuralParaMoradorAtivado,
-             condominio.ChatAtivado, condominio.ChatParaMoradorAtivado, condominio.ReservaAtivada,
-             condominio.ReservaNaPortariaAtivada, condominio.OcorrenciaAtivada, condominio.OcorrenciaParaMoradorAtivada,
-             condominio.CorrespondenciaAtivada, condominio.CorrespondenciaNaPortariaAtivada,
-             condominio.CadastroDeVeiculoPeloMoradorAtivado, condominio.EnqueteAtivada, condominio.ControleDeAcessoAtivado,
-             condominio.TarefaAtivada, condominio.OrcamentoAtivado, condominio.AutomacaoAtivada));
+                 contrato.Ativo, contrato.QuantidadeDeUnidadesContratada, contrato.ArquivoContrato,
+                 condominio.PortariaAtivada, condominio.PortariaParaMoradorAtivada, condominio.ClassificadoAtivado,
+                 condominio.ClassificadoParaMoradorAtivado, condominio.MuralAtivado, condominio.MuralParaMoradorAtivado,
+                 condominio.ChatAtivado, condominio.ChatParaMoradorAtivado, condominio.ReservaAtivada,
+                 condominio.ReservaNaPortariaAtivada, condominio.OcorrenciaAtivada, condominio.OcorrenciaParaMoradorAtivada,
+                 condominio.CorrespondenciaAtivada, condominio.CorrespondenciaNaPortariaAtivada,
+                 condominio.CadastroDeVeiculoPeloMoradorAtivado, condominio.EnqueteAtivada, condominio.ControleDeAcessoAtivado,
+                 condominio.TarefaAtivada, condominio.OrcamentoAtivado, condominio.AutomacaoAtivada));           
 
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }
@@ -141,21 +138,46 @@ namespace CondominioApp.Principal.Aplication.Commands
             if (!request.EstaValido()) return request.ValidationResult;
 
             var contratoBd = _condominioRepository.ObterContratoPorId(request.Id).Result;
-
             if (contratoBd == null)
             {
                 AdicionarErro("Contrato não encontrado.");
                 return ValidationResult;
+            }            
+
+            var condominio = await _condominioRepository.ObterPorId(contratoBd.CondominioId);
+            if (condominio == null)
+            {
+                AdicionarErro("Condominio não encontrado.");
+                return ValidationResult;
+            }
+
+            condominio.RemoverContrato(contratoBd);
+
+            foreach (var item in condominio.Contratos)
+            {
+                item.Desativar();
+                _condominioRepository.AtualizarContrato(item);
             }
 
             contratoBd.Ativar();
 
-            _condominioRepository.AtualizarContrato(contratoBd);
+            var resultado = condominio.AdicionarContrato(contratoBd);
+            if (!resultado.IsValid) return resultado;
 
-            contratoBd.AdicionarEvento(
-               new ContratoDefinidoEvent(contratoBd.CondominioId, contratoBd.Id, contratoBd.DataAssinatura,
-                                           contratoBd.Tipo, contratoBd.Descricao, contratoBd.Ativo,
-                                           contratoBd.QuantidadeDeUnidadesContratada, contratoBd.ArquivoContrato));
+            _condominioRepository.AtualizarContrato(contratoBd);
+            _condominioRepository.Atualizar(condominio);
+
+            condominio.AdicionarEvento(
+                 new ContratoDefinidoEvent
+                 (condominio.Id, contratoBd.Id, contratoBd.DataAssinatura, contratoBd.Tipo, contratoBd.Descricao,
+                  contratoBd.Ativo, contratoBd.QuantidadeDeUnidadesContratada, contratoBd.ArquivoContrato,
+                  condominio.PortariaAtivada, condominio.PortariaParaMoradorAtivada, condominio.ClassificadoAtivado,
+                  condominio.ClassificadoParaMoradorAtivado, condominio.MuralAtivado, condominio.MuralParaMoradorAtivado,
+                  condominio.ChatAtivado, condominio.ChatParaMoradorAtivado, condominio.ReservaAtivada,
+                  condominio.ReservaNaPortariaAtivada, condominio.OcorrenciaAtivada, condominio.OcorrenciaParaMoradorAtivada,
+                  condominio.CorrespondenciaAtivada, condominio.CorrespondenciaNaPortariaAtivada,
+                  condominio.CadastroDeVeiculoPeloMoradorAtivado, condominio.EnqueteAtivada, condominio.ControleDeAcessoAtivado,
+                  condominio.TarefaAtivada, condominio.OrcamentoAtivado, condominio.AutomacaoAtivada));
 
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }
@@ -172,12 +194,40 @@ namespace CondominioApp.Principal.Aplication.Commands
                 return ValidationResult;
             }
 
+            var condominio = await _condominioRepository.ObterPorId(contratoBd.CondominioId);
+            if (condominio == null)
+            {
+                AdicionarErro("Condominio não encontrado.");
+                return ValidationResult;
+            }
+
+            condominio.RemoverContrato(contratoBd);
+
+            foreach (var item in condominio.Contratos)
+            {
+                item.Desativar();
+                _condominioRepository.AtualizarContrato(item);
+            }
+
             contratoBd.Desativar();
 
-            _condominioRepository.AtualizarContrato(contratoBd);
+            var resultado = condominio.AdicionarContrato(contratoBd);
+            if (!resultado.IsValid) return resultado;
 
-            contratoBd.AdicionarEvento(
-               new ContratoDesativadoEvent(contratoBd.Id));
+            _condominioRepository.AtualizarContrato(contratoBd);
+            _condominioRepository.Atualizar(condominio);
+
+            condominio.AdicionarEvento(
+                 new ContratoDefinidoEvent
+                 (condominio.Id, contratoBd.Id, contratoBd.DataAssinatura, contratoBd.Tipo, contratoBd.Descricao,
+                  contratoBd.Ativo, contratoBd.QuantidadeDeUnidadesContratada, contratoBd.ArquivoContrato,
+                  condominio.PortariaAtivada, condominio.PortariaParaMoradorAtivada, condominio.ClassificadoAtivado,
+                  condominio.ClassificadoParaMoradorAtivado, condominio.MuralAtivado, condominio.MuralParaMoradorAtivado,
+                  condominio.ChatAtivado, condominio.ChatParaMoradorAtivado, condominio.ReservaAtivada,
+                  condominio.ReservaNaPortariaAtivada, condominio.OcorrenciaAtivada, condominio.OcorrenciaParaMoradorAtivada,
+                  condominio.CorrespondenciaAtivada, condominio.CorrespondenciaNaPortariaAtivada,
+                  condominio.CadastroDeVeiculoPeloMoradorAtivado, condominio.EnqueteAtivada, condominio.ControleDeAcessoAtivado,
+                  condominio.TarefaAtivada, condominio.OrcamentoAtivado, condominio.AutomacaoAtivada));           
 
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }

@@ -398,6 +398,11 @@ namespace CondominioApp.Principal.Domain
             return ValidationResult;
         }
 
+        public void RemoverContrato(Contrato contrato)
+        {
+            _Contratos.Remove(contrato);
+        }
+
         private void DesativarContratos()
         {
             foreach (Contrato contrato in _Contratos)

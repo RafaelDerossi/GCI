@@ -314,8 +314,7 @@ namespace CondominioApp.Api.Configuration
             services.AddScoped<INotificationHandler<LogoDoCondominioAtualizadoEvent>, CondominioEventHandler>();
             services.AddScoped<INotificationHandler<ContratoDefinidoEvent>, CondominioEventHandler>();
             services.AddScoped<INotificationHandler<ContratoAtualizadoEvent>, CondominioEventHandler>();
-            services.AddScoped<INotificationHandler<ContratoApagadoEvent>, CondominioEventHandler>();
-            services.AddScoped<INotificationHandler<ContratoDesativadoEvent>, CondominioEventHandler>();
+            services.AddScoped<INotificationHandler<ContratoApagadoEvent>, CondominioEventHandler>();            
 
             //Grupo
             services.AddScoped<IRequestHandler<AdicionarGrupoCommand, ValidationResult>, GrupoCommandHandler>();
