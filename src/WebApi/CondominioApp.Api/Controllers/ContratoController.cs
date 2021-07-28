@@ -116,7 +116,7 @@ namespace CondominioApp.Api.Controllers
         /// ArquivoContrato                : Arquivo do contrato;  
         /// </response>
         [HttpPost]
-        public async Task<ActionResult> Post(AdicionaContratoViewModel contratoVM)
+        public async Task<ActionResult> Post([FromForm]AdicionaContratoViewModel contratoVM)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);            
 

@@ -232,7 +232,6 @@ namespace CondominioApp.Usuarios.App.Aplication.Commands
             morador.AdicionarEvento(new MoradorDesativadoEvent(morador.Id));
 
             return await PersistirDados(_usuarioRepository.UnitOfWork);
-
         }
 
 
