@@ -7,13 +7,11 @@ namespace CondominioApp.Principal.Aplication.ViewModels
     {
         public Guid Id { get; set; }
       
-        public DateTime DataDaAssinatura { get; set; }
+        public DateTime DataDeAssinatura { get; set; }
 
         public TipoDePlano Plano { get; set; }        
 
-        public string Descricao { get; set; }
-
-        public bool Ativo { get; set; }
+        public string Descricao { get; set; }        
 
         public int QuantidadeDeUnidadesContratadas { get; set; }
     }

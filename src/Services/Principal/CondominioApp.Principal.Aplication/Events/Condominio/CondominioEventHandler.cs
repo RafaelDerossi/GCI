@@ -381,14 +381,15 @@ namespace CondominioApp.Principal.Aplication.Events
         public async Task Handle(ContratoAtualizadoEvent notification, CancellationToken cancellationToken)
         {
             var condominioFlat = await _condominioQueryRepository.ObterPorContratoId(notification.ContratoId);
-
-            condominioFlat.AtualizarContrato
+            if (condominioFlat != null)
+            {
+                condominioFlat.AtualizarContrato
                 (notification.DataAssinatura, notification.TipoPlano, notification.DescricaoContrato,
                  notification.ContratoAtivo);
 
-            _condominioQueryRepository.Atualizar(condominioFlat);
-
-            await PersistirDados(_condominioQueryRepository.UnitOfWork);
+                _condominioQueryRepository.Atualizar(condominioFlat);
+                await PersistirDados(_condominioQueryRepository.UnitOfWork);
+            }           
         }
 
         public async Task Handle(ContratoApagadoEvent notification, CancellationToken cancellationToken)

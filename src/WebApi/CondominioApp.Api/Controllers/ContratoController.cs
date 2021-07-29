@@ -155,7 +155,7 @@ namespace CondominioApp.Api.Controllers
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
             var comando = new AtualizarContratoCommand
-                (editaContratoVM.Id, editaContratoVM.DataDaAssinatura, editaContratoVM.Plano,
+                (editaContratoVM.Id, editaContratoVM.DataDeAssinatura, editaContratoVM.Plano,
                  editaContratoVM.Descricao, editaContratoVM.QuantidadeDeUnidadesContratadas);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
@@ -171,6 +171,7 @@ namespace CondominioApp.Api.Controllers
         [HttpPut("ativar/{Id:Guid}")]
         public async Task<ActionResult> AtivarContrato(Guid Id)
         {
+
             var comando = new AtivarContratoCommand(Id);
 
             var Resultado = await _mediatorHandler.EnviarComando(comando);
