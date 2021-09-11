@@ -11,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{25CB90CF-A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{1F841565-DB6E-4A34-81F3-B21C6D72EAB8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioApp.Core", "src\Building Blocks\CondominioApp.Core\CondominioApp.Core.csproj", "{7436F685-7BFE-41A7-A7CE-FF3E6EC00EA2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NinjaStore.Core", "src\Building Blocks\CondominioApp.Core\NinjaStore.Core.csproj", "{7436F685-7BFE-41A7-A7CE-FF3E6EC00EA2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{27DA6887-B451-4D5D-A232-00FBE20152FB}"
 EndProject
@@ -19,7 +19,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApi", "WebApi", "{6DCE3E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NinjaStore.Api", "src\WebApi\CondominioApp.Api\NinjaStore.Api.csproj", "{A5A54E4D-BCB4-4F95-BBBA-7BE33A8079C6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CondominioApp.WebApi.Core", "src\Building Blocks\CondominioApp.WebApi.Core\CondominioApp.WebApi.Core.csproj", "{4F03BAA6-B673-42DE-B2A9-54F17D1EEE90}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NinjaStore.WebApi.Core", "src\Building Blocks\CondominioApp.WebApi.Core\NinjaStore.WebApi.Core.csproj", "{4F03BAA6-B673-42DE-B2A9-54F17D1EEE90}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cliente", "Cliente", "{4E64AE2E-CB43-4471-AFE1-D90A3DDC7555}"
 EndProject

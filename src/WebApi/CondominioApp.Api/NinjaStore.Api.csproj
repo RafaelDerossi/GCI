@@ -40,8 +40,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Building Blocks\CondominioApp.Core\CondominioApp.Core.csproj" />
-    <ProjectReference Include="..\..\Building Blocks\CondominioApp.WebApi.Core\CondominioApp.WebApi.Core.csproj" />
+    <ProjectReference Include="..\..\Building Blocks\CondominioApp.Core\NinjaStore.Core.csproj" />
+    <ProjectReference Include="..\..\Building Blocks\CondominioApp.WebApi.Core\NinjaStore.WebApi.Core.csproj" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" properties_4launchsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>

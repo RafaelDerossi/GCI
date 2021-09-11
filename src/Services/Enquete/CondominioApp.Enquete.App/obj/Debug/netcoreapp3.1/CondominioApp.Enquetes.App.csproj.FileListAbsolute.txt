@@ -1,0 +1,15 @@
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\Enquete\CondominioApp.Enquete.App\bin\Debug\netcoreapp3.1\CondominioApp.Enquetes.App.deps.json
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\Enquete\CondominioApp.Enquete.App\bin\Debug\netcoreapp3.1\CondominioApp.Enquetes.App.runtimeconfig.json
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\Enquete\CondominioApp.Enquete.App\bin\Debug\netcoreapp3.1\CondominioApp.Enquetes.App.runtimeconfig.dev.json
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\Enquete\CondominioApp.Enquete.App\bin\Debug\netcoreapp3.1\CondominioApp.Enquetes.App.dll
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\Enquete\CondominioApp.Enquete.App\bin\Debug\netcoreapp3.1\CondominioApp.Enquetes.App.pdb
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\Enquete\CondominioApp.Enquete.App\bin\Debug\netcoreapp3.1\CondominioApp.Core.dll
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\Enquete\CondominioApp.Enquete.App\bin\Debug\netcoreapp3.1\CondominioApp.Core.pdb
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\Enquete\CondominioApp.Enquete.App\obj\Debug\netcoreapp3.1\CondominioApp.Enquetes.App.AssemblyInfoInputs.cache
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\Enquete\CondominioApp.Enquete.App\obj\Debug\netcoreapp3.1\CondominioApp.Enquetes.App.AssemblyInfo.cs
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\Enquete\CondominioApp.Enquete.App\obj\Debug\netcoreapp3.1\CondominioApp.Enquetes.App.csproj.CoreCompileInputs.cache
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\Enquete\CondominioApp.Enquete.App\obj\Debug\netcoreapp3.1\CondominioApp.Enquetes.App.csproj.CopyComplete
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\Enquete\CondominioApp.Enquete.App\obj\Debug\netcoreapp3.1\CondominioApp.Enquetes.App.dll
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\Enquete\CondominioApp.Enquete.App\obj\Debug\netcoreapp3.1\CondominioApp.Enquetes.App.pdb
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\Enquete\CondominioApp.Enquete.App\obj\Debug\netcoreapp3.1\CondominioApp.Enquetes.App.genruntimeconfig.cache
+C:\Users\MAPD-NOTE\source\repos\CondominioAppBackEnd2.0\src\Services\Enquete\CondominioApp.Enquete.App\obj\Debug\netcoreapp3.1\CondominioApp.Enquetes.App.csprojAssemblyReference.cache

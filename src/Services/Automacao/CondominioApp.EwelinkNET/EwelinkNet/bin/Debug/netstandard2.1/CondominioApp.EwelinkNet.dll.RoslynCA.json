@@ -1,0 +1,816 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "Compilador do Microsoft (R) Visual C#",
+        "version": "3.7.0.0",
+        "fileVersion": "3.7.0-6.20570.4 (dc3f4eef)",
+        "semanticVersion": "3.7.0",
+        "language": "pt-BR"
+      },
+      "results": [
+        {
+          "ruleId": "CS8632",
+          "level": "warning",
+          "message": "A anotação para tipos de referência anuláveis deve ser usada apenas em código em um contexto de anotações '#nullable'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Automacao/CondominioApp.EwelinkNET/EwelinkNet/Constants/DevicesChannels.cs",
+                "region": {
+                  "startLine": 10,
+                  "startColumn": 41,
+                  "endLine": 10,
+                  "endColumn": 42
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8632",
+          "level": "warning",
+          "message": "A anotação para tipos de referência anuláveis deve ser usada apenas em código em um contexto de anotações '#nullable'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Automacao/CondominioApp.EwelinkNET/EwelinkNet/Constants/DevicesSwitchName.cs",
+                "region": {
+                  "startLine": 11,
+                  "startColumn": 41,
+                  "endLine": 11,
+                  "endColumn": 42
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8632",
+          "level": "warning",
+          "message": "A anotação para tipos de referência anuláveis deve ser usada apenas em código em um contexto de anotações '#nullable'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Automacao/CondominioApp.EwelinkNET/EwelinkNet/Constants/DevicesSwitchName.cs",
+                "region": {
+                  "startLine": 11,
+                  "startColumn": 50,
+                  "endLine": 11,
+                  "endColumn": 51
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8632",
+          "level": "warning",
+          "message": "A anotação para tipos de referência anuláveis deve ser usada apenas em código em um contexto de anotações '#nullable'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Automacao/CondominioApp.EwelinkNET/EwelinkNet/Constants/DevicesUiid.cs",
+                "region": {
+                  "startLine": 71,
+                  "startColumn": 31,
+                  "endLine": 71,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8632",
+          "level": "warning",
+          "message": "A anotação para tipos de referência anuláveis deve ser usada apenas em código em um contexto de anotações '#nullable'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Automacao/CondominioApp.EwelinkNET/EwelinkNet/Constants/DevicesUiid.cs",
+                "region": {
+                  "startLine": 11,
+                  "startColumn": 45,
+                  "endLine": 11,
+                  "endColumn": 46
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8632",
+          "level": "warning",
+          "message": "A anotação para tipos de referência anuláveis deve ser usada apenas em código em um contexto de anotações '#nullable'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Automacao/CondominioApp.EwelinkNET/EwelinkNet/Constants/DevicesUiid.cs",
+                "region": {
+                  "startLine": 11,
+                  "startColumn": 88,
+                  "endLine": 11,
+                  "endColumn": 89
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8632",
+          "level": "warning",
+          "message": "A anotação para tipos de referência anuláveis deve ser usada apenas em código em um contexto de anotações '#nullable'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Automacao/CondominioApp.EwelinkNET/EwelinkNet/Constants/DevicesChannels.cs",
+                "region": {
+                  "startLine": 10,
+                  "startColumn": 78,
+                  "endLine": 10,
+                  "endColumn": 79
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8632",
+          "level": "warning",
+          "message": "A anotação para tipos de referência anuláveis deve ser usada apenas em código em um contexto de anotações '#nullable'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Automacao/CondominioApp.EwelinkNET/EwelinkNet/Constants/DevicesSwitchName.cs",
+                "region": {
+                  "startLine": 11,
+                  "startColumn": 81,
+                  "endLine": 11,
+                  "endColumn": 82
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8632",
+          "level": "warning",
+          "message": "A anotação para tipos de referência anuláveis deve ser usada apenas em código em um contexto de anotações '#nullable'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Automacao/CondominioApp.EwelinkNET/EwelinkNet/Constants/DevicesSwitchName.cs",
+                "region": {
+                  "startLine": 11,
+                  "startColumn": 90,
+                  "endLine": 11,
+                  "endColumn": 91
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S125",
+          "level": "warning",
+          "message": "Remove this commented out code.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Automacao/CondominioApp.EwelinkNET/EwelinkNet/Classes/Devices/MultiSwitchDevice.cs",
+                "region": {
+                  "startLine": 29,
+                  "startColumn": 9,
+                  "endLine": 29,
+                  "endColumn": 56
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S3604",
+          "level": "warning",
+          "message": "Remove the member initializer, all constructors set an initial value for the member.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Automacao/CondominioApp.EwelinkNET/EwelinkNet/API/Payloads/WsUpdatePayload.cs",
+                "region": {
+                  "startLine": 19,
+                  "startColumn": 55,
+                  "endLine": 19,
+                  "endColumn": 76
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S3264",
+          "level": "warning",
+          "message": "Remove the unused event 'OnMessage' or invoke it.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Automacao/CondominioApp.EwelinkNET/EwelinkNet/API/WebSocket.cs",
+                "region": {
+                  "startLine": 21,
+                  "startColumn": 58,
+                  "endLine": 21,
+                  "endColumn": 67
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1118",
+          "level": "warning",
+          "message": "Add a 'protected' constructor or the 'static' keyword to the class declaration.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Automacao/CondominioApp.EwelinkNET/EwelinkNet/Constants/DevicesChannels.cs",
+                "region": {
+                  "startLine": 8,
+                  "startColumn": 20,
+                  "endLine": 8,
+                  "endColumn": 34
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S3264",
+          "level": "warning",
+          "message": "Remove the unused event 'OnDeviceChanged' or invoke it.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Automacao/CondominioApp.EwelinkNET/EwelinkNet/EwelinkNet.cs",
+                "region": {
+                  "startLine": 23,
+                  "startColumn": 54,
+                  "endLine": 23,
+                  "endColumn": 69
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S4136",
+          "level": "warning",
+          "message": "All 'CreateDevices' method overloads should be adjacent.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Automacao/CondominioApp.EwelinkNET/EwelinkNet/EwelinkNet.cs",
+                "region": {
+                  "startLine": 110,
+                  "startColumn": 22,
+                  "endLine": 110,
+                  "endColumn": 35
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Automacao/CondominioApp.EwelinkNET/EwelinkNet/EwelinkNet.cs",
+                "region": {
+                  "startLine": 118,
+                  "startColumn": 22,
+                  "endLine": 118,
+                  "endColumn": 35
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": "Non-adjacent overload"
+            }
+          }
+        },
+        {
+          "ruleId": "S1144",
+          "level": "warning",
+          "message": "Remove the unused private method 'CreateKey'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Automacao/CondominioApp.EwelinkNET/EwelinkNet/Helpers/CryptoHelper.cs",
+                "region": {
+                  "startLine": 98,
+                  "startColumn": 9,
+                  "endLine": 102,
+                  "endColumn": 10
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1118",
+          "level": "warning",
+          "message": "Add a 'protected' constructor or the 'static' keyword to the class declaration.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Automacao/CondominioApp.EwelinkNET/EwelinkNet/Helpers/EwelinkHelper.cs",
+                "region": {
+                  "startLine": 9,
+                  "startColumn": 18,
+                  "endLine": 9,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1144",
+          "level": "warning",
+          "message": "Remove the unused private method 'CreateDeviceBySwitchName'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Automacao/CondominioApp.EwelinkNET/EwelinkNet/Classes/Devices/Factory/DeviceFactory.cs",
+                "region": {
+                  "startLine": 88,
+                  "startColumn": 9,
+                  "endLine": 110,
+                  "endColumn": 10
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S3376",
+          "level": "warning",
+          "message": "Make this class name end with 'EventArgs'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Automacao/CondominioApp.EwelinkNET/EwelinkNet/Classes/Events/DeviceUpdateEvent.cs",
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 18,
+                  "endLine": 7,
+                  "endColumn": 35
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S3376",
+          "level": "warning",
+          "message": "Make this class name end with 'EventArgs'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Automacao/CondominioApp.EwelinkNET/EwelinkNet/Classes/Events/WebsocketEvent.cs",
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 18,
+                  "endLine": 7,
+                  "endColumn": 39
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S4035",
+          "level": "warning",
+          "message": "Seal class 'ArpEntry' or implement 'IEqualityComparer<T>' instead.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Automacao/CondominioApp.EwelinkNET/EwelinkNet/Classes/ZeroConf/ArpEntry.cs",
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 18,
+                  "endLine": 7,
+                  "endColumn": 26
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2245",
+          "level": "warning",
+          "message": "Make sure that using this pseudorandom number generator is safe here.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Automacao/CondominioApp.EwelinkNET/EwelinkNet/Helpers/EwelinkHelper.cs",
+                "region": {
+                  "startLine": 36,
+                  "startColumn": 26,
+                  "endLine": 36,
+                  "endColumn": 38
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S4790",
+          "level": "warning",
+          "message": "Make sure this weak hash algorithm is not used in a sensitive context here.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Automacao/CondominioApp.EwelinkNET/EwelinkNet/Helpers/CryptoHelper.cs",
+                "region": {
+                  "startLine": 90,
+                  "startColumn": 30,
+                  "endLine": 90,
+                  "endColumn": 42
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1481",
+          "level": "warning",
+          "message": "Remove the unused local variable 'Salt'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Automacao/CondominioApp.EwelinkNET/EwelinkNet/Helpers/CryptoHelper.cs",
+                "region": {
+                  "startLine": 29,
+                  "startColumn": 20,
+                  "endLine": 29,
+                  "endColumn": 24
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S5332",
+          "level": "warning",
+          "message": "Using http protocol is insecure. Use https instead.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Automacao/CondominioApp.EwelinkNET/EwelinkNet/Constants/URLs.cs",
+                "region": {
+                  "startLine": 26,
+                  "startColumn": 20,
+                  "endLine": 26,
+                  "endColumn": 48
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1479",
+          "level": "warning",
+          "message": "Consider reworking this 'switch' to reduce the number of 'case's from 51 to at most 30.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Automacao/CondominioApp.EwelinkNET/EwelinkNet/Classes/Devices/Factory/DeviceFactory.cs",
+                "region": {
+                  "startLine": 27,
+                  "startColumn": 17,
+                  "endLine": 27,
+                  "endColumn": 23
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        }
+      ],
+      "rules": {
+        "CS8632": {
+          "id": "CS8632",
+          "shortDescription": "A anotação para tipos de referência anuláveis deve ser usada apenas em código em um contexto de anotações '#nullable'.",
+          "defaultLevel": "warning",
+          "properties": {
+            "category": "Compiler",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Compiler",
+              "Telemetry"
+            ]
+          }
+        },
+        "S1118": {
+          "id": "S1118",
+          "shortDescription": "Utility classes should not have public constructors",
+          "fullDescription": "Utility classes, which are collections of static members, are not meant to be instantiated.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-1118",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        },
+        "S1144": {
+          "id": "S1144",
+          "shortDescription": "Unused private types or members should be removed",
+          "fullDescription": "private or internal types or private members that are never executed or referenced are dead code: unnecessary, inoperative code that should be removed. Cleaning out dead code decreases the size of the maintained codebase, making it easier to understand the program and preventing bugs from being introduced.",
+          "defaultLevel": "note",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-1144",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope",
+              "Unnecessary"
+            ]
+          }
+        },
+        "S125": {
+          "id": "S125",
+          "shortDescription": "Sections of code should not be commented out",
+          "fullDescription": "Programmers should not comment out code as it bloats programs and reduces readability.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-125",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        },
+        "S1479": {
+          "id": "S1479",
+          "shortDescription": "\"switch\" statements should not have too many \"case\" clauses",
+          "fullDescription": "When switch statements have large sets of case clauses, it is usually an attempt to map two sets of data. A Dictionary should be used instead to make the code more readable and maintainable.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-1479",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": false,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        },
+        "S1481": {
+          "id": "S1481",
+          "shortDescription": "Unused local variables should be removed",
+          "fullDescription": "If a local variable is declared but not used, it is dead code and should be removed. Doing so will improve maintainability because developers will not wonder what the variable is used for.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-1481",
+          "properties": {
+            "category": "Minor Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        },
+        "S2245": {
+          "id": "S2245",
+          "shortDescription": "Using pseudorandom number generators (PRNGs) is security-sensitive",
+          "fullDescription": "Using pseudorandom number generators (PRNGs) is security-sensitive. For example, it has led in the past to the following vulnerabilities:",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-2245",
+          "properties": {
+            "category": "Critical Security Hotspot",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "NotConfigurable"
+            ]
+          }
+        },
+        "S3264": {
+          "id": "S3264",
+          "shortDescription": "Events should be invoked",
+          "fullDescription": "Events that are not invoked anywhere are dead code, and there's no good reason to keep them in the source.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-3264",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        },
+        "S3376": {
+          "id": "S3376",
+          "shortDescription": "Attribute, EventArgs, and Exception type names should end with the type being extended",
+          "fullDescription": "Adherence to the standard naming conventions makes your code not only more readable, but more usable. For instance, class FirstAttribute : Attribute can be used simply with First, but you must use the full name for class AttributeOne : Attribute.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-3376",
+          "properties": {
+            "category": "Minor Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        },
+        "S3604": {
+          "id": "S3604",
+          "shortDescription": "Member initializer values should not be redundant",
+          "fullDescription": "Fields, properties and events can be initialized either inline or in the constructor. Initializing them inline and in the constructor at the same time is redundant; the inline initialization will be overridden.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-3604",
+          "properties": {
+            "category": "Minor Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        },
+        "S4035": {
+          "id": "S4035",
+          "shortDescription": "Classes implementing \"IEquatable<T>\" should be sealed",
+          "fullDescription": "When a class implements the IEquatable<T> interface, it enters a contract that, in effect, states \"I know how to compare two instances of type T or any type derived from T for equality.\". However if that class is derived, it is very unlikely that the base class will know how to make a meaningful comparison. Therefore that implicit contract is now broken.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-4035",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        },
+        "S4136": {
+          "id": "S4136",
+          "shortDescription": "Method overloads should be grouped together",
+          "fullDescription": "For clarity, all overloads of the same method should be grouped together. That lets both users and maintainers quickly understand all the current available options.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-4136",
+          "properties": {
+            "category": "Minor Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        },
+        "S4790": {
+          "id": "S4790",
+          "shortDescription": "Using weak hashing algorithms is security-sensitive",
+          "fullDescription": "Cryptographic hash algorithms such as MD2, MD4, MD5, MD6, HAVAL-128, HMAC-MD5, DSA (which uses SHA-1), RIPEMD, RIPEMD-128, RIPEMD-160, HMACRIPEMD160 and SHA-1 are no longer considered secure, because it is possible to have collisions (little computational effort is enough to find two or more different inputs that produce the same hash).",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-4790",
+          "properties": {
+            "category": "Critical Security Hotspot",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "NotConfigurable"
+            ]
+          }
+        },
+        "S5332": {
+          "id": "S5332",
+          "shortDescription": "Using clear-text protocols is security-sensitive",
+          "fullDescription": "Clear-text protocols as ftp, telnet or non secure http are lacking encryption of transported data. They are also missing the capability to build an authenticated connection. This mean that any attacker who can sniff traffic from the network can read, modify or corrupt the transported content. These protocol are not secure as they expose applications to a large range of risk:",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-5332",
+          "properties": {
+            "category": "Critical Security Hotspot",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "NotConfigurable"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

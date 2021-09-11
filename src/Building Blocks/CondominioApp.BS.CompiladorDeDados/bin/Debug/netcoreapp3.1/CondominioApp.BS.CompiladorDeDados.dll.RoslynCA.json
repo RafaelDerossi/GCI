@@ -1,0 +1,291 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "Compilador do Microsoft (R) Visual C#",
+        "version": "3.7.0.0",
+        "fileVersion": "3.7.0-6.20570.4 (dc3f4eef)",
+        "semanticVersion": "3.7.0",
+        "language": "pt-BR"
+      },
+      "results": [
+        {
+          "ruleId": "S125",
+          "level": "warning",
+          "message": "Remove this commented out code.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Building%20Blocks/CondominioApp.BS.CompiladorDeDados/IndiceDeBoletos.cs",
+                "region": {
+                  "startLine": 64,
+                  "startColumn": 13,
+                  "endLine": 64,
+                  "endColumn": 29
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1118",
+          "level": "warning",
+          "message": "Add a 'protected' constructor or the 'static' keyword to the class declaration.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Building%20Blocks/CondominioApp.BS.CompiladorDeDados/Program.cs",
+                "region": {
+                  "startLine": 5,
+                  "startColumn": 11,
+                  "endLine": 5,
+                  "endColumn": 18
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1643",
+          "level": "warning",
+          "message": "Use a StringBuilder instead.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Building%20Blocks/CondominioApp.BS.CompiladorDeDados/ValueObjects/Cpf.cs",
+                "region": {
+                  "startLine": 54,
+                  "startColumn": 21,
+                  "endLine": 54,
+                  "endColumn": 38
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1643",
+          "level": "warning",
+          "message": "Use a StringBuilder instead.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Building%20Blocks/CondominioApp.BS.CompiladorDeDados/ValueObjects/Cpf.cs",
+                "region": {
+                  "startLine": 59,
+                  "startColumn": 29,
+                  "endLine": 59,
+                  "endColumn": 43
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1643",
+          "level": "warning",
+          "message": "Use a StringBuilder instead.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Building%20Blocks/CondominioApp.BS.CompiladorDeDados/ValueObjects/Cpf.cs",
+                "region": {
+                  "startLine": 61,
+                  "startColumn": 29,
+                  "endLine": 61,
+                  "endColumn": 43
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1643",
+          "level": "warning",
+          "message": "Use a StringBuilder instead.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Building%20Blocks/CondominioApp.BS.CompiladorDeDados/IndiceDeBoletos.cs",
+                "region": {
+                  "startLine": 143,
+                  "startColumn": 17,
+                  "endLine": 143,
+                  "endColumn": 67
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S5332",
+          "level": "warning",
+          "message": "Using ftp protocol is insecure. Use sftp, scp or ftps instead.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Building%20Blocks/CondominioApp.BS.CompiladorDeDados/IndiceDeBoletos.cs",
+                "region": {
+                  "startLine": 80,
+                  "startColumn": 70,
+                  "endLine": 80,
+                  "endColumn": 158
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1643",
+          "level": "warning",
+          "message": "Use a StringBuilder instead.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Building%20Blocks/CondominioApp.BS.CompiladorDeDados/IndiceDeBoletos.cs",
+                "region": {
+                  "startLine": 165,
+                  "startColumn": 25,
+                  "endLine": 165,
+                  "endColumn": 66
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S112",
+          "level": "warning",
+          "message": "'System.Exception' should not be thrown by user code.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Building%20Blocks/CondominioApp.BS.CompiladorDeDados/IndiceDeBoletos.cs",
+                "region": {
+                  "startLine": 218,
+                  "startColumn": 67,
+                  "endLine": 218,
+                  "endColumn": 117
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        }
+      ],
+      "rules": {
+        "S1118": {
+          "id": "S1118",
+          "shortDescription": "Utility classes should not have public constructors",
+          "fullDescription": "Utility classes, which are collections of static members, are not meant to be instantiated.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-1118",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        },
+        "S112": {
+          "id": "S112",
+          "shortDescription": "General exceptions should never be thrown",
+          "fullDescription": "Throwing such general exceptions as Exception, SystemException, ApplicationException, IndexOutOfRangeException, NullReferenceException, OutOfMemoryException and ExecutionEngineException prevents calling methods from handling true, system-generated exceptions differently than application-generated errors. ",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-112",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope"
+            ]
+          }
+        },
+        "S125": {
+          "id": "S125",
+          "shortDescription": "Sections of code should not be commented out",
+          "fullDescription": "Programmers should not comment out code as it bloats programs and reduces readability.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-125",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        },
+        "S1643": {
+          "id": "S1643",
+          "shortDescription": "Strings should not be concatenated using '+' in a loop",
+          "fullDescription": "StringBuilder is more efficient than string concatenation, especially when the operator is repeated over and over as in loops.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-1643",
+          "properties": {
+            "category": "Minor Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope"
+            ]
+          }
+        },
+        "S5332": {
+          "id": "S5332",
+          "shortDescription": "Using clear-text protocols is security-sensitive",
+          "fullDescription": "Clear-text protocols as ftp, telnet or non secure http are lacking encryption of transported data. They are also missing the capability to build an authenticated connection. This mean that any attacker who can sniff traffic from the network can read, modify or corrupt the transported content. These protocol are not secure as they expose applications to a large range of risk:",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-5332",
+          "properties": {
+            "category": "Critical Security Hotspot",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "NotConfigurable"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

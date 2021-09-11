@@ -1,0 +1,17 @@
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\Marketplace\CondominioAppMarketplace.Infra\bin\Debug\netcoreapp3.1\CondominioAppMarketplace.Infra.deps.json
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\Marketplace\CondominioAppMarketplace.Infra\bin\Debug\netcoreapp3.1\CondominioAppMarketplace.Infra.runtimeconfig.json
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\Marketplace\CondominioAppMarketplace.Infra\bin\Debug\netcoreapp3.1\CondominioAppMarketplace.Infra.runtimeconfig.dev.json
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\Marketplace\CondominioAppMarketplace.Infra\bin\Debug\netcoreapp3.1\CondominioAppMarketplace.Infra.dll
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\Marketplace\CondominioAppMarketplace.Infra\bin\Debug\netcoreapp3.1\CondominioAppMarketplace.Infra.pdb
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\Marketplace\CondominioAppMarketplace.Infra\bin\Debug\netcoreapp3.1\CondominioApp.Core.dll
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\Marketplace\CondominioAppMarketplace.Infra\bin\Debug\netcoreapp3.1\CondominioAppMarketplace.Domain.dll
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\Marketplace\CondominioAppMarketplace.Infra\bin\Debug\netcoreapp3.1\CondominioApp.Core.pdb
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\Marketplace\CondominioAppMarketplace.Infra\bin\Debug\netcoreapp3.1\CondominioAppMarketplace.Domain.pdb
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\Marketplace\CondominioAppMarketplace.Infra\obj\Debug\netcoreapp3.1\CondominioAppMarketplace.Infra.csprojAssemblyReference.cache
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\Marketplace\CondominioAppMarketplace.Infra\obj\Debug\netcoreapp3.1\CondominioAppMarketplace.Infra.AssemblyInfoInputs.cache
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\Marketplace\CondominioAppMarketplace.Infra\obj\Debug\netcoreapp3.1\CondominioAppMarketplace.Infra.AssemblyInfo.cs
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\Marketplace\CondominioAppMarketplace.Infra\obj\Debug\netcoreapp3.1\CondominioAppMarketplace.Infra.csproj.CoreCompileInputs.cache
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\Marketplace\CondominioAppMarketplace.Infra\obj\Debug\netcoreapp3.1\CondominioAppMarketplace.Infra.csproj.CopyComplete
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\Marketplace\CondominioAppMarketplace.Infra\obj\Debug\netcoreapp3.1\CondominioAppMarketplace.Infra.dll
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\Marketplace\CondominioAppMarketplace.Infra\obj\Debug\netcoreapp3.1\CondominioAppMarketplace.Infra.pdb
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\Marketplace\CondominioAppMarketplace.Infra\obj\Debug\netcoreapp3.1\CondominioAppMarketplace.Infra.genruntimeconfig.cache

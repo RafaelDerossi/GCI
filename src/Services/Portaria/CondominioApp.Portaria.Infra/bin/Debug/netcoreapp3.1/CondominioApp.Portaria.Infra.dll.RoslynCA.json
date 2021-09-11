@@ -1,0 +1,273 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "Compilador do Microsoft (R) Visual C#",
+        "version": "3.7.0.0",
+        "fileVersion": "3.7.0-6.20570.4 (dc3f4eef)",
+        "semanticVersion": "3.7.0",
+        "language": "pt-BR"
+      },
+      "results": [
+        {
+          "ruleId": "S3881",
+          "level": "warning",
+          "message": "Fix this implementation of 'IDisposable' to conform to the dispose pattern.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Portaria/CondominioApp.Portaria.Infra/Data/Repository/PortariaRepository.cs",
+                "region": {
+                  "startLine": 14,
+                  "startColumn": 18,
+                  "endLine": 14,
+                  "endColumn": 36
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Portaria/CondominioApp.Portaria.Infra/Data/Repository/PortariaRepository.cs",
+                "region": {
+                  "startLine": 14,
+                  "startColumn": 18,
+                  "endLine": 14,
+                  "endColumn": 36
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Portaria/CondominioApp.Portaria.Infra/Data/Repository/PortariaRepository.cs",
+                "region": {
+                  "startLine": 116,
+                  "startColumn": 21,
+                  "endLine": 116,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": "Provide 'protected' overridable implementation of 'Dispose(bool)' on 'PortariaRepository' or mark the type as 'sealed'.",
+              "1": "'PortariaRepository.Dispose()' should call 'Dispose(true)' and 'GC.SuppressFinalize(this)'."
+            }
+          }
+        },
+        {
+          "ruleId": "S3881",
+          "level": "warning",
+          "message": "Fix this implementation of 'IDisposable' to conform to the dispose pattern.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Portaria/CondominioApp.Portaria.Infra/DataQuery/Repository/PortariaQueryRepository.cs",
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 18,
+                  "endLine": 13,
+                  "endColumn": 41
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Portaria/CondominioApp.Portaria.Infra/DataQuery/Repository/PortariaQueryRepository.cs",
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 18,
+                  "endLine": 13,
+                  "endColumn": 41
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Portaria/CondominioApp.Portaria.Infra/DataQuery/Repository/PortariaQueryRepository.cs",
+                "region": {
+                  "startLine": 128,
+                  "startColumn": 21,
+                  "endLine": 128,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": "Provide 'protected' overridable implementation of 'Dispose(bool)' on 'PortariaQueryRepository' or mark the type as 'sealed'.",
+              "1": "'PortariaQueryRepository.Dispose()' should call 'Dispose(true)' and 'GC.SuppressFinalize(this)'."
+            }
+          }
+        },
+        {
+          "ruleId": "S927",
+          "level": "warning",
+          "message": "Rename parameter 'Id' to 'id' to match the interface declaration.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Portaria/CondominioApp.Portaria.Infra/Data/Repository/PortariaRepository.cs",
+                "region": {
+                  "startLine": 96,
+                  "startColumn": 57,
+                  "endLine": 96,
+                  "endColumn": 59
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S927",
+          "level": "warning",
+          "message": "Rename parameter 'Id' to 'id' to match the interface declaration.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Portaria/CondominioApp.Portaria.Infra/DataQuery/Repository/PortariaQueryRepository.cs",
+                "region": {
+                  "startLine": 101,
+                  "startColumn": 61,
+                  "endLine": 101,
+                  "endColumn": 63
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1116",
+          "level": "warning",
+          "message": "Remove this empty statement.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Portaria/CondominioApp.Portaria.Infra/DataQuery/Mapping/VisitaFlatMapping.cs",
+                "region": {
+                  "startLine": 18,
+                  "startColumn": 103,
+                  "endLine": 18,
+                  "endColumn": 104
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1116",
+          "level": "warning",
+          "message": "Remove this empty statement.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Portaria/CondominioApp.Portaria.Infra/DataQuery/Mapping/VisitaFlatMapping.cs",
+                "region": {
+                  "startLine": 24,
+                  "startColumn": 121,
+                  "endLine": 24,
+                  "endColumn": 122
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1116",
+          "level": "warning",
+          "message": "Remove this empty statement.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Portaria/CondominioApp.Portaria.Infra/DataQuery/Mapping/VisitaFlatMapping.cs",
+                "region": {
+                  "startLine": 41,
+                  "startColumn": 112,
+                  "endLine": 41,
+                  "endColumn": 113
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        }
+      ],
+      "rules": {
+        "S1116": {
+          "id": "S1116",
+          "shortDescription": "Empty statements should be removed",
+          "fullDescription": "Empty statements, i.e. ;, are usually introduced by mistake, for example because:",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-1116",
+          "properties": {
+            "category": "Minor Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        },
+        "S3881": {
+          "id": "S3881",
+          "shortDescription": "\"IDisposable\" should be implemented correctly",
+          "fullDescription": "The IDisposable interface is a mechanism to release unmanaged resources, if not implemented correctly this could result in resource leaks or more severe bugs.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-3881",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        },
+        "S927": {
+          "id": "S927",
+          "shortDescription": "Parameter names should match base declaration and other partial definitions",
+          "fullDescription": "The name of a parameter in an externally visible. This rule raises an issue when method override does not match the name of the parameter in the base declaration of the method, or the name of the parameter in the interface declaration of the method or the name of any other partial definition.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-927",
+          "properties": {
+            "category": "Critical Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

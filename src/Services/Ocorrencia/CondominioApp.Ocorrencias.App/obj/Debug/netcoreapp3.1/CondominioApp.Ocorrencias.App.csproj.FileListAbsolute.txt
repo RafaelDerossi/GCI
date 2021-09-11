@@ -1,0 +1,4 @@
+C:\Users\MAPD-NOTE\source\repos\NinjaStore\src\Services\Ocorrencia\CondominioApp.Ocorrencias.App\obj\Debug\netcoreapp3.1\CondominioApp.Ocorrencias.App.csprojAssemblyReference.cache
+C:\Users\MAPD-NOTE\source\repos\NinjaStore\src\Services\Ocorrencia\CondominioApp.Ocorrencias.App\obj\Debug\netcoreapp3.1\CondominioApp.Ocorrencias.App.AssemblyInfoInputs.cache
+C:\Users\MAPD-NOTE\source\repos\NinjaStore\src\Services\Ocorrencia\CondominioApp.Ocorrencias.App\obj\Debug\netcoreapp3.1\CondominioApp.Ocorrencias.App.AssemblyInfo.cs
+C:\Users\MAPD-NOTE\source\repos\NinjaStore\src\Services\Ocorrencia\CondominioApp.Ocorrencias.App\obj\Debug\netcoreapp3.1\CondominioApp.Ocorrencias.App.csproj.CoreCompileInputs.cache

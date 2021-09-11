@@ -1,0 +1,1755 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "Compilador do Microsoft (R) Visual C#",
+        "version": "3.7.0.0",
+        "fileVersion": "3.7.0-6.20570.4 (dc3f4eef)",
+        "semanticVersion": "3.7.0",
+        "language": "pt-BR"
+      },
+      "results": [
+        {
+          "ruleId": "S2933",
+          "level": "warning",
+          "message": "Make '_condominioQueryRepository' 'readonly'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Query/PrincipalQuery.cs",
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 43,
+                  "endLine": 13,
+                  "endColumn": 69
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2933",
+          "level": "warning",
+          "message": "Make '_condominioRepository' 'readonly'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Query/PrincipalQuery.cs",
+                "region": {
+                  "startLine": 14,
+                  "startColumn": 38,
+                  "endLine": 14,
+                  "endColumn": 59
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S3881",
+          "level": "warning",
+          "message": "Fix this implementation of 'IDisposable' to conform to the dispose pattern.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Query/PrincipalQuery.cs",
+                "region": {
+                  "startLine": 11,
+                  "startColumn": 18,
+                  "endLine": 11,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Query/PrincipalQuery.cs",
+                "region": {
+                  "startLine": 11,
+                  "startColumn": 18,
+                  "endLine": 11,
+                  "endColumn": 32
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Query/PrincipalQuery.cs",
+                "region": {
+                  "startLine": 90,
+                  "startColumn": 21,
+                  "endLine": 90,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": "Provide 'protected' overridable implementation of 'Dispose(bool)' on 'PrincipalQuery' or mark the type as 'sealed'.",
+              "1": "'PrincipalQuery.Dispose()' should call 'Dispose(true)' and 'GC.SuppressFinalize(this)'."
+            }
+          }
+        },
+        {
+          "ruleId": "S2933",
+          "level": "warning",
+          "message": "Make '_condominioQueryRepository' 'readonly'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Events/Condominio/CondominioEventHandler.cs",
+                "region": {
+                  "startLine": 18,
+                  "startColumn": 43,
+                  "endLine": 18,
+                  "endColumn": 69
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S3881",
+          "level": "warning",
+          "message": "Fix this implementation of 'IDisposable' to conform to the dispose pattern.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Events/Condominio/CondominioEventHandler.cs",
+                "region": {
+                  "startLine": 11,
+                  "startColumn": 18,
+                  "endLine": 11,
+                  "endColumn": 40
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Events/Condominio/CondominioEventHandler.cs",
+                "region": {
+                  "startLine": 11,
+                  "startColumn": 18,
+                  "endLine": 11,
+                  "endColumn": 40
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Events/Condominio/CondominioEventHandler.cs",
+                "region": {
+                  "startLine": 206,
+                  "startColumn": 21,
+                  "endLine": 206,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": "Provide 'protected' overridable implementation of 'Dispose(bool)' on 'CondominioEventHandler' or mark the type as 'sealed'.",
+              "1": "'CondominioEventHandler.Dispose()' should call 'Dispose(true)' and 'GC.SuppressFinalize(this)'."
+            }
+          }
+        },
+        {
+          "ruleId": "S2933",
+          "level": "warning",
+          "message": "Make '_condominioRepository' 'readonly'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Commands/Condominio/CondominioCommandHandler.cs",
+                "region": {
+                  "startLine": 21,
+                  "startColumn": 38,
+                  "endLine": 21,
+                  "endColumn": 59
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2933",
+          "level": "warning",
+          "message": "Make '_condominioQueryRepository' 'readonly'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Events/Contrato/ContratoEventHandler.cs",
+                "region": {
+                  "startLine": 18,
+                  "startColumn": 43,
+                  "endLine": 18,
+                  "endColumn": 69
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S3881",
+          "level": "warning",
+          "message": "Fix this implementation of 'IDisposable' to conform to the dispose pattern.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Commands/Condominio/CondominioCommandHandler.cs",
+                "region": {
+                  "startLine": 14,
+                  "startColumn": 18,
+                  "endLine": 14,
+                  "endColumn": 42
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Commands/Condominio/CondominioCommandHandler.cs",
+                "region": {
+                  "startLine": 14,
+                  "startColumn": 18,
+                  "endLine": 14,
+                  "endColumn": 42
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Commands/Condominio/CondominioCommandHandler.cs",
+                "region": {
+                  "startLine": 254,
+                  "startColumn": 21,
+                  "endLine": 254,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": "Provide 'protected' overridable implementation of 'Dispose(bool)' on 'CondominioCommandHandler' or mark the type as 'sealed'.",
+              "1": "'CondominioCommandHandler.Dispose()' should call 'Dispose(true)' and 'GC.SuppressFinalize(this)'."
+            }
+          }
+        },
+        {
+          "ruleId": "S3881",
+          "level": "warning",
+          "message": "Fix this implementation of 'IDisposable' to conform to the dispose pattern.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Events/Contrato/ContratoEventHandler.cs",
+                "region": {
+                  "startLine": 12,
+                  "startColumn": 18,
+                  "endLine": 12,
+                  "endColumn": 38
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Events/Contrato/ContratoEventHandler.cs",
+                "region": {
+                  "startLine": 12,
+                  "startColumn": 18,
+                  "endLine": 12,
+                  "endColumn": 38
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Events/Contrato/ContratoEventHandler.cs",
+                "region": {
+                  "startLine": 80,
+                  "startColumn": 21,
+                  "endLine": 80,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": "Provide 'protected' overridable implementation of 'Dispose(bool)' on 'ContratoEventHandler' or mark the type as 'sealed'.",
+              "1": "'ContratoEventHandler.Dispose()' should call 'Dispose(true)' and 'GC.SuppressFinalize(this)'."
+            }
+          }
+        },
+        {
+          "ruleId": "S2933",
+          "level": "warning",
+          "message": "Make '_condominioQueryRepository' 'readonly'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Events/Grupo/GrupoEventHandler.cs",
+                "region": {
+                  "startLine": 17,
+                  "startColumn": 43,
+                  "endLine": 17,
+                  "endColumn": 69
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S3881",
+          "level": "warning",
+          "message": "Fix this implementation of 'IDisposable' to conform to the dispose pattern.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Events/Grupo/GrupoEventHandler.cs",
+                "region": {
+                  "startLine": 11,
+                  "startColumn": 18,
+                  "endLine": 11,
+                  "endColumn": 35
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Events/Grupo/GrupoEventHandler.cs",
+                "region": {
+                  "startLine": 11,
+                  "startColumn": 18,
+                  "endLine": 11,
+                  "endColumn": 35
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Events/Grupo/GrupoEventHandler.cs",
+                "region": {
+                  "startLine": 74,
+                  "startColumn": 21,
+                  "endLine": 74,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": "Provide 'protected' overridable implementation of 'Dispose(bool)' on 'GrupoEventHandler' or mark the type as 'sealed'.",
+              "1": "'GrupoEventHandler.Dispose()' should call 'Dispose(true)' and 'GC.SuppressFinalize(this)'."
+            }
+          }
+        },
+        {
+          "ruleId": "S2933",
+          "level": "warning",
+          "message": "Make '_condominioRepository' 'readonly'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Commands/Contrato/ContratoCommandHandler.cs",
+                "region": {
+                  "startLine": 20,
+                  "startColumn": 38,
+                  "endLine": 20,
+                  "endColumn": 59
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S3881",
+          "level": "warning",
+          "message": "Fix this implementation of 'IDisposable' to conform to the dispose pattern.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Commands/Contrato/ContratoCommandHandler.cs",
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 18,
+                  "endLine": 13,
+                  "endColumn": 40
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Commands/Contrato/ContratoCommandHandler.cs",
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 18,
+                  "endLine": 13,
+                  "endColumn": 40
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Commands/Contrato/ContratoCommandHandler.cs",
+                "region": {
+                  "startLine": 123,
+                  "startColumn": 21,
+                  "endLine": 123,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": "Provide 'protected' overridable implementation of 'Dispose(bool)' on 'ContratoCommandHandler' or mark the type as 'sealed'.",
+              "1": "'ContratoCommandHandler.Dispose()' should call 'Dispose(true)' and 'GC.SuppressFinalize(this)'."
+            }
+          }
+        },
+        {
+          "ruleId": "S2933",
+          "level": "warning",
+          "message": "Make '_condominioRepository' 'readonly'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Commands/Grupo/GrupoCommandHandler.cs",
+                "region": {
+                  "startLine": 19,
+                  "startColumn": 38,
+                  "endLine": 19,
+                  "endColumn": 59
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S3881",
+          "level": "warning",
+          "message": "Fix this implementation of 'IDisposable' to conform to the dispose pattern.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Commands/Grupo/GrupoCommandHandler.cs",
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 18,
+                  "endLine": 13,
+                  "endColumn": 37
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Commands/Grupo/GrupoCommandHandler.cs",
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 18,
+                  "endLine": 13,
+                  "endColumn": 37
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Commands/Grupo/GrupoCommandHandler.cs",
+                "region": {
+                  "startLine": 108,
+                  "startColumn": 21,
+                  "endLine": 108,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": "Provide 'protected' overridable implementation of 'Dispose(bool)' on 'GrupoCommandHandler' or mark the type as 'sealed'.",
+              "1": "'GrupoCommandHandler.Dispose()' should call 'Dispose(true)' and 'GC.SuppressFinalize(this)'."
+            }
+          }
+        },
+        {
+          "ruleId": "S2933",
+          "level": "warning",
+          "message": "Make '_condominioQueryRepository' 'readonly'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Events/Unidade/UnidadeEventHandler.cs",
+                "region": {
+                  "startLine": 18,
+                  "startColumn": 43,
+                  "endLine": 18,
+                  "endColumn": 69
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S3881",
+          "level": "warning",
+          "message": "Fix this implementation of 'IDisposable' to conform to the dispose pattern.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Events/Unidade/UnidadeEventHandler.cs",
+                "region": {
+                  "startLine": 10,
+                  "startColumn": 18,
+                  "endLine": 10,
+                  "endColumn": 37
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Events/Unidade/UnidadeEventHandler.cs",
+                "region": {
+                  "startLine": 10,
+                  "startColumn": 18,
+                  "endLine": 10,
+                  "endColumn": 37
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Events/Unidade/UnidadeEventHandler.cs",
+                "region": {
+                  "startLine": 90,
+                  "startColumn": 21,
+                  "endLine": 90,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": "Provide 'protected' overridable implementation of 'Dispose(bool)' on 'UnidadeEventHandler' or mark the type as 'sealed'.",
+              "1": "'UnidadeEventHandler.Dispose()' should call 'Dispose(true)' and 'GC.SuppressFinalize(this)'."
+            }
+          }
+        },
+        {
+          "ruleId": "S2933",
+          "level": "warning",
+          "message": "Make '_condominioRepository' 'readonly'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Commands/Unidade/UnidadeCommandHandler.cs",
+                "region": {
+                  "startLine": 22,
+                  "startColumn": 38,
+                  "endLine": 22,
+                  "endColumn": 59
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S3881",
+          "level": "warning",
+          "message": "Fix this implementation of 'IDisposable' to conform to the dispose pattern.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Commands/Unidade/UnidadeCommandHandler.cs",
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 18,
+                  "endLine": 13,
+                  "endColumn": 39
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Commands/Unidade/UnidadeCommandHandler.cs",
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 18,
+                  "endLine": 13,
+                  "endColumn": 39
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Commands/Unidade/UnidadeCommandHandler.cs",
+                "region": {
+                  "startLine": 193,
+                  "startColumn": 21,
+                  "endLine": 193,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": "Provide 'protected' overridable implementation of 'Dispose(bool)' on 'UnidadeCommandHandler' or mark the type as 'sealed'.",
+              "1": "'UnidadeCommandHandler.Dispose()' should call 'Dispose(true)' and 'GC.SuppressFinalize(this)'."
+            }
+          }
+        },
+        {
+          "ruleId": "S107",
+          "level": "warning",
+          "message": "Constructor has 37 parameters, which is greater than the 7 authorized.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Commands/Condominio/CadastrarCondominioCommand.cs",
+                "region": {
+                  "startLine": 11,
+                  "startColumn": 42,
+                  "endLine": 19,
+                  "endColumn": 53
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S107",
+          "level": "warning",
+          "message": "Constructor has 32 parameters, which is greater than the 7 authorized.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Events/Condominio/CondominioCadastradoEvent.cs",
+                "region": {
+                  "startLine": 12,
+                  "startColumn": 41,
+                  "endLine": 19,
+                  "endColumn": 34
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S107",
+          "level": "warning",
+          "message": "Constructor has 16 parameters, which is greater than the 7 authorized.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Events/Condominio/CondominioConfiguracaoEditadoEvent.cs",
+                "region": {
+                  "startLine": 11,
+                  "startColumn": 50,
+                  "endLine": 15,
+                  "endColumn": 68
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S107",
+          "level": "warning",
+          "message": "Constructor has 14 parameters, which is greater than the 7 authorized.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Commands/Condominio/EditarCondominioCommand.cs",
+                "region": {
+                  "startLine": 9,
+                  "startColumn": 39,
+                  "endLine": 12,
+                  "endColumn": 56
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S107",
+          "level": "warning",
+          "message": "Constructor has 16 parameters, which is greater than the 7 authorized.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Commands/Condominio/EditarConfiguracaoCondominioCommand.cs",
+                "region": {
+                  "startLine": 9,
+                  "startColumn": 51,
+                  "endLine": 13,
+                  "endColumn": 85
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S927",
+          "level": "warning",
+          "message": "Rename parameter 'id' to 'Id' to match the interface declaration.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Query/PrincipalQuery.cs",
+                "region": {
+                  "startLine": 79,
+                  "startColumn": 61,
+                  "endLine": 79,
+                  "endColumn": 63
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S3776",
+          "level": "warning",
+          "message": "Refactor this method to reduce its Cognitive Complexity from 32 to the 15 allowed.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Commands/Condominio/CondominioCommandHandler.cs",
+                "region": {
+                  "startLine": 86,
+                  "startColumn": 45,
+                  "endLine": 86,
+                  "endColumn": 51
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Commands/Condominio/CondominioCommandHandler.cs",
+                "region": {
+                  "startLine": 88,
+                  "startColumn": 13,
+                  "endLine": 88,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Commands/Condominio/CondominioCommandHandler.cs",
+                "region": {
+                  "startLine": 92,
+                  "startColumn": 13,
+                  "endLine": 92,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Commands/Condominio/CondominioCommandHandler.cs",
+                "region": {
+                  "startLine": 98,
+                  "startColumn": 13,
+                  "endLine": 98,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Commands/Condominio/CondominioCommandHandler.cs",
+                "region": {
+                  "startLine": 100,
+                  "startColumn": 13,
+                  "endLine": 100,
+                  "endColumn": 17
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Commands/Condominio/CondominioCommandHandler.cs",
+                "region": {
+                  "startLine": 104,
+                  "startColumn": 13,
+                  "endLine": 104,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Commands/Condominio/CondominioCommandHandler.cs",
+                "region": {
+                  "startLine": 106,
+                  "startColumn": 13,
+                  "endLine": 106,
+                  "endColumn": 17
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Commands/Condominio/CondominioCommandHandler.cs",
+                "region": {
+                  "startLine": 110,
+                  "startColumn": 13,
+                  "endLine": 110,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Commands/Condominio/CondominioCommandHandler.cs",
+                "region": {
+                  "startLine": 112,
+                  "startColumn": 13,
+                  "endLine": 112,
+                  "endColumn": 17
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Commands/Condominio/CondominioCommandHandler.cs",
+                "region": {
+                  "startLine": 116,
+                  "startColumn": 13,
+                  "endLine": 116,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Commands/Condominio/CondominioCommandHandler.cs",
+                "region": {
+                  "startLine": 118,
+                  "startColumn": 13,
+                  "endLine": 118,
+                  "endColumn": 17
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Commands/Condominio/CondominioCommandHandler.cs",
+                "region": {
+                  "startLine": 122,
+                  "startColumn": 13,
+                  "endLine": 122,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Commands/Condominio/CondominioCommandHandler.cs",
+                "region": {
+                  "startLine": 124,
+                  "startColumn": 13,
+                  "endLine": 124,
+                  "endColumn": 17
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Commands/Condominio/CondominioCommandHandler.cs",
+                "region": {
+                  "startLine": 128,
+                  "startColumn": 13,
+                  "endLine": 128,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Commands/Condominio/CondominioCommandHandler.cs",
+                "region": {
+                  "startLine": 130,
+                  "startColumn": 13,
+                  "endLine": 130,
+                  "endColumn": 17
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Commands/Condominio/CondominioCommandHandler.cs",
+                "region": {
+                  "startLine": 134,
+                  "startColumn": 13,
+                  "endLine": 134,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Commands/Condominio/CondominioCommandHandler.cs",
+                "region": {
+                  "startLine": 136,
+                  "startColumn": 13,
+                  "endLine": 136,
+                  "endColumn": 17
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Commands/Condominio/CondominioCommandHandler.cs",
+                "region": {
+                  "startLine": 140,
+                  "startColumn": 13,
+                  "endLine": 140,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Commands/Condominio/CondominioCommandHandler.cs",
+                "region": {
+                  "startLine": 142,
+                  "startColumn": 13,
+                  "endLine": 142,
+                  "endColumn": 17
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Commands/Condominio/CondominioCommandHandler.cs",
+                "region": {
+                  "startLine": 145,
+                  "startColumn": 13,
+                  "endLine": 145,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Commands/Condominio/CondominioCommandHandler.cs",
+                "region": {
+                  "startLine": 147,
+                  "startColumn": 13,
+                  "endLine": 147,
+                  "endColumn": 17
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Commands/Condominio/CondominioCommandHandler.cs",
+                "region": {
+                  "startLine": 151,
+                  "startColumn": 13,
+                  "endLine": 151,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Commands/Condominio/CondominioCommandHandler.cs",
+                "region": {
+                  "startLine": 153,
+                  "startColumn": 13,
+                  "endLine": 153,
+                  "endColumn": 17
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Commands/Condominio/CondominioCommandHandler.cs",
+                "region": {
+                  "startLine": 157,
+                  "startColumn": 13,
+                  "endLine": 157,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Commands/Condominio/CondominioCommandHandler.cs",
+                "region": {
+                  "startLine": 159,
+                  "startColumn": 13,
+                  "endLine": 159,
+                  "endColumn": 17
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Commands/Condominio/CondominioCommandHandler.cs",
+                "region": {
+                  "startLine": 163,
+                  "startColumn": 13,
+                  "endLine": 163,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Commands/Condominio/CondominioCommandHandler.cs",
+                "region": {
+                  "startLine": 165,
+                  "startColumn": 13,
+                  "endLine": 165,
+                  "endColumn": 17
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Commands/Condominio/CondominioCommandHandler.cs",
+                "region": {
+                  "startLine": 169,
+                  "startColumn": 13,
+                  "endLine": 169,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Commands/Condominio/CondominioCommandHandler.cs",
+                "region": {
+                  "startLine": 171,
+                  "startColumn": 13,
+                  "endLine": 171,
+                  "endColumn": 17
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Commands/Condominio/CondominioCommandHandler.cs",
+                "region": {
+                  "startLine": 175,
+                  "startColumn": 13,
+                  "endLine": 175,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Commands/Condominio/CondominioCommandHandler.cs",
+                "region": {
+                  "startLine": 177,
+                  "startColumn": 13,
+                  "endLine": 177,
+                  "endColumn": 17
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Commands/Condominio/CondominioCommandHandler.cs",
+                "region": {
+                  "startLine": 181,
+                  "startColumn": 13,
+                  "endLine": 181,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Commands/Condominio/CondominioCommandHandler.cs",
+                "region": {
+                  "startLine": 183,
+                  "startColumn": 13,
+                  "endLine": 183,
+                  "endColumn": 17
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": "+1",
+              "1": "+1",
+              "10": "+1",
+              "11": "+1",
+              "12": "+1",
+              "13": "+1",
+              "14": "+1",
+              "15": "+1",
+              "16": "+1",
+              "17": "+1",
+              "18": "+1",
+              "19": "+1",
+              "2": "+1",
+              "20": "+1",
+              "21": "+1",
+              "22": "+1",
+              "23": "+1",
+              "24": "+1",
+              "25": "+1",
+              "26": "+1",
+              "27": "+1",
+              "28": "+1",
+              "29": "+1",
+              "3": "+1",
+              "30": "+1",
+              "31": "+1",
+              "4": "+1",
+              "5": "+1",
+              "6": "+1",
+              "7": "+1",
+              "8": "+1",
+              "9": "+1"
+            }
+          }
+        },
+        {
+          "ruleId": "S3776",
+          "level": "warning",
+          "message": "Refactor this method to reduce its Cognitive Complexity from 30 to the 15 allowed.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Events/Condominio/CondominioEventHandler.cs",
+                "region": {
+                  "startLine": 90,
+                  "startColumn": 27,
+                  "endLine": 90,
+                  "endColumn": 33
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Events/Condominio/CondominioEventHandler.cs",
+                "region": {
+                  "startLine": 96,
+                  "startColumn": 13,
+                  "endLine": 96,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Events/Condominio/CondominioEventHandler.cs",
+                "region": {
+                  "startLine": 98,
+                  "startColumn": 13,
+                  "endLine": 98,
+                  "endColumn": 17
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Events/Condominio/CondominioEventHandler.cs",
+                "region": {
+                  "startLine": 102,
+                  "startColumn": 13,
+                  "endLine": 102,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Events/Condominio/CondominioEventHandler.cs",
+                "region": {
+                  "startLine": 104,
+                  "startColumn": 13,
+                  "endLine": 104,
+                  "endColumn": 17
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Events/Condominio/CondominioEventHandler.cs",
+                "region": {
+                  "startLine": 108,
+                  "startColumn": 13,
+                  "endLine": 108,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Events/Condominio/CondominioEventHandler.cs",
+                "region": {
+                  "startLine": 110,
+                  "startColumn": 13,
+                  "endLine": 110,
+                  "endColumn": 17
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Events/Condominio/CondominioEventHandler.cs",
+                "region": {
+                  "startLine": 114,
+                  "startColumn": 13,
+                  "endLine": 114,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Events/Condominio/CondominioEventHandler.cs",
+                "region": {
+                  "startLine": 116,
+                  "startColumn": 13,
+                  "endLine": 116,
+                  "endColumn": 17
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Events/Condominio/CondominioEventHandler.cs",
+                "region": {
+                  "startLine": 120,
+                  "startColumn": 13,
+                  "endLine": 120,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Events/Condominio/CondominioEventHandler.cs",
+                "region": {
+                  "startLine": 122,
+                  "startColumn": 13,
+                  "endLine": 122,
+                  "endColumn": 17
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Events/Condominio/CondominioEventHandler.cs",
+                "region": {
+                  "startLine": 126,
+                  "startColumn": 13,
+                  "endLine": 126,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Events/Condominio/CondominioEventHandler.cs",
+                "region": {
+                  "startLine": 128,
+                  "startColumn": 13,
+                  "endLine": 128,
+                  "endColumn": 17
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Events/Condominio/CondominioEventHandler.cs",
+                "region": {
+                  "startLine": 132,
+                  "startColumn": 13,
+                  "endLine": 132,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Events/Condominio/CondominioEventHandler.cs",
+                "region": {
+                  "startLine": 134,
+                  "startColumn": 13,
+                  "endLine": 134,
+                  "endColumn": 17
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Events/Condominio/CondominioEventHandler.cs",
+                "region": {
+                  "startLine": 138,
+                  "startColumn": 13,
+                  "endLine": 138,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Events/Condominio/CondominioEventHandler.cs",
+                "region": {
+                  "startLine": 140,
+                  "startColumn": 13,
+                  "endLine": 140,
+                  "endColumn": 17
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Events/Condominio/CondominioEventHandler.cs",
+                "region": {
+                  "startLine": 143,
+                  "startColumn": 13,
+                  "endLine": 143,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Events/Condominio/CondominioEventHandler.cs",
+                "region": {
+                  "startLine": 145,
+                  "startColumn": 13,
+                  "endLine": 145,
+                  "endColumn": 17
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Events/Condominio/CondominioEventHandler.cs",
+                "region": {
+                  "startLine": 149,
+                  "startColumn": 13,
+                  "endLine": 149,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Events/Condominio/CondominioEventHandler.cs",
+                "region": {
+                  "startLine": 151,
+                  "startColumn": 13,
+                  "endLine": 151,
+                  "endColumn": 17
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Events/Condominio/CondominioEventHandler.cs",
+                "region": {
+                  "startLine": 155,
+                  "startColumn": 13,
+                  "endLine": 155,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Events/Condominio/CondominioEventHandler.cs",
+                "region": {
+                  "startLine": 157,
+                  "startColumn": 13,
+                  "endLine": 157,
+                  "endColumn": 17
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Events/Condominio/CondominioEventHandler.cs",
+                "region": {
+                  "startLine": 161,
+                  "startColumn": 13,
+                  "endLine": 161,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Events/Condominio/CondominioEventHandler.cs",
+                "region": {
+                  "startLine": 163,
+                  "startColumn": 13,
+                  "endLine": 163,
+                  "endColumn": 17
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Events/Condominio/CondominioEventHandler.cs",
+                "region": {
+                  "startLine": 167,
+                  "startColumn": 13,
+                  "endLine": 167,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Events/Condominio/CondominioEventHandler.cs",
+                "region": {
+                  "startLine": 169,
+                  "startColumn": 13,
+                  "endLine": 169,
+                  "endColumn": 17
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Events/Condominio/CondominioEventHandler.cs",
+                "region": {
+                  "startLine": 173,
+                  "startColumn": 13,
+                  "endLine": 173,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Events/Condominio/CondominioEventHandler.cs",
+                "region": {
+                  "startLine": 175,
+                  "startColumn": 13,
+                  "endLine": 175,
+                  "endColumn": 17
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Events/Condominio/CondominioEventHandler.cs",
+                "region": {
+                  "startLine": 179,
+                  "startColumn": 13,
+                  "endLine": 179,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Events/Condominio/CondominioEventHandler.cs",
+                "region": {
+                  "startLine": 181,
+                  "startColumn": 13,
+                  "endLine": 181,
+                  "endColumn": 17
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": "+1",
+              "1": "+1",
+              "10": "+1",
+              "11": "+1",
+              "12": "+1",
+              "13": "+1",
+              "14": "+1",
+              "15": "+1",
+              "16": "+1",
+              "17": "+1",
+              "18": "+1",
+              "19": "+1",
+              "2": "+1",
+              "20": "+1",
+              "21": "+1",
+              "22": "+1",
+              "23": "+1",
+              "24": "+1",
+              "25": "+1",
+              "26": "+1",
+              "27": "+1",
+              "28": "+1",
+              "29": "+1",
+              "3": "+1",
+              "4": "+1",
+              "5": "+1",
+              "6": "+1",
+              "7": "+1",
+              "8": "+1",
+              "9": "+1"
+            }
+          }
+        },
+        {
+          "ruleId": "S107",
+          "level": "warning",
+          "message": "Constructor has 8 parameters, which is greater than the 7 authorized.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Commands/Unidade/CadastrarUnidadeCommand.cs",
+                "region": {
+                  "startLine": 8,
+                  "startColumn": 39,
+                  "endLine": 9,
+                  "endColumn": 87
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S107",
+          "level": "warning",
+          "message": "Constructor has 14 parameters, which is greater than the 7 authorized.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Events/Unidade/UnidadeCadastradaEvent.cs",
+                "region": {
+                  "startLine": 8,
+                  "startColumn": 38,
+                  "endLine": 12,
+                  "endColumn": 40
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1125",
+          "level": "warning",
+          "message": "Remove the unnecessary Boolean literal(s).",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Principal/CondominioApp.Principal.Aplication/Commands/Unidade/UnidadeCommandHandler.cs",
+                "region": {
+                  "startLine": 179,
+                  "startColumn": 37,
+                  "endLine": 179,
+                  "endColumn": 42
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        }
+      ],
+      "rules": {
+        "S107": {
+          "id": "S107",
+          "shortDescription": "Methods should not have too many parameters",
+          "fullDescription": "A long parameter list can indicate that a new structure should be created to wrap the numerous parameters or that the function is doing too many things.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-107",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": false,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        },
+        "S1125": {
+          "id": "S1125",
+          "shortDescription": "Boolean literals should not be redundant",
+          "fullDescription": "Redundant Boolean literals should be removed from expressions to improve readability.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-1125",
+          "properties": {
+            "category": "Minor Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        },
+        "S2933": {
+          "id": "S2933",
+          "shortDescription": "Fields that are only assigned in the constructor should be \"readonly\"",
+          "fullDescription": "readonly fields can only be assigned in a class constructor. If a class has a field that's not marked readonly but is only set in the constructor, it could cause confusion about the field's intended use. To avoid confusion, such fields should be marked readonly to make their intended use explicit, and to prevent future maintainers from inadvertently changing their use.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-2933",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        },
+        "S3776": {
+          "id": "S3776",
+          "shortDescription": "Cognitive Complexity of methods should not be too high",
+          "fullDescription": "Cognitive Complexity is a measure of how hard the control flow of a method is to understand. Methods with high Cognitive Complexity will be difficult to maintain.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-3776",
+          "properties": {
+            "category": "Critical Code Smell",
+            "isEnabledByDefault": false,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        },
+        "S3881": {
+          "id": "S3881",
+          "shortDescription": "\"IDisposable\" should be implemented correctly",
+          "fullDescription": "The IDisposable interface is a mechanism to release unmanaged resources, if not implemented correctly this could result in resource leaks or more severe bugs.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-3881",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        },
+        "S927": {
+          "id": "S927",
+          "shortDescription": "Parameter names should match base declaration and other partial definitions",
+          "fullDescription": "The name of a parameter in an externally visible. This rule raises an issue when method override does not match the name of the parameter in the base declaration of the method, or the name of the parameter in the interface declaration of the method or the name of any other partial definition.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-927",
+          "properties": {
+            "category": "Critical Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

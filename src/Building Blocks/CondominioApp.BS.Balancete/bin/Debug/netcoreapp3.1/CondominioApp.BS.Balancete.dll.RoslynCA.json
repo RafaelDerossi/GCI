@@ -1,0 +1,171 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "Compilador do Microsoft (R) Visual C#",
+        "version": "3.7.0.0",
+        "fileVersion": "3.7.0-6.20570.4 (dc3f4eef)",
+        "semanticVersion": "3.7.0",
+        "language": "pt-BR"
+      },
+      "results": [
+        {
+          "ruleId": "S125",
+          "level": "warning",
+          "message": "Remove this commented out code.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Building%20Blocks/CondominioApp.BS.Balancete/GerenciadorDeBalancete.cs",
+                "region": {
+                  "startLine": 41,
+                  "startColumn": 17,
+                  "endLine": 41,
+                  "endColumn": 42
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1118",
+          "level": "warning",
+          "message": "Add a 'protected' constructor or the 'static' keyword to the class declaration.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Building%20Blocks/CondominioApp.BS.Balancete/Program.cs",
+                "region": {
+                  "startLine": 5,
+                  "startColumn": 18,
+                  "endLine": 5,
+                  "endColumn": 25
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S5332",
+          "level": "warning",
+          "message": "Using ftp protocol is insecure. Use sftp, scp or ftps instead.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Building%20Blocks/CondominioApp.BS.Balancete/GerenciadorDeBalancete.cs",
+                "region": {
+                  "startLine": 52,
+                  "startColumn": 70,
+                  "endLine": 52,
+                  "endColumn": 164
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1481",
+          "level": "warning",
+          "message": "Remove the unused local variable 'response'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Building%20Blocks/CondominioApp.BS.Balancete/GerenciadorDeBalancete.cs",
+                "region": {
+                  "startLine": 70,
+                  "startColumn": 32,
+                  "endLine": 70,
+                  "endColumn": 40
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        }
+      ],
+      "rules": {
+        "S1118": {
+          "id": "S1118",
+          "shortDescription": "Utility classes should not have public constructors",
+          "fullDescription": "Utility classes, which are collections of static members, are not meant to be instantiated.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-1118",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        },
+        "S125": {
+          "id": "S125",
+          "shortDescription": "Sections of code should not be commented out",
+          "fullDescription": "Programmers should not comment out code as it bloats programs and reduces readability.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-125",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        },
+        "S1481": {
+          "id": "S1481",
+          "shortDescription": "Unused local variables should be removed",
+          "fullDescription": "If a local variable is declared but not used, it is dead code and should be removed. Doing so will improve maintainability because developers will not wonder what the variable is used for.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-1481",
+          "properties": {
+            "category": "Minor Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        },
+        "S5332": {
+          "id": "S5332",
+          "shortDescription": "Using clear-text protocols is security-sensitive",
+          "fullDescription": "Clear-text protocols as ftp, telnet or non secure http are lacking encryption of transported data. They are also missing the capability to build an authenticated connection. This mean that any attacker who can sniff traffic from the network can read, modify or corrupt the transported content. These protocol are not secure as they expose applications to a large range of risk:",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-5332",
+          "properties": {
+            "category": "Critical Security Hotspot",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "NotConfigurable"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\ReservaAreaComum\CondominioApp.ReservaAreaComum.Aplication\bin\Debug\netcoreapp3.1\CondominioApp.ReservaAreaComum.Aplication.deps.json
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\ReservaAreaComum\CondominioApp.ReservaAreaComum.Aplication\bin\Debug\netcoreapp3.1\CondominioApp.ReservaAreaComum.Aplication.dll
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\ReservaAreaComum\CondominioApp.ReservaAreaComum.Aplication\bin\Debug\netcoreapp3.1\CondominioApp.ReservaAreaComum.Aplication.pdb
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\ReservaAreaComum\CondominioApp.ReservaAreaComum.Aplication\bin\Debug\netcoreapp3.1\CondominioApp.Core.dll
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\ReservaAreaComum\CondominioApp.ReservaAreaComum.Aplication\bin\Debug\netcoreapp3.1\CondominioApp.ReservaAreaComum.Domain.dll
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\ReservaAreaComum\CondominioApp.ReservaAreaComum.Aplication\bin\Debug\netcoreapp3.1\CondominioApp.ReservaAreaComum.Infra.dll
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\ReservaAreaComum\CondominioApp.ReservaAreaComum.Aplication\bin\Debug\netcoreapp3.1\CondominioApp.Core.pdb
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\ReservaAreaComum\CondominioApp.ReservaAreaComum.Aplication\bin\Debug\netcoreapp3.1\CondominioApp.ReservaAreaComum.Domain.pdb
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\ReservaAreaComum\CondominioApp.ReservaAreaComum.Aplication\bin\Debug\netcoreapp3.1\CondominioApp.ReservaAreaComum.Infra.pdb
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\ReservaAreaComum\CondominioApp.ReservaAreaComum.Aplication\obj\Debug\netcoreapp3.1\CondominioApp.ReservaAreaComum.Aplication.csprojAssemblyReference.cache
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\ReservaAreaComum\CondominioApp.ReservaAreaComum.Aplication\obj\Debug\netcoreapp3.1\CondominioApp.ReservaAreaComum.Aplication.AssemblyInfoInputs.cache
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\ReservaAreaComum\CondominioApp.ReservaAreaComum.Aplication\obj\Debug\netcoreapp3.1\CondominioApp.ReservaAreaComum.Aplication.AssemblyInfo.cs
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\ReservaAreaComum\CondominioApp.ReservaAreaComum.Aplication\obj\Debug\netcoreapp3.1\CondominioApp.ReservaAreaComum.Aplication.csproj.CoreCompileInputs.cache
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\ReservaAreaComum\CondominioApp.ReservaAreaComum.Aplication\obj\Debug\netcoreapp3.1\CondominioApp.ReservaAreaComum.Aplication.csproj.CopyComplete
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\ReservaAreaComum\CondominioApp.ReservaAreaComum.Aplication\obj\Debug\netcoreapp3.1\CondominioApp.ReservaAreaComum.Aplication.dll
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\ReservaAreaComum\CondominioApp.ReservaAreaComum.Aplication\obj\Debug\netcoreapp3.1\CondominioApp.ReservaAreaComum.Aplication.pdb

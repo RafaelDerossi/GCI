@@ -1,0 +1,614 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "Compilador do Microsoft (R) Visual C#",
+        "version": "3.7.0.0",
+        "fileVersion": "3.7.0-6.20570.4 (dc3f4eef)",
+        "semanticVersion": "3.7.0",
+        "language": "pt-BR"
+      },
+      "results": [
+        {
+          "ruleId": "S2933",
+          "level": "warning",
+          "message": "Make '_EnqueteRepository' 'readonly'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Enquete/CondominioApp.Enquete.App/Aplication/Commands/AlternativaEnquete/AlternativaEnqueteCommandHandler.cs",
+                "region": {
+                  "startLine": 18,
+                  "startColumn": 36,
+                  "endLine": 18,
+                  "endColumn": 54
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S3881",
+          "level": "warning",
+          "message": "Fix this implementation of 'IDisposable' to conform to the dispose pattern.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Enquete/CondominioApp.Enquete.App/Aplication/Commands/AlternativaEnquete/AlternativaEnqueteCommandHandler.cs",
+                "region": {
+                  "startLine": 12,
+                  "startColumn": 18,
+                  "endLine": 12,
+                  "endColumn": 50
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Enquete/CondominioApp.Enquete.App/Aplication/Commands/AlternativaEnquete/AlternativaEnqueteCommandHandler.cs",
+                "region": {
+                  "startLine": 12,
+                  "startColumn": 18,
+                  "endLine": 12,
+                  "endColumn": 50
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Enquete/CondominioApp.Enquete.App/Aplication/Commands/AlternativaEnquete/AlternativaEnqueteCommandHandler.cs",
+                "region": {
+                  "startLine": 88,
+                  "startColumn": 21,
+                  "endLine": 88,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": "Provide 'protected' overridable implementation of 'Dispose(bool)' on 'AlternativaEnqueteCommandHandler' or mark the type as 'sealed'.",
+              "1": "'AlternativaEnqueteCommandHandler.Dispose()' should call 'Dispose(true)' and 'GC.SuppressFinalize(this)'."
+            }
+          }
+        },
+        {
+          "ruleId": "S2933",
+          "level": "warning",
+          "message": "Make '_EnqueteRepository' 'readonly'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Enquete/CondominioApp.Enquete.App/Aplication/Commands/Enquete/EnqueteCommandHandler.cs",
+                "region": {
+                  "startLine": 19,
+                  "startColumn": 36,
+                  "endLine": 19,
+                  "endColumn": 54
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S3881",
+          "level": "warning",
+          "message": "Fix this implementation of 'IDisposable' to conform to the dispose pattern.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Enquete/CondominioApp.Enquete.App/Data/Repository/EnqueteRepository.cs",
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 18,
+                  "endLine": 13,
+                  "endColumn": 35
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Enquete/CondominioApp.Enquete.App/Data/Repository/EnqueteRepository.cs",
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 18,
+                  "endLine": 13,
+                  "endColumn": 35
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Enquete/CondominioApp.Enquete.App/Data/Repository/EnqueteRepository.cs",
+                "region": {
+                  "startLine": 121,
+                  "startColumn": 21,
+                  "endLine": 121,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": "Provide 'protected' overridable implementation of 'Dispose(bool)' on 'EnqueteRepository' or mark the type as 'sealed'.",
+              "1": "'EnqueteRepository.Dispose()' should call 'Dispose(true)' and 'GC.SuppressFinalize(this)'."
+            }
+          }
+        },
+        {
+          "ruleId": "S3881",
+          "level": "warning",
+          "message": "Fix this implementation of 'IDisposable' to conform to the dispose pattern.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Enquete/CondominioApp.Enquete.App/Aplication/Commands/Enquete/EnqueteCommandHandler.cs",
+                "region": {
+                  "startLine": 12,
+                  "startColumn": 18,
+                  "endLine": 12,
+                  "endColumn": 39
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Enquete/CondominioApp.Enquete.App/Aplication/Commands/Enquete/EnqueteCommandHandler.cs",
+                "region": {
+                  "startLine": 12,
+                  "startColumn": 18,
+                  "endLine": 12,
+                  "endColumn": 39
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Enquete/CondominioApp.Enquete.App/Aplication/Commands/Enquete/EnqueteCommandHandler.cs",
+                "region": {
+                  "startLine": 116,
+                  "startColumn": 21,
+                  "endLine": 116,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": "Provide 'protected' overridable implementation of 'Dispose(bool)' on 'EnqueteCommandHandler' or mark the type as 'sealed'.",
+              "1": "'EnqueteCommandHandler.Dispose()' should call 'Dispose(true)' and 'GC.SuppressFinalize(this)'."
+            }
+          }
+        },
+        {
+          "ruleId": "S2933",
+          "level": "warning",
+          "message": "Make '_EnqueteRepository' 'readonly'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Enquete/CondominioApp.Enquete.App/Aplication/Commands/RespostaEnquete/RespostaEnqueteCommandHandler.cs",
+                "region": {
+                  "startLine": 17,
+                  "startColumn": 36,
+                  "endLine": 17,
+                  "endColumn": 54
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S3881",
+          "level": "warning",
+          "message": "Fix this implementation of 'IDisposable' to conform to the dispose pattern.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Enquete/CondominioApp.Enquete.App/Aplication/Commands/RespostaEnquete/RespostaEnqueteCommandHandler.cs",
+                "region": {
+                  "startLine": 12,
+                  "startColumn": 18,
+                  "endLine": 12,
+                  "endColumn": 47
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Enquete/CondominioApp.Enquete.App/Aplication/Commands/RespostaEnquete/RespostaEnqueteCommandHandler.cs",
+                "region": {
+                  "startLine": 12,
+                  "startColumn": 18,
+                  "endLine": 12,
+                  "endColumn": 47
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Enquete/CondominioApp.Enquete.App/Aplication/Commands/RespostaEnquete/RespostaEnqueteCommandHandler.cs",
+                "region": {
+                  "startLine": 59,
+                  "startColumn": 21,
+                  "endLine": 59,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": "Provide 'protected' overridable implementation of 'Dispose(bool)' on 'RespostaEnqueteCommandHandler' or mark the type as 'sealed'.",
+              "1": "'RespostaEnqueteCommandHandler.Dispose()' should call 'Dispose(true)' and 'GC.SuppressFinalize(this)'."
+            }
+          }
+        },
+        {
+          "ruleId": "S2933",
+          "level": "warning",
+          "message": "Make '_enqueteRepository' 'readonly'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Enquete/CondominioApp.Enquete.App/Aplication/Query/EnqueteQuery.cs",
+                "region": {
+                  "startLine": 11,
+                  "startColumn": 36,
+                  "endLine": 11,
+                  "endColumn": 54
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S3881",
+          "level": "warning",
+          "message": "Fix this implementation of 'IDisposable' to conform to the dispose pattern.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Enquete/CondominioApp.Enquete.App/Aplication/Query/EnqueteQuery.cs",
+                "region": {
+                  "startLine": 9,
+                  "startColumn": 18,
+                  "endLine": 9,
+                  "endColumn": 30
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Enquete/CondominioApp.Enquete.App/Aplication/Query/EnqueteQuery.cs",
+                "region": {
+                  "startLine": 9,
+                  "startColumn": 18,
+                  "endLine": 9,
+                  "endColumn": 30
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Enquete/CondominioApp.Enquete.App/Aplication/Query/EnqueteQuery.cs",
+                "region": {
+                  "startLine": 51,
+                  "startColumn": 21,
+                  "endLine": 51,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": "Provide 'protected' overridable implementation of 'Dispose(bool)' on 'EnqueteQuery' or mark the type as 'sealed'.",
+              "1": "'EnqueteQuery.Dispose()' should call 'Dispose(true)' and 'GC.SuppressFinalize(this)'."
+            }
+          }
+        },
+        {
+          "ruleId": "S2184",
+          "level": "warning",
+          "message": "Cast one of the operands of this division to 'double'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Enquete/CondominioApp.Enquete.App/ViewModels/EnqueteViewModel.cs",
+                "region": {
+                  "startLine": 45,
+                  "startColumn": 35,
+                  "endLine": 45,
+                  "endColumn": 85
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S107",
+          "level": "warning",
+          "message": "Constructor has 8 parameters, which is greater than the 7 authorized.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Enquete/CondominioApp.Enquete.App/Models/Enquete.cs",
+                "region": {
+                  "startLine": 39,
+                  "startColumn": 23,
+                  "endLine": 46,
+                  "endColumn": 47
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S107",
+          "level": "warning",
+          "message": "Constructor has 9 parameters, which is greater than the 7 authorized.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Enquete/CondominioApp.Enquete.App/Aplication/Events/EnqueteCadastradaEvent.cs",
+                "region": {
+                  "startLine": 9,
+                  "startColumn": 38,
+                  "endLine": 11,
+                  "endColumn": 73
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1116",
+          "level": "warning",
+          "message": "Remove this empty statement.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Enquete/CondominioApp.Enquete.App/Aplication/Commands/Validations/RespostaEnqueteValidation.cs",
+                "region": {
+                  "startLine": 18,
+                  "startColumn": 64,
+                  "endLine": 18,
+                  "endColumn": 65
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2971",
+          "level": "warning",
+          "message": "Drop 'Where' and move the condition into the 'Count'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Enquete/CondominioApp.Enquete.App/Models/Enquete.cs",
+                "region": {
+                  "startLine": 103,
+                  "startColumn": 30,
+                  "endLine": 103,
+                  "endColumn": 35
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S3626",
+          "level": "warning",
+          "message": "Remove this redundant jump.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Enquete/CondominioApp.Enquete.App/Models/Enquete.cs",
+                "region": {
+                  "startLine": 178,
+                  "startColumn": 13,
+                  "endLine": 178,
+                  "endColumn": 20
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S107",
+          "level": "warning",
+          "message": "Constructor has 9 parameters, which is greater than the 7 authorized.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Enquete/CondominioApp.Enquete.App/Aplication/Commands/Enquete/CadastrarEnqueteCommand.cs",
+                "region": {
+                  "startLine": 12,
+                  "startColumn": 39,
+                  "endLine": 14,
+                  "endColumn": 84
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        }
+      ],
+      "rules": {
+        "S107": {
+          "id": "S107",
+          "shortDescription": "Methods should not have too many parameters",
+          "fullDescription": "A long parameter list can indicate that a new structure should be created to wrap the numerous parameters or that the function is doing too many things.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-107",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": false,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        },
+        "S1116": {
+          "id": "S1116",
+          "shortDescription": "Empty statements should be removed",
+          "fullDescription": "Empty statements, i.e. ;, are usually introduced by mistake, for example because:",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-1116",
+          "properties": {
+            "category": "Minor Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        },
+        "S2184": {
+          "id": "S2184",
+          "shortDescription": "Results of integer division should not be assigned to floating point variables",
+          "fullDescription": "When division is performed on ints, the result will always be an int. You can assign that result to a double, float or decimal with automatic type conversion, but having started as an int, the result will likely not be what you expect. If the result of int division is assigned to a floating-point variable, precision will have been lost before the assignment. Instead, at least one operand should be cast or promoted to the final type before the operation takes place.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-2184",
+          "properties": {
+            "category": "Minor Bug",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        },
+        "S2933": {
+          "id": "S2933",
+          "shortDescription": "Fields that are only assigned in the constructor should be \"readonly\"",
+          "fullDescription": "readonly fields can only be assigned in a class constructor. If a class has a field that's not marked readonly but is only set in the constructor, it could cause confusion about the field's intended use. To avoid confusion, such fields should be marked readonly to make their intended use explicit, and to prevent future maintainers from inadvertently changing their use.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-2933",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        },
+        "S2971": {
+          "id": "S2971",
+          "shortDescription": "\"IEnumerable\" LINQs should be simplified",
+          "fullDescription": "In the interests of readability, code that can be simplified should be simplified. To that end, there are several ways IEnumerable language integrated queries (LINQ) can be simplified",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-2971",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        },
+        "S3626": {
+          "id": "S3626",
+          "shortDescription": "Jump statements should not be redundant",
+          "fullDescription": "Jump statements, such as return, yield break, goto, and continue let you change the default flow of program execution, but jump statements that direct the control flow to the original direction are just a waste of keystrokes.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-3626",
+          "properties": {
+            "category": "Minor Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        },
+        "S3881": {
+          "id": "S3881",
+          "shortDescription": "\"IDisposable\" should be implemented correctly",
+          "fullDescription": "The IDisposable interface is a mechanism to release unmanaged resources, if not implemented correctly this could result in resource leaks or more severe bugs.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-3881",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

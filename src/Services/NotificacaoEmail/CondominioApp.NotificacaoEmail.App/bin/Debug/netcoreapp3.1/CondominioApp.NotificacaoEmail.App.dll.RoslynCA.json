@@ -1,0 +1,1636 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "Compilador do Microsoft (R) Visual C#",
+        "version": "3.7.0.0",
+        "fileVersion": "3.7.0-6.20570.4 (dc3f4eef)",
+        "semanticVersion": "3.7.0",
+        "language": "pt-BR"
+      },
+      "results": [
+        {
+          "ruleId": "S125",
+          "level": "warning",
+          "message": "Remove this commented out code.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/Aplication/Events/NotificacaoEmailIdentidadeApiEventHandler.cs",
+                "region": {
+                  "startLine": 43,
+                  "startColumn": 56,
+                  "endLine": 43,
+                  "endColumn": 182
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S101",
+          "level": "warning",
+          "message": "Rename class 'ArquivoDTO' to match pascal case naming rules, consider using 'ArquivoDto'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/DTO/ArquivoDTO.cs",
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 18,
+                  "endLine": 7,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S101",
+          "level": "warning",
+          "message": "Rename class 'ComunicadoDTO' to match pascal case naming rules, consider using 'ComunicadoDto'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/DTO/ComunicadoDTO.cs",
+                "region": {
+                  "startLine": 8,
+                  "startColumn": 18,
+                  "endLine": 8,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S101",
+          "level": "warning",
+          "message": "Rename class 'CorrespondenciaDTO' to match pascal case naming rules, consider using 'CorrespondenciaDto'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/DTO/CorrespondenciaDTO.cs",
+                "region": {
+                  "startLine": 8,
+                  "startColumn": 18,
+                  "endLine": 8,
+                  "endColumn": 36
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S101",
+          "level": "warning",
+          "message": "Rename class 'EnqueteDTO' to match pascal case naming rules, consider using 'EnqueteDto'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/DTO/EnqueteDTO.cs",
+                "region": {
+                  "startLine": 8,
+                  "startColumn": 18,
+                  "endLine": 8,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S101",
+          "level": "warning",
+          "message": "Rename class 'ReservaDTO' to match pascal case naming rules, consider using 'ReservaDto'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/DTO/ReservaDTO.cs",
+                "region": {
+                  "startLine": 8,
+                  "startColumn": 18,
+                  "endLine": 8,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S101",
+          "level": "warning",
+          "message": "Rename class 'OcorrenciaDTO' to match pascal case naming rules, consider using 'OcorrenciaDto'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/DTO/OcorrenciaDTO.cs",
+                "region": {
+                  "startLine": 8,
+                  "startColumn": 18,
+                  "endLine": 8,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S101",
+          "level": "warning",
+          "message": "Rename class 'RespostaOcorrenciaDTO' to match pascal case naming rules, consider using 'RespostaOcorrenciaDto'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/DTO/RespostaOcorrenciaDTO.cs",
+                "region": {
+                  "startLine": 8,
+                  "startColumn": 18,
+                  "endLine": 8,
+                  "endColumn": 39
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2933",
+          "level": "warning",
+          "message": "Make '_usuarioQuery' 'readonly'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/Aplication/Events/NotificacaoEmailIdentidadeApiEventHandler.cs",
+                "region": {
+                  "startLine": 18,
+                  "startColumn": 31,
+                  "endLine": 18,
+                  "endColumn": 44
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2933",
+          "level": "warning",
+          "message": "Make '_principalQuery' 'readonly'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/Aplication/Events/NotificacaoEmailIdentidadeApiEventHandler.cs",
+                "region": {
+                  "startLine": 19,
+                  "startColumn": 33,
+                  "endLine": 19,
+                  "endColumn": 48
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S3881",
+          "level": "warning",
+          "message": "Fix this implementation of 'IDisposable' to conform to the dispose pattern.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/Aplication/Events/NotificacaoEmailIdentidadeApiEventHandler.cs",
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 18,
+                  "endLine": 13,
+                  "endColumn": 59
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/Aplication/Events/NotificacaoEmailIdentidadeApiEventHandler.cs",
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 18,
+                  "endLine": 13,
+                  "endColumn": 59
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/Aplication/Events/NotificacaoEmailIdentidadeApiEventHandler.cs",
+                "region": {
+                  "startLine": 51,
+                  "startColumn": 21,
+                  "endLine": 51,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": "Provide 'protected' overridable implementation of 'Dispose(bool)' on 'NotificacaoEmailIdentidadeApiEventHandler' or mark the type as 'sealed'.",
+              "1": "'NotificacaoEmailIdentidadeApiEventHandler.Dispose()' should call 'Dispose(true)' and 'GC.SuppressFinalize(this)'."
+            }
+          }
+        },
+        {
+          "ruleId": "S2933",
+          "level": "warning",
+          "message": "Make '_assunto' 'readonly'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/Emails/Enquete/EmailEnquete.cs",
+                "region": {
+                  "startLine": 12,
+                  "startColumn": 24,
+                  "endLine": 12,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2933",
+          "level": "warning",
+          "message": "Make '_enquete' 'readonly'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/Emails/Enquete/EmailEnquete.cs",
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 28,
+                  "endLine": 13,
+                  "endColumn": 36
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2933",
+          "level": "warning",
+          "message": "Make '_logoCondominioApp' 'readonly'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/Emails/Enquete/EmailEnquete.cs",
+                "region": {
+                  "startLine": 14,
+                  "startColumn": 24,
+                  "endLine": 14,
+                  "endColumn": 42
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2933",
+          "level": "warning",
+          "message": "Make '_comunicado' 'readonly'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/Emails/Comunicado/EmailComunicadoComAnexo.cs",
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 31,
+                  "endLine": 13,
+                  "endColumn": 42
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2933",
+          "level": "warning",
+          "message": "Make '_caminhoAnexo' 'readonly'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/Emails/Comunicado/EmailComunicadoComAnexo.cs",
+                "region": {
+                  "startLine": 14,
+                  "startColumn": 24,
+                  "endLine": 14,
+                  "endColumn": 37
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2933",
+          "level": "warning",
+          "message": "Make '_logoCondominioApp' 'readonly'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/Emails/Comunicado/EmailComunicadoComAnexo.cs",
+                "region": {
+                  "startLine": 15,
+                  "startColumn": 24,
+                  "endLine": 15,
+                  "endColumn": 42
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2933",
+          "level": "warning",
+          "message": "Make '_correspondencia' 'readonly'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/Emails/Correspondencia/EmailCorrespondencia.cs",
+                "region": {
+                  "startLine": 12,
+                  "startColumn": 36,
+                  "endLine": 12,
+                  "endColumn": 52
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2933",
+          "level": "warning",
+          "message": "Make '_logoCondominioApp' 'readonly'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/Emails/Correspondencia/EmailCorrespondencia.cs",
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 24,
+                  "endLine": 13,
+                  "endColumn": 42
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2933",
+          "level": "warning",
+          "message": "Make '_ocorrencia' 'readonly'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/Emails/Ocorrencia/EmailOcorrencia.cs",
+                "region": {
+                  "startLine": 12,
+                  "startColumn": 31,
+                  "endLine": 12,
+                  "endColumn": 42
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2933",
+          "level": "warning",
+          "message": "Make '_logoCondominioApp' 'readonly'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/Emails/Ocorrencia/EmailOcorrencia.cs",
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 24,
+                  "endLine": 13,
+                  "endColumn": 42
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2933",
+          "level": "warning",
+          "message": "Make '_caminhoFoto' 'readonly'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/Emails/Ocorrencia/EmailOcorrencia.cs",
+                "region": {
+                  "startLine": 14,
+                  "startColumn": 24,
+                  "endLine": 14,
+                  "endColumn": 36
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2933",
+          "level": "warning",
+          "message": "Make '_respostaOcorrencia' 'readonly'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/Emails/Ocorrencia/EmailRespostaOcorrencia.cs",
+                "region": {
+                  "startLine": 12,
+                  "startColumn": 39,
+                  "endLine": 12,
+                  "endColumn": 58
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2933",
+          "level": "warning",
+          "message": "Make '_logoCondominioApp' 'readonly'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/Emails/Ocorrencia/EmailRespostaOcorrencia.cs",
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 24,
+                  "endLine": 13,
+                  "endColumn": 42
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2933",
+          "level": "warning",
+          "message": "Make '_caminhoFoto' 'readonly'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/Emails/Ocorrencia/EmailRespostaOcorrencia.cs",
+                "region": {
+                  "startLine": 14,
+                  "startColumn": 24,
+                  "endLine": 14,
+                  "endColumn": 36
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2933",
+          "level": "warning",
+          "message": "Make '_morador' 'readonly'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/Emails/Usuario/EmailConfirmacaoDeCadastroDeMorador.cs",
+                "region": {
+                  "startLine": 11,
+                  "startColumn": 29,
+                  "endLine": 11,
+                  "endColumn": 37
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2933",
+          "level": "warning",
+          "message": "Make '_logoCondominio' 'readonly'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/Emails/Usuario/EmailConfirmacaoDeCadastroDeMorador.cs",
+                "region": {
+                  "startLine": 12,
+                  "startColumn": 24,
+                  "endLine": 12,
+                  "endColumn": 39
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2933",
+          "level": "warning",
+          "message": "Make '_nomeUsuario' 'readonly'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/Emails/Usuario/EmailConfirmacaoDeCadastroDeUser.cs",
+                "region": {
+                  "startLine": 11,
+                  "startColumn": 24,
+                  "endLine": 11,
+                  "endColumn": 36
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2933",
+          "level": "warning",
+          "message": "Make '_emailUsuario' 'readonly'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/Emails/Usuario/EmailConfirmacaoDeCadastroDeUser.cs",
+                "region": {
+                  "startLine": 12,
+                  "startColumn": 24,
+                  "endLine": 12,
+                  "endColumn": 37
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2933",
+          "level": "warning",
+          "message": "Make '_caminhoUrl' 'readonly'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/Emails/Usuario/EmailConfirmacaoDeCadastroDeUser.cs",
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 24,
+                  "endLine": 13,
+                  "endColumn": 35
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2933",
+          "level": "warning",
+          "message": "Make '_reserva' 'readonly'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/Emails/Reserva/EmailReserva.cs",
+                "region": {
+                  "startLine": 12,
+                  "startColumn": 28,
+                  "endLine": 12,
+                  "endColumn": 36
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2933",
+          "level": "warning",
+          "message": "Make '_logoCondominioApp' 'readonly'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/Emails/Reserva/EmailReserva.cs",
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 24,
+                  "endLine": 13,
+                  "endColumn": 42
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2933",
+          "level": "warning",
+          "message": "Make '_usuario' 'readonly'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/Emails/Usuario/EmailConfirmacaoDeCadastroDeUsuario.cs",
+                "region": {
+                  "startLine": 11,
+                  "startColumn": 25,
+                  "endLine": 11,
+                  "endColumn": 33
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2933",
+          "level": "warning",
+          "message": "Make '_caminhoUrl' 'readonly'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/Emails/Usuario/EmailRecuperarSenha.cs",
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 24,
+                  "endLine": 13,
+                  "endColumn": 35
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2933",
+          "level": "warning",
+          "message": "Make '_nomeUsuario' 'readonly'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/Emails/Usuario/EmailRecuperarSenha.cs",
+                "region": {
+                  "startLine": 14,
+                  "startColumn": 24,
+                  "endLine": 14,
+                  "endColumn": 36
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2933",
+          "level": "warning",
+          "message": "Make '_emailUsuario' 'readonly'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/Emails/Usuario/EmailRecuperarSenha.cs",
+                "region": {
+                  "startLine": 15,
+                  "startColumn": 24,
+                  "endLine": 15,
+                  "endColumn": 37
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S3604",
+          "level": "warning",
+          "message": "Remove the member initializer, all constructors set an initial value for the member.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/Emails/Usuario/EmailRecuperarSenha.cs",
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 36,
+                  "endLine": 13,
+                  "endColumn": 50
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2068",
+          "level": "warning",
+          "message": "Please review this hard-coded password.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/Service/SmtpAmazonService.cs",
+                "region": {
+                  "startLine": 11,
+                  "startColumn": 27,
+                  "endLine": 11,
+                  "endColumn": 120
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2068",
+          "level": "warning",
+          "message": "Please review this hard-coded password.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/Service/SmtpSendBlue.cs",
+                "region": {
+                  "startLine": 11,
+                  "startColumn": 27,
+                  "endLine": 11,
+                  "endColumn": 95
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2933",
+          "level": "warning",
+          "message": "Make '_usuarioQuery' 'readonly'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/Aplication/Events/NotificacaoEmailCondominioAppApiEventHandler.cs",
+                "region": {
+                  "startLine": 34,
+                  "startColumn": 31,
+                  "endLine": 34,
+                  "endColumn": 44
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2933",
+          "level": "warning",
+          "message": "Make '_principalQuery' 'readonly'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/Aplication/Events/NotificacaoEmailCondominioAppApiEventHandler.cs",
+                "region": {
+                  "startLine": 35,
+                  "startColumn": 33,
+                  "endLine": 35,
+                  "endColumn": 48
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2933",
+          "level": "warning",
+          "message": "Make '_arquivoDigitalQuery' 'readonly'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/Aplication/Events/NotificacaoEmailCondominioAppApiEventHandler.cs",
+                "region": {
+                  "startLine": 36,
+                  "startColumn": 38,
+                  "endLine": 36,
+                  "endColumn": 58
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1116",
+          "level": "warning",
+          "message": "Remove this empty statement.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/Emails/Usuario/EmailRecuperarSenha.cs",
+                "region": {
+                  "startLine": 21,
+                  "startColumn": 43,
+                  "endLine": 21,
+                  "endColumn": 44
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S3442",
+          "level": "warning",
+          "message": "Change the visibility of this constructor to 'protected'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/Service/ServicoDeEmail.cs",
+                "region": {
+                  "startLine": 22,
+                  "startColumn": 9,
+                  "endLine": 22,
+                  "endColumn": 15
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1144",
+          "level": "warning",
+          "message": "Remove the unused private method 'ObterEmailsDaListaDeUsuarios'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/Aplication/Events/NotificacaoEmailCondominioAppApiEventHandler.cs",
+                "region": {
+                  "startLine": 189,
+                  "startColumn": 9,
+                  "endLine": 201,
+                  "endColumn": 10
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S3881",
+          "level": "warning",
+          "message": "Fix this implementation of 'IDisposable' to conform to the dispose pattern.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/Aplication/Events/NotificacaoEmailCondominioAppApiEventHandler.cs",
+                "region": {
+                  "startLine": 23,
+                  "startColumn": 18,
+                  "endLine": 23,
+                  "endColumn": 62
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/Aplication/Events/NotificacaoEmailCondominioAppApiEventHandler.cs",
+                "region": {
+                  "startLine": 23,
+                  "startColumn": 18,
+                  "endLine": 23,
+                  "endColumn": 62
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/Aplication/Events/NotificacaoEmailCondominioAppApiEventHandler.cs",
+                "region": {
+                  "startLine": 394,
+                  "startColumn": 21,
+                  "endLine": 394,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": "Provide 'protected' overridable implementation of 'Dispose(bool)' on 'NotificacaoEmailCondominioAppApiEventHandler' or mark the type as 'sealed'.",
+              "1": "'NotificacaoEmailCondominioAppApiEventHandler.Dispose()' should call 'Dispose(true)' and 'GC.SuppressFinalize(this)'."
+            }
+          }
+        },
+        {
+          "ruleId": "S107",
+          "level": "warning",
+          "message": "Constructor has 9 parameters, which is greater than the 7 authorized.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/DTO/RespostaOcorrenciaDTO.cs",
+                "region": {
+                  "startLine": 29,
+                  "startColumn": 13,
+                  "endLine": 32,
+                  "endColumn": 48
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S107",
+          "level": "warning",
+          "message": "Constructor has 15 parameters, which is greater than the 7 authorized.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/DTO/ReservaDTO.cs",
+                "region": {
+                  "startLine": 42,
+                  "startColumn": 13,
+                  "endLine": 45,
+                  "endColumn": 96
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S107",
+          "level": "warning",
+          "message": "Constructor has 11 parameters, which is greater than the 7 authorized.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/DTO/OcorrenciaDTO.cs",
+                "region": {
+                  "startLine": 33,
+                  "startColumn": 13,
+                  "endLine": 36,
+                  "endColumn": 48
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S107",
+          "level": "warning",
+          "message": "Constructor has 8 parameters, which is greater than the 7 authorized.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/DTO/ComunicadoDTO.cs",
+                "region": {
+                  "startLine": 27,
+                  "startColumn": 13,
+                  "endLine": 29,
+                  "endColumn": 80
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1155",
+          "level": "warning",
+          "message": "Use '.Any()' to test whether this 'IEnumerable<string>' is empty or not.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/Emails/Reserva/EmailReserva.cs",
+                "region": {
+                  "startLine": 54,
+                  "startColumn": 40,
+                  "endLine": 54,
+                  "endColumn": 45
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1155",
+          "level": "warning",
+          "message": "Use '.Any()' to test whether this 'IEnumerable<string>' is empty or not.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/Emails/Correspondencia/EmailCorrespondencia.cs",
+                "region": {
+                  "startLine": 43,
+                  "startColumn": 48,
+                  "endLine": 43,
+                  "endColumn": 53
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1155",
+          "level": "warning",
+          "message": "Use '.Any()' to test whether this 'IEnumerable<string>' is empty or not.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/Emails/Enquete/EmailEnquete.cs",
+                "region": {
+                  "startLine": 48,
+                  "startColumn": 40,
+                  "endLine": 48,
+                  "endColumn": 45
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1155",
+          "level": "warning",
+          "message": "Use '.Any()' to test whether this 'IEnumerable<string>' is empty or not.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/Emails/Ocorrencia/EmailRespostaOcorrencia.cs",
+                "region": {
+                  "startLine": 73,
+                  "startColumn": 51,
+                  "endLine": 73,
+                  "endColumn": 56
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1155",
+          "level": "warning",
+          "message": "Use '.Any()' to test whether this 'IEnumerable<string>' is empty or not.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/Emails/Ocorrencia/EmailOcorrencia.cs",
+                "region": {
+                  "startLine": 75,
+                  "startColumn": 43,
+                  "endLine": 75,
+                  "endColumn": 48
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1155",
+          "level": "warning",
+          "message": "Use '.Any()' to test whether this 'IEnumerable<string>' is empty or not.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/Emails/Comunicado/EmailComunicadoComAnexo.cs",
+                "region": {
+                  "startLine": 74,
+                  "startColumn": 43,
+                  "endLine": 74,
+                  "endColumn": 48
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1155",
+          "level": "warning",
+          "message": "Use '.Any()' to test whether this 'IEnumerable<System.Guid>' is empty or not.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/Aplication/Events/NotificacaoEmailCondominioAppApiEventHandler.cs",
+                "region": {
+                  "startLine": 207,
+                  "startColumn": 26,
+                  "endLine": 207,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S3776",
+          "level": "warning",
+          "message": "Refactor this method to reduce its Cognitive Complexity from 24 to the 15 allowed.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/Aplication/Events/NotificacaoEmailCondominioAppApiEventHandler.cs",
+                "region": {
+                  "startLine": 203,
+                  "startColumn": 42,
+                  "endLine": 203,
+                  "endColumn": 67
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/Aplication/Events/NotificacaoEmailCondominioAppApiEventHandler.cs",
+                "region": {
+                  "startLine": 207,
+                  "startColumn": 13,
+                  "endLine": 207,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/Aplication/Events/NotificacaoEmailCondominioAppApiEventHandler.cs",
+                "region": {
+                  "startLine": 209,
+                  "startColumn": 17,
+                  "endLine": 209,
+                  "endColumn": 19
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/Aplication/Events/NotificacaoEmailCondominioAppApiEventHandler.cs",
+                "region": {
+                  "startLine": 211,
+                  "startColumn": 21,
+                  "endLine": 211,
+                  "endColumn": 28
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/Aplication/Events/NotificacaoEmailCondominioAppApiEventHandler.cs",
+                "region": {
+                  "startLine": 215,
+                  "startColumn": 25,
+                  "endLine": 215,
+                  "endColumn": 27
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/Aplication/Events/NotificacaoEmailCondominioAppApiEventHandler.cs",
+                "region": {
+                  "startLine": 217,
+                  "startColumn": 29,
+                  "endLine": 217,
+                  "endColumn": 36
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/Aplication/Events/NotificacaoEmailCondominioAppApiEventHandler.cs",
+                "region": {
+                  "startLine": 226,
+                  "startColumn": 17,
+                  "endLine": 226,
+                  "endColumn": 24
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/Aplication/Events/NotificacaoEmailCondominioAppApiEventHandler.cs",
+                "region": {
+                  "startLine": 230,
+                  "startColumn": 21,
+                  "endLine": 230,
+                  "endColumn": 23
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/Aplication/Events/NotificacaoEmailCondominioAppApiEventHandler.cs",
+                "region": {
+                  "startLine": 232,
+                  "startColumn": 25,
+                  "endLine": 232,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": "+1",
+              "1": "+2 (incl 1 for nesting)",
+              "2": "+3 (incl 2 for nesting)",
+              "3": "+4 (incl 3 for nesting)",
+              "4": "+5 (incl 4 for nesting)",
+              "5": "+2 (incl 1 for nesting)",
+              "6": "+3 (incl 2 for nesting)",
+              "7": "+4 (incl 3 for nesting)"
+            }
+          }
+        },
+        {
+          "ruleId": "S1751",
+          "level": "warning",
+          "message": "Refactor the containing loop to do more than one iteration.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/NotificacaoEmail/CondominioApp.NotificacaoEmail.App/Aplication/Events/NotificacaoEmailCondominioAppApiEventHandler.cs",
+                "region": {
+                  "startLine": 237,
+                  "startColumn": 21,
+                  "endLine": 237,
+                  "endColumn": 38
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        }
+      ],
+      "rules": {
+        "S101": {
+          "id": "S101",
+          "shortDescription": "Types should be named in PascalCase",
+          "fullDescription": "Shared naming conventions allow teams to collaborate efficiently. This rule checks whether or not type names are using PascalCase. To reduce noise, two consecutive upper case characters are allowed unless they form the whole type name. So, MyXClass is compliant, but XC on its own is not.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-101",
+          "properties": {
+            "category": "Minor Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        },
+        "S107": {
+          "id": "S107",
+          "shortDescription": "Methods should not have too many parameters",
+          "fullDescription": "A long parameter list can indicate that a new structure should be created to wrap the numerous parameters or that the function is doing too many things.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-107",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": false,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        },
+        "S1116": {
+          "id": "S1116",
+          "shortDescription": "Empty statements should be removed",
+          "fullDescription": "Empty statements, i.e. ;, are usually introduced by mistake, for example because:",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-1116",
+          "properties": {
+            "category": "Minor Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        },
+        "S1144": {
+          "id": "S1144",
+          "shortDescription": "Unused private types or members should be removed",
+          "fullDescription": "private or internal types or private members that are never executed or referenced are dead code: unnecessary, inoperative code that should be removed. Cleaning out dead code decreases the size of the maintained codebase, making it easier to understand the program and preventing bugs from being introduced.",
+          "defaultLevel": "note",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-1144",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope",
+              "Unnecessary"
+            ]
+          }
+        },
+        "S1155": {
+          "id": "S1155",
+          "shortDescription": "\"Any()\" should be used to test for emptiness",
+          "fullDescription": "Using .Count() to test for emptiness works, but using .Any() makes the intent clearer, and the code more readable. However, there are some cases where special attention should be paid:",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-1155",
+          "properties": {
+            "category": "Minor Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        },
+        "S125": {
+          "id": "S125",
+          "shortDescription": "Sections of code should not be commented out",
+          "fullDescription": "Programmers should not comment out code as it bloats programs and reduces readability.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-125",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        },
+        "S1751": {
+          "id": "S1751",
+          "shortDescription": "Loops with at most one iteration should be refactored",
+          "fullDescription": "A loop with at most one iteration is equivalent to the use of an if statement to conditionally execute one piece of code. If the initial intention of the author was really to conditionally execute one piece of code, an if statement should be used instead. If that was not the initial intention of the author, the body of the loop should be fixed to use the nested return, break or throw statements in a more appropriate way.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-1751",
+          "properties": {
+            "category": "Major Bug",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        },
+        "S2068": {
+          "id": "S2068",
+          "shortDescription": "Hard-coded credentials are security-sensitive",
+          "fullDescription": "Because it is easy to extract strings from an application source code or binary, credentials should not be hard-coded. This is particularly true for applications that are distributed or that are open-source.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-2068",
+          "properties": {
+            "category": "Blocker Security Hotspot",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "NotConfigurable"
+            ]
+          }
+        },
+        "S2933": {
+          "id": "S2933",
+          "shortDescription": "Fields that are only assigned in the constructor should be \"readonly\"",
+          "fullDescription": "readonly fields can only be assigned in a class constructor. If a class has a field that's not marked readonly but is only set in the constructor, it could cause confusion about the field's intended use. To avoid confusion, such fields should be marked readonly to make their intended use explicit, and to prevent future maintainers from inadvertently changing their use.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-2933",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        },
+        "S3442": {
+          "id": "S3442",
+          "shortDescription": "\"abstract\" classes should not have \"public\" constructors",
+          "fullDescription": "Since abstract classes can't be instantiated, there's no point in their having public or internal constructors. If there is basic initialization logic that should run when an extending class instance is created, you can by all means put it in a constructor, but make that constructor private or protected.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-3442",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        },
+        "S3604": {
+          "id": "S3604",
+          "shortDescription": "Member initializer values should not be redundant",
+          "fullDescription": "Fields, properties and events can be initialized either inline or in the constructor. Initializing them inline and in the constructor at the same time is redundant; the inline initialization will be overridden.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-3604",
+          "properties": {
+            "category": "Minor Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        },
+        "S3776": {
+          "id": "S3776",
+          "shortDescription": "Cognitive Complexity of methods should not be too high",
+          "fullDescription": "Cognitive Complexity is a measure of how hard the control flow of a method is to understand. Methods with high Cognitive Complexity will be difficult to maintain.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-3776",
+          "properties": {
+            "category": "Critical Code Smell",
+            "isEnabledByDefault": false,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        },
+        "S3881": {
+          "id": "S3881",
+          "shortDescription": "\"IDisposable\" should be implemented correctly",
+          "fullDescription": "The IDisposable interface is a mechanism to release unmanaged resources, if not implemented correctly this could result in resource leaks or more severe bugs.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-3881",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

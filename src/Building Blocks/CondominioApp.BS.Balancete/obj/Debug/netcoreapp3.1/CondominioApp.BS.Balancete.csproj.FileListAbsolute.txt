@@ -1,0 +1,13 @@
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Building Blocks\CondominioApp.BS.Balancete\bin\Debug\netcoreapp3.1\CondominioApp.BS.Balancete.exe
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Building Blocks\CondominioApp.BS.Balancete\bin\Debug\netcoreapp3.1\CondominioApp.BS.Balancete.deps.json
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Building Blocks\CondominioApp.BS.Balancete\bin\Debug\netcoreapp3.1\CondominioApp.BS.Balancete.runtimeconfig.json
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Building Blocks\CondominioApp.BS.Balancete\bin\Debug\netcoreapp3.1\CondominioApp.BS.Balancete.runtimeconfig.dev.json
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Building Blocks\CondominioApp.BS.Balancete\bin\Debug\netcoreapp3.1\CondominioApp.BS.Balancete.dll
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Building Blocks\CondominioApp.BS.Balancete\bin\Debug\netcoreapp3.1\CondominioApp.BS.Balancete.pdb
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Building Blocks\CondominioApp.BS.Balancete\obj\Debug\netcoreapp3.1\CondominioApp.BS.Balancete.AssemblyInfoInputs.cache
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Building Blocks\CondominioApp.BS.Balancete\obj\Debug\netcoreapp3.1\CondominioApp.BS.Balancete.AssemblyInfo.cs
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Building Blocks\CondominioApp.BS.Balancete\obj\Debug\netcoreapp3.1\CondominioApp.BS.Balancete.csproj.CoreCompileInputs.cache
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Building Blocks\CondominioApp.BS.Balancete\obj\Debug\netcoreapp3.1\CondominioApp.BS.Balancete.dll
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Building Blocks\CondominioApp.BS.Balancete\obj\Debug\netcoreapp3.1\CondominioApp.BS.Balancete.pdb
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Building Blocks\CondominioApp.BS.Balancete\obj\Debug\netcoreapp3.1\CondominioApp.BS.Balancete.genruntimeconfig.cache
+C:\Users\MAPD-NOTE\source\repos\CondominioAppBackEnd2.0\src\Building Blocks\CondominioApp.BS.Balancete\obj\Debug\netcoreapp3.1\CondominioApp.BS.Balancete.csprojAssemblyReference.cache

@@ -1,0 +1,9 @@
+C:\Users\MAPD-NOTE\source\repos\NinjaStore\src\Building Blocks\CondominioApp.Core\bin\Debug\netcoreapp3.1\NinjaStore.Core.deps.json
+C:\Users\MAPD-NOTE\source\repos\NinjaStore\src\Building Blocks\CondominioApp.Core\bin\Debug\netcoreapp3.1\NinjaStore.Core.dll
+C:\Users\MAPD-NOTE\source\repos\NinjaStore\src\Building Blocks\CondominioApp.Core\bin\Debug\netcoreapp3.1\NinjaStore.Core.pdb
+C:\Users\MAPD-NOTE\source\repos\NinjaStore\src\Building Blocks\CondominioApp.Core\obj\Debug\netcoreapp3.1\NinjaStore.Core.csprojAssemblyReference.cache
+C:\Users\MAPD-NOTE\source\repos\NinjaStore\src\Building Blocks\CondominioApp.Core\obj\Debug\netcoreapp3.1\NinjaStore.Core.AssemblyInfoInputs.cache
+C:\Users\MAPD-NOTE\source\repos\NinjaStore\src\Building Blocks\CondominioApp.Core\obj\Debug\netcoreapp3.1\NinjaStore.Core.AssemblyInfo.cs
+C:\Users\MAPD-NOTE\source\repos\NinjaStore\src\Building Blocks\CondominioApp.Core\obj\Debug\netcoreapp3.1\NinjaStore.Core.csproj.CoreCompileInputs.cache
+C:\Users\MAPD-NOTE\source\repos\NinjaStore\src\Building Blocks\CondominioApp.Core\obj\Debug\netcoreapp3.1\NinjaStore.Core.dll
+C:\Users\MAPD-NOTE\source\repos\NinjaStore\src\Building Blocks\CondominioApp.Core\obj\Debug\netcoreapp3.1\NinjaStore.Core.pdb

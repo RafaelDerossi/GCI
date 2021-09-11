@@ -1,0 +1,319 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "Compilador do Microsoft (R) Visual C#",
+        "version": "3.7.0.0",
+        "fileVersion": "3.7.0-6.20570.4 (dc3f4eef)",
+        "semanticVersion": "3.7.0",
+        "language": "pt-BR"
+      },
+      "results": [
+        {
+          "ruleId": "S125",
+          "level": "warning",
+          "message": "Remove this commented out code.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Marketplace/CondominioAppMarketplace.App/AppServiceItemDeVenda.cs",
+                "region": {
+                  "startLine": 94,
+                  "startColumn": 13,
+                  "endLine": 94,
+                  "endColumn": 69
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S3881",
+          "level": "warning",
+          "message": "Fix this implementation of 'IDisposable' to conform to the dispose pattern.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Marketplace/CondominioAppMarketplace.App/AppServiceLead.cs",
+                "region": {
+                  "startLine": 14,
+                  "startColumn": 18,
+                  "endLine": 14,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Marketplace/CondominioAppMarketplace.App/AppServiceLead.cs",
+                "region": {
+                  "startLine": 14,
+                  "startColumn": 18,
+                  "endLine": 14,
+                  "endColumn": 32
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Marketplace/CondominioAppMarketplace.App/AppServiceLead.cs",
+                "region": {
+                  "startLine": 63,
+                  "startColumn": 21,
+                  "endLine": 63,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": "Provide 'protected' overridable implementation of 'Dispose(bool)' on 'AppServiceLead' or mark the type as 'sealed'.",
+              "1": "'AppServiceLead.Dispose()' should call 'Dispose(true)' and 'GC.SuppressFinalize(this)'."
+            }
+          }
+        },
+        {
+          "ruleId": "S3881",
+          "level": "warning",
+          "message": "Fix this implementation of 'IDisposable' to conform to the dispose pattern.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Marketplace/CondominioAppMarketplace.App/AppServiceCampanha.cs",
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 18,
+                  "endLine": 13,
+                  "endColumn": 36
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Marketplace/CondominioAppMarketplace.App/AppServiceCampanha.cs",
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 18,
+                  "endLine": 13,
+                  "endColumn": 36
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Marketplace/CondominioAppMarketplace.App/AppServiceCampanha.cs",
+                "region": {
+                  "startLine": 147,
+                  "startColumn": 21,
+                  "endLine": 147,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": "Provide 'protected' overridable implementation of 'Dispose(bool)' on 'AppServiceCampanha' or mark the type as 'sealed'.",
+              "1": "'AppServiceCampanha.Dispose()' should call 'Dispose(true)' and 'GC.SuppressFinalize(this)'."
+            }
+          }
+        },
+        {
+          "ruleId": "S3881",
+          "level": "warning",
+          "message": "Fix this implementation of 'IDisposable' to conform to the dispose pattern.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Marketplace/CondominioAppMarketplace.App/AppServiceParceiro.cs",
+                "region": {
+                  "startLine": 17,
+                  "startColumn": 18,
+                  "endLine": 17,
+                  "endColumn": 36
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Marketplace/CondominioAppMarketplace.App/AppServiceParceiro.cs",
+                "region": {
+                  "startLine": 17,
+                  "startColumn": 18,
+                  "endLine": 17,
+                  "endColumn": 36
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Marketplace/CondominioAppMarketplace.App/AppServiceParceiro.cs",
+                "region": {
+                  "startLine": 259,
+                  "startColumn": 21,
+                  "endLine": 259,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": "Provide 'protected' overridable implementation of 'Dispose(bool)' on 'AppServiceParceiro' or mark the type as 'sealed'.",
+              "1": "'AppServiceParceiro.Dispose()' should call 'Dispose(true)' and 'GC.SuppressFinalize(this)'."
+            }
+          }
+        },
+        {
+          "ruleId": "S3881",
+          "level": "warning",
+          "message": "Fix this implementation of 'IDisposable' to conform to the dispose pattern.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Marketplace/CondominioAppMarketplace.App/AppServiceItemDeVenda.cs",
+                "region": {
+                  "startLine": 14,
+                  "startColumn": 18,
+                  "endLine": 14,
+                  "endColumn": 39
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Marketplace/CondominioAppMarketplace.App/AppServiceItemDeVenda.cs",
+                "region": {
+                  "startLine": 14,
+                  "startColumn": 18,
+                  "endLine": 14,
+                  "endColumn": 39
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Marketplace/CondominioAppMarketplace.App/AppServiceItemDeVenda.cs",
+                "region": {
+                  "startLine": 139,
+                  "startColumn": 21,
+                  "endLine": 139,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": "Provide 'protected' overridable implementation of 'Dispose(bool)' on 'AppServiceItemDeVenda' or mark the type as 'sealed'.",
+              "1": "'AppServiceItemDeVenda.Dispose()' should call 'Dispose(true)' and 'GC.SuppressFinalize(this)'."
+            }
+          }
+        },
+        {
+          "ruleId": "S3881",
+          "level": "warning",
+          "message": "Fix this implementation of 'IDisposable' to conform to the dispose pattern.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Marketplace/CondominioAppMarketplace.App/AppServiceProduto.cs",
+                "region": {
+                  "startLine": 15,
+                  "startColumn": 18,
+                  "endLine": 15,
+                  "endColumn": 35
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Marketplace/CondominioAppMarketplace.App/AppServiceProduto.cs",
+                "region": {
+                  "startLine": 15,
+                  "startColumn": 18,
+                  "endLine": 15,
+                  "endColumn": 35
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Marketplace/CondominioAppMarketplace.App/AppServiceProduto.cs",
+                "region": {
+                  "startLine": 96,
+                  "startColumn": 21,
+                  "endLine": 96,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": "Provide 'protected' overridable implementation of 'Dispose(bool)' on 'AppServiceProduto' or mark the type as 'sealed'.",
+              "1": "'AppServiceProduto.Dispose()' should call 'Dispose(true)' and 'GC.SuppressFinalize(this)'."
+            }
+          }
+        }
+      ],
+      "rules": {
+        "S125": {
+          "id": "S125",
+          "shortDescription": "Sections of code should not be commented out",
+          "fullDescription": "Programmers should not comment out code as it bloats programs and reduces readability.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-125",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        },
+        "S3881": {
+          "id": "S3881",
+          "shortDescription": "\"IDisposable\" should be implemented correctly",
+          "fullDescription": "The IDisposable interface is a mechanism to release unmanaged resources, if not implemented correctly this could result in resource leaks or more severe bugs.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-3881",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

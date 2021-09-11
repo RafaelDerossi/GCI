@@ -1,0 +1,918 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "Compilador do Microsoft (R) Visual C#",
+        "version": "3.7.0.0",
+        "fileVersion": "3.7.0-6.20570.4 (dc3f4eef)",
+        "semanticVersion": "3.7.0",
+        "language": "pt-BR"
+      },
+      "results": [
+        {
+          "ruleId": "S2933",
+          "level": "warning",
+          "message": "Make '_visitanteQueryRepository' 'readonly'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Portaria/CondominioApp.Portaria.Aplication/Query/PortariaQuery.cs",
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 42,
+                  "endLine": 13,
+                  "endColumn": 67
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S3881",
+          "level": "warning",
+          "message": "Fix this implementation of 'IDisposable' to conform to the dispose pattern.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Portaria/CondominioApp.Portaria.Aplication/Query/PortariaQuery.cs",
+                "region": {
+                  "startLine": 11,
+                  "startColumn": 18,
+                  "endLine": 11,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Portaria/CondominioApp.Portaria.Aplication/Query/PortariaQuery.cs",
+                "region": {
+                  "startLine": 11,
+                  "startColumn": 18,
+                  "endLine": 11,
+                  "endColumn": 31
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Portaria/CondominioApp.Portaria.Aplication/Query/PortariaQuery.cs",
+                "region": {
+                  "startLine": 83,
+                  "startColumn": 21,
+                  "endLine": 83,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": "Provide 'protected' overridable implementation of 'Dispose(bool)' on 'PortariaQuery' or mark the type as 'sealed'.",
+              "1": "'PortariaQuery.Dispose()' should call 'Dispose(true)' and 'GC.SuppressFinalize(this)'."
+            }
+          }
+        },
+        {
+          "ruleId": "S2933",
+          "level": "warning",
+          "message": "Make '_visitanteQueryRepository' 'readonly'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Portaria/CondominioApp.Portaria.Aplication/Events/Visitante/VisitanteEventHandler.cs",
+                "region": {
+                  "startLine": 17,
+                  "startColumn": 42,
+                  "endLine": 17,
+                  "endColumn": 67
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S3881",
+          "level": "warning",
+          "message": "Fix this implementation of 'IDisposable' to conform to the dispose pattern.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Portaria/CondominioApp.Portaria.Aplication/Events/Visitante/VisitanteEventHandler.cs",
+                "region": {
+                  "startLine": 11,
+                  "startColumn": 18,
+                  "endLine": 11,
+                  "endColumn": 39
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Portaria/CondominioApp.Portaria.Aplication/Events/Visitante/VisitanteEventHandler.cs",
+                "region": {
+                  "startLine": 11,
+                  "startColumn": 18,
+                  "endLine": 11,
+                  "endColumn": 39
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Portaria/CondominioApp.Portaria.Aplication/Events/Visitante/VisitanteEventHandler.cs",
+                "region": {
+                  "startLine": 83,
+                  "startColumn": 21,
+                  "endLine": 83,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": "Provide 'protected' overridable implementation of 'Dispose(bool)' on 'VisitanteEventHandler' or mark the type as 'sealed'.",
+              "1": "'VisitanteEventHandler.Dispose()' should call 'Dispose(true)' and 'GC.SuppressFinalize(this)'."
+            }
+          }
+        },
+        {
+          "ruleId": "S2933",
+          "level": "warning",
+          "message": "Make '_visitanteRepository' 'readonly'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Portaria/CondominioApp.Portaria.Aplication/Commands/Visitante/VisitanteCommandHandler.cs",
+                "region": {
+                  "startLine": 21,
+                  "startColumn": 37,
+                  "endLine": 21,
+                  "endColumn": 57
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S3881",
+          "level": "warning",
+          "message": "Fix this implementation of 'IDisposable' to conform to the dispose pattern.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Portaria/CondominioApp.Portaria.Aplication/Commands/Visitante/VisitanteCommandHandler.cs",
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 18,
+                  "endLine": 13,
+                  "endColumn": 41
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Portaria/CondominioApp.Portaria.Aplication/Commands/Visitante/VisitanteCommandHandler.cs",
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 18,
+                  "endLine": 13,
+                  "endColumn": 41
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Portaria/CondominioApp.Portaria.Aplication/Commands/Visitante/VisitanteCommandHandler.cs",
+                "region": {
+                  "startLine": 212,
+                  "startColumn": 21,
+                  "endLine": 212,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": "Provide 'protected' overridable implementation of 'Dispose(bool)' on 'VisitanteCommandHandler' or mark the type as 'sealed'.",
+              "1": "'VisitanteCommandHandler.Dispose()' should call 'Dispose(true)' and 'GC.SuppressFinalize(this)'."
+            }
+          }
+        },
+        {
+          "ruleId": "S2933",
+          "level": "warning",
+          "message": "Make '_visitanteQueryRepository' 'readonly'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Portaria/CondominioApp.Portaria.Aplication/Events/Visita/VisitaEventHandler.cs",
+                "region": {
+                  "startLine": 21,
+                  "startColumn": 42,
+                  "endLine": 21,
+                  "endColumn": 67
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S3881",
+          "level": "warning",
+          "message": "Fix this implementation of 'IDisposable' to conform to the dispose pattern.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Portaria/CondominioApp.Portaria.Aplication/Events/Visita/VisitaEventHandler.cs",
+                "region": {
+                  "startLine": 10,
+                  "startColumn": 18,
+                  "endLine": 10,
+                  "endColumn": 36
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Portaria/CondominioApp.Portaria.Aplication/Events/Visita/VisitaEventHandler.cs",
+                "region": {
+                  "startLine": 10,
+                  "startColumn": 18,
+                  "endLine": 10,
+                  "endColumn": 36
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Portaria/CondominioApp.Portaria.Aplication/Events/Visita/VisitaEventHandler.cs",
+                "region": {
+                  "startLine": 152,
+                  "startColumn": 21,
+                  "endLine": 152,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": "Provide 'protected' overridable implementation of 'Dispose(bool)' on 'VisitaEventHandler' or mark the type as 'sealed'.",
+              "1": "'VisitaEventHandler.Dispose()' should call 'Dispose(true)' and 'GC.SuppressFinalize(this)'."
+            }
+          }
+        },
+        {
+          "ruleId": "S1656",
+          "level": "warning",
+          "message": "Remove or correct this useless self-assignment.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Portaria/CondominioApp.Portaria.Aplication/Events/Visita/VisitaTerminadaEvent.cs",
+                "region": {
+                  "startLine": 14,
+                  "startColumn": 13,
+                  "endLine": 14,
+                  "endColumn": 38
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2933",
+          "level": "warning",
+          "message": "Make '_visitanteRepository' 'readonly'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Portaria/CondominioApp.Portaria.Aplication/Commands/Visita/VisitaCommandHandler.cs",
+                "region": {
+                  "startLine": 26,
+                  "startColumn": 37,
+                  "endLine": 26,
+                  "endColumn": 57
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S3881",
+          "level": "warning",
+          "message": "Fix this implementation of 'IDisposable' to conform to the dispose pattern.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Portaria/CondominioApp.Portaria.Aplication/Commands/Visita/VisitaCommandHandler.cs",
+                "region": {
+                  "startLine": 15,
+                  "startColumn": 18,
+                  "endLine": 15,
+                  "endColumn": 38
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Portaria/CondominioApp.Portaria.Aplication/Commands/Visita/VisitaCommandHandler.cs",
+                "region": {
+                  "startLine": 15,
+                  "startColumn": 18,
+                  "endLine": 15,
+                  "endColumn": 38
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Portaria/CondominioApp.Portaria.Aplication/Commands/Visita/VisitaCommandHandler.cs",
+                "region": {
+                  "startLine": 270,
+                  "startColumn": 21,
+                  "endLine": 270,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": "Provide 'protected' overridable implementation of 'Dispose(bool)' on 'VisitaCommandHandler' or mark the type as 'sealed'.",
+              "1": "'VisitaCommandHandler.Dispose()' should call 'Dispose(true)' and 'GC.SuppressFinalize(this)'."
+            }
+          }
+        },
+        {
+          "ruleId": "S107",
+          "level": "warning",
+          "message": "Constructor has 10 parameters, which is greater than the 7 authorized.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Portaria/CondominioApp.Portaria.Aplication/Events/Visitante/VisitanteEditadoEvent.cs",
+                "region": {
+                  "startLine": 11,
+                  "startColumn": 13,
+                  "endLine": 12,
+                  "endColumn": 82
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S107",
+          "level": "warning",
+          "message": "Constructor has 17 parameters, which is greater than the 7 authorized.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Portaria/CondominioApp.Portaria.Aplication/Events/Visitante/VisitanteCadastradoEvent.cs",
+                "region": {
+                  "startLine": 12,
+                  "startColumn": 13,
+                  "endLine": 15,
+                  "endColumn": 29
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S107",
+          "level": "warning",
+          "message": "Constructor has 17 parameters, which is greater than the 7 authorized.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Portaria/CondominioApp.Portaria.Aplication/Commands/Visitante/CadastrarVisitantePorMoradorCommand.cs",
+                "region": {
+                  "startLine": 11,
+                  "startColumn": 13,
+                  "endLine": 13,
+                  "endColumn": 123
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S107",
+          "level": "warning",
+          "message": "Constructor has 16 parameters, which is greater than the 7 authorized.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Portaria/CondominioApp.Portaria.Aplication/Commands/Visitante/CadastrarVisitantePorPorteiroCommand.cs",
+                "region": {
+                  "startLine": 11,
+                  "startColumn": 13,
+                  "endLine": 13,
+                  "endColumn": 82
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S107",
+          "level": "warning",
+          "message": "Constructor has 17 parameters, which is greater than the 7 authorized.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Portaria/CondominioApp.Portaria.Aplication/Events/Visita/VisitaEditadaEvent.cs",
+                "region": {
+                  "startLine": 12,
+                  "startColumn": 13,
+                  "endLine": 15,
+                  "endColumn": 65
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S107",
+          "level": "warning",
+          "message": "Constructor has 22 parameters, which is greater than the 7 authorized.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Portaria/CondominioApp.Portaria.Aplication/Events/Visita/VisitaCadastradaEvent.cs",
+                "region": {
+                  "startLine": 11,
+                  "startColumn": 13,
+                  "endLine": 15,
+                  "endColumn": 65
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S107",
+          "level": "warning",
+          "message": "Constructor has 10 parameters, which is greater than the 7 authorized.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Portaria/CondominioApp.Portaria.Aplication/Commands/Visitante/EditarVisitantePorPorteiroCommand.cs",
+                "region": {
+                  "startLine": 11,
+                  "startColumn": 13,
+                  "endLine": 12,
+                  "endColumn": 107
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S107",
+          "level": "warning",
+          "message": "Constructor has 11 parameters, which is greater than the 7 authorized.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Portaria/CondominioApp.Portaria.Aplication/Commands/Visitante/EditarVisitantePorMoradorCommand.cs",
+                "region": {
+                  "startLine": 11,
+                  "startColumn": 13,
+                  "endLine": 13,
+                  "endColumn": 29
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S107",
+          "level": "warning",
+          "message": "Constructor has 16 parameters, which is greater than the 7 authorized.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Portaria/CondominioApp.Portaria.Aplication/Commands/Visita/CadastrarVisitaPorMoradorCommand.cs",
+                "region": {
+                  "startLine": 10,
+                  "startColumn": 13,
+                  "endLine": 14,
+                  "endColumn": 48
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1066",
+          "level": "warning",
+          "message": "Merge this if statement with the enclosing one.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Portaria/CondominioApp.Portaria.Aplication/Commands/Visitante/VisitanteCommandHandler.cs",
+                "region": {
+                  "startLine": 38,
+                  "startColumn": 17,
+                  "endLine": 38,
+                  "endColumn": 19
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Portaria/CondominioApp.Portaria.Aplication/Commands/Visitante/VisitanteCommandHandler.cs",
+                "region": {
+                  "startLine": 36,
+                  "startColumn": 13,
+                  "endLine": 36,
+                  "endColumn": 15
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1066",
+          "level": "warning",
+          "message": "Merge this if statement with the enclosing one.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Portaria/CondominioApp.Portaria.Aplication/Commands/Visitante/VisitanteCommandHandler.cs",
+                "region": {
+                  "startLine": 63,
+                  "startColumn": 17,
+                  "endLine": 63,
+                  "endColumn": 19
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Portaria/CondominioApp.Portaria.Aplication/Commands/Visitante/VisitanteCommandHandler.cs",
+                "region": {
+                  "startLine": 61,
+                  "startColumn": 13,
+                  "endLine": 61,
+                  "endColumn": 15
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2589",
+          "level": "warning",
+          "message": "Change this condition so that it does not always evaluate to 'true'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Portaria/CondominioApp.Portaria.Aplication/Commands/Visitante/VisitanteCommandHandler.cs",
+                "region": {
+                  "startLine": 58,
+                  "startColumn": 17,
+                  "endLine": 58,
+                  "endColumn": 35
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S107",
+          "level": "warning",
+          "message": "Constructor has 23 parameters, which is greater than the 7 authorized.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Portaria/CondominioApp.Portaria.Aplication/Commands/Visita/CadastrarVisitaPorPorteiroCommand.cs",
+                "region": {
+                  "startLine": 11,
+                  "startColumn": 13,
+                  "endLine": 17,
+                  "endColumn": 111
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S107",
+          "level": "warning",
+          "message": "Constructor has 20 parameters, which is greater than the 7 authorized.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Portaria/CondominioApp.Portaria.Aplication/Commands/Visita/EditarVisitaCommand.cs",
+                "region": {
+                  "startLine": 11,
+                  "startColumn": 13,
+                  "endLine": 15,
+                  "endColumn": 48
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1116",
+          "level": "warning",
+          "message": "Remove this empty statement.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Portaria/CondominioApp.Portaria.Aplication/Commands/Validations/VisitaValidation.cs",
+                "region": {
+                  "startLine": 87,
+                  "startColumn": 96,
+                  "endLine": 87,
+                  "endColumn": 97
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1066",
+          "level": "warning",
+          "message": "Merge this if statement with the enclosing one.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Portaria/CondominioApp.Portaria.Aplication/Commands/Visitante/VisitanteCommandHandler.cs",
+                "region": {
+                  "startLine": 106,
+                  "startColumn": 17,
+                  "endLine": 106,
+                  "endColumn": 19
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Portaria/CondominioApp.Portaria.Aplication/Commands/Visitante/VisitanteCommandHandler.cs",
+                "region": {
+                  "startLine": 104,
+                  "startColumn": 13,
+                  "endLine": 104,
+                  "endColumn": 15
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1066",
+          "level": "warning",
+          "message": "Merge this if statement with the enclosing one.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Portaria/CondominioApp.Portaria.Aplication/Commands/Visitante/VisitanteCommandHandler.cs",
+                "region": {
+                  "startLine": 135,
+                  "startColumn": 17,
+                  "endLine": 135,
+                  "endColumn": 19
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/MAPD-NOTE/source/repos/CondominioAppBackEnd2.0/src/Services/Portaria/CondominioApp.Portaria.Aplication/Commands/Visitante/VisitanteCommandHandler.cs",
+                "region": {
+                  "startLine": 133,
+                  "startColumn": 13,
+                  "endLine": 133,
+                  "endColumn": 15
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        }
+      ],
+      "rules": {
+        "S1066": {
+          "id": "S1066",
+          "shortDescription": "Collapsible \"if\" statements should be merged",
+          "fullDescription": "Merging collapsible if statements increases the code's readability.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-1066",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        },
+        "S107": {
+          "id": "S107",
+          "shortDescription": "Methods should not have too many parameters",
+          "fullDescription": "A long parameter list can indicate that a new structure should be created to wrap the numerous parameters or that the function is doing too many things.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-107",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": false,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        },
+        "S1116": {
+          "id": "S1116",
+          "shortDescription": "Empty statements should be removed",
+          "fullDescription": "Empty statements, i.e. ;, are usually introduced by mistake, for example because:",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-1116",
+          "properties": {
+            "category": "Minor Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        },
+        "S1656": {
+          "id": "S1656",
+          "shortDescription": "Variables should not be self-assigned",
+          "fullDescription": "There is no reason to re-assign a variable to itself. Either this statement is redundant and should be removed, or the re-assignment is a mistake and some other value or variable was intended for the assignment instead.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-1656",
+          "properties": {
+            "category": "Major Bug",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        },
+        "S2589": {
+          "id": "S2589",
+          "shortDescription": "Boolean expressions should not be gratuitous",
+          "fullDescription": "If a boolean expression doesn't change the evaluation of the condition, then it is entirely unnecessary, and can be removed. If it is gratuitous because it does not match the programmer's intent, then it's a bug and the expression should be fixed.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-2589",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        },
+        "S2933": {
+          "id": "S2933",
+          "shortDescription": "Fields that are only assigned in the constructor should be \"readonly\"",
+          "fullDescription": "readonly fields can only be assigned in a class constructor. If a class has a field that's not marked readonly but is only set in the constructor, it could cause confusion about the field's intended use. To avoid confusion, such fields should be marked readonly to make their intended use explicit, and to prevent future maintainers from inadvertently changing their use.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-2933",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        },
+        "S3881": {
+          "id": "S3881",
+          "shortDescription": "\"IDisposable\" should be implemented correctly",
+          "fullDescription": "The IDisposable interface is a mechanism to release unmanaged resources, if not implemented correctly this could result in resource leaks or more severe bugs.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-3881",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

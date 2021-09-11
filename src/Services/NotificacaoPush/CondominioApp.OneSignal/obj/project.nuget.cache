@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "DHmkuBaO+GZ7tvaAreeEIZJHCHW2hFA6MVnMhu6s1VRiQMEdMY3Ms+ZgevV+ypUGpgnsIgtLd1+1cfTbPOc2KA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\NotificacaoPush\\CondominioApp.OneSignal\\CondominioApp.OneSignal.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\MAPD-NOTE\\.nuget\\packages\\fluentvalidation\\8.6.2\\fluentvalidation.8.6.2.nupkg.sha512",
+    "C:\\Users\\MAPD-NOTE\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\MAPD-NOTE\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",
+    "C:\\Users\\MAPD-NOTE\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
+    "C:\\Users\\MAPD-NOTE\\.nuget\\packages\\restsharp\\106.10.0\\restsharp.106.10.0.nupkg.sha512",
+    "C:\\Users\\MAPD-NOTE\\.nuget\\packages\\system.componentmodel.annotations\\4.4.1\\system.componentmodel.annotations.4.4.1.nupkg.sha512"
+  ],
+  "logs": []
+}

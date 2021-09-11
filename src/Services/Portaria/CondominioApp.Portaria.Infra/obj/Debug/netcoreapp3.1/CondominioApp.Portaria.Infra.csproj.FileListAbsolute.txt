@@ -1,0 +1,17 @@
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\Portaria\CondominioApp.Portaria.Infra\bin\Debug\netcoreapp3.1\CondominioApp.Portaria.Infra.deps.json
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\Portaria\CondominioApp.Portaria.Infra\bin\Debug\netcoreapp3.1\CondominioApp.Portaria.Infra.runtimeconfig.json
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\Portaria\CondominioApp.Portaria.Infra\bin\Debug\netcoreapp3.1\CondominioApp.Portaria.Infra.runtimeconfig.dev.json
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\Portaria\CondominioApp.Portaria.Infra\bin\Debug\netcoreapp3.1\CondominioApp.Portaria.Infra.dll
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\Portaria\CondominioApp.Portaria.Infra\bin\Debug\netcoreapp3.1\CondominioApp.Portaria.Infra.pdb
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\Portaria\CondominioApp.Portaria.Infra\bin\Debug\netcoreapp3.1\CondominioApp.Core.dll
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\Portaria\CondominioApp.Portaria.Infra\bin\Debug\netcoreapp3.1\CondominioApp.Portaria.Domain.dll
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\Portaria\CondominioApp.Portaria.Infra\bin\Debug\netcoreapp3.1\CondominioApp.Core.pdb
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\Portaria\CondominioApp.Portaria.Infra\bin\Debug\netcoreapp3.1\CondominioApp.Portaria.Domain.pdb
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\Portaria\CondominioApp.Portaria.Infra\obj\Debug\netcoreapp3.1\CondominioApp.Portaria.Infra.csprojAssemblyReference.cache
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\Portaria\CondominioApp.Portaria.Infra\obj\Debug\netcoreapp3.1\CondominioApp.Portaria.Infra.AssemblyInfoInputs.cache
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\Portaria\CondominioApp.Portaria.Infra\obj\Debug\netcoreapp3.1\CondominioApp.Portaria.Infra.AssemblyInfo.cs
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\Portaria\CondominioApp.Portaria.Infra\obj\Debug\netcoreapp3.1\CondominioApp.Portaria.Infra.csproj.CoreCompileInputs.cache
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\Portaria\CondominioApp.Portaria.Infra\obj\Debug\netcoreapp3.1\CondominioApp.Portaria.Infra.csproj.CopyComplete
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\Portaria\CondominioApp.Portaria.Infra\obj\Debug\netcoreapp3.1\CondominioApp.Portaria.Infra.dll
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\Portaria\CondominioApp.Portaria.Infra\obj\Debug\netcoreapp3.1\CondominioApp.Portaria.Infra.pdb
+C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\Portaria\CondominioApp.Portaria.Infra\obj\Debug\netcoreapp3.1\CondominioApp.Portaria.Infra.genruntimeconfig.cache
