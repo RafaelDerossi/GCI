@@ -1,9 +1,9 @@
 ﻿using NinjaStore.Core.DomainObjects;
 using System;
 
-namespace NinjaStore.Produtos.Domain.FlatModel
+namespace NinjaStore.Clientes.Domain.FlatModel
 {
-   public class ProdutoFlat : IAggregateRoot
+   public class ClienteFlat : IAggregateRoot
    {
         public const int Max = 200;
         public Guid Id { get; private set; }
@@ -36,25 +36,24 @@ namespace NinjaStore.Produtos.Domain.FlatModel
 
         public bool Lixeira { get; private set; }
 
+       
+        public string Nome { get; private set; }
 
-        public string Descricao { get; private set; }
+        public string Email { get; private set; }
 
-        public decimal Valor { get; private set; }
+        public string Aldeia { get; private set; }
 
-        public string Foto { get; private set; }
-
-        protected ProdutoFlat()
+        protected ClienteFlat()
         {
         }
 
-        public ProdutoFlat(Guid id, string descricao, decimal valor, string foto)
+        public ClienteFlat(Guid id, string nome, string email, string aldeia)
         {
             Id = id;
-            Descricao = descricao;
-            Valor = valor;
-            Foto = foto;
+            Nome = nome;
+            Email = email;
+            Aldeia = aldeia;
         }
-       
 
         public void SetEntidadeId(Guid NovoId) => Id = NovoId;
 
@@ -62,11 +61,11 @@ namespace NinjaStore.Produtos.Domain.FlatModel
 
         public void RestaurarDaLixeira() => Lixeira = false;
 
-        public void SetDescricao(string descricao) => Descricao = descricao;
+        public void SetNome(string nome) => Nome = nome;
 
-        public void SetValor(decimal valor) => Valor = valor;
+        public void SetEmail(Email email) => Email = email;
 
-        public void SetFoto(string foto) => Foto = foto;
+        public void SetAldeia(string aldeia) => Aldeia = aldeia;
 
     }
 }

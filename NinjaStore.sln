@@ -29,9 +29,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NinjaStore.Api", "src\WebAp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NinjaStore.Produtos.Domain", "src\Services\Produtos\NinjaStore.Produtos.Domain\NinjaStore.Produtos.Domain.csproj", "{7AEF2D0B-627D-4EC0-9B6A-32414A1FBBF9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaStore.Produtos.Infra", "src\Services\Produtos\NinjaStore.Produtos.Infra\NinjaStore.Produtos.Infra.csproj", "{96117EBB-B208-479B-B8BF-0C86CEFEE0A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NinjaStore.Produtos.Infra", "src\Services\Produtos\NinjaStore.Produtos.Infra\NinjaStore.Produtos.Infra.csproj", "{96117EBB-B208-479B-B8BF-0C86CEFEE0A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaStore.Produtos.Aplication", "src\Services\Produtos\NinjaStore.Produtos.Aplication\NinjaStore.Produtos.Aplication.csproj", "{6630BCAB-28E4-42F8-BE2A-9F2D47AAFF02}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NinjaStore.Produtos.Aplication", "src\Services\Produtos\NinjaStore.Produtos.Aplication\NinjaStore.Produtos.Aplication.csproj", "{6630BCAB-28E4-42F8-BE2A-9F2D47AAFF02}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaStore.Clientes.Domain", "src\Services\Clientes\NinjaStore.Clientes.Domain\NinjaStore.Clientes.Domain.csproj", "{1685F6D7-6656-452A-A0F3-F6F79143219D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaStore.Clientes.Infra", "src\Services\Clientes\NinjaStore.Clientes.Infra\NinjaStore.Clientes.Infra.csproj", "{3BEE4E70-A00F-4447-9888-A15078F8590F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +67,14 @@ Global
 		{6630BCAB-28E4-42F8-BE2A-9F2D47AAFF02}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6630BCAB-28E4-42F8-BE2A-9F2D47AAFF02}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6630BCAB-28E4-42F8-BE2A-9F2D47AAFF02}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1685F6D7-6656-452A-A0F3-F6F79143219D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1685F6D7-6656-452A-A0F3-F6F79143219D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1685F6D7-6656-452A-A0F3-F6F79143219D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1685F6D7-6656-452A-A0F3-F6F79143219D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3BEE4E70-A00F-4447-9888-A15078F8590F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3BEE4E70-A00F-4447-9888-A15078F8590F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3BEE4E70-A00F-4447-9888-A15078F8590F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3BEE4E70-A00F-4447-9888-A15078F8590F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -82,6 +94,8 @@ Global
 		{7AEF2D0B-627D-4EC0-9B6A-32414A1FBBF9} = {743BE6D3-517D-43C4-B154-245031A3C034}
 		{96117EBB-B208-479B-B8BF-0C86CEFEE0A4} = {743BE6D3-517D-43C4-B154-245031A3C034}
 		{6630BCAB-28E4-42F8-BE2A-9F2D47AAFF02} = {743BE6D3-517D-43C4-B154-245031A3C034}
+		{1685F6D7-6656-452A-A0F3-F6F79143219D} = {4E64AE2E-CB43-4471-AFE1-D90A3DDC7555}
+		{3BEE4E70-A00F-4447-9888-A15078F8590F} = {4E64AE2E-CB43-4471-AFE1-D90A3DDC7555}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DA60CBD7-8A6E-436D-B07E-D654D162CE4B}
