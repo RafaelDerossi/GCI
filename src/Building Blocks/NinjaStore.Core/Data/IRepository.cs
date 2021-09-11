@@ -10,9 +10,7 @@ namespace NinjaStore.Core.Data
     {
         IUnitOfWorks UnitOfWork { get; }
 
-        Task<TEntity> ObterPorId(Guid Id);       
-
-        Task<IEnumerable<TEntity>> ObterTodos();
+        Task<TEntity> ObterPorId(Guid Id);               
 
         /// <summary>
         /// Método Genérico para consultas aleatórias

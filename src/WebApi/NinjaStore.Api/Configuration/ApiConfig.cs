@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using NinjaStore.Produtos.Infra.Data;
 
 namespace NinjaStore.Api.Configuration
 {
@@ -18,28 +19,28 @@ namespace NinjaStore.Api.Configuration
             services.AddControllers();
 
             //Contexts
-            //services.AddDbContext<UsuarioContextDB>(options =>
-            //    options.UseSqlServer(configuration.GetConnectionString("UsuariosConnection")));
+            services.AddDbContext<ProdutoContextDB>(options =>
+                options.UseSqlServer(configuration.GetConnectionString("ProdutoConnection")));
 
             //services.AddDbContext<PrincipalContextDB>(options =>
             //   options.UseSqlServer(configuration.GetConnectionString("PrincipalConnection")));
 
             //services.AddDbContext<PreCadastroContextDB>(options =>
             //    options.UseSqlServer(configuration.GetConnectionString("PreCadastroConnection")));
-          
+
 
 
             //Query Contexts
-            //services.AddDbContext<UsuarioQueryContextDB>(options =>
-            //  options.UseSqlServer(configuration.GetConnectionString("QueryConnection")));
-            
+            services.AddDbContext<ProdutoQueryContextDB>(options =>
+              options.UseSqlServer(configuration.GetConnectionString("QueryConnection")));
+
             //services.AddDbContext<PrincipalQueryContextDB>(options =>
             //  options.UseSqlServer(configuration.GetConnectionString("QueryConnection")));
 
             //services.AddDbContext<ReservaAreaComumQueryContextDB>(options =>
             //  options.UseSqlServer(configuration.GetConnectionString("QueryConnection")));
 
-        
+
 
             services.Configure<ApiBehaviorOptions>(options =>
             {

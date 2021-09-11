@@ -67,6 +67,12 @@ namespace NinjaStore.WebApi.Core.Controllers
             return CustomResponse();
         }
 
+        protected ActionResult CustomResponse(string mensagemDeErro)
+        {
+            AdicionarErroProcessamento(mensagemDeErro);
+            return CustomResponse();
+        }
+
         protected bool OperacaoValida()
         {
             return !Erros.Any();

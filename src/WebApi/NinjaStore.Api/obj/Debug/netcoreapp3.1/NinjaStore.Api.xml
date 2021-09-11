@@ -4,5 +4,31 @@
         <name>NinjaStore.Api</name>
     </assembly>
     <members>
+        <member name="M:NinjaStore.Api.Controllers.ProdutoController.ObterTodos">
+            <summary>
+            Retorna todos os produtos cadastrados;
+            </summary>
+            <response code="200">
+            Id: Guid do produto;   
+            DataDeCadastro: Data em que o produto foi cadastrado;   
+            DataDeCadastroFormatada: Data formatada para exibição em que o produto foi cadastrado;   
+            DataDeAlteracao:  Data em que o produto foi alterado; 
+            DataDeAlteracaoFormatada: Data formatada para exibição em que o produto foi alterado;   
+            Lixeira: Informa se o produto esta na lixeira;   
+            Descricao: Descrição do produto;   
+            Valor: Preço do produto;   
+            Foto: Foto do produto;   
+            </response>
+        </member>
+        <member name="M:NinjaStore.Api.Controllers.ProdutoController.Post(NinjaStore.Produtos.Aplication.ViewModels.AdicionaProdutoViewModel)">
+            <summary>
+            Adiciona um novo produto
+            </summary>
+            <param name="viewModel">
+            Descricao: Descrição do produto (Obrigatório)(De 1 a 200 caracteres);             
+            Valor: Preço do produto (Obrigatório);   
+            Foto: Foto do produto;   
+            </param>        
+        </member>
     </members>
 </doc>
