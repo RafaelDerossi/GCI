@@ -1,4 +1,4 @@
-﻿using NinjaStore.Clientes.Domain.ValueObjects;
+﻿using NinjaStore.Core.ValueObjects;
 using NinjaStore.Core.DomainObjects;
 using System;
 

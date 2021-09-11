@@ -1,7 +1,7 @@
 ﻿using NinjaStore.Core.DomainObjects;
 using System.Text.RegularExpressions;
 
-namespace NinjaStore.Clientes.Domain.ValueObjects
+namespace NinjaStore.Core.ValueObjects
 {
     public class Email
     {

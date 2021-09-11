@@ -77,7 +77,11 @@ namespace NinjaStore.Clientes.Infra.Data.Repository
                                     .ToListAsync();
         }
 
-
+        public async Task<bool> VerificaEmailJaCadastrado(string email)
+        {
+            return await _context.Clientes
+                .Where(u => u.Email.Endereco == email && !u.Lixeira).CountAsync() > 0;
+        }
 
         public void Dispose()
         {

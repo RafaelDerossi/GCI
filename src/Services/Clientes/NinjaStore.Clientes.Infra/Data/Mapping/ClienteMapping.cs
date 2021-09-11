@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using NinjaStore.Clientes.Domain;
-using NinjaStore.Clientes.Domain.ValueObjects;
+using NinjaStore.Core.ValueObjects;
 
 namespace NinjaStore.Clientes.Infra.Data.Mapping
 {

@@ -22,10 +22,10 @@ namespace NinjaStore.Clientes.Aplication.Events
 
         public async Task Handle(ClienteAdicionadoEvent notification, CancellationToken cancellationToken)
         {
-            var produtoFlat = new ClienteFlat
+            var clienteFlat = new ClienteFlat
                 (notification.Id, notification.Nome, notification.Email, notification.Aldeia);
            
-            _clienteQueryRepository.Adicionar(produtoFlat);
+            _clienteQueryRepository.Adicionar(clienteFlat);
            
             await PersistirDados(_clienteQueryRepository.UnitOfWork);
         }

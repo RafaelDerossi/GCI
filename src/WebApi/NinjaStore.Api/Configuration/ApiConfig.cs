@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NinjaStore.Produtos.Infra.Data;
 using NinjaStore.Clientes.Infra.Data;
+using NinjaStore.Pedidos.Infra.Data;
 
 namespace NinjaStore.Api.Configuration
 {
@@ -26,8 +27,8 @@ namespace NinjaStore.Api.Configuration
             services.AddDbContext<ClienteContextDB>(options =>
                options.UseSqlServer(configuration.GetConnectionString("ClienteConnection")));
 
-            //services.AddDbContext<PedidoContextDB>(options =>
-            //    options.UseSqlServer(configuration.GetConnectionString("PedidoConnection")));
+            services.AddDbContext<PedidoContextDB>(options =>
+                options.UseSqlServer(configuration.GetConnectionString("PedidoConnection")));
 
 
 
@@ -38,8 +39,8 @@ namespace NinjaStore.Api.Configuration
             services.AddDbContext<ClienteQueryContextDB>(options =>
               options.UseSqlServer(configuration.GetConnectionString("QueryConnection")));
 
-            //services.AddDbContext<PedidoQueryContextDB>(options =>
-            //  options.UseSqlServer(configuration.GetConnectionString("QueryConnection")));
+            services.AddDbContext<PedidoQueryContextDB>(options =>
+              options.UseSqlServer(configuration.GetConnectionString("QueryConnection")));
 
 
 

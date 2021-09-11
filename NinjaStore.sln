@@ -39,6 +39,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaStore.Clientes.Infra",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaStore.Clientes.Aplication", "src\Services\Clientes\NinjaStore.Clientes.Aplication\NinjaStore.Clientes.Aplication.csproj", "{8581081F-348A-4EB5-AABB-0FD1105986DD}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NinjaStore.Pedidos.Domain", "src\Services\Pedidos\NinjaStore.Pedidos.Domain\NinjaStore.Pedidos.Domain.csproj", "{BD48DC05-5FAF-49EB-85FF-A9966305A57F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaStore.Pedidos.Infra", "src\Services\Pedidos\NinjaStore.Pedidos.Infra\NinjaStore.Pedidos.Infra.csproj", "{4238C178-38B0-42D2-886C-ED8477FC8B11}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NinjaStore.Pedidos.Aplication", "src\Services\Pedidos\NinjaStore.Pedidos.Aplication\NinjaStore.Pedidos.Aplication.csproj", "{2E1042CE-5916-4BDD-B3FD-A5573174CB8A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +87,18 @@ Global
 		{8581081F-348A-4EB5-AABB-0FD1105986DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8581081F-348A-4EB5-AABB-0FD1105986DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8581081F-348A-4EB5-AABB-0FD1105986DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD48DC05-5FAF-49EB-85FF-A9966305A57F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD48DC05-5FAF-49EB-85FF-A9966305A57F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD48DC05-5FAF-49EB-85FF-A9966305A57F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD48DC05-5FAF-49EB-85FF-A9966305A57F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4238C178-38B0-42D2-886C-ED8477FC8B11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4238C178-38B0-42D2-886C-ED8477FC8B11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4238C178-38B0-42D2-886C-ED8477FC8B11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4238C178-38B0-42D2-886C-ED8477FC8B11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E1042CE-5916-4BDD-B3FD-A5573174CB8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E1042CE-5916-4BDD-B3FD-A5573174CB8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E1042CE-5916-4BDD-B3FD-A5573174CB8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E1042CE-5916-4BDD-B3FD-A5573174CB8A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -103,6 +121,9 @@ Global
 		{1685F6D7-6656-452A-A0F3-F6F79143219D} = {4E64AE2E-CB43-4471-AFE1-D90A3DDC7555}
 		{3BEE4E70-A00F-4447-9888-A15078F8590F} = {4E64AE2E-CB43-4471-AFE1-D90A3DDC7555}
 		{8581081F-348A-4EB5-AABB-0FD1105986DD} = {4E64AE2E-CB43-4471-AFE1-D90A3DDC7555}
+		{BD48DC05-5FAF-49EB-85FF-A9966305A57F} = {E90825B3-5914-40CA-A18A-3E9C3F4E0A06}
+		{4238C178-38B0-42D2-886C-ED8477FC8B11} = {E90825B3-5914-40CA-A18A-3E9C3F4E0A06}
+		{2E1042CE-5916-4BDD-B3FD-A5573174CB8A} = {E90825B3-5914-40CA-A18A-3E9C3F4E0A06}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DA60CBD7-8A6E-436D-B07E-D654D162CE4B}

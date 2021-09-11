@@ -27,14 +27,20 @@ namespace NinjaStore.Clientes.Aplication.Commands
         {
             if (!request.EstaValido()) return request.ValidationResult;
 
-            var produto = new Cliente(request.Nome, request.Email, request.Aldeia);
+            var cliente = new Cliente(request.Nome, request.Email, request.Aldeia);
            
-            _clienteRepository.Adicionar(produto);
+            if (await _clienteRepository.VerificaEmailJaCadastrado(cliente.Email.Endereco))
+            {
+                AdicionarErro("E-mail informado já consta no sistema! Informe outro e-mail.");
+                return ValidationResult;
+            }
+
+            _clienteRepository.Adicionar(cliente);
 
             //Evento
-            produto.AdicionarEvento
+            cliente.AdicionarEvento
                 (new ClienteAdicionadoEvent
-                (produto.Id, produto.Nome, produto.Email, produto.Aldeia));
+                (cliente.Id, cliente.Nome, cliente.Email, cliente.Aldeia));
 
             return await PersistirDados(_clienteRepository.UnitOfWork);
         }

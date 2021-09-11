@@ -47,6 +47,9 @@
     <ProjectReference Include="..\..\Services\Clientes\NinjaStore.Clientes.Aplication\NinjaStore.Clientes.Aplication.csproj" />
     <ProjectReference Include="..\..\Services\Clientes\NinjaStore.Clientes.Domain\NinjaStore.Clientes.Domain.csproj" />
     <ProjectReference Include="..\..\Services\Clientes\NinjaStore.Clientes.Infra\NinjaStore.Clientes.Infra.csproj" />
+    <ProjectReference Include="..\..\Services\Pedidos\NinjaStore.Pedidos.Aplication\NinjaStore.Pedidos.Aplication.csproj" />
+    <ProjectReference Include="..\..\Services\Pedidos\NinjaStore.Pedidos.Domain\NinjaStore.Pedidos.Domain.csproj" />
+    <ProjectReference Include="..\..\Services\Pedidos\NinjaStore.Pedidos.Infra\NinjaStore.Pedidos.Infra.csproj" />
     <ProjectReference Include="..\..\Services\Produtos\NinjaStore.Produtos.Aplication\NinjaStore.Produtos.Aplication.csproj" />
     <ProjectReference Include="..\..\Services\Produtos\NinjaStore.Produtos.Domain\NinjaStore.Produtos.Domain.csproj" />
     <ProjectReference Include="..\..\Services\Produtos\NinjaStore.Produtos.Infra\NinjaStore.Produtos.Infra.csproj" />

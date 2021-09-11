@@ -44,11 +44,11 @@ namespace NinjaStore.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProdutoFlat>>> ObterTodos()
         {
-            var condominios = await _produtoQuery.ObterTodos();
-            if (condominios.Count() == 0)
+            var produtos = await _produtoQuery.ObterTodos();
+            if (produtos.Count() == 0)
                 return CustomResponse("Nenhum produto encontrado.");
             
-            return condominios.ToList();
+            return produtos.ToList();
         }
         
 

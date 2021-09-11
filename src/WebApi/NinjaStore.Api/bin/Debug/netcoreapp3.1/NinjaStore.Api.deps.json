@@ -35,6 +35,9 @@
           "NinjaStore.Clientes.Domain": "1.0.0",
           "NinjaStore.Clientes.Infra": "1.0.0",
           "NinjaStore.Core": "1.0.0",
+          "NinjaStore.Pedidos.Aplication": "1.0.0",
+          "NinjaStore.Pedidos.Domain": "1.0.0",
+          "NinjaStore.Pedidos.Infra": "1.0.0",
           "NinjaStore.Produtos.Aplication": "1.0.0",
           "NinjaStore.Produtos.Domain": "1.0.0",
           "NinjaStore.Produtos.Infra": "1.0.0",
@@ -2082,6 +2085,44 @@
         },
         "compile": {
           "NinjaStore.Core.dll": {}
+        }
+      },
+      "NinjaStore.Pedidos.Aplication/1.0.0": {
+        "dependencies": {
+          "NinjaStore.Core": "1.0.0",
+          "NinjaStore.Pedidos.Domain": "1.0.0",
+          "NinjaStore.Pedidos.Infra": "1.0.0"
+        },
+        "runtime": {
+          "NinjaStore.Pedidos.Aplication.dll": {}
+        },
+        "compile": {
+          "NinjaStore.Pedidos.Aplication.dll": {}
+        }
+      },
+      "NinjaStore.Pedidos.Domain/1.0.0": {
+        "dependencies": {
+          "NinjaStore.Core": "1.0.0"
+        },
+        "runtime": {
+          "NinjaStore.Pedidos.Domain.dll": {}
+        },
+        "compile": {
+          "NinjaStore.Pedidos.Domain.dll": {}
+        }
+      },
+      "NinjaStore.Pedidos.Infra/1.0.0": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "3.1.2",
+          "Microsoft.EntityFrameworkCore.SqlServer": "3.1.2",
+          "NinjaStore.Core": "1.0.0",
+          "NinjaStore.Pedidos.Domain": "1.0.0"
+        },
+        "runtime": {
+          "NinjaStore.Pedidos.Infra.dll": {}
+        },
+        "compile": {
+          "NinjaStore.Pedidos.Infra.dll": {}
         }
       },
       "NinjaStore.Produtos.Aplication/1.0.0": {
@@ -4953,6 +4994,21 @@
       "sha512": ""
     },
     "NinjaStore.Core/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "NinjaStore.Pedidos.Aplication/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "NinjaStore.Pedidos.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "NinjaStore.Pedidos.Infra/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

@@ -12,6 +12,11 @@ using NinjaStore.Clientes.Aplication.Events;
 using NinjaStore.Clientes.Aplication.Query;
 using NinjaStore.Clientes.Domain.Interfaces;
 using NinjaStore.Clientes.Infra.Data.Repository;
+using NinjaStore.Pedidos.Aplication.Commands;
+using NinjaStore.Pedidos.Domain.Interfaces;
+using NinjaStore.Pedidos.Infra.Data.Repository;
+using NinjaStore.Pedidos.Aplication.Events;
+using NinjaStore.Pedidos.Aplication.Query;
 
 namespace NinjaStore.Api.Configuration
 {
@@ -37,8 +42,8 @@ namespace NinjaStore.Api.Configuration
 
             #region Pedido -Contexto
             //Pedido            
-            //services.AddScoped<IRequestHandler<AdicionarPedidoCommand, ValidationResult>, PedidoCommandHandler>();
-            //services.AddScoped<INotificationHandler<PedidoAdicionadoEvent>, PedidoEventHandler>();
+            services.AddScoped<IRequestHandler<AdicionarPedidoCommand, ValidationResult>, PedidoCommandHandler>();
+            services.AddScoped<INotificationHandler<PedidoAdicionadoEvent>, PedidoEventHandler>();
 
             #endregion
 
@@ -47,20 +52,20 @@ namespace NinjaStore.Api.Configuration
             #region Querys            
             services.AddScoped<IProdutoQuery, ProdutoQuery>();            
             services.AddScoped<IClienteQuery, ClienteQuery>();            
-            //services.AddScoped<IPedidoQuery, PedidoQuery>();
+            services.AddScoped<IPedidoQuery, PedidoQuery>();
             #endregion
 
             #region Repositórios                        
             services.AddScoped<IProdutoRepository, ProdutoRepository>();            
             services.AddScoped<IClienteRepository, ClienteRepository>();            
-            //services.AddScoped<IPedidoRepository, PedidoRepository>();            
+            services.AddScoped<IPedidoRepository, PedidoRepository>();            
 
             #endregion
 
             #region Repositórios Query                           
             services.AddScoped<IProdutoQueryRepository, ProdutoQueryRepository>();
             services.AddScoped<IClienteQueryRepository, ClienteQueryRepository>();
-            //services.AddScoped<IPedidoQueryRepository, PedidoQueryRepository>();
+            services.AddScoped<IPedidoQueryRepository, PedidoQueryRepository>();
             #endregion
 
         }

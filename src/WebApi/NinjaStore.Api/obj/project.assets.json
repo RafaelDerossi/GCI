@@ -2600,6 +2600,50 @@
           "bin/placeholder/NinjaStore.Core.dll": {}
         }
       },
+      "NinjaStore.Pedidos.Aplication/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "NinjaStore.Core": "1.0.0",
+          "NinjaStore.Pedidos.Domain": "1.0.0",
+          "NinjaStore.Pedidos.Infra": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/NinjaStore.Pedidos.Aplication.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/NinjaStore.Pedidos.Aplication.dll": {}
+        }
+      },
+      "NinjaStore.Pedidos.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "NinjaStore.Core": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/NinjaStore.Pedidos.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/NinjaStore.Pedidos.Domain.dll": {}
+        }
+      },
+      "NinjaStore.Pedidos.Infra/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "3.1.2",
+          "Microsoft.EntityFrameworkCore.SqlServer": "3.1.2",
+          "NinjaStore.Core": "1.0.0",
+          "NinjaStore.Pedidos.Domain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/NinjaStore.Pedidos.Infra.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/NinjaStore.Pedidos.Infra.dll": {}
+        }
+      },
       "NinjaStore.Produtos.Aplication/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
@@ -8442,6 +8486,21 @@
       "path": "../../Building Blocks/NinjaStore.Core/NinjaStore.Core.csproj",
       "msbuildProject": "../../Building Blocks/NinjaStore.Core/NinjaStore.Core.csproj"
     },
+    "NinjaStore.Pedidos.Aplication/1.0.0": {
+      "type": "project",
+      "path": "../../Services/Pedidos/NinjaStore.Pedidos.Aplication/NinjaStore.Pedidos.Aplication.csproj",
+      "msbuildProject": "../../Services/Pedidos/NinjaStore.Pedidos.Aplication/NinjaStore.Pedidos.Aplication.csproj"
+    },
+    "NinjaStore.Pedidos.Domain/1.0.0": {
+      "type": "project",
+      "path": "../../Services/Pedidos/NinjaStore.Pedidos.Domain/NinjaStore.Pedidos.Domain.csproj",
+      "msbuildProject": "../../Services/Pedidos/NinjaStore.Pedidos.Domain/NinjaStore.Pedidos.Domain.csproj"
+    },
+    "NinjaStore.Pedidos.Infra/1.0.0": {
+      "type": "project",
+      "path": "../../Services/Pedidos/NinjaStore.Pedidos.Infra/NinjaStore.Pedidos.Infra.csproj",
+      "msbuildProject": "../../Services/Pedidos/NinjaStore.Pedidos.Infra/NinjaStore.Pedidos.Infra.csproj"
+    },
     "NinjaStore.Produtos.Aplication/1.0.0": {
       "type": "project",
       "path": "../../Services/Produtos/NinjaStore.Produtos.Aplication/NinjaStore.Produtos.Aplication.csproj",
@@ -8476,6 +8535,9 @@
       "NinjaStore.Clientes.Domain >= 1.0.0",
       "NinjaStore.Clientes.Infra >= 1.0.0",
       "NinjaStore.Core >= 1.0.0",
+      "NinjaStore.Pedidos.Aplication >= 1.0.0",
+      "NinjaStore.Pedidos.Domain >= 1.0.0",
+      "NinjaStore.Pedidos.Infra >= 1.0.0",
       "NinjaStore.Produtos.Aplication >= 1.0.0",
       "NinjaStore.Produtos.Domain >= 1.0.0",
       "NinjaStore.Produtos.Infra >= 1.0.0",
@@ -8527,6 +8589,15 @@
             },
             "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Infra\\NinjaStore.Clientes.Infra.csproj": {
               "projectPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Infra\\NinjaStore.Clientes.Infra.csproj"
+            },
+            "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Aplication\\NinjaStore.Pedidos.Aplication.csproj": {
+              "projectPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Aplication\\NinjaStore.Pedidos.Aplication.csproj"
+            },
+            "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Domain\\NinjaStore.Pedidos.Domain.csproj": {
+              "projectPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Domain\\NinjaStore.Pedidos.Domain.csproj"
+            },
+            "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Infra\\NinjaStore.Pedidos.Infra.csproj": {
+              "projectPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Infra\\NinjaStore.Pedidos.Infra.csproj"
             },
             "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Produtos\\NinjaStore.Produtos.Aplication\\NinjaStore.Produtos.Aplication.csproj": {
               "projectPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Produtos\\NinjaStore.Produtos.Aplication\\NinjaStore.Produtos.Aplication.csproj"

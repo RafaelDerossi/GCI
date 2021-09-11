@@ -10,7 +10,7 @@ using NinjaStore.Clientes.Domain.FlatModel;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using NinjaStore.Clientes.Domain.ValueObjects;
+using NinjaStore.Core.ValueObjects;
 
 namespace NinjaStore.Clientes.Infra.Data
 {
