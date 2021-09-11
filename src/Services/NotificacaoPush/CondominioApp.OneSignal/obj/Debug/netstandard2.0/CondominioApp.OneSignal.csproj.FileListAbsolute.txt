@@ -1,9 +1,0 @@
-C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\NotificacaoPush\CondominioApp.OneSignal\bin\Debug\netstandard2.0\CondominioApp.OneSignal.deps.json
-C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\NotificacaoPush\CondominioApp.OneSignal\bin\Debug\netstandard2.0\CondominioApp.OneSignal.dll
-C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\NotificacaoPush\CondominioApp.OneSignal\bin\Debug\netstandard2.0\CondominioApp.OneSignal.pdb
-C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\NotificacaoPush\CondominioApp.OneSignal\obj\Debug\netstandard2.0\CondominioApp.OneSignal.csprojAssemblyReference.cache
-C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\NotificacaoPush\CondominioApp.OneSignal\obj\Debug\netstandard2.0\CondominioApp.OneSignal.AssemblyInfoInputs.cache
-C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\NotificacaoPush\CondominioApp.OneSignal\obj\Debug\netstandard2.0\CondominioApp.OneSignal.AssemblyInfo.cs
-C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\NotificacaoPush\CondominioApp.OneSignal\obj\Debug\netstandard2.0\CondominioApp.OneSignal.csproj.CoreCompileInputs.cache
-C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\NotificacaoPush\CondominioApp.OneSignal\obj\Debug\netstandard2.0\CondominioApp.OneSignal.dll
-C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\NotificacaoPush\CondominioApp.OneSignal\obj\Debug\netstandard2.0\CondominioApp.OneSignal.pdb

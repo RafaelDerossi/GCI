@@ -1,9 +1,0 @@
-C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\Automacao\CondominioApp.EwelinkNET\EwelinkNet\bin\Debug\netstandard2.1\CondominioApp.EwelinkNet.deps.json
-C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\Automacao\CondominioApp.EwelinkNET\EwelinkNet\bin\Debug\netstandard2.1\CondominioApp.EwelinkNet.dll
-C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\Automacao\CondominioApp.EwelinkNET\EwelinkNet\bin\Debug\netstandard2.1\CondominioApp.EwelinkNet.pdb
-C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\Automacao\CondominioApp.EwelinkNET\EwelinkNet\obj\Debug\netstandard2.1\CondominioApp.EwelinkNet.csprojAssemblyReference.cache
-C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\Automacao\CondominioApp.EwelinkNET\EwelinkNet\obj\Debug\netstandard2.1\CondominioApp.EwelinkNet.AssemblyInfoInputs.cache
-C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\Automacao\CondominioApp.EwelinkNET\EwelinkNet\obj\Debug\netstandard2.1\CondominioApp.EwelinkNet.AssemblyInfo.cs
-C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\Automacao\CondominioApp.EwelinkNET\EwelinkNet\obj\Debug\netstandard2.1\CondominioApp.EwelinkNet.csproj.CoreCompileInputs.cache
-C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\Automacao\CondominioApp.EwelinkNET\EwelinkNet\obj\Debug\netstandard2.1\CondominioApp.EwelinkNet.dll
-C:\Users\MAPD-NOTE\Source\Repos\CondominioAppBackEnd2.0\src\Services\Automacao\CondominioApp.EwelinkNET\EwelinkNet\obj\Debug\netstandard2.1\CondominioApp.EwelinkNet.pdb
