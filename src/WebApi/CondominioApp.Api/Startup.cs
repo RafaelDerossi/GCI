@@ -1,5 +1,4 @@
 using CondominioApp.Api.Configuration;
-using CondominioApp.ReservaAreaComum.Aplication.FilaDeReservas;
 using CondominioApp.WebApi.Core.Identidade;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -23,17 +22,13 @@ namespace CondominioApp.Api
         {
             services.AddApiConfiguration(Configuration);
 
-            services.AddJwtConfiguration(Configuration);
-
-            services.ConfigurarAutoMapper();
+            services.AddJwtConfiguration(Configuration);            
 
             services.AddSwaggerConfiguration();
 
             services.AddMediatR(typeof(Startup));
 
-            services.RegisterServices();
-
-            services.AddHostedService<FilaDeReservaHostedService>();
+            services.RegisterServices();         
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -15,10 +15,10 @@ namespace CondominioApp.Api.Configuration
             {
                 c.SwaggerDoc("v1", new OpenApiInfo()
                 {
-                    Title = "CondominioApp API 2.0",
-                    Description = "Esta api expõe os recursos do sistema condominioapp para diversas interfaces (web/mobile) e serviços auxiliares como Marketplace, integrações com administradoras e features de tempo real.",
-                    Contact = new OpenApiContact() { Name = "CondominioApp Developer", Email = "contato@condominioapp.com"},
-                    License = new OpenApiLicense() { Name = "CondominioApp", Url = new Uri("https://www.condominioapp.com")}
+                    Title = "NInjaStore API 1.0",
+                    Description = "Esta api expõe os recursos do sistema NinjaStore para diversas interfaces (web/mobile).",
+                    Contact = new OpenApiContact() { Name = "Rafael Derossi - Developer", Email = "rafaelsderossi@gmail.com"},
+                    License = new OpenApiLicense() { Name = "NinjaStore", Url = new Uri("https://www.linkedin.com/in/rafael-derossi") }
                 });
 
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
