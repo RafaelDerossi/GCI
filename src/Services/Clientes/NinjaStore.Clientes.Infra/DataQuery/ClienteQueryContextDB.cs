@@ -10,6 +10,7 @@ using NinjaStore.Clientes.Domain.FlatModel;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using NinjaStore.Clientes.Domain.ValueObjects;
 
 namespace NinjaStore.Clientes.Infra.Data
 {
@@ -33,6 +34,7 @@ namespace NinjaStore.Clientes.Infra.Data
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ClienteQueryContextDB).Assembly);
 
             modelBuilder.Ignore<Cliente>();
+            modelBuilder.Ignore<Email>();
         }
 
         public async Task<bool> Commit()

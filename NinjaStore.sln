@@ -37,6 +37,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaStore.Clientes.Domain"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaStore.Clientes.Infra", "src\Services\Clientes\NinjaStore.Clientes.Infra\NinjaStore.Clientes.Infra.csproj", "{3BEE4E70-A00F-4447-9888-A15078F8590F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaStore.Clientes.Aplication", "src\Services\Clientes\NinjaStore.Clientes.Aplication\NinjaStore.Clientes.Aplication.csproj", "{8581081F-348A-4EB5-AABB-0FD1105986DD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,10 @@ Global
 		{3BEE4E70-A00F-4447-9888-A15078F8590F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3BEE4E70-A00F-4447-9888-A15078F8590F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3BEE4E70-A00F-4447-9888-A15078F8590F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8581081F-348A-4EB5-AABB-0FD1105986DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8581081F-348A-4EB5-AABB-0FD1105986DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8581081F-348A-4EB5-AABB-0FD1105986DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8581081F-348A-4EB5-AABB-0FD1105986DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -96,6 +102,7 @@ Global
 		{6630BCAB-28E4-42F8-BE2A-9F2D47AAFF02} = {743BE6D3-517D-43C4-B154-245031A3C034}
 		{1685F6D7-6656-452A-A0F3-F6F79143219D} = {4E64AE2E-CB43-4471-AFE1-D90A3DDC7555}
 		{3BEE4E70-A00F-4447-9888-A15078F8590F} = {4E64AE2E-CB43-4471-AFE1-D90A3DDC7555}
+		{8581081F-348A-4EB5-AABB-0FD1105986DD} = {4E64AE2E-CB43-4471-AFE1-D90A3DDC7555}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DA60CBD7-8A6E-436D-B07E-D654D162CE4B}

@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NinjaStore.Produtos.Infra.Data;
+using NinjaStore.Clientes.Infra.Data;
 
 namespace NinjaStore.Api.Configuration
 {
@@ -22,11 +23,11 @@ namespace NinjaStore.Api.Configuration
             services.AddDbContext<ProdutoContextDB>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("ProdutoConnection")));
 
-            //services.AddDbContext<PrincipalContextDB>(options =>
-            //   options.UseSqlServer(configuration.GetConnectionString("PrincipalConnection")));
+            services.AddDbContext<ClienteContextDB>(options =>
+               options.UseSqlServer(configuration.GetConnectionString("ClienteConnection")));
 
-            //services.AddDbContext<PreCadastroContextDB>(options =>
-            //    options.UseSqlServer(configuration.GetConnectionString("PreCadastroConnection")));
+            //services.AddDbContext<PedidoContextDB>(options =>
+            //    options.UseSqlServer(configuration.GetConnectionString("PedidoConnection")));
 
 
 
@@ -34,10 +35,10 @@ namespace NinjaStore.Api.Configuration
             services.AddDbContext<ProdutoQueryContextDB>(options =>
               options.UseSqlServer(configuration.GetConnectionString("QueryConnection")));
 
-            //services.AddDbContext<PrincipalQueryContextDB>(options =>
-            //  options.UseSqlServer(configuration.GetConnectionString("QueryConnection")));
+            services.AddDbContext<ClienteQueryContextDB>(options =>
+              options.UseSqlServer(configuration.GetConnectionString("QueryConnection")));
 
-            //services.AddDbContext<ReservaAreaComumQueryContextDB>(options =>
+            //services.AddDbContext<PedidoQueryContextDB>(options =>
             //  options.UseSqlServer(configuration.GetConnectionString("QueryConnection")));
 
 

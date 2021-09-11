@@ -4,6 +4,32 @@
         <name>NinjaStore.Api</name>
     </assembly>
     <members>
+        <member name="M:NinjaStore.Api.Controllers.ClienteController.ObterTodos">
+            <summary>
+            Retorna todos os cliente cadastrados;
+            </summary>
+            <response code="200">
+            Id: Guid do cliente;   
+            DataDeCadastro: Data em que o cliente foi cadastrado;   
+            DataDeCadastroFormatada: Data formatada para exibição em que o cliente foi cadastrado;   
+            DataDeAlteracao:  Data em que o cliente foi alterado;   
+            DataDeAlteracaoFormatada: Data formatada para exibição em que o cliente foi alterado;   
+            Lixeira: Informa se o cliente esta na lixeira;   
+            Nome: Nome do cliente;   
+            Email: Endereço de e-mail do cliente;   
+            Aldeia: Aldeia do cliente;   
+            </response>
+        </member>
+        <member name="M:NinjaStore.Api.Controllers.ClienteController.Post(NinjaStore.Clientes.Aplication.ViewModels.AdicionaClienteViewModel)">
+            <summary>
+            Adiciona um novo cliente
+            </summary>
+            <param name="viewModel">
+            Nome: Nome do cliente (Obrigatório)(De 1 a 200 caracteres);             
+            Email: Endereço de e-mail do cliente (Obrigatório);   
+            Aldeia: Aldeia do cliente (Obrigatório)(De 1 a 200 caracteres);   
+            </param>        
+        </member>
         <member name="M:NinjaStore.Api.Controllers.ProdutoController.ObterTodos">
             <summary>
             Retorna todos os produtos cadastrados;

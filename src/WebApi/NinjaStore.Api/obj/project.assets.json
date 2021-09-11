@@ -2536,6 +2536,50 @@
           "lib/netstandard1.3/System.Xml.XPath.XmlDocument.dll": {}
         }
       },
+      "NinjaStore.Clientes.Aplication/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "NinjaStore.Clientes.Domain": "1.0.0",
+          "NinjaStore.Clientes.Infra": "1.0.0",
+          "NinjaStore.Core": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/NinjaStore.Clientes.Aplication.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/NinjaStore.Clientes.Aplication.dll": {}
+        }
+      },
+      "NinjaStore.Clientes.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "NinjaStore.Core": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/NinjaStore.Clientes.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/NinjaStore.Clientes.Domain.dll": {}
+        }
+      },
+      "NinjaStore.Clientes.Infra/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "3.1.2",
+          "Microsoft.EntityFrameworkCore.SqlServer": "3.1.2",
+          "NinjaStore.Clientes.Domain": "1.0.0",
+          "NinjaStore.Core": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/NinjaStore.Clientes.Infra.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/NinjaStore.Clientes.Infra.dll": {}
+        }
+      },
       "NinjaStore.Core/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
@@ -8378,6 +8422,21 @@
         "system.xml.xpath.xmldocument.nuspec"
       ]
     },
+    "NinjaStore.Clientes.Aplication/1.0.0": {
+      "type": "project",
+      "path": "../../Services/Clientes/NinjaStore.Clientes.Aplication/NinjaStore.Clientes.Aplication.csproj",
+      "msbuildProject": "../../Services/Clientes/NinjaStore.Clientes.Aplication/NinjaStore.Clientes.Aplication.csproj"
+    },
+    "NinjaStore.Clientes.Domain/1.0.0": {
+      "type": "project",
+      "path": "../../Services/Clientes/NinjaStore.Clientes.Domain/NinjaStore.Clientes.Domain.csproj",
+      "msbuildProject": "../../Services/Clientes/NinjaStore.Clientes.Domain/NinjaStore.Clientes.Domain.csproj"
+    },
+    "NinjaStore.Clientes.Infra/1.0.0": {
+      "type": "project",
+      "path": "../../Services/Clientes/NinjaStore.Clientes.Infra/NinjaStore.Clientes.Infra.csproj",
+      "msbuildProject": "../../Services/Clientes/NinjaStore.Clientes.Infra/NinjaStore.Clientes.Infra.csproj"
+    },
     "NinjaStore.Core/1.0.0": {
       "type": "project",
       "path": "../../Building Blocks/NinjaStore.Core/NinjaStore.Core.csproj",
@@ -8413,6 +8472,9 @@
       "Microsoft.Extensions.Configuration.Json >= 3.1.2",
       "Microsoft.VisualStudio.Azure.Containers.Tools.Targets >= 1.10.9",
       "Newtonsoft.Json >= 12.0.3",
+      "NinjaStore.Clientes.Aplication >= 1.0.0",
+      "NinjaStore.Clientes.Domain >= 1.0.0",
+      "NinjaStore.Clientes.Infra >= 1.0.0",
       "NinjaStore.Core >= 1.0.0",
       "NinjaStore.Produtos.Aplication >= 1.0.0",
       "NinjaStore.Produtos.Domain >= 1.0.0",
@@ -8456,6 +8518,15 @@
             },
             "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Building Blocks\\NinjaStore.WebApi.Core\\NinjaStore.WebApi.Core.csproj": {
               "projectPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Building Blocks\\NinjaStore.WebApi.Core\\NinjaStore.WebApi.Core.csproj"
+            },
+            "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Aplication\\NinjaStore.Clientes.Aplication.csproj": {
+              "projectPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Aplication\\NinjaStore.Clientes.Aplication.csproj"
+            },
+            "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Domain\\NinjaStore.Clientes.Domain.csproj": {
+              "projectPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Domain\\NinjaStore.Clientes.Domain.csproj"
+            },
+            "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Infra\\NinjaStore.Clientes.Infra.csproj": {
+              "projectPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Infra\\NinjaStore.Clientes.Infra.csproj"
             },
             "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Produtos\\NinjaStore.Produtos.Aplication\\NinjaStore.Produtos.Aplication.csproj": {
               "projectPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Produtos\\NinjaStore.Produtos.Aplication\\NinjaStore.Produtos.Aplication.csproj"

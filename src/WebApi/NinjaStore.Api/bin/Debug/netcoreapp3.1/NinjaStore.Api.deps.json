@@ -31,6 +31,9 @@
           "Microsoft.Extensions.Configuration.Json": "3.1.2",
           "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": "1.10.9",
           "Newtonsoft.Json": "12.0.3",
+          "NinjaStore.Clientes.Aplication": "1.0.0",
+          "NinjaStore.Clientes.Domain": "1.0.0",
+          "NinjaStore.Clientes.Infra": "1.0.0",
           "NinjaStore.Core": "1.0.0",
           "NinjaStore.Produtos.Aplication": "1.0.0",
           "NinjaStore.Produtos.Domain": "1.0.0",
@@ -2023,6 +2026,44 @@
         },
         "compile": {
           "ref/netstandard1.3/System.Xml.XPath.XmlDocument.dll": {}
+        }
+      },
+      "NinjaStore.Clientes.Aplication/1.0.0": {
+        "dependencies": {
+          "NinjaStore.Clientes.Domain": "1.0.0",
+          "NinjaStore.Clientes.Infra": "1.0.0",
+          "NinjaStore.Core": "1.0.0"
+        },
+        "runtime": {
+          "NinjaStore.Clientes.Aplication.dll": {}
+        },
+        "compile": {
+          "NinjaStore.Clientes.Aplication.dll": {}
+        }
+      },
+      "NinjaStore.Clientes.Domain/1.0.0": {
+        "dependencies": {
+          "NinjaStore.Core": "1.0.0"
+        },
+        "runtime": {
+          "NinjaStore.Clientes.Domain.dll": {}
+        },
+        "compile": {
+          "NinjaStore.Clientes.Domain.dll": {}
+        }
+      },
+      "NinjaStore.Clientes.Infra/1.0.0": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "3.1.2",
+          "Microsoft.EntityFrameworkCore.SqlServer": "3.1.2",
+          "NinjaStore.Clientes.Domain": "1.0.0",
+          "NinjaStore.Core": "1.0.0"
+        },
+        "runtime": {
+          "NinjaStore.Clientes.Infra.dll": {}
+        },
+        "compile": {
+          "NinjaStore.Clientes.Infra.dll": {}
         }
       },
       "NinjaStore.Core/1.0.0": {
@@ -4895,6 +4936,21 @@
       "sha512": "sha512-A/uxsWi/Ifzkmd4ArTLISMbfFs6XpRPsXZonrIqyTY70xi8t+mDtvSM5Os0RqyRDobjMBwIDHDL4NOIbkDwf7A==",
       "path": "system.xml.xpath.xmldocument/4.3.0",
       "hashPath": "system.xml.xpath.xmldocument.4.3.0.nupkg.sha512"
+    },
+    "NinjaStore.Clientes.Aplication/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "NinjaStore.Clientes.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "NinjaStore.Clientes.Infra/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "NinjaStore.Core/1.0.0": {
       "type": "project",

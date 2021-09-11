@@ -78,7 +78,6 @@ C:\Users\MAPD-NOTE\source\repos\NinjaStore\src\WebApi\NinjaStore.Api\obj\Debug\n
 C:\Users\MAPD-NOTE\source\repos\NinjaStore\src\WebApi\NinjaStore.Api\obj\Debug\netcoreapp3.1\NinjaStore.Api.AssemblyInfoInputs.cache
 C:\Users\MAPD-NOTE\source\repos\NinjaStore\src\WebApi\NinjaStore.Api\obj\Debug\netcoreapp3.1\NinjaStore.Api.AssemblyInfo.cs
 C:\Users\MAPD-NOTE\source\repos\NinjaStore\src\WebApi\NinjaStore.Api\obj\Debug\netcoreapp3.1\NinjaStore.Api.csproj.CoreCompileInputs.cache
-C:\Users\MAPD-NOTE\source\repos\NinjaStore\src\WebApi\NinjaStore.Api\obj\Debug\netcoreapp3.1\NinjaStore.Api.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\MAPD-NOTE\source\repos\NinjaStore\src\WebApi\NinjaStore.Api\obj\Debug\netcoreapp3.1\NinjaStore.Api.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\MAPD-NOTE\source\repos\NinjaStore\src\WebApi\NinjaStore.Api\obj\Debug\netcoreapp3.1\NinjaStore.Api.dll
 C:\Users\MAPD-NOTE\source\repos\NinjaStore\src\WebApi\NinjaStore.Api\obj\Debug\netcoreapp3.1\NinjaStore.Api.xml
@@ -167,3 +166,10 @@ C:\Users\MAPD-NOTE\source\repos\NinjaStore\src\WebApi\NinjaStore.Api\bin\Debug\n
 C:\Users\MAPD-NOTE\source\repos\NinjaStore\src\WebApi\NinjaStore.Api\bin\Debug\netcoreapp3.1\NinjaStore.Produtos.Aplication.pdb
 C:\Users\MAPD-NOTE\source\repos\NinjaStore\src\WebApi\NinjaStore.Api\bin\Debug\netcoreapp3.1\NinjaStore.Produtos.Domain.pdb
 C:\Users\MAPD-NOTE\source\repos\NinjaStore\src\WebApi\NinjaStore.Api\bin\Debug\netcoreapp3.1\NinjaStore.Produtos.Infra.pdb
+C:\Users\MAPD-NOTE\source\repos\NinjaStore\src\WebApi\NinjaStore.Api\bin\Debug\netcoreapp3.1\NinjaStore.Clientes.Aplication.dll
+C:\Users\MAPD-NOTE\source\repos\NinjaStore\src\WebApi\NinjaStore.Api\bin\Debug\netcoreapp3.1\NinjaStore.Clientes.Domain.dll
+C:\Users\MAPD-NOTE\source\repos\NinjaStore\src\WebApi\NinjaStore.Api\bin\Debug\netcoreapp3.1\NinjaStore.Clientes.Infra.dll
+C:\Users\MAPD-NOTE\source\repos\NinjaStore\src\WebApi\NinjaStore.Api\bin\Debug\netcoreapp3.1\NinjaStore.Clientes.Aplication.pdb
+C:\Users\MAPD-NOTE\source\repos\NinjaStore\src\WebApi\NinjaStore.Api\bin\Debug\netcoreapp3.1\NinjaStore.Clientes.Domain.pdb
+C:\Users\MAPD-NOTE\source\repos\NinjaStore\src\WebApi\NinjaStore.Api\bin\Debug\netcoreapp3.1\NinjaStore.Clientes.Infra.pdb
+C:\Users\MAPD-NOTE\source\repos\NinjaStore\src\WebApi\NinjaStore.Api\obj\Debug\netcoreapp3.1\NinjaStore.Api.MvcApplicationPartsAssemblyInfo.cs

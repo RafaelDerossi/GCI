@@ -1,4 +1,5 @@
-﻿using NinjaStore.Core.DomainObjects;
+﻿using NinjaStore.Clientes.Domain.ValueObjects;
+using NinjaStore.Core.DomainObjects;
 using System;
 
 namespace NinjaStore.Clientes.Domain.FlatModel
@@ -47,11 +48,11 @@ namespace NinjaStore.Clientes.Domain.FlatModel
         {
         }
 
-        public ClienteFlat(Guid id, string nome, string email, string aldeia)
+        public ClienteFlat(Guid id, string nome, Email email, string aldeia)
         {
             Id = id;
             Nome = nome;
-            Email = email;
+            SetEmail(email);
             Aldeia = aldeia;
         }
 
@@ -63,7 +64,12 @@ namespace NinjaStore.Clientes.Domain.FlatModel
 
         public void SetNome(string nome) => Nome = nome;
 
-        public void SetEmail(Email email) => Email = email;
+        public void SetEmail(Email email)
+        {
+            if (email == null)
+                Email = "";
+            Email = email.Endereco;
+        }
 
         public void SetAldeia(string aldeia) => Aldeia = aldeia;
 

@@ -23,7 +23,7 @@ namespace NinjaStore.Produtos.Aplication.Events
         public async Task Handle(ProdutoAdicionadoEvent notification, CancellationToken cancellationToken)
         {
             var produtoFlat = new ProdutoFlat
-                (notification.Descricao, notification.Valor, notification.Foto);
+                (notification.Id, notification.Descricao, notification.Valor, notification.Foto);
            
             _produtoQueryRepository.Adicionar(produtoFlat);
            

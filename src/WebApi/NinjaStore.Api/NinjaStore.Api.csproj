@@ -44,6 +44,9 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Building Blocks\NinjaStore.Core\NinjaStore.Core.csproj" />
     <ProjectReference Include="..\..\Building Blocks\NinjaStore.WebApi.Core\NinjaStore.WebApi.Core.csproj" />
+    <ProjectReference Include="..\..\Services\Clientes\NinjaStore.Clientes.Aplication\NinjaStore.Clientes.Aplication.csproj" />
+    <ProjectReference Include="..\..\Services\Clientes\NinjaStore.Clientes.Domain\NinjaStore.Clientes.Domain.csproj" />
+    <ProjectReference Include="..\..\Services\Clientes\NinjaStore.Clientes.Infra\NinjaStore.Clientes.Infra.csproj" />
     <ProjectReference Include="..\..\Services\Produtos\NinjaStore.Produtos.Aplication\NinjaStore.Produtos.Aplication.csproj" />
     <ProjectReference Include="..\..\Services\Produtos\NinjaStore.Produtos.Domain\NinjaStore.Produtos.Domain.csproj" />
     <ProjectReference Include="..\..\Services\Produtos\NinjaStore.Produtos.Infra\NinjaStore.Produtos.Infra.csproj" />

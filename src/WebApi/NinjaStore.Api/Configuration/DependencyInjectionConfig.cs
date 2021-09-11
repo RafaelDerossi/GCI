@@ -7,6 +7,11 @@ using NinjaStore.Produtos.Aplication.Events;
 using NinjaStore.Produtos.Domain.Interfaces;
 using NinjaStore.Produtos.Infra.Data.Repository;
 using NinjaStore.Produtos.Aplication.Query;
+using NinjaStore.Clientes.Aplication.Commands;
+using NinjaStore.Clientes.Aplication.Events;
+using NinjaStore.Clientes.Aplication.Query;
+using NinjaStore.Clientes.Domain.Interfaces;
+using NinjaStore.Clientes.Infra.Data.Repository;
 
 namespace NinjaStore.Api.Configuration
 {
@@ -19,20 +24,21 @@ namespace NinjaStore.Api.Configuration
 
             #region Cliente -Contexto
             //Cliente
-            //services.AddScoped<IRequestHandler<AdicionarCorrespondenciaCommand, ValidationResult>, CorrespondenciaCommandHandler>();            
-            //services.AddScoped<INotificationHandler<RegistraHistoricoEvent>, HistoricoEventHandler>();            
+            services.AddScoped<IRequestHandler<AdicionarClienteCommand, ValidationResult>, ClienteCommandHandler>();            
+            services.AddScoped<INotificationHandler<ClienteAdicionadoEvent>, ClienteEventHandler>();            
             #endregion
 
             #region Produto -Contexto
             //Produto
             services.AddScoped<IRequestHandler<AdicionarProdutoCommand, ValidationResult>, ProdutoCommandHandler>();            
-            services.AddScoped<INotificationHandler<ProdutoAdicionadoEvent>, ProdutoEventHandler>();            
+            services.AddScoped<INotificationHandler<ProdutoAdicionadoEvent>, ProdutoEventHandler>();
 
             #endregion
 
             #region Pedido -Contexto
-
             //Pedido            
+            //services.AddScoped<IRequestHandler<AdicionarPedidoCommand, ValidationResult>, PedidoCommandHandler>();
+            //services.AddScoped<INotificationHandler<PedidoAdicionadoEvent>, PedidoEventHandler>();
 
             #endregion
 
@@ -40,19 +46,21 @@ namespace NinjaStore.Api.Configuration
 
             #region Querys            
             services.AddScoped<IProdutoQuery, ProdutoQuery>();            
-            //services.AddScoped<IClienteQuery, ClienteQuery>();            
+            services.AddScoped<IClienteQuery, ClienteQuery>();            
             //services.AddScoped<IPedidoQuery, PedidoQuery>();
             #endregion
 
             #region Repositórios                        
             services.AddScoped<IProdutoRepository, ProdutoRepository>();            
-            //services.AddScoped<IClienteRepository, ClienteRepository>();            
+            services.AddScoped<IClienteRepository, ClienteRepository>();            
             //services.AddScoped<IPedidoRepository, PedidoRepository>();            
 
             #endregion
 
             #region Repositórios Query                           
-            services.AddScoped<IProdutoQueryRepository, ProdutoQueryRepository>();                                    
+            services.AddScoped<IProdutoQueryRepository, ProdutoQueryRepository>();
+            services.AddScoped<IClienteQueryRepository, ClienteQueryRepository>();
+            //services.AddScoped<IPedidoQueryRepository, PedidoQueryRepository>();
             #endregion
 
         }
