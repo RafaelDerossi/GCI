@@ -1,5 +1,5 @@
 ﻿using CondominioApp.Core.Messages;
-using CondominioApp.Core.ValueObjects;
+using CondominioApp.Principal.Aplication.Events;
 using CondominioApp.Principal.Domain;
 using CondominioApp.Principal.Domain.Interfaces;
 using FluentValidation.Results;
@@ -11,96 +11,92 @@ using System.Threading.Tasks;
 namespace CondominioApp.Principal.Aplication.Commands
 {
     public class UnidadeCommandHandler : CommandHandler,
-         IRequestHandler<CadastrarUnidadeCommand, ValidationResult>,
-         IRequestHandler<AlterarUnidadeCommand, ValidationResult>,
-        IRequestHandler<ResetCodigoUnidadeCommand, ValidationResult>, IDisposable
+         IRequestHandler<AdicionarUnidadeCommand, ValidationResult>,
+         IRequestHandler<AtualizarUnidadeCommand, ValidationResult>,
+         IRequestHandler<ResetCodigoUnidadeCommand, ValidationResult>,
+         IRequestHandler<ApagarUnidadeCommand, ValidationResult>,
+         IRequestHandler<AtualizarVagasDaUnidadeCommand, ValidationResult>,
+         IDisposable
     {
 
-        private ICondominioRepository _condominioRepository;
+        private readonly IPrincipalRepository _condominioRepository;
 
-        public UnidadeCommandHandler(ICondominioRepository condominioRepository)
+        public UnidadeCommandHandler(IPrincipalRepository condominioRepository)
         {
             _condominioRepository = condominioRepository;
         }
 
 
-        public async Task<ValidationResult> Handle(CadastrarUnidadeCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(AdicionarUnidadeCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido()) return request.ValidationResult;
 
             var unidade = UnidadeFactory(request);
 
-            if (!ValidationResult.IsValid) return ValidationResult;
-
-            try
+            var grupo = await _condominioRepository.ObterGrupoPorId(request.GrupoId);
+            if (grupo == null)
             {
-                var grupo = _condominioRepository.ObterGrupoPorId(unidade.GrupoId).Result;
-                if (grupo == null)
-                {
-                    AdicionarErro("Grupo não encontrado.");
-                    return ValidationResult;
-                }
-
-                grupo.AdicionarUnidade(unidade);               
-            }
-            catch (Exception ex)
-            {
-                AdicionarErro(ex.Message);
+                AdicionarErro("Grupo não encontrado.");
                 return ValidationResult;
             }
 
+            var condominio = await _condominioRepository.ObterPorId(grupo.CondominioId);
+            if (condominio == null)
+            {
+                AdicionarErro("Condominio não encontrado.");
+                return ValidationResult;
+            }           
+
+            var resultado = grupo.AdicionarUnidade(unidade);
+
+            if (!resultado.IsValid) return resultado;
+
+            //Verifica se o codigo da unidade ja esta cadastrado
+            VerificaSeCodigoJaEstaCadastrado(unidade);
+
             _condominioRepository.AdicionarUnidade(unidade);
+
+            unidade.AdicionarEvento(
+                new UnidadeCadastradaEvent(unidade.Id,
+                unidade.Codigo, unidade.Numero, unidade.Andar, unidade.Vagas,
+                unidade.Telefone.Numero, unidade.Ramal, unidade.Complemento, unidade.GrupoId,
+                grupo.Descricao, unidade.CondominioId, condominio.Cnpj.Numero,
+                condominio.Nome, condominio.Logo.NomeDoArquivo));
 
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }
 
-        public async Task<ValidationResult> Handle(AlterarUnidadeCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(AtualizarUnidadeCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido()) return request.ValidationResult;
 
-
-            try
+            var unidadeBD = await _condominioRepository.ObterUnidadePorId(request.UnidadeId);
+            if (unidadeBD == null)
             {
-                var unidadeBD = _condominioRepository.ObterUnidadePorId(request.UnidadeId).Result;
-                if (unidadeBD == null)
-                {
-                    AdicionarErro("Unidade não encontrada.");
-                    return ValidationResult;
-                }
-
-                unidadeBD.SetNumero(request.Numero);
-                unidadeBD.SetAndar(request.Andar);
-                unidadeBD.SetVagas(request.Vaga);
-                unidadeBD.SetTelefone(new Telefone(request.Telefone));
-                unidadeBD.SetRamal(request.Ramal);
-                unidadeBD.SetComplemento(request.Complemento);
-
-
-                var grupo = _condominioRepository.ObterGrupoPorId(unidadeBD.GrupoId).Result;
-                if (grupo == null)
-                {
-                    AdicionarErro("Grupo não encontrado.");
-                    return ValidationResult;
-                }
-
-                grupo.AlterarUnidade(unidadeBD);
-
-                var condominio = _condominioRepository.ObterPorId(unidadeBD.CondominioId).Result;
-                if (condominio == null)
-                {
-                    AdicionarErro("Condominio não encontrado.");
-                    return ValidationResult;
-                }
-
-                condominio.AlterarGrupo(grupo);
-
-                _condominioRepository.Atualizar(condominio);
-            }
-            catch (Exception ex)
-            {
-                AdicionarErro(ex.Message);
+                AdicionarErro("Unidade não encontrada.");
                 return ValidationResult;
             }
+            
+            unidadeBD.SetNumero(request.Numero);
+            unidadeBD.SetAndar(request.Andar);
+            unidadeBD.SetVagas(request.Vaga);
+            unidadeBD.SetTelefone(request.Telefone);
+            unidadeBD.SetRamal(request.Ramal);
+            unidadeBD.SetComplemento(request.Complemento);          
+
+            var grupo = _condominioRepository.ObterGrupoPorId(unidadeBD.GrupoId).Result;
+            if (grupo == null)
+            {
+                AdicionarErro("Grupo não encontrado.");
+                return ValidationResult;
+            }
+
+            grupo.AlterarUnidade(unidadeBD);
+
+            unidadeBD.AdicionarEvento(
+               new UnidadeEditadaEvent(unidadeBD.Id,
+               unidadeBD.Numero, unidadeBD.Andar, unidadeBD.Vagas, unidadeBD.Telefone.Numero,
+               unidadeBD.Ramal, unidadeBD.Complemento));
 
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }
@@ -109,109 +105,87 @@ namespace CondominioApp.Principal.Aplication.Commands
         {
             if (!request.EstaValido()) return request.ValidationResult;
 
-            try
+            var unidadeBD = _condominioRepository.ObterUnidadePorId(request.UnidadeId).Result;
+
+            if (unidadeBD == null)
             {
-                var unidadeBD = _condominioRepository.ObterUnidadePorId(request.UnidadeId).Result;
-
-                if (unidadeBD == null)
-                {
-                    AdicionarErro("Unidade não encontrada.");
-                    return ValidationResult;
-                }
-
-                unidadeBD.ResetCodigo();
-
-                //Verifica se o codigo da unidade ja esta cadastrado
-                VerificaSeCodigoJaEstaCadastrado(unidadeBD);
-
-                var grupo = _condominioRepository.ObterGrupoPorId(unidadeBD.GrupoId).Result;
-                if (grupo == null)
-                {
-                    AdicionarErro("Grupo não encontrado.");
-                    return ValidationResult;
-                }
-
-                grupo.AlterarUnidade(unidadeBD);
-
-                var condominio = _condominioRepository.ObterPorId(unidadeBD.CondominioId).Result;
-                if (condominio == null)
-                {
-                    AdicionarErro("Condominio não encontrado.");
-                    return ValidationResult;
-                }
-
-                condominio.AlterarGrupo(grupo);
-
-                _condominioRepository.Atualizar(condominio);
-
-            }
-            catch (Exception ex)
-            {
-                AdicionarErro(ex.Message);
+                AdicionarErro("Unidade não encontrada.");
                 return ValidationResult;
             }
+
+            unidadeBD.ResetCodigo();
+
+            //Verifica se o codigo da unidade ja esta cadastrado
+            VerificaSeCodigoJaEstaCadastrado(unidadeBD);
+
+            unidadeBD.AdicionarEvento(
+              new CodigoUnidadeResetadoEvent(unidadeBD.Id, unidadeBD.Codigo));
+
+            return await PersistirDados(_condominioRepository.UnitOfWork);
+        }
+
+        public async Task<ValidationResult> Handle(ApagarUnidadeCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido()) return request.ValidationResult;
+
+            var unidadeBD = _condominioRepository.ObterUnidadePorId(request.UnidadeId).Result;
+
+            if (unidadeBD == null)
+            {
+                AdicionarErro("Unidade não encontrada.");
+                return ValidationResult;
+            }
+
+            _condominioRepository.ApagarUnidade(x=>x.Id == unidadeBD.Id);
+
+            unidadeBD.AdicionarEvento(new UnidadeRemovidaEvent(unidadeBD.Id));
+
+            return await PersistirDados(_condominioRepository.UnitOfWork);
+
+        }
+
+        public async Task<ValidationResult> Handle(AtualizarVagasDaUnidadeCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido()) return request.ValidationResult;
+
+            var unidadeBD = await _condominioRepository.ObterUnidadePorId(request.UnidadeId);
+            if (unidadeBD == null)
+            {
+                AdicionarErro("Unidade não encontrada.");
+                return ValidationResult;
+            }
+            
+            unidadeBD.SetVagas(request.Vaga);
+
+            _condominioRepository.AtualizarUnidade(unidadeBD);
+
+            unidadeBD.AdicionarEvento(
+               new VagaDeUnidadeEditadaEvent(unidadeBD.Id, unidadeBD.Vagas));
 
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }
 
 
-
-
         private Unidade UnidadeFactory(UnidadeCommand request)
         {
-            try
-            {               
-                if (!_condominioRepository.CondominioExiste(request.CondominioId).Result)
-                {
-                    AdicionarErro("Condominio não encontrado.");
-                    return null;
-                }
-
-                var unidade = new Unidade(
-                    request.Numero, request.Andar, request.Vaga, new Telefone(request.Telefone),
-                    request.Ramal, request.Complemento, request.GrupoId, request.CondominioId);
-
-                unidade.SetCodigo(request.Codigo);
-
-
-                //Verifica se o nome da unidade ja existe
-                if (_condominioRepository.UnidadeJaExiste(unidade.Numero, unidade.Andar, unidade.GrupoId, unidade.CondominioId).Result)
-                {
-                    AdicionarErro("Unidade informada ja consta no sistema.");
-                    return null;
-                }
-
-                //Verifica se o codigo da unidade ja esta cadastrado
-                VerificaSeCodigoJaEstaCadastrado(unidade);
-
-                return unidade;
-            }
-            catch (Exception ex)
-            {
-                AdicionarErro(ex.Message);
-                return null;
-            }
+            return new Unidade(request.Numero, request.Andar, request.Vaga, request.Telefone,
+                    request.Ramal, request.Complemento, request.GrupoId, request.CondominioId,
+                    request.Codigo);
         }
-         
+
         private void VerificaSeCodigoJaEstaCadastrado(Unidade unidade)
         {
             bool codigoIsValid = false;
             while (codigoIsValid == false)
             {
-                try
+                if (_condominioRepository.CodigoDaUnidadeJaExiste(unidade.Codigo, unidade.Id).Result)
                 {
-                    if (_condominioRepository.CodigoDaUnidadeJaExiste(unidade.Codigo, unidade.Id).Result)
-                    {
-                        unidade.ResetCodigo();
-                    }
-                    else
-                    {
-                        codigoIsValid = true;
-                    }
+                    unidade.ResetCodigo();
                 }
-                catch (Exception)
+                else
                 {
-                }
+                    codigoIsValid = true;
+                }                
             }
         }
 
@@ -220,6 +194,6 @@ namespace CondominioApp.Principal.Aplication.Commands
         {
             _condominioRepository?.Dispose();
         }
-        
+
     }
 }

@@ -1,140 +1,140 @@
-﻿using CondominioApp.Principal.Aplication.Commands;
+﻿using CondominioApp.Core.Enumeradores;
+using CondominioApp.Principal.Aplication.Commands;
 using System;
 
 namespace CondominioApp.Principal.Tests
 {
     public class CondominioCommandFactory
     {
+        private static AdicionarCondominioCommand CadastrarCondominioCommandFactory()
+        {
+            return new AdicionarCondominioCommand("26585345000148", "Condominio TU",
+                            "Condominio Teste Unitario", "Foto.jpg", "21997967038",
+                            "Rua...", null, "1001", "23063260", "Bairro", "Cidade", "RJ",
+                            false, false, false, false, false, false, false, false, false,
+                            false, false, false, false, false, false, false, false, false,
+                            false, false, DateTime.Today.Date, TipoDePlano.FREE,
+                            "Primeiro Contrato", true, "contrato.pdf", 10);
+        }
+        private static AtualizarCondominioCommand EditarCondominioCommandFactory()
+        {
+            return new AtualizarCondominioCommand(Guid.NewGuid(), "26585345000148", "Condominio TU",
+               "Condominio Teste Unitario", "21997967038", "Rua...", null, "1001", "23063260", "Bairro",
+               "Cidade", "RJ");
+        }
+
 
         /// <summary>
         /// CadastrarCommand
         /// </summary>
         /// <returns></returns>
-        public static CadastrarCondominioCommand CriarComandoCadastroDeCondominio()
+        public static AdicionarCondominioCommand CriarComandoCadastroDeCondominio()
         {
 
-            return new CadastrarCondominioCommand("26585345000148", "Condominio TU",
-                "Condominio Teste Unitario", "Foto.jpg", "Foto.jpg", "(21) 99796-7038",
-                "Rua...",null,"1001","23063260","Bairro","Cidade","RJ",
-                0, null, null, null, false, false, false, false, false, false, false, false,
-                false, false, false, false, false, false, false);
+           return CadastrarCondominioCommandFactory();
 
         }
 
-        public static CadastrarCondominioCommand CriarComandoCadastroDeCondominioSemNome()
+        public static AdicionarCondominioCommand CriarComandoCadastroDeCondominioSemNome()
         {
+            var comando = CadastrarCondominioCommandFactory();
 
-            return new CadastrarCondominioCommand("26585345000148", "",
-                "Condominio Teste Unitario", "Foto.jpg", "Foto.jpg", "(21) 99796-7038",
-                "Rua...", null, "1001", "23063260", "Bairro", "Cidade", "RJ", 0,
-                null, null, null, false, false, false, false, false, false, false, false,
-                false, false, false, false, false, false, false);
+            comando.SetNome("");
 
+            return comando;
+        }        
+
+        public static AdicionarCondominioCommand CriarComandoCadastroDeCondominioComCNPJInvalido()
+        {
+            var comando = CadastrarCondominioCommandFactory();
+
+            comando.SetCNPJ("26585345000150");
+
+            return comando;                      
         }
 
-        public static CadastrarCondominioCommand CriarComandoCadastroDeCondominioSemCNPJ()
+        public static AdicionarCondominioCommand CriarComandoCadastroDeCondominioSemFoto()
         {
+            var comando = CadastrarCondominioCommandFactory();
 
-            return new CadastrarCondominioCommand("", "Condominio TU",
-                "Condominio Teste Unitario", "Foto.jpg", "Foto.jpg", "(21) 99796-7038",
-                "Rua...", null, "1001", "23063260", "Bairro", "Cidade", "RJ", 0,
-                null, null, null, false, false, false, false, false, false, false, false,
-                false, false, false, false, false, false, false);
+            comando.SetLogo(null);
 
+            return comando;
         }
 
-        public static CadastrarCondominioCommand CriarComandoCadastroDeCondominioComCNPJInvalido()
+        public static AdicionarCondominioCommand CriarComandoCadastroDeCondominioSemTelefone()
         {
-            return new CadastrarCondominioCommand("26585345000150", "Condominio TU",
-                    "Condominio Teste Unitario", "Foto.jpg", "Foto.jpg", "(21) 99796-7038",
-                "Rua...", null, "1001", "23063260", "Bairro", "Cidade", "RJ", 0,
-                    null, null, null, false, false, false, false, false, false, false, false,
-                    false, false, false, false, false, false, false);
+            var comando = CadastrarCondominioCommandFactory();
 
+            comando.SetTelefone(null);
+
+            return comando;           
         }
 
-        public static CadastrarCondominioCommand CriarComandoCadastroDeCondominioSemFoto()
+        public static AdicionarCondominioCommand CriarComandoCadastroDeCondominioComTelefoneInvalido()
         {
+            var comando = CadastrarCondominioCommandFactory();
 
-            return new CadastrarCondominioCommand("26585345000148", "Condominio TU",
-                "Condominio Teste Unitario", null, null, "(21) 99796-7038",
-                "Rua...", null, "1001", "23063260", "Bairro", "Cidade", "RJ", 0,
-                null, null, null, false, false, false, false, false, false, false, false,
-                false, false, false, false, false, false, false);
+            comando.SetTelefone("219979670");
 
+            return comando;            
         }
 
-        public static CadastrarCondominioCommand CriarComandoCadastroDeCondominioSemTelefone()
+        public static AdicionarCondominioCommand CriarComandoCadastroDeCondominioSemContrato()
         {
+            var comando = CadastrarCondominioCommandFactory();
 
-            return new CadastrarCondominioCommand("26585345000148", "Condominio TU",
-                "Condominio Teste Unitario", "Foto.jpg", "Foto.jpg", null,
-                "Rua...", null, "1001", "23063260", "Bairro", "Cidade", "RJ", 0,
-                null, null, null, false, false, false, false, false, false, false, false,
-                false, false, false, false, false, false, false);
+            comando.SetContrato(DateTime.Today.Date, 0, "", false, "", 10);
 
-        }
-
-        public static CadastrarCondominioCommand CriarComandoCadastroDeCondominioComTelefoneInvalido()
-        {
-
-            return new CadastrarCondominioCommand("26585345000148", "Condominio TU",
-                "Condominio Teste Unitario", "Foto.jpg", "Foto.jpg", "2199796703",
-                "Rua...", null, "1001", "23063260", "Bairro", "Cidade", "RJ", 0,
-                null, null, null, false, false, false, false, false, false, false, false,
-                false, false, false, false, false, false, false);
-
+            return comando;
         }
 
         /// <summary>
-        /// AlterarCommand
+        /// EditarCommand
         /// </summary>
         /// <returns></returns>
-        public static AlterarCondominioCommand CriarComandoAlteracaoDeCondominio()
+        public static AtualizarCondominioCommand CriarComandoEdicaoDeCondominio()
         {
-
-            return new AlterarCondominioCommand(Guid.NewGuid(), "26585345000148", "Condominio TU",
-                "Condominio Teste Unitario", "Foto.jpg", "Foto.jpg", "(21) 99796-7038",
-                "Rua...", null, "1001", "23063260", "Bairro", "Cidade", "RJ");
-
+            return EditarCondominioCommandFactory();
         }
 
-        public static AlterarCondominioCommand CriarComandoAlteracaoDeCondominioSemCNPJ()
+        public static AtualizarCondominioCommand CriarComandoEdicaoDeCondominioSemCNPJ()
         {
+            var comando = EditarCondominioCommandFactory();
 
-            return new AlterarCondominioCommand(Guid.NewGuid(), null, "Condominio TU",
-                "Condominio Teste Unitario", "Foto.jpg", "Foto.jpg", "(21) 99796-7038",
-                "Rua...", null, "1001", "23063260", "Bairro", "Cidade", "RJ");
+            comando.SetCNPJ(null);
 
+            return comando;
         }
 
-        public static AlterarCondominioCommand CriarComandoAlteracaoDeCondominioComCNPJInvalido()
+        public static AtualizarCondominioCommand CriarComandoEdicaoDeCondominioComCNPJInvalido()
         {
+            var comando = EditarCondominioCommandFactory();
 
-            return new AlterarCondominioCommand(Guid.NewGuid(), "26585345000150", "Condominio TU",
-                "Condominio Teste Unitario", "Foto.jpg", "Foto.jpg", "(21) 99796-7038",
-                "Rua...", null, "1001", "23063260", "Bairro", "Cidade", "RJ");
+            comando.SetCNPJ("26585345000150");
 
+            return comando;
         }
 
-        public static AlterarCondominioCommand CriarComandoAlteracaoDeCondominioSemNome()
+        public static AtualizarCondominioCommand CriarComandoEdicaoDeCondominioSemNome()
         {
+            var comando = EditarCondominioCommandFactory();
 
-            return new AlterarCondominioCommand(Guid.NewGuid(), "26585345000148", null,
-                "Condominio Teste Unitario", "Foto.jpg", "Foto.jpg", "(21) 99796-7038",
-                "Rua...", null, "1001", "23063260", "Bairro", "Cidade", "RJ");
+            comando.SetNome(null);
 
+            return comando;
         }
 
         /// <summary>
-        /// AlterarConfiguracaoCommand
+        /// EditarConfiguracaoCommand
         /// </summary>
         /// <returns></returns>
-        public static AlterarConfiguracaoCondominioCommand CriarComandoAlteracaoDeConfiguracaoDoCondominio()
+        public static AtualizarConfiguracaoCondominioCommand CriarComandoEdicaoDeConfiguracaoDoCondominio()
         {
 
-            return new AlterarConfiguracaoCondominioCommand(Guid.NewGuid(), true, false, true,
-                false, false, false, false, false, false, false, false, false, false, false, false);
+            return new AtualizarConfiguracaoCondominioCommand(Guid.NewGuid(), true, false, true,
+                false, false, false, false, false, false, false, false, false, false, false, false,
+                false, false, false, false, false);
 
         }
     }

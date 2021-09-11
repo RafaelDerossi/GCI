@@ -1,5 +1,5 @@
 ﻿using CondominioApp.Core.Messages;
-using CondominioApp.Core.ValueObjects;
+using CondominioAppPreCadastro.App.ValueObjects;
 using CondominioAppPreCadastro.App.Models;
 using FluentValidation.Results;
 using MediatR;

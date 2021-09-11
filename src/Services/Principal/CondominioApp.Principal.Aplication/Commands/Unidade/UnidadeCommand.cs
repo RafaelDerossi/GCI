@@ -1,5 +1,5 @@
 ﻿using CondominioApp.Core.Messages;
-using CondominioApp.Core.ValueObjects;
+using CondominioApp.Principal.Domain.ValueObjects;
 using System;
 
 namespace CondominioApp.Principal.Aplication.Commands
@@ -16,7 +16,7 @@ namespace CondominioApp.Principal.Aplication.Commands
 
         public int Vaga { get; protected set; }
 
-        public string Telefone { get; protected set; }
+        public Telefone Telefone { get; protected set; }
 
         public string Ramal { get; protected set; }
 
@@ -26,6 +26,16 @@ namespace CondominioApp.Principal.Aplication.Commands
 
         public Guid CondominioId { get; protected set; }
 
-       
+        public void SetTelefone(string telefone)
+        {
+            try
+            {
+                Telefone = new Telefone(telefone);
+            }
+            catch (Exception e)
+            {
+                AdicionarErrosDeProcessamentoDoComando(e.Message);
+            }
+        }
     }
 }

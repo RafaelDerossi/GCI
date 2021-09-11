@@ -1,6 +1,8 @@
 ﻿using CondominioApp.Core.DomainObjects;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using FluentValidation.Results;
 
 namespace CondominioApp.Principal.Domain
 {
@@ -41,14 +43,36 @@ namespace CondominioApp.Principal.Domain
         public void SetCondominioId(Guid condominioId) => CondominioId = condominioId;
 
 
-        public void AdicionarUnidade(Unidade unidade)
+        public ValidationResult AdicionarUnidade(Unidade unidade)
         {
+            
+            if (_Unidades.Any(u => u.Numero == unidade.Numero && u.Andar == unidade.Andar &&
+                                   u.GrupoId == unidade.GrupoId))
+            {
+                AdicionarErrosDaEntidade("Já existe uma unidade com este número e andar neste bloco!");
+                return ValidationResult;
+            }
+
+            unidade.SetCondominioId(CondominioId);
             _Unidades.Add(unidade);
+
+            return ValidationResult;
         }
-        public void AlterarUnidade(Unidade unidade)
+
+        public ValidationResult AlterarUnidade(Unidade unidade)
         {
-            _Unidades.RemoveAll(u => u.Id == unidade.Id);
+            if (_Unidades.Any(u => u.Numero == unidade.Numero && u.Andar == unidade.Andar &&
+                                   u.GrupoId == unidade.GrupoId && u.Id != unidade.Id))
+            {
+                AdicionarErrosDaEntidade("Já existe uma unidade com este número e andar neste bloco!");
+                return ValidationResult;
+            }
+                      
+
+            _Unidades.Remove(unidade);
             _Unidades.Add(unidade);
+
+            return ValidationResult;
 
         }
     }

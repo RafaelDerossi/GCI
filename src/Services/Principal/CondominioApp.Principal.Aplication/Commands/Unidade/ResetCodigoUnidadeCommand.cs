@@ -1,5 +1,4 @@
-﻿using CondominioApp.Core.ValueObjects;
-using CondominioApp.Principal.Aplication.Commands.Validations;
+﻿using CondominioApp.Principal.Aplication.Commands.Validations;
 using System;
 
 namespace CondominioApp.Principal.Aplication.Commands
@@ -13,6 +12,9 @@ namespace CondominioApp.Principal.Aplication.Commands
 
         public override bool EstaValido()
         {
+            if (!ValidationResult.IsValid)
+                return ValidationResult.IsValid;
+
             ValidationResult = new ResetCodigoUnidadeCommandValidation().Validate(this);
             return ValidationResult.IsValid;
         }

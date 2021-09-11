@@ -58,15 +58,15 @@ namespace CondominioApp.Principal.Tests
 
 
         /// <summary>
-        /// AlterarCommand
+        /// EditarCommand
         /// </summary>
-        [Fact(DisplayName = "Alterar Grupo Válido")]
-        [Trait("Categoria", "Grupo - Alterar Command")]
-        public void AlteracaoDeGrupo_CommandoValido_DevePassarNaValidacao()
+        [Fact(DisplayName = "Editar Grupo Válido")]
+        [Trait("Categoria", "Grupo - EditarCommand")]
+        public void EdicaoDeGrupo_CommandoValido_DevePassarNaValidacao()
         {
 
             //Arrange
-            var Command = GrupoCommandFactory.CriarComandoAlteracaoDeGrupo();
+            var Command = GrupoCommandFactory.CriarComandoEdicaoDeGrupo();
 
             //Act
             var result = Command.EstaValido();
@@ -75,14 +75,14 @@ namespace CondominioApp.Principal.Tests
             Assert.True(result);
         }
 
-        [Fact(DisplayName = "Alterar Grupo Inválido - Sem Descricao")]
-        [Trait("Categoria", "Grupo - Alterar Command - Sem Descricao")]
-        public void AlteracaoDeGrupoSemDescricao_CommandoInvalido_NaoDevePassarNaValidacao()
+        [Fact(DisplayName = "Editar Grupo Inválido - Sem Descricao")]
+        [Trait("Categoria", "Grupo - EditarCommand - Sem Descricao")]
+        public void EdicaoDeGrupoSemDescricao_CommandoInvalido_NaoDevePassarNaValidacao()
         {
             try
             {
                 //Arrange
-                var Command = GrupoCommandFactory.CriarComandoAlteracaoDeGrupoSemDescricao();
+                var Command = GrupoCommandFactory.CriarComandoEdicaoDeGrupoSemDescricao();
 
                 //Act
                 var result = Command.EstaValido();
@@ -98,14 +98,14 @@ namespace CondominioApp.Principal.Tests
            
         }
 
-        [Fact(DisplayName = "Alterar Grupo Inválido - Sem Condominio")]
-        [Trait("Categoria", "Grupo - Alterar Command - Sem Condominio")]
-        public void AlteracaoDeGrupoSemCondominio_CommandoInvalido_NaoDevePassarNaValidacao()
+        [Fact(DisplayName = "Editar Grupo Inválido - Sem Condominio")]
+        [Trait("Categoria", "Grupo - EditarCommand - Sem Condominio")]
+        public void EdicaoDeGrupoSemCondominio_CommandoInvalido_NaoDevePassarNaValidacao()
         {
             try
             {
                 //Arrange
-                var Command = GrupoCommandFactory.CriarComandoAlteracaoDeGrupoSemCondominio();
+                var Command = GrupoCommandFactory.CriarComandoEdicaoDeGrupoSemCondominio();
 
                 //Act
                 var result = Command.EstaValido();

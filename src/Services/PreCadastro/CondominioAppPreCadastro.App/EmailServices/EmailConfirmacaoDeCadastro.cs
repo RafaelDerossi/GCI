@@ -6,9 +6,9 @@ namespace CondominioAppPreCadastro.App.EmailServices
 {
     public class EmailConfirmacaoDeCadastro : ServicoDeEmail
     {
-        private string _Assunto = "Confirmação de cadastro";
-        private string _NomeDoUsuario;
-        private string _EmailDoCliente;
+        private readonly string _Assunto = "Confirmação de cadastro";
+        private readonly string _NomeDoUsuario;
+        private readonly string _EmailDoCliente;
 
         public EmailConfirmacaoDeCadastro(string Email, string NomeDoUsuario)
         {
@@ -22,7 +22,7 @@ namespace CondominioAppPreCadastro.App.EmailServices
 
         public override string SubstituirValores()
         {
-            var CaminhoDoHtml = "wwwroot\\Email\\PreCadastro\\precadastro-cliente.html";
+            var CaminhoDoHtml = "wwwroot\\Emails\\PreCadastro\\precadastro-cliente.html";
 
             var conteudoDoHtmlDoEmail = File.ReadAllText(CaminhoDoHtml);
 

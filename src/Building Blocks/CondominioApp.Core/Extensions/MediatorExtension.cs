@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using CondominioApp.Core.DomainObjects;
 using CondominioApp.Core.Mediator;
@@ -21,13 +22,19 @@ namespace CondominioApp.Core.Extensions
             domainEntities.ToList()
                 .ForEach(entity => entity.Entity.LimparEventos());
 
-            var tasks = domainEvents
-                .Select(async (domainEvent) =>
-                {
-                    await mediator.PublicarEvento(domainEvent);
-                });
 
-            await Task.WhenAll(tasks);
+            foreach (var item in domainEvents)
+            {
+                await mediator.PublicarEvento(item);
+                Thread.Sleep(500);
+            }
+            //var tasks = domainEvents
+            //    .Select(async (domainEvent) =>
+            //    {
+            //        await mediator.PublicarEvento(domainEvent);                    
+            //    });
+
+            //await Task.WhenAll(tasks);
         }
     }
 }

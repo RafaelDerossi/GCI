@@ -1,7 +1,4 @@
-﻿using CondominioApp.Principal.Infra.Data;
-using CondominioApp.Usuarios.App.Data;
-using CondominioApp.WebApi.Core.Identidade;
-using CondominioAppPreCadastro.App.Data;
+﻿using CondominioApp.WebApi.Core.Identidade;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -20,14 +17,29 @@ namespace CondominioApp.Api.Configuration
         {
             services.AddControllers();
 
-            services.AddDbContext<UsuarioContextDB>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("UsuariosConnection")));
+            //Contexts
+            //services.AddDbContext<UsuarioContextDB>(options =>
+            //    options.UseSqlServer(configuration.GetConnectionString("UsuariosConnection")));
 
-            services.AddDbContext<PrincipalContextDB>(options =>
-               options.UseSqlServer(configuration.GetConnectionString("PrincipalConnection")));
+            //services.AddDbContext<PrincipalContextDB>(options =>
+            //   options.UseSqlServer(configuration.GetConnectionString("PrincipalConnection")));
 
-            services.AddDbContext<PreCadastroContextDB>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("PreCadastroConnection")));
+            //services.AddDbContext<PreCadastroContextDB>(options =>
+            //    options.UseSqlServer(configuration.GetConnectionString("PreCadastroConnection")));
+          
+
+
+            //Query Contexts
+            //services.AddDbContext<UsuarioQueryContextDB>(options =>
+            //  options.UseSqlServer(configuration.GetConnectionString("QueryConnection")));
+            
+            //services.AddDbContext<PrincipalQueryContextDB>(options =>
+            //  options.UseSqlServer(configuration.GetConnectionString("QueryConnection")));
+
+            //services.AddDbContext<ReservaAreaComumQueryContextDB>(options =>
+            //  options.UseSqlServer(configuration.GetConnectionString("QueryConnection")));
+
+        
 
             services.Configure<ApiBehaviorOptions>(options =>
             {

@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20210106134546_ChaveEstrangeiraNoPeriodoFlat.cs" />
+    <Compile Remove="Migrations\20210106134546_ChaveEstrangeiraNoPeriodoFlat.Designer.cs" />
+    <Compile Remove="Migrations\20210201194446_TempoDeIntervaloEntreReservasPorUnidade.cs" />
+    <Compile Remove="Migrations\20210201194446_TempoDeIntervaloEntreReservasPorUnidade.Designer.cs" />
+    <Compile Remove="Migrations\20210713123206_ProtocoloDaReserva.cs" />
+    <Compile Remove="Migrations\20210713123206_ProtocoloDaReserva.Designer.cs" />
+    <Compile Remove="Migrations\ReservaAreaComumQueryContextDBMigrations\20210104161745_CriaReservaFlat.cs" />
+    <Compile Remove="Migrations\ReservaAreaComumQueryContextDBMigrations\20210104161745_CriaReservaFlat.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Building Blocks\CondominioApp.Core\CondominioApp.Core.csproj" />
+    <ProjectReference Include="..\CondominioApp.ReservaAreaComum.Domain\CondominioApp.ReservaAreaComum.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,4 +1,4 @@
-﻿using CondominioApp.Core.ValueObjects;
+﻿using CondominioApp.Principal.Domain.ValueObjects;
 using CondominioApp.Principal.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -22,7 +22,7 @@ namespace CondominioApp.Principal.Infra.Data.Mapping
 
             builder.OwnsOne(u => u.Cnpj, cnpj =>
             {
-                cnpj.Property(u => u.numero)
+                cnpj.Property(u => u.Numero)
                     .IsRequired()
                     .HasMaxLength(Cnpj.Maxlength)
                     .HasColumnName("Cnpj")
@@ -37,7 +37,7 @@ namespace CondominioApp.Principal.Infra.Data.Mapping
                     .HasColumnType($"varchar({Telefone.NumeroMaximo})");
             });           
 
-            builder.OwnsOne(u => u.LogoMarca, ft =>
+            builder.OwnsOne(u => u.Logo, ft =>
             {
                 ft.Property(u => u.NomeDoArquivo)                    
                     .HasMaxLength(Foto.NomeFotoMaximo)
@@ -62,35 +62,33 @@ namespace CondominioApp.Principal.Infra.Data.Mapping
                     .HasColumnType($"varchar({Url.TamanhoMaximo})");
             });
 
-            builder.Property(u => u.Portaria).IsRequired().HasDefaultValueSql("0");
+            builder.Property(u => u.PortariaAtivada).IsRequired().HasDefaultValueSql("0");
 
-            builder.Property(u => u.PortariaMorador).IsRequired().HasDefaultValueSql("0");
+            builder.Property(u => u.PortariaParaMoradorAtivada).IsRequired().HasDefaultValueSql("0");
 
-            builder.Property(u => u.Classificado).IsRequired().HasDefaultValueSql("0");
+            builder.Property(u => u.ClassificadoAtivado).IsRequired().HasDefaultValueSql("0");
 
-            builder.Property(u => u.ClassificadoMorador).IsRequired().HasDefaultValueSql("0");
+            builder.Property(u => u.ClassificadoParaMoradorAtivado).IsRequired().HasDefaultValueSql("0");
 
-            builder.Property(u => u.Mural).IsRequired().HasDefaultValueSql("0");
+            builder.Property(u => u.MuralAtivado).IsRequired().HasDefaultValueSql("0");
 
-            builder.Property(u => u.MuralMorador).IsRequired().HasDefaultValueSql("0");
+            builder.Property(u => u.MuralParaMoradorAtivado).IsRequired().HasDefaultValueSql("0");
 
-            builder.Property(u => u.Chat).IsRequired().HasDefaultValueSql("0");
+            builder.Property(u => u.ChatAtivado).IsRequired().HasDefaultValueSql("0");
 
-            builder.Property(u => u.ChatMorador).IsRequired().HasDefaultValueSql("0");
+            builder.Property(u => u.ChatParaMoradorAtivado).IsRequired().HasDefaultValueSql("0");
 
-            builder.Property(u => u.Reserva).IsRequired().HasDefaultValueSql("0");
+            builder.Property(u => u.ReservaAtivada).IsRequired().HasDefaultValueSql("0");
 
-            builder.Property(u => u.ReservaNaPortaria).IsRequired().HasDefaultValueSql("0");
+            builder.Property(u => u.ReservaNaPortariaAtivada).IsRequired().HasDefaultValueSql("0");
 
-            builder.Property(u => u.Ocorrencia).IsRequired().HasDefaultValueSql("0");
+            builder.Property(u => u.OcorrenciaAtivada).IsRequired().HasDefaultValueSql("0");
 
-            builder.Property(u => u.OcorrenciaMorador).IsRequired().HasDefaultValueSql("0");
+            builder.Property(u => u.OcorrenciaParaMoradorAtivada).IsRequired().HasDefaultValueSql("0");
 
-            builder.Property(u => u.Correspondencia).IsRequired().HasDefaultValueSql("0");
+            builder.Property(u => u.CorrespondenciaAtivada).IsRequired().HasDefaultValueSql("0");
 
-            builder.Property(u => u.CorrespondenciaNaPortaria).IsRequired().HasDefaultValueSql("0");
-
-            builder.Property(u => u.LimiteTempoReserva).IsRequired().HasDefaultValueSql("0");
+            builder.Property(u => u.CorrespondenciaNaPortariaAtivada).IsRequired().HasDefaultValueSql("0");            
 
             builder.OwnsOne(x => x.Endereco, endereco =>
             {
@@ -102,6 +100,8 @@ namespace CondominioApp.Principal.Infra.Data.Mapping
                 endereco.Property(e => e.cidade).HasColumnName("Cidade").HasMaxLength(Endereco.CidadeMaximo);
                 endereco.Property(e => e.estado).HasColumnName("Estado").HasMaxLength(Endereco.EstadoMaximo);               
             });
+
+            
         }
     }
 }

@@ -12,11 +12,17 @@ namespace CondominioApp.Core.Messages
         protected Command()
         {
             Timestamp = DateTime.Now;
+            ValidationResult = new ValidationResult();
         }
 
         public virtual bool EstaValido()
         {
             return ValidationResult.IsValid;
+        }
+
+        public void AdicionarErrosDeProcessamentoDoComando(string mensagemDeErro)
+        {
+            ValidationResult.Errors.Add(new ValidationFailure(string.Empty,mensagemDeErro));
         }
     }
 }

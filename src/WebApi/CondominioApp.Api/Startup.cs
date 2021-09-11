@@ -12,8 +12,9 @@ namespace CondominioApp.Api
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            Configuration = configuration;          
         }
+
 
         public IConfiguration Configuration { get; }
 
@@ -21,13 +22,13 @@ namespace CondominioApp.Api
         {
             services.AddApiConfiguration(Configuration);
 
-            services.AddJwtConfiguration(Configuration);
+            services.AddJwtConfiguration(Configuration);            
 
             services.AddSwaggerConfiguration();
 
             services.AddMediatR(typeof(Startup));
 
-            services.RegisterServices();
+            services.RegisterServices();         
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

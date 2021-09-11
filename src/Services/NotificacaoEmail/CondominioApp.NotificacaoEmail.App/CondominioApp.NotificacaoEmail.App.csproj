@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Building Blocks\CondominioApp.Core\CondominioApp.Core.csproj" />
+    <ProjectReference Include="..\..\ArquivoDigital\CondominioApp.ArquivoDigital.App\CondominioApp.ArquivoDigital.App.csproj" />
+    <ProjectReference Include="..\..\Principal\CondominioApp.Principal.Aplication\CondominioApp.Principal.Aplication.csproj" />
+    <ProjectReference Include="..\..\Usuario\CondominioApp.Usuarios.App\CondominioApp.Usuarios.App.csproj" />
+  </ItemGroup>
+
+</Project>

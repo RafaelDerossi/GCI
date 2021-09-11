@@ -1,4 +1,5 @@
 ﻿using CondominioApp.Core.Messages;
+using CondominioApp.Principal.Aplication.Events;
 using CondominioApp.Principal.Domain;
 using CondominioApp.Principal.Domain.Interfaces;
 using FluentValidation.Results;
@@ -10,117 +11,104 @@ using System.Threading.Tasks;
 namespace CondominioApp.Principal.Aplication.Commands
 {
     public class GrupoCommandHandler : CommandHandler,
-         IRequestHandler<CadastrarGrupoCommand, ValidationResult>,
-        IRequestHandler<AlterarGrupoCommand, ValidationResult>, IDisposable
+         IRequestHandler<AdicionarGrupoCommand, ValidationResult>,
+         IRequestHandler<AtualizarGrupoCommand, ValidationResult>,
+         IRequestHandler<ApagarGrupoCommand, ValidationResult>, IDisposable
     {
 
-        private ICondominioRepository _condominioRepository;
+        private readonly IPrincipalRepository _condominioRepository;
 
-        public GrupoCommandHandler(ICondominioRepository condominioRepository)
+        public GrupoCommandHandler(IPrincipalRepository condominioRepository)
         {
             _condominioRepository = condominioRepository;
         }
 
 
-        public async Task<ValidationResult> Handle(CadastrarGrupoCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(AdicionarGrupoCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido()) return request.ValidationResult;
 
-            var grupo = GrupoFactory(request);
+            var grupo = new Grupo(request.Descricao, request.CondominioId);
 
             if (!ValidationResult.IsValid) return ValidationResult;
 
-            try
+            var condominio = await _condominioRepository.ObterPorId(grupo.CondominioId);
+            if (condominio == null)
             {
-                var condominio = _condominioRepository.ObterPorId(grupo.CondominioId).Result;
-                if (condominio == null)
-                {
-                    AdicionarErro("Condominio não encontrado.");
-                    return ValidationResult;
-                }
-                condominio.AdicionarGrupo(grupo);
-            }
-            catch (Exception ex)
-            {
-                AdicionarErro(ex.Message);
+                AdicionarErro("Condominio não encontrado.");
                 return ValidationResult;
-            }   
+            }
+
+            var resultado = condominio.AdicionarGrupo(grupo);
+
+            if (!resultado.IsValid) return resultado;
 
             _condominioRepository.AdicionarGrupo(grupo);
 
+            grupo.AdicionarEvento(
+                new GrupoCadastradoEvent(grupo.Id,
+                grupo.Descricao, grupo.CondominioId, condominio.Cnpj.Numero,
+                condominio.Nome, condominio.Logo.NomeDoArquivo));
+
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }
 
-        public async Task<ValidationResult> Handle(AlterarGrupoCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(AtualizarGrupoCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido()) return request.ValidationResult;
 
-            try
+            var grupoBd = _condominioRepository.ObterGrupoPorId(request.GrupoId).Result;
+            if (grupoBd == null)
             {
-                var grupoBd = _condominioRepository.ObterGrupoPorId(request.GrupoId).Result;
-                if (grupoBd == null)
-                {
-                    AdicionarErro("Grupo não encontrado.");
-                    return ValidationResult;
-                }
-
-                grupoBd.SetDescricao(request.Descricao);
-
-                if (_condominioRepository.GrupoJaExiste(grupoBd.Descricao, grupoBd.CondominioId, grupoBd.Id).Result)
-                {
-                    AdicionarErro("Grupo informado ja consta no sistema.");
-                    return ValidationResult;
-                }
-
-                var condominio = _condominioRepository.ObterPorId(grupoBd.CondominioId).Result;
-                if (condominio == null)
-                {
-                    AdicionarErro("Condominio não encontrado.");
-                    return ValidationResult;
-                }
-                condominio.AlterarGrupo(grupoBd);
-
-                _condominioRepository.Atualizar(condominio);
-
-            }
-            catch (Exception ex)
-            {
-                AdicionarErro(ex.Message);
+                AdicionarErro("Grupo não encontrado.");
                 return ValidationResult;
-            }         
+            }
+
+            grupoBd.SetDescricao(request.Descricao);
+
+            var condominio = _condominioRepository.ObterPorId(grupoBd.CondominioId).Result;
+            if (condominio == null)
+            {
+                AdicionarErro("Condominio não encontrado.");
+                return ValidationResult;
+            }
+
+            var resultado = condominio.AlterarGrupo(grupoBd);
+
+            if (!resultado.IsValid) return resultado;
+
+            _condominioRepository.Atualizar(condominio);
+
+            grupoBd.AdicionarEvento(
+              new GrupoEditadoEvent(grupoBd.Id, grupoBd.Descricao));
 
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }
 
-
-
-        private Grupo GrupoFactory(CadastrarGrupoCommand request)
+        public async Task<ValidationResult> Handle(ApagarGrupoCommand request, CancellationToken cancellationToken)
         {
-            try
-            {
-                var grupo = new Grupo(request.Descricao, request.CondominioId);
+            if (!request.EstaValido()) return request.ValidationResult;
 
-                //Verifica se um Grupo com a mesma descricao ja esta cadastrado
-                if (_condominioRepository.GrupoJaExiste(grupo.Descricao, grupo.CondominioId, grupo.Id).Result)
-                {
-                    AdicionarErro("Grupo informado ja consta no sistema.");                   
-                }                
+            var grupoBd = _condominioRepository.ObterGrupoPorId(request.GrupoId).Result;
 
-                return grupo;
-            }
-            catch (Exception ex)
+            if (grupoBd == null)
             {
-                AdicionarErro(ex.Message);
-                return null;
+                AdicionarErro("Grupo não encontrado.");
+                return ValidationResult;
             }
+
+            _condominioRepository.ApagarGrupo(x=>x.Id == grupoBd.Id);
+
+            grupoBd.AdicionarEvento(
+             new GrupoApagadoEvent(grupoBd.Id));
+
+            return await PersistirDados(_condominioRepository.UnitOfWork);
         }
-
-
+        
         public void Dispose()
         {
             _condominioRepository?.Dispose();
         }
 
-      
     }
 }

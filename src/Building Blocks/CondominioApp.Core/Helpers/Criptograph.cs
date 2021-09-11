@@ -12,7 +12,7 @@ namespace CondominioApp.Core.Helpers
         /// <summary>     
         /// Vetor de bytes utilizados para a criptografia (Chave Externa)     
         /// </summary>     
-        private static byte[] bIV =
+        private static readonly byte[] bIV =
         { 0x50, 0x08, 0xF1, 0xDD, 0xDE, 0x3C, 0xF2, 0x18,
         0x44, 0x74, 0x19, 0x2C, 0x53, 0x49, 0xAB, 0xBC };
 
@@ -23,12 +23,7 @@ namespace CondominioApp.Core.Helpers
         /// A chave é: "Criptografias com Rijndael / AES"     
         /// </summary>     
         public const string cryptoKey = "Q3JpcHRvZ3JhZmlhcyBjb20gUmluamRhZWwgLyBBRVM=";
-
-        public static string Decrypt(int escolaId)
-        {
-            throw new NotImplementedException();
-        }
-
+              
         /// <summary>     
         /// Metodo de criptografia de valor     
         /// </summary>     
@@ -46,12 +41,14 @@ namespace CondominioApp.Core.Helpers
                     byte[] bText = new UTF8Encoding().GetBytes(text);
 
                     // Instancia a classe de criptografia Rijndael
-                    Rijndael rijndael = new RijndaelManaged();
+                    Rijndael rijndael = new RijndaelManaged
+                    {
 
-                    // Define o tamanho da chave "256 = 8 * 32"                
-                    // Lembre-se: chaves possíves:                
-                    // 128 (16 caracteres), 192 (24 caracteres) e 256 (32 caracteres)                
-                    rijndael.KeySize = 256;
+                        // Define o tamanho da chave "256 = 8 * 32"                
+                        // Lembre-se: chaves possíves:                
+                        // 128 (16 caracteres), 192 (24 caracteres) e 256 (32 caracteres)                
+                        KeySize = 256
+                    };
 
                     // Cria o espaço de memória para guardar o valor criptografado:                
                     MemoryStream mStream = new MemoryStream();
@@ -104,12 +101,14 @@ namespace CondominioApp.Core.Helpers
                     byte[] bText = Convert.FromBase64String(text);
 
                     // Instancia a classe de criptografia Rijndael                
-                    Rijndael rijndael = new RijndaelManaged();
+                    Rijndael rijndael = new RijndaelManaged
+                    {
 
-                    // Define o tamanho da chave "256 = 8 * 32"                
-                    // Lembre-se: chaves possíves:                
-                    // 128 (16 caracteres), 192 (24 caracteres) e 256 (32 caracteres)                
-                    rijndael.KeySize = 256;
+                        // Define o tamanho da chave "256 = 8 * 32"                
+                        // Lembre-se: chaves possíves:                
+                        // 128 (16 caracteres), 192 (24 caracteres) e 256 (32 caracteres)                
+                        KeySize = 256
+                    };
 
                     // Cria o espaço de memória para guardar o valor DEScriptografado:               
                     MemoryStream mStream = new MemoryStream();

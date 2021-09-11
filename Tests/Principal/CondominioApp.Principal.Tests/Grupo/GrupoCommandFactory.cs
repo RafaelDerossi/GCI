@@ -12,11 +12,11 @@ namespace CondominioApp.Principal.Tests
         /// CadastrarGrupoCommand
         /// </summary>
         /// <returns></returns>
-        public static CadastrarGrupoCommand CriarComandoCadastroDeGrupo()
+        public static AdicionarGrupoCommand CriarComandoCadastroDeGrupo()
         {
             try
             {
-                return new CadastrarGrupoCommand("Bloco 1", Guid.Parse("8a1daec5-ead4-4baa-9fb2-81c8c2d46841"));
+                return new AdicionarGrupoCommand("Bloco 1", Guid.Parse("8a1daec5-ead4-4baa-9fb2-81c8c2d46841"));
             }
             catch (Exception)
             {
@@ -24,11 +24,11 @@ namespace CondominioApp.Principal.Tests
             }           
         }
 
-        public static CadastrarGrupoCommand CriarComandoCadastroDeGrupoSemDescricao()
+        public static AdicionarGrupoCommand CriarComandoCadastroDeGrupoSemDescricao()
         {
             try
             {
-                return new CadastrarGrupoCommand("", Guid.NewGuid());
+                return new AdicionarGrupoCommand("", Guid.NewGuid());
             }
             catch (Exception)
             {
@@ -36,11 +36,11 @@ namespace CondominioApp.Principal.Tests
             }
         }
 
-        public static CadastrarGrupoCommand CriarComandoCadastroDeGrupoSemCondominio()
+        public static AdicionarGrupoCommand CriarComandoCadastroDeGrupoSemCondominio()
         {
             try
             {
-                return new CadastrarGrupoCommand("Bloco 1", Guid.Empty);
+                return new AdicionarGrupoCommand("Bloco 1", Guid.Empty);
             }
             catch (Exception)
             {
@@ -50,14 +50,14 @@ namespace CondominioApp.Principal.Tests
 
 
         /// <summary>
-        /// AlterarGrupoCommand
+        /// EditarGrupoCommand
         /// </summary>
         /// <returns></returns>
-        public static AlterarGrupoCommand CriarComandoAlteracaoDeGrupo()
+        public static AtualizarGrupoCommand CriarComandoEdicaoDeGrupo()
         {
             try
             {
-                return new AlterarGrupoCommand(Guid.NewGuid(), "Bloco 1");
+                return new AtualizarGrupoCommand(Guid.NewGuid(), "Bloco 1");
             }
             catch (Exception)
             {
@@ -65,11 +65,11 @@ namespace CondominioApp.Principal.Tests
             }
         }
 
-        public static AlterarGrupoCommand CriarComandoAlteracaoDeGrupoSemDescricao()
+        public static AtualizarGrupoCommand CriarComandoEdicaoDeGrupoSemDescricao()
         {
             try
             {
-                return new AlterarGrupoCommand(Guid.NewGuid(), null);
+                return new AtualizarGrupoCommand(Guid.NewGuid(), null);
             }
             catch (Exception)
             {
@@ -77,11 +77,11 @@ namespace CondominioApp.Principal.Tests
             }
         }
 
-        public static AlterarGrupoCommand CriarComandoAlteracaoDeGrupoSemCondominio()
+        public static AtualizarGrupoCommand CriarComandoEdicaoDeGrupoSemCondominio()
         {
             try
             {
-                return new AlterarGrupoCommand(Guid.Empty, "Bloco 1");
+                return new AtualizarGrupoCommand(Guid.Empty, "Bloco 1");
             }
             catch (Exception)
             {

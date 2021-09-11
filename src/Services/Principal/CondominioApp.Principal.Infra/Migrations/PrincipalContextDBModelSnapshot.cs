@@ -25,35 +25,44 @@ namespace CondominioApp.Principal.Infra.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<bool>("AutomacaoAtivada")
+                        .HasColumnType("bit");
+
                     b.Property<string>("BoletoFolder")
                         .HasColumnType("varchar(200)");
 
-                    b.Property<bool>("Chat")
+                    b.Property<bool>("CadastroDeVeiculoPeloMoradorAtivado")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("ChatAtivado")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
                         .HasDefaultValueSql("0");
 
-                    b.Property<bool>("ChatMorador")
+                    b.Property<bool>("ChatParaMoradorAtivado")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
                         .HasDefaultValueSql("0");
 
-                    b.Property<bool>("Classificado")
+                    b.Property<bool>("ClassificadoAtivado")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
                         .HasDefaultValueSql("0");
 
-                    b.Property<bool>("ClassificadoMorador")
+                    b.Property<bool>("ClassificadoParaMoradorAtivado")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
                         .HasDefaultValueSql("0");
 
-                    b.Property<bool>("Correspondencia")
+                    b.Property<bool>("ControleDeAcessoAtivado")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("CorrespondenciaAtivada")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
                         .HasDefaultValueSql("0");
 
-                    b.Property<bool>("CorrespondenciaNaPortaria")
+                    b.Property<bool>("CorrespondenciaNaPortariaAtivada")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
                         .HasDefaultValueSql("0");
@@ -67,10 +76,11 @@ namespace CondominioApp.Principal.Infra.Migrations
                     b.Property<string>("Descricao")
                         .HasColumnType("varchar(200)");
 
-                    b.Property<bool>("LimiteTempoReserva")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValueSql("0");
+                    b.Property<bool>("EnqueteAtivada")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("FuncionarioIdDoSindico")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("LinkGeraBoleto")
                         .HasColumnType("varchar(200)");
@@ -78,12 +88,12 @@ namespace CondominioApp.Principal.Infra.Migrations
                     b.Property<bool>("Lixeira")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("Mural")
+                    b.Property<bool>("MuralAtivado")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
                         .HasDefaultValueSql("0");
 
-                    b.Property<bool>("MuralMorador")
+                    b.Property<bool>("MuralParaMoradorAtivado")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
                         .HasDefaultValueSql("0");
@@ -92,22 +102,25 @@ namespace CondominioApp.Principal.Infra.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(200)");
 
-                    b.Property<bool>("Ocorrencia")
+                    b.Property<bool>("OcorrenciaAtivada")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
                         .HasDefaultValueSql("0");
 
-                    b.Property<bool>("OcorrenciaMorador")
+                    b.Property<bool>("OcorrenciaParaMoradorAtivada")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
                         .HasDefaultValueSql("0");
 
-                    b.Property<bool>("Portaria")
+                    b.Property<bool>("OrcamentoAtivado")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("PortariaAtivada")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
                         .HasDefaultValueSql("0");
 
-                    b.Property<bool>("PortariaMorador")
+                    b.Property<bool>("PortariaParaMoradorAtivada")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
                         .HasDefaultValueSql("0");
@@ -115,19 +128,63 @@ namespace CondominioApp.Principal.Infra.Migrations
                     b.Property<int?>("RefereciaId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Reserva")
+                    b.Property<bool>("ReservaAtivada")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
                         .HasDefaultValueSql("0");
 
-                    b.Property<bool>("ReservaNaPortaria")
+                    b.Property<bool>("ReservaNaPortariaAtivada")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
                         .HasDefaultValueSql("0");
+
+                    b.Property<bool>("TarefaAtivada")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
                     b.ToTable("Condominios");
+                });
+
+            modelBuilder.Entity("CondominioApp.Principal.Domain.Contrato", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Ativo")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("CondominioId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("DataAssinatura")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DataDeAlteracao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DataDeCadastro")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<bool>("Lixeira")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("QuantidadeDeUnidadesContratada")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Tipo")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CondominioId");
+
+                    b.ToTable("Contratos");
                 });
 
             modelBuilder.Entity("CondominioApp.Principal.Domain.Grupo", b =>
@@ -215,16 +272,16 @@ namespace CondominioApp.Principal.Infra.Migrations
 
             modelBuilder.Entity("CondominioApp.Principal.Domain.Condominio", b =>
                 {
-                    b.OwnsOne("CondominioApp.Core.ValueObjects.Cnpj", "Cnpj", b1 =>
+                    b.OwnsOne("CondominioApp.Principal.Domain.ValueObjects.Cnpj", "Cnpj", b1 =>
                         {
                             b1.Property<Guid>("CondominioId")
                                 .HasColumnType("uniqueidentifier");
 
-                            b1.Property<string>("numero")
+                            b1.Property<string>("Numero")
                                 .IsRequired()
                                 .HasColumnName("Cnpj")
-                                .HasColumnType("varchar(18)")
-                                .HasMaxLength(18);
+                                .HasColumnType("varchar(14)")
+                                .HasMaxLength(14);
 
                             b1.HasKey("CondominioId");
 
@@ -234,7 +291,55 @@ namespace CondominioApp.Principal.Infra.Migrations
                                 .HasForeignKey("CondominioId");
                         });
 
-                    b.OwnsOne("CondominioApp.Core.ValueObjects.Foto", "LogoMarca", b1 =>
+                    b.OwnsOne("CondominioApp.Principal.Domain.ValueObjects.Endereco", "Endereco", b1 =>
+                        {
+                            b1.Property<Guid>("CondominioId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("bairro")
+                                .HasColumnName("Bairro")
+                                .HasColumnType("nvarchar(200)")
+                                .HasMaxLength(200);
+
+                            b1.Property<string>("cep")
+                                .HasColumnName("Cep")
+                                .HasColumnType("nvarchar(10)")
+                                .HasMaxLength(10);
+
+                            b1.Property<string>("cidade")
+                                .HasColumnName("Cidade")
+                                .HasColumnType("nvarchar(200)")
+                                .HasMaxLength(200);
+
+                            b1.Property<string>("complemento")
+                                .HasColumnName("Complemento")
+                                .HasColumnType("nvarchar(200)")
+                                .HasMaxLength(200);
+
+                            b1.Property<string>("estado")
+                                .HasColumnName("Estado")
+                                .HasColumnType("nvarchar(100)")
+                                .HasMaxLength(100);
+
+                            b1.Property<string>("logradouro")
+                                .HasColumnName("Logradouro")
+                                .HasColumnType("nvarchar(200)")
+                                .HasMaxLength(200);
+
+                            b1.Property<string>("numero")
+                                .HasColumnName("Numero")
+                                .HasColumnType("nvarchar(50)")
+                                .HasMaxLength(50);
+
+                            b1.HasKey("CondominioId");
+
+                            b1.ToTable("Condominios");
+
+                            b1.WithOwner()
+                                .HasForeignKey("CondominioId");
+                        });
+
+                    b.OwnsOne("CondominioApp.Principal.Domain.ValueObjects.Foto", "LogoMarca", b1 =>
                         {
                             b1.Property<Guid>("CondominioId")
                                 .HasColumnType("uniqueidentifier");
@@ -257,15 +362,15 @@ namespace CondominioApp.Principal.Infra.Migrations
                                 .HasForeignKey("CondominioId");
                         });
 
-                    b.OwnsOne("CondominioApp.Core.ValueObjects.Telefone", "Telefone", b1 =>
+                    b.OwnsOne("CondominioApp.Principal.Domain.ValueObjects.Telefone", "Telefone", b1 =>
                         {
                             b1.Property<Guid>("CondominioId")
                                 .HasColumnType("uniqueidentifier");
 
                             b1.Property<string>("Numero")
                                 .HasColumnName("Telefone")
-                                .HasColumnType("varchar(15)")
-                                .HasMaxLength(15);
+                                .HasColumnType("varchar(11)")
+                                .HasMaxLength(11);
 
                             b1.HasKey("CondominioId");
 
@@ -275,7 +380,7 @@ namespace CondominioApp.Principal.Infra.Migrations
                                 .HasForeignKey("CondominioId");
                         });
 
-                    b.OwnsOne("CondominioApp.Core.ValueObjects.Url", "UrlWebServer", b1 =>
+                    b.OwnsOne("CondominioApp.Principal.Domain.ValueObjects.Url", "UrlWebServer", b1 =>
                         {
                             b1.Property<Guid>("CondominioId")
                                 .HasColumnType("uniqueidentifier");
@@ -291,6 +396,46 @@ namespace CondominioApp.Principal.Infra.Migrations
 
                             b1.WithOwner()
                                 .HasForeignKey("CondominioId");
+                        });
+                });
+
+            modelBuilder.Entity("CondominioApp.Principal.Domain.Contrato", b =>
+                {
+                    b.HasOne("CondominioApp.Principal.Domain.Condominio", null)
+                        .WithMany("Contratos")
+                        .HasForeignKey("CondominioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.OwnsOne("CondominioApp.Principal.Domain.ValueObjects.NomeArquivo", "ArquivoContrato", b1 =>
+                        {
+                            b1.Property<Guid>("ContratoId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("ExtensaoDoArquivo")
+                                .IsRequired()
+                                .HasColumnName("ExtensaoDoArquivo")
+                                .HasColumnType("varchar(200)")
+                                .HasMaxLength(200);
+
+                            b1.Property<string>("NomeDoArquivo")
+                                .IsRequired()
+                                .HasColumnName("NomeDoArquivo")
+                                .HasColumnType("varchar(200)")
+                                .HasMaxLength(200);
+
+                            b1.Property<string>("NomeOriginal")
+                                .IsRequired()
+                                .HasColumnName("NomeOriginal")
+                                .HasColumnType("varchar(200)")
+                                .HasMaxLength(200);
+
+                            b1.HasKey("ContratoId");
+
+                            b1.ToTable("Contratos");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ContratoId");
                         });
                 });
 
@@ -312,20 +457,20 @@ namespace CondominioApp.Principal.Infra.Migrations
                         .IsRequired();
 
                     b.HasOne("CondominioApp.Principal.Domain.Grupo", "Grupo")
-                        .WithMany()
+                        .WithMany("Unidades")
                         .HasForeignKey("GrupoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.OwnsOne("CondominioApp.Core.ValueObjects.Telefone", "Telefone", b1 =>
+                    b.OwnsOne("CondominioApp.Principal.Domain.ValueObjects.Telefone", "Telefone", b1 =>
                         {
                             b1.Property<Guid>("UnidadeId")
                                 .HasColumnType("uniqueidentifier");
 
                             b1.Property<string>("Numero")
                                 .HasColumnName("Telefone")
-                                .HasColumnType("varchar(15)")
-                                .HasMaxLength(15);
+                                .HasColumnType("varchar(11)")
+                                .HasMaxLength(11);
 
                             b1.HasKey("UnidadeId");
 

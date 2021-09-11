@@ -4,6 +4,7 @@ using CondominioApp.Core.Helpers;
 using CondominioApp.Core.Mediator;
 using CondominioApp.Core.Messages;
 using CondominioApp.Principal.Domain;
+using CondominioApp.Principal.Domain.FlatModel;
 using FluentValidation.Results;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -22,6 +23,9 @@ namespace CondominioApp.Principal.Infra.Data
 
         public DbSet<Unidade> Unidades { get; set; }
 
+        public DbSet<Contrato> Contratos { get; set; }
+
+
         public PrincipalContextDB(DbContextOptions<PrincipalContextDB> options, IMediatorHandler mediatorHandler)
             : base(options)
         {
@@ -33,6 +37,11 @@ namespace CondominioApp.Principal.Infra.Data
             modelBuilder.Ignore<ValidationResult>();
             modelBuilder.Ignore<Event>();
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(PrincipalContextDB).Assembly);
+
+            modelBuilder.Ignore<CondominioFlat>();
+            modelBuilder.Ignore<GrupoFlat>();
+            modelBuilder.Ignore<UnidadeFlat>();
+
         }
 
         public async Task<bool> Commit()
@@ -43,8 +52,12 @@ namespace CondominioApp.Principal.Infra.Data
                 .Where(entry => entry.Entity.GetType().GetProperty("DataDeCadastro") != null))
             {
                 if (entry.State == EntityState.Added)
+                {
                     entry.Property("DataDeCadastro").CurrentValue =
                         TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, cetZone);
+                    entry.Property("DataDeAlteracao").CurrentValue =
+                        entry.Property("DataDeCadastro").CurrentValue;
+                }
 
                 if (entry.State == EntityState.Modified)
                 {
@@ -54,17 +67,10 @@ namespace CondominioApp.Principal.Infra.Data
                 }
             }
 
-            try
-            {
-                var sucesso = await SaveChangesAsync() > 0;
-                if (sucesso) await _mediatorHandler.PublicarEventos(this);
+            var sucesso = await SaveChangesAsync() > 0;
+            if (sucesso) await _mediatorHandler.PublicarEventos(this);
 
-                return sucesso;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            return sucesso;
           
         }
     }

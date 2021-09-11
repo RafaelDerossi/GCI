@@ -1,5 +1,5 @@
 ﻿using CondominioApp.Core.Messages;
-using CondominioApp.Core.ValueObjects;
+using CondominioApp.Principal.Aplication.Events;
 using CondominioApp.Principal.Domain;
 using CondominioApp.Principal.Domain.Interfaces;
 using FluentValidation.Results;
@@ -7,281 +7,336 @@ using MediatR;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Linq;
+using CondominioApp.Core.Helpers;
+using CondominioApp.Core.Enumeradores;
 
 namespace CondominioApp.Principal.Aplication.Commands
 {
     public class CondominioCommandHandler : CommandHandler,
-         IRequestHandler<CadastrarCondominioCommand, ValidationResult>,
-         IRequestHandler<AlterarCondominioCommand, ValidationResult>,
-         IRequestHandler<AlterarConfiguracaoCondominioCommand, ValidationResult>, IDisposable
+         IRequestHandler<AdicionarCondominioCommand, ValidationResult>,
+         IRequestHandler<AtualizarCondominioCommand, ValidationResult>,
+         IRequestHandler<AtualizarConfiguracaoCondominioCommand, ValidationResult>,
+         IRequestHandler<ApagarCondominioCommand, ValidationResult>,
+         IRequestHandler<DefinirSindicoDoCondominioCommand, ValidationResult>,
+         IRequestHandler<AtualizarLogoDoCondominioCommand, ValidationResult>,
+         IDisposable
     {
 
-        private ICondominioRepository _condominioRepository;
+        private readonly IPrincipalRepository _condominioRepository;
 
-        public CondominioCommandHandler(ICondominioRepository condominioRepository)
+        public CondominioCommandHandler(IPrincipalRepository condominioRepository)
         {
             _condominioRepository = condominioRepository;
         }
 
 
-        public async Task<ValidationResult> Handle(CadastrarCondominioCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(AdicionarCondominioCommand request, CancellationToken cancellationToken)
         {
-            if (!request.EstaValido()) 
+            if (!request.EstaValido())
                 return request.ValidationResult;
 
             var condominio = CondominioFactory(request);
 
-            if (!ValidationResult.IsValid) return ValidationResult;            
-           
+            if (request.Contrato!=null)
+                condominio.AdicionarContrato(request.Contrato);
+
+            if (_condominioRepository.CnpjCondominioJaCadastrado(request.Cnpj, request.Id).Result)
+            {
+                AdicionarErro("CNPJ informado ja consta no sistema.");
+                return ValidationResult;
+            }
+
             _condominioRepository.Adicionar(condominio);
 
+            AdicionarEventoDeCondominioCadastrado(condominio);
+
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }
 
-        public async Task<ValidationResult> Handle(AlterarCondominioCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(AtualizarCondominioCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido()) return request.ValidationResult;
+            
+            var condominioBd = await _condominioRepository.ObterPorId(request.Id);
+            if (condominioBd == null)
+            {
+                AdicionarErro("Condominio não encontrado.");
+                return ValidationResult;
+            }
+
+            if (_condominioRepository.CnpjCondominioJaCadastrado(request.Cnpj, request.Id).Result)
+            {
+                AdicionarErro("CNPJ informado ja consta no sistema.");
+                return ValidationResult;
+            }
+
+            condominioBd.SetCNPJ(request.Cnpj);
+            condominioBd.SetNome(request.Nome);
+            condominioBd.SetDescricao(request.Descricao);
+            condominioBd.SetTelefone(request.Telefone);
+            condominioBd.SetEndereco(request.Endereco);
+
+            _condominioRepository.Atualizar(condominioBd);
+
+            condominioBd.AdicionarEvento(
+               new CondominioAtualizadoEvent
+               (condominioBd.Id, condominioBd.Cnpj, condominioBd.Nome, condominioBd.Descricao,
+                condominioBd.Telefone, condominioBd.Endereco));
+
+            return await PersistirDados(_condominioRepository.UnitOfWork);
+        }
+
+        public async Task<ValidationResult> Handle(AtualizarConfiguracaoCondominioCommand request, CancellationToken cancellationToken)
         {
             if (!request.EstaValido())
                 return request.ValidationResult;
 
-            try
+            var condominioBd = _condominioRepository.ObterPorId(request.Id).Result;
+            if (condominioBd == null)
             {
-                var condominioBd = _condominioRepository.ObterPorId(request.CondominioId).Result;
-                if (condominioBd == null)
-                {
-                    AdicionarErro("Condominio não encontrado.");
-                    return ValidationResult;
-                }
-
-                condominioBd.SetCNPJ(new Cnpj(request.Cnpj));
-                condominioBd.SetNome(request.Nome);
-                condominioBd.SetDescricao(request.Descricao);
-                condominioBd.SetFoto(new Foto(request.NomeOriginal,request.LogoMarca));
-                condominioBd.SetTelefone(new Telefone(request.Telefone));
-                condominioBd.SetEndereco(new Endereco(request.Logradouro, request.Complemento, request.Numero, request.Cep,
-                    request.Bairro, request.Cidade, request.Estado));
-
-                //Verifica se um condominio com o mesmo cnpj ja esta cadastrado
-                if (_condominioRepository.CnpjCondominioJaCadastrado(condominioBd.Cnpj, condominioBd.Id).Result)
-                {
-                    AdicionarErro("CNPJ informado ja consta no sistema.");
-                    return ValidationResult;
-                }
-
-                _condominioRepository.Atualizar(condominioBd);
-
-            }
-            catch (Exception ex)
-            {
-                AdicionarErro(ex.Message);
+                AdicionarErro("Condominio não encontrado.");
                 return ValidationResult;
             }
+
+            if (request.PortariaAtivada)
+                condominioBd.AtivarPortaria();
+            else
+                condominioBd.DesativarPortaria();
+
+
+            if (request.PortariaParaMoradorAtivada)
+                condominioBd.AtivarPortariaMorador();
+            else
+                condominioBd.DesativarPortariaMorador();
+
+
+            if (request.ClassificadoAtivado)
+                condominioBd.AtivarClassificado();
+            else
+                condominioBd.DesativarClassificado();
+
+
+            if (request.ClassificadoParaMoradorAtivado)
+                condominioBd.AtivarClassificadoMorador();
+            else
+                condominioBd.DesativarClassificadoMorador();
+
+
+            if (request.MuralAtivado)
+                condominioBd.AtivarMural();
+            else
+                condominioBd.DesativarMural();
+
+
+            if (request.MuralParaMoradorAtivado)
+                condominioBd.AtivarMuralMorador();
+            else
+                condominioBd.DesativarMuralMorador();
+
+
+            if (request.ChatAtivado)
+                condominioBd.AtivarChat();
+            else
+                condominioBd.DesativarChat();
+
+
+            if (request.ChatParaMoradorAtivado)
+                condominioBd.AtivarChatMorador();
+            else
+                condominioBd.DesativarChatMorador();
+
+            if (request.ReservaAtivada)
+                condominioBd.AtivarReserva();
+            else
+                condominioBd.DesativarReserva();
+
+
+            if (request.ReservaNaPortariaAtivada)
+                condominioBd.AtivarReservaNaPortaria();
+            else
+                condominioBd.DesativarReservaNaPortaria();
+
+
+            if (request.OcorrenciaAtivada)
+                condominioBd.AtivarOcorrencia();
+            else
+                condominioBd.DesativarOcorrencia();
+
+
+            if (request.OcorrenciaParaMoradorAtivada)
+                condominioBd.AtivarOcorrenciaMorador();
+            else
+                condominioBd.DesativarOcorrenciaMorador();
+
+
+            if (request.CorrespondenciaAtivada)
+                condominioBd.AtivarCorrespondencia();
+            else
+                condominioBd.DesativarCorrespondencia();
+
+
+            if (request.CorrespondenciaNaPortariaAtivada)
+                condominioBd.AtivarCorrespondenciaNaPortaria();
+            else
+                condominioBd.DesativarCorrespondenciaNaPortaria();
+
+            if (request.CadastroDeVeiculoPeloMoradorAtivado)
+                condominioBd.AtivarCadastroDeVeiculoPeloMorador();
+            else
+                condominioBd.DesativarCadastroDeVeiculoPeloMorador();
+
+
+            if (request.EnqueteAtivada)
+                condominioBd.AtivarEnquete();
+            else
+                condominioBd.DesativarEnquete();
+
+            if (request.ControleDeAcessoAtivado)
+                condominioBd.AtivarControleDeAcesso();
+            else
+                condominioBd.DesativarControleDeAcesso();
+
+            if (request.TarefaAtivada)
+                condominioBd.AtivarTarefa();
+            else
+                condominioBd.DesativarTarefa();
+
+            if (request.OrcamentoAtivado)
+                condominioBd.AtivarOrcamento();
+            else
+                condominioBd.DesativarOrcamento();
+
+            if (request.AutomacaoAtivada)
+                condominioBd.AtivarAutomacao();
+            else
+                condominioBd.DesativarAutomacao();
+
+            var contratoBd = _condominioRepository.ObterContratosPorCondominio(request.Id).Result.FirstOrDefault(x=>x.Ativo);
+            if (contratoBd != null)
+            {
+                condominioBd.DesativaFuncionalidadesDeAcordoComOContrato(contratoBd);
+            }
+
+            _condominioRepository.Atualizar(condominioBd);
+
+            condominioBd.AdicionarEvento(
+              new ConfiguracaoDoCondominioAtualizadaEvent(condominioBd.Id,
+              condominioBd.PortariaAtivada, condominioBd.PortariaParaMoradorAtivada, condominioBd.ClassificadoAtivado, 
+              condominioBd.ClassificadoParaMoradorAtivado, condominioBd.MuralAtivado, condominioBd.MuralParaMoradorAtivado, 
+              condominioBd.ChatAtivado, condominioBd.ChatParaMoradorAtivado, condominioBd.ReservaAtivada,
+              condominioBd.ReservaNaPortariaAtivada, condominioBd.OcorrenciaAtivada, condominioBd.OcorrenciaParaMoradorAtivada,
+              condominioBd.CorrespondenciaAtivada, condominioBd.CorrespondenciaNaPortariaAtivada,
+              condominioBd.CadastroDeVeiculoPeloMoradorAtivado, condominioBd.EnqueteAtivada, condominioBd.ControleDeAcessoAtivado,
+              condominioBd.TarefaAtivada, condominioBd.OrcamentoAtivado, condominioBd.AutomacaoAtivada));
 
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }
 
-        public async Task<ValidationResult> Handle(AlterarConfiguracaoCondominioCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(AtualizarLogoDoCondominioCommand request, CancellationToken cancellationToken)
         {
-            if (!request.EstaValido())
-                return request.ValidationResult;
+            if (!request.EstaValido()) return request.ValidationResult;
 
-            try
+            var condominioBd = await _condominioRepository.ObterPorId(request.Id);
+            if (condominioBd == null)
             {
-                var condominioBd = _condominioRepository.ObterPorId(request.CondominioId).Result;
-                if (condominioBd == null)
-                {
-                    AdicionarErro("Condominio não encontrado.");
-                    return ValidationResult;
-                }
-
-                if (request.Portaria == true)
-                {
-                    condominioBd.AtivarPortaria();
-                }
-                else
-                {
-                    condominioBd.DesativarPortaria();
-                }
-
-                if (request.PortariaMorador == true)
-                {
-                    condominioBd.AtivarPortariaMorador();
-                }
-                else
-                {
-                    condominioBd.DesativarPortariaMorador();
-                }
-
-                if (request.Classificado == true)
-                {
-                    condominioBd.AtivarClassificado();
-                }
-                else
-                {
-                    condominioBd.DesativarClassificado();
-                }
-
-                if (request.ClassificadoMorador == true)
-                {
-                    condominioBd.AtivarClassificadoMorador();
-                }
-                else
-                {
-                    condominioBd.DesativarClassificadoMorador();
-                }
-
-                if (request.Mural == true)
-                {
-                    condominioBd.AtivarMural();
-                }
-                else
-                {
-                    condominioBd.DesativarMural();
-                }
-
-                if (request.MuralMorador == true)
-                {
-                    condominioBd.AtivarMuralMorador();
-                }
-                else
-                {
-                    condominioBd.DesativarMuralMorador();
-                }
-
-                if (request.Chat == true)
-                {
-                    condominioBd.AtivarChat();
-                }
-                else
-                {
-                    condominioBd.DesativarChat();
-                }
-
-                if (request.ChatMorador == true)
-                {
-                    condominioBd.AtivarChatMorador();
-                }
-                else
-                {
-                    condominioBd.DesativarChatMorador();
-                }
-
-                if (request.Reserva == true)
-                {
-                    condominioBd.AtivarReserva();
-                }
-                else
-                {
-                    condominioBd.DesativarReserva();
-                }
-
-                if (request.ReservaNaPortaria == true)
-                {
-                    condominioBd.AtivarReservaNaPortaria();
-                }
-                else
-                {
-                    condominioBd.DesativarReservaNaPortaria();
-                }
-
-                if (request.Ocorrencia == true)
-                {
-                    condominioBd.AtivarOcorrencia();
-                }
-                else
-                {
-                    condominioBd.DesativarOcorrencia();
-                }
-
-                if (request.OcorrenciaMorador == true)
-                {
-                    condominioBd.AtivarOcorrenciaMorador();
-                }
-                else
-                {
-                    condominioBd.DesativarOcorrenciaMorador();
-                }
-
-                if (request.Correspondencia == true)
-                {
-                    condominioBd.AtivarCorrespondencia();
-                }
-                else
-                {
-                    condominioBd.DesativarCorrespondencia();
-                }
-
-                if (request.CorrespondenciaNaPortaria == true)
-                {
-                    condominioBd.AtivarCorrespondenciaNaPortaria();
-                }
-                else
-                {
-                    condominioBd.DesativarCorrespondenciaNaPortaria();
-                }
-
-                if (request.LimiteTempoReserva == true)
-                {
-                    condominioBd.AtivarLimiteTempoReserva();
-                }
-                else
-                {
-                    condominioBd.DesativarLimiteTempoReserva();
-                }               
-
-
-                _condominioRepository.Atualizar(condominioBd);
-
-            }
-            catch (Exception ex)
-            {
-                AdicionarErro(ex.Message);
+                AdicionarErro("Condominio não encontrado.");
                 return ValidationResult;
             }
-           
+         
+            condominioBd.SetLogo(request.Logo);           
+
+            _condominioRepository.Atualizar(condominioBd);
+
+            condominioBd.AdicionarEvento(
+               new LogoDoCondominioAtualizadoEvent
+               (condominioBd.Id, condominioBd.Logo));
+
+            return await PersistirDados(_condominioRepository.UnitOfWork);
+        }
+
+        public async Task<ValidationResult> Handle(ApagarCondominioCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido()) return request.ValidationResult;
+
+            var condominioBd = _condominioRepository.ObterPorId(request.Id).Result;
+            if (condominioBd == null)
+            {
+                AdicionarErro("Condominio não encontrado.");
+                return ValidationResult;
+            }
+
+            _condominioRepository.Apagar(x=>x.Id == condominioBd.Id);
+
+            condominioBd.AdicionarEvento(new CondominioApagadoEvent(condominioBd.Id));
+
+            return await PersistirDados(_condominioRepository.UnitOfWork);
+        }
+
+        public async Task<ValidationResult> Handle(DefinirSindicoDoCondominioCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido()) return request.ValidationResult;
+
+            var condominioBd = _condominioRepository.ObterPorId(request.Id).Result;
+            if (condominioBd == null)
+            {
+                AdicionarErro("Condominio não encontrado.");
+                return ValidationResult;
+            }
+
+            condominioBd.SetFuncionarioIdDoSindico(request.FuncionarioIdDoSindico);
+
+            _condominioRepository.Atualizar(condominioBd);
+
+            condominioBd.AdicionarEvento(
+                new SindicoDoCondominioDefinidoEvent(condominioBd.Id, request.FuncionarioIdDoSindico, request.NomeDoSindico));
+
             return await PersistirDados(_condominioRepository.UnitOfWork);
         }
 
 
-
-
-
-
-        private Condominio CondominioFactory(CadastrarCondominioCommand request)
+        private Condominio CondominioFactory(AdicionarCondominioCommand request)
         {
-            try
-            {
-                var condominio = new Condominio(new Cnpj(request.Cnpj), request.Nome, request.Descricao, 
-                    new Foto(request.NomeOriginal,request.LogoMarca), new Telefone(request.Telefone),
-                    new Endereco(request.Logradouro,request.Complemento, request.Numero, request.Cep,
-                    request.Bairro,request.Cidade,request.Estado),
-                    request.RefereciaId, request.LinkGeraBoleto, request.BoletoFolder, 
-                    new Url(request.UrlWebServer), request.Portaria, request.PortariaMorador, request.Classificado, 
-                    request.ClassificadoMorador, request.Mural, request.MuralMorador, request.Chat, request.ChatMorador,
-                    request.Reserva, request.ReservaNaPortaria, request.Ocorrencia, request.OcorrenciaMorador, 
-                    request.Correspondencia, request.CorrespondenciaNaPortaria, request.LimiteTempoReserva);
-
-
-                //Verifica se um condominio com o mesmo cnpj ja esta cadastrado
-                if (_condominioRepository.CnpjCondominioJaCadastrado(condominio.Cnpj, request.CondominioId).Result == true)
-                {
-                    AdicionarErro("CNPJ informado ja consta no sistema.");                   
-                }
-
-                return condominio;
-            }
-            catch (Exception ex)
-            {
-                AdicionarErro(ex.Message);
-                return null;
-            }
+            var condominio = new Condominio(request.Id, request.Cnpj, request.Nome, request.Descricao, request.Logo, 
+                request.Telefone, request.Endereco, request.PortariaAtivada, request.PortariaParaMoradorAtivada,
+                request.ClassificadoAtivado, request.ClassificadoParaMoradorAtivado, request.MuralAtivado,
+                request.MuralParaMoradorAtivado, request.ChatAtivado, request.ChatParaMoradorAtivado,
+                request.ReservaAtivada, request.ReservaNaPortariaAtivada, request.OcorrenciaAtivada,
+                request.OcorrenciaParaMoradorAtivada, request.CorrespondenciaAtivada,
+                request.CorrespondenciaNaPortariaAtivada, request.CadastroDeVeiculoPeloMoradorAtivado,
+                request.EnqueteAtivada, request.ControleDeAcessoAtivado, request.TarefaAtivada,
+                request.OrcamentoAtivado, request.AutomacaoAtivada);
+            
+            return condominio;
         }
-       
+
+        private void AdicionarEventoDeCondominioCadastrado(Condominio condominio)
+        {
+            var contrato = condominio.Contratos.FirstOrDefault();
+            if (contrato == null)
+            {
+                contrato = new Contrato(condominio.Id, DataHoraDeBrasilia.Get(), TipoDePlano.FREE, "", false, null, 0);
+            }
+
+            condominio.AdicionarEvento(
+               new CondominioAdicionadoEvent(condominio.Id,
+               condominio.Cnpj, condominio.Nome, condominio.Descricao, condominio.Logo,
+               condominio.Telefone, condominio.Endereco, condominio.PortariaAtivada, 
+               condominio.PortariaParaMoradorAtivada, condominio.ClassificadoAtivado,
+               condominio.ClassificadoParaMoradorAtivado, condominio.MuralAtivado,
+               condominio.MuralParaMoradorAtivado, condominio.ChatAtivado, condominio.ChatParaMoradorAtivado,
+               condominio.ReservaAtivada, condominio.ReservaNaPortariaAtivada, condominio.OcorrenciaAtivada,
+               condominio.OcorrenciaParaMoradorAtivada, condominio.CorrespondenciaAtivada, 
+               condominio.CorrespondenciaNaPortariaAtivada, condominio.CadastroDeVeiculoPeloMoradorAtivado,
+               condominio.EnqueteAtivada, condominio.ControleDeAcessoAtivado, condominio.TarefaAtivada,
+               condominio.OrcamentoAtivado, condominio.AutomacaoAtivada, contrato.Id, contrato.DataAssinatura, contrato.Tipo, contrato.Descricao, contrato.Ativo,
+               contrato.QuantidadeDeUnidadesContratada, contrato.ArquivoContrato));
+        }
 
         public void Dispose()
         {
             _condominioRepository?.Dispose();
         }
 
-      
     }
 }

@@ -2,7 +2,7 @@
 using System.Linq;
 using CondominioApp.Core.DomainObjects;
 using CondominioApp.Core.Enumeradores;
-using CondominioApp.Core.ValueObjects;
+using CondominioAppPreCadastro.App.ValueObjects;
 
 namespace CondominioAppPreCadastro.App.Models
 {

@@ -1,5 +1,5 @@
 ﻿using CondominioApp.Core.DomainObjects;
-using CondominioApp.Core.ValueObjects;
+using CondominioApp.Principal.Domain.ValueObjects;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -30,7 +30,7 @@ namespace CondominioApp.Principal.Domain
         }
 
         public Unidade(string numero, string andar, int vagas, 
-            Telefone telefone, string ramal, string complemento, Guid grupoId, Guid condominioId)
+            Telefone telefone, string ramal, string complemento, Guid grupoId, Guid condominioId, string codigo = null)
         {
             Numero = numero;
             Andar = andar;
@@ -40,6 +40,10 @@ namespace CondominioApp.Principal.Domain
             Complemento = complemento;
             GrupoId = grupoId;
             CondominioId = condominioId;
+
+            Codigo = codigo;
+
+            if (string.IsNullOrEmpty(codigo)) ResetCodigo();
         }
 
 
@@ -47,37 +51,24 @@ namespace CondominioApp.Principal.Domain
         /// Metodos       
         /// </summary>
 
-
-        public void SetCodigo(string codigo)
-        {
-            if (codigo==null || codigo == "")
-            {
-                ResetCodigo();
-            }
-        }
-
         public void ResetCodigo()
         {
-           Codigo = Id.ToString().Substring(0, 4) + DateTime.Now.Minute.ToString("D2") + DateTime.Now.Second.ToString("D2");
+           Codigo =$"{Id.ToString().Substring(0, 4)}{DateTime.Now.Minute:D2}{DateTime.Now.Second:D2}";
         }
 
-      
+        public void SetCondominioId(Guid condominioId) => CondominioId = condominioId;
 
         public void SetNumero(string numero) => this.Numero = numero;
 
-        public void SetAndar(string andar) => this.Andar = andar;
-       
-        public void SetGrupoId(Guid Id) => this.GrupoId = Id;
-
-        public void SetCondominioId(Guid Id) => this.CondominioId = Id;      
+        public void SetAndar(string andar) => this.Andar = andar;    
 
         public void SetVagas(int vagas) => Vagas = vagas;
 
         public void SetTelefone(Telefone telefone) => Telefone = telefone;
 
-        public void SetRamal(String ramal) => Ramal = ramal;
+        public void SetRamal(string ramal) => Ramal = ramal;
 
-        public void SetComplemento(String complemento) => Complemento = complemento;
+        public void SetComplemento(string complemento) => Complemento = complemento;
 
 
         /// <summary>

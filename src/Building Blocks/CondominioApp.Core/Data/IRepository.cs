@@ -10,7 +10,7 @@ namespace CondominioApp.Core.Data
     {
         IUnitOfWorks UnitOfWork { get; }
 
-        Task<TEntity> ObterPorId(Guid Id);
+        Task<TEntity> ObterPorId(Guid Id);       
 
         Task<IEnumerable<TEntity>> ObterTodos();
 
@@ -27,6 +27,6 @@ namespace CondominioApp.Core.Data
 
         void Atualizar(TEntity entity);
 
-        void Apagar(Func<TEntity, bool> predicate);
+        void Apagar(Func<TEntity, bool> predicate);        
     }
 }

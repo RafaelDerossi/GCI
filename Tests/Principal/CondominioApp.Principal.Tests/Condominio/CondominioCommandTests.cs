@@ -15,7 +15,6 @@ namespace CondominioApp.Principal.Tests
         [Trait("Categoria", "Condominio - CadastrarCommand")]
         public void CadastroDeCondominio_CommandoValido_DevePassarNaValidacao()
         {
-
             //Arrange
             var Command = CondominioCommandFactory.CriarComandoCadastroDeCondominio();
 
@@ -44,7 +43,6 @@ namespace CondominioApp.Principal.Tests
         [Trait("Categoria", "Condominio - CadastrarCommand - Sem Telefone")]
         public void CadastroDeCondominioSemTelefone_CommandoValido_DevePassarNaValidacao()
         {
-
             //Arrange
             var Command = CondominioCommandFactory.CriarComandoCadastroDeCondominioSemTelefone();
 
@@ -59,7 +57,6 @@ namespace CondominioApp.Principal.Tests
         [Trait("Categoria", "Condominio - CadastrarCommand - Sem Nome")]
         public void CadastroDeCondominioSemNome_CommandoInvalido_NaoDevePassarNaValidacao()
         {
-
             //Arrange
             var Command = CondominioCommandFactory.CriarComandoCadastroDeCondominioSemNome();
 
@@ -68,86 +65,61 @@ namespace CondominioApp.Principal.Tests
 
             //Assert
             Assert.False(result);
-        }
-
-        [Fact(DisplayName = "Adicionar Condominio Invalido - Sem CNPJ")]
-        [Trait("Categoria", "Condominio - CadastrarCommand - Sem CNPJ")]
-        public void CadastroDeCondominioSemCNPJ_CommandoInvalido_NaoDevePassarNaValidacao()
-        {
-            try
-            {
-                //Arrange
-                var Command = CondominioCommandFactory.CriarComandoCadastroDeCondominioSemCNPJ();
-
-                //Act
-                var result = Command.EstaValido();
-
-                //Assert
-                Assert.False(result);
-            }
-            catch (Exception)
-            {
-                Assert.False(false);
-            }
-           
-        }
+        }        
 
         [Fact(DisplayName = "Adicionar Condominio Invalido - Com CNPJ Invalido")]
         [Trait("Categoria", "Condominio - CadastrarCommand - Com CNPJ Invalido")]
         public void CadastroDeCondominioComCNPJInvalido_CommandoInvalido_NaoDevePassarNaValidacao()
         {
-            try
-            {
-                //Arrange
-                var Command = CondominioCommandFactory.CriarComandoCadastroDeCondominioComCNPJInvalido();
+            //Arrange
+            var Command = CondominioCommandFactory.CriarComandoCadastroDeCondominioComCNPJInvalido();
 
-                //Act
-                var result = Command.EstaValido();
+            //Act
+            var result = Command.EstaValido();
 
-                //Assert
-                Assert.False(result);
-            }
-            catch (Exception)
-            {
-                Assert.False(false);
-            }
-
+            //Assert
+            Assert.False(result);            
         }
 
         [Fact(DisplayName = "Adicionar Condominio Invalido - Com Telefone Invalido")]
         [Trait("Categoria", "Condominio - CadastrarCommand - Com Telefone Invalido")]
         public void CadastroDeCondominioComTelefoneInvalido_CommandoInvalido_NaoDevePassarNaValidacao()
         {
-            try
-            {
-                //Arrange
-                var Command = CondominioCommandFactory.CriarComandoCadastroDeCondominioComTelefoneInvalido();
+            //Arrange
+            var Command = CondominioCommandFactory.CriarComandoCadastroDeCondominioComTelefoneInvalido();
 
-                //Act
-                var result = Command.EstaValido();
+            //Act
+            var result = Command.EstaValido();
 
-                //Assert
-                Assert.False(result);
-            }
-            catch (Exception)
-            {
-                Assert.False(false);
-            }
-            
+            //Assert
+            Assert.False(result);
+        }
+
+        [Fact(DisplayName = "Adicionar Condominio Válido - Sem Contrato")]
+        [Trait("Categoria", "Condominio - CadastrarCommand - Sem Contrato")]
+        public void CadastroDeCondominio_SemContrato_CommandoValido_DevePassarNaValidacao()
+        {
+            //Arrange
+            var Command = CondominioCommandFactory.CriarComandoCadastroDeCondominioSemContrato();
+
+            //Act
+            var result = Command.EstaValido();
+
+            //Assert
+            Assert.True(result);            
         }
 
 
-
         /// <summary>
-        /// AlterarCommand
+        /// EditarCommand
         /// </summary>
-        [Fact(DisplayName = "Alterar Condominio Válido")]
-        [Trait("Categoria", "Condominio - AlterarCommand")]
-        public void AlteracaoDeCondominio_CommandoValido_DevePassarNaValidacao()
+        [Fact(DisplayName = "Editar Condominio Válido")]
+        [Trait("Categoria", "Condominio - EditarCommand")]
+        public void EdicaoDeCondominio_CommandoValido_DevePassarNaValidacao()
         {
 
             //Arrange
-            var Command = CondominioCommandFactory.CriarComandoAlteracaoDeCondominio();
+            var Command = CondominioCommandFactory.CriarComandoEdicaoDeCondominio();
 
             //Act
             var result = Command.EstaValido();
@@ -157,14 +129,14 @@ namespace CondominioApp.Principal.Tests
         }
 
 
-        [Fact(DisplayName = "Alterar Condominio Inválido - Sem CNPJ")]
-        [Trait("Categoria", "Condominio - AlterarCommand - Sem CNPJ")]
-        public void AlteracaoDeCondominioSemCNPJ_CommandoInvalido_NaoDevePassarNaValidacao()
+        [Fact(DisplayName = "Editar Condominio Inválido - Sem CNPJ")]
+        [Trait("Categoria", "Condominio - EditarCommand - Sem CNPJ")]
+        public void EdicaoDeCondominioSemCNPJ_CommandoInvalido_NaoDevePassarNaValidacao()
         {
             try
             {
                 //Arrange
-                var Command = CondominioCommandFactory.CriarComandoAlteracaoDeCondominioSemCNPJ();
+                var Command = CondominioCommandFactory.CriarComandoEdicaoDeCondominioSemCNPJ();
 
                 //Act
                 var result = Command.EstaValido();
@@ -180,14 +152,14 @@ namespace CondominioApp.Principal.Tests
         }
 
 
-        [Fact(DisplayName = "Alterar Condominio Inválido - Com CNPJ Invalido")]
-        [Trait("Categoria", "Condominio - AlterarCommand - Com CNPJ Invalido")]
-        public void AlteracaoDeCondominioComCNPJInvalido_CommandoInvalido_NaoDevePassarNaValidacao()
+        [Fact(DisplayName = "Editar Condominio Inválido - Com CNPJ Invalido")]
+        [Trait("Categoria", "Condominio - EditarCommand - Com CNPJ Invalido")]
+        public void EdicaoDeCondominioComCNPJInvalido_CommandoInvalido_NaoDevePassarNaValidacao()
         {
             try
             {
                 //Arrange
-                var Command = CondominioCommandFactory.CriarComandoAlteracaoDeCondominioComCNPJInvalido();
+                var Command = CondominioCommandFactory.CriarComandoEdicaoDeCondominioComCNPJInvalido();
 
                 //Act
                 var result = Command.EstaValido();
@@ -202,14 +174,14 @@ namespace CondominioApp.Principal.Tests
             
         }
 
-        [Fact(DisplayName = "Alterar Condominio Inválido - Sem Nome")]
-        [Trait("Categoria", "Condominio - AlterarCommand - Sem Nome")]
-        public void AlteracaoDeCondominioSemNome_CommandoInvalido_NaoDevePassarNaValidacao()
+        [Fact(DisplayName = "Editar Condominio Inválido - Sem Nome")]
+        [Trait("Categoria", "Condominio - EditarCommand - Sem Nome")]
+        public void EdicaoDeCondominioSemNome_CommandoInvalido_NaoDevePassarNaValidacao()
         {
             try
             {
                 //Arrange
-                var Command = CondominioCommandFactory.CriarComandoAlteracaoDeCondominioSemNome();
+                var Command = CondominioCommandFactory.CriarComandoEdicaoDeCondominioSemNome();
 
                 //Act
                 var result = Command.EstaValido();
@@ -226,14 +198,14 @@ namespace CondominioApp.Principal.Tests
 
 
         /// <summary>
-        /// AlterarConfiguracaoCommand
+        /// EdicaoConfiguracaoCommand
         /// </summary>
-        [Fact(DisplayName = "Alterar Configuracao de Condominio Válido")]
-        [Trait("Categoria", "Condominio - AlterarConfiguracaoCommand")]
-        public void AlteracaoDeConfiguracaoDeCondominio_CommandoValido_DevePassarNaValidacao()
+        [Fact(DisplayName = "Editar Configuracao de Condominio Válido")]
+        [Trait("Categoria", "Condominio - EditarConfiguracaoCommand")]
+        public void EdicaoDeConfiguracaoDeCondominio_CommandoValido_DevePassarNaValidacao()
         {
             //Arrange
-            var Command = CondominioCommandFactory.CriarComandoAlteracaoDeConfiguracaoDoCondominio();
+            var Command = CondominioCommandFactory.CriarComandoEdicaoDeConfiguracaoDoCondominio();
 
             //Act
             var result = Command.EstaValido();

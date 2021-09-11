@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
@@ -13,11 +15,15 @@ namespace CondominioApp.Api.Configuration
             {
                 c.SwaggerDoc("v1", new OpenApiInfo()
                 {
-                    Title = "CondominioApp API 2.0",
-                    Description = "Esta api expõe os recursos do sistema condominioapp para diversas interfaces (web/mobile)",
-                    Contact = new OpenApiContact() { Name = "CondominioApp Developer", Email = "contato@condominioapp.com"},
-                    License = new OpenApiLicense() { Name = "CondominioApp", Url = new Uri("https://www.condominioapp.com")}
+                    Title = "NInjaStore API 1.0",
+                    Description = "Esta api expõe os recursos do sistema NinjaStore para diversas interfaces (web/mobile).",
+                    Contact = new OpenApiContact() { Name = "Rafael Derossi - Developer", Email = "rafaelsderossi@gmail.com"},
+                    License = new OpenApiLicense() { Name = "NinjaStore", Url = new Uri("https://www.linkedin.com/in/rafael-derossi") }
                 });
+
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
 
             });
 
@@ -29,7 +35,7 @@ namespace CondominioApp.Api.Configuration
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+                c.SwaggerEndpoint("../../swagger/v1/swagger.json", "v1");
             });
 
             return app;
