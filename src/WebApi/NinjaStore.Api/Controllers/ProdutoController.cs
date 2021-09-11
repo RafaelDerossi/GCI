@@ -34,7 +34,7 @@ namespace NinjaStore.Api.Controllers
         /// Id: Guid do produto;   
         /// DataDeCadastro: Data em que o produto foi cadastrado;   
         /// DataDeCadastroFormatada: Data formatada para exibição em que o produto foi cadastrado;   
-        /// DataDeAlteracao:  Data em que o produto foi alterado; 
+        /// DataDeAlteracao:  Data em que o produto foi alterado;   
         /// DataDeAlteracaoFormatada: Data formatada para exibição em que o produto foi alterado;   
         /// Lixeira: Informa se o produto esta na lixeira;   
         /// Descricao: Descrição do produto;   
