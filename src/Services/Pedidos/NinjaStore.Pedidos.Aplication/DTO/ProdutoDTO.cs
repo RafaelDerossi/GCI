@@ -22,8 +22,20 @@ namespace NinjaStore.Pedidos.Aplication.DTO
 
         public ProdutoDTO()
         {
-        }       
+        }
 
+        public ProdutoDTO            
+            (Guid id, Guid produtoId, string descricao, string foto, decimal valor,
+             decimal desconto, decimal valorTotal)
+        {
+            Id = id;
+            ProdutoId = produtoId;
+            Descricao = descricao;
+            Foto = foto;
+            Valor = valor;
+            Desconto = desconto;
+            ValorTotal = valorTotal;
+        }
 
         public static ProdutoDTO Mapear(ProdutoViewModel viewModel)
         {

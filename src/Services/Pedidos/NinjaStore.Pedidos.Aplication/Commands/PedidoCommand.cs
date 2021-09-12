@@ -15,5 +15,11 @@ namespace NinjaStore.Pedidos.Aplication.Commands
 
         public List<ProdutoDTO> Produtos { get; protected set; }
 
+
+
+
+        public void SetCliente(ClienteDTO cliente) => Cliente = cliente;
+
+        public void SetListaDeProdutos(List<ProdutoDTO> produtos) => Produtos = produtos;
     }
 }
