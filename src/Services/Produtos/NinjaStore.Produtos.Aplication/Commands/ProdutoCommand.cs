@@ -13,5 +13,10 @@ namespace NinjaStore.Produtos.Aplication.Commands
 
         public string Foto { get; protected set; }
 
+
+
+        public void SetDescricao(string descricao) => Descricao = descricao;
+
+        public void SetValor(decimal valor) => Valor = valor;
     }
 }
