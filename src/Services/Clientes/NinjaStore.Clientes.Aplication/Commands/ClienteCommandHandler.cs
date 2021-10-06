@@ -7,6 +7,7 @@ using NinjaStore.Clientes.Domain.Interfaces;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Rebus.Bus;
 
 namespace NinjaStore.Clientes.Aplication.Commands
 {
@@ -16,6 +17,7 @@ namespace NinjaStore.Clientes.Aplication.Commands
     {
 
         private readonly IClienteRepository _clienteRepository;
+        private readonly IBus _bus;
 
         public ClienteCommandHandler(IClienteRepository clienteRepository)
         {
@@ -35,14 +37,17 @@ namespace NinjaStore.Clientes.Aplication.Commands
                 return ValidationResult;
             }
 
-            _clienteRepository.Adicionar(cliente);
+            _clienteRepository.Adicionar(cliente);            
 
-            //Evento
-            cliente.AdicionarEvento
-                (new ClienteAdicionadoEvent
-                (cliente.Id, cliente.Nome, cliente.Email, cliente.Aldeia));
+            var retorno = await PersistirDados(_clienteRepository.UnitOfWork);
+            if (!retorno.IsValid)
+                return retorno;
 
-            return await PersistirDados(_clienteRepository.UnitOfWork);
+            //Evento            
+            _bus.Publish(new ClienteAdicionadoEvent
+                (cliente.Id, cliente.Nome, cliente.Email, cliente.Aldeia)).Wait();
+
+            return retorno;
         }
                
 

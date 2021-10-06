@@ -7,6 +7,7 @@ namespace NinjaStore.Clientes.Aplication.Events
 
         public ClienteAdicionadoEvent(Guid id, string nome, Email email, string aldeia)
         {
+            AggregateId = id;
             Id = id;
             Nome = nome;
             Email = email;

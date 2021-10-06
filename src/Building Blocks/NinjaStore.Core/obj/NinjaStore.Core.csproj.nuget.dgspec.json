@@ -68,6 +68,10 @@
               "target": "Package",
               "version": "[3.1.4, )"
             },
+            "Rebus": {
+              "target": "Package",
+              "version": "[6.6.1, )"
+            },
             "System.IdentityModel.Tokens.Jwt": {
               "target": "Package",
               "version": "[6.7.1, )"

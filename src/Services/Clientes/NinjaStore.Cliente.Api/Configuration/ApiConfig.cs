@@ -66,7 +66,7 @@ namespace NinjaStore.Clientes.Api.Configuration
             {
                 endpoints.MapControllers();
             });
-
+            
             return app;
         }
     }

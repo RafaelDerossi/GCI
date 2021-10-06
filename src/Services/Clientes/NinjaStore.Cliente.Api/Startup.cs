@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Rebus.Config;
 
 namespace NinjaStore.Clientes.Api
 {
@@ -26,6 +27,8 @@ namespace NinjaStore.Clientes.Api
 
             services.AddSwaggerConfiguration();
 
+            services.AddRebusConfiguration();
+
             services.AddMediatR(typeof(Startup));
 
             services.RegisterServices();
@@ -37,6 +40,8 @@ namespace NinjaStore.Clientes.Api
             app.UseSwaggerConfiguration();
 
             app.UseApiConfiguration(env);
+
+            app.UseRebusConfiguration();
         }
     }
 }

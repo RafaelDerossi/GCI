@@ -29,6 +29,8 @@ namespace NinjaStore.Clientes.Api.Configuration
 
             //Repositório Query
             services.AddScoped<IClienteQueryRepository, ClienteQueryRepository>();
+
+            
         }
     }
 }
