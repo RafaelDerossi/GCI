@@ -17,3 +17,13 @@ C:\Users\rafael.derossi\source\repos\RafaelDerossi\NinjaStore\src\Building Block
 C:\Users\rafael.derossi\source\repos\RafaelDerossi\NinjaStore\src\Building Blocks\NinjaStore.WebApi.Core\obj\Debug\netcoreapp3.1\NinjaStore.WebApi.Core.csproj.CoreCompileInputs.cache
 C:\Users\rafael.derossi\source\repos\RafaelDerossi\NinjaStore\src\Building Blocks\NinjaStore.WebApi.Core\obj\Debug\netcoreapp3.1\NinjaStore.WebApi.Core.dll
 C:\Users\rafael.derossi\source\repos\RafaelDerossi\NinjaStore\src\Building Blocks\NinjaStore.WebApi.Core\obj\Debug\netcoreapp3.1\NinjaStore.WebApi.Core.pdb
+C:\Users\rafael.derossi\Source\Repos\RafaelDerossi\NinjaStore-MS\src\Building Blocks\NinjaStore.WebApi.Core\bin\Debug\netcoreapp3.1\NinjaStore.WebApi.Core.deps.json
+C:\Users\rafael.derossi\Source\Repos\RafaelDerossi\NinjaStore-MS\src\Building Blocks\NinjaStore.WebApi.Core\bin\Debug\netcoreapp3.1\NinjaStore.WebApi.Core.dll
+C:\Users\rafael.derossi\Source\Repos\RafaelDerossi\NinjaStore-MS\src\Building Blocks\NinjaStore.WebApi.Core\bin\Debug\netcoreapp3.1\NinjaStore.WebApi.Core.pdb
+C:\Users\rafael.derossi\Source\Repos\RafaelDerossi\NinjaStore-MS\src\Building Blocks\NinjaStore.WebApi.Core\obj\Debug\netcoreapp3.1\NinjaStore.WebApi.Core.csproj.AssemblyReference.cache
+C:\Users\rafael.derossi\Source\Repos\RafaelDerossi\NinjaStore-MS\src\Building Blocks\NinjaStore.WebApi.Core\obj\Debug\netcoreapp3.1\NinjaStore.WebApi.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\rafael.derossi\Source\Repos\RafaelDerossi\NinjaStore-MS\src\Building Blocks\NinjaStore.WebApi.Core\obj\Debug\netcoreapp3.1\NinjaStore.WebApi.Core.AssemblyInfoInputs.cache
+C:\Users\rafael.derossi\Source\Repos\RafaelDerossi\NinjaStore-MS\src\Building Blocks\NinjaStore.WebApi.Core\obj\Debug\netcoreapp3.1\NinjaStore.WebApi.Core.AssemblyInfo.cs
+C:\Users\rafael.derossi\Source\Repos\RafaelDerossi\NinjaStore-MS\src\Building Blocks\NinjaStore.WebApi.Core\obj\Debug\netcoreapp3.1\NinjaStore.WebApi.Core.csproj.CoreCompileInputs.cache
+C:\Users\rafael.derossi\Source\Repos\RafaelDerossi\NinjaStore-MS\src\Building Blocks\NinjaStore.WebApi.Core\obj\Debug\netcoreapp3.1\NinjaStore.WebApi.Core.dll
+C:\Users\rafael.derossi\Source\Repos\RafaelDerossi\NinjaStore-MS\src\Building Blocks\NinjaStore.WebApi.Core\obj\Debug\netcoreapp3.1\NinjaStore.WebApi.Core.pdb

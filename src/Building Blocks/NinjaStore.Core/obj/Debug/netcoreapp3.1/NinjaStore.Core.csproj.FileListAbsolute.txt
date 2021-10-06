@@ -26,3 +26,13 @@ C:\Users\rafael.derossi\source\repos\RafaelDerossi\NinjaStore\src\Building Block
 C:\Users\rafael.derossi\source\repos\RafaelDerossi\NinjaStore\src\Building Blocks\NinjaStore.Core\obj\Debug\netcoreapp3.1\NinjaStore.Core.csproj.CoreCompileInputs.cache
 C:\Users\rafael.derossi\source\repos\RafaelDerossi\NinjaStore\src\Building Blocks\NinjaStore.Core\obj\Debug\netcoreapp3.1\NinjaStore.Core.dll
 C:\Users\rafael.derossi\source\repos\RafaelDerossi\NinjaStore\src\Building Blocks\NinjaStore.Core\obj\Debug\netcoreapp3.1\NinjaStore.Core.pdb
+C:\Users\rafael.derossi\Source\Repos\RafaelDerossi\NinjaStore-MS\src\Building Blocks\NinjaStore.Core\bin\Debug\netcoreapp3.1\NinjaStore.Core.deps.json
+C:\Users\rafael.derossi\Source\Repos\RafaelDerossi\NinjaStore-MS\src\Building Blocks\NinjaStore.Core\bin\Debug\netcoreapp3.1\NinjaStore.Core.dll
+C:\Users\rafael.derossi\Source\Repos\RafaelDerossi\NinjaStore-MS\src\Building Blocks\NinjaStore.Core\bin\Debug\netcoreapp3.1\NinjaStore.Core.pdb
+C:\Users\rafael.derossi\Source\Repos\RafaelDerossi\NinjaStore-MS\src\Building Blocks\NinjaStore.Core\obj\Debug\netcoreapp3.1\NinjaStore.Core.csproj.AssemblyReference.cache
+C:\Users\rafael.derossi\Source\Repos\RafaelDerossi\NinjaStore-MS\src\Building Blocks\NinjaStore.Core\obj\Debug\netcoreapp3.1\NinjaStore.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\rafael.derossi\Source\Repos\RafaelDerossi\NinjaStore-MS\src\Building Blocks\NinjaStore.Core\obj\Debug\netcoreapp3.1\NinjaStore.Core.AssemblyInfoInputs.cache
+C:\Users\rafael.derossi\Source\Repos\RafaelDerossi\NinjaStore-MS\src\Building Blocks\NinjaStore.Core\obj\Debug\netcoreapp3.1\NinjaStore.Core.AssemblyInfo.cs
+C:\Users\rafael.derossi\Source\Repos\RafaelDerossi\NinjaStore-MS\src\Building Blocks\NinjaStore.Core\obj\Debug\netcoreapp3.1\NinjaStore.Core.csproj.CoreCompileInputs.cache
+C:\Users\rafael.derossi\Source\Repos\RafaelDerossi\NinjaStore-MS\src\Building Blocks\NinjaStore.Core\obj\Debug\netcoreapp3.1\NinjaStore.Core.dll
+C:\Users\rafael.derossi\Source\Repos\RafaelDerossi\NinjaStore-MS\src\Building Blocks\NinjaStore.Core\obj\Debug\netcoreapp3.1\NinjaStore.Core.pdb

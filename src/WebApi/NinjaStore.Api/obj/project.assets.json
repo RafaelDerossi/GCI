@@ -8548,11 +8548,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\WebApi\\NinjaStore.Api\\NinjaStore.Api.csproj",
+      "projectUniqueName": "C:\\Users\\rafael.derossi\\Source\\Repos\\RafaelDerossi\\NinjaStore-MS\\src\\WebApi\\NinjaStore.Api\\NinjaStore.Api.csproj",
       "projectName": "NinjaStore.Api",
-      "projectPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\WebApi\\NinjaStore.Api\\NinjaStore.Api.csproj",
+      "projectPath": "C:\\Users\\rafael.derossi\\Source\\Repos\\RafaelDerossi\\NinjaStore-MS\\src\\WebApi\\NinjaStore.Api\\NinjaStore.Api.csproj",
       "packagesPath": "C:\\Users\\rafael.derossi\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\WebApi\\NinjaStore.Api\\obj\\",
+      "outputPath": "C:\\Users\\rafael.derossi\\Source\\Repos\\RafaelDerossi\\NinjaStore-MS\\src\\WebApi\\NinjaStore.Api\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\rafael.derossi\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -8569,38 +8569,38 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "projectReferences": {
-            "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj": {
-              "projectPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj"
+            "C:\\Users\\rafael.derossi\\Source\\Repos\\RafaelDerossi\\NinjaStore-MS\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj": {
+              "projectPath": "C:\\Users\\rafael.derossi\\Source\\Repos\\RafaelDerossi\\NinjaStore-MS\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj"
             },
-            "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Building Blocks\\NinjaStore.WebApi.Core\\NinjaStore.WebApi.Core.csproj": {
-              "projectPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Building Blocks\\NinjaStore.WebApi.Core\\NinjaStore.WebApi.Core.csproj"
+            "C:\\Users\\rafael.derossi\\Source\\Repos\\RafaelDerossi\\NinjaStore-MS\\src\\Building Blocks\\NinjaStore.WebApi.Core\\NinjaStore.WebApi.Core.csproj": {
+              "projectPath": "C:\\Users\\rafael.derossi\\Source\\Repos\\RafaelDerossi\\NinjaStore-MS\\src\\Building Blocks\\NinjaStore.WebApi.Core\\NinjaStore.WebApi.Core.csproj"
             },
-            "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Aplication\\NinjaStore.Clientes.Aplication.csproj": {
-              "projectPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Aplication\\NinjaStore.Clientes.Aplication.csproj"
+            "C:\\Users\\rafael.derossi\\Source\\Repos\\RafaelDerossi\\NinjaStore-MS\\src\\Services\\Clientes\\NinjaStore.Clientes.Aplication\\NinjaStore.Clientes.Aplication.csproj": {
+              "projectPath": "C:\\Users\\rafael.derossi\\Source\\Repos\\RafaelDerossi\\NinjaStore-MS\\src\\Services\\Clientes\\NinjaStore.Clientes.Aplication\\NinjaStore.Clientes.Aplication.csproj"
             },
-            "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Domain\\NinjaStore.Clientes.Domain.csproj": {
-              "projectPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Domain\\NinjaStore.Clientes.Domain.csproj"
+            "C:\\Users\\rafael.derossi\\Source\\Repos\\RafaelDerossi\\NinjaStore-MS\\src\\Services\\Clientes\\NinjaStore.Clientes.Domain\\NinjaStore.Clientes.Domain.csproj": {
+              "projectPath": "C:\\Users\\rafael.derossi\\Source\\Repos\\RafaelDerossi\\NinjaStore-MS\\src\\Services\\Clientes\\NinjaStore.Clientes.Domain\\NinjaStore.Clientes.Domain.csproj"
             },
-            "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Infra\\NinjaStore.Clientes.Infra.csproj": {
-              "projectPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Infra\\NinjaStore.Clientes.Infra.csproj"
+            "C:\\Users\\rafael.derossi\\Source\\Repos\\RafaelDerossi\\NinjaStore-MS\\src\\Services\\Clientes\\NinjaStore.Clientes.Infra\\NinjaStore.Clientes.Infra.csproj": {
+              "projectPath": "C:\\Users\\rafael.derossi\\Source\\Repos\\RafaelDerossi\\NinjaStore-MS\\src\\Services\\Clientes\\NinjaStore.Clientes.Infra\\NinjaStore.Clientes.Infra.csproj"
             },
-            "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Aplication\\NinjaStore.Pedidos.Aplication.csproj": {
-              "projectPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Aplication\\NinjaStore.Pedidos.Aplication.csproj"
+            "C:\\Users\\rafael.derossi\\Source\\Repos\\RafaelDerossi\\NinjaStore-MS\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Aplication\\NinjaStore.Pedidos.Aplication.csproj": {
+              "projectPath": "C:\\Users\\rafael.derossi\\Source\\Repos\\RafaelDerossi\\NinjaStore-MS\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Aplication\\NinjaStore.Pedidos.Aplication.csproj"
             },
-            "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Domain\\NinjaStore.Pedidos.Domain.csproj": {
-              "projectPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Domain\\NinjaStore.Pedidos.Domain.csproj"
+            "C:\\Users\\rafael.derossi\\Source\\Repos\\RafaelDerossi\\NinjaStore-MS\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Domain\\NinjaStore.Pedidos.Domain.csproj": {
+              "projectPath": "C:\\Users\\rafael.derossi\\Source\\Repos\\RafaelDerossi\\NinjaStore-MS\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Domain\\NinjaStore.Pedidos.Domain.csproj"
             },
-            "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Infra\\NinjaStore.Pedidos.Infra.csproj": {
-              "projectPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Infra\\NinjaStore.Pedidos.Infra.csproj"
+            "C:\\Users\\rafael.derossi\\Source\\Repos\\RafaelDerossi\\NinjaStore-MS\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Infra\\NinjaStore.Pedidos.Infra.csproj": {
+              "projectPath": "C:\\Users\\rafael.derossi\\Source\\Repos\\RafaelDerossi\\NinjaStore-MS\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Infra\\NinjaStore.Pedidos.Infra.csproj"
             },
-            "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Produtos\\NinjaStore.Produtos.Aplication\\NinjaStore.Produtos.Aplication.csproj": {
-              "projectPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Produtos\\NinjaStore.Produtos.Aplication\\NinjaStore.Produtos.Aplication.csproj"
+            "C:\\Users\\rafael.derossi\\Source\\Repos\\RafaelDerossi\\NinjaStore-MS\\src\\Services\\Produtos\\NinjaStore.Produtos.Aplication\\NinjaStore.Produtos.Aplication.csproj": {
+              "projectPath": "C:\\Users\\rafael.derossi\\Source\\Repos\\RafaelDerossi\\NinjaStore-MS\\src\\Services\\Produtos\\NinjaStore.Produtos.Aplication\\NinjaStore.Produtos.Aplication.csproj"
             },
-            "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Produtos\\NinjaStore.Produtos.Domain\\NinjaStore.Produtos.Domain.csproj": {
-              "projectPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Produtos\\NinjaStore.Produtos.Domain\\NinjaStore.Produtos.Domain.csproj"
+            "C:\\Users\\rafael.derossi\\Source\\Repos\\RafaelDerossi\\NinjaStore-MS\\src\\Services\\Produtos\\NinjaStore.Produtos.Domain\\NinjaStore.Produtos.Domain.csproj": {
+              "projectPath": "C:\\Users\\rafael.derossi\\Source\\Repos\\RafaelDerossi\\NinjaStore-MS\\src\\Services\\Produtos\\NinjaStore.Produtos.Domain\\NinjaStore.Produtos.Domain.csproj"
             },
-            "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Produtos\\NinjaStore.Produtos.Infra\\NinjaStore.Produtos.Infra.csproj": {
-              "projectPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Produtos\\NinjaStore.Produtos.Infra\\NinjaStore.Produtos.Infra.csproj"
+            "C:\\Users\\rafael.derossi\\Source\\Repos\\RafaelDerossi\\NinjaStore-MS\\src\\Services\\Produtos\\NinjaStore.Produtos.Infra\\NinjaStore.Produtos.Infra.csproj": {
+              "projectPath": "C:\\Users\\rafael.derossi\\Source\\Repos\\RafaelDerossi\\NinjaStore-MS\\src\\Services\\Produtos\\NinjaStore.Produtos.Infra\\NinjaStore.Produtos.Infra.csproj"
             }
           }
         }
