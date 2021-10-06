@@ -10,7 +10,7 @@ using NinjaStore.Clientes.Aplication.ViewModels;
 using NinjaStore.Clientes.Aplication.Commands;
 using NinjaStore.Clientes.Domain.FlatModel;
 
-namespace NinjaStore.Api.Controllers
+namespace NinjaStore.Clientes.Api.Controllers
 {
     [Route("api/cliente")]
     public class ClienteController : MainController

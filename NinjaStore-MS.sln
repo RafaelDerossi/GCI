@@ -33,23 +33,25 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NinjaStore.Produtos.Infra",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NinjaStore.Produtos.Aplication", "src\Services\Produtos\NinjaStore.Produtos.Aplication\NinjaStore.Produtos.Aplication.csproj", "{6630BCAB-28E4-42F8-BE2A-9F2D47AAFF02}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaStore.Clientes.Domain", "src\Services\Clientes\NinjaStore.Clientes.Domain\NinjaStore.Clientes.Domain.csproj", "{1685F6D7-6656-452A-A0F3-F6F79143219D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NinjaStore.Clientes.Domain", "src\Services\Clientes\NinjaStore.Clientes.Domain\NinjaStore.Clientes.Domain.csproj", "{1685F6D7-6656-452A-A0F3-F6F79143219D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaStore.Clientes.Infra", "src\Services\Clientes\NinjaStore.Clientes.Infra\NinjaStore.Clientes.Infra.csproj", "{3BEE4E70-A00F-4447-9888-A15078F8590F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NinjaStore.Clientes.Infra", "src\Services\Clientes\NinjaStore.Clientes.Infra\NinjaStore.Clientes.Infra.csproj", "{3BEE4E70-A00F-4447-9888-A15078F8590F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaStore.Clientes.Aplication", "src\Services\Clientes\NinjaStore.Clientes.Aplication\NinjaStore.Clientes.Aplication.csproj", "{8581081F-348A-4EB5-AABB-0FD1105986DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NinjaStore.Clientes.Aplication", "src\Services\Clientes\NinjaStore.Clientes.Aplication\NinjaStore.Clientes.Aplication.csproj", "{8581081F-348A-4EB5-AABB-0FD1105986DD}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NinjaStore.Pedidos.Domain", "src\Services\Pedidos\NinjaStore.Pedidos.Domain\NinjaStore.Pedidos.Domain.csproj", "{BD48DC05-5FAF-49EB-85FF-A9966305A57F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaStore.Pedidos.Infra", "src\Services\Pedidos\NinjaStore.Pedidos.Infra\NinjaStore.Pedidos.Infra.csproj", "{4238C178-38B0-42D2-886C-ED8477FC8B11}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NinjaStore.Pedidos.Infra", "src\Services\Pedidos\NinjaStore.Pedidos.Infra\NinjaStore.Pedidos.Infra.csproj", "{4238C178-38B0-42D2-886C-ED8477FC8B11}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NinjaStore.Pedidos.Aplication", "src\Services\Pedidos\NinjaStore.Pedidos.Aplication\NinjaStore.Pedidos.Aplication.csproj", "{2E1042CE-5916-4BDD-B3FD-A5573174CB8A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaStore.Clientes.Tests", "Tests\Clientes\NinjaStore.Clientes.Tests\NinjaStore.Clientes.Tests.csproj", "{08B5CD7D-C0C2-4409-ADBF-B614BFBD473E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NinjaStore.Clientes.Tests", "Tests\Clientes\NinjaStore.Clientes.Tests\NinjaStore.Clientes.Tests.csproj", "{08B5CD7D-C0C2-4409-ADBF-B614BFBD473E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaStore.Pedidos.Tests", "Tests\Pedidos\NinjaStore.Pedidos.Tests\NinjaStore.Pedidos.Tests.csproj", "{48F14C24-6134-47F7-BCA3-BF6136224E94}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NinjaStore.Pedidos.Tests", "Tests\Pedidos\NinjaStore.Pedidos.Tests\NinjaStore.Pedidos.Tests.csproj", "{48F14C24-6134-47F7-BCA3-BF6136224E94}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaStore.Produtos.Tests", "Tests\Produtos\NinjaStore.Produtos.Tests\NinjaStore.Produtos.Tests.csproj", "{24F0DFDA-3E55-4AD7-8909-98BF85D0AAF1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NinjaStore.Produtos.Tests", "Tests\Produtos\NinjaStore.Produtos.Tests\NinjaStore.Produtos.Tests.csproj", "{24F0DFDA-3E55-4AD7-8909-98BF85D0AAF1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaStore.Clientes.Api", "src\Services\Clientes\NinjaStore.Cliente.Api\NinjaStore.Clientes.Api.csproj", "{00F0AEB6-FC95-4FBB-B594-1CBFA27B02F7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -117,6 +119,10 @@ Global
 		{24F0DFDA-3E55-4AD7-8909-98BF85D0AAF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{24F0DFDA-3E55-4AD7-8909-98BF85D0AAF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{24F0DFDA-3E55-4AD7-8909-98BF85D0AAF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00F0AEB6-FC95-4FBB-B594-1CBFA27B02F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00F0AEB6-FC95-4FBB-B594-1CBFA27B02F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00F0AEB6-FC95-4FBB-B594-1CBFA27B02F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00F0AEB6-FC95-4FBB-B594-1CBFA27B02F7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -145,6 +151,7 @@ Global
 		{08B5CD7D-C0C2-4409-ADBF-B614BFBD473E} = {4E64AE2E-CB43-4471-AFE1-D90A3DDC7555}
 		{48F14C24-6134-47F7-BCA3-BF6136224E94} = {E90825B3-5914-40CA-A18A-3E9C3F4E0A06}
 		{24F0DFDA-3E55-4AD7-8909-98BF85D0AAF1} = {743BE6D3-517D-43C4-B154-245031A3C034}
+		{00F0AEB6-FC95-4FBB-B594-1CBFA27B02F7} = {4E64AE2E-CB43-4471-AFE1-D90A3DDC7555}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DA60CBD7-8A6E-436D-B07E-D654D162CE4B}
