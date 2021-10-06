@@ -55,6 +55,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NinjaStore.Clientes.Api", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaStore.Produtos.Api", "src\Services\Produtos\NinjaStore.Produtos.Api\NinjaStore.Produtos.Api.csproj", "{E8BC2FEA-E6FA-41C4-B070-1F5FA283EEA6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaStore.Pedidos.Api", "src\Services\Pedidos\NinjaStore.Pedidos.Api\NinjaStore.Pedidos.Api.csproj", "{32426BFE-16FC-4910-B0D1-F26C263122A1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -129,6 +131,10 @@ Global
 		{E8BC2FEA-E6FA-41C4-B070-1F5FA283EEA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E8BC2FEA-E6FA-41C4-B070-1F5FA283EEA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E8BC2FEA-E6FA-41C4-B070-1F5FA283EEA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32426BFE-16FC-4910-B0D1-F26C263122A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32426BFE-16FC-4910-B0D1-F26C263122A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32426BFE-16FC-4910-B0D1-F26C263122A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32426BFE-16FC-4910-B0D1-F26C263122A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -159,6 +165,7 @@ Global
 		{24F0DFDA-3E55-4AD7-8909-98BF85D0AAF1} = {743BE6D3-517D-43C4-B154-245031A3C034}
 		{00F0AEB6-FC95-4FBB-B594-1CBFA27B02F7} = {4E64AE2E-CB43-4471-AFE1-D90A3DDC7555}
 		{E8BC2FEA-E6FA-41C4-B070-1F5FA283EEA6} = {743BE6D3-517D-43C4-B154-245031A3C034}
+		{32426BFE-16FC-4910-B0D1-F26C263122A1} = {E90825B3-5914-40CA-A18A-3E9C3F4E0A06}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DA60CBD7-8A6E-436D-B07E-D654D162CE4B}
