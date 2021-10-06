@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\WebApi\\NinjaStore.Api\\NinjaStore.Api.csproj": {}
+    "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\WebApi\\NinjaStore.Api\\NinjaStore.Api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj": {
+    "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj",
+        "projectUniqueName": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj",
         "projectName": "NinjaStore.Core",
-        "projectPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj",
-        "packagesPath": "C:\\Users\\MAPD-NOTE\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Building Blocks\\NinjaStore.Core\\obj\\",
+        "projectPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj",
+        "packagesPath": "C:\\Users\\rafael.derossi\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Building Blocks\\NinjaStore.Core\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\MAPD-NOTE\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\rafael.derossi\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -29,6 +26,7 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {}
           }
         },
@@ -40,6 +38,7 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "dependencies": {
             "EPPlus.Core": {
               "target": "Package",
@@ -89,24 +88,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.412\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Building Blocks\\NinjaStore.WebApi.Core\\NinjaStore.WebApi.Core.csproj": {
+    "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Building Blocks\\NinjaStore.WebApi.Core\\NinjaStore.WebApi.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Building Blocks\\NinjaStore.WebApi.Core\\NinjaStore.WebApi.Core.csproj",
+        "projectUniqueName": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Building Blocks\\NinjaStore.WebApi.Core\\NinjaStore.WebApi.Core.csproj",
         "projectName": "NinjaStore.WebApi.Core",
-        "projectPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Building Blocks\\NinjaStore.WebApi.Core\\NinjaStore.WebApi.Core.csproj",
-        "packagesPath": "C:\\Users\\MAPD-NOTE\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Building Blocks\\NinjaStore.WebApi.Core\\obj\\",
+        "projectPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Building Blocks\\NinjaStore.WebApi.Core\\NinjaStore.WebApi.Core.csproj",
+        "packagesPath": "C:\\Users\\rafael.derossi\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Building Blocks\\NinjaStore.WebApi.Core\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\MAPD-NOTE\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\rafael.derossi\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -118,6 +114,7 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {}
           }
         },
@@ -129,6 +126,7 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "dependencies": {
             "FluentValidation": {
               "target": "Package",
@@ -158,31 +156,25 @@
           "assetTargetFallback": true,
           "warn": true,
           "frameworkReferences": {
-            "Microsoft.AspNetCore.App": {
-              "privateAssets": "none"
-            },
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.412\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Aplication\\NinjaStore.Clientes.Aplication.csproj": {
+    "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Aplication\\NinjaStore.Clientes.Aplication.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Aplication\\NinjaStore.Clientes.Aplication.csproj",
+        "projectUniqueName": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Aplication\\NinjaStore.Clientes.Aplication.csproj",
         "projectName": "NinjaStore.Clientes.Aplication",
-        "projectPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Aplication\\NinjaStore.Clientes.Aplication.csproj",
-        "packagesPath": "C:\\Users\\MAPD-NOTE\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Aplication\\obj\\",
+        "projectPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Aplication\\NinjaStore.Clientes.Aplication.csproj",
+        "packagesPath": "C:\\Users\\rafael.derossi\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Aplication\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\MAPD-NOTE\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\rafael.derossi\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -194,15 +186,16 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj": {
-                "projectPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj"
+              "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj": {
+                "projectPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj"
               },
-              "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Domain\\NinjaStore.Clientes.Domain.csproj": {
-                "projectPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Domain\\NinjaStore.Clientes.Domain.csproj"
+              "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Domain\\NinjaStore.Clientes.Domain.csproj": {
+                "projectPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Domain\\NinjaStore.Clientes.Domain.csproj"
               },
-              "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Infra\\NinjaStore.Clientes.Infra.csproj": {
-                "projectPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Infra\\NinjaStore.Clientes.Infra.csproj"
+              "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Infra\\NinjaStore.Clientes.Infra.csproj": {
+                "projectPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Infra\\NinjaStore.Clientes.Infra.csproj"
               }
             }
           }
@@ -215,6 +208,7 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "imports": [
             "net461",
             "net462",
@@ -230,24 +224,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.412\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Domain\\NinjaStore.Clientes.Domain.csproj": {
+    "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Domain\\NinjaStore.Clientes.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Domain\\NinjaStore.Clientes.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Domain\\NinjaStore.Clientes.Domain.csproj",
         "projectName": "NinjaStore.Clientes.Domain",
-        "projectPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Domain\\NinjaStore.Clientes.Domain.csproj",
-        "packagesPath": "C:\\Users\\MAPD-NOTE\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Domain\\obj\\",
+        "projectPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Domain\\NinjaStore.Clientes.Domain.csproj",
+        "packagesPath": "C:\\Users\\rafael.derossi\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Domain\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\MAPD-NOTE\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\rafael.derossi\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -259,9 +250,10 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj": {
-                "projectPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj"
+              "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj": {
+                "projectPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj"
               }
             }
           }
@@ -274,6 +266,7 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "imports": [
             "net461",
             "net462",
@@ -289,24 +282,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.412\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Infra\\NinjaStore.Clientes.Infra.csproj": {
+    "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Infra\\NinjaStore.Clientes.Infra.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Infra\\NinjaStore.Clientes.Infra.csproj",
+        "projectUniqueName": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Infra\\NinjaStore.Clientes.Infra.csproj",
         "projectName": "NinjaStore.Clientes.Infra",
-        "projectPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Infra\\NinjaStore.Clientes.Infra.csproj",
-        "packagesPath": "C:\\Users\\MAPD-NOTE\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Infra\\obj\\",
+        "projectPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Infra\\NinjaStore.Clientes.Infra.csproj",
+        "packagesPath": "C:\\Users\\rafael.derossi\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Infra\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\MAPD-NOTE\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\rafael.derossi\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -318,12 +308,13 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj": {
-                "projectPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj"
+              "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj": {
+                "projectPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj"
               },
-              "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Domain\\NinjaStore.Clientes.Domain.csproj": {
-                "projectPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Domain\\NinjaStore.Clientes.Domain.csproj"
+              "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Domain\\NinjaStore.Clientes.Domain.csproj": {
+                "projectPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Domain\\NinjaStore.Clientes.Domain.csproj"
               }
             }
           }
@@ -336,6 +327,7 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "dependencies": {
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
@@ -373,24 +365,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.412\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Aplication\\NinjaStore.Pedidos.Aplication.csproj": {
+    "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Aplication\\NinjaStore.Pedidos.Aplication.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Aplication\\NinjaStore.Pedidos.Aplication.csproj",
+        "projectUniqueName": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Aplication\\NinjaStore.Pedidos.Aplication.csproj",
         "projectName": "NinjaStore.Pedidos.Aplication",
-        "projectPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Aplication\\NinjaStore.Pedidos.Aplication.csproj",
-        "packagesPath": "C:\\Users\\MAPD-NOTE\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Aplication\\obj\\",
+        "projectPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Aplication\\NinjaStore.Pedidos.Aplication.csproj",
+        "packagesPath": "C:\\Users\\rafael.derossi\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Aplication\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\MAPD-NOTE\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\rafael.derossi\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -402,15 +391,16 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj": {
-                "projectPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj"
+              "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj": {
+                "projectPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj"
               },
-              "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Domain\\NinjaStore.Pedidos.Domain.csproj": {
-                "projectPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Domain\\NinjaStore.Pedidos.Domain.csproj"
+              "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Domain\\NinjaStore.Pedidos.Domain.csproj": {
+                "projectPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Domain\\NinjaStore.Pedidos.Domain.csproj"
               },
-              "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Infra\\NinjaStore.Pedidos.Infra.csproj": {
-                "projectPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Infra\\NinjaStore.Pedidos.Infra.csproj"
+              "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Infra\\NinjaStore.Pedidos.Infra.csproj": {
+                "projectPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Infra\\NinjaStore.Pedidos.Infra.csproj"
               }
             }
           }
@@ -423,6 +413,7 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "imports": [
             "net461",
             "net462",
@@ -438,24 +429,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.412\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Domain\\NinjaStore.Pedidos.Domain.csproj": {
+    "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Domain\\NinjaStore.Pedidos.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Domain\\NinjaStore.Pedidos.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Domain\\NinjaStore.Pedidos.Domain.csproj",
         "projectName": "NinjaStore.Pedidos.Domain",
-        "projectPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Domain\\NinjaStore.Pedidos.Domain.csproj",
-        "packagesPath": "C:\\Users\\MAPD-NOTE\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Domain\\obj\\",
+        "projectPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Domain\\NinjaStore.Pedidos.Domain.csproj",
+        "packagesPath": "C:\\Users\\rafael.derossi\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Domain\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\MAPD-NOTE\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\rafael.derossi\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -467,9 +455,10 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj": {
-                "projectPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj"
+              "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj": {
+                "projectPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj"
               }
             }
           }
@@ -482,6 +471,7 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "imports": [
             "net461",
             "net462",
@@ -497,24 +487,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.412\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Infra\\NinjaStore.Pedidos.Infra.csproj": {
+    "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Infra\\NinjaStore.Pedidos.Infra.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Infra\\NinjaStore.Pedidos.Infra.csproj",
+        "projectUniqueName": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Infra\\NinjaStore.Pedidos.Infra.csproj",
         "projectName": "NinjaStore.Pedidos.Infra",
-        "projectPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Infra\\NinjaStore.Pedidos.Infra.csproj",
-        "packagesPath": "C:\\Users\\MAPD-NOTE\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Infra\\obj\\",
+        "projectPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Infra\\NinjaStore.Pedidos.Infra.csproj",
+        "packagesPath": "C:\\Users\\rafael.derossi\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Infra\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\MAPD-NOTE\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\rafael.derossi\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -526,12 +513,13 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj": {
-                "projectPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj"
+              "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj": {
+                "projectPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj"
               },
-              "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Domain\\NinjaStore.Pedidos.Domain.csproj": {
-                "projectPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Domain\\NinjaStore.Pedidos.Domain.csproj"
+              "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Domain\\NinjaStore.Pedidos.Domain.csproj": {
+                "projectPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Domain\\NinjaStore.Pedidos.Domain.csproj"
               }
             }
           }
@@ -544,6 +532,7 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "dependencies": {
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
@@ -581,24 +570,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.412\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Produtos\\NinjaStore.Produtos.Aplication\\NinjaStore.Produtos.Aplication.csproj": {
+    "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Produtos\\NinjaStore.Produtos.Aplication\\NinjaStore.Produtos.Aplication.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Produtos\\NinjaStore.Produtos.Aplication\\NinjaStore.Produtos.Aplication.csproj",
+        "projectUniqueName": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Produtos\\NinjaStore.Produtos.Aplication\\NinjaStore.Produtos.Aplication.csproj",
         "projectName": "NinjaStore.Produtos.Aplication",
-        "projectPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Produtos\\NinjaStore.Produtos.Aplication\\NinjaStore.Produtos.Aplication.csproj",
-        "packagesPath": "C:\\Users\\MAPD-NOTE\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Produtos\\NinjaStore.Produtos.Aplication\\obj\\",
+        "projectPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Produtos\\NinjaStore.Produtos.Aplication\\NinjaStore.Produtos.Aplication.csproj",
+        "packagesPath": "C:\\Users\\rafael.derossi\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Produtos\\NinjaStore.Produtos.Aplication\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\MAPD-NOTE\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\rafael.derossi\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -610,15 +596,16 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj": {
-                "projectPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj"
+              "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj": {
+                "projectPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj"
               },
-              "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Produtos\\NinjaStore.Produtos.Domain\\NinjaStore.Produtos.Domain.csproj": {
-                "projectPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Produtos\\NinjaStore.Produtos.Domain\\NinjaStore.Produtos.Domain.csproj"
+              "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Produtos\\NinjaStore.Produtos.Domain\\NinjaStore.Produtos.Domain.csproj": {
+                "projectPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Produtos\\NinjaStore.Produtos.Domain\\NinjaStore.Produtos.Domain.csproj"
               },
-              "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Produtos\\NinjaStore.Produtos.Infra\\NinjaStore.Produtos.Infra.csproj": {
-                "projectPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Produtos\\NinjaStore.Produtos.Infra\\NinjaStore.Produtos.Infra.csproj"
+              "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Produtos\\NinjaStore.Produtos.Infra\\NinjaStore.Produtos.Infra.csproj": {
+                "projectPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Produtos\\NinjaStore.Produtos.Infra\\NinjaStore.Produtos.Infra.csproj"
               }
             }
           }
@@ -631,6 +618,7 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "imports": [
             "net461",
             "net462",
@@ -646,24 +634,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.412\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Produtos\\NinjaStore.Produtos.Domain\\NinjaStore.Produtos.Domain.csproj": {
+    "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Produtos\\NinjaStore.Produtos.Domain\\NinjaStore.Produtos.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Produtos\\NinjaStore.Produtos.Domain\\NinjaStore.Produtos.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Produtos\\NinjaStore.Produtos.Domain\\NinjaStore.Produtos.Domain.csproj",
         "projectName": "NinjaStore.Produtos.Domain",
-        "projectPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Produtos\\NinjaStore.Produtos.Domain\\NinjaStore.Produtos.Domain.csproj",
-        "packagesPath": "C:\\Users\\MAPD-NOTE\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Produtos\\NinjaStore.Produtos.Domain\\obj\\",
+        "projectPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Produtos\\NinjaStore.Produtos.Domain\\NinjaStore.Produtos.Domain.csproj",
+        "packagesPath": "C:\\Users\\rafael.derossi\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Produtos\\NinjaStore.Produtos.Domain\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\MAPD-NOTE\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\rafael.derossi\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -675,9 +660,10 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj": {
-                "projectPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj"
+              "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj": {
+                "projectPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj"
               }
             }
           }
@@ -690,6 +676,7 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "imports": [
             "net461",
             "net462",
@@ -705,24 +692,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.412\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Produtos\\NinjaStore.Produtos.Infra\\NinjaStore.Produtos.Infra.csproj": {
+    "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Produtos\\NinjaStore.Produtos.Infra\\NinjaStore.Produtos.Infra.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Produtos\\NinjaStore.Produtos.Infra\\NinjaStore.Produtos.Infra.csproj",
+        "projectUniqueName": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Produtos\\NinjaStore.Produtos.Infra\\NinjaStore.Produtos.Infra.csproj",
         "projectName": "NinjaStore.Produtos.Infra",
-        "projectPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Produtos\\NinjaStore.Produtos.Infra\\NinjaStore.Produtos.Infra.csproj",
-        "packagesPath": "C:\\Users\\MAPD-NOTE\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Produtos\\NinjaStore.Produtos.Infra\\obj\\",
+        "projectPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Produtos\\NinjaStore.Produtos.Infra\\NinjaStore.Produtos.Infra.csproj",
+        "packagesPath": "C:\\Users\\rafael.derossi\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Produtos\\NinjaStore.Produtos.Infra\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\MAPD-NOTE\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\rafael.derossi\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -734,12 +718,13 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj": {
-                "projectPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj"
+              "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj": {
+                "projectPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj"
               },
-              "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Produtos\\NinjaStore.Produtos.Domain\\NinjaStore.Produtos.Domain.csproj": {
-                "projectPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Produtos\\NinjaStore.Produtos.Domain\\NinjaStore.Produtos.Domain.csproj"
+              "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Produtos\\NinjaStore.Produtos.Domain\\NinjaStore.Produtos.Domain.csproj": {
+                "projectPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Produtos\\NinjaStore.Produtos.Domain\\NinjaStore.Produtos.Domain.csproj"
               }
             }
           }
@@ -752,6 +737,7 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "dependencies": {
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
@@ -789,24 +775,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.412\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\WebApi\\NinjaStore.Api\\NinjaStore.Api.csproj": {
+    "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\WebApi\\NinjaStore.Api\\NinjaStore.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\WebApi\\NinjaStore.Api\\NinjaStore.Api.csproj",
+        "projectUniqueName": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\WebApi\\NinjaStore.Api\\NinjaStore.Api.csproj",
         "projectName": "NinjaStore.Api",
-        "projectPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\WebApi\\NinjaStore.Api\\NinjaStore.Api.csproj",
-        "packagesPath": "C:\\Users\\MAPD-NOTE\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\WebApi\\NinjaStore.Api\\obj\\",
+        "projectPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\WebApi\\NinjaStore.Api\\NinjaStore.Api.csproj",
+        "packagesPath": "C:\\Users\\rafael.derossi\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\WebApi\\NinjaStore.Api\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\MAPD-NOTE\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\rafael.derossi\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -818,39 +801,40 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj": {
-                "projectPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj"
+              "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj": {
+                "projectPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj"
               },
-              "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Building Blocks\\NinjaStore.WebApi.Core\\NinjaStore.WebApi.Core.csproj": {
-                "projectPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Building Blocks\\NinjaStore.WebApi.Core\\NinjaStore.WebApi.Core.csproj"
+              "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Building Blocks\\NinjaStore.WebApi.Core\\NinjaStore.WebApi.Core.csproj": {
+                "projectPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Building Blocks\\NinjaStore.WebApi.Core\\NinjaStore.WebApi.Core.csproj"
               },
-              "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Aplication\\NinjaStore.Clientes.Aplication.csproj": {
-                "projectPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Aplication\\NinjaStore.Clientes.Aplication.csproj"
+              "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Aplication\\NinjaStore.Clientes.Aplication.csproj": {
+                "projectPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Aplication\\NinjaStore.Clientes.Aplication.csproj"
               },
-              "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Domain\\NinjaStore.Clientes.Domain.csproj": {
-                "projectPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Domain\\NinjaStore.Clientes.Domain.csproj"
+              "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Domain\\NinjaStore.Clientes.Domain.csproj": {
+                "projectPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Domain\\NinjaStore.Clientes.Domain.csproj"
               },
-              "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Infra\\NinjaStore.Clientes.Infra.csproj": {
-                "projectPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Infra\\NinjaStore.Clientes.Infra.csproj"
+              "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Infra\\NinjaStore.Clientes.Infra.csproj": {
+                "projectPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Clientes\\NinjaStore.Clientes.Infra\\NinjaStore.Clientes.Infra.csproj"
               },
-              "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Aplication\\NinjaStore.Pedidos.Aplication.csproj": {
-                "projectPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Aplication\\NinjaStore.Pedidos.Aplication.csproj"
+              "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Aplication\\NinjaStore.Pedidos.Aplication.csproj": {
+                "projectPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Aplication\\NinjaStore.Pedidos.Aplication.csproj"
               },
-              "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Domain\\NinjaStore.Pedidos.Domain.csproj": {
-                "projectPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Domain\\NinjaStore.Pedidos.Domain.csproj"
+              "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Domain\\NinjaStore.Pedidos.Domain.csproj": {
+                "projectPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Domain\\NinjaStore.Pedidos.Domain.csproj"
               },
-              "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Infra\\NinjaStore.Pedidos.Infra.csproj": {
-                "projectPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Infra\\NinjaStore.Pedidos.Infra.csproj"
+              "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Infra\\NinjaStore.Pedidos.Infra.csproj": {
+                "projectPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Pedidos\\NinjaStore.Pedidos.Infra\\NinjaStore.Pedidos.Infra.csproj"
               },
-              "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Produtos\\NinjaStore.Produtos.Aplication\\NinjaStore.Produtos.Aplication.csproj": {
-                "projectPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Produtos\\NinjaStore.Produtos.Aplication\\NinjaStore.Produtos.Aplication.csproj"
+              "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Produtos\\NinjaStore.Produtos.Aplication\\NinjaStore.Produtos.Aplication.csproj": {
+                "projectPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Produtos\\NinjaStore.Produtos.Aplication\\NinjaStore.Produtos.Aplication.csproj"
               },
-              "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Produtos\\NinjaStore.Produtos.Domain\\NinjaStore.Produtos.Domain.csproj": {
-                "projectPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Produtos\\NinjaStore.Produtos.Domain\\NinjaStore.Produtos.Domain.csproj"
+              "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Produtos\\NinjaStore.Produtos.Domain\\NinjaStore.Produtos.Domain.csproj": {
+                "projectPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Produtos\\NinjaStore.Produtos.Domain\\NinjaStore.Produtos.Domain.csproj"
               },
-              "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Produtos\\NinjaStore.Produtos.Infra\\NinjaStore.Produtos.Infra.csproj": {
-                "projectPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Services\\Produtos\\NinjaStore.Produtos.Infra\\NinjaStore.Produtos.Infra.csproj"
+              "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Produtos\\NinjaStore.Produtos.Infra\\NinjaStore.Produtos.Infra.csproj": {
+                "projectPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Services\\Produtos\\NinjaStore.Produtos.Infra\\NinjaStore.Produtos.Infra.csproj"
               }
             }
           }
@@ -863,6 +847,7 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "dependencies": {
             "MediatR.Extensions.Microsoft.DependencyInjection": {
               "target": "Package",
@@ -917,7 +902,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.412\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     }

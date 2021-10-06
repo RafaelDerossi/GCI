@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj": {}
+    "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj": {}
   },
   "projects": {
-    "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj": {
+    "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj",
+        "projectUniqueName": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj",
         "projectName": "NinjaStore.Core",
-        "projectPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj",
-        "packagesPath": "C:\\Users\\MAPD-NOTE\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\MAPD-NOTE\\source\\repos\\NinjaStore\\src\\Building Blocks\\NinjaStore.Core\\obj\\",
+        "projectPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj",
+        "packagesPath": "C:\\Users\\rafael.derossi\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore\\src\\Building Blocks\\NinjaStore.Core\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\MAPD-NOTE\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\rafael.derossi\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -29,6 +26,7 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {}
           }
         },
@@ -40,6 +38,7 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "dependencies": {
             "EPPlus.Core": {
               "target": "Package",
@@ -89,7 +88,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.412\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     }
