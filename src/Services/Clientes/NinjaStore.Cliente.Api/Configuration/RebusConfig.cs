@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using NinjaStore.Clientes.Aplication.Commands;
+using NinjaStore.Clientes.Aplication.Events;
 using NinjaStore.Core.Messages;
 using Rebus.Config;
 using Rebus.Persistence.InMem;
@@ -23,9 +25,9 @@ namespace NinjaStore.Clientes.Api.Configuration
                 .Routing(r =>
                 {
                     r.TypeBased()
-                        .MapAssemblyOf<Message>(nomeFila);
-                        //.MapAssemblyOf<RealizarPedidoCommand>(nomeFila)
-                        //.MapAssemblyOf<RealizarPagamentoCommand>(nomeFila);
+                        .MapAssemblyOf<Message>(nomeFila)
+                        .MapAssemblyOf<ClienteCommand>(nomeFila)
+                        .MapAssemblyOf<ClienteEvent>(nomeFila);
                 })
                 .Sagas(s => s.StoreInMemory())
                 .Options(o =>
@@ -37,8 +39,8 @@ namespace NinjaStore.Clientes.Api.Configuration
             );
 
             // Register handlers 
-            //services.AutoRegisterHandlersFromAssemblyOf<PagamentoCommandHandler>();
-            //services.AutoRegisterHandlersFromAssemblyOf<PedidoSaga>();
+            services.AutoRegisterHandlersFromAssemblyOf<ClienteCommandHandler>();
+            services.AutoRegisterHandlersFromAssemblyOf<ClienteEventHandler>();
 
             return services;
         }
@@ -47,11 +49,7 @@ namespace NinjaStore.Clientes.Api.Configuration
         {           
             app.UseRebus(c =>
             {
-                c.Subscribe<PedidoRealizadoEvent>().Wait();
-                c.Subscribe<PagamentoRealizadoEvent>().Wait();
-                c.Subscribe<PedidoFinalizadoEvent>().Wait();
-                c.Subscribe<PagamentoRecusadoEvent>().Wait();
-                c.Subscribe<PedidoCanceladoEvent>().Wait();
+                c.Subscribe<ClienteAdicionadoEvent>().Wait();                
             });
 
             return app;
