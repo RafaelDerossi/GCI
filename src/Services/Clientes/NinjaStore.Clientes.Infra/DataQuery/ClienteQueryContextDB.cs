@@ -31,6 +31,7 @@ namespace NinjaStore.Clientes.Infra.Data
         {
             modelBuilder.Ignore<ValidationResult>();
             modelBuilder.Ignore<Event>();
+            modelBuilder.Ignore<DomainEvent>();
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ClienteQueryContextDB).Assembly);
 
             modelBuilder.Ignore<Cliente>();

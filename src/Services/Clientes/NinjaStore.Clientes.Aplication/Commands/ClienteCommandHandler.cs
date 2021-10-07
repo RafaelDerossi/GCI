@@ -16,14 +16,12 @@ namespace NinjaStore.Clientes.Aplication.Commands
          IDisposable
     {
 
-        private readonly IClienteRepository _clienteRepository;
-        private readonly IBus _bus;
+        private readonly IClienteRepository _clienteRepository;        
 
         public ClienteCommandHandler(IClienteRepository clienteRepository)
         {
             _clienteRepository = clienteRepository;
         }
-
 
         public async Task<ValidationResult> Handle(AdicionarClienteCommand request, CancellationToken cancellationToken)
         {
@@ -37,19 +35,14 @@ namespace NinjaStore.Clientes.Aplication.Commands
                 return ValidationResult;
             }
 
-            _clienteRepository.Adicionar(cliente);            
+            _clienteRepository.Adicionar(cliente);
 
-            var retorno = await PersistirDados(_clienteRepository.UnitOfWork);
-            if (!retorno.IsValid)
-                return retorno;
-
-            //Evento            
-            _bus.Publish(new ClienteAdicionadoEvent
-                (cliente.Id, cliente.Nome, cliente.Email, cliente.Aldeia)).Wait();
-
-            return retorno;
-        }
-               
+            //Evento
+            cliente.AdicionarEvento(new ClienteAdicionadoEvent
+                (cliente.Id, cliente.Nome, cliente.Email, cliente.Aldeia));
+            
+            return await PersistirDados(_clienteRepository.UnitOfWork); ;
+        }               
 
         public void Dispose()
         {

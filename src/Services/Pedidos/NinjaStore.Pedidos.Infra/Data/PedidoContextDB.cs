@@ -61,7 +61,7 @@ namespace NinjaStore.Pedidos.Infra.Data
             }
 
             var sucesso = await SaveChangesAsync() > 0;
-            if (sucesso) await _mediatorHandler.PublicarEventos(this);
+            if (sucesso) await _mediatorHandler.PublicarEventosDeDominio(this);
 
             return sucesso;
           

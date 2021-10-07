@@ -18,8 +18,7 @@ namespace NinjaStore.Produtos.Api.Configuration
 
             //Produto
             services.AddScoped<IRequestHandler<AdicionarProdutoCommand, ValidationResult>, ProdutoCommandHandler>();            
-            services.AddScoped<INotificationHandler<ProdutoAdicionadoEvent>, ProdutoEventHandler>();
-
+            
             //Query
             services.AddScoped<IProdutoQuery, ProdutoQuery>();            
             

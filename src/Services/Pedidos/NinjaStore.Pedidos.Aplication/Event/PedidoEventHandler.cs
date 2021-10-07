@@ -2,13 +2,14 @@
 using NinjaStore.Core.Messages;
 using NinjaStore.Pedidos.Domain.FlatModel;
 using NinjaStore.Pedidos.Domain.Interfaces;
+using Rebus.Handlers;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace NinjaStore.Pedidos.Aplication.Events
 {
     public class PedidoEventHandler : CommandHandler,
-         INotificationHandler<PedidoAdicionadoEvent>,
+         IHandleMessages<PedidoAdicionadoEvent>,
          System.IDisposable
     {
 
@@ -21,7 +22,7 @@ namespace NinjaStore.Pedidos.Aplication.Events
         }
 
 
-        public async Task Handle(PedidoAdicionadoEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(PedidoAdicionadoEvent notification)
         {
             var pedidoFlat = new PedidoFlat
                 (notification.Id, notification.Numero, notification.Valor,

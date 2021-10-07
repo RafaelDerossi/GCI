@@ -7,6 +7,7 @@ using NinjaStore.Core.Mediator;
 using NinjaStore.Core.Messages;
 using NinjaStore.Produtos.Domain;
 using NinjaStore.Produtos.Domain.FlatModel;
+using Rebus.Bus;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,20 +17,24 @@ namespace NinjaStore.Produtos.Infra.Data
     public class ProdutoContextDB : DbContext, IUnitOfWorks
     {
         private readonly IMediatorHandler _mediatorHandler;
+        private readonly IBus _bus;
 
         public DbSet<Produto> Produtos { get; set; }      
 
 
-        public ProdutoContextDB(DbContextOptions<ProdutoContextDB> options, IMediatorHandler mediatorHandler)
+        public ProdutoContextDB(DbContextOptions<ProdutoContextDB> options, 
+                  IMediatorHandler mediatorHandler, IBus bus)
             : base(options)
         {
             _mediatorHandler = mediatorHandler;
+            _bus = bus;
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Ignore<ValidationResult>();
             modelBuilder.Ignore<Event>();
+            modelBuilder.Ignore<DomainEvent>();
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ProdutoContextDB).Assembly);
 
             modelBuilder.Ignore<ProdutoFlat>();
@@ -56,10 +61,14 @@ namespace NinjaStore.Produtos.Infra.Data
                     entry.Property("DataDeAlteracao").CurrentValue =
                         TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, cetZone);
                 }
-            }
+            }    
 
             var sucesso = await SaveChangesAsync() > 0;
-            if (sucesso) await _mediatorHandler.PublicarEventos(this);
+            if (sucesso)
+            {
+                await _mediatorHandler.PublicarEventosDeDominio(this);
+                await _bus.EnfileirarEventos(this);
+            }
 
             return sucesso;
           

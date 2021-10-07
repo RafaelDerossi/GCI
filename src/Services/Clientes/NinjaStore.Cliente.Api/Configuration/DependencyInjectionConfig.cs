@@ -19,8 +19,7 @@ namespace NinjaStore.Clientes.Api.Configuration
                         
             //Cliente
             services.AddScoped<IRequestHandler<AdicionarClienteCommand, ValidationResult>, ClienteCommandHandler>();            
-            services.AddScoped<INotificationHandler<ClienteAdicionadoEvent>, ClienteEventHandler>();
-            
+                        
             //Query
             services.AddScoped<IClienteQuery, ClienteQuery>();
             

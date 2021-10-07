@@ -49,9 +49,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NinjaStore.Produtos.Tests",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NinjaStore.Clientes.Api", "src\Services\Clientes\NinjaStore.Cliente.Api\NinjaStore.Clientes.Api.csproj", "{00F0AEB6-FC95-4FBB-B594-1CBFA27B02F7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaStore.Produtos.Api", "src\Services\Produtos\NinjaStore.Produtos.Api\NinjaStore.Produtos.Api.csproj", "{E8BC2FEA-E6FA-41C4-B070-1F5FA283EEA6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NinjaStore.Produtos.Api", "src\Services\Produtos\NinjaStore.Produtos.Api\NinjaStore.Produtos.Api.csproj", "{E8BC2FEA-E6FA-41C4-B070-1F5FA283EEA6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaStore.Pedidos.Api", "src\Services\Pedidos\NinjaStore.Pedidos.Api\NinjaStore.Pedidos.Api.csproj", "{32426BFE-16FC-4910-B0D1-F26C263122A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NinjaStore.Pedidos.Api", "src\Services\Pedidos\NinjaStore.Pedidos.Api\NinjaStore.Pedidos.Api.csproj", "{32426BFE-16FC-4910-B0D1-F26C263122A1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

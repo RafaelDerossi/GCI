@@ -26,6 +26,8 @@ namespace NinjaStore.Pedidos.Api
 
             services.AddSwaggerConfiguration();
 
+            services.AddRebusConfiguration();
+
             services.AddMediatR(typeof(Startup));
 
             services.RegisterServices();
@@ -37,6 +39,8 @@ namespace NinjaStore.Pedidos.Api
             app.UseSwaggerConfiguration();
 
             app.UseApiConfiguration(env);
+
+            app.UseRebusConfiguration();
         }
     }
 }

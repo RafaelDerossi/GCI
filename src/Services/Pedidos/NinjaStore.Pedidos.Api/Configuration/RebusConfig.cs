@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using NinjaStore.Clientes.Aplication.Commands;
-using NinjaStore.Clientes.Aplication.Events;
+using NinjaStore.Pedidos.Aplication.Commands;
+using NinjaStore.Pedidos.Aplication.Events;
 using NinjaStore.Core.Messages;
 using Rebus.Config;
 using Rebus.Persistence.InMem;
 using Rebus.Routing.TypeBased;
 using Rebus.ServiceProvider;
 
-namespace NinjaStore.Clientes.Api.Configuration
+namespace NinjaStore.Pedidos.Api.Configuration
 {
     public static class RebusConfig
     {
@@ -26,8 +26,8 @@ namespace NinjaStore.Clientes.Api.Configuration
                 {
                     r.TypeBased()
                         .MapAssemblyOf<Message>(nomeFila)
-                        .MapAssemblyOf<ClienteCommand>(nomeFila)
-                        .MapAssemblyOf<ClienteEvent>(nomeFila);
+                        .MapAssemblyOf<PedidoCommand>(nomeFila)
+                        .MapAssemblyOf<PedidoEvent>(nomeFila);
                 })
                 .Sagas(s => s.StoreInMemory())
                 .Options(o =>
@@ -39,7 +39,7 @@ namespace NinjaStore.Clientes.Api.Configuration
             );
 
             // Register handlers             
-            services.AutoRegisterHandlersFromAssemblyOf<ClienteEventHandler>();
+            services.AutoRegisterHandlersFromAssemblyOf<PedidoEventHandler>();
 
             return services;
         }
@@ -48,7 +48,7 @@ namespace NinjaStore.Clientes.Api.Configuration
         {           
             app.UseRebus(c =>
             {
-                c.Subscribe<ClienteAdicionadoEvent>().Wait();                
+                c.Subscribe<PedidoAdicionadoEvent>().Wait();                
             });
 
             return app;

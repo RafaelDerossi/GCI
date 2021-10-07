@@ -1,8 +1,8 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using NinjaStore.Core.Messages;
 using FluentValidation.Results;
 using MediatR;
+using NinjaStore.Core.Messages;
 
 namespace NinjaStore.Core.Mediator
 {
@@ -20,7 +20,7 @@ namespace NinjaStore.Core.Mediator
             return await _mediator.Send(comando);
         }
 
-        public async Task PublicarEvento<T>(T evento) where T : Event
+        public async Task PublicarEvento<T>(T evento) where T : DomainEvent
         {
           await _mediator.Publish(evento);
         }

@@ -15,24 +15,43 @@ namespace NinjaStore.Core.DomainObjects
 
         protected ValidationResult ValidationResult { get; private set; } = new ValidationResult();
 
-        private List<Event> _notificacoes;
-        public IReadOnlyCollection<Event> Notificacoes => _notificacoes?.AsReadOnly();
 
-        public void AdicionarEvento(Event evento)
+
+        private List<DomainEvent> _notificacoes;
+        public IReadOnlyCollection<DomainEvent> Notificacoes => _notificacoes?.AsReadOnly();
+
+        public void AdicionarEventoDeDominio(DomainEvent evento)
         {
-            _notificacoes = _notificacoes ?? new List<Event>();
+            _notificacoes = _notificacoes ?? new List<DomainEvent>();
             _notificacoes.Add(evento);
         }
-
-        public void RemoverEvento(Event eventItem)
+        public void RemoverEventoDeDominio(DomainEvent eventItem)
         {
             _notificacoes?.Remove(eventItem);
         }
-
-        public void LimparEventos()
+        public void LimparEventosDeDominio()
         {
             _notificacoes?.Clear();
         }
+
+
+        private List<Event> _mensagens;
+        public IReadOnlyCollection<Event> Mensagens => _mensagens?.AsReadOnly();
+
+        public void AdicionarEvento(Event evento)
+        {
+            _mensagens = _mensagens ?? new List<Event>();
+            _mensagens.Add(evento);
+        }
+        public void RemoverEvento(Event eventItem)
+        {
+            _mensagens?.Remove(eventItem);
+        }
+        public void LimparEventos()
+        {
+            _mensagens?.Clear();
+        }
+
 
         protected void AdicionarErrosDaEntidade(string mensagem)
         {

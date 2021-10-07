@@ -7,6 +7,7 @@ using NinjaStore.Core.Extensions;
 using NinjaStore.Core.Helpers;
 using NinjaStore.Core.Mediator;
 using NinjaStore.Core.Messages;
+using Rebus.Bus;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,18 +18,23 @@ namespace NinjaStore.Clientes.Infra.Data
     {
         private readonly IMediatorHandler _mediatorHandler;
 
-        public DbSet<Cliente> Clientes { get; set; }      
+        private readonly IBus _bus;
+
+        public DbSet<Cliente> Clientes { get; set; }
 
 
-        public ClienteContextDB(DbContextOptions<ClienteContextDB> options, IMediatorHandler mediatorHandler)
+        public ClienteContextDB(DbContextOptions<ClienteContextDB> options,
+                   IMediatorHandler mediatorHandler, IBus bus)
             : base(options)
         {
             _mediatorHandler = mediatorHandler;
+            _bus = bus;
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Ignore<ValidationResult>();
+            modelBuilder.Ignore<DomainEvent>();
             modelBuilder.Ignore<Event>();
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ClienteContextDB).Assembly);
 
@@ -59,7 +65,11 @@ namespace NinjaStore.Clientes.Infra.Data
             }
 
             var sucesso = await SaveChangesAsync() > 0;
-            if (sucesso) await _mediatorHandler.PublicarEventos(this);
+            if (sucesso)
+            {
+                await _mediatorHandler.PublicarEventosDeDominio(this);
+                await _bus.EnfileirarEventos(this);
+            }
 
             return sucesso;
           

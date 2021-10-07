@@ -4,12 +4,13 @@ using System.Threading.Tasks;
 using NinjaStore.Core.DomainObjects;
 using NinjaStore.Core.Mediator;
 using Microsoft.EntityFrameworkCore;
+using Rebus.Bus;
 
 namespace NinjaStore.Core.Extensions
 {
     public static class MediatorExtension
     {
-        public static async Task PublicarEventos<T>(this IMediatorHandler mediator, T ctx) where T : DbContext
+        public static async Task PublicarEventosDeDominio<T>(this IMediatorHandler mediator, T ctx) where T : DbContext
         {
             var domainEntities = ctx.ChangeTracker
                 .Entries<Entity>()
@@ -20,7 +21,7 @@ namespace NinjaStore.Core.Extensions
                 .ToList();
 
             domainEntities.ToList()
-                .ForEach(entity => entity.Entity.LimparEventos());
+                .ForEach(entity => entity.Entity.LimparEventosDeDominio());
 
 
             foreach (var item in domainEvents)
@@ -37,4 +38,29 @@ namespace NinjaStore.Core.Extensions
             //await Task.WhenAll(tasks);
         }
     }
+
+    public static class RebusExtension
+    {
+        public static async Task EnfileirarEventos<T>(this IBus bus, T ctx) where T : DbContext
+        {
+            var domainEntities = ctx.ChangeTracker
+                .Entries<Entity>()
+                .Where(x => x.Entity.Mensagens != null && x.Entity.Mensagens.Any());
+
+            var events = domainEntities
+                .SelectMany(x => x.Entity.Mensagens)
+                .ToList();
+
+            domainEntities.ToList()
+                .ForEach(entity => entity.Entity.LimparEventos());
+
+
+            foreach (var item in events)
+            {
+                await bus.Publish(item);
+                Thread.Sleep(500);
+            }        
+        }
+    }
+
 }

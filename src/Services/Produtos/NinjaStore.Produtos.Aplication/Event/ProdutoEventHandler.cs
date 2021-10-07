@@ -2,13 +2,14 @@
 using NinjaStore.Core.Messages;
 using NinjaStore.Produtos.Domain.FlatModel;
 using NinjaStore.Produtos.Domain.Interfaces;
+using Rebus.Handlers;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace NinjaStore.Produtos.Aplication.Events
 {
     public class ProdutoEventHandler : CommandHandler,
-         INotificationHandler<ProdutoAdicionadoEvent>,
+         IHandleMessages<ProdutoAdicionadoEvent>,
          System.IDisposable
     {
 
@@ -20,7 +21,7 @@ namespace NinjaStore.Produtos.Aplication.Events
         }
 
 
-        public async Task Handle(ProdutoAdicionadoEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(ProdutoAdicionadoEvent notification)
         {
             var produtoFlat = new ProdutoFlat
                 (notification.Id, notification.Descricao, notification.Valor, notification.Foto);

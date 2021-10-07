@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "FlsLLih9QuVJEFroUW34a2+CVrGMLD6DBcv6ISvGmsmq3p0NRYZZt46V8J9jphQRyMB0T9oFvTWIsEIDYPUT+A==",
+  "dgSpecHash": "+HKzYqUqEW65yfmb3Z2BuXVTUx9NZEHpvW1hmwHm7h/XgOE9HSX3N/0Rg5h/43XpzJoO0VhQCWEuag7/7cULRA==",
   "success": true,
   "projectFilePath": "C:\\Users\\rafael.derossi\\Source\\Repos\\RafaelDerossi\\NinjaStore-MS\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj",
   "expectedPackageFiles": [
@@ -33,7 +33,7 @@
     "C:\\Users\\rafael.derossi\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
     "C:\\Users\\rafael.derossi\\.nuget\\packages\\microsoft.win32.registry\\4.4.0\\microsoft.win32.registry.4.4.0.nupkg.sha512",
     "C:\\Users\\rafael.derossi\\.nuget\\packages\\newtonsoft.json\\11.0.1\\newtonsoft.json.11.0.1.nupkg.sha512",
-    "C:\\Users\\rafael.derossi\\.nuget\\packages\\rebus\\6.6.1\\rebus.6.6.1.nupkg.sha512",
+    "C:\\Users\\rafael.derossi\\.nuget\\packages\\rebus\\5.3.1\\rebus.5.3.1.nupkg.sha512",
     "C:\\Users\\rafael.derossi\\.nuget\\packages\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Users\\rafael.derossi\\.nuget\\packages\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Users\\rafael.derossi\\.nuget\\packages\\runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
@@ -103,7 +103,6 @@
     "C:\\Users\\rafael.derossi\\.nuget\\packages\\system.text.encoding.codepages\\4.4.0\\system.text.encoding.codepages.4.4.0.nupkg.sha512",
     "C:\\Users\\rafael.derossi\\.nuget\\packages\\system.text.encoding.extensions\\4.3.0\\system.text.encoding.extensions.4.3.0.nupkg.sha512",
     "C:\\Users\\rafael.derossi\\.nuget\\packages\\system.text.encodings.web\\4.5.0\\system.text.encodings.web.4.5.0.nupkg.sha512",
-    "C:\\Users\\rafael.derossi\\.nuget\\packages\\system.text.json\\5.0.0\\system.text.json.5.0.0.nupkg.sha512",
     "C:\\Users\\rafael.derossi\\.nuget\\packages\\system.text.regularexpressions\\4.3.0\\system.text.regularexpressions.4.3.0.nupkg.sha512",
     "C:\\Users\\rafael.derossi\\.nuget\\packages\\system.threading\\4.3.0\\system.threading.4.3.0.nupkg.sha512",
     "C:\\Users\\rafael.derossi\\.nuget\\packages\\system.threading.tasks\\4.3.0\\system.threading.tasks.4.3.0.nupkg.sha512",

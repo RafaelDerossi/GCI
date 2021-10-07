@@ -30,6 +30,7 @@ namespace NinjaStore.Produtos.Infra.Data
         {
             modelBuilder.Ignore<ValidationResult>();
             modelBuilder.Ignore<Event>();
+            modelBuilder.Ignore<DomainEvent>();
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ProdutoQueryContextDB).Assembly);
 
             modelBuilder.Ignore<Produto>();
