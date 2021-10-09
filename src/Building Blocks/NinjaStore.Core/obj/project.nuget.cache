@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "+HKzYqUqEW65yfmb3Z2BuXVTUx9NZEHpvW1hmwHm7h/XgOE9HSX3N/0Rg5h/43XpzJoO0VhQCWEuag7/7cULRA==",
+  "dgSpecHash": "xpyN1TXeQFZBbvNH6RU/OAsDmTz43sLFn/UbQuZmIhlEVhIAV07csRiP9R5jXgShum6HEPdaNxeKFOqJf/7dcg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\rafael.derossi\\Source\\Repos\\RafaelDerossi\\NinjaStore-MS\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj",
+  "projectFilePath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore-MS\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\rafael.derossi\\.nuget\\packages\\epplus.core\\1.5.4\\epplus.core.1.5.4.nupkg.sha512",
     "C:\\Users\\rafael.derossi\\.nuget\\packages\\fluentvalidation\\8.6.2\\fluentvalidation.8.6.2.nupkg.sha512",

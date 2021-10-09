@@ -33,6 +33,7 @@ namespace NinjaStore.Pedidos.Infra.Data
             modelBuilder.Ignore<Event>();
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(PedidoQueryContextDB).Assembly);
 
+            modelBuilder.Ignore<Cliente>();
             modelBuilder.Ignore<Pedido>();
             modelBuilder.Ignore<Produto>();
         }

@@ -1,5 +1,5 @@
 ﻿using NinjaStore.Core.Messages;
-using NinjaStore.Pedidos.Aplication.DTO;
+using NinjaStore.Core.Messages.DTO;
 using System;
 using System.Collections.Generic;
 

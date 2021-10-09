@@ -7,9 +7,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using NinjaStore.Pedidos.Aplication.ViewModels;
 using NinjaStore.Pedidos.Aplication.Commands;
-using NinjaStore.Pedidos.Aplication.DTO;
 using NinjaStore.Pedidos.Domain.FlatModel;
 using NinjaStore.Pedidos.Aplication.Query;
+using NinjaStore.Core.Messages.DTO;
+using AutoMapper;
 
 namespace NinjaStore.Pedidos.Api.Controllers
 {
@@ -17,16 +18,21 @@ namespace NinjaStore.Pedidos.Api.Controllers
     public class PedidoController : MainController
     {
         private readonly IMediatorHandler _mediatorHandler;
-
-        private readonly IPedidoQuery _pedidoQuery;        
+        private readonly IPedidoQuery _pedidoQuery;
+        private readonly IClienteQuery _clienteQuery;
+        private readonly IMapper _mapper;
 
         public PedidoController
-            (IMediatorHandler mediatorHandler,
-             IPedidoQuery pedidoQuery)
+            (IMediatorHandler mediatorHandler, IPedidoQuery pedidoQuery,
+             IClienteQuery clienteQuery, IMapper mapper)
         {
             _mediatorHandler = mediatorHandler;
             _pedidoQuery = pedidoQuery;
+            _clienteQuery = clienteQuery;
+            _mapper = mapper;
         }
+
+
 
 
         /// <summary>
@@ -91,17 +97,17 @@ namespace NinjaStore.Pedidos.Api.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            //var cliente = await _clienteQuery.ObterPorId(viewModel.ClienteId);
-            //if (cliente == null)
+            var cliente = await _clienteQuery.ObterPorId(viewModel.ClienteId);
+            if (cliente == null)
                 return CustomResponse("Cliente não encontrado!");
 
-            //var clienteDTO = new ClienteDTO(cliente.Id, cliente.Nome, cliente.Email, cliente.Aldeia);
+            var clienteDTO = new ClienteDTO(cliente.Id, cliente.Nome, cliente.Email, cliente.Aldeia);
 
-            //var produtosDTO = viewModel.Produtos.Select(ProdutoDTO.Mapear).ToList();
+            var produtosDTO = _mapper.Map<IEnumerable<ProdutoDTO>>(viewModel.Produtos).ToList();
 
-            //var comando = new AdicionarPedidoCommand(clienteDTO, produtosDTO);           
+            var comando = new AdicionarPedidoCommand(clienteDTO, produtosDTO);           
 
-            //return CustomResponse(await _mediatorHandler.EnviarComando(comando));
+            return CustomResponse(await _mediatorHandler.EnviarComando(comando));
         }        
     }
 }

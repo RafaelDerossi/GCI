@@ -1,4 +1,4 @@
-﻿using NinjaStore.Pedidos.Aplication.DTO;
+﻿using NinjaStore.Core.Messages.DTO;
 using System;
 using System.Collections.Generic;
 
@@ -11,6 +11,7 @@ namespace NinjaStore.Pedidos.Aplication.Events
             (Guid id, int numero, decimal valor, decimal desconto, decimal valorTotal,
              ClienteDTO cliente, List<ProdutoDTO> produtos)
         {
+            AggregateId = id;
             Id = id;
             Numero = numero;
             Valor = valor;

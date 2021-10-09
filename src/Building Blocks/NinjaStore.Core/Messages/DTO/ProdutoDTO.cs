@@ -1,8 +1,6 @@
-﻿using NinjaStore.Core.DomainObjects;
-using NinjaStore.Pedidos.Aplication.ViewModels;
-using System;
+﻿using System;
 
-namespace NinjaStore.Pedidos.Aplication.DTO
+namespace NinjaStore.Core.Messages.DTO
 {
     public class ProdutoDTO
     {
@@ -35,21 +33,6 @@ namespace NinjaStore.Pedidos.Aplication.DTO
             Valor = valor;
             Desconto = desconto;
             ValorTotal = valorTotal;
-        }
-
-        public static ProdutoDTO Mapear(ProdutoViewModel viewModel)
-        {
-            return
-                new ProdutoDTO
-                {
-                    Id = Guid.NewGuid(), 
-                    ProdutoId = viewModel.Id,
-                    Descricao = viewModel.Descricao,
-                    Foto = viewModel.Foto,
-                    Valor = viewModel.Valor,
-                    Desconto = viewModel.Desconto,
-                    ValorTotal = viewModel.ValorTotal
-                };
         }
     }
 }

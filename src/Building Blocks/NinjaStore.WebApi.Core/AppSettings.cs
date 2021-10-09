@@ -1,4 +1,4 @@
-﻿namespace NinjaStore.WebApi.Core.Identidade
+﻿namespace NinjaStore.WebApi.Core
 {
     public class AppSettings
     {
@@ -9,5 +9,6 @@
         public string LinkConfirmacaoDeCadastro { get; set; }
         public string LinkCompleteCadastro { get; set; }
         public string LinkRedefinirSenha { get; set; }
+        public string UrlNinjaStoreClienteApi { get; set; }        
     }
 }

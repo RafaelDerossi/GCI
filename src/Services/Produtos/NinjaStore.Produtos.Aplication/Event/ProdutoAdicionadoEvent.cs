@@ -6,6 +6,7 @@ namespace NinjaStore.Produtos.Aplication.Events
 
         public ProdutoAdicionadoEvent(Guid id, string descricao, decimal valor, string foto)
         {
+            AggregateId = id;
             Id = id;
             Descricao = descricao;
             Valor = valor;

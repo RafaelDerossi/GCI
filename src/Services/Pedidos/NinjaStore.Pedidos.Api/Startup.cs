@@ -24,6 +24,8 @@ namespace NinjaStore.Pedidos.Api
 
             services.AddJwtConfiguration(Configuration);
 
+            services.ConfigurarAutoMapper();
+
             services.AddSwaggerConfiguration();
 
             services.AddRebusConfiguration();

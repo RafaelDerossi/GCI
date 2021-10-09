@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Building Blocks\NinjaStore.Core\NinjaStore.Core.csproj" />
+    <ProjectReference Include="..\..\..\Building Blocks\NinjaStore.WebApi.Core\NinjaStore.WebApi.Core.csproj" />
     <ProjectReference Include="..\NinjaStore.Pedidos.Domain\NinjaStore.Pedidos.Domain.csproj" />
     <ProjectReference Include="..\NinjaStore.Pedidos.Infra\NinjaStore.Pedidos.Infra.csproj" />
   </ItemGroup>
