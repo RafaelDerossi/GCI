@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NinjaStore.Pedidos.Infra.Data;
 
 namespace NinjaStore.Pedidos.Infra.Migrations
 {
     [DbContext(typeof(PedidoContextDB))]
-    partial class PedidoContextDBModelSnapshot : ModelSnapshot
+    [Migration("20211013201550_Just_Canc_Pedido")]
+    partial class Just_Canc_Pedido
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -14,6 +14,8 @@ namespace NinjaStore.Pedidos.Infra.Data.Mapping
 
             builder.Property(u => u.Numero).IsRequired().ValueGeneratedOnAdd();
 
+            builder.Property(u => u.JustificativaDoCancelamento).HasColumnType($"varchar({Pedido.Max})");
+
             builder.Property(u => u.ClienteId).IsRequired();
         }
     }

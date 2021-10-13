@@ -7,6 +7,7 @@ using Rebus.Config;
 using Rebus.Persistence.InMem;
 using Rebus.Routing.TypeBased;
 using Rebus.ServiceProvider;
+using NinjaStore.Core.Messages.IntegrationEvents.Pedidos;
 
 namespace NinjaStore.Produtos.Api.Configuration
 {
@@ -39,6 +40,7 @@ namespace NinjaStore.Produtos.Api.Configuration
             );
 
             // Register handlers             
+            services.AutoRegisterHandlersFromAssemblyOf<ProdutoCommandHandler>();
             services.AutoRegisterHandlersFromAssemblyOf<ProdutoEventHandler>();
 
             return services;
@@ -48,7 +50,9 @@ namespace NinjaStore.Produtos.Api.Configuration
         {           
             app.UseRebus(c =>
             {
-                c.Subscribe<ProdutoAdicionadoEvent>().Wait();                
+                c.Subscribe<ProdutoAdicionadoEvent>().Wait();
+                c.Subscribe<PedidoAdicionadoEvent>().Wait();
+                c.Subscribe<EstoqueDoProdutoDebitadoEvent>().Wait();                
             });
 
             return app;

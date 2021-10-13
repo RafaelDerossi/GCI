@@ -18,7 +18,7 @@ namespace NinjaStore.Pedidos.Api.Configuration
             
             //Pedido            
             services.AddScoped<IRequestHandler<AdicionarPedidoCommand, ValidationResult>, PedidoCommandHandler>();
-            
+
             //Query            
             services.AddScoped<IPedidoQuery, PedidoQuery>();
             services.AddScoped<IClienteQuery, ClienteQuery>();

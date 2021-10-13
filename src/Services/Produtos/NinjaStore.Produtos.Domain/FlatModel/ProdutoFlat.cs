@@ -71,5 +71,26 @@ namespace NinjaStore.Produtos.Domain.FlatModel
 
         public void SetFoto(string foto) => Foto = foto;
 
+        public void AdicionarEstoque(decimal quantidade)
+        {
+            Estoque += quantidade;
+        }
+
+        public void DebitarEstoque(decimal quantidade)
+        {
+            if (quantidade > Estoque)
+                Estoque = 0;
+
+            Estoque -= quantidade;            
+        }
+
+        public bool TemEstoque(decimal quantidade)
+        {
+            if (quantidade > Estoque)
+                return false;            
+
+            return true;
+        }
+
     }
 }

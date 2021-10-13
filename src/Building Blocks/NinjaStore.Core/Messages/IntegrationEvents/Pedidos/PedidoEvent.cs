@@ -13,6 +13,8 @@ namespace NinjaStore.Core.Messages.IntegrationEvents.Pedidos
 
         public StatusDePedido Status { get; protected set; }
 
+        public string Justificativa { get; protected set; }
+
         public decimal Valor { get; protected set; }
 
         public decimal Desconto { get; protected set; }

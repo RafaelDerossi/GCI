@@ -45,6 +45,9 @@ namespace NinjaStore.Pedidos.Infra.Migrations.PedidoQueryContextDBMigrations
                         .IsRequired()
                         .HasColumnType("varchar(255)");
 
+                    b.Property<string>("JustificativaDoCancelamento")
+                        .HasColumnType("varchar(200)");
+
                     b.Property<bool>("Lixeira")
                         .HasColumnType("bit");
 

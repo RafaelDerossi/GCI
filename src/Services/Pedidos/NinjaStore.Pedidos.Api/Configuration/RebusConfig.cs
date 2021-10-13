@@ -26,7 +26,7 @@ namespace NinjaStore.Pedidos.Api.Configuration
                 .Routing(r =>
                 {
                     r.TypeBased()
-                        .MapAssemblyOf<Message>(nomeFila)
+                        .MapAssemblyOf<Message>(nomeFila)                        
                         .MapAssemblyOf<PedidoCommand>(nomeFila)
                         .MapAssemblyOf<PedidoEvent>(nomeFila);
                 })
@@ -40,6 +40,7 @@ namespace NinjaStore.Pedidos.Api.Configuration
             );
 
             // Register handlers             
+            services.AutoRegisterHandlersFromAssemblyOf<PedidoCommandHandler>();
             services.AutoRegisterHandlersFromAssemblyOf<PedidoEventHandler>();
 
             return services;
@@ -49,7 +50,11 @@ namespace NinjaStore.Pedidos.Api.Configuration
         {           
             app.UseRebus(c =>
             {
-                c.Subscribe<PedidoAdicionadoEvent>().Wait();                
+                c.Subscribe<PedidoAdicionadoEvent>().Wait();
+                c.Subscribe<EstoqueDoPedidoDebitadoEvent>().Wait();
+                c.Subscribe<EstoqueDoPedidoInsuficienteEvent>().Wait();
+                c.Subscribe<PedidoAprovadoEvent>().Wait();
+                c.Subscribe<PedidoCanceladoEvent>().Wait();
             });
 
             return app;

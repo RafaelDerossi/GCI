@@ -11,6 +11,7 @@ using NinjaStore.Pedidos.Domain.FlatModel;
 using NinjaStore.Pedidos.Aplication.Query;
 using NinjaStore.Core.Messages.DTO;
 using AutoMapper;
+using Rebus.Bus;
 
 namespace NinjaStore.Pedidos.Api.Controllers
 {
@@ -21,15 +22,17 @@ namespace NinjaStore.Pedidos.Api.Controllers
         private readonly IPedidoQuery _pedidoQuery;
         private readonly IClienteQuery _clienteQuery;
         private readonly IMapper _mapper;
+        private readonly IBus _bus;
 
         public PedidoController
             (IMediatorHandler mediatorHandler, IPedidoQuery pedidoQuery,
-             IClienteQuery clienteQuery, IMapper mapper)
+             IClienteQuery clienteQuery, IMapper mapper, IBus bus)
         {
             _mediatorHandler = mediatorHandler;
             _pedidoQuery = pedidoQuery;
             _clienteQuery = clienteQuery;
             _mapper = mapper;
+            _bus = bus;
         }
 
 
@@ -105,8 +108,8 @@ namespace NinjaStore.Pedidos.Api.Controllers
 
             var produtosDTO = _mapper.Map<IEnumerable<ProdutoDTO>>(viewModel.Produtos).ToList();
 
-            var comando = new AdicionarPedidoCommand(clienteDTO, produtosDTO);           
-
+            var comando = new AdicionarPedidoCommand(clienteDTO, produtosDTO);
+            
             return CustomResponse(await _mediatorHandler.EnviarComando(comando));
         }        
     }

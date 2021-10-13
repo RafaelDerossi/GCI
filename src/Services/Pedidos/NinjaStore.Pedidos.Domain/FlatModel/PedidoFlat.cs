@@ -57,6 +57,8 @@ namespace NinjaStore.Pedidos.Domain.FlatModel
             }
         }
 
+        public string JustificativaDoCancelamento { get; private set; }
+
         public decimal Valor { get; private set; }
 
         public decimal Desconto { get; private set; }
@@ -113,6 +115,12 @@ namespace NinjaStore.Pedidos.Domain.FlatModel
             _Produtos.Add(produto);
         }
 
+        public void AprovarPedido() => Status = StatusDePedido.APROVADO;
 
+        public void CancelarPedido(string justificativa)
+        {
+            Status = StatusDePedido.CANCELADO;
+            JustificativaDoCancelamento = justificativa;
+        }
     }
 }

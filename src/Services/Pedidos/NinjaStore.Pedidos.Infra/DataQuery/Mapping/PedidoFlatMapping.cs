@@ -16,6 +16,8 @@ namespace NinjaStore.Pedidos.Infra.Data.Mapping
 
             builder.Property(u => u.Numero).IsRequired();
 
+            builder.Property(u => u.JustificativaDoCancelamento).HasColumnType($"varchar({Pedido.Max})");
+
             builder.Property(u => u.Valor).IsRequired().HasColumnType($"decimal(14,2)");
 
             builder.Property(u => u.Desconto).IsRequired().HasColumnType($"decimal(14,2)");

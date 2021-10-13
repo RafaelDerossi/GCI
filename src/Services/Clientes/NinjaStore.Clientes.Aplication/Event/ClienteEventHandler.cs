@@ -1,32 +1,27 @@
-﻿using MediatR;
-using NinjaStore.Core.Messages;
+﻿using NinjaStore.Core.Messages;
 using NinjaStore.Clientes.Domain.FlatModel;
 using NinjaStore.Clientes.Domain.Interfaces;
-using System.Threading;
 using System.Threading.Tasks;
-using Rebus.Bus;
 using Rebus.Handlers;
 
 namespace NinjaStore.Clientes.Aplication.Events
 {
-    public class ClienteEventHandler : CommandHandler,
+    public class ClienteEventHandler : EventHandler,
          IHandleMessages<ClienteAdicionadoEvent>,
          System.IDisposable
     {
 
-        private readonly IClienteQueryRepository _clienteQueryRepository;
-        private readonly IBus _bus;
+        private readonly IClienteQueryRepository _clienteQueryRepository;        
 
-        public ClienteEventHandler(IClienteQueryRepository clienteQueryRepository, IBus bus)
+        public ClienteEventHandler(IClienteQueryRepository clienteQueryRepository)
         {
-            _clienteQueryRepository = clienteQueryRepository;
-            _bus = bus;
+            _clienteQueryRepository = clienteQueryRepository;            
         }
 
-        public async Task Handle(ClienteAdicionadoEvent notification)
+        public async Task Handle(ClienteAdicionadoEvent message)
         {
             var clienteFlat = new ClienteFlat
-                (notification.Id, notification.Nome, notification.Email, notification.Aldeia);
+                (message.Id, message.Nome, message.Email, message.Aldeia);
            
             _clienteQueryRepository.Adicionar(clienteFlat);
            

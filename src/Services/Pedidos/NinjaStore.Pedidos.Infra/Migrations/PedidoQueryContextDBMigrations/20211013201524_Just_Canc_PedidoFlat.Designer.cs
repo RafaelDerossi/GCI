@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NinjaStore.Pedidos.Infra.Data;
 
-namespace NinjaStore.Pedidos.Infra.Migrations
+namespace NinjaStore.Pedidos.Infra.Migrations.PedidoQueryContextDBMigrations
 {
-    [DbContext(typeof(PedidoContextDB))]
-    partial class PedidoContextDBModelSnapshot : ModelSnapshot
+    [DbContext(typeof(PedidoQueryContextDB))]
+    [Migration("20211013201524_Just_Canc_PedidoFlat")]
+    partial class Just_Canc_PedidoFlat
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -19,11 +21,15 @@ namespace NinjaStore.Pedidos.Infra.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("NinjaStore.Pedidos.Domain.Pedido", b =>
+            modelBuilder.Entity("NinjaStore.Pedidos.Domain.FlatModel.PedidoFlat", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("AldeiaDoCliente")
+                        .IsRequired()
+                        .HasColumnType("varchar(200)");
 
                     b.Property<Guid>("ClienteId")
                         .HasColumnType("uniqueidentifier");
@@ -34,26 +40,41 @@ namespace NinjaStore.Pedidos.Infra.Migrations
                     b.Property<DateTime>("DataDeCadastro")
                         .HasColumnType("datetime2");
 
+                    b.Property<decimal>("Desconto")
+                        .HasColumnType("decimal(14,2)");
+
+                    b.Property<string>("EmailDoCliente")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
                     b.Property<string>("JustificativaDoCancelamento")
                         .HasColumnType("varchar(200)");
 
                     b.Property<bool>("Lixeira")
                         .HasColumnType("bit");
 
+                    b.Property<string>("NomeDoCliente")
+                        .IsRequired()
+                        .HasColumnType("varchar(200)");
+
                     b.Property<int>("Numero")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
+                    b.Property<decimal>("Valor")
+                        .HasColumnType("decimal(14,2)");
+
+                    b.Property<decimal>("ValorTotal")
+                        .HasColumnType("decimal(14,2)");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Pedidos");
+                    b.ToTable("PedidosFlat");
                 });
 
-            modelBuilder.Entity("NinjaStore.Pedidos.Domain.Produto", b =>
+            modelBuilder.Entity("NinjaStore.Pedidos.Domain.FlatModel.ProdutoDoPedidoFlat", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -73,12 +94,12 @@ namespace NinjaStore.Pedidos.Infra.Migrations
                         .HasColumnType("varchar(200)");
 
                     b.Property<string>("Foto")
-                        .HasColumnType("varchar(200)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Lixeira")
                         .HasColumnType("bit");
 
-                    b.Property<Guid>("PedidoId")
+                    b.Property<Guid>("PedidoFlatId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("ProdutoId")
@@ -95,16 +116,16 @@ namespace NinjaStore.Pedidos.Infra.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PedidoId");
+                    b.HasIndex("PedidoFlatId");
 
-                    b.ToTable("ProdutosDoPedido");
+                    b.ToTable("ProdutosDoPedidoFlat");
                 });
 
-            modelBuilder.Entity("NinjaStore.Pedidos.Domain.Produto", b =>
+            modelBuilder.Entity("NinjaStore.Pedidos.Domain.FlatModel.ProdutoDoPedidoFlat", b =>
                 {
-                    b.HasOne("NinjaStore.Pedidos.Domain.Pedido", null)
+                    b.HasOne("NinjaStore.Pedidos.Domain.FlatModel.PedidoFlat", null)
                         .WithMany("Produtos")
-                        .HasForeignKey("PedidoId")
+                        .HasForeignKey("PedidoFlatId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

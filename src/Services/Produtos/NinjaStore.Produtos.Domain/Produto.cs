@@ -51,5 +51,13 @@ namespace NinjaStore.Produtos.Domain
 
             return ValidationResult;
         }
+
+        public bool TemEstoque(decimal quantidade)
+        {
+            if (quantidade > Estoque)
+                return false;            
+
+            return true;
+        }
     }
 }

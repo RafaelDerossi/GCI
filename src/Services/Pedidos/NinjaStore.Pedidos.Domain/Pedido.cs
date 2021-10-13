@@ -14,8 +14,9 @@ namespace NinjaStore.Pedidos.Domain
 
         public StatusDePedido Status { get; set; }
 
-        public Guid ClienteId { get; private set; }
+        public string JustificativaDoCancelamento { get; private set; }
 
+        public Guid ClienteId { get; private set; }
 
         public decimal Valor 
         { 
@@ -75,6 +76,10 @@ namespace NinjaStore.Pedidos.Domain
 
         public void AprovarPedido() => Status = StatusDePedido.APROVADO;
 
-        public void CancelarPedido() => Status = StatusDePedido.CANCELADO;
+        public void CancelarPedido(string justificativa)
+        {
+            Status = StatusDePedido.CANCELADO;
+            JustificativaDoCancelamento = justificativa;
+        }
     }
 }
