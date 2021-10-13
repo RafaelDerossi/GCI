@@ -12,5 +12,7 @@ namespace NinjaStore.Produtos.Aplication.Events
 
         public string Foto { get; protected set; }
 
+        public decimal Estoque { get; protected set; }
+
     }
 }

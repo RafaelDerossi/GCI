@@ -14,6 +14,8 @@ namespace NinjaStore.Core.Messages.DTO
 
         public decimal Valor { get; set; }
 
+        public decimal Quantidade { get; set; }
+
         public decimal Desconto { get; set; }
 
         public decimal ValorTotal { get; set; }
@@ -22,15 +24,16 @@ namespace NinjaStore.Core.Messages.DTO
         {
         }
 
-        public ProdutoDTO            
+        public ProdutoDTO
             (Guid id, Guid produtoId, string descricao, string foto, decimal valor,
-             decimal desconto, decimal valorTotal)
+             decimal quantidade, decimal desconto, decimal valorTotal)
         {
             Id = id;
             ProdutoId = produtoId;
             Descricao = descricao;
             Foto = foto;
             Valor = valor;
+            Quantidade = quantidade;
             Desconto = desconto;
             ValorTotal = valorTotal;
         }

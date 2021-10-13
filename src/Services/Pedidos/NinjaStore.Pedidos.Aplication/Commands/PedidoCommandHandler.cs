@@ -1,6 +1,7 @@
 ﻿using FluentValidation.Results;
 using MediatR;
 using NinjaStore.Core.Messages;
+using NinjaStore.Core.Messages.IntegrationEvents.Pedidos;
 using NinjaStore.Pedidos.Aplication.Events;
 using NinjaStore.Pedidos.Domain;
 using NinjaStore.Pedidos.Domain.Interfaces;
@@ -31,10 +32,10 @@ namespace NinjaStore.Pedidos.Aplication.Commands
 
             foreach (var item in request.Produtos)
             {
-                var produto = new Produto
-                    (item.Id, item.ProdutoId, item.Descricao, item.Foto, item.Valor, item.Desconto,
-                     item.ValorTotal);
-                pedido.AdicionarProduto(produto);
+                pedido.AdicionarProduto(new Produto(item.Id, item.ProdutoId,
+                                                    item.Descricao, item.Foto,
+                                                    item.Valor, item.Quantidade,
+                                                    item.Desconto, item.ValorTotal));
             }
 
             _pedidoRepository.Adicionar(pedido);
@@ -42,7 +43,7 @@ namespace NinjaStore.Pedidos.Aplication.Commands
             //Evento
             pedido.AdicionarEvento
                 (new PedidoAdicionadoEvent
-                (pedido.Id, pedido.Numero, pedido.Valor, pedido.Desconto,
+                (pedido.Id, pedido.Numero, pedido.Status, pedido.Valor, pedido.Desconto,
                  pedido.ValorTotal, request.Cliente, request.Produtos));
 
             return await PersistirDados(_pedidoRepository.UnitOfWork);

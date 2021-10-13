@@ -1,4 +1,5 @@
-﻿using NinjaStore.Core.DomainObjects;
+﻿using FluentValidation.Results;
+using NinjaStore.Core.DomainObjects;
 using System;
 
 namespace NinjaStore.Produtos.Domain
@@ -13,17 +14,19 @@ namespace NinjaStore.Produtos.Domain
 
         public string Foto { get; private set; }
 
+        public decimal Estoque { get; private set; }
+
         protected Produto()
         {
         }
 
-        public Produto(string descricao, decimal valor, string foto)
+        public Produto(string descricao, decimal valor, string foto, decimal estoque)
         {
             Descricao = descricao;
             Valor = valor;
             Foto = foto;
+            Estoque = estoque;
         }
-
 
         public void SetDescricao(string descricao) => Descricao = descricao;
 
@@ -31,5 +34,22 @@ namespace NinjaStore.Produtos.Domain
 
         public void SetFoto(string foto) => Foto = foto;
 
+        public void AdicionarEstoque(decimal quantidade)
+        {
+            Estoque += quantidade;
+        }
+
+        public ValidationResult DebitarEstoque(decimal quantidade)
+        {
+            if (quantidade > Estoque)
+            {
+                AdicionarErrosDaEntidade("Estoque insuficiente!");
+                return ValidationResult;
+            }                
+            
+            Estoque -= quantidade;
+
+            return ValidationResult;
+        }
     }
 }

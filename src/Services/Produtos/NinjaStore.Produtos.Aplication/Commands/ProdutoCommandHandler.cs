@@ -27,14 +27,14 @@ namespace NinjaStore.Produtos.Aplication.Commands
         {
             if (!request.EstaValido()) return request.ValidationResult;
 
-            var produto = new Produto(request.Descricao, request.Valor, request.Foto);
+            var produto = new Produto(request.Descricao, request.Valor, request.Foto, request.Estoque);
            
             _produtoRepository.Adicionar(produto);
 
             //Evento
             produto.AdicionarEvento
                 (new ProdutoAdicionadoEvent
-                (produto.Id, produto.Descricao, produto.Valor, produto.Foto));
+                (produto.Id, produto.Descricao, produto.Valor, produto.Foto, produto.Estoque));
 
             return await PersistirDados(_produtoRepository.UnitOfWork);
         }

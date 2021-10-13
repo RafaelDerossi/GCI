@@ -1,19 +1,21 @@
-﻿using NinjaStore.Core.Messages.DTO;
+﻿using NinjaStore.Core.Enumeradores;
+using NinjaStore.Core.Messages.DTO;
 using System;
 using System.Collections.Generic;
 
-namespace NinjaStore.Pedidos.Aplication.Events
+namespace NinjaStore.Core.Messages.IntegrationEvents.Pedidos
 {
     public class PedidoAdicionadoEvent : PedidoEvent
     {
 
         public PedidoAdicionadoEvent
-            (Guid id, int numero, decimal valor, decimal desconto, decimal valorTotal,
-             ClienteDTO cliente, List<ProdutoDTO> produtos)
+            (Guid id, int numero, StatusDePedido status, decimal valor, decimal desconto,
+             decimal valorTotal, ClienteDTO cliente, List<ProdutoDTO> produtos)
         {
             AggregateId = id;
             Id = id;
             Numero = numero;
+            Status = status;
             Valor = valor;
             Desconto = desconto;
             ValorTotal = valorTotal;

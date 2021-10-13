@@ -7,7 +7,7 @@ namespace NinjaStore.Produtos.Tests
     {
         private static AdicionarProdutoCommand AdicionarProdutoCommandFactoy()
         {
-            return new AdicionarProdutoCommand("Produto", 20, "foto.jpg");
+            return new AdicionarProdutoCommand("Produto", 20, "foto.jpg", 1);
         }       
 
 

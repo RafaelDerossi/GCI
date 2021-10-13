@@ -6,11 +6,12 @@ namespace NinjaStore.Produtos.Aplication.Commands
     public class AdicionarProdutoCommand : ProdutoCommand
     {
 
-        public AdicionarProdutoCommand(string descricao, decimal valor, string foto)
+        public AdicionarProdutoCommand(string descricao, decimal valor, string foto, decimal estoque)
         {            
             Descricao = descricao;
             Valor = valor;
             Foto = foto;
+            Estoque = estoque;
         }
 
 

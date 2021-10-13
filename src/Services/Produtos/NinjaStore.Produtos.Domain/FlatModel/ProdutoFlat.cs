@@ -41,20 +41,23 @@ namespace NinjaStore.Produtos.Domain.FlatModel
 
         public decimal Valor { get; private set; }
 
+        public decimal Estoque { get; private set; }
+
         public string Foto { get; private set; }
 
         protected ProdutoFlat()
         {
         }
 
-        public ProdutoFlat(Guid id, string descricao, decimal valor, string foto)
+        public ProdutoFlat
+            (Guid id, string descricao, decimal valor, decimal estoque, string foto)
         {
-            Id = id;
+            Id = id;            
             Descricao = descricao;
             Valor = valor;
+            Estoque = estoque;
             Foto = foto;
         }
-       
 
         public void SetEntidadeId(Guid NovoId) => Id = NovoId;
 

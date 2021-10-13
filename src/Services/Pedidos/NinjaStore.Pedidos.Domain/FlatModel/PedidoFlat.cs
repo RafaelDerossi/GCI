@@ -1,4 +1,5 @@
 ﻿using NinjaStore.Core.DomainObjects;
+using NinjaStore.Core.Enumeradores;
 using System;
 using System.Collections.Generic;
 
@@ -38,7 +39,23 @@ namespace NinjaStore.Pedidos.Domain.FlatModel
 
 
 
-        public int Numero { get; private set; }       
+        public int Numero { get; private set; }
+
+        public StatusDePedido Status { get; private set; }
+
+        public string DescricaoDoStatus
+        {
+            get
+            {
+                return Status switch
+                {
+                    StatusDePedido.PENDENTE => "Pendente",
+                    StatusDePedido.APROVADO => "Aprovado",
+                    StatusDePedido.CANCELADO => "Cancelado",
+                    _ => "Pendente",
+                };
+            }
+        }
 
         public decimal Valor { get; private set; }
 
@@ -66,22 +83,22 @@ namespace NinjaStore.Pedidos.Domain.FlatModel
         }
 
         public PedidoFlat
-            (Guid id, int numero, decimal valor, decimal desconto, decimal valorTotal,
-             Guid clienteId, string nomeDoCliente, string emailDoCliente,
-             string aldeiaDoCliente)
+            (Guid id, int numero, StatusDePedido status, decimal valor, 
+             decimal desconto, decimal valorTotal, Guid clienteId,
+             string nomeDoCliente, string emailDoCliente, string aldeiaDoCliente)
         {
             _Produtos = new List<ProdutoDoPedidoFlat>();
-            Id = id;
+            Id = id;            
             Numero = numero;
+            Status = status;
             Valor = valor;
             Desconto = desconto;
             ValorTotal = valorTotal;
             ClienteId = clienteId;
             NomeDoCliente = nomeDoCliente;
             EmailDoCliente = emailDoCliente;
-            AldeiaDoCliente = aldeiaDoCliente;
+            AldeiaDoCliente = aldeiaDoCliente;            
         }
-
 
         public void SetEntidadeId(Guid NovoId) => Id = NovoId;
 

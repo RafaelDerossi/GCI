@@ -1,4 +1,5 @@
 ﻿using NinjaStore.Core.DomainObjects;
+using NinjaStore.Core.Enumeradores;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,8 @@ namespace NinjaStore.Pedidos.Domain
         public const int Max = 200;
 
         public int Numero { get; private set; }
+
+        public StatusDePedido Status { get; set; }
 
         public Guid ClienteId { get; private set; }
 
@@ -61,6 +64,7 @@ namespace NinjaStore.Pedidos.Domain
         {
             _Produtos = new List<Produto>();
             ClienteId = clienteId;
+            Status = StatusDePedido.PENDENTE;
         }
 
 
@@ -69,5 +73,8 @@ namespace NinjaStore.Pedidos.Domain
             _Produtos.Add(produto);
         }
 
+        public void AprovarPedido() => Status = StatusDePedido.APROVADO;
+
+        public void CancelarPedido() => Status = StatusDePedido.CANCELADO;
     }
 }

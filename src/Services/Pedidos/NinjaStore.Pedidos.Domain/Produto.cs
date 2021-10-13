@@ -15,6 +15,8 @@ namespace NinjaStore.Pedidos.Domain
 
         public decimal Valor { get; private set; }
 
+        public decimal Quantidade { get; private set; }
+
         public decimal Desconto { get; private set; }
 
         public decimal ValorTotal { get; private set; }
@@ -24,17 +26,16 @@ namespace NinjaStore.Pedidos.Domain
 
         protected Produto()
         {
-        }        
+        }
 
-        public Produto
-            (Guid id, Guid produtoId, string descricao, string foto, decimal valor, decimal desconto,
-             decimal valorTotal)
+        public Produto(Guid id, Guid produtoId, string descricao, string foto, decimal valor, decimal quantidade, decimal desconto, decimal valorTotal)
         {
             SetEntidadeId(id);
             ProdutoId = produtoId;
             Descricao = descricao;
             Foto = foto;
             Valor = valor;
+            Quantidade = quantidade;
             Desconto = desconto;
             ValorTotal = valorTotal;
         }

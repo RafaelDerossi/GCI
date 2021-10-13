@@ -35,6 +35,9 @@ namespace NinjaStore.Produtos.Infra.Migrations.ProdutoQueryContextDBMigrations
                         .IsRequired()
                         .HasColumnType("varchar(200)");
 
+                    b.Property<decimal>("Estoque")
+                        .HasColumnType("decimal(14,2)");
+
                     b.Property<string>("Foto")
                         .HasColumnType("nvarchar(max)");
 

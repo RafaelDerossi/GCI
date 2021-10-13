@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using NinjaStore.Core.Messages;
+using NinjaStore.Core.Messages.IntegrationEvents.Pedidos;
 using NinjaStore.Pedidos.Domain.FlatModel;
 using NinjaStore.Pedidos.Domain.Interfaces;
 using Rebus.Handlers;
@@ -25,16 +26,16 @@ namespace NinjaStore.Pedidos.Aplication.Events
         public async Task Handle(PedidoAdicionadoEvent notification)
         {
             var pedidoFlat = new PedidoFlat
-                (notification.Id, notification.Numero, notification.Valor,
+                (notification.Id, notification.Numero, notification.Status, notification.Valor,
                  notification.Desconto, notification.ValorTotal, notification.Cliente.Id,
                  notification.Cliente.Nome, notification.Cliente.Email, notification.Cliente.Aldeia);
 
             foreach (var item in notification.Produtos)
-            {
-                var produtoFlat = new ProdutoDoPedidoFlat
-                    (item.Id, item.ProdutoId, item.Descricao, item.Foto, item.Valor, item.Desconto,
-                     item.ValorTotal);
-                pedidoFlat.AdicionarProduto(produtoFlat);
+            {                
+                pedidoFlat.AdicionarProduto(new ProdutoDoPedidoFlat(item.Id, item.ProdutoId, 
+                                                                    item.Descricao, item.Foto, 
+                                                                    item.Valor, item.Quantidade,
+                                                                    item.Desconto, item.ValorTotal));
             }
 
             pedidoFlat.SetNumero(await _pedidoRepository.ObterNumeroDoPedidoPorId(pedidoFlat.Id));

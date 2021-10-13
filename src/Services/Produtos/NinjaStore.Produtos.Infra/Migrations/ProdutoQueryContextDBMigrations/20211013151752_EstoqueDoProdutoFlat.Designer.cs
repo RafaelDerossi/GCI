@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NinjaStore.Produtos.Infra.Data;
 
-namespace NinjaStore.Produtos.Infra.Migrations
+namespace NinjaStore.Produtos.Infra.Migrations.ProdutoQueryContextDBMigrations
 {
-    [DbContext(typeof(ProdutoContextDB))]
-    partial class ProdutoContextDBModelSnapshot : ModelSnapshot
+    [DbContext(typeof(ProdutoQueryContextDB))]
+    [Migration("20211013151752_EstoqueDoProdutoFlat")]
+    partial class EstoqueDoProdutoFlat
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -19,7 +21,7 @@ namespace NinjaStore.Produtos.Infra.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("NinjaStore.Produtos.Domain.Produto", b =>
+            modelBuilder.Entity("NinjaStore.Produtos.Domain.FlatModel.ProdutoFlat", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -49,7 +51,7 @@ namespace NinjaStore.Produtos.Infra.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Produtos");
+                    b.ToTable("ProdutosFlat");
                 });
 #pragma warning restore 612, 618
         }

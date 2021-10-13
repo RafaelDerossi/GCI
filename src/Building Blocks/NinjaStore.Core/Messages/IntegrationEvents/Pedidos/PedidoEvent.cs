@@ -1,14 +1,17 @@
-﻿using NinjaStore.Core.Messages;
+﻿using NinjaStore.Core.Enumeradores;
+using NinjaStore.Core.Messages;
 using NinjaStore.Core.Messages.DTO;
 using System.Collections.Generic;
 
-namespace NinjaStore.Pedidos.Aplication.Events
+namespace NinjaStore.Core.Messages.IntegrationEvents.Pedidos
 {
     public abstract class PedidoEvent : Event
     {
         public System.Guid Id { get; protected set; }
 
-        public int Numero { get; protected set; }               
+        public int Numero { get; protected set; }
+
+        public StatusDePedido Status { get; protected set; }
 
         public decimal Valor { get; protected set; }
 

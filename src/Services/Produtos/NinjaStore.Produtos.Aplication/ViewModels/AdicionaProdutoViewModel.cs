@@ -9,5 +9,6 @@ namespace NinjaStore.Produtos.Aplication.ViewModels
 
         public string Foto { get; set; }
 
+        public decimal Estoque { get; set; }
     }
 }

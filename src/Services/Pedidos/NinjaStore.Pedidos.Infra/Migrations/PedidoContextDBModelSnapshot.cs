@@ -42,6 +42,9 @@ namespace NinjaStore.Pedidos.Infra.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("Pedidos");
@@ -77,6 +80,9 @@ namespace NinjaStore.Pedidos.Infra.Migrations
 
                     b.Property<Guid>("ProdutoId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("Quantidade")
+                        .HasColumnType("decimal(14,2)");
 
                     b.Property<decimal>("Valor")
                         .HasColumnType("decimal(14,2)");

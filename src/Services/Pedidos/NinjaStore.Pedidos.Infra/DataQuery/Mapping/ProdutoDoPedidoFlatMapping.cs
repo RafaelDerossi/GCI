@@ -19,6 +19,8 @@ namespace NinjaStore.Pedidos.Infra.Data.Mapping
 
             builder.Property(u => u.Valor).IsRequired().HasColumnType($"decimal(14,2)");
 
+            builder.Property(u => u.Quantidade).IsRequired().HasColumnType($"decimal(14,2)");
+
             builder.Property(u => u.Desconto).IsRequired().HasColumnType($"decimal(14,2)");
 
             builder.Property(u => u.ValorTotal).IsRequired().HasColumnType($"decimal(14,2)");

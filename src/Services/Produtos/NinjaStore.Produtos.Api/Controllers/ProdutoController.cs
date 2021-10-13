@@ -66,7 +66,7 @@ namespace NinjaStore.Produtos.Api.Controllers
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
             var comando = new AdicionarProdutoCommand
-                (viewModel.Descricao, viewModel.Valor, viewModel.Foto);           
+                (viewModel.Descricao, viewModel.Valor, viewModel.Foto, viewModel.Estoque);           
 
             return CustomResponse(await _mediatorHandler.EnviarComando(comando));
         }

@@ -17,6 +17,8 @@ namespace NinjaStore.Produtos.Infra.Data.Mapping
 
             builder.Property(u => u.Valor).IsRequired().HasColumnType($"decimal(14,2)");
 
+            builder.Property(u => u.Estoque).IsRequired().HasColumnType($"decimal(14,2)");
+
             builder.Property(u => u.Descricao).HasColumnType($"varchar({Produto.Max})");
 
         }

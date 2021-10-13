@@ -7,6 +7,7 @@ using Rebus.Config;
 using Rebus.Persistence.InMem;
 using Rebus.Routing.TypeBased;
 using Rebus.ServiceProvider;
+using NinjaStore.Core.Messages.IntegrationEvents.Pedidos;
 
 namespace NinjaStore.Pedidos.Api.Configuration
 {
