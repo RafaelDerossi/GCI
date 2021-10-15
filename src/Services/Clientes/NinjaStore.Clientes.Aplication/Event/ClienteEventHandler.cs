@@ -25,7 +25,7 @@ namespace NinjaStore.Clientes.Aplication.Events
            
             _clienteQueryRepository.Adicionar(clienteFlat);
            
-            await PersistirDados(_clienteQueryRepository.UnitOfWork);
+            await PersistirDados(_clienteQueryRepository.UnitOfWork);            
         }
                
 

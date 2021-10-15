@@ -8,6 +8,7 @@ using Rebus.Persistence.InMem;
 using Rebus.Routing.TypeBased;
 using Rebus.ServiceProvider;
 using NinjaStore.Core.Messages.IntegrationEvents.Pedidos;
+using Rebus.Transport.InMem;
 
 namespace NinjaStore.Produtos.Api.Configuration
 {
@@ -17,18 +18,17 @@ namespace NinjaStore.Produtos.Api.Configuration
         {
             // Configure and register Rebus
 
-            var nomeFila = "fila_rebus";
+            var nomeFila = "fila_produto";
 
             services.AddRebus(configure => configure
                 //.Transport(t => t.UseInMemoryTransport(new InMemNetwork(), nomeFila))
-                .Transport(t => t.UseRabbitMq("amqp://localhost", nomeFila))
                 //.Subscriptions(s => s.StoreInMemory())
+                .Transport(t => t.UseRabbitMq("amqp://localhost", nomeFila))                
                 .Routing(r =>
                 {
                     r.TypeBased()
                         .MapAssemblyOf<Message>(nomeFila)
-                        .MapAssemblyOf<ProdutoCommand>(nomeFila)
-                        .MapAssemblyOf<ProdutoEvent>(nomeFila);
+                        .MapAssemblyOf<DebitarEstoqueCommand>(nomeFila);
                 })
                 .Sagas(s => s.StoreInMemory())
                 .Options(o =>
@@ -47,12 +47,12 @@ namespace NinjaStore.Produtos.Api.Configuration
         }
 
         public static IApplicationBuilder UseRebusConfiguration(this IApplicationBuilder app)
-        {           
-            app.UseRebus(c =>
+        {
+            app.ApplicationServices.UseRebus(c =>
             {
                 c.Subscribe<ProdutoAdicionadoEvent>().Wait();
                 c.Subscribe<PedidoAdicionadoEvent>().Wait();
-                c.Subscribe<EstoqueDoProdutoDebitadoEvent>().Wait();                
+                c.Subscribe<EstoqueDoProdutoDebitadoEvent>().Wait();
             });
 
             return app;

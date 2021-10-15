@@ -22,13 +22,14 @@ namespace NinjaStore.Core.Messages.DTO
 
         public ProdutoDTO()
         {
+            Id = Guid.NewGuid();
         }
 
         public ProdutoDTO
-            (Guid id, Guid produtoId, string descricao, string foto, decimal valor,
+            (Guid produtoId, string descricao, string foto, decimal valor,
              decimal quantidade, decimal desconto, decimal valorTotal)
         {
-            Id = id;
+            Id = Guid.NewGuid();
             ProdutoId = produtoId;
             Descricao = descricao;
             Foto = foto;

@@ -70,7 +70,7 @@
             },
             "Rebus": {
               "target": "Package",
-              "version": "[5.3.1, )"
+              "version": "[6.5.5, )"
             },
             "System.IdentityModel.Tokens.Jwt": {
               "target": "Package",

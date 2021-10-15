@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "xpyN1TXeQFZBbvNH6RU/OAsDmTz43sLFn/UbQuZmIhlEVhIAV07csRiP9R5jXgShum6HEPdaNxeKFOqJf/7dcg==",
+  "dgSpecHash": "Hdp5HclNib6hE/ntxkGQDUCIq8HjiX/NNgmLI2kztIRaFloaotIGNH1pgny6pM5y2HsHq9cOL2Rr6EszJtYecw==",
   "success": true,
   "projectFilePath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore-MS\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj",
   "expectedPackageFiles": [
@@ -33,7 +33,7 @@
     "C:\\Users\\rafael.derossi\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
     "C:\\Users\\rafael.derossi\\.nuget\\packages\\microsoft.win32.registry\\4.4.0\\microsoft.win32.registry.4.4.0.nupkg.sha512",
     "C:\\Users\\rafael.derossi\\.nuget\\packages\\newtonsoft.json\\11.0.1\\newtonsoft.json.11.0.1.nupkg.sha512",
-    "C:\\Users\\rafael.derossi\\.nuget\\packages\\rebus\\5.3.1\\rebus.5.3.1.nupkg.sha512",
+    "C:\\Users\\rafael.derossi\\.nuget\\packages\\rebus\\6.5.5\\rebus.6.5.5.nupkg.sha512",
     "C:\\Users\\rafael.derossi\\.nuget\\packages\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Users\\rafael.derossi\\.nuget\\packages\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Users\\rafael.derossi\\.nuget\\packages\\runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",

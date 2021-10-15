@@ -16,24 +16,23 @@ namespace NinjaStore.Clientes.Api.Configuration
         {
             // Configure and register Rebus
 
-            var nomeFila = "fila_rebus";
+            var nomeFila = "fila_cliente";
 
             services.AddRebus(configure => configure
                 //.Transport(t => t.UseInMemoryTransport(new InMemNetwork(), nomeFila))
-                .Transport(t => t.UseRabbitMq("amqp://localhost", nomeFila))
                 //.Subscriptions(s => s.StoreInMemory())
+                .Transport(t => t.UseRabbitMq("amqp://localhost", nomeFila))                
                 .Routing(r =>
                 {
                     r.TypeBased()
-                        .MapAssemblyOf<Message>(nomeFila)
-                        .MapAssemblyOf<ClienteCommand>(nomeFila)
-                        .MapAssemblyOf<ClienteEvent>(nomeFila);
+                        .MapAssemblyOf<Message>(nomeFila);
+                        
                 })
                 .Sagas(s => s.StoreInMemory())
                 .Options(o =>
                 {
                     o.SetNumberOfWorkers(1);
-                    o.SetMaxParallelism(1);
+                    o.SetMaxParallelism(1);                    
                     o.SetBusName("Demo Rebus");
                 })
             );
@@ -45,10 +44,10 @@ namespace NinjaStore.Clientes.Api.Configuration
         }
 
         public static IApplicationBuilder UseRebusConfiguration(this IApplicationBuilder app)
-        {           
-            app.UseRebus(c =>
+        {
+            app.ApplicationServices.UseRebus(c =>
             {
-                c.Subscribe<ClienteAdicionadoEvent>().Wait();                
+                c.Subscribe<ClienteAdicionadoEvent>().Wait();
             });
 
             return app;

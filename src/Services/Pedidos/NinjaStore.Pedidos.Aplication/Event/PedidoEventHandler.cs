@@ -64,11 +64,9 @@ namespace NinjaStore.Pedidos.Aplication.Events
         }
 
 
-        public Task Handle(EstoqueDoPedidoDebitadoEvent message)
+        public async Task Handle(EstoqueDoPedidoDebitadoEvent message)
         {
-            _bus.Send(new AprovarPedidoCommand(message.PedidoId)).Wait();
-
-            return Task.CompletedTask;
+            await _bus.Send(new AprovarPedidoCommand(message.PedidoId));
         }
 
 

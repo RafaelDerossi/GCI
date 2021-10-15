@@ -28,8 +28,9 @@ namespace NinjaStore.Pedidos.Domain
         {
         }
 
-        public Produto(Guid produtoId, string descricao, string foto, decimal valor, decimal quantidade, decimal desconto, decimal valorTotal)
-        {            
+        public Produto(Guid id, Guid produtoId, string descricao, string foto, decimal valor, decimal quantidade, decimal desconto, decimal valorTotal)
+        {
+            SetEntidadeId(id);
             ProdutoId = produtoId;
             Descricao = descricao;
             Foto = foto;

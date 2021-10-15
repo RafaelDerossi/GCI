@@ -5,18 +5,17 @@ using NinjaStore.Core.Messages.IntegrationEvents.Pedidos;
 using NinjaStore.Pedidos.Aplication.Events;
 using NinjaStore.Pedidos.Domain;
 using NinjaStore.Pedidos.Domain.Interfaces;
+using Rebus.Handlers;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Rebus.Bus;
-using Rebus.Handlers;
 
 namespace NinjaStore.Pedidos.Aplication.Commands
 {
     public class PedidoCommandHandler : CommandHandler,
          IRequestHandler<AdicionarPedidoCommand, ValidationResult>,
          IHandleMessages<AprovarPedidoCommand>,
-         IRequestHandler<CancelarPedidoCommand, ValidationResult>,
+         IHandleMessages<CancelarPedidoCommand>,
          IDisposable
     {
 
@@ -36,7 +35,7 @@ namespace NinjaStore.Pedidos.Aplication.Commands
 
             foreach (var item in request.Produtos)
             {
-                pedido.AdicionarProduto(new Produto(item.ProdutoId,
+                pedido.AdicionarProduto(new Produto(item.Id, item.ProdutoId,
                                                     item.Descricao, item.Foto,
                                                     item.Valor, item.Quantidade,
                                                     item.Desconto, item.ValorTotal));
@@ -56,7 +55,7 @@ namespace NinjaStore.Pedidos.Aplication.Commands
 
         public async Task Handle(AprovarPedidoCommand request)
         {
-            var pedido = await _pedidoRepository.ObterPorId(request.Id);
+            var pedido = await _pedidoRepository.ObterPorId(request.AggregateId);
             if (pedido == null)
                 return;            
 
@@ -71,14 +70,11 @@ namespace NinjaStore.Pedidos.Aplication.Commands
             await PersistirDados(_pedidoRepository.UnitOfWork);
         }
 
-        public async Task<ValidationResult> Handle(CancelarPedidoCommand request, CancellationToken cancellationToken)
+        public async Task Handle(CancelarPedidoCommand request)
         {
             var pedido = await _pedidoRepository.ObterPorId(request.Id);
             if (pedido == null)
-            {
-                AdicionarErro("Pedido não encontrado!");
-                return ValidationResult;
-            }
+                return;
 
             pedido.CancelarPedido(request.JustificativaCancelamento);
 
@@ -88,7 +84,7 @@ namespace NinjaStore.Pedidos.Aplication.Commands
             pedido.AdicionarEvento
                 (new PedidoCanceladoEvent(pedido.Id, request.JustificativaCancelamento));
 
-            return await PersistirDados(_pedidoRepository.UnitOfWork);
+            await PersistirDados(_pedidoRepository.UnitOfWork);
         }
 
 

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using NinjaStore.Core.Messages.DTO;
 using NinjaStore.Pedidos.Aplication.ViewModels;
+using System;
 using System.Linq;
 
 namespace NinjaStore.Pedidos.Api
@@ -10,7 +11,7 @@ namespace NinjaStore.Pedidos.Api
         public ViewModelParaDTO()
         {
             CreateMap<ProdutoViewModel, ProdutoDTO>()                
-                .ForMember(m => m.ProdutoId, cfg => cfg.MapFrom(x => x.Id))
+                .ForMember(m => m.ProdutoId, cfg => cfg.MapFrom(x => x.ProdutoId))
                 .ForMember(m => m.Descricao, cfg => cfg.MapFrom(x => x.Descricao))
                 .ForMember(m => m.Foto, cfg => cfg.MapFrom(x => x.Foto))                
                 .ForMember(m => m.Valor, cfg => cfg.MapFrom(x => x.Valor))

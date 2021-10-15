@@ -8,6 +8,7 @@ using Rebus.Persistence.InMem;
 using Rebus.Routing.TypeBased;
 using Rebus.ServiceProvider;
 using NinjaStore.Core.Messages.IntegrationEvents.Pedidos;
+using Rebus.Transport.InMem;
 
 namespace NinjaStore.Pedidos.Api.Configuration
 {
@@ -17,26 +18,27 @@ namespace NinjaStore.Pedidos.Api.Configuration
         {
             // Configure and register Rebus
 
-            var nomeFila = "fila_rebus";
+            var nomeFila = "fila_pedido";
 
             services.AddRebus(configure => configure
                 //.Transport(t => t.UseInMemoryTransport(new InMemNetwork(), nomeFila))
-                .Transport(t => t.UseRabbitMq("amqp://localhost", nomeFila))
                 //.Subscriptions(s => s.StoreInMemory())
+                .Transport(t => t.UseRabbitMq("amqp://localhost", nomeFila))                
                 .Routing(r =>
                 {
                     r.TypeBased()
                         .MapAssemblyOf<Message>(nomeFila)                        
-                        .MapAssemblyOf<PedidoCommand>(nomeFila)
-                        .MapAssemblyOf<PedidoEvent>(nomeFila);
+                        .MapAssemblyOf<AprovarPedidoCommand>(nomeFila)
+                        .MapAssemblyOf<CancelarPedidoCommand>(nomeFila);                    
                 })
-                .Sagas(s => s.StoreInMemory())
+                .Sagas(s => s.StoreInMemory())                
                 .Options(o =>
                 {
                     o.SetNumberOfWorkers(1);
                     o.SetMaxParallelism(1);
-                    o.SetBusName("Demo Rebus");
+                    o.SetBusName("Demo Rebus");                    
                 })
+                
             );
 
             // Register handlers             
@@ -47,8 +49,8 @@ namespace NinjaStore.Pedidos.Api.Configuration
         }
 
         public static IApplicationBuilder UseRebusConfiguration(this IApplicationBuilder app)
-        {           
-            app.UseRebus(c =>
+        {
+            app.ApplicationServices.UseRebus(c =>
             {
                 c.Subscribe<PedidoAdicionadoEvent>().Wait();
                 c.Subscribe<EstoqueDoPedidoDebitadoEvent>().Wait();

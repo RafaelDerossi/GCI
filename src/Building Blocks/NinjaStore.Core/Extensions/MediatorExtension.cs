@@ -57,8 +57,7 @@ namespace NinjaStore.Core.Extensions
 
             foreach (var item in events)
             {
-                await bus.Publish(item);
-                Thread.Sleep(500);
+                await bus.Publish(item);                
             }        
         }
     }

@@ -354,7 +354,7 @@
           "lib/netstandard2.0/Newtonsoft.Json.dll": {}
         }
       },
-      "Rebus/5.3.1": {
+      "Rebus/6.5.5": {
         "type": "package",
         "dependencies": {
           "Microsoft.CSharp": "4.5.0",
@@ -363,10 +363,10 @@
           "System.Reflection.Emit.LightWeight": "4.3.0"
         },
         "compile": {
-          "lib/netstandard2.0/Rebus.dll": {}
+          "lib/netstandard2.1/Rebus.dll": {}
         },
         "runtime": {
-          "lib/netstandard2.0/Rebus.dll": {}
+          "lib/netstandard2.1/Rebus.dll": {}
         }
       },
       "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
@@ -2153,10 +2153,10 @@
         "newtonsoft.json.nuspec"
       ]
     },
-    "Rebus/5.3.1": {
-      "sha512": "cgDahLW9i0MHAtsgzBZCVMq+/giMZ+D2aDfzLL39XqfkAPG/qU47BAIZDBtdMVAwpxfidqkZMouycjp4aBmiuA==",
+    "Rebus/6.5.5": {
+      "sha512": "/1HalLKePLRV0Rq+Pf+rmenhk9WxFGXTd5qlNQrhQKg8L9YzRXuL7j4UzO2NczWc6h0QnNhOuyM3N/2/gY8Vmg==",
       "type": "package",
-      "path": "rebus/5.3.1",
+      "path": "rebus/6.5.5",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -2169,7 +2169,11 @@
         "lib/netstandard2.0/Rebus.dll",
         "lib/netstandard2.0/Rebus.pdb",
         "lib/netstandard2.0/Rebus.xml",
-        "rebus.5.3.1.nupkg.sha512",
+        "lib/netstandard2.1/Rebus.dll",
+        "lib/netstandard2.1/Rebus.pdb",
+        "lib/netstandard2.1/Rebus.xml",
+        "little_rebusbus2_copy-500x500.png",
+        "rebus.6.5.5.nupkg.sha512",
         "rebus.nuspec"
       ]
     },
@@ -5623,7 +5627,7 @@
       "Microsoft.EntityFrameworkCore >= 3.1.2",
       "Microsoft.Extensions.Configuration.Abstractions >= 3.1.4",
       "Microsoft.Extensions.DependencyInjection.Abstractions >= 3.1.4",
-      "Rebus >= 5.3.1",
+      "Rebus >= 6.5.5",
       "System.IdentityModel.Tokens.Jwt >= 6.7.1"
     ]
   },
@@ -5633,11 +5637,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\rafael.derossi\\Source\\Repos\\RafaelDerossi\\NinjaStore-MS\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj",
+      "projectUniqueName": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore-MS\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj",
       "projectName": "NinjaStore.Core",
-      "projectPath": "C:\\Users\\rafael.derossi\\Source\\Repos\\RafaelDerossi\\NinjaStore-MS\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj",
+      "projectPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore-MS\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj",
       "packagesPath": "C:\\Users\\rafael.derossi\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\rafael.derossi\\Source\\Repos\\RafaelDerossi\\NinjaStore-MS\\src\\Building Blocks\\NinjaStore.Core\\obj\\",
+      "outputPath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore-MS\\src\\Building Blocks\\NinjaStore.Core\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\rafael.derossi\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -5696,7 +5700,7 @@
           },
           "Rebus": {
             "target": "Package",
-            "version": "[5.3.1, )"
+            "version": "[6.5.5, )"
           },
           "System.IdentityModel.Tokens.Jwt": {
             "target": "Package",

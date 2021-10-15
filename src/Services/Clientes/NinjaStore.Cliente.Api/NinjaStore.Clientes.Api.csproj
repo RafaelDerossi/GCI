@@ -16,9 +16,8 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Rebus" Version="5.3.1" />
-    <PackageReference Include="Rebus.RabbitMq" Version="5.1.2" />
-    <PackageReference Include="Rebus.ServiceProvider" Version="4.0.2" />
+    <PackageReference Include="Rebus.RabbitMq" Version="7.0.0" />
+    <PackageReference Include="Rebus.ServiceProvider" Version="6.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.4.1" />
   </ItemGroup>
 
