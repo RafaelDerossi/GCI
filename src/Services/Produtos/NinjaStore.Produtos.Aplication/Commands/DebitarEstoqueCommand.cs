@@ -7,10 +7,10 @@ namespace NinjaStore.Produtos.Aplication.Commands
     {
         public decimal Quantidade { get; protected set; }
 
-        public DebitarEstoqueCommand(Guid produtoId, decimal quantidade)
+        public DebitarEstoqueCommand(Guid id, decimal quantidade)
         {
-            AggregateId = produtoId;
-            Id = produtoId;
+            AggregateId = id;
+            Id = id;
             Quantidade = quantidade;
         }
 

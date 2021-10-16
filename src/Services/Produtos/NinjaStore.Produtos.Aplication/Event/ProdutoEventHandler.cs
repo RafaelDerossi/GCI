@@ -66,7 +66,7 @@ namespace NinjaStore.Produtos.Aplication.Events
                 _bus.Send(comando).Wait();
             }
 
-            _bus.Send(new EstoqueDoPedidoDebitadoEvent(message.Id)).Wait();
+            _bus.Publish(new EstoqueDoPedidoDebitadoEvent(message.Id)).Wait();
         }
 
         public async Task Handle(EstoqueDoProdutoDebitadoEvent message)

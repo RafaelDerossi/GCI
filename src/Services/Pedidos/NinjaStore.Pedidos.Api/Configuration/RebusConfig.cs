@@ -57,6 +57,8 @@ namespace NinjaStore.Pedidos.Api.Configuration
                 c.Subscribe<EstoqueDoPedidoInsuficienteEvent>().Wait();
                 c.Subscribe<PedidoAprovadoEvent>().Wait();
                 c.Subscribe<PedidoCanceladoEvent>().Wait();
+                c.Subscribe<AprovarPedidoCommand>().Wait();
+                c.Subscribe<CancelarPedidoCommand>().Wait();
             });
 
             return app;

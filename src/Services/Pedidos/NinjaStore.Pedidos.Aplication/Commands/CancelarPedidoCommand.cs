@@ -7,11 +7,11 @@ namespace NinjaStore.Pedidos.Aplication.Commands
 {
     public class CancelarPedidoCommand : PedidoCommand
     {
-        public CancelarPedidoCommand(Guid pedidoId, string justiicativa)
+        public CancelarPedidoCommand(Guid id, string justificativaCancelamento)
         {
-            AggregateId = pedidoId;
-            Id = pedidoId;
-            JustificativaCancelamento = justiicativa;
+            AggregateId = id;
+            Id = id;
+            JustificativaCancelamento = justificativaCancelamento;
         }
 
 

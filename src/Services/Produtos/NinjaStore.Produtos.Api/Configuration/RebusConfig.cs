@@ -53,6 +53,7 @@ namespace NinjaStore.Produtos.Api.Configuration
                 c.Subscribe<ProdutoAdicionadoEvent>().Wait();
                 c.Subscribe<PedidoAdicionadoEvent>().Wait();
                 c.Subscribe<EstoqueDoProdutoDebitadoEvent>().Wait();
+                c.Subscribe<DebitarEstoqueCommand>().Wait();                
             });
 
             return app;
