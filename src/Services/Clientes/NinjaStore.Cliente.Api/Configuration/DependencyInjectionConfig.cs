@@ -3,7 +3,6 @@ using Microsoft.Extensions.DependencyInjection;
 using MediatR;
 using FluentValidation.Results;
 using NinjaStore.Clientes.Aplication.Commands;
-using NinjaStore.Clientes.Aplication.Events;
 using NinjaStore.Clientes.Aplication.Query;
 using NinjaStore.Clientes.Domain.Interfaces;
 using NinjaStore.Clientes.Infra.Data.Repository;

@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Rebus.Bus;
 using Rebus.Handlers;
+using NinjaStore.Core.Messages.CommonHandlers;
 
 namespace NinjaStore.Produtos.Aplication.Commands
 {

@@ -1,6 +1,5 @@
-﻿using MediatR;
-using NinjaStore.Core.Messages;
-using NinjaStore.Core.Messages.IntegrationEvents.Pedidos;
+﻿using NinjaStore.Core.Messages.CommonHandlers;
+using NinjaStore.Core.Messages.Events.Pedidos;
 using NinjaStore.Pedidos.Aplication.Commands;
 using NinjaStore.Pedidos.Domain.FlatModel;
 using NinjaStore.Pedidos.Domain.Interfaces;

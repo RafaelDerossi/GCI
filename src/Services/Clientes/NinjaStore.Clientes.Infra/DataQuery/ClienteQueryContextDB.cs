@@ -11,20 +11,18 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using NinjaStore.Core.ValueObjects;
+using NinjaStore.Core.Messages.CommonMessages;
 
 namespace NinjaStore.Clientes.Infra.Data
 {
     public class ClienteQueryContextDB : DbContext, IUnitOfWorks
     {
-        private readonly IMediatorHandler _mediatorHandler;
-
         public DbSet<ClienteFlat> ClientesFlat { get; set; }      
 
 
-        public ClienteQueryContextDB(DbContextOptions<ClienteQueryContextDB> options, IMediatorHandler mediatorHandler)
+        public ClienteQueryContextDB(DbContextOptions<ClienteQueryContextDB> options)
             : base(options)
-        {
-            _mediatorHandler = mediatorHandler;
+        {            
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

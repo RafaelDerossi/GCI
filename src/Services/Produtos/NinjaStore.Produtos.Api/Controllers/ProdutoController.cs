@@ -39,6 +39,7 @@ namespace NinjaStore.Produtos.Api.Controllers
         /// Lixeira: Informa se o produto esta na lixeira;   
         /// Descricao: Descrição do produto;   
         /// Valor: Preço do produto;   
+        /// Estoque: Quantidade em estoque do produto;    
         /// Foto: Foto do produto;   
         /// </response>
         [HttpGet]
@@ -50,7 +51,7 @@ namespace NinjaStore.Produtos.Api.Controllers
             
             return produtos.ToList();
         }
-        
+
 
         /// <summary>
         /// Adiciona um novo produto
@@ -58,7 +59,8 @@ namespace NinjaStore.Produtos.Api.Controllers
         /// <param name="viewModel">
         /// Descricao: Descrição do produto (Obrigatório)(De 1 a 200 caracteres);             
         /// Valor: Preço do produto (Obrigatório);   
-        /// Foto: Foto do produto;   
+        /// Foto: Foto do produto; 
+        /// Estoque: Quantidade em estoque do produto;    
         /// </param>        
         [HttpPost]
         public async Task<ActionResult> Post(AdicionaProdutoViewModel viewModel)

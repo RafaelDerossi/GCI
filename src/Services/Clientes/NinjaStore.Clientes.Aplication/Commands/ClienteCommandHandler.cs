@@ -1,13 +1,12 @@
 ﻿using FluentValidation.Results;
 using MediatR;
-using NinjaStore.Core.Messages;
 using NinjaStore.Clientes.Aplication.Events;
 using NinjaStore.Clientes.Domain;
 using NinjaStore.Clientes.Domain.Interfaces;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Rebus.Bus;
+using NinjaStore.Core.Messages.CommonHandlers;
 
 namespace NinjaStore.Clientes.Aplication.Commands
 {

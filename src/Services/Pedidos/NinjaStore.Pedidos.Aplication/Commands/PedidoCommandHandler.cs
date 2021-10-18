@@ -1,8 +1,7 @@
 ﻿using FluentValidation.Results;
 using MediatR;
-using NinjaStore.Core.Messages;
-using NinjaStore.Core.Messages.IntegrationEvents.Pedidos;
-using NinjaStore.Pedidos.Aplication.Events;
+using NinjaStore.Core.Messages.CommonHandlers;
+using NinjaStore.Core.Messages.Events.Pedidos;
 using NinjaStore.Pedidos.Domain;
 using NinjaStore.Pedidos.Domain.Interfaces;
 using Rebus.Handlers;

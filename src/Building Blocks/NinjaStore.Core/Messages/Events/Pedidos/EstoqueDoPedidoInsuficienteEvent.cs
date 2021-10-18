@@ -1,5 +1,6 @@
-﻿using System;
-namespace NinjaStore.Core.Messages.IntegrationEvents.Pedidos
+﻿using NinjaStore.Core.Messages.CommonMessages;
+using System;
+namespace NinjaStore.Core.Messages.Events.Pedidos
 {
     public class EstoqueDoPedidoInsuficienteEvent : Event
     {

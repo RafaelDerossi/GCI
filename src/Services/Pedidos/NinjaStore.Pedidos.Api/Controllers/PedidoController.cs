@@ -67,6 +67,7 @@ namespace NinjaStore.Pedidos.Api.Controllers
         /// -- Descricao : Descrição do produto no pedido;   
         /// -- Foto: Foto do produto no pedido;   
         /// -- Valor: Valor do produto no pedido;   
+        /// -- Quantidade: Quantidade pedida do produto no pedido; 
         /// -- Desconto: Desconto do produto no pedido;   
         /// -- ValorTotal: Total do produto no pedido;   
         /// -- PedidoFlatId: Guid do pedido;  
@@ -92,6 +93,7 @@ namespace NinjaStore.Pedidos.Api.Controllers
         /// -- Descricao: Descrição do produto (Obrigatório)(De 1 a 200 caracteres);    
         /// -- Foto: Foto do profuto;   
         /// -- Valor: Preço do produto;   
+        /// -- Quantidade: Quantidade pedida do produto no pedido; 
         /// -- Desconto: Valor do desconto do produto;   
         /// -- ValorTotal: Valor total do produto;   
         /// </param>        

@@ -1,15 +1,11 @@
-﻿using MediatR;
-using NinjaStore.Core.Messages;
-using NinjaStore.Core.Messages.IntegrationEvents.Pedidos;
+﻿using NinjaStore.Core.Messages.CommonHandlers;
+using NinjaStore.Core.Messages.Events.Pedidos;
 using NinjaStore.Produtos.Aplication.Commands;
-using NinjaStore.Produtos.Domain;
 using NinjaStore.Produtos.Domain.FlatModel;
 using NinjaStore.Produtos.Domain.Interfaces;
 using Rebus.Bus;
 using Rebus.Handlers;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace NinjaStore.Produtos.Aplication.Events

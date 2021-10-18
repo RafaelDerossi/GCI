@@ -1,8 +1,8 @@
-﻿using NinjaStore.Core.Messages;
-using NinjaStore.Clientes.Domain.FlatModel;
+﻿using NinjaStore.Clientes.Domain.FlatModel;
 using NinjaStore.Clientes.Domain.Interfaces;
 using System.Threading.Tasks;
 using Rebus.Handlers;
+using NinjaStore.Core.Messages.CommonHandlers;
 
 namespace NinjaStore.Clientes.Aplication.Events
 {

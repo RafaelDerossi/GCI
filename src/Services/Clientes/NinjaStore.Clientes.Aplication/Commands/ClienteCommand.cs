@@ -1,6 +1,6 @@
 ﻿using NinjaStore.Core.ValueObjects;
-using NinjaStore.Core.Messages;
 using System;
+using NinjaStore.Core.Messages.CommonMessages;
 
 namespace NinjaStore.Clientes.Aplication.Commands
 {
