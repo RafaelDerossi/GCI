@@ -71,7 +71,7 @@ namespace NinjaStore.Pedidos.Aplication.Events
 
         public async Task Handle(PedidoAprovadoEvent message)
         {
-            var pedidoFlat = await _pedidoQueryRepository.ObterPorId(message.Id);
+            var pedidoFlat = await _pedidoQueryRepository.ObterPorId(message.PedidoId);
             if (pedidoFlat == null)
                 return;
 
@@ -84,7 +84,7 @@ namespace NinjaStore.Pedidos.Aplication.Events
 
         public async Task Handle(PedidoCanceladoEvent message)
         {
-            var pedidoFlat = await _pedidoQueryRepository.ObterPorId(message.Id);
+            var pedidoFlat = await _pedidoQueryRepository.ObterPorId(message.PedidoId);
             if (pedidoFlat == null)
                 return;
 

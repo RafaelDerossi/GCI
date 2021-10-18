@@ -1,16 +1,18 @@
-﻿using NinjaStore.Core.Enumeradores;
-using NinjaStore.Core.Messages.DTO;
+﻿using NinjaStore.Core.Messages.CommonMessages;
 using System;
-using System.Collections.Generic;
 
 namespace NinjaStore.Core.Messages.Events.Pedidos
 {
-    public class PedidoCanceladoEvent : PedidoEvent
+    public class PedidoCanceladoEvent : Event
     {
-        public PedidoCanceladoEvent(Guid id, string justificativa)
+        public Guid PedidoId { get; protected set; }
+
+        public string Justificativa { get; protected set; }
+
+        public PedidoCanceladoEvent(Guid pedidoId, string justificativa)
         {
-            AggregateId = id;
-            Id = id;
+            AggregateId = pedidoId;
+            PedidoId = pedidoId;
             Justificativa = justificativa;
         }        
     }

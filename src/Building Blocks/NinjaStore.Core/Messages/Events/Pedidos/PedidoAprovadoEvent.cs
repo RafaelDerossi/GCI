@@ -1,16 +1,16 @@
-﻿using NinjaStore.Core.Enumeradores;
-using NinjaStore.Core.Messages.DTO;
+﻿using NinjaStore.Core.Messages.CommonMessages;
 using System;
-using System.Collections.Generic;
 
 namespace NinjaStore.Core.Messages.Events.Pedidos
 {
-    public class PedidoAprovadoEvent : PedidoEvent
+    public class PedidoAprovadoEvent : Event
     {
-        public PedidoAprovadoEvent(Guid id)
+        public Guid PedidoId { get; protected set; }
+
+        public PedidoAprovadoEvent(Guid pedidoId)
         {
-            AggregateId = id;
-            Id = id;            
+            AggregateId = pedidoId;
+            PedidoId = pedidoId;            
         }        
     }
 }
