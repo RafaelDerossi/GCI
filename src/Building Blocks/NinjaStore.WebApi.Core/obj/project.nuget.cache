@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "jeX0dd/YDKdIBQa/ztXX5DRuQ25xECv6UVt8AlPvrc3vCGVSxKEtEu7neI9mM6hksOPYSM9Yq5yszvpeSc2mmQ==",
+  "dgSpecHash": "j5B1bZWeUei1R/blvhjppQXsL4NuJOWLJcI8+mIJugLUQuGrK1ZS1r0xx0nes5mmroqbLO3njSwRzweq6GWc7A==",
   "success": true,
-  "projectFilePath": "C:\\Users\\rafael.derossi\\source\\repos\\RafaelDerossi\\NinjaStore-MS\\src\\Building Blocks\\NinjaStore.WebApi.Core\\NinjaStore.WebApi.Core.csproj",
+  "projectFilePath": "C:\\Fontes\\RafaelDerossi\\NinjaStore-MS\\src\\Building Blocks\\NinjaStore.WebApi.Core\\NinjaStore.WebApi.Core.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\rafael.derossi\\.nuget\\packages\\fluentvalidation\\8.6.2\\fluentvalidation.8.6.2.nupkg.sha512",
     "C:\\Users\\rafael.derossi\\.nuget\\packages\\microsoft.aspnetcore.authentication.abstractions\\2.2.0\\microsoft.aspnetcore.authentication.abstractions.2.2.0.nupkg.sha512",

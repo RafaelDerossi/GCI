@@ -36,3 +36,16 @@ C:\Users\rafael.derossi\Source\Repos\RafaelDerossi\NinjaStore-MS\src\Building Bl
 C:\Users\rafael.derossi\Source\Repos\RafaelDerossi\NinjaStore-MS\src\Building Blocks\NinjaStore.Core\obj\Debug\netcoreapp3.1\NinjaStore.Core.csproj.CoreCompileInputs.cache
 C:\Users\rafael.derossi\Source\Repos\RafaelDerossi\NinjaStore-MS\src\Building Blocks\NinjaStore.Core\obj\Debug\netcoreapp3.1\NinjaStore.Core.dll
 C:\Users\rafael.derossi\Source\Repos\RafaelDerossi\NinjaStore-MS\src\Building Blocks\NinjaStore.Core\obj\Debug\netcoreapp3.1\NinjaStore.Core.pdb
+C:\Fontes\RafaelDerossi\NinjaStore-MS\src\Building Blocks\NinjaStore.Core\bin\Debug\netcoreapp3.1\snappy32.dll
+C:\Fontes\RafaelDerossi\NinjaStore-MS\src\Building Blocks\NinjaStore.Core\bin\Debug\netcoreapp3.1\snappy64.dll
+C:\Fontes\RafaelDerossi\NinjaStore-MS\src\Building Blocks\NinjaStore.Core\bin\Debug\netcoreapp3.1\libzstd.dll
+C:\Fontes\RafaelDerossi\NinjaStore-MS\src\Building Blocks\NinjaStore.Core\bin\Debug\netcoreapp3.1\NinjaStore.Core.deps.json
+C:\Fontes\RafaelDerossi\NinjaStore-MS\src\Building Blocks\NinjaStore.Core\bin\Debug\netcoreapp3.1\NinjaStore.Core.dll
+C:\Fontes\RafaelDerossi\NinjaStore-MS\src\Building Blocks\NinjaStore.Core\bin\Debug\netcoreapp3.1\NinjaStore.Core.pdb
+C:\Fontes\RafaelDerossi\NinjaStore-MS\src\Building Blocks\NinjaStore.Core\obj\Debug\netcoreapp3.1\NinjaStore.Core.csproj.AssemblyReference.cache
+C:\Fontes\RafaelDerossi\NinjaStore-MS\src\Building Blocks\NinjaStore.Core\obj\Debug\netcoreapp3.1\NinjaStore.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Fontes\RafaelDerossi\NinjaStore-MS\src\Building Blocks\NinjaStore.Core\obj\Debug\netcoreapp3.1\NinjaStore.Core.AssemblyInfoInputs.cache
+C:\Fontes\RafaelDerossi\NinjaStore-MS\src\Building Blocks\NinjaStore.Core\obj\Debug\netcoreapp3.1\NinjaStore.Core.AssemblyInfo.cs
+C:\Fontes\RafaelDerossi\NinjaStore-MS\src\Building Blocks\NinjaStore.Core\obj\Debug\netcoreapp3.1\NinjaStore.Core.csproj.CoreCompileInputs.cache
+C:\Fontes\RafaelDerossi\NinjaStore-MS\src\Building Blocks\NinjaStore.Core\obj\Debug\netcoreapp3.1\NinjaStore.Core.dll
+C:\Fontes\RafaelDerossi\NinjaStore-MS\src\Building Blocks\NinjaStore.Core\obj\Debug\netcoreapp3.1\NinjaStore.Core.pdb

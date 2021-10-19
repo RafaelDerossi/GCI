@@ -7,6 +7,7 @@ using NinjaStore.Produtos.Aplication.Events;
 using NinjaStore.Produtos.Domain.Interfaces;
 using NinjaStore.Produtos.Infra.Data.Repository;
 using NinjaStore.Produtos.Aplication.Query;
+using NinjaStore.Core.Data;
 
 namespace NinjaStore.Produtos.Api.Configuration
 {
@@ -27,7 +28,8 @@ namespace NinjaStore.Produtos.Api.Configuration
             
             //Repositório Query
             services.AddScoped<IProdutoQueryRepository, ProdutoQueryRepository>();
-            
+
+            services.AddScoped(typeof(IMongoRepository<>), typeof(MongoRepository<>));
         }
     }
 }

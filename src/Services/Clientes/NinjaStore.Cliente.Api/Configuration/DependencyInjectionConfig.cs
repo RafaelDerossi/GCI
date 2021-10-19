@@ -6,6 +6,7 @@ using NinjaStore.Clientes.Aplication.Commands;
 using NinjaStore.Clientes.Aplication.Query;
 using NinjaStore.Clientes.Domain.Interfaces;
 using NinjaStore.Clientes.Infra.Data.Repository;
+using NinjaStore.Core.Data;
 
 namespace NinjaStore.Clientes.Api.Configuration
 {
@@ -28,7 +29,9 @@ namespace NinjaStore.Clientes.Api.Configuration
             //Repositório Query
             services.AddScoped<IClienteQueryRepository, ClienteQueryRepository>();
 
-            
+
+            services.AddScoped(typeof(IMongoRepository<>), typeof(MongoRepository<>));
+
         }
     }
 }
