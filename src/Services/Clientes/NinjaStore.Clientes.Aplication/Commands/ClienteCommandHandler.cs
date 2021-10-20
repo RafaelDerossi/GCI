@@ -38,7 +38,7 @@ namespace NinjaStore.Clientes.Aplication.Commands
 
             //Evento
             cliente.AdicionarEvento(new ClienteAdicionadoEvent
-                (cliente.Id, cliente.Nome, cliente.Email, cliente.Aldeia));
+                (cliente.Id, cliente.DataDeCadastro, cliente.Nome, cliente.Email, cliente.Aldeia));
             
             return await PersistirDados(_clienteRepository.UnitOfWork); ;
         }               

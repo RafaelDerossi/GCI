@@ -14,6 +14,8 @@ namespace NinjaStore.Core.Data
         IEnumerable<TDocument> ObterPor(
             Expression<Func<TDocument, bool>> filterExpression);
 
+        Task<IEnumerable<TDocument>> ObterPorAsync(Expression<Func<TDocument, bool>> filterExpression);
+
         IEnumerable<TProjected> FiltroPor<TProjected>(
             Expression<Func<TDocument, bool>> filterExpression,
             Expression<Func<TDocument, TProjected>> projectionExpression);

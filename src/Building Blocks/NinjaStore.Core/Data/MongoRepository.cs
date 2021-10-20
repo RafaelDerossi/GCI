@@ -36,7 +36,12 @@ namespace NinjaStore.Core.Data
         {
             return _collection.Find(filterExpression).ToEnumerable();
         }
-        
+
+        public async Task<IEnumerable<TDocument>> ObterPorAsync(Expression<Func<TDocument, bool>> filterExpression)
+        {            
+            return await Task.Run(() => _collection.Find(filterExpression).ToEnumerable());
+        }
+
         public IEnumerable<TProjected> FiltroPor<TProjected>(Expression<Func<TDocument, bool>> filterExpression, Expression<Func<TDocument, TProjected>> projectionExpression)
         {
             return _collection.Find(filterExpression).Project(projectionExpression).ToEnumerable();
@@ -69,6 +74,7 @@ namespace NinjaStore.Core.Data
             });
         }
 
+
         public void Adicionar(TDocument document)
         {
             _collection.InsertOne(document);
@@ -90,6 +96,7 @@ namespace NinjaStore.Core.Data
             await Task.CompletedTask;
         }
 
+
         public void Atualizar(TDocument document)
         {
             var filter = Builders<TDocument>.Filter.Eq(doc => doc.Id, document.Id);
@@ -101,6 +108,7 @@ namespace NinjaStore.Core.Data
             var filter = Builders<TDocument>.Filter.Eq(doc => doc.Id, document.Id);
             await _collection.FindOneAndReplaceAsync(filter, document);
         }
+
 
         public void Remover(Expression<Func<TDocument, bool>> filterExpression)
         {

@@ -12,9 +12,7 @@ namespace NinjaStore.Pedidos.Domain
 
         public DateTime DataDeAlteracao { get; set; }
 
-        public string DataDeAlteracaoFormatada { get; set; }       
-
-        public bool Lixeira { get; set; }
+        public string DataDeAlteracaoFormatada { get; set; }               
 
         public string Nome { get; set; }
 

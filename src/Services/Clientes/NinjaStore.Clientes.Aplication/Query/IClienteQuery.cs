@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NinjaStore.Clientes.Aplication.Query
 {
-    public interface IClienteQuery : IDisposable
+    public interface IClienteQuery
     {
         Task<ClienteFlat> ObterPorId(Guid Id);
 

@@ -16,7 +16,8 @@ namespace NinjaStore.Clientes.Api.Configuration
         {            
             services.AddScoped<IMediatorHandler, MediatorHandler>();
 
-                        
+            services.AddScoped(typeof(IMongoRepository<>), typeof(MongoRepository<>));
+
             //Cliente
             services.AddScoped<IRequestHandler<AdicionarClienteCommand, ValidationResult>, ClienteCommandHandler>();            
                         
@@ -24,13 +25,10 @@ namespace NinjaStore.Clientes.Api.Configuration
             services.AddScoped<IClienteQuery, ClienteQuery>();
             
             //Repositório            
-            services.AddScoped<IClienteRepository, ClienteRepository>();                        
-
-            //Repositório Query
-            services.AddScoped<IClienteQueryRepository, ClienteQueryRepository>();
+            services.AddScoped<IClienteRepository, ClienteRepository>();                                    
 
 
-            services.AddScoped(typeof(IMongoRepository<>), typeof(MongoRepository<>));
+            
 
         }
     }

@@ -5,7 +5,11 @@ namespace NinjaStore.Clientes.Aplication.Events
 {
     public abstract class ClienteEvent : Event
     {
-        public System.Guid Id { get; protected set; }
+        public System.Guid ClienteId { get; protected set; }
+
+        public System.DateTime DataDeCadastro { get; protected set; }
+
+        public System.DateTime DataDeAlteracao { get; protected set; }
 
         public string Nome { get; protected set; }        
 

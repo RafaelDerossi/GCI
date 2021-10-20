@@ -1,14 +1,11 @@
 ﻿using NinjaStore.Core.ValueObjects;
-using NinjaStore.Core.DomainObjects;
 using System;
 
 namespace NinjaStore.Clientes.Domain.FlatModel
-{
-    [BsonCollection("ClienteFlat")]
-    public class ClienteFlat : Document, IAggregateRoot
-   {
-        public const int Max = 200;
-        public Guid ClienteId { get; private set; }
+{    
+    public class ClienteViewModel
+   { 
+        public Guid Id { get; set; }
 
         public DateTime DataDeCadastro { get; private set; }
 
@@ -43,32 +40,32 @@ namespace NinjaStore.Clientes.Domain.FlatModel
 
         public string Aldeia { get; private set; }
 
-        protected ClienteFlat()
+        public ClienteViewModel()
         {
         }
 
-        public ClienteFlat(Guid id, DateTime dataDeCadastro, string nome, Email email, string aldeia)
+        public ClienteViewModel
+            (Guid id, DateTime dataDeCadastro, DateTime dataDeAlteracao, string nome, string email, string aldeia)
         {
-            ClienteId = id;
-            Nome = nome;
+            Id = id;
             DataDeCadastro = dataDeCadastro;
-            DataDeAlteracao = dataDeCadastro;
-            SetEmail(email);
+            DataDeAlteracao = dataDeAlteracao;
+            Nome = nome;
+            Email = email;
             Aldeia = aldeia;
         }
 
-        public void SetEntidadeId(Guid NovoId) => ClienteId = NovoId;       
-
-        public void SetNome(string nome) => Nome = nome;
-
-        public void SetEmail(Email email)
+        public static ClienteViewModel Mapear(ClienteFlat flat)
         {
-            if (email == null)
-                Email = "";
-            Email = email.Endereco;
+            return new ClienteViewModel
+            {
+                Id = flat.ClienteId,
+                DataDeCadastro = flat.DataDeCadastro,
+                DataDeAlteracao = flat.DataDeAlteracao,
+                Nome = flat.Nome,
+                Email = flat.Email,
+                Aldeia = flat.Aldeia
+            };
         }
-
-        public void SetAldeia(string aldeia) => Aldeia = aldeia;
-
     }
 }

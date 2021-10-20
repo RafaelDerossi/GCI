@@ -1,5 +1,6 @@
 ﻿using NinjaStore.Clientes.Domain.FlatModel;
 using NinjaStore.Clientes.Domain.Interfaces;
+using NinjaStore.Core.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,29 +10,23 @@ namespace NinjaStore.Clientes.Aplication.Query
 {
     public class ClienteQuery : IClienteQuery
     {
-        private readonly IClienteQueryRepository _clienteQueryRepository;        
+        private readonly IMongoRepository<ClienteFlat> _clienteFlatRepository;
 
-        public ClienteQuery(IClienteQueryRepository clienteQueryRepository)
+        public ClienteQuery(IMongoRepository<ClienteFlat> clienteFlatRepository)
         {
-            _clienteQueryRepository = clienteQueryRepository;            
+            _clienteFlatRepository = clienteFlatRepository;
         }
 
 
         public async Task<ClienteFlat> ObterPorId(Guid Id)
         {
-            return await _clienteQueryRepository.ObterPorId(Id);
+            return await _clienteFlatRepository.ObterDocumentoAsync(x => x.ClienteId == Id);
         }
 
         public async Task<IEnumerable<ClienteFlat>> ObterTodos()
         {
-            return await _clienteQueryRepository.Obter(x => !x.Lixeira);
-        }
-
-       
-        public void Dispose()
-        {
-            _clienteQueryRepository?.Dispose();
-        }
-
+            return await Task.Run(() =>
+                _clienteFlatRepository.AsQueryable());
+        }     
     }
 }

@@ -5,10 +5,11 @@ namespace NinjaStore.Clientes.Aplication.Events
     public class ClienteAdicionadoEvent : ClienteEvent
     {
 
-        public ClienteAdicionadoEvent(Guid id, string nome, Email email, string aldeia)
+        public ClienteAdicionadoEvent(Guid clienteId, DateTime dataDeCadastro, string nome, Email email, string aldeia)
         {
-            AggregateId = id;
-            Id = id;
+            AggregateId = clienteId;
+            ClienteId = clienteId;
+            DataDeCadastro = dataDeCadastro;            
             Nome = nome;
             Email = email;
             Aldeia = aldeia;

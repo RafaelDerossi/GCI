@@ -43,13 +43,13 @@ namespace NinjaStore.Clientes.Api.Controllers
         /// Aldeia: Aldeia do cliente;   
         /// </response>
         [HttpGet("por-id/{id:Guid}")]
-        public async Task<ActionResult<ClienteFlat>> ObterTodos(Guid id)
+        public async Task<ActionResult<ClienteViewModel>> ObterTodos(Guid id)
         {
             var cliente = await _clienteQuery.ObterPorId(id);
             if (cliente == null)
                 return CustomResponse("Nenhum cliente encontrado.");
 
-            return cliente;
+            return ClienteViewModel.Mapear(cliente);
         }
 
         /// <summary>
@@ -67,13 +67,13 @@ namespace NinjaStore.Clientes.Api.Controllers
         /// Aldeia: Aldeia do cliente;   
         /// </response>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ClienteFlat>>> ObterTodos()
+        public async Task<ActionResult<IEnumerable<ClienteViewModel>>> ObterTodos()
         {
             var clientes = await _clienteQuery.ObterTodos();
             if (clientes.Count() == 0)
                 return CustomResponse("Nenhum cliente encontrado.");
-            
-            return clientes.ToList();
+
+            return clientes.Select(ClienteViewModel.Mapear).ToList();
         }
 
 
