@@ -4,7 +4,9 @@ namespace NinjaStore.Produtos.Aplication.Events
 {
     public abstract class ProdutoEvent : Event
     {
-        public System.Guid Id { get; protected set; }
+        public System.Guid ProdutoId { get; protected set; }
+
+        public System.DateTime DataDeCadastro { get; protected set; }
 
         public string Descricao { get; protected set; }        
 

@@ -1,4 +1,5 @@
-﻿using NinjaStore.Core.Messages.CommonHandlers;
+﻿using NinjaStore.Core.Data;
+using NinjaStore.Core.Messages.CommonHandlers;
 using NinjaStore.Core.Messages.Events.Pedidos;
 using NinjaStore.Produtos.Aplication.Commands;
 using NinjaStore.Produtos.Domain.FlatModel;
@@ -17,15 +18,13 @@ namespace NinjaStore.Produtos.Aplication.Events
          System.IDisposable
     {
 
-        private readonly IProdutoQueryRepository _produtoQueryRepository;
+        private readonly IMongoRepository<ProdutoFlat> _produtoFlatRepository;
         private readonly IProdutoRepository _produtoRepository;
         private readonly IBus _bus;
 
-        public ProdutoEventHandler
-            (IProdutoQueryRepository produtoQueryRepository,
-             IProdutoRepository produtoRepository, IBus bus)
+        public ProdutoEventHandler(IMongoRepository<ProdutoFlat> produtoFlatRepository, IProdutoRepository produtoRepository, IBus bus)
         {
-            _produtoQueryRepository = produtoQueryRepository;
+            _produtoFlatRepository = produtoFlatRepository;
             _produtoRepository = produtoRepository;
             _bus = bus;
         }
@@ -33,12 +32,10 @@ namespace NinjaStore.Produtos.Aplication.Events
         public async Task Handle(ProdutoAdicionadoEvent message)
         {
             var produtoFlat = new ProdutoFlat
-                (message.Id, message.Descricao, message.Valor,
-                 message.Estoque, message.Foto);
+                (message.ProdutoId, message.DataDeCadastro, message.Descricao,
+                 message.Valor, message.Estoque, message.Foto);
            
-            _produtoQueryRepository.Adicionar(produtoFlat);
-           
-            await PersistirDados(_produtoQueryRepository.UnitOfWork);
+            await _produtoFlatRepository.AdicionarAsync(produtoFlat);            
         }
 
         public async Task Handle(PedidoAdicionadoEvent message)
@@ -67,22 +64,20 @@ namespace NinjaStore.Produtos.Aplication.Events
 
         public async Task Handle(EstoqueDoProdutoDebitadoEvent message)
         {
-            var produtoFlat = await _produtoQueryRepository.ObterPorId(message.Id);
+            var produtoFlat = await _produtoFlatRepository.ObterDocumentoAsync(x => x.ProdutoId == message.ProdutoId);
             if (produtoFlat == null)
                 return;
 
             produtoFlat.DebitarEstoque(message.Quantidade);
 
-            _produtoQueryRepository.Atualizar(produtoFlat);
-
-            await PersistirDados(_produtoQueryRepository.UnitOfWork);
+            await _produtoFlatRepository.AtualizarAsync(produtoFlat);
         }
 
 
 
         public void Dispose()
         {
-            _produtoQueryRepository?.Dispose();
+            _produtoRepository?.Dispose();
         }
 
     }

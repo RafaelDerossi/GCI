@@ -9,31 +9,13 @@ namespace NinjaStore.Clientes.Domain.FlatModel
 
         public DateTime DataDeCadastro { get; private set; }
 
-        public string DataDeCadastroFormatada
-        {
-            get
-            {
-                if (DataDeCadastro != null)
-                    return DataDeCadastro.ToString("dd/MM/yyyy HH:mm");
-                else
-                    return null;
-            }
-        }
+        public string DataDeCadastroFormatada { get; private set; }
 
         public DateTime DataDeAlteracao { get; private set; }
 
-        public string DataDeAlteracaoFormatada
-        {
-            get
-            {
-                if (DataDeAlteracao != null)
-                    return DataDeAlteracao.ToString("dd/MM/yyyy HH:mm");
-                else
-                    return null;
-            }
-        }                
+        public string DataDeAlteracaoFormatada { get; private set; }
 
-       
+
         public string Nome { get; private set; }
 
         public string Email { get; private set; }
@@ -42,18 +24,8 @@ namespace NinjaStore.Clientes.Domain.FlatModel
 
         public ClienteViewModel()
         {
-        }
+        }        
 
-        public ClienteViewModel
-            (Guid id, DateTime dataDeCadastro, DateTime dataDeAlteracao, string nome, string email, string aldeia)
-        {
-            Id = id;
-            DataDeCadastro = dataDeCadastro;
-            DataDeAlteracao = dataDeAlteracao;
-            Nome = nome;
-            Email = email;
-            Aldeia = aldeia;
-        }
 
         public static ClienteViewModel Mapear(ClienteFlat flat)
         {
@@ -61,7 +33,9 @@ namespace NinjaStore.Clientes.Domain.FlatModel
             {
                 Id = flat.ClienteId,
                 DataDeCadastro = flat.DataDeCadastro,
+                DataDeCadastroFormatada = flat.DataDeCadastroFormatada,
                 DataDeAlteracao = flat.DataDeAlteracao,
+                DataDeAlteracaoFormatada = flat.DataDeAlteracaoFormatada,
                 Nome = flat.Nome,
                 Email = flat.Email,
                 Aldeia = flat.Aldeia

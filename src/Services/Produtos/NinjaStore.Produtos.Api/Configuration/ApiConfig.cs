@@ -7,6 +7,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NinjaStore.Produtos.Infra.Data;
+using NinjaStore.Core.Data;
+using Microsoft.Extensions.Options;
 
 namespace NinjaStore.Produtos.Api.Configuration
 {
@@ -18,14 +20,14 @@ namespace NinjaStore.Produtos.Api.Configuration
         {
             services.AddControllers();
 
+            services.Configure<MongoDbSettings>(configuration.GetSection("MongoDbSettings"));
+
+            services.AddScoped<IMongoDbSettings>(serviceProvider =>
+               serviceProvider.GetRequiredService<IOptions<MongoDbSettings>>().Value);
+
             //Contexts
             services.AddDbContext<ProdutoContextDB>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("ProdutoConnection")));
-
-            //Query Contexts
-            services.AddDbContext<ProdutoQueryContextDB>(options =>
-              options.UseSqlServer(configuration.GetConnectionString("QueryConnection")));        
-
+                options.UseSqlServer(configuration.GetConnectionString("ProdutoConnection")));           
 
             services.Configure<ApiBehaviorOptions>(options =>
             {

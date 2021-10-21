@@ -17,6 +17,9 @@ namespace NinjaStore.Produtos.Api.Configuration
         {            
             services.AddScoped<IMediatorHandler, MediatorHandler>();
 
+            services.AddScoped(typeof(IMongoRepository<>), typeof(MongoRepository<>));
+
+
             //Produto
             services.AddScoped<IRequestHandler<AdicionarProdutoCommand, ValidationResult>, ProdutoCommandHandler>();            
             
@@ -24,12 +27,8 @@ namespace NinjaStore.Produtos.Api.Configuration
             services.AddScoped<IProdutoQuery, ProdutoQuery>();            
             
             //Repositório
-            services.AddScoped<IProdutoRepository, ProdutoRepository>();            
+            services.AddScoped<IProdutoRepository, ProdutoRepository>();
             
-            //Repositório Query
-            services.AddScoped<IProdutoQueryRepository, ProdutoQueryRepository>();
-
-            services.AddScoped(typeof(IMongoRepository<>), typeof(MongoRepository<>));
         }
     }
 }

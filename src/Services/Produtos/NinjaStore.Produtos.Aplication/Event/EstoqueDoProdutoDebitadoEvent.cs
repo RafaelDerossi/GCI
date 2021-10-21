@@ -9,7 +9,7 @@ namespace NinjaStore.Produtos.Aplication.Events
             (Guid id, decimal quantidade)
         {
             AggregateId = id;
-            Id = id;            
+            ProdutoId = id;            
             Quantidade = quantidade;
         }        
     }

@@ -3,10 +3,10 @@ using System;
 
 namespace NinjaStore.Produtos.Domain.FlatModel
 {
-   public class ProdutoFlat : IAggregateRoot
-   {
-        public const int Max = 200;
-        public Guid Id { get; private set; }
+    [BsonCollection("ProdutoFlat")]
+    public class ProdutoFlat : Document, IAggregateRoot
+    {
+        public Guid ProdutoId { get; private set; }
 
         public DateTime DataDeCadastro { get; private set; }
 
@@ -32,9 +32,7 @@ namespace NinjaStore.Produtos.Domain.FlatModel
                 else
                     return null;
             }
-        }        
-
-        public bool Lixeira { get; private set; }
+        }                
 
 
         public string Descricao { get; private set; }
@@ -50,20 +48,18 @@ namespace NinjaStore.Produtos.Domain.FlatModel
         }
 
         public ProdutoFlat
-            (Guid id, string descricao, decimal valor, decimal estoque, string foto)
+            (Guid id, DateTime dataDeCadastro, string descricao, decimal valor, decimal estoque, string foto)
         {
-            Id = id;            
+            ProdutoId = id;
+            DataDeCadastro = dataDeCadastro;
+            DataDeAlteracao = dataDeCadastro;
             Descricao = descricao;
             Valor = valor;
             Estoque = estoque;
             Foto = foto;
         }
 
-        public void SetEntidadeId(Guid NovoId) => Id = NovoId;
-
-        public void EnviarParaLixeira() => Lixeira = true;
-
-        public void RestaurarDaLixeira() => Lixeira = false;
+        public void SetEntidadeId(Guid NovoId) => ProdutoId = NovoId;        
 
         public void SetDescricao(string descricao) => Descricao = descricao;
 

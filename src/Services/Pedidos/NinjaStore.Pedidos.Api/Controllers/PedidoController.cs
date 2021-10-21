@@ -36,8 +36,6 @@ namespace NinjaStore.Pedidos.Api.Controllers
         }
 
 
-
-
         /// <summary>
         /// Retorna todos os pedidos cadastrados;
         /// </summary>

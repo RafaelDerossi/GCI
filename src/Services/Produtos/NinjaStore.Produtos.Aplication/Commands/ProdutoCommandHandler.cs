@@ -38,7 +38,8 @@ namespace NinjaStore.Produtos.Aplication.Commands
             //Evento
             produto.AdicionarEvento
                 (new ProdutoAdicionadoEvent
-                (produto.Id, produto.Descricao, produto.Valor, produto.Foto, produto.Estoque));
+                (produto.Id, produto.DataDeCadastro, produto.Descricao, produto.Valor,
+                 produto.Foto, produto.Estoque));
 
             return await PersistirDados(_produtoRepository.UnitOfWork);
         }

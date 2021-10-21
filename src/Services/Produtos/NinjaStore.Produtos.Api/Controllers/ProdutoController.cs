@@ -43,13 +43,13 @@ namespace NinjaStore.Produtos.Api.Controllers
         /// Foto: Foto do produto;   
         /// </response>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProdutoFlat>>> ObterTodos()
+        public async Task<ActionResult<IEnumerable<ProdutoViewModel>>> ObterTodos()
         {
             var produtos = await _produtoQuery.ObterTodos();
             if (produtos.Count() == 0)
                 return CustomResponse("Nenhum produto encontrado.");
             
-            return produtos.ToList();
+            return produtos.Select(ProdutoViewModel.Mapear).ToList();
         }
 
 
@@ -72,7 +72,6 @@ namespace NinjaStore.Produtos.Api.Controllers
 
             return CustomResponse(await _mediatorHandler.EnviarComando(comando));
         }
-
         
     }
 }
