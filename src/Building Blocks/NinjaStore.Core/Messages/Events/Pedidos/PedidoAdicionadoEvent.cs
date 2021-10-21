@@ -8,7 +8,9 @@ namespace NinjaStore.Core.Messages.Events.Pedidos
 {
     public class PedidoAdicionadoEvent : Event
     {
-        public Guid Id { get; protected set; }
+        public Guid PedidoId { get; protected set; }
+
+        public DateTime DataDeCadastro { get; protected set; }
 
         public int Numero { get; protected set; }
 
@@ -27,11 +29,13 @@ namespace NinjaStore.Core.Messages.Events.Pedidos
         public List<ProdutoDTO> Produtos { get; protected set; }
 
         public PedidoAdicionadoEvent
-            (Guid id, int numero, StatusDePedido status, decimal valor, decimal desconto,
-             decimal valorTotal, ClienteDTO cliente, List<ProdutoDTO> produtos)
+            (Guid pedidoId, DateTime dataDeCadastro, int numero, StatusDePedido status,
+             decimal valor, decimal desconto, decimal valorTotal, ClienteDTO cliente,
+             List<ProdutoDTO> produtos)
         {
-            AggregateId = id;
-            Id = id;
+            AggregateId = pedidoId;
+            PedidoId = pedidoId;
+            DataDeCadastro = dataDeCadastro;
             Numero = numero;
             Status = status;
             Valor = valor;

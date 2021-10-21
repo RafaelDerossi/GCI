@@ -4,24 +4,24 @@ namespace NinjaStore.Produtos.Domain.FlatModel
 {    
     public class ProdutoViewModel
    {
-        public Guid Id { get; private set; }
+        public Guid Id { get; set; }
 
-        public DateTime DataDeCadastro { get; private set; }
+        public DateTime DataDeCadastro { get; set; }
 
-        public string DataDeCadastroFormatada { get; private set; }
+        public string DataDeCadastroFormatada { get; set; }
 
-        public DateTime DataDeAlteracao { get; private set; }
+        public DateTime DataDeAlteracao { get; set; }
 
-        public string DataDeAlteracaoFormatada { get; private set; }       
+        public string DataDeAlteracaoFormatada { get; set; }       
 
 
-        public string Descricao { get; private set; }
+        public string Descricao { get; set; }
 
-        public decimal Valor { get; private set; }
+        public decimal Valor { get; set; }
 
-        public decimal Estoque { get; private set; }
+        public decimal Estoque { get; set; }
 
-        public string Foto { get; private set; }
+        public string Foto { get; set; }
 
         public ProdutoViewModel()
         {

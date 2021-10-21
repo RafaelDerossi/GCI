@@ -7,6 +7,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NinjaStore.Pedidos.Infra.Data;
+using NinjaStore.Core.Data;
+using Microsoft.Extensions.Options;
 
 namespace NinjaStore.Pedidos.Api.Configuration
 {
@@ -18,15 +20,17 @@ namespace NinjaStore.Pedidos.Api.Configuration
         {
             services.AddControllers();
 
+            services.Configure<MongoDbSettings>(configuration.GetSection("MongoDbSettings"));
+
+            services.AddScoped<IMongoDbSettings>(serviceProvider =>
+               serviceProvider.GetRequiredService<IOptions<MongoDbSettings>>().Value);
+
+
             //Contexts
             services.AddDbContext<PedidoContextDB>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("PedidoConnection")));
 
-            //Query Contexts
-            services.AddDbContext<PedidoQueryContextDB>(options =>
-              options.UseSqlServer(configuration.GetConnectionString("QueryConnection")));
-
-
+            
 
             services.Configure<ApiBehaviorOptions>(options =>
             {

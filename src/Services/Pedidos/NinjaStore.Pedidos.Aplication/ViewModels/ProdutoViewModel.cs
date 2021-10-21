@@ -1,4 +1,4 @@
-﻿using NinjaStore.Core.DomainObjects;
+﻿using NinjaStore.Pedidos.Domain.FlatModel;
 using System;
 
 namespace NinjaStore.Pedidos.Aplication.ViewModels
@@ -17,6 +17,24 @@ namespace NinjaStore.Pedidos.Aplication.ViewModels
 
         public decimal Desconto { get; set; }
 
-        public decimal ValorTotal { get; set; }      
+        public decimal ValorTotal { get; set; }
+
+        public ProdutoViewModel()
+        {
+        }       
+
+        public static ProdutoViewModel Mapear(ProdutoDoPedidoFlat flat)
+        {
+            return new ProdutoViewModel
+            {
+                ProdutoId = flat.ProdutoId,
+                Descricao = flat.Descricao,
+                Foto = flat.Foto,
+                Valor = flat.Valor,
+                Quantidade = flat.Quantidade,
+                Desconto = flat.Desconto,
+                ValorTotal = flat.ValorTotal
+            };
+        }
     }
 }

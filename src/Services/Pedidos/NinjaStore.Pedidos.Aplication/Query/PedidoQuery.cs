@@ -1,4 +1,5 @@
-﻿using NinjaStore.Pedidos.Domain.FlatModel;
+﻿using NinjaStore.Core.Data;
+using NinjaStore.Pedidos.Domain.FlatModel;
 using NinjaStore.Pedidos.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -9,28 +10,26 @@ namespace NinjaStore.Pedidos.Aplication.Query
 {
     public class PedidoQuery : IPedidoQuery
     {
-        private readonly IPedidoQueryRepository _pedidoQueryRepository;        
+        private readonly IMongoRepository<PedidoFlat> _pedidoFlatRepository;
 
-        public PedidoQuery(IPedidoQueryRepository pedidoQueryRepository)
+        public PedidoQuery(IMongoRepository<PedidoFlat> pedidoFlatRepository)
         {
-            _pedidoQueryRepository = pedidoQueryRepository;            
+            _pedidoFlatRepository = pedidoFlatRepository;
         }
-
 
         public async Task<PedidoFlat> ObterPorId(Guid Id)
         {
-            return await _pedidoQueryRepository.ObterPorId(Id);
+            return await _pedidoFlatRepository.ObterDocumentoAsync(x => x.PedidoId == Id);
         }
 
         public async Task<IEnumerable<PedidoFlat>> ObterTodos()
         {
-            return await _pedidoQueryRepository.Obter(x => !x.Lixeira);
+            return await _pedidoFlatRepository.ObterPorAsync(x => !x.Lixeira);
         }
 
        
         public void Dispose()
         {
-            _pedidoQueryRepository?.Dispose();
         }
 
     }

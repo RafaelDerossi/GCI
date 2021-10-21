@@ -71,13 +71,13 @@ namespace NinjaStore.Pedidos.Api.Controllers
         /// -- PedidoFlatId: Guid do pedido;  
         /// </response>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<PedidoFlat>>> ObterTodos()
+        public async Task<ActionResult<IEnumerable<PedidoViewModel>>> ObterTodos()
         {
             var pedidos = await _pedidoQuery.ObterTodos();
             if (pedidos.Count() == 0)
                 return CustomResponse("Nenhum pedido encontrado.");
 
-            return pedidos.ToList();
+            return pedidos.Select(PedidoViewModel.Mapear).ToList();
         }
 
 

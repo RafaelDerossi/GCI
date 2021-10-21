@@ -1,4 +1,5 @@
-﻿using NinjaStore.Core.Messages.CommonHandlers;
+﻿using NinjaStore.Core.Data;
+using NinjaStore.Core.Messages.CommonHandlers;
 using NinjaStore.Core.Messages.Events.Pedidos;
 using NinjaStore.Pedidos.Aplication.Commands;
 using NinjaStore.Pedidos.Domain.FlatModel;
@@ -18,16 +19,15 @@ namespace NinjaStore.Pedidos.Aplication.Events
          IHandleMessages<PedidoCanceladoEvent>,
          System.IDisposable
     {
-
-        private readonly IPedidoQueryRepository _pedidoQueryRepository;
+        private readonly IMongoRepository<PedidoFlat> _pedidoFlatRepository;        
         private readonly IPedidoRepository _pedidoRepository;
         private readonly IBus _bus;
 
         public PedidoEventHandler
-            (IPedidoQueryRepository pedidoQueryRepository, 
+            (IMongoRepository<PedidoFlat> pedidoFlatRepository,
              IPedidoRepository pedidoRepository, IBus bus)
         {
-            _pedidoQueryRepository = pedidoQueryRepository;
+            _pedidoFlatRepository = pedidoFlatRepository;
             _pedidoRepository = pedidoRepository;
             _bus = bus;
         }
@@ -35,8 +35,8 @@ namespace NinjaStore.Pedidos.Aplication.Events
         public async Task Handle(PedidoAdicionadoEvent message)
         {
             var pedidoFlat = new PedidoFlat
-                (message.Id, message.Numero, message.Status, message.Valor,
-                 message.Desconto, message.ValorTotal, message.Cliente.Id,
+                (message.PedidoId, message.DataDeCadastro, message.Numero, message.Status,
+                 message.Valor, message.Desconto, message.ValorTotal, message.Cliente.Id,
                  message.Cliente.Nome, message.Cliente.Email, message.Cliente.Aldeia);
 
             foreach (var item in message.Produtos)
@@ -45,13 +45,12 @@ namespace NinjaStore.Pedidos.Aplication.Events
                                                                     item.Descricao, item.Foto, 
                                                                     item.Valor, item.Quantidade,
                                                                     item.Desconto, item.ValorTotal));
+
             }
 
-            pedidoFlat.SetNumero(await _pedidoRepository.ObterNumeroDoPedidoPorId(pedidoFlat.Id));
+            pedidoFlat.SetNumero(await _pedidoRepository.ObterNumeroDoPedidoPorId(pedidoFlat.PedidoId));
 
-            _pedidoQueryRepository.Adicionar(pedidoFlat);
-           
-            await PersistirDados(_pedidoQueryRepository.UnitOfWork);
+            await _pedidoFlatRepository.AdicionarAsync(pedidoFlat);            
         }               
 
         
@@ -71,34 +70,31 @@ namespace NinjaStore.Pedidos.Aplication.Events
 
         public async Task Handle(PedidoAprovadoEvent message)
         {
-            var pedidoFlat = await _pedidoQueryRepository.ObterPorId(message.PedidoId);
+            var pedidoFlat = await _pedidoFlatRepository.ObterDocumentoAsync(x => x.PedidoId == message.PedidoId);
             if (pedidoFlat == null)
                 return;
 
             pedidoFlat.AprovarPedido();
 
-            _pedidoQueryRepository.Atualizar(pedidoFlat);
-
-            await PersistirDados(_pedidoQueryRepository.UnitOfWork);
+            await _pedidoFlatRepository.AtualizarAsync(pedidoFlat);
         }
+
 
         public async Task Handle(PedidoCanceladoEvent message)
         {
-            var pedidoFlat = await _pedidoQueryRepository.ObterPorId(message.PedidoId);
+            var pedidoFlat = await _pedidoFlatRepository.ObterDocumentoAsync(x => x.PedidoId == message.PedidoId);
             if (pedidoFlat == null)
                 return;
 
             pedidoFlat.CancelarPedido(message.Justificativa);
 
-            _pedidoQueryRepository.Atualizar(pedidoFlat);
-
-            await PersistirDados(_pedidoQueryRepository.UnitOfWork);
+            await _pedidoFlatRepository.AtualizarAsync(pedidoFlat);
         }
 
 
         public void Dispose()
         {
-            _pedidoQueryRepository?.Dispose();
+            _pedidoRepository?.Dispose();
         }
     }
 }

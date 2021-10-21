@@ -7,20 +7,20 @@ namespace NinjaStore.Clientes.Domain.FlatModel
    { 
         public Guid Id { get; set; }
 
-        public DateTime DataDeCadastro { get; private set; }
+        public DateTime DataDeCadastro { get; set; }
 
-        public string DataDeCadastroFormatada { get; private set; }
+        public string DataDeCadastroFormatada { get; set; }
 
-        public DateTime DataDeAlteracao { get; private set; }
+        public DateTime DataDeAlteracao { get; set; }
 
-        public string DataDeAlteracaoFormatada { get; private set; }
+        public string DataDeAlteracaoFormatada { get; set; }
 
 
-        public string Nome { get; private set; }
+        public string Nome { get; set; }
 
-        public string Email { get; private set; }
+        public string Email { get; set; }
 
-        public string Aldeia { get; private set; }
+        public string Aldeia { get; set; }
 
         public ClienteViewModel()
         {

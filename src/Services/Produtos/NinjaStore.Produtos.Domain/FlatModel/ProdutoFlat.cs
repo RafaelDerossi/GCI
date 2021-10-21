@@ -48,9 +48,9 @@ namespace NinjaStore.Produtos.Domain.FlatModel
         }
 
         public ProdutoFlat
-            (Guid id, DateTime dataDeCadastro, string descricao, decimal valor, decimal estoque, string foto)
+            (Guid produtoId, DateTime dataDeCadastro, string descricao, decimal valor, decimal estoque, string foto)
         {
-            ProdutoId = id;
+            ProdutoId = produtoId;
             DataDeCadastro = dataDeCadastro;
             DataDeAlteracao = dataDeCadastro;
             Descricao = descricao;

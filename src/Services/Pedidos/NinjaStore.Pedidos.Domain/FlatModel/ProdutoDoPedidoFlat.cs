@@ -50,7 +50,7 @@ namespace NinjaStore.Pedidos.Domain.FlatModel
 
         public decimal ValorTotal { get; private set; }
 
-        public Guid PedidoFlatId { get; set; }        
+        public Guid PedidoFlatId { get; private set; }        
 
 
         protected ProdutoDoPedidoFlat()

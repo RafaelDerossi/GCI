@@ -16,7 +16,9 @@ namespace NinjaStore.Pedidos.Api.Configuration
         public static void RegisterServices(this IServiceCollection services)
         {            
             services.AddScoped<IMediatorHandler, MediatorHandler>();
-            
+
+            services.AddScoped(typeof(IMongoRepository<>), typeof(MongoRepository<>));
+
             //Pedido            
             services.AddScoped<IRequestHandler<AdicionarPedidoCommand, ValidationResult>, PedidoCommandHandler>();
 
@@ -26,11 +28,6 @@ namespace NinjaStore.Pedidos.Api.Configuration
 
             //Repositório            
             services.AddScoped<IPedidoRepository, PedidoRepository>();            
-
-            //Repositório Query            
-            services.AddScoped<IPedidoQueryRepository, PedidoQueryRepository>();
-
-            services.AddScoped(typeof(IMongoRepository<>), typeof(MongoRepository<>));
         }
     }
 }

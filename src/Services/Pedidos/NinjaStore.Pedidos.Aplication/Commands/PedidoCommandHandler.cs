@@ -45,7 +45,7 @@ namespace NinjaStore.Pedidos.Aplication.Commands
             //Evento
             pedido.AdicionarEvento
                 (new PedidoAdicionadoEvent
-                (pedido.Id, pedido.Numero, pedido.Status, pedido.Valor, pedido.Desconto,
+                (pedido.Id, pedido.DataDeCadastro, pedido.Numero, pedido.Status, pedido.Valor, pedido.Desconto,
                  pedido.ValorTotal, request.Cliente, request.Produtos));
 
             return await PersistirDados(_pedidoRepository.UnitOfWork);

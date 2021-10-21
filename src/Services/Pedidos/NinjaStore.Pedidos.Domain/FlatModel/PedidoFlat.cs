@@ -5,9 +5,10 @@ using System.Collections.Generic;
 
 namespace NinjaStore.Pedidos.Domain.FlatModel
 {
-   public class PedidoFlat : IAggregateRoot
+    [BsonCollection("PedidoFlat")]
+    public class PedidoFlat : Document, IAggregateRoot
    {
-        public Guid Id { get; private set; }
+        public Guid PedidoId { get; private set; }
 
         public DateTime DataDeCadastro { get; private set; }
 
@@ -33,9 +34,7 @@ namespace NinjaStore.Pedidos.Domain.FlatModel
                 else
                     return null;
             }
-        }        
-
-        public bool Lixeira { get; private set; }
+        }               
 
 
 
@@ -66,31 +65,30 @@ namespace NinjaStore.Pedidos.Domain.FlatModel
         public decimal ValorTotal { get; private set; }
 
 
-        public Guid ClienteId { get; protected set; }
+        public Guid ClienteId { get; private set; }
 
-        public string NomeDoCliente { get; protected set; }
+        public string NomeDoCliente { get; private set; }
 
-        public string EmailDoCliente { get; protected set; }
+        public string EmailDoCliente { get; private set; }
 
-        public string AldeiaDoCliente { get; protected set; }
-
-
-        private readonly List<ProdutoDoPedidoFlat> _Produtos;
-        public IReadOnlyCollection<ProdutoDoPedidoFlat> Produtos => _Produtos;
+        public string AldeiaDoCliente { get; private set; }
+       
+        public List<ProdutoDoPedidoFlat> Produtos;
 
 
         protected PedidoFlat()
         {
-            _Produtos = new List<ProdutoDoPedidoFlat>();
+            Produtos = new List<ProdutoDoPedidoFlat>();
         }
 
         public PedidoFlat
-            (Guid id, int numero, StatusDePedido status, decimal valor, 
-             decimal desconto, decimal valorTotal, Guid clienteId,
+            (Guid pedidoId, DateTime dataDeCadastro, int numero, StatusDePedido status,
+             decimal valor, decimal desconto, decimal valorTotal, Guid clienteId,
              string nomeDoCliente, string emailDoCliente, string aldeiaDoCliente)
         {
-            _Produtos = new List<ProdutoDoPedidoFlat>();
-            Id = id;            
+            Produtos = new List<ProdutoDoPedidoFlat>();
+            PedidoId = pedidoId;
+            DataDeCadastro = dataDeCadastro;
             Numero = numero;
             Status = status;
             Valor = valor;
@@ -102,17 +100,13 @@ namespace NinjaStore.Pedidos.Domain.FlatModel
             AldeiaDoCliente = aldeiaDoCliente;            
         }
 
-        public void SetEntidadeId(Guid NovoId) => Id = NovoId;
-
-        public void EnviarParaLixeira() => Lixeira = true;
-
-        public void RestaurarDaLixeira() => Lixeira = false;
+        public void SetEntidadeId(Guid NovoId) => PedidoId = NovoId;        
 
         public void SetNumero(int numero) => Numero = numero;
 
         public void AdicionarProduto(ProdutoDoPedidoFlat produto)
         {
-            _Produtos.Add(produto);
+            Produtos.Add(produto);
         }
 
         public void AprovarPedido() => Status = StatusDePedido.APROVADO;
