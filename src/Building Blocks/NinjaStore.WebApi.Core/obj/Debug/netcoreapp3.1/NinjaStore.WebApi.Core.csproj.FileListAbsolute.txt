@@ -27,3 +27,13 @@ C:\Users\rafael.derossi\Source\Repos\RafaelDerossi\NinjaStore-MS\src\Building Bl
 C:\Users\rafael.derossi\Source\Repos\RafaelDerossi\NinjaStore-MS\src\Building Blocks\NinjaStore.WebApi.Core\obj\Debug\netcoreapp3.1\NinjaStore.WebApi.Core.csproj.CoreCompileInputs.cache
 C:\Users\rafael.derossi\Source\Repos\RafaelDerossi\NinjaStore-MS\src\Building Blocks\NinjaStore.WebApi.Core\obj\Debug\netcoreapp3.1\NinjaStore.WebApi.Core.dll
 C:\Users\rafael.derossi\Source\Repos\RafaelDerossi\NinjaStore-MS\src\Building Blocks\NinjaStore.WebApi.Core\obj\Debug\netcoreapp3.1\NinjaStore.WebApi.Core.pdb
+C:\Fontes\RafaelDerossi\NinjaStore-MS\src\Building Blocks\NinjaStore.WebApi.Core\bin\Debug\netcoreapp3.1\NinjaStore.WebApi.Core.deps.json
+C:\Fontes\RafaelDerossi\NinjaStore-MS\src\Building Blocks\NinjaStore.WebApi.Core\bin\Debug\netcoreapp3.1\NinjaStore.WebApi.Core.dll
+C:\Fontes\RafaelDerossi\NinjaStore-MS\src\Building Blocks\NinjaStore.WebApi.Core\bin\Debug\netcoreapp3.1\NinjaStore.WebApi.Core.pdb
+C:\Fontes\RafaelDerossi\NinjaStore-MS\src\Building Blocks\NinjaStore.WebApi.Core\obj\Debug\netcoreapp3.1\NinjaStore.WebApi.Core.csproj.AssemblyReference.cache
+C:\Fontes\RafaelDerossi\NinjaStore-MS\src\Building Blocks\NinjaStore.WebApi.Core\obj\Debug\netcoreapp3.1\NinjaStore.WebApi.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Fontes\RafaelDerossi\NinjaStore-MS\src\Building Blocks\NinjaStore.WebApi.Core\obj\Debug\netcoreapp3.1\NinjaStore.WebApi.Core.AssemblyInfoInputs.cache
+C:\Fontes\RafaelDerossi\NinjaStore-MS\src\Building Blocks\NinjaStore.WebApi.Core\obj\Debug\netcoreapp3.1\NinjaStore.WebApi.Core.AssemblyInfo.cs
+C:\Fontes\RafaelDerossi\NinjaStore-MS\src\Building Blocks\NinjaStore.WebApi.Core\obj\Debug\netcoreapp3.1\NinjaStore.WebApi.Core.csproj.CoreCompileInputs.cache
+C:\Fontes\RafaelDerossi\NinjaStore-MS\src\Building Blocks\NinjaStore.WebApi.Core\obj\Debug\netcoreapp3.1\NinjaStore.WebApi.Core.dll
+C:\Fontes\RafaelDerossi\NinjaStore-MS\src\Building Blocks\NinjaStore.WebApi.Core\obj\Debug\netcoreapp3.1\NinjaStore.WebApi.Core.pdb
