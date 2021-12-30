@@ -1,14 +1,14 @@
 ﻿using FluentValidation.Results;
 using MediatR;
-using NinjaStore.Clientes.Aplication.Events;
-using NinjaStore.Clientes.Domain;
-using NinjaStore.Clientes.Domain.Interfaces;
+using GCI.Acoes.Aplication.Events;
+using GCI.Acoes.Domain;
+using GCI.Acoes.Domain.Interfaces;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using NinjaStore.Core.Messages.CommonHandlers;
+using GCI.Core.Messages.CommonHandlers;
 
-namespace NinjaStore.Clientes.Aplication.Commands
+namespace GCI.Acoes.Aplication.Commands
 {
     public class ClienteCommandHandler : CommandHandler,
          IRequestHandler<AdicionarClienteCommand, ValidationResult>,

@@ -1,7 +1,7 @@
-﻿using NinjaStore.Clientes.Aplication.Commands;
+﻿using GCI.Acoes.Aplication.Commands;
 using System;
 
-namespace NinjaStore.Clientes.Tests
+namespace GCI.Acoes.Tests
 {
     public class ClienteCommandFactory
     {

@@ -1,4 +1,4 @@
-﻿namespace NinjaStore.Core.Data
+﻿namespace GCI.Core.Data
 {
     public interface IMongoDbSettings
     {

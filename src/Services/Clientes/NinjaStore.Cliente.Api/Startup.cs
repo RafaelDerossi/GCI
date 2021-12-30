@@ -1,5 +1,5 @@
-using NinjaStore.Clientes.Api.Configuration;
-using NinjaStore.WebApi.Core.Identidade;
+using GCI.Acoes.Api.Configuration;
+using GCI.WebApi.Core.Identidade;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Rebus.Config;
 
-namespace NinjaStore.Clientes.Api
+namespace GCI.Acoes.Api
 {
     public class Startup
     {

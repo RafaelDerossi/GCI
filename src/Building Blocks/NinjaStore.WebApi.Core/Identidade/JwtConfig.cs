@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 
-namespace NinjaStore.WebApi.Core.Identidade
+namespace GCI.WebApi.Core.Identidade
 {
     public static class JwtConfig
     {

@@ -1,8 +1,8 @@
-﻿using NinjaStore.Core.ValueObjects;
-using NinjaStore.Core.DomainObjects;
+﻿using GCI.Core.ValueObjects;
+using GCI.Core.DomainObjects;
 using System;
 
-namespace NinjaStore.Clientes.Domain
+namespace GCI.Acoes.Domain
 {
     public class Cliente : Entity, IAggregateRoot
     {

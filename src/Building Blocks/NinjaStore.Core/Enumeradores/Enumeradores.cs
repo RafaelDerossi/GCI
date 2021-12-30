@@ -1,4 +1,4 @@
-﻿namespace NinjaStore.Core.Enumeradores
+﻿namespace GCI.Core.Enumeradores
 {
     public enum StatusDePedido
     {

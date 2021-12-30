@@ -1,8 +1,8 @@
 ﻿using System;
-using NinjaStore.Core.Helpers;
+using GCI.Core.Helpers;
 using MediatR;
 
-namespace NinjaStore.Core.Messages.CommonMessages
+namespace GCI.Core.Messages.CommonMessages
 {
     public abstract class Event : Message, INotification
     {

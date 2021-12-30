@@ -2,7 +2,7 @@
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace NinjaStore.Core.DomainObjects
+namespace GCI.Core.DomainObjects
 {
     public interface IDocument
     {

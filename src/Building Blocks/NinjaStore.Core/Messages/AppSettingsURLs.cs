@@ -1,4 +1,4 @@
-﻿namespace NinjaStore.Core.Messages
+﻿namespace GCI.Core.Messages
 {
     public class AppSettingsURLs
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NinjaStore.Core.Helpers
+namespace GCI.Core.Helpers
 {
     public static class DataHoraDeBrasilia
     {

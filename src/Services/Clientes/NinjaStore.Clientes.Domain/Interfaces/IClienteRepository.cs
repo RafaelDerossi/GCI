@@ -1,7 +1,7 @@
-﻿using NinjaStore.Core.Data;
+﻿using GCI.Core.Data;
 using System.Threading.Tasks;
 
-namespace NinjaStore.Clientes.Domain.Interfaces
+namespace GCI.Acoes.Domain.Interfaces
 {
     public interface IClienteRepository : IRepository<Cliente>
     {

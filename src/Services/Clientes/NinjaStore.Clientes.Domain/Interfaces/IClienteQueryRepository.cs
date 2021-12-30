@@ -1,7 +1,7 @@
-﻿using NinjaStore.Core.Data;
-using NinjaStore.Clientes.Domain.FlatModel;
+﻿using GCI.Core.Data;
+using GCI.Acoes.Domain.FlatModel;
 
-namespace NinjaStore.Clientes.Domain.Interfaces
+namespace GCI.Acoes.Domain.Interfaces
 {
     public interface IClienteQueryRepository : IRepository<ClienteFlat>
     {        

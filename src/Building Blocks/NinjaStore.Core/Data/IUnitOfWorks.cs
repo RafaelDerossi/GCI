@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace NinjaStore.Core.Data
+namespace GCI.Core.Data
 {
     public interface IUnitOfWorks
     {

@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
-using NinjaStore.Core.Data;
+using GCI.Core.Data;
 using FluentValidation.Results;
 
-namespace NinjaStore.Core.Messages.CommonHandlers
+namespace GCI.Core.Messages.CommonHandlers
 {
     public class CommandHandler
     {

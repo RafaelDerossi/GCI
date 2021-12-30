@@ -2,9 +2,9 @@
 using System.Threading.Tasks;
 using FluentValidation.Results;
 using MediatR;
-using NinjaStore.Core.Messages.CommonMessages;
+using GCI.Core.Messages.CommonMessages;
 
-namespace NinjaStore.Core.Mediator
+namespace GCI.Core.Mediator
 {
     public class MediatorHandler : IMediatorHandler
     {

@@ -1,4 +1,4 @@
-﻿namespace NinjaStore.WebApi.Core
+﻿namespace GCI.WebApi.Core
 {
     public class AppSettings
     {

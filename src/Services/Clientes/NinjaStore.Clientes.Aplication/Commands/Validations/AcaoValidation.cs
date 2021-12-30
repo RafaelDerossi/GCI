@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
 using System;
 
-namespace NinjaStore.Clientes.Aplication.Commands.Validations
+namespace GCI.Acoes.Aplication.Commands.Validations
 {
-    public abstract class ClienteValidation<T> : AbstractValidator<T> where T : ClienteCommand
+    public abstract class AcaoValidation<T> : AbstractValidator<T> where T : ClienteCommand
     {
         protected void ValidateId()
         {

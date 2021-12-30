@@ -1,16 +1,16 @@
-﻿using NinjaStore.Core.Mediator;
-using NinjaStore.WebApi.Core.Controllers;
+﻿using GCI.Core.Mediator;
+using GCI.WebApi.Core.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using NinjaStore.Clientes.Aplication.Query;
-using NinjaStore.Clientes.Aplication.ViewModels;
-using NinjaStore.Clientes.Aplication.Commands;
-using NinjaStore.Clientes.Domain.FlatModel;
+using GCI.Acoes.Aplication.Query;
+using GCI.Acoes.Aplication.ViewModels;
+using GCI.Acoes.Aplication.Commands;
+using GCI.Acoes.Domain.FlatModel;
 
-namespace NinjaStore.Clientes.Api.Controllers
+namespace GCI.Acoes.Api.Controllers
 {
     [Route("api/cliente")]
     public class ClienteController : MainController

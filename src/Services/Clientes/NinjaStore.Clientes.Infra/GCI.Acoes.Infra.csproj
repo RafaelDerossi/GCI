@@ -18,8 +18,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Building Blocks\NinjaStore.Core\NinjaStore.Core.csproj" />
-    <ProjectReference Include="..\NinjaStore.Clientes.Domain\NinjaStore.Clientes.Domain.csproj" />
+    <ProjectReference Include="..\..\..\Building Blocks\NinjaStore.Core\GCI.Core.csproj" />
+    <ProjectReference Include="..\NinjaStore.Clientes.Domain\GCI.Acoes.Domain.csproj" />
   </ItemGroup>
 
 </Project>

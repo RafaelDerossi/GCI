@@ -1,18 +1,18 @@
 ﻿using FluentValidation.Results;
 using Microsoft.EntityFrameworkCore;
-using NinjaStore.Clientes.Domain;
-using NinjaStore.Clientes.Domain.FlatModel;
-using NinjaStore.Core.Data;
-using NinjaStore.Core.Extensions;
-using NinjaStore.Core.Helpers;
-using NinjaStore.Core.Mediator;
-using NinjaStore.Core.Messages.CommonMessages;
+using GCI.Acoes.Domain;
+using GCI.Acoes.Domain.FlatModel;
+using GCI.Core.Data;
+using GCI.Core.Extensions;
+using GCI.Core.Helpers;
+using GCI.Core.Mediator;
+using GCI.Core.Messages.CommonMessages;
 using Rebus.Bus;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace NinjaStore.Clientes.Infra.Data
+namespace GCI.Acoes.Infra.Data
 {
     public class ClienteContextDB : DbContext, IUnitOfWorks
     {

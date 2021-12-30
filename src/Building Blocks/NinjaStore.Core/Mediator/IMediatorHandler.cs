@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
-using NinjaStore.Core.Messages.CommonMessages;
+using GCI.Core.Messages.CommonMessages;
 using FluentValidation.Results;
 
-namespace NinjaStore.Core.Mediator
+namespace GCI.Core.Mediator
 {
     public interface IMediatorHandler
     {

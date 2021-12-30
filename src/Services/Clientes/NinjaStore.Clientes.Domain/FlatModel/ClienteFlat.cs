@@ -1,8 +1,8 @@
-﻿using NinjaStore.Core.ValueObjects;
-using NinjaStore.Core.DomainObjects;
+﻿using GCI.Core.ValueObjects;
+using GCI.Core.DomainObjects;
 using System;
 
-namespace NinjaStore.Clientes.Domain.FlatModel
+namespace GCI.Acoes.Domain.FlatModel
 {
     [BsonCollection("ClienteFlat")]
     public class ClienteFlat : Document, IAggregateRoot

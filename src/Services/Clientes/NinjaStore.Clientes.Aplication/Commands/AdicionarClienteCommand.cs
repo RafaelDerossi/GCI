@@ -1,7 +1,7 @@
-﻿using NinjaStore.Clientes.Aplication.Commands.Validations;
+﻿using GCI.Acoes.Aplication.Commands.Validations;
 using System;
 
-namespace NinjaStore.Clientes.Aplication.Commands
+namespace GCI.Acoes.Aplication.Commands
 {
     public class AdicionarClienteCommand : ClienteCommand
     {
@@ -24,7 +24,7 @@ namespace NinjaStore.Clientes.Aplication.Commands
         }
 
 
-        public class AdicionarClienteCommandValidation : ClienteValidation<AdicionarClienteCommand>
+        public class AdicionarClienteCommandValidation : AcaoValidation<AdicionarClienteCommand>
         {
             public AdicionarClienteCommandValidation()
             {                               

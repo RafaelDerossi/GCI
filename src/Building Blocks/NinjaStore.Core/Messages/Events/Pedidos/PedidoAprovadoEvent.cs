@@ -1,7 +1,7 @@
-﻿using NinjaStore.Core.Messages.CommonMessages;
+﻿using GCI.Core.Messages.CommonMessages;
 using System;
 
-namespace NinjaStore.Core.Messages.Events.Pedidos
+namespace GCI.Core.Messages.Events.Pedidos
 {
     public class PedidoAprovadoEvent : Event
     {

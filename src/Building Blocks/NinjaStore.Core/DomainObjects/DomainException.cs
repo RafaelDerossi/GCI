@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NinjaStore.Core.DomainObjects
+namespace GCI.Core.DomainObjects
 {
     public class DomainException : Exception
     {

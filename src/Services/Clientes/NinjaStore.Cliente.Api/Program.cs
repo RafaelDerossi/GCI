@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace NinjaStore.Clientes.Api
+namespace GCI.Acoes.Api
 {
     public class Program
     {

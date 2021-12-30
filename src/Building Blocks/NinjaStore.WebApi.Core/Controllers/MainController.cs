@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Newtonsoft.Json;
 
-namespace NinjaStore.WebApi.Core.Controllers
+namespace GCI.WebApi.Core.Controllers
 {
     [ApiController]
     public abstract class MainController : ControllerBase

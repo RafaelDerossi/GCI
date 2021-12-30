@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using NinjaStore.Core.Helpers;
+using GCI.Core.Helpers;
 using FluentValidation.Results;
-using NinjaStore.Core.Messages.CommonMessages;
+using GCI.Core.Messages.CommonMessages;
 
-namespace NinjaStore.Core.DomainObjects
+namespace GCI.Core.DomainObjects
 {
     public abstract class Entity
     {

@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using NinjaStore.Clientes.Infra.Data;
+using GCI.Acoes.Infra.Data;
 
-namespace NinjaStore.Clientes.Infra.Migrations
+namespace GCI.Acoes.Infra.Migrations
 {
     [DbContext(typeof(ClienteContextDB))]
     partial class ClienteContextDBModelSnapshot : ModelSnapshot

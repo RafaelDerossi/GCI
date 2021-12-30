@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NinjaStore.Core.DomainObjects
+namespace GCI.Core.DomainObjects
 {
     [AttributeUsage(AttributeTargets.Class, Inherited = false)]
     public class BsonCollectionAttribute : Attribute

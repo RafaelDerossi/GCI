@@ -1,7 +1,7 @@
-﻿using NinjaStore.Core.ValueObjects;
-using NinjaStore.Core.Messages.CommonMessages;
+﻿using GCI.Core.ValueObjects;
+using GCI.Core.Messages.CommonMessages;
 
-namespace NinjaStore.Clientes.Aplication.Events
+namespace GCI.Acoes.Aplication.Events
 {
     public abstract class ClienteEvent : Event
     {

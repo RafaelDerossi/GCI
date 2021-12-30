@@ -2,7 +2,7 @@
 using MongoDB.Bson;
 using Newtonsoft.Json;
 
-namespace NinjaStore.Core.DomainObjects
+namespace GCI.Core.DomainObjects
 {
     public abstract class Document : IDocument
     {

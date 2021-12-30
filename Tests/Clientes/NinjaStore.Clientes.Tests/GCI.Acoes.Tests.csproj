@@ -15,10 +15,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\src\Building Blocks\NinjaStore.Core\NinjaStore.Core.csproj" />
-    <ProjectReference Include="..\..\..\src\Services\Clientes\NinjaStore.Clientes.Aplication\NinjaStore.Clientes.Aplication.csproj" />
-    <ProjectReference Include="..\..\..\src\Services\Clientes\NinjaStore.Clientes.Domain\NinjaStore.Clientes.Domain.csproj" />
-    <ProjectReference Include="..\..\..\src\Services\Clientes\NinjaStore.Clientes.Infra\NinjaStore.Clientes.Infra.csproj" />
+    <ProjectReference Include="..\..\..\src\Building Blocks\NinjaStore.Core\GCI.Core.csproj" />
+    <ProjectReference Include="..\..\..\src\Services\Clientes\NinjaStore.Clientes.Aplication\GCI.Acoes.Aplication.csproj" />
+    <ProjectReference Include="..\..\..\src\Services\Clientes\NinjaStore.Clientes.Domain\GCI.Acoes.Domain.csproj" />
+    <ProjectReference Include="..\..\..\src\Services\Clientes\NinjaStore.Clientes.Infra\GCI.Acoes.Infra.csproj" />
   </ItemGroup>
 
 </Project>

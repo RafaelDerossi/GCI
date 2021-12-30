@@ -1,5 +1,5 @@
 ﻿
-namespace NinjaStore.Clientes.Aplication.ViewModels
+namespace GCI.Acoes.Aplication.ViewModels
 {
    public class AdicionaClienteViewModel
     {

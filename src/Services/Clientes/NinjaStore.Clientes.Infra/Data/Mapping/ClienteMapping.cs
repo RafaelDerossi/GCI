@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using NinjaStore.Clientes.Domain;
-using NinjaStore.Core.ValueObjects;
+using GCI.Acoes.Domain;
+using GCI.Core.ValueObjects;
 
-namespace NinjaStore.Clientes.Infra.Data.Mapping
+namespace GCI.Acoes.Infra.Data.Mapping
 {
    public class ClienteMapping : IEntityTypeConfiguration<Cliente>
     {

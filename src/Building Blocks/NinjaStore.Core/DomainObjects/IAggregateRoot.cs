@@ -1,4 +1,4 @@
-﻿namespace NinjaStore.Core.DomainObjects
+﻿namespace GCI.Core.DomainObjects
 {
     public interface IAggregateRoot
     {

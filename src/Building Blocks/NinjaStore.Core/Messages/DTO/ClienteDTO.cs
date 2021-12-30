@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NinjaStore.Core.Messages.DTO
+namespace GCI.Core.Messages.DTO
 {
     public class ClienteDTO
     {

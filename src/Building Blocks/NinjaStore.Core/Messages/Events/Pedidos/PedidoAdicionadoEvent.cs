@@ -1,10 +1,10 @@
-﻿using NinjaStore.Core.Enumeradores;
-using NinjaStore.Core.Messages.CommonMessages;
-using NinjaStore.Core.Messages.DTO;
+﻿using GCI.Core.Enumeradores;
+using GCI.Core.Messages.CommonMessages;
+using GCI.Core.Messages.DTO;
 using System;
 using System.Collections.Generic;
 
-namespace NinjaStore.Core.Messages.Events.Pedidos
+namespace GCI.Core.Messages.Events.Pedidos
 {
     public class PedidoAdicionadoEvent : Event
     {

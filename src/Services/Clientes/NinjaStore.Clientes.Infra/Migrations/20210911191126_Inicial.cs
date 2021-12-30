@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace NinjaStore.Clientes.Infra.Migrations
+namespace GCI.Acoes.Infra.Migrations
 {
     public partial class Inicial : Migration
     {

@@ -1,14 +1,14 @@
 using Moq;
 using Moq.AutoMock;
-using NinjaStore.Clientes.Aplication.Commands;
-using NinjaStore.Clientes.Domain;
-using NinjaStore.Clientes.Domain.Interfaces;
+using GCI.Acoes.Aplication.Commands;
+using GCI.Acoes.Domain;
+using GCI.Acoes.Domain.Interfaces;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace NinjaStore.Clientes.Tests
+namespace GCI.Acoes.Tests
 {
     public class ClienteCommandHandlerTests
     {

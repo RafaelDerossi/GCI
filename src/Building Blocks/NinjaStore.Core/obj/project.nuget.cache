@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "vpe21JlF03q8IT64Uoqz5CLOVi6VZrDdRPavoaeeHMCeG2p8mJfTx13YCeSDG/MFY12SBVDXfsUfLPR6onjteg==",
+  "dgSpecHash": "XvboF3ty+zkPlLwxYQnA7+qJwhHJBdRqvf/Rf0wCTAcjTUabq3Iqjjq/YXrSUQBxZGe8lTHGstl8leWEx4UxWg==",
   "success": true,
-  "projectFilePath": "C:\\Fontes\\RafaelDerossi\\GCI\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj",
+  "projectFilePath": "C:\\Fontes\\RafaelDerossi\\GCI\\src\\Building Blocks\\NinjaStore.Core\\GCI.Core.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\rafael.derossi\\.nuget\\packages\\dnsclient\\1.4.0\\dnsclient.1.4.0.nupkg.sha512",
     "C:\\Users\\rafael.derossi\\.nuget\\packages\\epplus.core\\1.5.4\\epplus.core.1.5.4.nupkg.sha512",

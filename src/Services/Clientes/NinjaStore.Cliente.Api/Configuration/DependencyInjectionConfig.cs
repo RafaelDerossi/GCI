@@ -1,14 +1,14 @@
-﻿using NinjaStore.Core.Mediator;
+﻿using GCI.Core.Mediator;
 using Microsoft.Extensions.DependencyInjection;
 using MediatR;
 using FluentValidation.Results;
-using NinjaStore.Clientes.Aplication.Commands;
-using NinjaStore.Clientes.Aplication.Query;
-using NinjaStore.Clientes.Domain.Interfaces;
-using NinjaStore.Clientes.Infra.Data.Repository;
-using NinjaStore.Core.Data;
+using GCI.Acoes.Aplication.Commands;
+using GCI.Acoes.Aplication.Query;
+using GCI.Acoes.Domain.Interfaces;
+using GCI.Acoes.Infra.Data.Repository;
+using GCI.Core.Data;
 
-namespace NinjaStore.Clientes.Api.Configuration
+namespace GCI.Acoes.Api.Configuration
 {
     public static class DependencyInjectionConfig
     {

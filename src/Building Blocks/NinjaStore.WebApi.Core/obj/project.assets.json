@@ -3564,9 +3564,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Fontes\\RafaelDerossi\\GCI\\src\\Building Blocks\\NinjaStore.WebApi.Core\\NinjaStore.WebApi.Core.csproj",
-      "projectName": "NinjaStore.WebApi.Core",
-      "projectPath": "C:\\Fontes\\RafaelDerossi\\GCI\\src\\Building Blocks\\NinjaStore.WebApi.Core\\NinjaStore.WebApi.Core.csproj",
+      "projectUniqueName": "C:\\Fontes\\RafaelDerossi\\GCI\\src\\Building Blocks\\NinjaStore.WebApi.Core\\GCI.WebApi.Core.csproj",
+      "projectName": "GCI.WebApi.Core",
+      "projectPath": "C:\\Fontes\\RafaelDerossi\\GCI\\src\\Building Blocks\\NinjaStore.WebApi.Core\\GCI.WebApi.Core.csproj",
       "packagesPath": "C:\\Users\\rafael.derossi\\.nuget\\packages\\",
       "outputPath": "C:\\Fontes\\RafaelDerossi\\GCI\\src\\Building Blocks\\NinjaStore.WebApi.Core\\obj\\",
       "projectStyle": "PackageReference",

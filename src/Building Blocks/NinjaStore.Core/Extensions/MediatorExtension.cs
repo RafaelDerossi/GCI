@@ -1,12 +1,12 @@
 ﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using NinjaStore.Core.DomainObjects;
-using NinjaStore.Core.Mediator;
+using GCI.Core.DomainObjects;
+using GCI.Core.Mediator;
 using Microsoft.EntityFrameworkCore;
 using Rebus.Bus;
 
-namespace NinjaStore.Core.Extensions
+namespace GCI.Core.Extensions
 {
     public static class MediatorExtension
     {

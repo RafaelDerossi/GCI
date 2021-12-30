@@ -1,8 +1,8 @@
-﻿using NinjaStore.Core.ValueObjects;
+﻿using GCI.Core.ValueObjects;
 using System;
-using NinjaStore.Core.Messages.CommonMessages;
+using GCI.Core.Messages.CommonMessages;
 
-namespace NinjaStore.Clientes.Aplication.Commands
+namespace GCI.Acoes.Aplication.Commands
 {
     public abstract class ClienteCommand : Command
     {

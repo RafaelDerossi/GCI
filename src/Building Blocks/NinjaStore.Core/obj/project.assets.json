@@ -5995,9 +5995,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Fontes\\RafaelDerossi\\GCI\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj",
-      "projectName": "NinjaStore.Core",
-      "projectPath": "C:\\Fontes\\RafaelDerossi\\GCI\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj",
+      "projectUniqueName": "C:\\Fontes\\RafaelDerossi\\GCI\\src\\Building Blocks\\NinjaStore.Core\\GCI.Core.csproj",
+      "projectName": "GCI.Core",
+      "projectPath": "C:\\Fontes\\RafaelDerossi\\GCI\\src\\Building Blocks\\NinjaStore.Core\\GCI.Core.csproj",
       "packagesPath": "C:\\Users\\rafael.derossi\\.nuget\\packages\\",
       "outputPath": "C:\\Fontes\\RafaelDerossi\\GCI\\src\\Building Blocks\\NinjaStore.Core\\obj\\",
       "projectStyle": "PackageReference",

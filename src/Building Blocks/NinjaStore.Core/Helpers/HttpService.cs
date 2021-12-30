@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace NinjaStore.Core.Helpers
+namespace GCI.Core.Helpers
 {
     public abstract class HttpService
     {

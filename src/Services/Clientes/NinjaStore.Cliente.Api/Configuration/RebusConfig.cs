@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using NinjaStore.Clientes.Aplication.Commands;
-using NinjaStore.Clientes.Aplication.Events;
-using NinjaStore.Core.Messages;
+using GCI.Acoes.Aplication.Commands;
+using GCI.Acoes.Aplication.Events;
+using GCI.Core.Messages;
 using Rebus.Config;
 using Rebus.Persistence.InMem;
 using Rebus.Routing.TypeBased;
 using Rebus.ServiceProvider;
 
-namespace NinjaStore.Clientes.Api.Configuration
+namespace GCI.Acoes.Api.Configuration
 {
     public static class RebusConfig
     {

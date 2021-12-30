@@ -1,7 +1,7 @@
-﻿using NinjaStore.Core.ValueObjects;
+﻿using GCI.Core.ValueObjects;
 using System;
 
-namespace NinjaStore.Clientes.Domain.FlatModel
+namespace GCI.Acoes.Domain.FlatModel
 {    
     public class ClienteViewModel
    { 

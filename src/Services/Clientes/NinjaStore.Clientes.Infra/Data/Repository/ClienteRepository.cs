@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using NinjaStore.Core.Data;
-using NinjaStore.Clientes.Domain;
-using NinjaStore.Clientes.Domain.Interfaces;
+using GCI.Core.Data;
+using GCI.Acoes.Domain;
+using GCI.Acoes.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NinjaStore.Clientes.Infra.Data.Repository
+namespace GCI.Acoes.Infra.Data.Repository
 {
     public class ClienteRepository : IClienteRepository
     {

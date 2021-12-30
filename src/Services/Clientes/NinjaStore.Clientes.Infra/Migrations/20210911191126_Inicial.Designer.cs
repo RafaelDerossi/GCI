@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using NinjaStore.Clientes.Infra.Data;
+using GCI.Acoes.Infra.Data;
 
-namespace NinjaStore.Clientes.Infra.Migrations
+namespace GCI.Acoes.Infra.Migrations
 {
     [DbContext(typeof(ClienteContextDB))]
     [Migration("20210911191126_Inicial")]

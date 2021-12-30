@@ -1,4 +1,4 @@
-﻿using NinjaStore.WebApi.Core.Identidade;
+﻿using GCI.WebApi.Core.Identidade;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using NinjaStore.Clientes.Infra.Data;
-using NinjaStore.Core.Data;
+using GCI.Acoes.Infra.Data;
+using GCI.Core.Data;
 using Microsoft.Extensions.Options;
 
-namespace NinjaStore.Clientes.Api.Configuration
+namespace GCI.Acoes.Api.Configuration
 {
     public static class ApiConfig
     {

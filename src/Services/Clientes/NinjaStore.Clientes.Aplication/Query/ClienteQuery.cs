@@ -1,12 +1,12 @@
-﻿using NinjaStore.Clientes.Domain.FlatModel;
-using NinjaStore.Clientes.Domain.Interfaces;
-using NinjaStore.Core.Data;
+﻿using GCI.Acoes.Domain.FlatModel;
+using GCI.Acoes.Domain.Interfaces;
+using GCI.Core.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace NinjaStore.Clientes.Aplication.Query
+namespace GCI.Acoes.Aplication.Query
 {
     public class ClienteQuery : IClienteQuery
     {

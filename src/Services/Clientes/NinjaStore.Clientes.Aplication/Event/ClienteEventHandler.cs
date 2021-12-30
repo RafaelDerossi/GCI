@@ -1,10 +1,10 @@
-﻿using NinjaStore.Clientes.Domain.FlatModel;
+﻿using GCI.Acoes.Domain.FlatModel;
 using System.Threading.Tasks;
 using Rebus.Handlers;
-using NinjaStore.Core.Messages.CommonHandlers;
-using NinjaStore.Core.Data;
+using GCI.Core.Messages.CommonHandlers;
+using GCI.Core.Data;
 
-namespace NinjaStore.Clientes.Aplication.Events
+namespace GCI.Acoes.Aplication.Events
 {
     public class ClienteEventHandler : EventHandler,
          IHandleMessages<ClienteAdicionadoEvent>,

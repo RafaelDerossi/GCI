@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using NinjaStore.Core.DomainObjects;
+using GCI.Core.DomainObjects;
 
-namespace NinjaStore.Core.Data
+namespace GCI.Core.Data
 {
     public interface IRepository<TEntity> : IDisposable where TEntity : IAggregateRoot
     {

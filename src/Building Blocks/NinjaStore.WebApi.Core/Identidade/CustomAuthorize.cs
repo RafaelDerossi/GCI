@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace NinjaStore.WebApi.Core.Identidade
+namespace GCI.WebApi.Core.Identidade
 {
     public class CustomAuthorization
     {

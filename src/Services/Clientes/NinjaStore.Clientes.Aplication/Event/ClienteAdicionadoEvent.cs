@@ -1,6 +1,6 @@
-﻿using NinjaStore.Core.ValueObjects;
+﻿using GCI.Core.ValueObjects;
 using System;
-namespace NinjaStore.Clientes.Aplication.Events
+namespace GCI.Acoes.Aplication.Events
 {
     public class ClienteAdicionadoEvent : ClienteEvent
     {

@@ -1,6 +1,6 @@
-﻿using NinjaStore.Core.DomainObjects;
+﻿using GCI.Core.DomainObjects;
 
-namespace NinjaStore.Core.Helpers
+namespace GCI.Core.Helpers
 {
     public static class Guarda
     {
