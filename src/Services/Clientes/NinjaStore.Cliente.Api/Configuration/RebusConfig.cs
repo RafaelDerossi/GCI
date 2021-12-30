@@ -21,7 +21,7 @@ namespace NinjaStore.Clientes.Api.Configuration
             services.AddRebus(configure => configure
                 //.Transport(t => t.UseInMemoryTransport(new InMemNetwork(), nomeFila))
                 //.Subscriptions(s => s.StoreInMemory())
-                .Transport(t => t.UseRabbitMq("amqp://localhost", nomeFila))                
+                .Transport(t => t.UseRabbitMq("amqps://ytmmopzm:0y66bVxKLybWrRFCTuX2BUC3qaTCkJ8T@toad.rmq.cloudamqp.com/ytmmopzm", nomeFila))                
                 .Routing(r =>
                 {
                     r.TypeBased()
