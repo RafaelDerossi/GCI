@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Fontes\\RafaelDerossi\\NinjaStore-MS\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj": {}
+    "C:\\Fontes\\RafaelDerossi\\GCI\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj": {}
   },
   "projects": {
-    "C:\\Fontes\\RafaelDerossi\\NinjaStore-MS\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj": {
+    "C:\\Fontes\\RafaelDerossi\\GCI\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Fontes\\RafaelDerossi\\NinjaStore-MS\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj",
+        "projectUniqueName": "C:\\Fontes\\RafaelDerossi\\GCI\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj",
         "projectName": "NinjaStore.Core",
-        "projectPath": "C:\\Fontes\\RafaelDerossi\\NinjaStore-MS\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj",
+        "projectPath": "C:\\Fontes\\RafaelDerossi\\GCI\\src\\Building Blocks\\NinjaStore.Core\\NinjaStore.Core.csproj",
         "packagesPath": "C:\\Users\\rafael.derossi\\.nuget\\packages\\",
-        "outputPath": "C:\\Fontes\\RafaelDerossi\\NinjaStore-MS\\src\\Building Blocks\\NinjaStore.Core\\obj\\",
+        "outputPath": "C:\\Fontes\\RafaelDerossi\\GCI\\src\\Building Blocks\\NinjaStore.Core\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\rafael.derossi\\AppData\\Roaming\\NuGet\\NuGet.Config",
