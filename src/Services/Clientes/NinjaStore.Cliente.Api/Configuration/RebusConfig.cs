@@ -16,7 +16,7 @@ namespace GCI.Acoes.Api.Configuration
         {
             // Configure and register Rebus
 
-            var nomeFila = "fila_cliente";
+            var nomeFila = "fila_acao";
 
             services.AddRebus(configure => configure
                 //.Transport(t => t.UseInMemoryTransport(new InMemNetwork(), nomeFila))
@@ -33,7 +33,7 @@ namespace GCI.Acoes.Api.Configuration
                 {
                     o.SetNumberOfWorkers(1);
                     o.SetMaxParallelism(1);                    
-                    o.SetBusName("Demo Rebus");
+                    o.SetBusName("Bus Acao");
                 })
             );
 

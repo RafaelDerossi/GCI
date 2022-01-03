@@ -26,7 +26,7 @@ namespace GCI.Acoes.Api.Configuration
                serviceProvider.GetRequiredService<IOptions<MongoDbSettings>>().Value);
 
             services.AddDbContext<AcaoContextDB>(options =>
-               options.UseSqlServer(configuration.GetConnectionString("ClienteConnection")));
+               options.UseSqlServer(configuration.GetConnectionString("AcaoConnection")));
 
 
 
