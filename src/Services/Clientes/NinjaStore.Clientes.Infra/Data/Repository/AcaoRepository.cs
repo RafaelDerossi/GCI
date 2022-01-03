@@ -11,51 +11,51 @@ using System.Threading.Tasks;
 
 namespace GCI.Acoes.Infra.Data.Repository
 {
-    public class ClienteRepository : IClienteRepository
+    public class AcaoRepository : IAcaoRepository
     {
-        private readonly ClienteContextDB _context;
+        private readonly AcaoContextDB _context;
        
-        public ClienteRepository(ClienteContextDB context)
+        public AcaoRepository(AcaoContextDB context)
         {
             _context = context;
         }
 
         public IUnitOfWorks UnitOfWork => _context;
 
-        public void Adicionar(Cliente entity)
+        public void Adicionar(Acao entity)
         {
-            _context.Clientes.Add(entity);
+            _context.Acoes.Add(entity);
         }
 
-        public void Atualizar(Cliente entity)
+        public void Atualizar(Acao entity)
         {
-            _context.Clientes.Update(entity);
+            _context.Acoes.Update(entity);
         }
 
-        public void Apagar(Func<Cliente, bool> predicate)
+        public void Apagar(Func<Acao, bool> predicate)
         {
-            _context.Clientes.Where(predicate).ToList().ForEach(del => del.EnviarParaLixeira());
+            _context.Acoes.Where(predicate).ToList().ForEach(del => del.EnviarParaLixeira());
         }
 
-        public async Task<Cliente> ObterPorId(Guid Id)
+        public async Task<Acao> ObterPorId(Guid Id)
         {
-            return await _context.Clientes
+            return await _context.Acoes
                 .FirstOrDefaultAsync(u => u.Id == Id && !u.Lixeira);
         }
 
-        public async Task<IEnumerable<Cliente>> Obter(Expression<Func<Cliente, bool>> expression, bool OrderByDesc = false, int take = 0)
+        public async Task<IEnumerable<Acao>> Obter(Expression<Func<Acao, bool>> expression, bool OrderByDesc = false, int take = 0)
         {
             if (OrderByDesc)
             {
                 if (take > 0)
-                    return await _context.Clientes
+                    return await _context.Acoes
                                             .AsNoTracking()
                                             .Where(expression)
                                             .OrderByDescending(x => x.DataDeCadastro)
                                             .Take(take)
                                             .ToListAsync();
 
-                return await _context.Clientes
+                return await _context.Acoes
                                         .AsNoTracking()
                                         .Where(expression)
                                         .OrderByDescending(x => x.DataDeCadastro)
@@ -63,24 +63,24 @@ namespace GCI.Acoes.Infra.Data.Repository
             }
 
             if (take > 0)
-                return await _context.Clientes
+                return await _context.Acoes
                                         .AsNoTracking()
                                         .Where(expression)
                                         .OrderBy(x => x.DataDeCadastro)
                                         .Take(take)
                                         .ToListAsync();
 
-            return await _context.Clientes
+            return await _context.Acoes
                                     .AsNoTracking()
                                     .Where(expression)
                                     .OrderBy(x => x.DataDeCadastro)
                                     .ToListAsync();
         }
 
-        public async Task<bool> VerificaEmailJaCadastrado(string email)
+        public async Task<bool> VerificaCodigoJaCadastrado(string codigo)
         {
-            return await _context.Clientes
-                .Where(u => u.Email.Endereco == email && !u.Lixeira).CountAsync() > 0;
+            return await _context.Acoes
+                .Where(u => u.Codigo == codigo && !u.Lixeira).CountAsync() > 0;
         }
 
         public void Dispose()

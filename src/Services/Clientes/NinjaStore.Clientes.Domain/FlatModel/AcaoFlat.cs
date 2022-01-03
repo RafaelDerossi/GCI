@@ -4,11 +4,10 @@ using System;
 
 namespace GCI.Acoes.Domain.FlatModel
 {
-    [BsonCollection("ClienteFlat")]
-    public class ClienteFlat : Document, IAggregateRoot
-   {
-        public const int Max = 200;
-        public Guid ClienteId { get; private set; }
+    [BsonCollection("AcaoFlat")]
+    public class AcaoFlat : Document, IAggregateRoot
+   {        
+        public Guid AcaoId { get; private set; }
 
         public DateTime DataDeCadastro { get; private set; }
 
@@ -37,38 +36,28 @@ namespace GCI.Acoes.Domain.FlatModel
         }                
 
        
-        public string Nome { get; private set; }
+        public string Codigo { get; private set; }        
 
-        public string Email { get; private set; }
+        public string RazaoSocial { get; private set; }
 
-        public string Aldeia { get; private set; }
-
-        protected ClienteFlat()
+        protected AcaoFlat()
         {
         }
 
-        public ClienteFlat(Guid id, DateTime dataDeCadastro, string nome, Email email, string aldeia)
+        public AcaoFlat(Guid id, DateTime dataDeCadastro, string codigo, string razaoSocial)
         {
-            ClienteId = id;
-            Nome = nome;
+            AcaoId = id;            
             DataDeCadastro = dataDeCadastro;
             DataDeAlteracao = dataDeCadastro;
-            SetEmail(email);
-            Aldeia = aldeia;
+            Codigo = codigo;            
+            RazaoSocial = razaoSocial;
         }
 
-        public void SetEntidadeId(Guid NovoId) => ClienteId = NovoId;       
+        public void SetEntidadeId(Guid NovoId) => AcaoId = NovoId;       
 
-        public void SetNome(string nome) => Nome = nome;
-
-        public void SetEmail(Email email)
-        {
-            if (email == null)
-                Email = "";
-            Email = email.Endereco;
-        }
-
-        public void SetAldeia(string aldeia) => Aldeia = aldeia;
+        public void SetCodigo(string codigo) => Codigo = codigo;
+        
+        public void SetRazaoSocial(string razaoSocial) => RazaoSocial = razaoSocial;
 
     }
 }

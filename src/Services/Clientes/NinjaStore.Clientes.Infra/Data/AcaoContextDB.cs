@@ -14,16 +14,16 @@ using System.Threading.Tasks;
 
 namespace GCI.Acoes.Infra.Data
 {
-    public class ClienteContextDB : DbContext, IUnitOfWorks
+    public class AcaoContextDB : DbContext, IUnitOfWorks
     {
         private readonly IMediatorHandler _mediatorHandler;
 
         private readonly IBus _bus;
 
-        public DbSet<Cliente> Clientes { get; set; }
+        public DbSet<Acao> Acoes { get; set; }
 
 
-        public ClienteContextDB(DbContextOptions<ClienteContextDB> options,
+        public AcaoContextDB(DbContextOptions<AcaoContextDB> options,
                    IMediatorHandler mediatorHandler, IBus bus)
             : base(options)
         {
@@ -36,9 +36,9 @@ namespace GCI.Acoes.Infra.Data
             modelBuilder.Ignore<ValidationResult>();
             modelBuilder.Ignore<DomainEvent>();
             modelBuilder.Ignore<Event>();
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(ClienteContextDB).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(AcaoContextDB).Assembly);
 
-            modelBuilder.Ignore<ClienteFlat>();
+            modelBuilder.Ignore<AcaoFlat>();
         }
 
         public async Task<bool> Commit()

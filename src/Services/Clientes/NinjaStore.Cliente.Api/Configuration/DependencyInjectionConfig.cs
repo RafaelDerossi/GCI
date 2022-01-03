@@ -19,13 +19,13 @@ namespace GCI.Acoes.Api.Configuration
             services.AddScoped(typeof(IMongoRepository<>), typeof(MongoRepository<>));
 
             //Cliente
-            services.AddScoped<IRequestHandler<AdicionarClienteCommand, ValidationResult>, ClienteCommandHandler>();            
+            services.AddScoped<IRequestHandler<AdicionarAcaoCommand, ValidationResult>, AcaoCommandHandler>();            
                         
             //Query
-            services.AddScoped<IClienteQuery, ClienteQuery>();
+            services.AddScoped<IAcaoQuery, AcaoQuery>();
             
             //Repositório            
-            services.AddScoped<IClienteRepository, ClienteRepository>();                                    
+            services.AddScoped<IAcaoRepository, AcaoRepository>();                                    
 
 
             

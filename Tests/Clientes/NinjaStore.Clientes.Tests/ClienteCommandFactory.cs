@@ -5,19 +5,19 @@ namespace GCI.Acoes.Tests
 {
     public class ClienteCommandFactory
     {
-        private static AdicionarClienteCommand AdicionarClienteCommandFactoy()
+        private static AdicionarAcaoCommand AdicionarClienteCommandFactoy()
         {
-            return new AdicionarClienteCommand
+            return new AdicionarAcaoCommand
                 ("Nome do cliente", "rafael@gmail.com", "aldeia");
         }       
 
 
-        public static AdicionarClienteCommand CriarComandoAdicionarCliente()
+        public static AdicionarAcaoCommand CriarComandoAdicionarCliente()
         {
             return AdicionarClienteCommandFactoy();
         }
 
-        public static AdicionarClienteCommand CriarComandoAdicionarClienteSemEmail()
+        public static AdicionarAcaoCommand CriarComandoAdicionarClienteSemEmail()
         {
             var comando = AdicionarClienteCommandFactoy();
             comando.SetEmail("");

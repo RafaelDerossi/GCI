@@ -12,44 +12,42 @@ using GCI.Acoes.Domain.FlatModel;
 
 namespace GCI.Acoes.Api.Controllers
 {
-    [Route("api/cliente")]
-    public class ClienteController : MainController
+    [Route("api/acao")]
+    public class AcaoController : MainController
     {
         private readonly IMediatorHandler _mediatorHandler;
 
-        private readonly IClienteQuery _clienteQuery;
+        private readonly IAcaoQuery _acaoQuery;
 
-        public ClienteController
-            (IMediatorHandler mediatorHandler, IClienteQuery clienteQuery)
+        public AcaoController
+            (IMediatorHandler mediatorHandler, IAcaoQuery acaoQuery)
         {
             _mediatorHandler = mediatorHandler;
-            _clienteQuery = clienteQuery;
+            _acaoQuery = acaoQuery;
         }
 
 
         /// <summary>
-        /// Retorna cliente por id;
+        /// Retorna ação por código;
         /// </summary>
-        /// <param name="id">Guid do cliente</param>
+        /// <param name="codigo">Código da ação</param>
         /// <response code="200">
-        /// Id: Guid do cliente;   
-        /// DataDeCadastro: Data em que o cliente foi cadastrado;   
-        /// DataDeCadastroFormatada: Data formatada para exibição em que o cliente foi cadastrado;   
-        /// DataDeAlteracao:  Data em que o cliente foi alterado;   
-        /// DataDeAlteracaoFormatada: Data formatada para exibição em que o cliente foi alterado;   
-        /// Lixeira: Informa se o cliente esta na lixeira;   
-        /// Nome: Nome do cliente;   
-        /// Email: Endereço de e-mail do cliente;   
-        /// Aldeia: Aldeia do cliente;   
+        /// Id: Guid do ação;   
+        /// DataDeCadastro: Data em que a ação foi cadastrada;   
+        /// DataDeCadastroFormatada: Data formatada para exibição em que a ação foi cadastrada;   
+        /// DataDeAlteracao:  Data em que a ação foi alterada;   
+        /// DataDeAlteracaoFormatada: Data formatada para exibição em que a ação foi alterada;           
+        /// Codigo: Código da ação;           
+        /// RazaoSocial: Razão Social;   
         /// </response>
-        [HttpGet("por-id/{id:Guid}")]
-        public async Task<ActionResult<ClienteViewModel>> ObterTodos(Guid id)
+        [HttpGet("por-codigo/{codigo}")]
+        public async Task<ActionResult<AcaoViewModel>> ObterPorCodigo(string codigo)
         {
-            var cliente = await _clienteQuery.ObterPorId(id);
-            if (cliente == null)
-                return CustomResponse("Nenhum cliente encontrado.");
+            var acao = await _acaoQuery.ObterPorCodigo(codigo);
+            if (acao == null)
+                return CustomResponse("Nenhuma ação encontrada.");
 
-            return ClienteViewModel.Mapear(cliente);
+            return AcaoViewModel.Mapear(acao);
         }
 
         /// <summary>
@@ -67,13 +65,13 @@ namespace GCI.Acoes.Api.Controllers
         /// Aldeia: Aldeia do cliente;   
         /// </response>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ClienteViewModel>>> ObterTodos()
+        public async Task<ActionResult<IEnumerable<AcaoViewModel>>> ObterTodos()
         {
-            var clientes = await _clienteQuery.ObterTodos();
+            var clientes = await _acaoQuery.ObterTodos();
             if (clientes.Count() == 0)
                 return CustomResponse("Nenhum cliente encontrado.");
 
-            return clientes.Select(ClienteViewModel.Mapear).ToList();
+            return clientes.Select(AcaoViewModel.Mapear).ToList();
         }
 
 
@@ -86,12 +84,12 @@ namespace GCI.Acoes.Api.Controllers
         /// Aldeia: Aldeia do cliente (Obrigatório)(De 1 a 200 caracteres);   
         /// </param>        
         [HttpPost]
-        public async Task<ActionResult> Post(AdicionaClienteViewModel viewModel)
+        public async Task<ActionResult> Post(AdicionaAcaoViewModel viewModel)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var comando = new AdicionarClienteCommand
-                (viewModel.Nome, viewModel.Email, viewModel.Aldeia);           
+            var comando = new AdicionarAcaoCommand
+                (viewModel.Codigo, viewModel.Email, viewModel.RazaoSocial);           
 
             return CustomResponse(await _mediatorHandler.EnviarComando(comando));
         }        

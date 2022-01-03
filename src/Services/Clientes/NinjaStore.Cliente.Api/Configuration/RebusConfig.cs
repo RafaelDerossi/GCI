@@ -38,7 +38,7 @@ namespace GCI.Acoes.Api.Configuration
             );
 
             // Register handlers             
-            services.AutoRegisterHandlersFromAssemblyOf<ClienteEventHandler>();
+            services.AutoRegisterHandlersFromAssemblyOf<AcaoEventHandler>();
 
             return services;
         }
@@ -47,7 +47,7 @@ namespace GCI.Acoes.Api.Configuration
         {
             app.ApplicationServices.UseRebus(c =>
             {
-                c.Subscribe<ClienteAdicionadoEvent>().Wait();
+                c.Subscribe<AcaoAdicionadaEvent>().Wait();
             });
 
             return app;

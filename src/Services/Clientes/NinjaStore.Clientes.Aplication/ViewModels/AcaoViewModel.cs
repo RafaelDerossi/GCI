@@ -3,7 +3,7 @@ using System;
 
 namespace GCI.Acoes.Domain.FlatModel
 {    
-    public class ClienteViewModel
+    public class AcaoViewModel
    { 
         public Guid Id { get; set; }
 
@@ -16,29 +16,26 @@ namespace GCI.Acoes.Domain.FlatModel
         public string DataDeAlteracaoFormatada { get; set; }
 
 
-        public string Nome { get; set; }
+        public string Codigo { get; set; }        
 
-        public string Email { get; set; }
+        public string RazaoSocial { get; set; }
 
-        public string Aldeia { get; set; }
-
-        public ClienteViewModel()
+        public AcaoViewModel()
         {
         }        
 
 
-        public static ClienteViewModel Mapear(ClienteFlat flat)
+        public static AcaoViewModel Mapear(AcaoFlat flat)
         {
-            return new ClienteViewModel
+            return new AcaoViewModel
             {
-                Id = flat.ClienteId,
+                Id = flat.AcaoId,
                 DataDeCadastro = flat.DataDeCadastro,
                 DataDeCadastroFormatada = flat.DataDeCadastroFormatada,
                 DataDeAlteracao = flat.DataDeAlteracao,
                 DataDeAlteracaoFormatada = flat.DataDeAlteracaoFormatada,
-                Nome = flat.Nome,
-                Email = flat.Email,
-                Aldeia = flat.Aldeia
+                Codigo = flat.Codigo,                
+                RazaoSocial = flat.RazaoSocial
             };
         }
     }

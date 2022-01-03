@@ -3,7 +3,7 @@ using GCI.Acoes.Domain.FlatModel;
 
 namespace GCI.Acoes.Domain.Interfaces
 {
-    public interface IClienteQueryRepository : IRepository<ClienteFlat>
+    public interface IAcaoQueryRepository : IRepository<AcaoFlat>
     {        
     }
 }

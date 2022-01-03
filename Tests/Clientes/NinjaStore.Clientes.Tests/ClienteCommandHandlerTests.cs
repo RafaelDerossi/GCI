@@ -13,12 +13,12 @@ namespace GCI.Acoes.Tests
     public class ClienteCommandHandlerTests
     {
         private readonly AutoMocker _mocker;
-        private readonly ClienteCommandHandler _clienteCommandHandler;
+        private readonly AcaoCommandHandler _clienteCommandHandler;
 
         public ClienteCommandHandlerTests()
         {
             _mocker = new AutoMocker();
-            _clienteCommandHandler = _mocker.CreateInstance<ClienteCommandHandler>();
+            _clienteCommandHandler = _mocker.CreateInstance<AcaoCommandHandler>();
         }
 
         [Fact(DisplayName = "Adicionar Cliente Válido")]
@@ -28,10 +28,10 @@ namespace GCI.Acoes.Tests
             //Arrange
             var Command = ClienteCommandFactory.CriarComandoAdicionarCliente();
 
-            _mocker.GetMock<IClienteRepository>().Setup(r => r.VerificaEmailJaCadastrado(Command.Email.Endereco))
+            _mocker.GetMock<IAcaoRepository>().Setup(r => r.VerificaCodigoJaCadastrado(Command.Email.Endereco))
                 .Returns(Task.FromResult(false));
 
-            _mocker.GetMock<IClienteRepository>().Setup(r => r.UnitOfWork.Commit())
+            _mocker.GetMock<IAcaoRepository>().Setup(r => r.UnitOfWork.Commit())
                 .Returns(Task.FromResult(true));
 
             //Act
@@ -39,8 +39,8 @@ namespace GCI.Acoes.Tests
 
             //Assert
             Assert.True(result.IsValid);
-            _mocker.GetMock<IClienteRepository>().Verify(r => r.Adicionar(It.IsAny<Cliente>()), Times.Once);
-            _mocker.GetMock<IClienteRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
+            _mocker.GetMock<IAcaoRepository>().Verify(r => r.Adicionar(It.IsAny<Acao>()), Times.Once);
+            _mocker.GetMock<IAcaoRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
         }
 
 
@@ -51,10 +51,10 @@ namespace GCI.Acoes.Tests
             //Arrange
             var Command = ClienteCommandFactory.CriarComandoAdicionarCliente();
 
-            _mocker.GetMock<IClienteRepository>().Setup(r => r.VerificaEmailJaCadastrado(Command.Email.Endereco))
+            _mocker.GetMock<IAcaoRepository>().Setup(r => r.VerificaCodigoJaCadastrado(Command.Email.Endereco))
                 .Returns(Task.FromResult(true));
 
-            _mocker.GetMock<IClienteRepository>().Setup(r => r.UnitOfWork.Commit())
+            _mocker.GetMock<IAcaoRepository>().Setup(r => r.UnitOfWork.Commit())
                 .Returns(Task.FromResult(true));
 
             //Act
@@ -72,10 +72,10 @@ namespace GCI.Acoes.Tests
             //Arrange
             var Command = ClienteCommandFactory.CriarComandoAdicionarClienteSemEmail();
 
-            _mocker.GetMock<IClienteRepository>().Setup(r => r.VerificaEmailJaCadastrado(Command.Email.Endereco))
+            _mocker.GetMock<IAcaoRepository>().Setup(r => r.VerificaCodigoJaCadastrado(Command.Email.Endereco))
                 .Returns(Task.FromResult(false));
 
-            _mocker.GetMock<IClienteRepository>().Setup(r => r.UnitOfWork.Commit())
+            _mocker.GetMock<IAcaoRepository>().Setup(r => r.UnitOfWork.Commit())
                 .Returns(Task.FromResult(true));
 
             //Act
