@@ -15,10 +15,10 @@ namespace GCI.Acoes.Api.Configuration
             {
                 c.SwaggerDoc("v1", new OpenApiInfo()
                 {
-                    Title = "NinjaStore Cliente API 1.0",
-                    Description = "Esta api expõe os recursos do sistema NinjaStore relacionados a Cliente para diversas interfaces (web/mobile).",
+                    Title = "GCI - Gestor de Carteira de Investimentos API 1.0",
+                    Description = "Esta api expõe os recursos do sistema GCI relacionados a Ações para diversas interfaces (web/mobile).",
                     Contact = new OpenApiContact() { Name = "Rafael Derossi - Developer", Email = "rafaelsderossi@gmail.com"},
-                    License = new OpenApiLicense() { Name = "NinjaStore", Url = new Uri("https://www.linkedin.com/in/rafael-derossi") }
+                    License = new OpenApiLicense() { Name = "GCI", Url = new Uri("https://www.linkedin.com/in/rafael-derossi") }
                 });
 
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
