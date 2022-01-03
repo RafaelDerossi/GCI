@@ -13,5 +13,9 @@ namespace GCI.Acoes.Aplication.Query
         Task<AcaoFlat> ObterPorCodigo(string codigo);
 
         Task<IEnumerable<AcaoFlat>> ObterTodos();
+
+        Task<IEnumerable<OperacaoFlat>> ObterOperacoesPorCodigo(string codigo);
+
+        Task<IEnumerable<OperacaoFlat>> ObterTodasAsOperacoes();
     }
 }

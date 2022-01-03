@@ -6,5 +6,7 @@ namespace GCI.Acoes.Domain.Interfaces
     public interface IAcaoRepository : IRepository<Acao>
     {
         Task<bool> VerificaCodigoJaCadastrado(string codigo);
+
+        void AdicionarOperacao(Operacao entity);
     }
 }

@@ -22,6 +22,9 @@ namespace GCI.Acoes.Infra.Data.Repository
 
         public IUnitOfWorks UnitOfWork => _context;
 
+
+        #region Ação
+
         public void Adicionar(Acao entity)
         {
             _context.Acoes.Add(entity);
@@ -82,6 +85,17 @@ namespace GCI.Acoes.Infra.Data.Repository
             return await _context.Acoes
                 .Where(u => u.Codigo == codigo && !u.Lixeira).CountAsync() > 0;
         }
+
+        #endregion
+
+
+        #region Operação
+        public void AdicionarOperacao(Operacao entity)
+        {
+            _context.Operacoes.Add(entity);
+        }
+        #endregion
+
 
         public void Dispose()
         {

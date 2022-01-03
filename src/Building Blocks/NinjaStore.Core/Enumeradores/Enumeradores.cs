@@ -1,9 +1,8 @@
 ﻿namespace GCI.Core.Enumeradores
 {
-    public enum StatusDePedido
+    public enum TipoOperacao
     {
-        PENDENTE = 1,
-        APROVADO = 2,
-        CANCELADO = 3
+        COMPRA = 1,
+        VENDA = 2
     }
 }

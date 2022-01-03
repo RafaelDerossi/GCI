@@ -11,6 +11,7 @@ using Rebus.Bus;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using GCI.Acoes.Domain.YhFinance;
 
 namespace GCI.Acoes.Infra.Data
 {
@@ -21,8 +22,8 @@ namespace GCI.Acoes.Infra.Data
         private readonly IBus _bus;
 
         public DbSet<Acao> Acoes { get; set; }
-
-
+        public DbSet<Operacao> Operacoes { get; set; }
+        
         public AcaoContextDB(DbContextOptions<AcaoContextDB> options,
                    IMediatorHandler mediatorHandler, IBus bus)
             : base(options)
@@ -37,8 +38,11 @@ namespace GCI.Acoes.Infra.Data
             modelBuilder.Ignore<DomainEvent>();
             modelBuilder.Ignore<Event>();
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AcaoContextDB).Assembly);
-
+                        
             modelBuilder.Ignore<AcaoFlat>();
+            modelBuilder.Ignore<Cotacao>();
+            modelBuilder.Ignore<QuoteResponse>();
+            modelBuilder.Ignore<Result>();
         }
 
         public async Task<bool> Commit()

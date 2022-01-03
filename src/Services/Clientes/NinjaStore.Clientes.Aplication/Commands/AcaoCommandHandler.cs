@@ -12,6 +12,7 @@ namespace GCI.Acoes.Aplication.Commands
 {
     public class AcaoCommandHandler : CommandHandler,
          IRequestHandler<AdicionarAcaoCommand, ValidationResult>,
+         IRequestHandler<AdicionarOperacaoCommand, ValidationResult>,
          IDisposable
     {
 
@@ -41,7 +42,28 @@ namespace GCI.Acoes.Aplication.Commands
                 (acao.Id, acao.DataDeCadastro, acao.Codigo, acao.RazaoSocial));
             
             return await PersistirDados(_acaoRepository.UnitOfWork); ;
-        }               
+        }
+
+
+        public async Task<ValidationResult> Handle(AdicionarOperacaoCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.EstaValido()) return request.ValidationResult;
+
+            var operacao = new Operacao
+                (request.CodigoDaAcao, request.Preco, request.Quantidade,
+                 request.DataDaOperacao, request.Tipo);            
+
+            _acaoRepository.AdicionarOperacao(operacao);
+
+            //Evento
+            operacao.AdicionarEvento(new OperacaoAdicionadaEvent
+                (operacao.Id, operacao.DataDeCadastro, operacao.CodigoDaAcao,
+                 operacao.Preco, operacao.Quantidade, operacao.DataDaOperacao,
+                 operacao.CustoDaOperacao, operacao.ValorTotal, operacao.Tipo));
+
+            return await PersistirDados(_acaoRepository.UnitOfWork); ;
+        }
+
 
         public void Dispose()
         {

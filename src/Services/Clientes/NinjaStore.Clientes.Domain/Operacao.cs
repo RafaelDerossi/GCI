@@ -1,11 +1,11 @@
 ﻿using GCI.Core.DomainObjects;
+using GCI.Core.Enumeradores;
 using System;
 
 namespace GCI.Acoes.Domain
 {
-    public class Venda : Entity
-    {
-        public const int Max = 200;
+    public class Operacao : Entity
+    {       
 
         public string CodigoDaAcao { get; private set; }        
 
@@ -13,22 +13,27 @@ namespace GCI.Acoes.Domain
 
         public int Quantidade { get; private set; }
 
-        public DateTime DataDaVenda { get; set; }
+        public DateTime DataDaOperacao { get; private set; }
 
         public decimal CustoDaOperacao { get; private set; }
 
         public decimal ValorTotal { get; private set; }
 
-        protected Venda()
+        public TipoOperacao Tipo { get; private set; }
+
+        protected Operacao()
         {
         }
 
-        public Venda(string codigoDaAcao, decimal preco, int quantidade, DateTime dataDaVenda)
+        public Operacao
+            (string codigoDaAcao, decimal preco, int quantidade,
+             DateTime dataDaOperacao, TipoOperacao tipo)
         {
             CodigoDaAcao = codigoDaAcao;
             Preco = preco;
             Quantidade = quantidade;
-            DataDaVenda = dataDaVenda;
+            DataDaOperacao = dataDaOperacao;
+            Tipo = tipo;
             CalculaValorTotal();
         }
        

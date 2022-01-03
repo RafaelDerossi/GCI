@@ -19,8 +19,11 @@ namespace GCI.Acoes.Api.Configuration
             services.AddScoped(typeof(IMongoRepository<>), typeof(MongoRepository<>));
 
             //Acao
-            services.AddScoped<IRequestHandler<AdicionarAcaoCommand, ValidationResult>, AcaoCommandHandler>();            
-                        
+            services.AddScoped<IRequestHandler<AdicionarAcaoCommand, ValidationResult>, AcaoCommandHandler>();
+
+            //Operacao
+            services.AddScoped<IRequestHandler<AdicionarOperacaoCommand, ValidationResult>, AcaoCommandHandler>();
+
             //Query
             services.AddScoped<IAcaoQuery, AcaoQuery>();
             services.AddScoped<ICotacaoDeAcaoQuery, CotacaoDeAcaoQuery>();

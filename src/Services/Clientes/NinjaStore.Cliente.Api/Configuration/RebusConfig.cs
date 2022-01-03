@@ -48,6 +48,7 @@ namespace GCI.Acoes.Api.Configuration
             app.ApplicationServices.UseRebus(c =>
             {
                 c.Subscribe<AcaoAdicionadaEvent>().Wait();
+                c.Subscribe<OperacaoAdicionadaEvent>().Wait();
             });
 
             return app;
