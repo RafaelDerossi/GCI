@@ -19,13 +19,24 @@ namespace GCI.Acoes.Api.Controllers
 
         private readonly IAcaoQuery _acaoQuery;
 
-        public AcaoController
-            (IMediatorHandler mediatorHandler, IAcaoQuery acaoQuery)
+        private readonly ICotacaoDeAcaoQuery _cotacaoDeAcaoQuery;
+
+        public AcaoController(IMediatorHandler mediatorHandler, IAcaoQuery acaoQuery, ICotacaoDeAcaoQuery cotacaoDeAcaoQuery)
         {
             _mediatorHandler = mediatorHandler;
             _acaoQuery = acaoQuery;
+            _cotacaoDeAcaoQuery = cotacaoDeAcaoQuery;
         }
 
+        [HttpGet("cotacao-por-codigo/{codigo}")]
+        public async Task<ActionResult<AcaoViewModel>> ObterCotacaoPorCodigo(string codigo)
+        {
+            var response = await _cotacaoDeAcaoQuery.ObterPorCodigo(codigo);
+            if (response == null)
+                return CustomResponse("Nenhuma cotação encontrada.");
+
+            return new AcaoViewModel();
+        }
 
         /// <summary>
         /// Retorna ação por código;
