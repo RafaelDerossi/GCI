@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace GCI.Acoes.Domain.YhFinance
 {
-    public class Cota
+    public class Cotacao
     {
         public QuoteResponse QuoteResponse { get; set; }        
 
-        public Cota()
+        public Cotacao()
         {
         }      
     }

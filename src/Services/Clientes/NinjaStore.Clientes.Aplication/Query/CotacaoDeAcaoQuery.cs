@@ -20,7 +20,7 @@ namespace GCI.Acoes.Aplication.Query
         }
 
 
-        public async Task<Cota> ObterPorCodigo(string codigo)
+        public async Task<Cotacao> ObterPorCodigo(string codigo)
         {
             var request = new HttpRequestMessage
             {
@@ -36,7 +36,7 @@ namespace GCI.Acoes.Aplication.Query
             {
                 response.EnsureSuccessStatusCode();
                 var body = await response.Content.ReadAsStringAsync();                
-                return await DeserializarObjetoResponse<Cota>(response);
+                return await DeserializarObjetoResponse<Cotacao>(response);
             }           
         }      
 

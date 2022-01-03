@@ -4,17 +4,13 @@ namespace GCI.Acoes.Domain.YhFinance
 {
     public class Result
     {
-        public string Language { get; set; }
+        public string ShortName { get; set; }
 
-        public string Region { get; set; }
+        public string LongName { get; set; }
 
         public string Currency { get; set; }        
 
-        public decimal RegularMarketPreviousClose { get; set; }                
-
-        public string ShortName { get; set; }
-
-        public string LongName { get; set; }        
+        public decimal RegularMarketPreviousClose { get; set; }                        
         
         public decimal RegularMarketOpen { get; set; }
 

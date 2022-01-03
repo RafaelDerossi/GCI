@@ -29,13 +29,13 @@ namespace GCI.Acoes.Api.Controllers
         }
 
         [HttpGet("cotacao-por-codigo/{codigo}")]
-        public async Task<ActionResult<AcaoViewModel>> ObterCotacaoPorCodigo(string codigo)
+        public async Task<ActionResult<IEnumerable<CotacaoViewModel>>> ObterCotacaoPorCodigo(string codigo)
         {
             var response = await _cotacaoDeAcaoQuery.ObterPorCodigo(codigo);
-            if (response == null)
-                return CustomResponse("Nenhuma cotação encontrada.");
+            if (response == null || response.QuoteResponse == null || response.QuoteResponse.Result.Count == 0)
+                return CustomResponse("Nenhuma cotação encontrada.");                        
 
-            return new AcaoViewModel();
+            return response.QuoteResponse.Result.Select(CotacaoViewModel.Mapear).ToList();
         }
 
         /// <summary>

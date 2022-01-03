@@ -5,10 +5,11 @@ namespace GCI.Acoes.Domain.YhFinance
 {
     public class QuoteResponse
     {
-        public IEnumerable<Result> Results { get; set; }
+        public List<Result> Result { get; set; }
 
         public QuoteResponse()
         {
+            Result = new List<Result>();
         }      
     }
 }

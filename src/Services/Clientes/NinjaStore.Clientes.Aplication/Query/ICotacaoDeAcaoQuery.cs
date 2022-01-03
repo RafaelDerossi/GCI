@@ -8,6 +8,6 @@ namespace GCI.Acoes.Aplication.Query
 {
     public interface ICotacaoDeAcaoQuery : IDisposable
     {
-        Task<Cota> ObterPorCodigo(string codigo);        
+        Task<Cotacao> ObterPorCodigo(string codigo);        
     }
 }
