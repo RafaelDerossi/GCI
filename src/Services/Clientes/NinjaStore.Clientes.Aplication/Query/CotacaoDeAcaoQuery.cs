@@ -29,7 +29,7 @@ namespace GCI.Acoes.Aplication.Query
                 Headers =
                 {
                   { "x-rapidapi-host", "yh-finance.p.rapidapi.com" },
-                  { "x-rapidapi-key", "d9412e0eb9msh97144051b22eae6p16ae5fjsnefbfe44a8835"},
+                  { "x-rapidapi-key", ""},
                 },
             };
             using (var response = await _httpClient.SendAsync(request))
