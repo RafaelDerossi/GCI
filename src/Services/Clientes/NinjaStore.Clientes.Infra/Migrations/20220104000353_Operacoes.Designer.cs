@@ -4,14 +4,16 @@ using GCI.Acoes.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GCI.Acoes.Infra.Migrations
 {
     [DbContext(typeof(AcaoContextDB))]
-    partial class AcaoContextDBModelSnapshot : ModelSnapshot
+    [Migration("20220104000353_Operacoes")]
+    partial class Operacoes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

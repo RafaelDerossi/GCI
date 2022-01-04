@@ -41,7 +41,7 @@ namespace GCI.Acoes.Domain
         private void CalculaValorTotal()
         {
             decimal taxa = 5;
-            decimal emolumentos = 1.0325M;
+            decimal emolumentos = 0.0325M;
 
             ValorTotal = Quantidade * Preco;
 
