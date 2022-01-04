@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using GCI.Acoes.Domain;
-using GCI.Core.ValueObjects;
 
 namespace GCI.Acoes.Infra.Data.Mapping
 {

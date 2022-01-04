@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace GCI.Acoes.Aplication.Query
 {
-    public interface IAcaoQuery
+    public interface IOperacaoQuery
     {
-        Task<AcaoFlat> ObterPorId(Guid Id);
+        Task<IEnumerable<OperacaoFlat>> ObterPorCodigo(string codigo);
 
-        Task<AcaoFlat> ObterPorCodigo(string codigo);
-
-        Task<IEnumerable<AcaoFlat>> ObterTodos();      
+        Task<IEnumerable<OperacaoFlat>> ObterTodas();        
     }
 }

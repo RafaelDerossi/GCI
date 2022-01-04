@@ -1,5 +1,4 @@
-﻿using GCI.Core.ValueObjects;
-using System;
+﻿using System;
 using GCI.Core.Messages.CommonMessages;
 
 namespace GCI.Acoes.Aplication.Commands

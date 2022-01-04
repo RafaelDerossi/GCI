@@ -82,35 +82,7 @@ namespace GCI.Acoes.Api.Controllers
 
             return acoes.Select(AcaoViewModel.Mapear).ToList();
         }
-
-        /// <summary>
-        /// Retorna operações por código
-        /// </summary>
-        /// <param name="codigo"></param>
-        /// <returns></returns>
-        [HttpGet("operacoes-por-codigo/{codigo}")]
-        public async Task<ActionResult<IEnumerable<OperacaoViewModel>>> ObterOperacoesPorCodigo(string codigo)
-        {
-            var operacoes = await _acaoQuery.ObterOperacoesPorCodigo(codigo);
-            if (operacoes == null)
-                return CustomResponse("Nenhuma operação encontrada.");
-
-            return operacoes.Select(OperacaoViewModel.Mapear).ToList();
-        }
-
-        /// <summary>
-        /// Retorna todas as operações
-        /// </summary>        
-        [HttpGet("operacoes-todas/{codigo}")]
-        public async Task<ActionResult<IEnumerable<OperacaoViewModel>>> ObterTodasOperacoes()
-        {
-            var operacoes = await _acaoQuery.ObterTodasAsOperacoes();
-            if (operacoes == null)
-                return CustomResponse("Nenhuma operação encontrada.");
-
-            return operacoes.Select(OperacaoViewModel.Mapear).ToList();
-        }
-
+              
 
         /// <summary>
         /// Adiciona uma nova ação

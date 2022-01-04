@@ -1,5 +1,4 @@
-﻿using GCI.Core.ValueObjects;
-using GCI.Core.DomainObjects;
+﻿using GCI.Core.DomainObjects;
 using System;
 
 namespace GCI.Acoes.Domain.FlatModel

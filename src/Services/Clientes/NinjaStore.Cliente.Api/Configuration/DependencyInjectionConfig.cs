@@ -27,6 +27,7 @@ namespace GCI.Acoes.Api.Configuration
             //Query
             services.AddScoped<IAcaoQuery, AcaoQuery>();
             services.AddScoped<ICotacaoDeAcaoQuery, CotacaoDeAcaoQuery>();
+            services.AddScoped<IOperacaoQuery, OperacaoQuery>();
 
             //Repositório            
             services.AddScoped<IAcaoRepository, AcaoRepository>();                                    
