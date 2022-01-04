@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Building Blocks\GCI.Core\GCI.Core.csproj" />
+    <ProjectReference Include="..\..\..\Building Blocks\GCI.WebApi.Core\GCI.WebApi.Core.csproj" />
+    <ProjectReference Include="..\GCI.Acoes.Domain\GCI.Acoes.Domain.csproj" />
+    <ProjectReference Include="..\GCI.Acoes.Infra\GCI.Acoes.Infra.csproj" />
+  </ItemGroup>
+
+</Project>
