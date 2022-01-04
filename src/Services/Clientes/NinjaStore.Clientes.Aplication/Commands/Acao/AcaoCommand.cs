@@ -10,6 +10,7 @@ namespace GCI.Acoes.Aplication.Commands
         public string Codigo { get; protected set; }                
 
         public string RazaoSocial { get; protected set; }
-        
+
+        public void SetCodigo(string codigo) => Codigo = codigo;
     }
 }
